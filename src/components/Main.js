@@ -1,12 +1,16 @@
 import { useEffect } from 'react';
 import '../css/Main.css';
 
+const dummyText = '모든 국민은 성별·종교 또는 사회적 신분에 의하여 정치적, 경제적, 사회적, 문화적 생활의 모든 영역에 있어서 차별을 받지 아니한다.';
+
 function dataInit(item, name) {
+  document.getElementsByClassName(name)[0].innerHTML = '';
+
   for(let i = 0; i < item.length; i++) {
       document.getElementsByClassName(name)[0].innerHTML += 
       '<div class="font_box">'
         +'<div class="font_name">'+item[i].c[1].v+'</div>'
-        +'<div class="font_text" style="'+item[i].c[3].v+'">봄날의 석가는 풀밭에 속잎나고, 거선의 듣기만 낙원을 청춘 교향악이다. 영락과 같은 그들에게 것이 풀이 미묘한 너의 때문이다.</div>'
+        +'<div class="font_text" style="font-family:'+item[i].c[3].v+';">'+dummyText+'</div>'
       +'</div>'
   }
 
@@ -16,6 +20,8 @@ function dataInit(item, name) {
 }
 
 function dataInitSide(item, name) {
+  document.getElementsByClassName(name)[0].innerHTML = '';
+
   for(let i = 0; i < item.length; i++) {
     document.getElementsByClassName(name)[0].innerHTML += '<div class="font_name">'+item[i].c[1].v+'</div>'
   }
@@ -44,6 +50,20 @@ function Main() {
     document.body.classList.add('bright_mode');
   })
 
+  const textChange = (e) => {
+    let textArea = document.getElementsByClassName('font_text');
+    for(let i = 0; i < textArea.length; i++) {
+      textArea[i].innerText = e.target.value;
+    }
+  }
+
+  const fontWeightChange = (e) => {
+    let textArea = document.getElementsByClassName('font_text');
+    for(let i = 0; i < textArea.length; i++) {
+      textArea[i].style.fontWeight = e.target.value;
+    }
+  }
+
   return (
     <>
         <div className='wrap'>
@@ -63,7 +83,7 @@ function Main() {
             </div>
             <div className='main_menu'>
               <div className='search_bar'>
-                <input type='text' placeholder='Type Something' value='봄날의 석가는 풀밭에 속잎나고, 거선의 듣기만 낙원을 청춘 교향악이다. 영락과 같은 그들에게 것이 풀이 미묘한 너의 때문이다.'/>
+                <input type='text' placeholder='Type Something' onChange={textChange} defaultValue={dummyText}/>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
                   <path d="m2.244 13.081.943-2.803H6.66l.944 2.803H8.86L5.54 3.75H4.322L1 13.081h1.244zm2.7-7.923L6.34 9.314H3.51l1.4-4.156h.034zm9.146 7.027h.035v.896h1.128V8.125c0-1.51-1.114-2.345-2.646-2.345-1.736 0-2.59.916-2.666 2.174h1.108c.068-.718.595-1.19 1.517-1.19.971 0 1.518.52 1.518 1.464v.731H12.19c-1.647.007-2.522.8-2.522 2.058 0 1.319.957 2.18 2.345 2.18 1.06 0 1.716-.43 2.078-1.011zm-1.763.035c-.752 0-1.456-.397-1.456-1.244 0-.65.424-1.115 1.408-1.115h1.805v.834c0 .896-.752 1.525-1.757 1.525z"/>
                 </svg>
@@ -79,15 +99,15 @@ function Main() {
                 </div>
                 <div className='divider'></div>
                 <div className='category_2'>
-                  <input type='radio' name='fontWeight' id='light'/>
+                  <input type='radio' onChange={fontWeightChange} name='fontWeight' id='light' value='300'/>
                   <label htmlFor='light'>Light</label>
-                  <input type='radio' name='fontWeight' id='regular' defaultChecked/>
+                  <input type='radio' onChange={fontWeightChange} name='fontWeight' id='regular' value='400' defaultChecked/>
                   <label htmlFor='regular'>Regular</label>
-                  <input type='radio' name='fontWeight' id='medium'/>
+                  <input type='radio' onChange={fontWeightChange} name='fontWeight' id='medium' value='500'/>
                   <label htmlFor='medium'>Medium</label>
-                  <input type='radio' name='fontWeight' id='bold'/>
+                  <input type='radio' onChange={fontWeightChange} name='fontWeight' id='bold' value='700'/>
                   <label htmlFor='bold'>Bold</label>
-                  <input type='radio' name='fontWeight' id='black'/>
+                  <input type='radio' onChange={fontWeightChange} name='fontWeight' id='black' value='900'/>
                   <label htmlFor='black'>Black</label>
                 </div>
               </div>

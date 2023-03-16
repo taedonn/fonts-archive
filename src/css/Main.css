@@ -85,7 +85,6 @@ input {
 .side_menu .font_list .font_name {
     font-size: 14px;
     margin-bottom: 6px;
-    transition: 0.2s;
     cursor: pointer;
 }
 
@@ -169,7 +168,7 @@ input {
     display: flex;
     flex-flow: row wrap;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: stretch;
 }
 
 .main_menu .font_box {
@@ -177,6 +176,7 @@ input {
     padding: 20px;
     border: 1px solid;
     border-radius: 8px;
+    cursor: pointer;
 }
 
 .main_menu .font_box_empty {
@@ -186,8 +186,8 @@ input {
 .main_menu .font_box .font_name {
     font-size: 18px;
     line-height: 1.25;
-    font-weight: 500;
-    margin-bottom: 20px;
+    font-weight: 400;
+    margin-bottom: 16px;
 }
 
 .main_menu .font_box .font_text {
@@ -232,6 +232,9 @@ input {
 }
 
 @media (hover: hover) and (pointer: fine) {
+    .bright_mode .side_menu .font_list .font_name {
+        transition: 0.2s;
+    }
     .bright_mode .side_menu .font_list .font_name:hover {
         color: #35363A;
     }
@@ -259,6 +262,19 @@ input {
     border-color: #CDCED2;
 }
 
+@media (hover: hover) and (pointer: fine) {
+    .bright_mode .main_menu .font_box {
+        transition: 0.2s;
+    }
+    .bright_mode .main_menu .font_box:hover {
+        background-color: #DEE1E6;
+    }
+}
+
 .bright_mode .main_menu .font_box .font_name {
+    color: #35363A;
+}
+
+.bright_mode .main_menu .font_box .font_text {
     color: #35363A;
 }
