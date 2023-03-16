@@ -1,3 +1,3 @@
-# Fonts
+# Fonts Archive
 
-https://taedonn.github.io/fonts
+https://taedonn.github.io/fonts-archive
