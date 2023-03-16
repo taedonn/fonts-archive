@@ -3,6 +3,12 @@ import '../css/Main.css';
 
 const dummyText = '모든 국민은 성별·종교 또는 사회적 신분에 의하여 정치적, 경제적, 사회적, 문화적 생활의 모든 영역에 있어서 차별을 받지 아니한다.';
 
+function dataInitHead(item) {
+  for(let i = 0; i < item.length; i++) {
+    document.head.innerHTML += '<link rel="stylesheet" href="'+item[i].c[5].v+'"/>'
+  }
+}
+
 function dataInit(item, name) {
   document.getElementsByClassName(name)[0].innerHTML = '';
 
@@ -10,13 +16,11 @@ function dataInit(item, name) {
       document.getElementsByClassName(name)[0].innerHTML += 
       '<div class="font_box">'
         +'<div class="font_name">'+item[i].c[1].v+'</div>'
-        +'<div class="font_text" style="font-family:'+item[i].c[3].v+';">'+dummyText+'</div>'
+        +'<div class="font_text" style="font-family:'+item[i].c[2].v+';">'+dummyText+'</div>'
       +'</div>'
   }
 
-  if(item.length % 2 === 0) {
-    document.getElementsByClassName(name)[0].innerHTML += '<div class="font_box_empty">'
-  }
+  if(item.length % 2 === 0) { document.getElementsByClassName(name)[0].innerHTML += '<div class="font_box_empty">' }
 }
 
 function dataInitSide(item, name) {
@@ -29,7 +33,7 @@ function dataInitSide(item, name) {
 
 function dataFetch(sheetId, sheetName) {
   let base = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?`;
-  let query = encodeURIComponent('Select A,B,C,D,E,F,G');
+  let query = encodeURIComponent('Select A,B,C,D,E,F');
   let url = `${base}&sheet=${sheetName}&tq=${query}`;
 
   fetch(url)
@@ -38,6 +42,7 @@ function dataFetch(sheetId, sheetName) {
           // JSON만 추출
           let jsonData = JSON.parse(rep.substring(47).slice(0, -2));
           let jsonItem = jsonData.table.rows;
+          dataInitHead(jsonItem);
           dataInit(jsonItem, 'font_area_wrap');
           dataInitSide(jsonItem, 'font_list');
       })
