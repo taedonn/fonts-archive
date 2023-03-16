@@ -11,7 +11,7 @@
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
   },
-  "homepage": "https://taedonn.github.io/fonts",
+  "homepage": "https://taedonn.github.io/fonts-archive",
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
