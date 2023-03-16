@@ -77,6 +77,18 @@ input {
     transform: translateY(-50%);
 }
 
+.side_menu .font_list {
+    width: 90%;
+    margin-top: 40px;
+}
+
+.side_menu .font_list .font_name {
+    font-size: 14px;
+    margin-bottom: 6px;
+    transition: 0.2s;
+    cursor: pointer;
+}
+
 .main_menu {
     width: calc(100% - 280px);
     display: flex;
@@ -112,6 +124,78 @@ input {
     transform: translateY(-50%);
 }
 
+.main_menu .category {
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: 16px;
+}
+
+.main_menu .category .category_1, .main_menu .category .category_2 {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.main_menu .category input {
+    display: none;
+}
+
+.main_menu .category label {
+    position: relative;
+    padding: 8px 20px;
+    padding-bottom: 9px;
+    margin-right: 6px;
+    border-radius: 100px;
+    font-size: 14px;
+    line-height: 1.25;
+    transition: 0.2s;
+    cursor: pointer;
+}
+
+.main_menu .category .divider {
+    width: 1px;
+    height: 30px;
+    margin-left: 14px;
+    margin-right: 20px;
+}
+
+.main_menu .font_area_wrap {
+    width: 100%;
+    margin-top: 60px;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.main_menu .font_box {
+    width: calc(33.3% - 8px);
+    padding: 20px;
+    border: 1px solid;
+    border-radius: 8px;
+}
+
+.main_menu .font_box_empty {
+    width: calc(33.3% - 8px);
+}
+
+.main_menu .font_box .font_name {
+    font-size: 18px;
+    line-height: 1.25;
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+
+.main_menu .font_box .font_text {
+    font-size: 32px;
+    line-height: 1.5;
+    font-weight: 400;
+}
+
 /* 브라잇 모드 */
 
 .bright_mode {
@@ -141,4 +225,40 @@ input {
 
 .bright_mode .side_menu .search_bar svg, .bright_mode .main_menu .search_bar svg {
     fill: #636568;
+}
+
+.bright_mode .side_menu .font_list .font_name {
+    color: #636568;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .bright_mode .side_menu .font_list .font_name:hover {
+        color: #35363A;
+    }
+}
+
+.bright_mode .main_menu .category label {
+    background-color: #CDCED2;
+    color: #636568;
+}
+
+.main_menu .category input:checked + label {
+    background-color: #4C4D50;
+    color: #E9EAEE;
+}
+
+.bright_mode .main_menu .category label::selection {
+    background-color: transparent;
+}
+
+.bright_mode .main_menu .category .divider {
+    background-color: #97989C;
+}
+
+.bright_mode .main_menu .font_box {
+    border-color: #CDCED2;
+}
+
+.bright_mode .main_menu .font_box .font_name {
+    color: #35363A;
 }
