@@ -6,13 +6,139 @@
     box-sizing: border-box;
 }
 
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
+
+input {
+    border: none;
+    outline: none;
+}
+
+/* 스타일 */
+
 .wrap {
     width: 100%;
+    font-family: "Noto Sans KR";
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.side_menu {
+    width: 280px;
     min-height: 100vh;
+    padding: 40px 20px;
+    border-right: 1px solid;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.side_menu .title {
+    width: 120px;
+    height: 120px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    margin-bottom: 40px;
+}
+
+.side_menu .title svg {
+    width: 60px;
+    height: 60px;
+}
+
+.side_menu .search_bar {
+    width: 100%;
+    position: relative;
+}
+
+.side_menu .search_bar input {
+    width: 100%;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1;
+    padding: 16px 20px;
+    padding-left: 44px;
+    border: 1px solid;
+    border-radius: 100px;
+    background-color: transparent;
+}
+
+.side_menu .search_bar svg {
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.main_menu {
+    width: calc(100% - 280px);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 40px;
+}
+
+.main_menu .search_bar {
+    width: 100%;
+    position: relative;
+}
+
+.main_menu .search_bar input {
+    width: 100%;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1;
+    padding: 16px 20px;
+    padding-left: 52px;
+    border: 1px solid;
+    border-radius: 100px;
+    background-color: transparent;
+}
+
+.main_menu .search_bar svg {
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    left: 24px;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 /* 브라잇 모드 */
 
-.bright_mode.wrap {
+.bright_mode {
     background-color: #E9EAEE;
+}
+
+.bright_mode .side_menu {
+    border-color: #CDCED2;
+}
+
+.bright_mode .side_menu .title {
+    background-color: #DEE1E6;
+}
+
+.bright_mode .side_menu .title svg {
+    fill: #636568;
+}
+
+.bright_mode .side_menu .search_bar input, .bright_mode .main_menu .search_bar input {
+    border-color: #CDCED2;
+    color: #636568;
+}
+
+.bright_mode .side_menu .search_bar input::placeholder, .bright_mode .main_menu .search_bar input::placeholder {
+    color: #97989C;
+}
+
+.bright_mode .side_menu .search_bar svg, .bright_mode .main_menu .search_bar svg {
+    fill: #636568;
 }
