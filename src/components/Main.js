@@ -12,7 +12,7 @@ function Main() {
     // 데이터 연동
     const base = 'https://docs.google.com/spreadsheets/d/1ryt-0PI5_hWA3AnP0gcyTRyKh8kqAooApts_cI0yhQ0/gviz/tq?';
     const sheetName = 'fonts';
-    const query = 'Select A,B,C,D,E,F,G,H,I';
+    const query = 'Select A,B,C,D,E,F,G,H,I,J';
     const url = base + '&sheet=' + sheetName + '&tq=' + query;
 
     fetch(url)
@@ -34,13 +34,17 @@ function Main() {
                 +'<div class="type_face">'+item[i].c[4].v+'</div>'
                 +'<div class="font_text" style="font-family:'+item[i].c[2].v+';">'+dummyText+'</div>'
                 +'<svg class="close_btn" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/></svg>'
-                +'<div class="font_detail_page">'
-                  +'<div class="download_btn_wrap">'
-                    +'<a class="source_btn" style="background-color:'+item[i].c[6].v+'; color:'+item[i].c[7].v+'" href="'+item[i].c[8].v+'" target="_blank">'+item[i].c[5].v+' 방문하기</a>'
-                  +'</div>'
-                  +'<div class="css_wrap">'
-                    +'<div class="css">CSS 설정하기</div>'
-                    +'<div class=""></div>'
+                +'<div class="font_detail_page_wrap">'
+                  +'<div class="font_detail_page">'
+                    +'<div class="download_btn_wrap">'
+                      +'<a class="source_btn" style="background-color:'+item[i].c[6].v+'; color:'+item[i].c[7].v+'" href="'+item[i].c[8].v+'" target="_blank">'+item[i].c[5].v+'에서 다운받기</a>'
+                    +'</div>'
+                    +'<div class="css_wrap">'
+                      +'<div class="css">CSS 설정하기</div>'
+                      +'<div class="css_link">'
+                        +'<div class="css_link_txt">'+item[i].c[9].v+'</div>'
+                      +'</div>'
+                    +'</div>'
                   +'</div>'
                 +'</div>'
               +'</div>'

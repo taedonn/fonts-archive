@@ -165,12 +165,18 @@ input {
 
 .main_menu .font_area_wrap {
     width: 100%;
-    margin-top: 60px;
+    height: calc(100vh - 241px);
+    overflow-y: scroll;
     display: flex;
     flex-flow: row wrap;
     justify-content: space-between;
     align-items: stretch;
     position: relative;
+    margin-top: 60px;
+}
+
+.main_menu .font_area_wrap::-webkit-scrollbar {
+    display: none;
 }
 
 .main_menu .font_box {
@@ -218,6 +224,22 @@ input {
     cursor: pointer;
 }
 
+.main_menu .font_box .font_detail_page_wrap {
+    width: 100%;
+    height: calc(100vh - 440px);
+    padding-bottom: 20px;
+    overflow-y: scroll;
+}
+
+.main_menu .font_box .font_detail_page_wrap::-webkit-scrollbar {
+    display: none;
+}
+
+.main_menu .font_box .font_detail_page {
+    width: 100%;
+    height: 1000px;
+}
+
 .main_menu .font_box .download_btn_wrap {
     display: flex;
     flex-direction: row;
@@ -235,23 +257,61 @@ input {
     text-decoration: none;
 }
 
+.main_menu .font_box .css_wrap {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 0 12px;
+}
+
+.main_menu .font_box .css {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.25;
+    margin-bottom: 16px;
+}
+
+.main_menu .font_box .css_link {
+    width: 100%;
+    padding: 20px;
+    padding-bottom: 22px;
+    border-radius: 8px;
+}
+
+.main_menu .font_box .css_link_txt {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.25;
+    cursor: text;
+}
+
 .main_menu .font_box.clicked {
-    width: calc(100% - 360px);
-    min-height: calc(100vh - 200.5px);
+    width: calc(100% - 280px);
+    height: calc(100vh - 200px);
     position: fixed;
     z-index: 2;
-    right: 40px;
+    right: 0;
     bottom: 0;
+    border-radius: 0;
+    border-left: 0;
+    border-right: 0;
+    padding: 0;
+    padding-top: 40px;
     margin-bottom: 0;
     cursor: default;
 }
 
-.main_menu .font_box .font_detail_page, .main_menu .font_box .close_btn {
+.main_menu .font_box .font_detail_page_wrap, .main_menu .font_box .close_btn {
     display: none;
 }
 
-.main_menu .font_box.clicked .font_detail_page, .main_menu .font_box.clicked .close_btn {
+.main_menu .font_box.clicked .font_detail_page_wrap, .main_menu .font_box.clicked .close_btn {
     display: block;
+}
+
+.main_menu .font_box.clicked .font_name, .main_menu .font_box.clicked .type_face, .main_menu .font_box.clicked .font_text, .main_menu .font_box.clicked .font_detail_page_wrap {
+    padding: 0 40px;
 }
 
 /* 브라잇 모드 */
@@ -357,4 +417,16 @@ input {
     .bright_mode .main_menu .font_box .close_btn:hover {
         background-color: #DEE1E6;
     }
+}
+
+.bright_mode .main_menu .font_box .css {
+    color: #35363A;
+}
+
+.bright_mode .main_menu .font_box .css_link {
+    background-color: #DEE1E6;
+}
+
+.bright_mode .main_menu .font_box .css_link_txt {
+    color: #636568;
 }
