@@ -1,71 +1,104 @@
 import { useEffect } from 'react';
 import '../css/Main.css';
 
+// 더미 텍스트
 const dummyText = '모든 국민은 성별·종교 또는 사회적 신분에 의하여 정치적, 경제적, 사회적, 문화적 생활의 모든 영역에 있어서 차별을 받지 아니한다.';
-
-function dataInitHead(item) {
-  for(let i = 0; i < item.length; i++) {
-    document.head.innerHTML += '<link rel="stylesheet" href="'+item[i].c[5].v+'"/>'
-  }
-}
-
-function dataInit(item, name) {
-  document.getElementsByClassName(name)[0].innerHTML = '';
-
-  for(let i = 0; i < item.length; i++) {
-      document.getElementsByClassName(name)[0].innerHTML += 
-      '<div class="font_box">'
-        +'<div class="font_name">'+item[i].c[1].v+'</div>'
-        +'<div class="font_text" style="font-family:'+item[i].c[2].v+';">'+dummyText+'</div>'
-      +'</div>'
-  }
-
-  if(item.length % 2 === 0) { document.getElementsByClassName(name)[0].innerHTML += '<div class="font_box_empty">' }
-}
-
-function dataInitSide(item, name) {
-  document.getElementsByClassName(name)[0].innerHTML = '';
-
-  for(let i = 0; i < item.length; i++) {
-    document.getElementsByClassName(name)[0].innerHTML += '<div class="font_name">'+item[i].c[1].v+'</div>'
-  }
-}
-
-function dataFetch(sheetId, sheetName) {
-  let base = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?`;
-  let query = encodeURIComponent('Select A,B,C,D,E,F');
-  let url = `${base}&sheet=${sheetName}&tq=${query}`;
-
-  fetch(url)
-      .then(res => res.text())
-      .then(rep => {
-          // JSON만 추출
-          let jsonData = JSON.parse(rep.substring(47).slice(0, -2));
-          let jsonItem = jsonData.table.rows;
-          dataInitHead(jsonItem);
-          dataInit(jsonItem, 'font_area_wrap');
-          dataInitSide(jsonItem, 'font_list');
-      })
-}
-dataFetch('1ryt-0PI5_hWA3AnP0gcyTRyKh8kqAooApts_cI0yhQ0','fonts');
 
 function Main() {
   useEffect(() => {
     // 브라잇 모드 / 나잇 모드
     document.body.classList.add('bright_mode');
+
+    // 데이터 연동
+    const base = 'https://docs.google.com/spreadsheets/d/1ryt-0PI5_hWA3AnP0gcyTRyKh8kqAooApts_cI0yhQ0/gviz/tq?';
+    const sheetName = 'fonts';
+    const query = 'Select A,B,C,D,E,F,G,H,I';
+    const url = base + '&sheet=' + sheetName + '&tq=' + query;
+
+    fetch(url)
+        .then(res => res.text())
+        .then(rep => {
+          // JSON만 추출
+          let data = JSON.parse(rep.substring(47).slice(0, -2));
+          let item = data.table.rows;
+
+          // 헤더에 폰트 링크 삽입
+          for (let i = 0; i < item.length; i++) { document.head.innerHTML += '<link rel="stylesheet" href="'+item[i].c[5].v+'"/>' }
+
+          // 메인에 폰트 박스 삽입
+          document.getElementsByClassName('font_area_wrap')[0].innerHTML = '';
+          for (let i = 0; i < item.length; i++) {
+              document.getElementsByClassName('font_area_wrap')[0].innerHTML += 
+              '<div class="font_box" data-num="'+(i+1)+'">'
+                +'<div class="font_name">'+item[i].c[1].v+'</div>'
+                +'<div class="type_face">'+item[i].c[4].v+'</div>'
+                +'<div class="font_text" style="font-family:'+item[i].c[2].v+';">'+dummyText+'</div>'
+                +'<svg class="close_btn" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/></svg>'
+                +'<div class="font_detail_page">'
+                  +'<div class="download_btn_wrap">'
+                    +'<a class="source_btn" style="background-color:'+item[i].c[6].v+'; color:'+item[i].c[7].v+'" href="'+item[i].c[8].v+'" target="_blank">'+item[i].c[5].v+' 방문하기</a>'
+                  +'</div>'
+                  +'<div class="css_wrap">'
+                    +'<div class="css">CSS 설정하기</div>'
+                    +'<div class=""></div>'
+                  +'</div>'
+                +'</div>'
+              +'</div>'
+          }
+          if (item.length % 2 === 0) { document.getElementsByClassName('font_area_wrap')[0].innerHTML += '<div class="font_box_empty">' }
+
+          // 사이드에 폰트 리스트 삽입
+          document.getElementsByClassName('font_list')[0].innerHTML = '';
+          for (let i = 0; i < item.length; i++) { document.getElementsByClassName('font_list')[0].innerHTML += '<div class="font_name">'+item[i].c[1].v+'</div>' }
+      })
+      .then(() => {
+          let fontBox = document.getElementsByClassName('font_box');
+          for (let i = 0; i < fontBox.length; i++) {
+            fontBox[i].addEventListener('click', () => {
+              for (let o = 0; o < fontBox.length; o++) { fontBox[o].classList.remove('clicked'); }
+              fontBox[i].classList.add('clicked');
+            })
+          }
+
+          let closeBtn = document.getElementsByClassName('close_btn');
+          for (let i = 0; i < closeBtn.length; i++) {
+            closeBtn[i].addEventListener('click', () => { for (let o = 0; o < fontBox.length; o++) { if (fontBox[o].classList.contains('clicked')) { setTimeout(function(){fontBox[o].classList.remove('clicked')},0); } } })
+          }
+      });
   })
 
   const textChange = (e) => {
     let textArea = document.getElementsByClassName('font_text');
-    for(let i = 0; i < textArea.length; i++) {
+    for (let i = 0; i < textArea.length; i++) {
       textArea[i].innerText = e.target.value;
     }
   }
 
   const fontWeightChange = (e) => {
     let textArea = document.getElementsByClassName('font_text');
-    for(let i = 0; i < textArea.length; i++) {
+    for (let i = 0; i < textArea.length; i++) {
       textArea[i].style.fontWeight = e.target.value;
+    }
+  }
+
+  const typeFaceChange = (e) => {
+    let fontBox = document.getElementsByClassName('font_box');
+    if (e.target.checked) {
+      for (let i = 0; i < fontBox.length; i++) { if (fontBox[i].getElementsByClassName('type_face')[0].innerText === e.target.value) { fontBox[i].style.display = 'block'; } }
+    }
+    else {
+      for (let i = 0; i < fontBox.length; i++) { if (fontBox[i].getElementsByClassName('type_face')[0].innerText === e.target.value) { fontBox[i].style.display = 'none'; } }
+    }
+  }
+
+  const searchChange = (e) => {
+    let fontList = document.getElementsByClassName('font_list')[0].getElementsByClassName('font_name');
+    let fontBox = document.getElementsByClassName('font_box');
+    let typeFace = document.getElementsByClassName('category_1')[0].getElementsByTagName('input');
+
+    for (let i = 0; i < fontList.length; i++) {
+      if (fontList[i].innerText.indexOf(e.target.value) === -1) { fontList[i].style.display = 'none'; fontBox[i].style.display = 'none'; fontBox[i].classList.remove('clicked'); for(let o = 0; o < typeFace.length; o++) { typeFace[o].checked = true; } }
+      else { fontList[i].style.display = 'block'; fontBox[i].style.display = 'block'; }
     }
   }
 
@@ -79,7 +112,7 @@ function Main() {
                 </svg>
               </div>
               <div className='search_bar'>
-                <input type='text' placeholder='Search Fonts'/>
+                <input type='text' placeholder='Search Fonts' onChange={searchChange}/>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
                   <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
                 </svg>
@@ -95,11 +128,11 @@ function Main() {
               </div>
               <div className='category'>
                 <div className='category_1'>
-                  <input type='checkbox' id='serif' defaultChecked/>
+                  <input type='checkbox' id='serif' onChange={typeFaceChange} value='Serif' defaultChecked/>
                   <label htmlFor='serif'>Serif</label>
-                  <input type='checkbox' id='sansSerif' defaultChecked/>
+                  <input type='checkbox' id='sansSerif' onChange={typeFaceChange} value='Sans Serif' defaultChecked/>
                   <label htmlFor='sansSerif'>Sans Serif</label>
-                  <input type='checkbox' id='handWriting' defaultChecked/>
+                  <input type='checkbox' id='handWriting' onChange={typeFaceChange} value='Hand Writing' defaultChecked/>
                   <label htmlFor='handWriting'>Hand Writing</label>
                 </div>
                 <div className='divider'></div>
@@ -117,6 +150,7 @@ function Main() {
                 </div>
               </div>
               <div className='font_area_wrap'></div>
+              <div className='font_detail_page'></div>
             </div>
         </div>
     </>

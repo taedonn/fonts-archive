@@ -84,7 +84,7 @@ input {
 
 .side_menu .font_list .font_name {
     font-size: 14px;
-    margin-bottom: 6px;
+    margin-bottom: 8px;
     cursor: pointer;
 }
 
@@ -156,8 +156,9 @@ input {
 }
 
 .main_menu .category .divider {
-    width: 1px;
-    height: 30px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
     margin-left: 14px;
     margin-right: 20px;
 }
@@ -169,11 +170,13 @@ input {
     flex-flow: row wrap;
     justify-content: space-between;
     align-items: stretch;
+    position: relative;
 }
 
 .main_menu .font_box {
     width: calc(33.3% - 8px);
     padding: 20px;
+    margin-bottom: 12px;
     border: 1px solid;
     border-radius: 8px;
     cursor: pointer;
@@ -187,6 +190,13 @@ input {
     font-size: 18px;
     line-height: 1.25;
     font-weight: 400;
+    margin-bottom: 8px;
+}
+
+.main_menu .font_box .type_face {
+    font-size: 14px;
+    line-height: 1.25;
+    font-weight: 300;
     margin-bottom: 16px;
 }
 
@@ -194,6 +204,54 @@ input {
     font-size: 32px;
     line-height: 1.5;
     font-weight: 400;
+}
+
+.main_menu .font_box .close_btn {
+    width: 40px;
+    height: 40px;
+    padding: 8px;
+    border-radius: 50%;
+    position: absolute;
+    z-index: 3;
+    right: 20px;
+    top: 20px;
+    cursor: pointer;
+}
+
+.main_menu .font_box .download_btn_wrap {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
+
+.main_menu .font_box .source_btn {
+    display: block;
+    font-size: 14px;
+    padding: 12px 20px;
+    border-radius: 60px;
+    text-decoration: none;
+}
+
+.main_menu .font_box.clicked {
+    width: calc(100% - 360px);
+    min-height: calc(100vh - 200.5px);
+    position: fixed;
+    z-index: 2;
+    right: 40px;
+    bottom: 0;
+    margin-bottom: 0;
+    cursor: default;
+}
+
+.main_menu .font_box .font_detail_page, .main_menu .font_box .close_btn {
+    display: none;
+}
+
+.main_menu .font_box.clicked .font_detail_page, .main_menu .font_box.clicked .close_btn {
+    display: block;
 }
 
 /* 브라잇 모드 */
@@ -241,11 +299,11 @@ input {
 }
 
 .bright_mode .main_menu .category label {
-    background-color: #CDCED2;
+    background-color: #DEE1E6;
     color: #636568;
 }
 
-.main_menu .category input:checked + label {
+.bright_mode .main_menu .category input:checked + label {
     background-color: #4C4D50;
     color: #E9EAEE;
 }
@@ -255,11 +313,12 @@ input {
 }
 
 .bright_mode .main_menu .category .divider {
-    background-color: #97989C;
+    background-color: #636568;
 }
 
 .bright_mode .main_menu .font_box {
     border-color: #CDCED2;
+    background-color: #E9EAEE;
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -269,12 +328,33 @@ input {
     .bright_mode .main_menu .font_box:hover {
         background-color: #DEE1E6;
     }
+
+    .bright_mode .main_menu .font_box.clicked:hover {
+        background-color: #E9EAEE;
+    }
 }
 
 .bright_mode .main_menu .font_box .font_name {
     color: #35363A;
 }
 
+.bright_mode .main_menu .font_box .type_face {
+    color: #97989C;
+}
+
 .bright_mode .main_menu .font_box .font_text {
     color: #35363A;
+}
+
+.bright_mode .main_menu .font_box .close_btn {
+    fill: #35363A;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .bright_mode .main_menu .font_box .close_btn {
+        transition: 0.2s;
+    }
+    .bright_mode .main_menu .font_box .close_btn:hover {
+        background-color: #DEE1E6;
+    }
 }
