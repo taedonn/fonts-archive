@@ -23,12 +23,11 @@ function Main() {
           let item = data.table.rows;
 
           // 헤더에 폰트 링크 삽입
-          for (let i = 0; i < item.length; i++) { document.head.innerHTML += '<link rel="stylesheet" href="'+item[i].c[9].v+'"/>' }
+          for (let i = 1; i < item.length; i++) { document.head.innerHTML += '<link rel="stylesheet" href="'+item[i].c[9].v+'"/>' }
 
           // 메인에 폰트 박스 삽입
           document.getElementsByClassName('font_area_wrap')[0].innerHTML = '';
-          for (let i = 0; i < item.length; i++) {
-              console.log(item[i].c[11].v)
+          for (let i = 1; i < item.length; i++) {
               document.getElementsByClassName('font_area_wrap')[0].innerHTML += 
               '<div class="font_box" data-num="'+(i+1)+'">'
                 +'<div class="font_name">'+item[i].c[1].v+'</div>'
@@ -66,7 +65,7 @@ function Main() {
 
           // 사이드에 폰트 리스트 삽입
           document.getElementsByClassName('font_list')[0].innerHTML = '';
-          for (let i = 0; i < item.length; i++) { document.getElementsByClassName('font_list')[0].innerHTML += '<div class="font_name">'+item[i].c[1].v+'</div>' }
+          for (let i = 1; i < item.length; i++) { document.getElementsByClassName('font_list')[0].innerHTML += '<div class="font_name">'+item[i].c[1].v+'</div>' }
       })
       .then(() => {
           let fontBox = document.getElementsByClassName('font_box');
