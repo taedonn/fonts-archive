@@ -256,10 +256,10 @@ input {
 
 .main_menu .font_box .font_detail_page_wrap {
     width: 100%;
-    height: calc(100vh - 330px);
+    height: calc(100vh - 279px);
     padding: 40px;
     padding-top: 20px;
-    padding-bottom: 8px;
+    padding-bottom: 0;
     overflow-y: scroll;
 }
 
@@ -485,6 +485,7 @@ input {
     width: 100%;
     border-collapse: collapse;
     margin-top: 8px;
+    margin-bottom: 60px;
 }
 
 .main_menu .font_box table tr {
