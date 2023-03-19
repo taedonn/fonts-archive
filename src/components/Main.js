@@ -30,7 +30,7 @@ function Main() {
           document.getElementsByClassName('font_area_wrap')[0].innerHTML = '';
           for (let i = 1; i < item.length; i++) {
               document.getElementsByClassName('font_area_wrap')[0].innerHTML += 
-              '<div class="font_box not_clicked" data-num="'+(i+1)+'">'
+              '<div class="font_box fade_in" data-num="'+(i+1)+'">'
                 +'<div class="font_name">'+item[i].c[1].v+'</div>'
                 +'<div class="type_face">'+item[i].c[4].v+'</div>'
                 +'<div class="font_text" style="font-family:'+item[i].c[2].v+';">'+dummyText+'</div>'
@@ -183,25 +183,45 @@ function Main() {
               if (item[i].c[13].v.indexOf('400') !== -1) { document.getElementsByClassName('font_weight_wrap')[i-1].innerHTML += '<div class="font_weight_title">Regular 400</div><div class="font_weight_txt" style="font-family:'+item[i].c[2].v+'; font-weight:400;">'+dummyTextShort+'</div>'}
               if (item[i].c[13].v.indexOf('700') !== -1) { document.getElementsByClassName('font_weight_wrap')[i-1].innerHTML += '<div class="font_weight_title">Bold 700</div><div class="font_weight_txt" style="font-family:'+item[i].c[2].v+'; font-weight:700;">'+dummyTextShort+'</div>'}
               if (item[i].c[13].v.indexOf('800') !== -1) { document.getElementsByClassName('font_weight_wrap')[i-1].innerHTML += '<div class="font_weight_title">ExtraBold 800</div><div class="font_weight_txt" style="font-family:'+item[i].c[2].v+'; font-weight:800;">'+dummyTextShort+'</div>'}
+
+              // fade-in 초기화
+              setTimeout(function(){document.getElementsByClassName('font_box')[i-1].classList.remove('fade_in')},600)
           }
-          document.getElementsByClassName('font_area_wrap')[0].innerHTML += '<div class="font_box_empty">';
+
+          // 폰트 박스가 홀수일 때 정렬 맞춰주는 빈 div 생성, 뒷배경으로 사용될 div 생성
+          document.getElementsByClassName('font_area_wrap')[0].innerHTML += '<div class="font_box_empty"></div><div class="font_area_divider"></div>';
 
           // 사이드에 폰트 리스트 삽입
           document.getElementsByClassName('font_list')[0].innerHTML = '';
-          for (let i = 1; i < item.length; i++) { document.getElementsByClassName('font_list')[0].innerHTML += '<div class="font_name">'+item[i].c[1].v+'</div>' }
+          for (let i = 1; i < item.length; i++) { document.getElementsByClassName('font_list')[0].innerHTML += '<div class="font_name">'+item[i].c[1].v+'</div>'; }
       })
       .then(() => {
+          // 폰트 박스 & 폰트 리스트 클릭 이벤트
           let fontBox = document.getElementsByClassName('font_box');
+          let fontList = document.getElementsByClassName('font_name');
           for (let i = 0; i < fontBox.length; i++) {
-            fontBox[i].addEventListener('click', () => {
-              for (let o = 0; o < fontBox.length; o++) { fontBox[o].classList.replace('clicked','not_clicked'); }
-              fontBox[i].classList.replace('not_clicked','clicked');
+            // 폰트 박스
+            fontBox[i].addEventListener('click', (e) => {
+              if(fontBox[i].classList.contains('clicked')) { return; }
+              for (let o = 0; o < fontBox.length; o++) { fontBox[o].classList.remove('clicked'); fontBox[o].classList.add('fade_in'); setTimeout(function(){fontBox[o].classList.remove('fade_in');},600); }
+              fontBox[i].classList.add('clicked');
+              fontBox[i].classList.add('fade_in');
+              setTimeout(function(){fontBox[i].classList.remove('fade_in');},600);
+            });
+
+            // 폰트 리스트
+            fontList[i].addEventListener('click', () => {
+              for(let o = 0; o < fontBox.length; o++) { fontBox[o].classList.remove('clicked'); }
+              fontBox[i].classList.add('clicked');
+              fontBox[i].classList.add('fade_in');
+              setTimeout(function(){fontBox[i].classList.remove('fade_in');},600);
             })
           }
 
+          // 뒤로가기 버튼 클릭 이벤트
           let closeBtn = document.getElementsByClassName('close_btn');
           for (let i = 0; i < closeBtn.length; i++) {
-            closeBtn[i].addEventListener('click', () => { for (let o = 0; o < fontBox.length; o++) { if (fontBox[o].classList.contains('clicked')) { setTimeout(function(){fontBox[o].classList.replace('clicked','not_clicked')},0); } } })
+            closeBtn[i].addEventListener('click', () => { for (let o = 0; o < fontBox.length; o++) { if (fontBox[o].classList.contains('clicked')) { setTimeout(function(){fontBox[o].classList.remove('clicked'); fontBox[o].classList.add('fade_in'); setTimeout(function(){fontBox[o].classList.remove('fade_in');},600);},0); } } })
           }
 
           // 웹 폰트 적용하기 복사 버튼 클릭 이벤트
@@ -238,10 +258,10 @@ function Main() {
   const typeFaceChange = (e) => {
     let fontBox = document.getElementsByClassName('font_box');
     if (e.target.checked) {
-      for (let i = 0; i < fontBox.length; i++) { fontBox[i].classList.replace('clicked','not_clicked'); if (fontBox[i].getElementsByClassName('type_face')[0].innerText === e.target.value) { fontBox[i].style.display = 'block'; } }
+      for (let i = 0; i < fontBox.length; i++) { fontBox[i].classList.remove('clicked'); fontBox[i].classList.add('fade_in'); setTimeout(function(){fontBox[i].classList.remove('fade_in');},600);; if (fontBox[i].getElementsByClassName('type_face')[0].innerText === e.target.value) { fontBox[i].style.display = 'block'; } }
     }
     else {
-      for (let i = 0; i < fontBox.length; i++) { fontBox[i].classList.replace('clicked','not_clicked'); if (fontBox[i].getElementsByClassName('type_face')[0].innerText === e.target.value) { fontBox[i].style.display = 'none'; } }
+      for (let i = 0; i < fontBox.length; i++) { fontBox[i].classList.remove('clicked'); fontBox[i].classList.add('fade_in'); setTimeout(function(){fontBox[i].classList.remove('fade_in');},600); if (fontBox[i].getElementsByClassName('type_face')[0].innerText === e.target.value) { fontBox[i].style.display = 'none'; } }
     }
   }
 
@@ -251,7 +271,7 @@ function Main() {
     let typeFace = document.getElementsByClassName('category_1')[0].getElementsByTagName('input');
 
     for (let i = 0; i < fontList.length; i++) {
-      if (fontList[i].innerText.indexOf(e.target.value) === -1) { fontList[i].style.display = 'none'; fontBox[i].style.display = 'none'; fontBox[i].classList.replace('clicked','not_clicked'); for(let o = 0; o < typeFace.length; o++) { typeFace[o].checked = true; } }
+      if (fontList[i].innerText.indexOf(e.target.value) === -1) { fontList[i].style.display = 'none'; fontBox[i].style.display = 'none'; fontBox[i].classList.remove('clicked'); fontBox[i].classList.add('fade_in'); setTimeout(function(){fontBox[i].classList.remove('fade_in');},600); for(let o = 0; o < typeFace.length; o++) { typeFace[o].checked = true; } }
       else { fontList[i].style.display = 'block'; fontBox[i].style.display = 'block'; }
     }
   }
@@ -306,7 +326,6 @@ function Main() {
                 </div>
               </div>
               <div className='font_area_wrap'></div>
-              <div className='font_detail_page'></div>
             </div>
         </div>
     </>

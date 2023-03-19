@@ -187,11 +187,25 @@ input {
     margin-top: 201px;
     padding-left: 320px;
     padding-right: 40px;
-    padding-bottom: 60px;
+    padding-bottom: 48px;
 }
 
 .main_menu .font_area_wrap::-webkit-scrollbar {
     display: none;
+}
+
+.main_menu .font_area_divider {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: -1;
+    left: 0;
+    top: 0;
+    background-color: #E9EAEE;
+}
+
+.main_menu .font_box.clicked ~ .font_area_divider {
+    z-index: 1;
 }
 
 .main_menu .font_box {
@@ -244,7 +258,8 @@ input {
     width: 100%;
     height: calc(100vh - 330px);
     padding: 40px;
-    padding-bottom: 20px;
+    padding-top: 20px;
+    padding-bottom: 8px;
     overflow-y: scroll;
 }
 
@@ -255,7 +270,7 @@ input {
 .main_menu .font_box .font_detail_page_divider {
     width: calc(100% - 80px);
     height: 1px;
-    margin-top: 40px;
+    margin-top: 20px;
     margin-left: 40px;
 }
 
@@ -285,6 +300,14 @@ input {
     font-size: 16px;
     font-weight: 500;
     text-decoration: none;
+}
+
+.main_menu .font_box.fade_in {
+    animation-name: fade_in;
+    animation-delay: 0.2s;
+    animation-duration: 0.4s;
+    animation-iteration-count: 1;
+    animation-fill-mode: both;
 }
 
 .main_menu .font_box.clicked {
@@ -504,6 +527,18 @@ input {
 .main_menu .font_box table tr td svg {
     width: 16px;
     height: 16px;
+}
+
+/* 애니메이션 */
+@keyframes fade_in {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* 브라잇 모드 */
