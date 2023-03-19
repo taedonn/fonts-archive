@@ -27,8 +27,13 @@ input {
 .side_menu {
     width: 280px;
     min-height: 100vh;
+    height: 100%;
     padding: 40px 20px;
     border-right: 1px solid;
+    position: fixed;
+    z-index: 10;
+    left: 0;
+    top: 0;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -89,12 +94,21 @@ input {
 }
 
 .main_menu {
-    width: calc(100% - 280px);
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
+}
+
+.main_menu .main_menu_fixed {
+    width: calc(100% - 280px);
     padding: 40px;
+    padding-bottom: 60px;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 10;
 }
 
 .main_menu .search_bar {
@@ -156,8 +170,8 @@ input {
 }
 
 .main_menu .category .divider {
-    width: 8px;
-    height: 8px;
+    width: 6px;
+    height: 6px;
     border-radius: 50%;
     margin-left: 14px;
     margin-right: 20px;
@@ -165,14 +179,15 @@ input {
 
 .main_menu .font_area_wrap {
     width: 100%;
-    max-height: calc(100vh - 241px);
-    overflow-y: scroll;
     display: flex;
     flex-flow: row wrap;
     justify-content: space-between;
     align-items: stretch;
     position: relative;
-    margin-top: 60px;
+    margin-top: 201px;
+    padding-left: 320px;
+    padding-right: 40px;
+    padding-bottom: 60px;
 }
 
 .main_menu .font_area_wrap::-webkit-scrollbar {
@@ -220,14 +235,15 @@ input {
     border-radius: 50%;
     position: absolute;
     z-index: 3;
-    right: 20px;
+    right: 40px;
     top: 20px;
     cursor: pointer;
 }
 
 .main_menu .font_box .font_detail_page_wrap {
     width: 100%;
-    height: calc(100vh - 440px);
+    height: calc(100vh - 330px);
+    padding: 40px;
     padding-bottom: 20px;
     overflow-y: scroll;
 }
@@ -245,7 +261,6 @@ input {
 
 .main_menu .font_box .font_detail_page {
     width: 100%;
-    height: 1000px;
 }
 
 .main_menu .font_box .download_btn_wrap {
@@ -253,18 +268,22 @@ input {
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
-    margin: 40px 0;
-    margin-bottom: 20px;
+    margin-bottom: 60px;
 }
 
-.main_menu .font_box .source_btn {
+.main_menu .font_box .source_btn, .main_menu .font_box .download_btn {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    width: 200px;
-    height: 60px;
+    width: 180px;
+    height: 40px;
+    border-radius: 100px;
+    border: 2px solid;
+    padding-bottom: 1px;
+    margin-right: 12px;
     font-size: 16px;
+    font-weight: 500;
     text-decoration: none;
 }
 
@@ -276,24 +295,39 @@ input {
     right: 0;
     bottom: 0;
     border-radius: 0;
-    border-left: 0;
-    border-right: 0;
+    border: none;
     padding: 0;
-    padding-top: 40px;
     margin-bottom: 0;
     cursor: default;
 }
 
-.main_menu .font_box .font_detail_page_wrap, .main_menu .font_box .close_btn, .main_menu .font_box .font_detail_page_divider {
+.main_menu .font_box .font_detail_page_wrap,
+.main_menu .font_box .close_btn,
+.main_menu .font_box .font_detail_page_divider,
+.main_menu .font_box.clicked .font_text {
     display: none;
 }
 
-.main_menu .font_box.clicked .font_detail_page_wrap, .main_menu .font_box.clicked .close_btn, .main_menu .font_box.clicked .font_detail_page_divider {
+.main_menu .font_box.clicked .font_detail_page_wrap,
+.main_menu .font_box.clicked .close_btn,
+.main_menu .font_box.clicked .font_detail_page_divider,
+.main_menu .font_box .font_text {
     display: block;
 }
 
-.main_menu .font_box.clicked .font_name, .main_menu .font_box.clicked .type_face, .main_menu .font_box.clicked .font_text, .main_menu .font_box.clicked .font_detail_page_wrap {
+.main_menu .font_box.clicked .font_name,
+.main_menu .font_box.clicked .type_face,
+.main_menu .font_box.clicked .font_text {
     padding: 0 40px;
+}
+
+.main_menu .font_box.clicked .font_name {
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.main_menu .font_box.clicked .type_face {
+    font-size: 16px;
 }
 
 .main_menu .font_box .cdn_wrap {
@@ -320,7 +354,12 @@ input {
     cursor: pointer;
 }
 
+.main_menu .font_box input:nth-of-type(1) + label {
+    border-radius: 8px 0 0 0;
+}
+
 .main_menu .font_box input:nth-of-type(4) + label {
+    border-radius: 0 8px 0 0;
     border-right: 1px solid;
 }
 
@@ -344,26 +383,127 @@ input {
 .main_menu .font_box input:nth-of-type(4):checked ~ .cdn_code_wrap .cdn_code_import { display: none; }
 .main_menu .font_box input:nth-of-type(4):checked ~ .cdn_code_wrap .cdn_code_url { display: flex; }
 
-.main_menu .font_box .cdn_code_divider {
-    width: 100%;
-    height: 1px;
+.main_menu .font_box .font_detail_page_title {
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 1.25;
+    margin-bottom: 16px;
 }
 
 .main_menu .font_box .cdn_code_wrap {
     width: 100%;
     position: relative;
-    margin-top: 8px;
+    margin-bottom: 60px;
 }
 
 .main_menu .font_box .cdn_code {
     width: 100%;
     height: 72px;
+    border-radius: 0 0 8px 8px;
+    border-top: 1px solid;
     padding: 0 32px;
+    padding-left: 56px;
+    position: relative;
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
+}
+
+.main_menu .font_box .cdn_code > div {
+    letter-spacing: 0.2px;
     cursor: text;
+}
+
+.main_menu .font_box .cdn_code svg {
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    left: 24px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+.main_menu .font_box .cdn_code .copy_chk_btn {
+    display: none;
+}
+
+.main_menu .font_box .font_weight_wrap {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin-top: 8px;
+    margin-bottom: 60px;
+}
+
+.main_menu .font_box .font_weight_title {
+    font-size: 14px;
+    line-height: 1.25;
+    margin-bottom: 24px;
+}
+
+.main_menu .font_box .font_weight_txt {
+    width: 100%;
+    font-size: 20px;
+    line-height: 1.25;
+    margin-bottom: 24px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid;
+}
+
+.main_menu .font_box .font_weight_txt:last-of-type {
+    margin-bottom: 0;
+}
+
+.main_menu .font_box table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 8px;
+}
+
+.main_menu .font_box table tr {
+    height: 60px;
+    border-bottom: 1px solid;
+}
+
+.main_menu .font_box table th {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.25;
+    border-right: 1px solid;
+}
+
+.main_menu .font_box table th:nth-of-type(1) {
+    width: 200px;
+}
+
+.main_menu .font_box table th:nth-of-type(2) {
+    width: calc(100% - 400px);
+}
+
+.main_menu .font_box table th:last-of-type {
+    width: 200px;
+    border-right: none;
+}
+
+.main_menu .font_box table td {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.25;
+    text-align: center;
+    border-right: 1px solid;
+}
+
+.main_menu .font_box table tr td:last-of-type {
+    border-right: none;
+}
+
+.main_menu .font_box table tr td svg {
+    width: 16px;
+    height: 16px;
 }
 
 /* 브라잇 모드 */
@@ -408,6 +548,10 @@ input {
     .bright_mode .side_menu .font_list .font_name:hover {
         color: #35363A;
     }
+}
+
+.bright_mode .main_menu .main_menu_fixed {
+    background-color: #E9EAEE;
 }
 
 .bright_mode .main_menu .category label {
@@ -462,6 +606,11 @@ input {
     fill: #35363A;
 }
 
+.bright_mode .main_menu .font_box .download_btn {
+    border-color: #35363A;
+    color: #35363A;
+}
+
 @media (hover: hover) and (pointer: fine) {
     .bright_mode .main_menu .font_box .close_btn {
         transition: 0.2s;
@@ -489,6 +638,7 @@ input {
 
 .bright_mode .main_menu .font_box .cdn_code {
     background-color: #DEE1E6;
+    border-color: #CDCED2;
 }
 
 .bright_mode .main_menu .font_box .cdn_code > div {
@@ -499,6 +649,38 @@ input {
     background-color: #CDCED2;
 }
 
-.bright_mode .main_menu .font_box .cdn_code_divider {
-    background-color: #CDCED2;
+.bright_mode .main_menu .font_box .font_detail_page_title {
+    color: #35363A;
+}
+
+.bright_mode .main_menu .font_box .cdn_code svg {
+    fill: #636568;
+}
+
+.bright_mode .main_menu .font_box .font_weight_title {
+    color: #35363A;
+}
+
+.bright_mode .main_menu .font_box .font_weight_txt {
+    color: #35363A;
+    border-color: #CDCED2;
+}
+
+.bright_mode .main_menu .font_box table tr {
+    border-color: #CDCED2;
+}
+
+.bright_mode .main_menu .font_box table th {
+    background-color: #4C4D50;
+    border-color: #636568;
+    color: #E9EAEE;
+}
+
+.bright_mode .main_menu .font_box table td {
+    border-color: #CDCED2;
+    color: #35363A;
+}
+
+.bright_mode .main_menu .font_box table td svg {
+    fill: #35363A;
 }
