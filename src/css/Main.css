@@ -345,7 +345,7 @@ input {
 
 .main_menu .font_box .font_detail_page_wrap {
     width: 100%;
-    height: calc(100vh - 259px);
+    height: calc(calc(var(--vh,1vh) * 100) - 259px);
     padding: 40px;
     padding-top: 20px;
     padding-bottom: 0;
@@ -400,7 +400,7 @@ input {
 }
 
 .main_menu .font_box.clicked {
-    height: calc(100vh - 180px);
+    height: calc(calc(var(--vh,1vh) * 100) - 180px);
     position: fixed;
     z-index: 6;
     right: 0;
@@ -1185,7 +1185,7 @@ input {
     }
 
     .main_menu .font_box.clicked {
-        height: calc(100vh - 238px);
+        height: calc(calc(var(--vh,1vh) * 100) - 238px);
     }
 
     .main_menu .font_box .font_text {
@@ -1252,7 +1252,7 @@ input {
     }
 
     .main_menu .font_box.clicked {
-        height: calc(100vh - 206px);
+        height: calc(calc(var(--vh,1vh) * 100) - 206px);
     }
 
     .wrap.expand .main_menu .font_box.clicked {
@@ -1298,7 +1298,7 @@ input {
     }
 
     .main_menu .font_box .font_detail_page_wrap {
-        height: calc(100vh - 295px);
+        height: calc(calc(var(--vh,1vh) * 100) - 295px);
         padding: 20px;
         padding-bottom: 0;
     }
@@ -1427,7 +1427,7 @@ input {
     }
 
     .main_menu .font_box.clicked {
-        height: calc(100vh - 208px);
+        height: calc(calc(var(--vh,1vh) * 100) - 208px);
     }
 
     .wrap.expand .main_menu .font_box.clicked {
@@ -1515,7 +1515,7 @@ input {
     }
 
     .main_menu .font_box.clicked {
-        height: calc(100vh - 240px);
+        height: calc(calc(var(--vh,1vh) * 100) - 240px);
     }
 
     .main_menu .font_box table {

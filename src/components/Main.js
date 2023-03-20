@@ -349,6 +349,11 @@ function Main() {
             });
           }
       });
+
+      // vh값 업데이트 (모바일 주소창 대응)
+      var vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty("--vh", `${vh}px`);
+      window.addEventListener("resize", () => { vh = window.innerHeight * 0.01; document.documentElement.style.setProperty("--vh", `${vh}px`); });
   })
 
   const textChange = (e) => {
