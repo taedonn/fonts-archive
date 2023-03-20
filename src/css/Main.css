@@ -118,7 +118,7 @@ input {
 
 .side_menu .font_list {
     width: 90%;
-    margin-top: 40px;
+    margin-top: 30px;
 }
 
 .side_menu .font_list .font_name {
@@ -1406,6 +1406,7 @@ input {
     }
 
     .side_menu .font_list {
+        width: 95%;
         margin-top: 32px;
     }
 

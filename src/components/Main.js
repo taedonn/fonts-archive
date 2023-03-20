@@ -267,6 +267,7 @@ function Main() {
               // 폰트 두께 각자 따로 적용
               if (item[i].c[13].v.indexOf('300') !== -1) { document.getElementsByClassName('font_weight_wrap')[i-1].innerHTML += '<div class="font_weight_title">Light 300</div><div class="font_weight_txt" style="font-family:'+item[i].c[2].v+'; font-weight:300;">'+dummyTextShort[randomShort]+'</div>'}
               if (item[i].c[13].v.indexOf('400') !== -1) { document.getElementsByClassName('font_weight_wrap')[i-1].innerHTML += '<div class="font_weight_title">Regular 400</div><div class="font_weight_txt" style="font-family:'+item[i].c[2].v+'; font-weight:400;">'+dummyTextShort[randomShort]+'</div>'}
+              if (item[i].c[13].v.indexOf('500') !== -1) { document.getElementsByClassName('font_weight_wrap')[i-1].innerHTML += '<div class="font_weight_title">Medium 500</div><div class="font_weight_txt" style="font-family:'+item[i].c[2].v+'; font-weight:400;">'+dummyTextShort[randomShort]+'</div>'}
               if (item[i].c[13].v.indexOf('700') !== -1) { document.getElementsByClassName('font_weight_wrap')[i-1].innerHTML += '<div class="font_weight_title">Bold 700</div><div class="font_weight_txt" style="font-family:'+item[i].c[2].v+'; font-weight:700;">'+dummyTextShort[randomShort]+'</div>'}
               if (item[i].c[13].v.indexOf('800') !== -1) { document.getElementsByClassName('font_weight_wrap')[i-1].innerHTML += '<div class="font_weight_title">ExtraBold 800</div><div class="font_weight_txt" style="font-family:'+item[i].c[2].v+'; font-weight:800;">'+dummyTextShort[randomShort]+'</div>'}
 
