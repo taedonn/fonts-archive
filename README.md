@@ -8,7 +8,7 @@ Live Demo : https://taedonn.github.io/fonts-archive
 
 ## What is Fonts Archive?
 
-Fonts Archive is a website that archives license-free Korean fonts. The project began with the need to use fonts through CDN links without downloading the files directly.
+Fonts Archive is a website that archives license-free Korean fonts. The project began with the need to use fonts through CDN links without downloading the files directly. All the fonts that are archived on this website are license-free, free of commercial use.
 
 Visit Organization : https://github.com/fonts-archive
 
