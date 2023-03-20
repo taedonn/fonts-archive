@@ -12,4 +12,4 @@ Organization Link : https://github.com/fonts-archive
 
 A website that archives license-free Korean fonts that supports CDN links.
 
-![Fonts Archive Logo](https://i.ibb.co/cY27kkc/fonts-archive-logo.png)
+![Fonts Archive Logo](https://i.ibb.co/bKXPjMY/fonts-archive-logo.png)
