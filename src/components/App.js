@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import '../css/Main.css';
+import '../css/App.css';
 
 // 더미 텍스트
 const dummyTextLong = [
