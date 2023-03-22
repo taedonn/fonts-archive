@@ -297,10 +297,12 @@ input {
     width: calc(33.3% - 8px);
     min-height: max-content;
     padding: 20px;
-    margin-bottom: 12px;
     border: 1px solid;
     border-radius: 8px;
+    margin-bottom: 12px;
     cursor: pointer;
+    text-decoration: none;
+    outline: none;
     transition: 0.2s;
 }
 
