@@ -89,7 +89,7 @@ const dummyTextShort = [
 const randomLong = Math.floor(Math.random() * (dummyTextLong.length - 1));
 const randomShort = Math.floor(Math.random() * (dummyTextShort.length - 1));
 
-function Main() {
+function App() {
   useEffect(() => {
     // 브라잇 모드 / 나잇 모드
     document.body.classList.add('bright_mode');
@@ -490,4 +490,4 @@ function Main() {
   );
 }
 
-export default Main;
+export default App;
