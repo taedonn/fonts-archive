@@ -48,10 +48,6 @@ a {
     z-index: 10;
     left: 0;
     top: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
     overflow-y: scroll;
     transition: 0.2s;
 }
@@ -77,6 +73,13 @@ a {
     position: fixed;
     z-index: 20;
     left: 12px;
+}
+
+.side_menu_scroll {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
 }
 
 .side_menu .title {
@@ -136,6 +139,10 @@ a {
     margin-bottom: 8px;
     cursor: pointer;
     transition: 0.2s;
+}
+
+.side_menu .font_list .font_name:last-of-type {
+    margin-bottom: 0;
 }
 
 .side_menu .expand_btn_wrap {
@@ -408,7 +415,7 @@ a {
     height: 40px;
     border-radius: 100px;
     border: 2px solid;
-    padding-bottom: 1px;
+    padding-bottom: 2px;
     margin-right: 12px;
     font-size: 16px;
     font-weight: 500;
@@ -515,6 +522,7 @@ a {
     cursor: text;
     white-space: nowrap;
     overflow-x: auto;
+    transition: 0.2s;
 }
 
 .cdn_wrap .cdn_code > div::-webkit-scrollbar {
@@ -529,6 +537,7 @@ a {
     top: 50%;
     transform: translateY(-50%);
     cursor: pointer;
+    transition: 0.2s;
 }
 
 .cdn_wrap .cdn_code .copy_chk_btn {
@@ -559,12 +568,14 @@ a {
     border-radius: 100px;
     background-color: transparent;
     margin-bottom: 32px;
+    transition: 0.2s;
 }
 
 .font_detail_page_wrap .font_weight_title {
     font-size: 14px;
     line-height: 1.25;
     margin-bottom: 24px;
+    transition: 0.2s;
 }
 
 .font_detail_page_wrap .font_weight_txt {
@@ -574,6 +585,7 @@ a {
     margin-bottom: 24px;
     padding-bottom: 24px;
     border-bottom: 1px solid;
+    transition: 0.2s;
 }
 
 .font_detail_page_wrap .font_weight_txt:last-of-type {
@@ -607,6 +619,7 @@ a {
     font-weight: 300;
     line-height: 1.25;
     padding-right: 16px;
+    transition: 0.2s;
 }
 
 .font_detail_page_wrap .font_size_wrap h3 {
@@ -617,6 +630,7 @@ a {
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
     overflow: hidden;
+    transition: 0.2s;
 }
 
 .font_detail_page_wrap .font_size_wrap .font_size_10 { font-size: 10px; }
@@ -643,16 +657,19 @@ a {
 .font_detail_page_wrap table thead {
     border-left: 1px solid;
     border-right: 1px solid;
+    transition: 0.2s;
 }
 
 .font_detail_page_wrap table tbody {
     border-left: 1px solid;
     border-right: 1px solid;
+    transition: 0.2s;
 }
 
 .font_detail_page_wrap table tr {
     height: 60px;
     border-bottom: 1px solid;
+    transition: 0.2s;
 }
 
 .font_detail_page_wrap table th {
@@ -660,6 +677,7 @@ a {
     font-weight: 500;
     line-height: 1.25;
     border-right: 1px solid;
+    transition: 0.2s;
 }
 
 .font_detail_page_wrap table th:nth-of-type(1) {
@@ -682,6 +700,7 @@ a {
     text-align: center;
     border-right: 1px solid;
     padding: 20px;
+    transition: 0.2s;
 }
 
 .font_detail_page_wrap table tr td:last-of-type {
@@ -691,6 +710,7 @@ a {
 .font_detail_page_wrap table tr td svg {
     width: 16px;
     height: 16px;
+    transition: 0.2s;
 }
 
 .profile_fixed {
@@ -918,7 +938,7 @@ a {
 }
 
 .bright_mode .font_detail_page_wrap .font_detail_page_title {
-    color: #35363A;
+    color: #4C4D50;
 }
 
 .bright_mode .cdn_wrap .cdn_code svg {
@@ -1124,8 +1144,8 @@ a {
 }
 
 .night_mode .font_detail_page_wrap .download_btn {
-    border-color: #DEE1E6;
-    color: #DEE1E6;
+    border-color: #CDCED2;
+    color: #CDCED2;
 }
 
 @media (hover: hover) and (pointer: fine) {
