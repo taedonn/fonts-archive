@@ -501,6 +501,7 @@ a {
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
+    transition: 0.2s;
 }
 
 .cdn_wrap .cdn_code > div {
