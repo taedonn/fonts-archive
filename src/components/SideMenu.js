@@ -23,9 +23,13 @@ function SideMenu({data}) {
         }
     }
 
+    // 사이드 메뉴 마우스오버 시 스크롤 막기
+    const sideOnMouseOver = () => { document.body.classList.add('fixed'); }
+    const sideOnMouseOut = () => { document.body.classList.remove('fixed'); }
+
     return (
         <>
-            <div className='side_menu'>
+            <div className='side_menu' onMouseOver={sideOnMouseOver} onMouseOut={sideOnMouseOut}>
                 <div className='expand_btn_wrap'>
                     <input type='checkbox' id='expand_btn' onClick={expandChk} defaultChecked={window.innerWidth > 1080 ? false : true}/>
                     <label htmlFor='expand_btn'>

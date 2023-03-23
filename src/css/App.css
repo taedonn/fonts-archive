@@ -12,6 +12,10 @@ body {
     transition: 0.2s;
 }
 
+body.fixed {
+    overflow: hidden;
+}
+
 input {
     border: none;
     outline: none;
@@ -333,7 +337,7 @@ a {
     transition: 0.2s;
 }
 
-.main_menu .font_box .close_btn {
+.font_detail_page_wrap .close_btn {
     width: 40px;
     height: 40px;
     padding: 8px;
@@ -585,6 +589,10 @@ a {
     margin-bottom: 24px;
 }
 
+.font_detail_page_wrap .font_size_wrap div:last-of-type {
+    margin-bottom: 0;
+}
+
 .font_detail_page_wrap .font_size_wrap h2 {
     display: inline-block;
     width: auto;
@@ -623,6 +631,16 @@ a {
     width: 100%;
     border-collapse: collapse;
     margin-top: 8px;
+}
+
+.font_detail_page_wrap table thead {
+    border-left: 1px solid;
+    border-right: 1px solid;
+}
+
+.font_detail_page_wrap table tbody {
+    border-left: 1px solid;
+    border-right: 1px solid;
 }
 
 .font_detail_page_wrap table tr {
@@ -837,7 +855,7 @@ a {
     color: #35363A;
 }
 
-.bright_mode .main_menu .font_box .close_btn {
+.bright_mode .font_detail_page_wrap .close_btn {
     fill: #35363A;
 }
 
@@ -847,10 +865,10 @@ a {
 }
 
 @media (hover: hover) and (pointer: fine) {
-    .bright_mode .main_menu .font_box .close_btn {
+    .bright_mode .font_detail_page_wrap .close_btn {
         transition: 0.2s;
     }
-    .bright_mode .main_menu .font_box .close_btn:hover {
+    .bright_mode .font_detail_page_wrap .close_btn:hover {
         background-color: #DEE1E6;
     }
 }
@@ -915,6 +933,14 @@ a {
 
 .bright_mode .font_detail_page_wrap .font_size_wrap h3 {
     color: #35363A;
+    border-color: #CDCED2;
+}
+
+.bright_mode .font_detail_page_wrap table thead {
+    border-color: #35363A;
+}
+
+.bright_mode .font_detail_page_wrap table tbody {
     border-color: #CDCED2;
 }
 
@@ -1039,13 +1065,13 @@ a {
 }
 
 .night_mode .main_menu .category label {
-    background-color: #35363A;
-    color: #CDCED2;
+    background-color: #646568;
+    color: #202124;
 }
 
 .night_mode .main_menu .category input:checked + label {
-    background-color: #CDCED2;
-    color: #202124;
+    background-color: #35363A;
+    color: #CDCED2;
 }
 
 .night_mode .main_menu .category label::selection {
@@ -1086,7 +1112,7 @@ a {
     color: #DEE1E6;
 }
 
-.night_mode .main_menu .font_box .close_btn {
+.night_mode .font_detail_page_wrap .close_btn {
     fill: #DEE1E6;
 }
 
@@ -1096,10 +1122,10 @@ a {
 }
 
 @media (hover: hover) and (pointer: fine) {
-    .night_mode .main_menu .font_box .close_btn {
+    .night_mode .font_detail_page_wrap .close_btn {
         transition: 0.2s;
     }
-    .night_mode .main_menu .font_box .close_btn:hover {
+    .night_mode .font_detail_page_wrap .close_btn:hover {
         background-color: #35363A;
     }
 }
@@ -1115,9 +1141,9 @@ a {
 }
 
 .night_mode .cdn_wrap input:checked + label {
-    background-color: #CDCED2;
-    border-color: #CDCED2;
-    color: #202124;
+    background-color: #4C4D50;
+    border-color: #4C4D50;
+    color: #DEE1E6;
 }
 
 .night_mode .cdn_wrap .cdn_code {
@@ -1167,14 +1193,22 @@ a {
     border-color: #4C4D50;
 }
 
+.night_mode .font_detail_page_wrap table thead {
+    border-color: #35363A;
+}
+
+.night_mode .font_detail_page_wrap table tbody {
+    border-color: #4C4D50;
+}
+
 .night_mode .font_detail_page_wrap table tr {
     border-color: #4C4D50;
 }
 
 .night_mode .font_detail_page_wrap table th {
-    background-color: #CDCED2;
-    border-color: #97989C;
-    color: #202124;
+    background-color: #35363A;
+    border-color: #4C4D50;
+    color: #DEE1E6;
 }
 
 .night_mode .font_detail_page_wrap table td {
@@ -1227,26 +1261,26 @@ a {
         align-items: flex-start;
     }
 
-    .main_menu .category .divider {
-        width: 100%;
-        height: 1px;
-        margin: 12px 0;
+    .main_menu .category .category_1 {
+        display: none;
     }
 
-    .main_menu .main_menu_fixed {
-        padding-bottom: 9px;
+    .main_menu .category .divider {
+        display: none;
     }
 
     .main_menu .font_area_wrap {
-        margin-top: 241px;
+        margin-top: 181px;
+        padding-bottom: 32px;
     }
 
     .main_menu .font_box .font_text {
         font-size: 28px;
     }
 
-    .main_menu .font_area_wrap {
-        padding-bottom: 32px;
+    .font_detail_page_wrap {
+        padding: 40px;
+        padding-bottom: 60px;
     }
 }
 
@@ -1268,7 +1302,6 @@ a {
 
     .main_menu .main_menu_fixed {
         padding: 20px;
-        padding-bottom: 40px;
     }
 
     .wrap.expand .main_menu .main_menu_fixed {
@@ -1282,7 +1315,7 @@ a {
     }
 
     .main_menu .font_area_wrap {
-        margin-top: 208px;
+        margin-top: 135px;
         padding-right: 20px;
         padding-bottom: 28px;
     }
@@ -1297,11 +1330,8 @@ a {
 
     .main_menu .font_box {
         width: calc(50% - 6px);
+        min-height: 200px;
         padding: 16px;
-    }
-
-    .main_menu .font_box .close_btn {
-        right: 20px;
     }
 
     .main_menu .font_name {
@@ -1316,24 +1346,23 @@ a {
         font-size: 20px;
     }
 
-    .main_menu .font_box .close_btn {
+    .wrap.expand .font_detail_page_wrap {
+        width: calc(100% - 240px);
+    }
+
+    .font_detail_page_wrap .close_btn {
+        right: 20px;
         width: 36px;
         height: 36px;
     }
 
-    .main_menu .font_box .font_detail_page_wrap {
-        height: calc(calc(var(--vh,1vh) * 100) - 295px);
-        padding: 20px;
-        padding-bottom: 0;
-    }
-
     .font_detail_page_wrap .font_detail_page_title {
         font-size: 20px;
-        margin-bottom: 12px;
+        margin-bottom: 16px;
     }
 
     .download_btn_wrap {
-        margin-bottom: 40px;
+        margin-bottom: 60px;
     }
 
     .font_detail_page_wrap .source_btn, .font_detail_page_wrap .download_btn {
@@ -1343,13 +1372,13 @@ a {
         margin-right: 8px;
     }
 
-    .cdn_wrap .cdn_code_wrap {
-        margin-bottom: 40px;
+    .cdn_wrap {
+        margin-bottom: 60px;
     }
 
     .font_detail_page_wrap.font_weight_wrap {
-        margin-bottom: 40px;
         margin-top: 0;
+        margin-bottom: 60px;
     }
 
     .font_detail_page_wrap .font_weight_change {
@@ -1367,6 +1396,10 @@ a {
         padding-bottom: 14px;
     }
 
+    .font_detail_page_wrap .font_size_wrap {
+        margin-bottom: 80px;
+    }
+
     .font_detail_page_wrap table {
         margin-top: 0;
     }
@@ -1379,12 +1412,8 @@ a {
         font-size: 14px;
     }
 
-    .font_detail_page_wrap table th:nth-of-type(1) {
-        width: 160px;
-    }
-
-    .font_detail_page_wrap table th:last-of-type {
-        width: 160px;
+    .font_detail_page_wrap table th:nth-of-type(1), .font_detail_page_wrap table th:last-of-type {
+        width: 120px;
     }
 
     .font_detail_page_wrap table td {
@@ -1442,11 +1471,10 @@ a {
     }
 
     .main_menu .font_area_wrap {
-        margin-top: 208px;
+        margin-top: 143px;
     }
 
     .wrap.expand .main_menu .font_area_wrap {
-        margin-top: 208px;
         padding-left: 20px;
     }
 
@@ -1454,8 +1482,20 @@ a {
         margin-bottom: 8px;
     }
 
-    .main_menu .main_menu_fixed {
-        padding-bottom: 0;
+    .font_detail_page_wrap {
+        padding: 40px 20px;
+    }
+
+    .font_detail_page_divider {
+        margin: 20px 0;
+    }
+
+    .download_btn_wrap {
+        margin-bottom: 60px;
+    }
+    
+    .font_detail_page_wrap .cdn_wrap {
+        margin-bottom: 60px;
     }
 
     .cdn_wrap input + label {
@@ -1472,6 +1512,10 @@ a {
         width: 14px;
         height: 14px;
         left: 18px;
+    }
+
+    .font_detail_page_wrap .font_weight_wrap {
+        margin-bottom: 60px;
     }
 
     .font_detail_page_wrap table th {
@@ -1513,16 +1557,12 @@ a {
     }
 }
 
-@media screen and (max-width: 423px) {
+@media screen and (max-width: 480px) {
     .main_menu .font_box {
         width: 100%;
     }
 
     .main_menu .font_area_wrap {
-        margin-top: 240px;
-    }
-
-    .wrap.expand .main_menu .font_area_wrap {
-        margin-top: 240px;
+        margin-top: 179px;
     }
 }

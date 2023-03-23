@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import SideMenu from './SideMenu';
 import DummyText from './DummyText';
 
@@ -29,8 +29,9 @@ function DetailPage(props) {
             <SideMenu data={props.data}/>
             <div className="font_detail_page_wrap">
                 <link href={props.data[id].c[8].v} rel="stylesheet" itemProp="url"/>
+                <Link to={'/fonts-archive/'}><svg className="close_btn" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/></svg></Link>
                 <div className="font_name">{props.data[id].c[1].v}</div>
-                <div className="type_face">by {props.data[id].c[4].v}</div>
+                <div className="type_face">{props.data[id].c[3].v}</div>
                 <div className="font_detail_page_divider"></div>
                 <div className="font_detail_page">
                     <div className="download_btn_wrap">
