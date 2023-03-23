@@ -23,21 +23,6 @@ function Main(props) {
         }
     }
 
-    const goUp = () => { window.scrollTo({top:0,behavior:'smooth'}); }
-
-    const goGitHub = () => { window.open('https://github.com/taedonn/fonts-archive','_blank'); }
-
-    const goNightMode = () => {
-        if(document.body.classList.contains('bright_mode')) {
-            document.body.classList.remove('bright_mode');
-            document.body.classList.add('night_mode');
-        }
-        else {
-            document.body.classList.remove('night_mode');
-            document.body.classList.add('bright_mode');
-        }
-    }
-
     return (
         <>
             <SideMenu data={props.data}/>
@@ -74,17 +59,6 @@ function Main(props) {
                     </div>
                 </div>
                 <FontBox data={props.data}/>
-                <div className='profile_fixed'>
-                    <div className='profile_star' onClick={goGitHub}>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/></svg>
-                    </div>
-                    <div className='profile_color_mode' onClick={goNightMode}>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"/></svg>
-                    </div>
-                    <div className='profile_up' onClick={goUp}>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z"/></svg>
-                    </div>
-                </div>
             </div>
         </>
     );

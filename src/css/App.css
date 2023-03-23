@@ -389,7 +389,7 @@ a {
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
-    margin-bottom: 60px;
+    margin-bottom: 80px;
 }
 
 .source_btn, .download_btn {
@@ -423,6 +423,7 @@ a {
     flex-flow: row wrap;
     justify-content: flex-start;
     align-items: flex-start;
+    margin-bottom: 80px;
 }
 
 .cdn_wrap input {
@@ -475,13 +476,12 @@ a {
     font-size: 24px;
     font-weight: 500;
     line-height: 1.25;
-    margin-bottom: 16px;
+    margin-bottom: 20px;
 }
 
 .cdn_wrap .cdn_code_wrap {
     width: 100%;
     position: relative;
-    margin-bottom: 60px;
 }
 
 .cdn_wrap .cdn_code {
@@ -524,21 +524,21 @@ a {
     display: none;
 }
 
-.main_menu .font_box .font_weight_wrap {
+.font_detail_page_wrap .font_weight_wrap {
     width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
     margin-top: 8px;
-    margin-bottom: 60px;
+    margin-bottom: 80px;
 }
 
-.main_menu .font_box input.font_weight_change {
+.font_detail_page_wrap input.font_weight_change {
     display: block;
 }
 
-.main_menu .font_box .font_weight_change {
+.font_detail_page_wrap .font_weight_change {
     width: 100%;
     font-size: 14px;
     font-weight: 400;
@@ -569,39 +569,88 @@ a {
     margin-bottom: 0;
 }
 
-.main_menu .font_box table {
+.font_detail_page_wrap .font_size_wrap {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin-bottom: 80px;
+}
+
+.font_detail_page_wrap .font_size_wrap div {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.font_detail_page_wrap .font_size_wrap h2 {
+    display: inline-block;
+    width: auto;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 1.25;
+    padding-right: 16px;
+}
+
+.font_detail_page_wrap .font_size_wrap h3 {
+    width: auto;
+    font-weight: 300;
+    line-height: 1.25;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.font_detail_page_wrap .font_size_wrap .font_size_10 { font-size: 10px; }
+.font_detail_page_wrap .font_size_wrap .font_size_12 { font-size: 12px; }
+.font_detail_page_wrap .font_size_wrap .font_size_14 { font-size: 14px; }
+.font_detail_page_wrap .font_size_wrap .font_size_16 { font-size: 16px; }
+.font_detail_page_wrap .font_size_wrap .font_size_18 { font-size: 18px; }
+.font_detail_page_wrap .font_size_wrap .font_size_20 { font-size: 20px; }
+.font_detail_page_wrap .font_size_wrap .font_size_24 { font-size: 24px; }
+.font_detail_page_wrap .font_size_wrap .font_size_28 { font-size: 28px; }
+.font_detail_page_wrap .font_size_wrap .font_size_32 { font-size: 32px; }
+.font_detail_page_wrap .font_size_wrap .font_size_36 { font-size: 36px; }
+.font_detail_page_wrap .font_size_wrap .font_size_40 { font-size: 40px; }
+.font_detail_page_wrap .font_size_wrap .font_size_48 { font-size: 48px; }
+.font_detail_page_wrap .font_size_wrap .font_size_56 { font-size: 56px; }
+.font_detail_page_wrap .font_size_wrap .font_size_64 { font-size: 64px; }
+
+.font_detail_page_wrap table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 8px;
-    margin-bottom: 52px;
 }
 
-.main_menu .font_box table tr {
+.font_detail_page_wrap table tr {
     height: 60px;
     border-bottom: 1px solid;
 }
 
-.main_menu .font_box table th {
+.font_detail_page_wrap table th {
     font-size: 16px;
     font-weight: 500;
     line-height: 1.25;
     border-right: 1px solid;
 }
 
-.main_menu .font_box table th:nth-of-type(1) {
+.font_detail_page_wrap table th:nth-of-type(1) {
     width: 200px;
 }
 
-.main_menu .font_box table th:nth-of-type(2) {
+.font_detail_page_wrap table th:nth-of-type(2) {
     width: calc(100% - 400px);
 }
 
-.main_menu .font_box table th:last-of-type {
+.font_detail_page_wrap table th:last-of-type {
     width: 200px;
     border-right: none;
 }
 
-.main_menu .font_box table td {
+.font_detail_page_wrap table td {
     font-size: 16px;
     font-weight: 400;
     line-height: 1.25;
@@ -610,11 +659,11 @@ a {
     padding: 20px;
 }
 
-.main_menu .font_box table tr td:last-of-type {
+.font_detail_page_wrap table tr td:last-of-type {
     border-right: none;
 }
 
-.main_menu .font_box table tr td svg {
+.font_detail_page_wrap table tr td svg {
     width: 16px;
     height: 16px;
 }
@@ -630,7 +679,11 @@ a {
     align-items: flex-start;
 }
 
-.profile_fixed div {
+.profile_fixed input {
+    display: none;
+}
+
+.profile_fixed div, .profile_fixed label {
     width: 40px;
     height: 40px;
     border: 1px solid;
@@ -856,40 +909,53 @@ a {
     border-color: #CDCED2;
 }
 
-.bright_mode .main_menu .font_box table tr {
+.bright_mode .font_detail_page_wrap .font_size_wrap h2 {
+    color: #636568;
+}
+
+.bright_mode .font_detail_page_wrap .font_size_wrap h3 {
+    color: #35363A;
     border-color: #CDCED2;
 }
 
-.bright_mode .main_menu .font_box table th {
+.bright_mode .font_detail_page_wrap table tr {
+    border-color: #CDCED2;
+}
+
+.bright_mode .font_detail_page_wrap table th {
     background-color: #35363A;
     border-color: #4C4D50;
     color: #E9EAEE;
 }
 
-.bright_mode .main_menu .font_box table td {
+.bright_mode .font_detail_page_wrap table td {
     border-color: #CDCED2;
     color: #35363A;
 }
 
-.bright_mode .main_menu .font_box table td svg {
+.bright_mode .font_detail_page_wrap table td svg {
     fill: #35363A;
 }
 
-.bright_mode .main_menu .font_box .font_weight_change {
+.bright_mode .font_detail_page_wrap .font_weight_change {
     border-color: #CDCED2;
     color: #636568;
 }
 
-.bright_mode .profile_fixed div {
+.bright_mode .font_detail_page_wrap .font_weight_change::placeholder {
+    color: #97989C;
+}
+
+.bright_mode .profile_fixed div, .bright_mode .profile_fixed label {
     background-color: #E9EAEE;
     border-color: #CDCED2;
 }
 
 @media (hover: hover) and (pointer: fine) {
-    .bright_mode .profile_fixed div {
+    .bright_mode .profile_fixed div, .bright_mode .profile_fixed label {
         transition: 0.2s;
     }
-    .bright_mode .profile_fixed div:hover {
+    .bright_mode .profile_fixed div:hover, .bright_mode .profile_fixed label:hover {
         border-color: #B1B2B6;
     }
 }
@@ -1092,40 +1158,53 @@ a {
     border-color: #4C4D50;
 }
 
-.night_mode .main_menu .font_box table tr {
+.night_mode .font_detail_page_wrap .font_size_wrap h2 {
+    color: #97989C;
+}
+
+.night_mode .font_detail_page_wrap .font_size_wrap h3 {
+    color: #DEE1E6;
     border-color: #4C4D50;
 }
 
-.night_mode .main_menu .font_box table th {
+.night_mode .font_detail_page_wrap table tr {
+    border-color: #4C4D50;
+}
+
+.night_mode .font_detail_page_wrap table th {
     background-color: #CDCED2;
     border-color: #97989C;
     color: #202124;
 }
 
-.night_mode .main_menu .font_box table td {
+.night_mode .font_detail_page_wrap table td {
     border-color: #4C4D50;
     color: #DEE1E6;
 }
 
-.night_mode .main_menu .font_box table td svg {
+.night_mode .font_detail_page_wrap table td svg {
     fill: #DEE1E6;
 }
 
-.night_mode .main_menu .font_box .font_weight_change {
+.night_mode .font_detail_page_wrap .font_weight_change {
     border-color: #4C4D50;
     color: #97989C;
 }
 
-.night_mode .profile_fixed div {
+.night_mode .font_detail_page_wrap .font_weight_change::placeholder {
+    color: #97989C;
+}
+
+.night_mode .profile_fixed div, .night_mode .profile_fixed label {
     background-color: #202124;
     border-color: #4C4D50;
 }
 
 @media (hover: hover) and (pointer: fine) {
-    .night_mode .profile_fixed div {
+    .night_mode .profile_fixed div, .night_mode .profile_fixed label {
         transition: 0.2s;
     }
-    .night_mode .profile_fixed div:hover {
+    .night_mode .profile_fixed div:hover, .night_mode .profile_fixed label:hover {
         border-color: #636568;
     }
 }
@@ -1164,10 +1243,6 @@ a {
 
     .main_menu .font_box .font_text {
         font-size: 28px;
-    }
-
-    .main_menu .font_box table {
-        margin-bottom: 100px;
     }
 
     .main_menu .font_area_wrap {
@@ -1272,12 +1347,12 @@ a {
         margin-bottom: 40px;
     }
 
-    .main_menu .font_box .font_weight_wrap {
+    .font_detail_page_wrap.font_weight_wrap {
         margin-bottom: 40px;
         margin-top: 0;
     }
 
-    .main_menu .font_box .font_weight_change {
+    .font_detail_page_wrap .font_weight_change {
         margin-bottom: 20px;
         padding: 14px 20px;
     }
@@ -1292,33 +1367,32 @@ a {
         padding-bottom: 14px;
     }
 
-    .main_menu .font_box table {
+    .font_detail_page_wrap table {
         margin-top: 0;
-        margin-bottom: 28px;
     }
 
-    .main_menu .font_box table tr {
+    .font_detail_page_wrap table tr {
         height: 48px;
     }
 
-    .main_menu .font_box table th {
+    .font_detail_page_wrap table th {
         font-size: 14px;
     }
 
-    .main_menu .font_box table th:nth-of-type(1) {
+    .font_detail_page_wrap table th:nth-of-type(1) {
         width: 160px;
     }
 
-    .main_menu .font_box table th:last-of-type {
+    .font_detail_page_wrap table th:last-of-type {
         width: 160px;
     }
 
-    .main_menu .font_box table td {
+    .font_detail_page_wrap table td {
         font-size: 14px;
         padding: 16px;
     }
 
-    .main_menu .font_box table tr td svg {
+    .font_detail_page_wrap table tr td svg {
         width: 14px;
         height: 14px;
     }
@@ -1400,28 +1474,24 @@ a {
         left: 18px;
     }
 
-    .main_menu .font_box table {
-        margin-bottom: 20px;
-    }
-
-    .main_menu .font_box table th {
+    .font_detail_page_wrap table th {
         font-size: 12px;
     }
 
-    .main_menu .font_box table th:nth-of-type(1) {
+    .font_detail_page_wrap table th:nth-of-type(1) {
         width: 88px;
     }
 
-    .main_menu .font_box table th:last-of-type {
+    .font_detail_page_wrap table th:last-of-type {
         width: 88px;
     }
 
-    .main_menu .font_box table td {
+    .font_detail_page_wrap table td {
         font-size: 12px;
         padding: 12px;
     }
 
-    .main_menu .font_box table tr td svg {
+    .font_detail_page_wrap table tr td svg {
         width: 12px;
         height: 12px;
     }
@@ -1431,7 +1501,7 @@ a {
         bottom: 12px;
     }
 
-    .profile_fixed div {
+    .profile_fixed div, .profile_fixed label {
         width: 36px;
         height: 36px;
         margin-top: 6px;
@@ -1454,9 +1524,5 @@ a {
 
     .wrap.expand .main_menu .font_area_wrap {
         margin-top: 240px;
-    }
-
-    .main_menu .font_box table {
-        margin-bottom: 60px;
     }
 }
