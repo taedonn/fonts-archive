@@ -3,19 +3,19 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Main from './Main'
 import DetailPage from './DetailPage'
 
+// 구글 스프레드시트 URL
+const sheetName = 'fonts';
+const query = 'Select *';
+const url = 'https://docs.google.com/spreadsheets/d/1ryt-0PI5_hWA3AnP0gcyTRyKh8kqAooApts_cI0yhQ0/gviz/tq?&sheet=' + sheetName + '&tq=' + query;
+
 function App() {
     const [data, setData] = useState([]);
 
     useLayoutEffect(() => {
-        const dataTimer = setInterval(() => { handleLoad(url); },100);
-
-        return () => { clearInterval(dataTimer); }
-    });
+        handleLoad(url);
+    },[]);
 
     // 데이터 연동
-    const sheetName = 'fonts';
-    const query = 'Select *';
-    const url = 'https://docs.google.com/spreadsheets/d/1ryt-0PI5_hWA3AnP0gcyTRyKh8kqAooApts_cI0yhQ0/gviz/tq?&sheet=' + sheetName + '&tq=' + query;
     const handleLoad = (url) => {
         fetch(url)
         .then(res => res.text())
