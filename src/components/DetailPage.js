@@ -80,27 +80,27 @@ function DetailPage(props) {
                                 <input className="font_weight_change" type="text" placeholder="Type Something" onChange={detailTextChange}/>
                                 {
                                     props.data[id].c[12].v === "Y"
-                                    ? <><div className="font_weight_title">Light 300</div><div className="font_weight_txt" style={{fontFamily:props.data[id].c[2].v,fontWeight:"300"}}><DummyText/></div></>
+                                    ? <><div className="font_weight_title">Light 300</div><div className="font_weight_txt" style={{fontFamily:props.data[id].c[2].v,fontWeight:"300"}}><DummyText lang={props.data[id].c[17].v}/></div></>
                                     : <></>
                                 }
                                 {
                                     props.data[id].c[13].v === "Y"
-                                    ? <><div className="font_weight_title">Regular 400</div><div className="font_weight_txt" style={{fontFamily:props.data[id].c[2].v,fontWeight:"400"}}><DummyText/></div></>
+                                    ? <><div className="font_weight_title">Regular 400</div><div className="font_weight_txt" style={{fontFamily:props.data[id].c[2].v,fontWeight:"400"}}><DummyText lang={props.data[id].c[17].v}/></div></>
                                     : <></>
                                 }
                                 {
                                     props.data[id].c[14].v === "Y"
-                                    ? <><div className="font_weight_title">Medium 500</div><div className="font_weight_txt" style={{fontFamily:props.data[id].c[2].v,fontWeight:"500"}}><DummyText/></div></>
+                                    ? <><div className="font_weight_title">Medium 500</div><div className="font_weight_txt" style={{fontFamily:props.data[id].c[2].v,fontWeight:"500"}}><DummyText lang={props.data[id].c[17].v}/></div></>
                                     : <></>
                                 }
                                 {
                                     props.data[id].c[15].v === "Y"
-                                    ? <><div className="font_weight_title">Bold 700</div><div className="font_weight_txt" style={{fontFamily:props.data[id].c[2].v,fontWeight:"700"}}><DummyText/></div></>
+                                    ? <><div className="font_weight_title">Bold 700</div><div className="font_weight_txt" style={{fontFamily:props.data[id].c[2].v,fontWeight:"700"}}><DummyText lang={props.data[id].c[17].v}/></div></>
                                     : <></>
                                 }
                                 {
                                     props.data[id].c[16].v === "Y"
-                                    ? <><div className="font_weight_title">ExtraBold 800</div><div className="font_weight_txt" style={{fontFamily:props.data[id].c[2].v,fontWeight:"800"}}><DummyText/></div></>
+                                    ? <><div className="font_weight_title">ExtraBold 800</div><div className="font_weight_txt" style={{fontFamily:props.data[id].c[2].v,fontWeight:"800"}}><DummyText lang={props.data[id].c[17].v}/></div></>
                                     : <></>
                                 }
                             </div>
@@ -136,11 +136,11 @@ function DetailPage(props) {
                                         <td>브로슈어, 카탈로그, DM, 전단지, 포스터, 패키지, 캘린더 등 인쇄물</td>
                                         <td>
                                             {
-                                                props.data[id].c[17].v === "Y"
+                                                props.data[id].c[18].v[0] === "Y"
                                                 ? <svg className="y_btn" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
-                                                : ( props.data[id].c[17].v === "N"
+                                                : ( props.data[id].c[18].v[0] === "N"
                                                     ? <div style={{color:"#C30010"}}>금지</div>
-                                                    : ( props.data[id].c[17].v === "R"
+                                                    : ( props.data[id].c[18].v[0] === "R"
                                                         ? <>권장</>
                                                         : <></>
                                                     )
@@ -152,11 +152,11 @@ function DetailPage(props) {
                                         <td>책, 만화책, 잡지, 정기간행물, 신문 등 출판물</td>
                                         <td>
                                             {
-                                                props.data[id].c[17].v === "Y"
+                                                props.data[id].c[18].v[1] === "Y"
                                                 ? <svg className="y_btn" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
-                                                : ( props.data[id].c[17].v === "N"
+                                                : ( props.data[id].c[18].v[1] === "N"
                                                     ? <div style={{color:"#C30010"}}>금지</div>
-                                                    : ( props.data[id].c[17].v === "R"
+                                                    : ( props.data[id].c[18].v[1] === "R"
                                                         ? <>권장</>
                                                         : <></>
                                                     )
@@ -168,11 +168,11 @@ function DetailPage(props) {
                                         <td>간판, 현수막, 판넬 등 제작물</td>
                                         <td>
                                             {
-                                                props.data[id].c[17].v === "Y"
+                                                props.data[id].c[18].v[2] === "Y"
                                                 ? <svg className="y_btn" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
-                                                : ( props.data[id].c[17].v === "N"
+                                                : ( props.data[id].c[18].v[2] === "N"
                                                     ? <div style={{color:"#C30010"}}>금지</div>
-                                                    : ( props.data[id].c[17].v === "R"
+                                                    : ( props.data[id].c[18].v[2] === "R"
                                                         ? <>권장</>
                                                         : <></>
                                                     )
@@ -184,11 +184,11 @@ function DetailPage(props) {
                                         <td>신문광고, 잡지광고, 차량광고 등 광고물</td>
                                         <td>
                                             {
-                                                props.data[id].c[17].v === "Y"
+                                                props.data[id].c[18].v[3] === "Y"
                                                 ? <svg className="y_btn" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
-                                                : ( props.data[id].c[17].v === "N"
+                                                : ( props.data[id].c[18].v[3] === "N"
                                                     ? <div style={{color:"#C30010"}}>금지</div>
-                                                    : ( props.data[id].c[17].v === "R"
+                                                    : ( props.data[id].c[18].v[3] === "R"
                                                         ? <>권장</>
                                                         : <></>
                                                     )
@@ -200,11 +200,11 @@ function DetailPage(props) {
                                         <td>인쇄 및 문서 공유를 위한 PDF 파일 제작</td>
                                         <td>
                                             {
-                                                props.data[id].c[17].v === "Y"
+                                                props.data[id].c[18].v[4] === "Y"
                                                 ? <svg className="y_btn" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
-                                                : ( props.data[id].c[17].v === "N"
+                                                : ( props.data[id].c[18].v[4] === "N"
                                                     ? <div style={{color:"#C30010"}}>금지</div>
-                                                    : ( props.data[id].c[17].v === "R"
+                                                    : ( props.data[id].c[18].v[4] === "R"
                                                         ? <>권장</>
                                                         : <></>
                                                     )
@@ -217,11 +217,11 @@ function DetailPage(props) {
                                         <td>웹페이지, 광고 배너, 메일, E-브로슈어 등</td>
                                         <td>
                                             {
-                                                props.data[id].c[18].v === "Y"
+                                                props.data[id].c[19].v[0] === "Y"
                                                 ? <svg className="y_btn" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
-                                                : ( props.data[id].c[18].v === "N"
+                                                : ( props.data[id].c[19].v[0] === "N"
                                                     ? <div style={{color:"#C30010"}}>금지</div>
-                                                    : ( props.data[id].c[18].v === "R"
+                                                    : ( props.data[id].c[19].v[0] === "R"
                                                         ? <>권장</>
                                                         : <></>
                                                     )
@@ -233,11 +233,11 @@ function DetailPage(props) {
                                         <td>웹서버용 폰트</td>
                                         <td>
                                             {
-                                                props.data[id].c[18].v === "Y"
+                                                props.data[id].c[19].v[1] === "Y"
                                                 ? <svg className="y_btn" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
-                                                : ( props.data[id].c[18].v === "N"
+                                                : ( props.data[id].c[19].v[1] === "N"
                                                     ? <div style={{color:"#C30010"}}>금지</div>
-                                                    : ( props.data[id].c[18].v === "R"
+                                                    : ( props.data[id].c[19].v[1] === "R"
                                                         ? <>권장</>
                                                         : <></>
                                                     )
@@ -250,11 +250,11 @@ function DetailPage(props) {
                                         <td>방송 및 영상물 자막</td>
                                         <td>
                                             {
-                                                props.data[id].c[19].v === "Y"
+                                                props.data[id].c[20].v[0] === "Y"
                                                 ? <svg className="y_btn" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
-                                                : ( props.data[id].c[19].v === "N"
+                                                : ( props.data[id].c[20].v[0] === "N"
                                                     ? <div style={{color:"#C30010"}}>금지</div>
-                                                    : ( props.data[id].c[19].v === "R"
+                                                    : ( props.data[id].c[20].v[0] === "R"
                                                         ? <>권장</>
                                                         : <></>
                                                     )
@@ -266,11 +266,11 @@ function DetailPage(props) {
                                         <td>TV-CF, 온라인 영상광고</td>
                                         <td>
                                             {
-                                                props.data[id].c[19].v === "Y"
+                                                props.data[id].c[20].v[1] === "Y"
                                                 ? <svg className="y_btn" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
-                                                : ( props.data[id].c[19].v === "N"
+                                                : ( props.data[id].c[20].v[1] === "N"
                                                     ? <div style={{color:"#C30010"}}>금지</div>
-                                                    : ( props.data[id].c[19].v === "R"
+                                                    : ( props.data[id].c[20].v[1] === "R"
                                                         ? <>권장</>
                                                         : <></>
                                                     )
@@ -282,11 +282,11 @@ function DetailPage(props) {
                                         <td>영화(DVD / 비디오), 오프닝, 엔딩크레딧 자막</td>
                                         <td>
                                             {
-                                                props.data[id].c[19].v === "Y"
+                                                props.data[id].c[20].v[2] === "Y"
                                                 ? <svg className="y_btn" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
-                                                : ( props.data[id].c[19].v === "N"
+                                                : ( props.data[id].c[20].v[2] === "N"
                                                     ? <div style={{color:"#C30010"}}>금지</div>
-                                                    : ( props.data[id].c[19].v === "R"
+                                                    : ( props.data[id].c[20].v[2] === "R"
                                                         ? <>권장</>
                                                         : <></>
                                                     )
@@ -298,11 +298,11 @@ function DetailPage(props) {
                                         <td>개인 UCC 및 홍보물</td>
                                         <td>
                                             {
-                                                props.data[id].c[19].v === "Y"
+                                                props.data[id].c[20].v[3] === "Y"
                                                 ? <svg className="y_btn" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
-                                                : ( props.data[id].c[19].v === "N"
+                                                : ( props.data[id].c[20].v[3] === "N"
                                                     ? <div style={{color:"#C30010"}}>금지</div>
-                                                    : ( props.data[id].c[19].v === "R"
+                                                    : ( props.data[id].c[20].v[3] === "R"
                                                         ? <>권장</>
                                                         : <></>
                                                     )
@@ -314,11 +314,11 @@ function DetailPage(props) {
                                         <td>E-Learning 콘텐츠, 온라인 동영상강좌, 플래시 강좌</td>
                                         <td>
                                             {
-                                                props.data[id].c[19].v === "Y"
+                                                props.data[id].c[20].v[4] === "Y"
                                                 ? <svg className="y_btn" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
-                                                : ( props.data[id].c[19].v === "N"
+                                                : ( props.data[id].c[20].v[4] === "N"
                                                     ? <div style={{color:"#C30010"}}>금지</div>
-                                                    : ( props.data[id].c[19].v === "R"
+                                                    : ( props.data[id].c[20].v[4] === "R"
                                                         ? <>권장</>
                                                         : <></>
                                                     )
@@ -329,23 +329,6 @@ function DetailPage(props) {
                                     <tr>
                                         <td>포장지</td>
                                         <td>판매용 상품의 패키지</td>
-                                        <td>
-                                            {
-                                                props.data[id].c[20].v === "Y"
-                                                ? <svg className="y_btn" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
-                                                : ( props.data[id].c[20].v === "N"
-                                                    ? <div style={{color:"#C30010"}}>금지</div>
-                                                    : ( props.data[id].c[20].v === "R"
-                                                        ? <>권장</>
-                                                        : <></>
-                                                    )
-                                                )
-                                            }
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>임베딩</td>
-                                        <td>웹사이트 및 프로그램 서버 내 폰트 탑재, E-book 제작</td>
                                         <td>
                                             {
                                                 props.data[id].c[21].v === "Y"
@@ -361,8 +344,8 @@ function DetailPage(props) {
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>BI/CI</td>
-                                        <td>회사명, 브랜드명, 상품명, 로고, 마크, 슬로건, 캐치프레이즈</td>
+                                        <td>임베딩</td>
+                                        <td>웹사이트 및 프로그램 서버 내 폰트 탑재, E-book 제작</td>
                                         <td>
                                             {
                                                 props.data[id].c[22].v === "Y"
@@ -378,8 +361,8 @@ function DetailPage(props) {
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td rowSpan="2">OFL</td>
-                                        <td>폰트 파일의 수정, 편집 및 재배포</td>
+                                        <td>BI/CI</td>
+                                        <td>회사명, 브랜드명, 상품명, 로고, 마크, 슬로건, 캐치프레이즈</td>
                                         <td>
                                             {
                                                 props.data[id].c[23].v === "Y"
@@ -395,14 +378,31 @@ function DetailPage(props) {
                                         </td>
                                     </tr>
                                     <tr>
+                                        <td rowSpan="2">OFL</td>
+                                        <td>폰트 파일의 수정, 편집 및 재배포</td>
+                                        <td>
+                                            {
+                                                props.data[id].c[24].v[0] === "Y"
+                                                ? <svg className="y_btn" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
+                                                : ( props.data[id].c[24].v[0] === "N"
+                                                    ? <div style={{color:"#C30010"}}>금지</div>
+                                                    : ( props.data[id].c[24].v[0] === "R"
+                                                        ? <>권장</>
+                                                        : <></>
+                                                    )
+                                                )
+                                            }
+                                        </td>
+                                    </tr>
+                                    <tr>
                                         <td>폰트 파일의 유료 판매</td>
                                         <td>
                                             {
-                                                props.data[id].c[23].v === "Y"
+                                                props.data[id].c[24].v[1] === "Y"
                                                 ? <svg className="y_btn" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
-                                                : ( props.data[id].c[23].v === "N"
+                                                : ( props.data[id].c[24].v[1] === "N"
                                                     ? <div style={{color:"#C30010"}}>금지</div>
-                                                    : ( props.data[id].c[23].v === "R"
+                                                    : ( props.data[id].c[24].v[1] === "R"
                                                         ? <>권장</>
                                                         : <></>
                                                     )
@@ -415,11 +415,11 @@ function DetailPage(props) {
                                         <td>폰트 파일의 수정, 편집 및 재배포</td>
                                         <td>
                                             {
-                                                props.data[id].c[24].v === "Y"
+                                                props.data[id].c[25].v[0] === "Y"
                                                 ? <svg className="y_btn" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
-                                                : ( props.data[id].c[24].v === "N"
+                                                : ( props.data[id].c[25].v[0] === "N"
                                                     ? <div style={{color:"#C30010"}}>금지</div>
-                                                    : ( props.data[id].c[24].v === "R"
+                                                    : ( props.data[id].c[25].v[0] === "R"
                                                         ? <>권장</>
                                                         : <></>
                                                     )
@@ -431,11 +431,11 @@ function DetailPage(props) {
                                         <td>상업적 용도 사용</td>
                                         <td>
                                             {
-                                                props.data[id].c[24].v === "Y"
+                                                props.data[id].c[25].v[1] === "Y"
                                                 ? <svg className="y_btn" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
-                                                : ( props.data[id].c[24].v === "N"
+                                                : ( props.data[id].c[25].v[1] === "N"
                                                     ? <div style={{color:"#C30010"}}>금지</div>
-                                                    : ( props.data[id].c[24].v === "R"
+                                                    : ( props.data[id].c[25].v[1] === "R"
                                                         ? <>권장</>
                                                         : <></>
                                                     )
@@ -448,11 +448,11 @@ function DetailPage(props) {
                                         <td>출처 표시</td>
                                         <td>
                                             {
-                                                props.data[id].c[25].v === "Y"
+                                                props.data[id].c[26].v === "Y"
                                                 ? <svg className="y_btn" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
-                                                : ( props.data[id].c[25].v === "N"
+                                                : ( props.data[id].c[26].v === "N"
                                                     ? <div style={{color:"#C30010"}}>금지</div>
-                                                    : ( props.data[id].c[25].v === "R"
+                                                    : ( props.data[id].c[26].v === "R"
                                                         ? <>권장</>
                                                         : <></>
                                                     )
