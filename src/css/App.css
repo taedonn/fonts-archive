@@ -1405,6 +1405,24 @@ a {
         height: 36px;
     }
 
+    .font_detail_page_wrap .font_name {
+        font-size: 28px;
+        margin-bottom: 8px;
+    }
+
+    .font_detail_page_wrap .font_source, .font_detail_page_wrap .type_face {
+        font-size: 14px;
+        margin-right: 14px;
+    }
+
+    .font_detail_page_wrap .font_source span, .font_detail_page_wrap .type_face span {
+        margin-right: 6px;
+    }
+
+    .font_detail_page_divider {
+        margin: 20px 0;
+    }
+
     .font_detail_page_wrap .font_detail_page_title {
         font-size: 20px;
         margin-bottom: 16px;
@@ -1419,6 +1437,7 @@ a {
         height: 36px;
         font-size: 14px;
         margin-right: 8px;
+        border: 1px solid;
     }
 
     .font_detail_page_wrap .source_btn {
@@ -1524,16 +1543,8 @@ a {
         width: 100%;
     }
 
-    .main_menu .font_area_wrap {
-        margin-top: 143px;
-    }
-
     .wrap.expand .main_menu .font_area_wrap {
         padding-left: 20px;
-    }
-
-    .main_menu .category label {
-        margin-bottom: 8px;
     }
 
     .font_detail_page_wrap {
@@ -1542,10 +1553,6 @@ a {
 
     .font_detail_page_divider {
         margin: 20px 0;
-    }
-
-    .download_btn_wrap {
-        margin-bottom: 60px;
     }
     
     .font_detail_page_wrap .cdn_wrap {
@@ -1612,17 +1619,93 @@ a {
 }
 
 @media screen and (max-width: 480px) {
+    .main_menu .search_bar input {
+        padding: 12px 20px;
+        padding-left: 52px;
+    }
+
+    .main_menu .category {
+        margin-top: 12px;
+    }
+
     .main_menu .font_box {
         width: 100%;
+        min-height: 160px;
+    }
+
+    .main_menu .font_box .type_face {
+        font-size: 12px;
+        margin-bottom: 8px;
     }
 
     .main_menu .font_area_wrap {
-        margin-top: 141px;
+        margin-top: 129px;
     }
 
     .main_menu .category label {
         padding: 6px 12px;
         padding-bottom: 7px;
         font-size: 10px;
+    }
+
+    .font_detail_page_wrap .font_name {
+        font-size: 24px;
+        margin-bottom: 6px;
+    }
+
+    .font_detail_page_wrap .font_source, .font_detail_page_wrap .type_face {
+        font-size: 12px;
+        margin-right: 12px;
+    }
+
+    .font_detail_page_wrap .font_source span, .font_detail_page_wrap .type_face span {
+        margin-right: 4px;
+    }
+
+    .font_detail_page_divider {
+        margin: 16px 0;
+    }
+
+    .font_detail_page_wrap .source_btn, .font_detail_page_wrap .download_btn {
+        font-size: 12px;
+        height: 32px;
+        padding-bottom: 1px;
+    }
+
+    .font_detail_page_wrap .source_btn {
+        min-width: 120px;
+    }
+
+    .font_detail_page_wrap .download_btn {
+        width: 128px;
+    }
+
+    .download_btn_wrap {
+        margin-bottom: 40px;
+    }
+
+    .font_detail_page_wrap .font_detail_page_title {
+        font-size: 18px;
+        margin-bottom: 14px;
+    }
+
+    .cdn_wrap .cdn_code > div {
+        font-size: 12px;
+    }
+
+    .font_detail_page_wrap .cdn_wrap {
+        margin-bottom: 40px;
+    }
+
+    .font_detail_page_wrap .font_weight_change {
+        padding: 12px 20px;
+    }
+
+    .font_detail_page_wrap .font_weight_title {
+        font-size: 12px;
+    }
+
+    .font_detail_page_wrap .font_size_wrap h2 {
+        font-size: 12px;
     }
 }

@@ -1,4 +1,4 @@
-import { useLayoutEffect, useEffect, useState } from 'react';
+import { useLayoutEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Main from './Main'
 import DetailPage from './DetailPage'
@@ -6,22 +6,16 @@ import DetailPage from './DetailPage'
 function App() {
     const [data, setData] = useState([]);
 
-    useEffect(() => {
-        // 브라잇 모드 / 나잇 모드
-        document.body.classList.add('bright_mode');
-    });
-
     useLayoutEffect(() => {
-        // 데이터 연동
-        const sheetName = 'fonts';
-        const query = 'Select *';
-        const url = 'https://docs.google.com/spreadsheets/d/1ryt-0PI5_hWA3AnP0gcyTRyKh8kqAooApts_cI0yhQ0/gviz/tq?&sheet=' + sheetName + '&tq=' + query;
-
         const dataTimer = setInterval(() => { handleLoad(url); },100);
 
         return () => { clearInterval(dataTimer); }
     });
 
+    // 데이터 연동
+    const sheetName = 'fonts';
+    const query = 'Select *';
+    const url = 'https://docs.google.com/spreadsheets/d/1ryt-0PI5_hWA3AnP0gcyTRyKh8kqAooApts_cI0yhQ0/gviz/tq?&sheet=' + sheetName + '&tq=' + query;
     const handleLoad = (url) => {
         fetch(url)
         .then(res => res.text())
@@ -38,8 +32,8 @@ function App() {
     const goGitHub = () => { window.open('https://github.com/taedonn/fonts-archive','_blank'); }
 
     const goNightMode = (e) => {
-        if(e.target.checked) { document.body.classList.replace('bright_mode','night_mode'); }
-        else { document.body.classList.replace('night_mode','bright_mode'); }
+        if(e.target.checked) { document.body.classList.replace('night_mode','bright_mode'); }
+        else { document.body.classList.replace('bright_mode','night_mode'); }
     }
 
     return (
