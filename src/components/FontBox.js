@@ -6,10 +6,23 @@ function FontBox({data}) {
     const [num, setNum] = useState(12);
 
     useEffect(() => {
-        window.addEventListener('scroll', () => {
-            if ((window.scrollY + window.innerHeight) === document.body.offsetHeight) { setNum(num + 12); }
-        });
+        // 스크롤 이벤트
+        const timer = setInterval(() => {
+            window.addEventListener('scroll', () => { handleScroll(); });
+            window.addEventListener('touchmove', () => { handleScroll(); })
+        },100);
+        return () => {
+            clearInterval(timer);
+            window.removeEventListener('scroll', () => { handleScroll(); });
+            window.removeEventListener('touchmove', () => { handleScroll(); });
+        }
     });
+
+    // 스크롤 이벤트
+    const handleScroll = () => {
+        console.log("Y");
+        if ((window.scrollY + window.innerHeight) === document.body.offsetHeight) { setNum(num + 12); }
+    }
 
     // 폰트 박스 클릭 시 윈도우 맨위로 이동
     const boxOnClick = () => { window.scrollTo(0,0); }

@@ -17,6 +17,14 @@ function App() {
         const query = 'Select *';
         const url = 'https://docs.google.com/spreadsheets/d/1ryt-0PI5_hWA3AnP0gcyTRyKh8kqAooApts_cI0yhQ0/gviz/tq?&sheet=' + sheetName + '&tq=' + query;
 
+        window.addEventListener('load', () => { handleLoad(url); });
+
+        return () => {
+            window.removeEventListener('load', () => { handleLoad(url); });
+        }
+    });
+
+    const handleLoad = (url) => {
         fetch(url)
         .then(res => res.text())
         .then(rep => {
@@ -25,7 +33,7 @@ function App() {
             let item = data.table.rows;
             setData(item);
         });
-    });
+    }
 
     const goUp = () => { window.scrollTo({top:0,behavior:'smooth'}); }
 
