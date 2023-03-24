@@ -35,11 +35,12 @@ function DetailPage(props) {
                         <link href={props.data[id].c[8].v} rel="stylesheet" itemProp="url"/>
                         <Link to={'/fonts-archive/'}><svg className="close_btn" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/></svg></Link>
                         <div className="font_name">{props.data[id].c[1].v}</div>
-                        <div className="type_face">{props.data[id].c[3].v}</div>
+                        <div className="font_source"><span>제작</span>{props.data[id].c[4].v}</div>
+                        <div className="type_face"><span>형태</span>{props.data[id].c[3].v}</div>
                         <div className="font_detail_page_divider"></div>
                         <div className="font_detail_page">
                             <div className="download_btn_wrap">
-                                <a className="source_btn" href={props.data[id].c[6].v} style={{borderColor:props.data[id].c[5].v,color:props.data[id].c[5].v}} target="_blank" rel="noopener noreferrer">{props.data[id].c[4].v} 방문하기</a>
+                                <a className="source_btn" href={props.data[id].c[6].v} style={{borderColor:props.data[id].c[5].v,color:props.data[id].c[5].v}} target="_blank" rel="noopener noreferrer">{props.data[id].c[4].v}에서 보기</a>
                                 <a className="download_btn" href={props.data[id].c[7].v}>폰트 다운로드</a>
                             </div>
                             <p className="font_detail_page_title">웹 폰트 사용하기</p>
@@ -47,11 +48,11 @@ function DetailPage(props) {
                                 <input type="radio" id="cdn_css" name="cdn" defaultChecked/>
                                 <label htmlFor="cdn_css">CSS 설정하기</label>
                                 <input type="radio" id="cdn_link" name="cdn"/>
-                                <label htmlFor="cdn_link">link 설정하기</label>
+                                <label htmlFor="cdn_link">link 방식</label>
                                 <input type="radio" id="cdn_import" name="cdn"/>
-                                <label htmlFor="cdn_import">import 설정하기</label>
+                                <label htmlFor="cdn_import">import 방식</label>
                                 <input type="radio" id="cdn_url" name="cdn"/>
-                                <label htmlFor="cdn_url">URL 설정하기</label>
+                                <label htmlFor="cdn_url">URL 방식</label>
                                 <div className="cdn_code_wrap">
                                     <div className="cdn_code cdn_code_css">
                                         <div className="code">{props.data[id].c[9].v}</div>

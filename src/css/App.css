@@ -387,10 +387,18 @@ a {
     transition: 0.2s;
 }
 
-.font_detail_page_wrap .type_face {
+.font_detail_page_wrap .font_source, .font_detail_page_wrap .type_face {
+    display: inline-block;
     font-size: 16px;
     font-weight: 400;
     line-height: 1.25;
+    transition: 0.2s;
+    margin-right: 16px;
+}
+
+.font_detail_page_wrap .font_source span, .font_detail_page_wrap .type_face span {
+    font-weight: 500;
+    margin-right: 8px;
     transition: 0.2s;
 }
 
@@ -421,6 +429,12 @@ a {
     font-weight: 500;
     text-decoration: none;
     transition: 0.2s;
+}
+
+.source_btn {
+    width: auto;
+    min-width: 180px;
+    padding: 0 16px;
 }
 
 .main_menu .font_box.fade_in {
@@ -933,8 +947,12 @@ a {
     color: #4C4D50;
 }
 
-.bright_mode .font_detail_page_wrap .type_face {
+.bright_mode .font_detail_page_wrap .font_source, .bright_mode .font_detail_page_wrap .type_face {
     color: #97989C;
+}
+
+.bright_mode .font_detail_page_wrap .font_source span, .bright_mode .font_detail_page_wrap .type_face span {
+    color: #636568;
 }
 
 .bright_mode .font_detail_page_wrap .font_detail_page_title {
@@ -1190,8 +1208,12 @@ a {
     color: #DEE1E6;
 }
 
-.night_mode .font_detail_page_wrap .type_face {
+.night_mode .font_detail_page_wrap .font_source, .night_mode .font_detail_page_wrap .type_face {
     color: #97989C;
+}
+
+.night_mode .font_detail_page_wrap .font_source span, .night_mode .font_detail_page_wrap .type_face span {
+    color: #CDCED2;
 }
 
 .night_mode .font_detail_page_wrap .font_detail_page_title {
@@ -1397,6 +1419,11 @@ a {
         height: 36px;
         font-size: 14px;
         margin-right: 8px;
+    }
+
+    .font_detail_page_wrap .source_btn {
+        width: auto;
+        min-width: 140px;
     }
 
     .cdn_wrap {
