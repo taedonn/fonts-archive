@@ -17,11 +17,9 @@ function App() {
         const query = 'Select *';
         const url = 'https://docs.google.com/spreadsheets/d/1ryt-0PI5_hWA3AnP0gcyTRyKh8kqAooApts_cI0yhQ0/gviz/tq?&sheet=' + sheetName + '&tq=' + query;
 
-        window.addEventListener('load', () => { handleLoad(url); });
+        const dataTimer = setInterval(() => { handleLoad(url); },100);
 
-        return () => {
-            window.removeEventListener('load', () => { handleLoad(url); });
-        }
+        return () => { clearInterval(dataTimer); }
     });
 
     const handleLoad = (url) => {
