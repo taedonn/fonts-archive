@@ -9,19 +9,22 @@ function FontBox({data}) {
         // 스크롤 이벤트
         const timer = setInterval(() => {
             window.addEventListener('scroll', () => { handleScroll(); });
-            window.addEventListener('touchmove', () => { handleScroll(); })
+            document.addEventListener('touchmove', () => { handleScrollMobile(); })
         },100);
         return () => {
             clearInterval(timer);
             window.removeEventListener('scroll', () => { handleScroll(); });
-            window.removeEventListener('touchmove', () => { handleScroll(); });
+            document.removeEventListener('touchmove', () => { handleScrollMobile(); });
         }
     });
 
     // 스크롤 이벤트
     const handleScroll = () => {
-        console.log("Y");
-        if ((window.scrollY + window.innerHeight) === document.body.offsetHeight) { setNum(num + 12); }
+        if ((window.scrollY + window.innerHeight) >= document.body.offsetHeight) { setNum(num + 12); }
+    }
+
+    const handleScrollMobile = () => {
+        if ((window.scrollY + window.innerHeight) >= document.body.offsetHeight - (window.innerHeight * 0.1)) { setNum(num + 12); }
     }
 
     // 폰트 박스 클릭 시 윈도우 맨위로 이동
