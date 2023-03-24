@@ -332,7 +332,7 @@ a {
 .main_menu .font_box .type_face {
     font-size: 14px;
     line-height: 1.25;
-    font-weight: 300;
+    font-weight: 400;
     margin-bottom: 16px;
     transition: 0.2s;
 }
@@ -630,7 +630,7 @@ a {
     display: inline-block;
     width: auto;
     font-size: 14px;
-    font-weight: 300;
+    font-weight: 400;
     line-height: 1.25;
     padding-right: 16px;
     transition: 0.2s;
@@ -638,7 +638,7 @@ a {
 
 .font_detail_page_wrap .font_size_wrap h3 {
     width: auto;
-    font-weight: 300;
+    font-weight: 400;
     line-height: 1.25;
     display: -webkit-box;
     -webkit-line-clamp: 1;
@@ -1617,6 +1617,12 @@ a {
     }
 
     .main_menu .font_area_wrap {
-        margin-top: 179px;
+        margin-top: 141px;
+    }
+
+    .main_menu .category label {
+        padding: 6px 12px;
+        padding-bottom: 7px;
+        font-size: 10px;
     }
 }

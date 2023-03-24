@@ -39,7 +39,7 @@ const dummyText = [
   
     '다른 사람에게는 결코 열어주지 않는 문을 당신에게만 열어주는 사람이 있다면 그 사람이야 말로 당신의 진정한 친구이다.'
 ]
-const randomNum = Math.floor(Math.random() * dummyText.length - 1);
+const randomNum = Math.floor(Math.random() * (dummyText.length - 1));
 
 const dummyTextEn = [
     'You will face many defeats in life, but never let yourself be defeated.',
@@ -82,7 +82,7 @@ const dummyTextEn = [
 
     'Money is like gasoline during a road trip. You do not want to run out of gas on your trip, but you ‘re not doing a tour of gas stations.'
 ]
-const randomNumEn = Math.floor(Math.random() * dummyTextEn.length - 1);
+const randomNumEn = Math.floor(Math.random() * (dummyTextEn.length - 1));
 
 function DummyText(props) {
     return (

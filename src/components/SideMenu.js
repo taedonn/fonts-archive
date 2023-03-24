@@ -16,10 +16,16 @@ function SideMenu({data}) {
         if(e.target.checked) {
             document.getElementsByClassName('wrap')[0].classList.remove('expand');
             document.getElementsByClassName('wrap')[0].classList.add('shrink');
+
+            // 720px 이하일 때 사이드 메뉴 접기 & 화면 고정 해제
+            if (window.innerWidth <= 720) { document.body.classList.remove('fixed'); }
         }
         else {
             document.getElementsByClassName('wrap')[0].classList.remove('shrink');
             document.getElementsByClassName('wrap')[0].classList.add('expand');
+            
+            // 720px 이하일 때 사이드 메뉴 펼치기 & 화면 고정
+            if (window.innerWidth <= 720) { document.body.classList.add('fixed'); }
         }
     }
 
@@ -28,7 +34,17 @@ function SideMenu({data}) {
     const sideOnMouseOut = () => { document.body.classList.remove('fixed'); }
 
     // 폰트 리스트 클릭 시 윈도우 맨위로 이동
-    const listOnClick = () => { window.scrollTo(0,0); }
+    const listOnClick = () => {
+        window.scrollTo(0,0);
+
+        // 720px 이하일 때 사이드 메뉴 접기 & 화면 고정 해제
+        if (window.innerWidth <= 720) {
+            document.getElementById('expand_btn').checked = false;
+            document.getElementsByClassName('wrap')[0].classList.remove('expand');
+            document.getElementsByClassName('wrap')[0].classList.add('shrink');
+            document.body.classList.remove('fixed');
+        }
+    }
 
     return (
         <>
