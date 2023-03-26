@@ -143,7 +143,10 @@ function DetailPage(props) {
                                                     ? <div style={{color:"#C30010"}}>금지</div>
                                                     : ( props.data[id].c[18].v[0] === "R"
                                                         ? <>권장</>
-                                                        : <></>
+                                                        : ( props.data[id].c[18].v[0] === "Q"
+                                                            ? <div style={{color:"#C30010"}}>문의</div>
+                                                            : <></>
+                                                        )
                                                     )
                                                 )
                                             }
@@ -159,7 +162,10 @@ function DetailPage(props) {
                                                     ? <div style={{color:"#C30010"}}>금지</div>
                                                     : ( props.data[id].c[18].v[1] === "R"
                                                         ? <>권장</>
-                                                        : <></>
+                                                        : ( props.data[id].c[18].v[1] === "Q"
+                                                            ? <div style={{color:"#C30010"}}>문의</div>
+                                                            : <></>
+                                                        )
                                                     )
                                                 )
                                             }
@@ -175,7 +181,10 @@ function DetailPage(props) {
                                                     ? <div style={{color:"#C30010"}}>금지</div>
                                                     : ( props.data[id].c[18].v[2] === "R"
                                                         ? <>권장</>
-                                                        : <></>
+                                                        : ( props.data[id].c[18].v[2] === "Q"
+                                                            ? <div style={{color:"#C30010"}}>문의</div>
+                                                            : <></>
+                                                        )
                                                     )
                                                 )
                                             }
@@ -191,7 +200,10 @@ function DetailPage(props) {
                                                     ? <div style={{color:"#C30010"}}>금지</div>
                                                     : ( props.data[id].c[18].v[3] === "R"
                                                         ? <>권장</>
-                                                        : <></>
+                                                        : ( props.data[id].c[18].v[3] === "Q"
+                                                            ? <div style={{color:"#C30010"}}>문의</div>
+                                                            : <></>
+                                                        )
                                                     )
                                                 )
                                             }
@@ -207,7 +219,10 @@ function DetailPage(props) {
                                                     ? <div style={{color:"#C30010"}}>금지</div>
                                                     : ( props.data[id].c[18].v[4] === "R"
                                                         ? <>권장</>
-                                                        : <></>
+                                                        : ( props.data[id].c[18].v[4] === "Q"
+                                                            ? <div style={{color:"#C30010"}}>문의</div>
+                                                            : <></>
+                                                        )
                                                     )
                                                 )
                                             }
@@ -224,7 +239,10 @@ function DetailPage(props) {
                                                     ? <div style={{color:"#C30010"}}>금지</div>
                                                     : ( props.data[id].c[19].v[0] === "R"
                                                         ? <>권장</>
-                                                        : <></>
+                                                        : ( props.data[id].c[19].v[0] === "Q"
+                                                            ? <div style={{color:"#C30010"}}>문의</div>
+                                                            : <></>
+                                                        )
                                                     )
                                                 )
                                             }
@@ -239,8 +257,11 @@ function DetailPage(props) {
                                                 : ( props.data[id].c[19].v[1] === "N"
                                                     ? <div style={{color:"#C30010"}}>금지</div>
                                                     : ( props.data[id].c[19].v[1] === "R"
-                                                        ? <>권장</>
-                                                        : <></>
+                                                       ? <>권장</>
+                                                        : ( props.data[id].c[19].v[1] === "Q"
+                                                            ? <div style={{color:"#C30010"}}>문의</div>
+                                                            : <></>
+                                                        )
                                                     )
                                                 )
                                             }
@@ -257,7 +278,10 @@ function DetailPage(props) {
                                                     ? <div style={{color:"#C30010"}}>금지</div>
                                                     : ( props.data[id].c[20].v[0] === "R"
                                                         ? <>권장</>
-                                                        : <></>
+                                                        : ( props.data[id].c[20].v[0] === "Q"
+                                                            ? <div style={{color:"#C30010"}}>문의</div>
+                                                            : <></>
+                                                        )
                                                     )
                                                 )
                                             }
@@ -273,7 +297,10 @@ function DetailPage(props) {
                                                     ? <div style={{color:"#C30010"}}>금지</div>
                                                     : ( props.data[id].c[20].v[1] === "R"
                                                         ? <>권장</>
-                                                        : <></>
+                                                        : ( props.data[id].c[20].v[1] === "Q"
+                                                            ? <div style={{color:"#C30010"}}>문의</div>
+                                                            : <></>
+                                                        )
                                                     )
                                                 )
                                             }
@@ -289,7 +316,10 @@ function DetailPage(props) {
                                                     ? <div style={{color:"#C30010"}}>금지</div>
                                                     : ( props.data[id].c[20].v[2] === "R"
                                                         ? <>권장</>
-                                                        : <></>
+                                                        : ( props.data[id].c[20].v[2] === "Q"
+                                                            ? <div style={{color:"#C30010"}}>문의</div>
+                                                            : <></>
+                                                        )
                                                     )
                                                 )
                                             }
@@ -305,7 +335,10 @@ function DetailPage(props) {
                                                     ? <div style={{color:"#C30010"}}>금지</div>
                                                     : ( props.data[id].c[20].v[3] === "R"
                                                         ? <>권장</>
-                                                        : <></>
+                                                        : ( props.data[id].c[20].v[3] === "Q"
+                                                            ? <div style={{color:"#C30010"}}>문의</div>
+                                                            : <></>
+                                                        )
                                                     )
                                                 )
                                             }
@@ -321,7 +354,10 @@ function DetailPage(props) {
                                                     ? <div style={{color:"#C30010"}}>금지</div>
                                                     : ( props.data[id].c[20].v[4] === "R"
                                                         ? <>권장</>
-                                                        : <></>
+                                                        : ( props.data[id].c[20].v[4] === "Q"
+                                                            ? <div style={{color:"#C30010"}}>문의</div>
+                                                            : <></>
+                                                        )
                                                     )
                                                 )
                                             }
@@ -338,7 +374,10 @@ function DetailPage(props) {
                                                     ? <div style={{color:"#C30010"}}>금지</div>
                                                     : ( props.data[id].c[21].v === "R"
                                                         ? <>권장</>
-                                                        : <></>
+                                                        : ( props.data[id].c[21].v === "Q"
+                                                            ? <div style={{color:"#C30010"}}>문의</div>
+                                                            : <></>
+                                                        )
                                                     )
                                                 )
                                             }
@@ -355,7 +394,10 @@ function DetailPage(props) {
                                                     ? <div style={{color:"#C30010"}}>금지</div>
                                                     : ( props.data[id].c[22].v === "R"
                                                         ? <>권장</>
-                                                        : <></>
+                                                        : ( props.data[id].c[22].v === "Q"
+                                                            ? <div style={{color:"#C30010"}}>문의</div>
+                                                            : <></>
+                                                        )
                                                     )
                                                 )
                                             }
@@ -372,7 +414,10 @@ function DetailPage(props) {
                                                     ? <div style={{color:"#C30010"}}>금지</div>
                                                     : ( props.data[id].c[23].v === "R"
                                                         ? <>권장</>
-                                                        : <></>
+                                                        : ( props.data[id].c[23].v === "Q"
+                                                            ? <div style={{color:"#C30010"}}>문의</div>
+                                                            : <></>
+                                                        )
                                                     )
                                                 )
                                             }
@@ -388,8 +433,11 @@ function DetailPage(props) {
                                                 : ( props.data[id].c[24].v[0] === "N"
                                                     ? <div style={{color:"#C30010"}}>금지</div>
                                                     : ( props.data[id].c[24].v[0] === "R"
-                                                        ? <>권장</>
-                                                        : <></>
+                                                       ? <>권장</>
+                                                        : ( props.data[id].c[24].v[0] === "Q"
+                                                            ? <div style={{color:"#C30010"}}>문의</div>
+                                                            : <></>
+                                                        )
                                                     )
                                                 )
                                             }
@@ -405,7 +453,10 @@ function DetailPage(props) {
                                                     ? <div style={{color:"#C30010"}}>금지</div>
                                                     : ( props.data[id].c[24].v[1] === "R"
                                                         ? <>권장</>
-                                                        : <></>
+                                                        : ( props.data[id].c[24].v[1] === "Q"
+                                                            ? <div style={{color:"#C30010"}}>문의</div>
+                                                            : <></>
+                                                        )
                                                     )
                                                 )
                                             }
@@ -413,7 +464,7 @@ function DetailPage(props) {
                                     </tr>
                                     <tr>
                                         <td rowSpan="2">용도</td>
-                                        <td>폰트 파일의 수정, 편집 및 재배포</td>
+                                        <td>개인적 용도 사용</td>
                                         <td>
                                             {
                                                 props.data[id].c[25].v[0] === "Y"
@@ -422,7 +473,10 @@ function DetailPage(props) {
                                                     ? <div style={{color:"#C30010"}}>금지</div>
                                                     : ( props.data[id].c[25].v[0] === "R"
                                                         ? <>권장</>
-                                                        : <></>
+                                                        : ( props.data[id].c[25].v[0] === "Q"
+                                                            ? <div style={{color:"#C30010"}}>문의</div>
+                                                            : <></>
+                                                        )
                                                     )
                                                 )
                                             }
@@ -438,7 +492,10 @@ function DetailPage(props) {
                                                     ? <div style={{color:"#C30010"}}>금지</div>
                                                     : ( props.data[id].c[25].v[1] === "R"
                                                         ? <>권장</>
-                                                        : <></>
+                                                        : ( props.data[id].c[25].v[1] === "Q"
+                                                            ? <div style={{color:"#C30010"}}>문의</div>
+                                                            : <></>
+                                                        )
                                                     )
                                                 )
                                             }
@@ -455,7 +512,10 @@ function DetailPage(props) {
                                                     ? <div style={{color:"#C30010"}}>금지</div>
                                                     : ( props.data[id].c[26].v === "R"
                                                         ? <>권장</>
-                                                        : <></>
+                                                        : ( props.data[id].c[26].v === "Q"
+                                                            ? <div style={{color:"#C30010"}}>문의</div>
+                                                            : <></>
+                                                        )
                                                     )
                                                 )
                                             }
