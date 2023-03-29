@@ -38,7 +38,7 @@ function FontBox({data}) {
                         <Link className="font_box fade_in" onClick={boxOnClick} to={`/fonts-archive/DetailPage/${dataEach.c[0].v}`} key={dataEach.c[0].v}>
                             <div className="font_name">{dataEach.c[1].v}</div>
                             <div className="type_face">{dataEach.c[3].v}</div>
-                            <div className="font_text" style={{fontFamily:dataEach.c[2].v}}><DummyText lang={dataEach.c[18].v}/></div>
+                            <div className="font_text" style={{fontFamily:dataEach.c[2].v}}><DummyText lang={dataEach.c[22].v}/></div>
                             <link href={dataEach.c[12].v} rel="stylesheet" itemProp="url"/>
                         </Link>
                     ))
