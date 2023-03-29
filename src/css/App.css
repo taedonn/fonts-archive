@@ -16,6 +16,10 @@ body.fixed {
     overflow: hidden;
 }
 
+body.fixed .side_menu {
+    overflow-y: scroll;
+}
+
 input {
     border: none;
     outline: none;
@@ -1579,6 +1583,10 @@ a {
 
     .wrap.expand .main_menu .font_area_wrap {
         padding-left: 20px;
+    }
+
+    .wrap.expand .font_detail_page_wrap {
+        width: 100%;
     }
 
     .font_detail_page_wrap {

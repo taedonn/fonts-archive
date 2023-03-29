@@ -30,8 +30,16 @@ function SideMenu({data}) {
     }
 
     // 사이드 메뉴 마우스오버 시 스크롤 막기
-    const sideOnMouseOver = () => { document.body.classList.add('fixed'); }
-    const sideOnMouseOut = () => { document.body.classList.remove('fixed'); }
+    // const sideOnMouseOver = () => { document.body.classList.add('fixed'); }
+    // const sideOnMouseOut = () => { document.body.classList.remove('fixed'); }
+
+    const sideOnMouseOver = () => {
+        document.body.classList.add('fixed');
+    }
+    const sideOnMouseOut = () => {
+        document.body.classList.remove('fixed');
+    }
+
 
     // 폰트 리스트 클릭 시 윈도우 맨위로 이동
     const listOnClick = () => {
