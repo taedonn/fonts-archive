@@ -12,6 +12,10 @@ body {
     transition: 0.2s;
 }
 
+body::-webkit-scrollbar {
+    display: none;
+}
+
 body.fixed {
     overflow: hidden;
 }

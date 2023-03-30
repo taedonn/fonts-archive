@@ -9,8 +9,12 @@ function Main(props) {
     }
 
     const fontWeightChange = (e) => {
-        let textArea = document.getElementsByClassName('font_text');
-        for (let i = 0; i < textArea.length; i++) { textArea[i].style.fontWeight = e.target.value; }
+        let textArea = document.getElementsByClassName('font_box');
+        for (let i = 0; i < textArea.length; i++) {
+            textArea[i].getElementsByClassName('font_name')[0].style.fontWeight = e.target.value;
+            textArea[i].getElementsByClassName('type_face')[0].style.fontWeight = e.target.value;
+            textArea[i].getElementsByClassName('font_text')[0].style.fontWeight = e.target.value;
+        }
     }
 
     const typeFaceChange = (e) => {
