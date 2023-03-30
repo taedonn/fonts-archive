@@ -6,7 +6,7 @@ function SideMenu({data}) {
         let fontList = document.getElementsByClassName('font_list')[0].getElementsByClassName('font_name');
 
         for (let i = 0; i < fontList.length; i++) {
-            if (fontList[i].innerText.indexOf(e.target.value) === -1) { fontList[i].style.display = 'none'; }
+            if (fontList[i].innerText.toLowerCase().indexOf(e.target.value.toLowerCase()) === -1) { fontList[i].style.display = 'none'; }
             else { fontList[i].style.display = 'block'; }
         }
     }
