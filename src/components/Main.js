@@ -20,10 +20,17 @@ function Main(props) {
     const typeFaceChange = (e) => {
         let fontBox = document.getElementsByClassName('font_box');
         if (e.target.checked) {
-            for (let i = 0; i < fontBox.length; i++) { fontBox[i].classList.add('fade_in'); setTimeout(function(){fontBox[i].classList.remove('fade_in');},600);; if (fontBox[i].getElementsByClassName('type_face')[0].innerText === e.target.value) { fontBox[i].style.display = 'block'; } }
+            for (let i = 0; i < fontBox.length; i++) {
+                fontBox[i].classList.add('fade_in'); 
+                setTimeout(function() { fontBox[i].classList.remove('fade_in'); },600);
+                if (props.data[i].c[3].v === e.target.value) { fontBox[i].style.display = 'block'; }
+            }
         }
         else {
-            for (let i = 0; i < fontBox.length; i++) { fontBox[i].classList.add('fade_in'); setTimeout(function(){fontBox[i].classList.remove('fade_in');},600); if (fontBox[i].getElementsByClassName('type_face')[0].innerText === e.target.value) { fontBox[i].style.display = 'none'; } }
+            for (let i = 0; i < fontBox.length; i++) {
+                fontBox[i].classList.add('fade_in');
+                setTimeout(function() { fontBox[i].classList.remove('fade_in'); },600);
+                if (props.data[i].c[3].v === e.target.value) { fontBox[i].style.display = 'none'; } }
         }
     }
 
