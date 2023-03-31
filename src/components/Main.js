@@ -1,8 +1,16 @@
+import { useEffect, useState } from 'react';
 import '../css/App.css';
 import FontBox from './FontBox';
 import SideMenu from './SideMenu';
 
 function Main(props) {
+    const defaultList = props.data;
+    const [list, setList] = useState(defaultList);
+
+    useEffect(() => {
+        setList(defaultList);
+    },[defaultList]);
+
     const textChange = (e) => {
         let textArea = document.getElementsByClassName('font_text');
         for (let i = 0; i < textArea.length; i++) { textArea[i].innerText = e.target.value; }
@@ -17,21 +25,25 @@ function Main(props) {
         }
     }
 
-    const typeFaceChange = (e) => {
-        let fontBox = document.getElementsByClassName('font_box');
-        if (e.target.checked) {
-            for (let i = 0; i < fontBox.length; i++) {
-                fontBox[i].classList.add('fade_in'); 
-                setTimeout(function() { fontBox[i].classList.remove('fade_in'); },600);
-                if (props.data[i].c[3].v === e.target.value) { fontBox[i].style.display = 'block'; }
-            }
+    const typeFaceChange = () => {
+        let typeFace = document.getElementsByClassName('handle_type_face');
+        let typeFaceChk = [];
+
+        // 어떤 Type Face가 체크되어 있는지 체크
+        for (let i = 0; i < typeFace.length; i++) {
+            if (typeFace[i].checked) { typeFaceChk.push(typeFace[i].value); }
         }
-        else {
-            for (let i = 0; i < fontBox.length; i++) {
-                fontBox[i].classList.add('fade_in');
-                setTimeout(function() { fontBox[i].classList.remove('fade_in'); },600);
-                if (props.data[i].c[3].v === e.target.value) { fontBox[i].style.display = 'none'; } }
-        }
+
+        // 스크롤 맨 위로
+        window.scrollTo(0,0);
+
+        // 데이터 필터링
+        filterData(defaultList, typeFaceChk);
+    }
+
+    const filterData = (data, checkedValue) => {
+        const filteredData = data.filter((item) => checkedValue.includes(item.c[3].v) );
+        setList(filteredData);
     }
 
     return (
@@ -47,11 +59,11 @@ function Main(props) {
                     </div>
                     <div className='category'>
                         <div className='category_1'>
-                            <input type='checkbox' id='serif' onChange={typeFaceChange} value='Serif' defaultChecked/>
+                            <input className='handle_type_face' type='checkbox' id='serif' onChange={typeFaceChange} value='Serif' defaultChecked/>
                             <label htmlFor='serif'>Serif</label>
-                            <input type='checkbox' id='sansSerif' onChange={typeFaceChange} value='Sans Serif' defaultChecked/>
+                            <input className='handle_type_face' type='checkbox' id='sansSerif' onChange={typeFaceChange} value='Sans Serif' defaultChecked/>
                             <label htmlFor='sansSerif'>Sans Serif</label>
-                            <input type='checkbox' id='handWriting' onChange={typeFaceChange} value='Hand Writing' defaultChecked/>
+                            <input className='handle_type_face' type='checkbox' id='handWriting' onChange={typeFaceChange} value='Hand Writing' defaultChecked/>
                             <label htmlFor='handWriting'>Hand Writing</label>
                         </div>
                         <div className='divider'></div>
@@ -69,7 +81,7 @@ function Main(props) {
                         </div>
                     </div>
                 </div>
-                <FontBox data={props.data}/>
+                <FontBox data={list}/>
             </div>
         </>
     );

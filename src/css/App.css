@@ -337,12 +337,24 @@ a {
     transition: 0.2s;
 }
 
-.main_menu .font_box .type_face {
+.main_menu .font_box .font_info_wrap {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.main_menu .font_box .font_info_wrap div {
     font-size: 14px;
     line-height: 1.25;
     font-weight: 400;
-    margin-bottom: 16px;
+    margin-right: 12px;
     transition: 0.2s;
+}
+
+.main_menu .font_box .font_info_wrap .type_face {
+    display: none;
 }
 
 .main_menu .font_box .font_text {
@@ -920,8 +932,12 @@ a {
     color: #35363A;
 }
 
-.bright_mode .main_menu .font_box .type_face {
+.bright_mode .main_menu .font_box .font_info_wrap div {
     color: #97989C;
+}
+
+.bright_mode .main_menu .font_box .font_info_wrap div span {
+    color: #646568;
 }
 
 .bright_mode .main_menu .font_box .font_text {
@@ -1181,8 +1197,12 @@ a {
     color: #DEE1E6;
 }
 
-.night_mode .main_menu .font_box .type_face {
+.night_mode .main_menu .font_box .font_info_wrap div {
     color: #97989C;
+}
+
+.night_mode .main_menu .font_box .font_info_wrap div span {
+    color: #CDCED2;
 }
 
 .night_mode .main_menu .font_box .font_text {
@@ -1694,9 +1714,12 @@ a {
         min-height: 160px;
     }
 
-    .main_menu .font_box .type_face {
-        font-size: 12px;
+    .main_menu .font_box .font_info_wrap {
         margin-bottom: 8px;
+    }
+
+    .main_menu .font_box .font_info_wrap div {
+        font-size: 12px;
     }
 
     .main_menu .font_area_wrap {
