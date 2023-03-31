@@ -349,12 +349,12 @@ a {
     font-size: 14px;
     line-height: 1.25;
     font-weight: 400;
-    margin-right: 12px;
+    margin-right: 8px;
     transition: 0.2s;
 }
 
-.main_menu .font_box .font_info_wrap .type_face {
-    display: none;
+.main_menu .font_box .font_info_wrap div span {
+    transition: 0.2s;
 }
 
 .main_menu .font_box .font_text {
