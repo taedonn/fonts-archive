@@ -10,7 +10,7 @@ function FontBox({data}) {
         const timer = setInterval(() => {
             window.addEventListener('scroll', () => { handleScroll(); });
             document.addEventListener('touchmove', () => { handleScrollMobile(); })
-        },100);
+        },200);
         return () => {
             clearInterval(timer);
             window.removeEventListener('scroll', () => { handleScroll(); });

@@ -284,24 +284,76 @@ a {
     transition: 0.2s;
 }
 
-.main_menu .category_1 input ~ .category_1_option {
+.main_menu .category_1 > input ~ .category_1_option {
+    width: 128px;
     display: none;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
     position: absolute;
     z-index: 2;
-    left: 0;
-    top: 36px;
+    left: -5px;
+    top: 44px;
+    border-radius: 12px;
+    border: 1px solid;
+    padding: 22px 16px;
 }
 
-.main_menu .category_1 input:checked ~ .category_1_option {
-    display: block;
+.main_menu .category_1 > input ~ .category_1_option.fade_in {
+    animation-name: fade_in;
+    animation-delay: 0s;
+    animation-duration: 0.4s;
+    animation-iteration-count: 1;
+    animation-fill-mode: both;
 }
+
+.main_menu .category_1 > input:checked ~ .category_1_option {
+    display: flex;
+    transition: 0.2s;
+}
+
+.main_menu .category_1 input ~ .category_1_option .chk_box {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.main_menu .category_1 input ~ .category_1_option .chk_box:last-of-type {
+    margin-bottom: 0;
+}
+
+.main_menu .category_1 input ~ .category_1_option svg {
+    width: 18px;
+    margin-right: 10px;
+    transition: 0.2s;
+    cursor: pointer;
+}
+
+.main_menu .category_1 input ~ .category_1_option span {
+    font-size: 14px;
+    line-height: 1.25;
+    transition: 0.2s;
+}
+
+.main_menu .category_1_option input + div label .chk_btn { display: block; }
+.main_menu .category_1_option input:checked + div label .chk_btn { display: none; }
+
+.main_menu .category_1_option input + div label .chk_fill_btn { display: none; }
+.main_menu .category_1_option input:checked + div label .chk_fill_btn { display: block; }
 
 .main_menu .category_2 label {
+    height: 34.5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
     position: relative;
-    padding: 8px 20px;
-    padding-bottom: 9px;
+    padding: 0 20px;
     margin-right: 6px;
     border-radius: 100px;
+    border: 1px solid;
     font-size: 14px;
     line-height: 1.25;
     transition: 0.2s;
@@ -897,7 +949,7 @@ a {
         transition: 0.2s;
     }
     .bright_mode .side_menu .font_list .font_name:hover {
-        color: #1a73e8;
+        color: #35363A;
     }
 }
 
@@ -909,8 +961,7 @@ a {
         background-color: #DEE1E6;
     }
     .bright_mode .wrap.shrink .side_menu .expand_btn_wrap:hover {
-        background-color: #E9EAEE;
-        border-color: #1a73e8;
+        background-color: #DEE1E6;
     }
 }
 
@@ -930,22 +981,69 @@ a {
     background-color: #E9EAEE;
 }
 
-.bright_mode .main_menu .category label {
-    background-color: #DEE1E6;
+.bright_mode .main_menu .category_1 input + .category_1_select {
+    background-color: #E9EAEE;
+    border-color: #CDCED2;
     color: #636568;
 }
 
-.bright_mode .main_menu .category input:checked + label {
-    background-color: #35363A;
-    color: #E9EAEE;
+.bright_mode .main_menu .category_1 input:checked + .category_1_select {
+    background-color: #DDE0E9;
+    border-color: #1a73e8;
+    color: #35363A;
 }
 
-.bright_mode .main_menu .category label::selection {
-    background-color: transparent;
+.bright_mode .main_menu .category_1 input + .category_1_select svg {
+    fill: #636568;
+}
+
+.bright_mode .main_menu .category_1 input:checked + .category_1_select svg {
+    fill: #35363A;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .bright_mode .main_menu .category_1 input + .category_1_select:hover {
+        border-color: #1a73e8;
+        background-color: #DDE0E9;
+        color: #35363A;
+    }
+
+    .bright_mode .main_menu .category_1 input + .category_1_select:hover svg {
+        fill: #35363A;
+    }
+}
+
+.bright_mode .main_menu .category_1 input ~ .category_1_option {
+    background-color: #DDE0E9;
+    border-color: #1a73e8;
+}
+
+.bright_mode .main_menu .category_1 input ~ .category_1_option svg {
+    fill: #1a73e8;
+}
+
+.bright_mode .main_menu .category_1 input ~ .category_1_option span {
+    color: #35363A;
 }
 
 .bright_mode .main_menu .category .divider {
     background-color: #CDCED2;
+}
+
+.bright_mode .main_menu .category_2 label {
+    background-color: #E9EAEE;
+    border-color: #CDCED2;
+    color: #97989C;
+}
+
+.bright_mode .main_menu .category_2 input:checked + label {
+    background-color: #D1D5E4;
+    border-color: #1a73e8;
+    color: #35363A;
+}
+
+.bright_mode .main_menu .category_2 label::selection {
+    background-color: transparent;
 }
 
 .bright_mode .main_menu .font_area_divider {
@@ -1113,7 +1211,7 @@ a {
         transition: 0.2s;
     }
     .bright_mode .profile_fixed div:hover, .bright_mode .profile_fixed label:hover {
-        border-color: #1a73e8;
+        background-color: #DEE1E6;
     }
 }
 
@@ -1162,7 +1260,7 @@ a {
         transition: 0.2s;
     }
     .night_mode .side_menu .font_list .font_name:hover {
-        color: #8ab4f8;
+        color: #E9EAEE;
     }
 }
 
@@ -1174,8 +1272,7 @@ a {
         background-color: #35363A;
     }
     .night_mode .wrap.shrink .side_menu .expand_btn_wrap:hover {
-        background-color: #202124;
-        border-color: #8ab4f8;
+        background-color: #35363A;
     }
 }
 
@@ -1195,32 +1292,69 @@ a {
     background-color: #202124;
 }
 
-.night_mode .main_menu .category label {
-    background-color: #646568;
-    color: #202124;
-}
-
-.night_mode .main_menu .category input:checked + label {
-    background-color: #35363A;
-    color: #CDCED2;
-}
-
-.night_mode .main_menu .category label::selection {
-    background-color: transparent;
-}
-
-.night_mode .main_menu .category .divider {
-    background-color: #4C4D50;
-}
-
 .night_mode .main_menu .category_1 input + .category_1_select {
     background-color: #202124;
     border-color: #636568;
     color: #CDCED2;
 }
 
+.night_mode .main_menu .category_1 input:checked + .category_1_select {
+    background-color: #1A1E25;
+    border-color: #8ab4f8;
+    color: #E9EAEE;
+}
+
 .night_mode .main_menu .category_1 input + .category_1_select svg {
     fill: #CDCED2;
+}
+
+.night_mode .main_menu .category_1 input:checked + .category_1_select svg {
+    fill: #E9EAEE;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .night_mode .main_menu .category_1 input + .category_1_select:hover {
+        border-color: #8ab4f8;
+        background-color: #1A1E25;
+        color: #E9EAEE;
+    }
+
+    .night_mode .main_menu .category_1 input + .category_1_select:hover svg {
+        fill: #E9EAEE;
+    }
+}
+
+.night_mode .main_menu .category_1 input ~ .category_1_option {
+    background-color: #1A1E25;
+    border-color: #8ab4f8;
+}
+
+.night_mode .main_menu .category_1 input ~ .category_1_option svg {
+    fill: #8ab4f8;
+}
+
+.night_mode .main_menu .category_1 input ~ .category_1_option span {
+    color: #E9EAEE;
+}
+
+.night_mode .main_menu .category .divider {
+    background-color: #4C4D50;
+}
+
+.night_mode .main_menu .category_2 label {
+    background-color: #202124;
+    border-color: #636568;
+    color: #97989C;
+}
+
+.night_mode .main_menu .category_2 input:checked + label {
+    background-color: #1A1E25;
+    border-color: #8ab4f8;
+    color: #E9EAEE;
+}
+
+.night_mode .main_menu .category_2 label::selection {
+    background-color: transparent;
 }
 
 .night_mode .main_menu .font_area_divider {
@@ -1387,8 +1521,9 @@ a {
     .night_mode .profile_fixed div, .night_mode .profile_fixed label {
         transition: 0.2s;
     }
+
     .night_mode .profile_fixed div:hover, .night_mode .profile_fixed label:hover {
-        border-color: #8ab4f8;
+        background-color: #35363A;
     }
 }
 
@@ -1458,13 +1593,14 @@ a {
     }
 
     .main_menu .category label {
-        padding: 6px 18px;
-        padding-bottom: 7px;
+        height: 30px;
+        padding: 0 18px;
+        padding-bottom: 2px;
         font-size: 12px;
     }
 
     .main_menu .font_area_wrap {
-        margin-top: 135px;
+        margin-top: 137px;
         padding-right: 20px;
         padding-bottom: 28px;
     }
@@ -1771,12 +1907,11 @@ a {
     }
 
     .main_menu .font_area_wrap {
-        margin-top: 129px;
+        margin-top: 126px;
     }
 
     .main_menu .category label {
-        padding: 6px 12px;
-        padding-bottom: 7px;
+        padding: 0 12px;
         font-size: 10px;
     }
 
