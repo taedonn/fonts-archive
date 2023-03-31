@@ -20,7 +20,7 @@ function Main(props) {
         let textArea = document.getElementsByClassName('font_box');
         for (let i = 0; i < textArea.length; i++) {
             textArea[i].getElementsByClassName('font_name')[0].style.fontWeight = e.target.value;
-            textArea[i].getElementsByClassName('type_face')[0].style.fontWeight = e.target.value;
+            textArea[i].getElementsByClassName('font_source')[0].style.fontWeight = e.target.value;
             textArea[i].getElementsByClassName('font_text')[0].style.fontWeight = e.target.value;
         }
     }
@@ -59,12 +59,19 @@ function Main(props) {
                     </div>
                     <div className='category'>
                         <div className='category_1'>
-                            <input className='handle_type_face' type='checkbox' id='serif' onChange={typeFaceChange} value='Serif' defaultChecked/>
-                            <label htmlFor='serif'>Serif</label>
-                            <input className='handle_type_face' type='checkbox' id='sansSerif' onChange={typeFaceChange} value='Sans Serif' defaultChecked/>
-                            <label htmlFor='sansSerif'>Sans Serif</label>
-                            <input className='handle_type_face' type='checkbox' id='handWriting' onChange={typeFaceChange} value='Hand Writing' defaultChecked/>
-                            <label htmlFor='handWriting'>Hand Writing</label>
+                            <input type='checkbox' id='category_1_select'/>
+                            <label className='category_1_select' htmlFor='category_1_select'>
+                                Categories
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M7.022 1.566a1.13 1.13 0 0 1 1.96 0l6.857 11.667c.457.778-.092 1.767-.98 1.767H1.144c-.889 0-1.437-.99-.98-1.767L7.022 1.566z"/></svg>
+                            </label>
+                            <div className='category_1_option'>
+                                <input className='handle_type_face' type='checkbox' id='serif' onChange={typeFaceChange} value='Serif' defaultChecked/>
+                                <label htmlFor='serif'>Serif</label>
+                                <input className='handle_type_face' type='checkbox' id='sansSerif' onChange={typeFaceChange} value='Sans Serif' defaultChecked/>
+                                <label htmlFor='sansSerif'>Sans Serif</label>
+                                <input className='handle_type_face' type='checkbox' id='handWriting' onChange={typeFaceChange} value='Hand Writing' defaultChecked/>
+                                <label htmlFor='handWriting'>Hand Writing</label>
+                            </div>
                         </div>
                         <div className='divider'></div>
                         <div className='category_2'>

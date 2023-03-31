@@ -258,7 +258,45 @@ a {
     display: none;
 }
 
-.main_menu .category label {
+.main_menu .category_1 {
+    position: relative;
+}
+
+.main_menu .category_1_select {
+    height: 34.5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 0 20px;
+    border: 1px solid;
+    border-radius: 40px;
+    font-size: 14px;
+    line-height: 1.25;
+    transition: 0.2s;
+    cursor: pointer;
+}
+
+.main_menu .category_1_select svg {
+    width: 8px;
+    transform: rotate(180deg);
+    margin-left: 12px;
+    transition: 0.2s;
+}
+
+.main_menu .category_1 input ~ .category_1_option {
+    display: none;
+    position: absolute;
+    z-index: 2;
+    left: 0;
+    top: 36px;
+}
+
+.main_menu .category_1 input:checked ~ .category_1_option {
+    display: block;
+}
+
+.main_menu .category_2 label {
     position: relative;
     padding: 8px 20px;
     padding-bottom: 9px;
@@ -859,7 +897,7 @@ a {
         transition: 0.2s;
     }
     .bright_mode .side_menu .font_list .font_name:hover {
-        color: #35363A;
+        color: #1a73e8;
     }
 }
 
@@ -872,7 +910,7 @@ a {
     }
     .bright_mode .wrap.shrink .side_menu .expand_btn_wrap:hover {
         background-color: #E9EAEE;
-        border-color: #B1B2B6;
+        border-color: #1a73e8;
     }
 }
 
@@ -1075,7 +1113,7 @@ a {
         transition: 0.2s;
     }
     .bright_mode .profile_fixed div:hover, .bright_mode .profile_fixed label:hover {
-        border-color: #B1B2B6;
+        border-color: #1a73e8;
     }
 }
 
@@ -1124,7 +1162,7 @@ a {
         transition: 0.2s;
     }
     .night_mode .side_menu .font_list .font_name:hover {
-        color: #DEE1E6;
+        color: #8ab4f8;
     }
 }
 
@@ -1137,7 +1175,7 @@ a {
     }
     .night_mode .wrap.shrink .side_menu .expand_btn_wrap:hover {
         background-color: #202124;
-        border-color: #636568;
+        border-color: #8ab4f8;
     }
 }
 
@@ -1173,6 +1211,16 @@ a {
 
 .night_mode .main_menu .category .divider {
     background-color: #4C4D50;
+}
+
+.night_mode .main_menu .category_1 input + .category_1_select {
+    background-color: #202124;
+    border-color: #636568;
+    color: #CDCED2;
+}
+
+.night_mode .main_menu .category_1 input + .category_1_select svg {
+    fill: #CDCED2;
 }
 
 .night_mode .main_menu .font_area_divider {
@@ -1340,7 +1388,7 @@ a {
         transition: 0.2s;
     }
     .night_mode .profile_fixed div:hover, .night_mode .profile_fixed label:hover {
-        border-color: #636568;
+        border-color: #8ab4f8;
     }
 }
 
