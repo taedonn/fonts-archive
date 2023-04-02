@@ -38,7 +38,7 @@ function FontBox({data}) {
             <div className="font_area_wrap">
                 {
                     data.slice(0,num).map((dataEach) => (
-                        <Link className="font_box fade_in" onClick={boxOnClick} to={`/fonts-archive/DetailPage/${dataEach.c[0].v}`} key={dataEach.c[0].v}>
+                        <Link className="font_box fade_in" onClick={boxOnClick} to={`/DetailPage/${dataEach.c[0].v}`} key={dataEach.c[0].v}>
                             <div className="font_name" style={{fontFamily:dataEach.c[2].v}}>{dataEach.c[1].v}</div>
                             <div className='font_info_wrap'>
                                 <div className="font_source" style={{fontFamily:dataEach.c[2].v}}><span>by</span> {dataEach.c[4].v}</div>

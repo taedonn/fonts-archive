@@ -28,12 +28,12 @@ function DetailPage(props) {
         <>
             {
                 props.data[id] === undefined
-                ? <Navigate replace to='/fonts-archive'/>
+                ? <Navigate replace to='/'/>
                 : <>
                     <SideMenu data={props.data}/>
                     <div className="font_detail_page_wrap">
                         <link href={props.data[id].c[12].v} rel="stylesheet" itemProp="url"/>
-                        <Link to={'/fonts-archive/'}><svg className="close_btn" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/></svg></Link>
+                        <Link to={'/'}><svg className="close_btn" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/></svg></Link>
                         <div className="font_name">{props.data[id].c[1].v}</div>
                         <div className="font_source"><span>제작</span>{props.data[id].c[4].v}</div>
                         <div className="type_face"><span>형태</span>{props.data[id].c[3].v}</div>

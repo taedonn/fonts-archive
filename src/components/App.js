@@ -41,9 +41,9 @@ function App() {
             <div className={window.innerWidth > 1080 ? 'wrap expand' : 'wrap shrink'}>
                 <BrowserRouter>
                     <Routes>
-                        <Route path='/fonts-archive' element={<Main data={data}/>}></Route>
-                        <Route path='/fonts-archive/DetailPage/:id' element={<DetailPage data={data}/>}></Route>
-                        <Route path='*' element={<Navigate replace to='/fonts-archive' data={data}/>}></Route>
+                        <Route path='/' element={<Main data={data}/>}></Route>
+                        <Route path='/DetailPage/:id' element={<DetailPage data={data}/>}></Route>
+                        <Route path='*' element={<Navigate replace to='/' data={data}/>}></Route>
                     </Routes>
                 </BrowserRouter>
                 <div className='profile_fixed'>
