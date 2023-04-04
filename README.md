@@ -8,7 +8,7 @@
 
 ## Fonts Archive란?
 
-Organization 방문하기 : https://github.com/fonts-archive
+단체(Organization) 방문하기 : https://github.com/fonts-archive
 
 [![Organization Link](https://img.shields.io/badge/featured%20on-GitHub%20Organization-%232B3137)](#)
 
