@@ -88,12 +88,12 @@ function DummyText(props) {
     return (
         <>
             {
-                props.lang === "KR"
+                props.lang === "KR" && props.text === ""
                 ? dummyText[randomNum]
                 : (
-                    props.lang === "EN"
+                    props.lang === "EN" && props.text === ""
                     ? dummyTextEn[randomNumEn]
-                    : <></>
+                    : props.text
                 )
             }
         </>

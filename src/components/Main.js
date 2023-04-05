@@ -6,6 +6,7 @@ import SideMenu from './SideMenu';
 function Main(props) {
     const defaultList = props.data;
     const [list, setList] = useState(defaultList);
+    const [txt, setTxt] = useState("");
 
     useEffect(() => {
         setList(defaultList);
@@ -26,6 +27,7 @@ function Main(props) {
     }, [searchRef]);
 
     const textChange = (e) => {
+        setTxt(e.target.value);
         let textArea = document.getElementsByClassName('font_text');
         for (let i = 0; i < textArea.length; i++) { textArea[i].innerText = e.target.value; }
     }
@@ -135,7 +137,7 @@ function Main(props) {
                         </div>
                     </div>
                 </div>
-                <FontBox data={list}/>
+                <FontBox data={list} text={txt}/>
             </div>
         </>
     );
