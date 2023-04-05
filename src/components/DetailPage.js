@@ -81,47 +81,47 @@ function DetailPage(props) {
                                 <input className="font_weight_change" type="text" placeholder="Type Something" onChange={detailTextChange}/>
                                 {
                                     props.data[id].c[13].v === "Y"
-                                    ? <><div className="font_weight_title">Thin 100</div><div className="font_weight_txt" style={{fontFamily:props.data[id].c[2].v,fontWeight:"100"}}><DummyText lang={props.data[id].c[22].v}/></div></>
+                                    ? <><div className="font_weight_title">Thin 100</div><div className="font_weight_txt" style={{fontFamily:props.data[id].c[2].v,fontWeight:"100"}}><DummyText lang={props.data[id].c[22].v} text={""}/></div></>
                                     : <></>
                                 }
                                 {
                                     props.data[id].c[14].v === "Y"
-                                    ? <><div className="font_weight_title">ExtraLight 200</div><div className="font_weight_txt" style={{fontFamily:props.data[id].c[2].v,fontWeight:"200"}}><DummyText lang={props.data[id].c[22].v}/></div></>
+                                    ? <><div className="font_weight_title">ExtraLight 200</div><div className="font_weight_txt" style={{fontFamily:props.data[id].c[2].v,fontWeight:"200"}}><DummyText lang={props.data[id].c[22].v} text={""}/></div></>
                                     : <></>
                                 }
                                 {
                                     props.data[id].c[15].v === "Y"
-                                    ? <><div className="font_weight_title">Light 300</div><div className="font_weight_txt" style={{fontFamily:props.data[id].c[2].v,fontWeight:"300"}}><DummyText lang={props.data[id].c[22].v}/></div></>
+                                    ? <><div className="font_weight_title">Light 300</div><div className="font_weight_txt" style={{fontFamily:props.data[id].c[2].v,fontWeight:"300"}}><DummyText lang={props.data[id].c[22].v} text={""}/></div></>
                                     : <></>
                                 }
                                 {
                                     props.data[id].c[16].v === "Y"
-                                    ? <><div className="font_weight_title">Regular 400</div><div className="font_weight_txt" style={{fontFamily:props.data[id].c[2].v,fontWeight:"400"}}><DummyText lang={props.data[id].c[22].v}/></div></>
+                                    ? <><div className="font_weight_title">Regular 400</div><div className="font_weight_txt" style={{fontFamily:props.data[id].c[2].v,fontWeight:"400"}}><DummyText lang={props.data[id].c[22].v} text={""}/></div></>
                                     : <></>
                                 }
                                 {
                                     props.data[id].c[17].v === "Y"
-                                    ? <><div className="font_weight_title">Medium 500</div><div className="font_weight_txt" style={{fontFamily:props.data[id].c[2].v,fontWeight:"500"}}><DummyText lang={props.data[id].c[22].v}/></div></>
+                                    ? <><div className="font_weight_title">Medium 500</div><div className="font_weight_txt" style={{fontFamily:props.data[id].c[2].v,fontWeight:"500"}}><DummyText lang={props.data[id].c[22].v} text={""}/></div></>
                                     : <></>
                                 }
                                 {
                                     props.data[id].c[18].v === "Y"
-                                    ? <><div className="font_weight_title">Bold 600</div><div className="font_weight_txt" style={{fontFamily:props.data[id].c[2].v,fontWeight:"600"}}><DummyText lang={props.data[id].c[22].v}/></div></>
+                                    ? <><div className="font_weight_title">Bold 600</div><div className="font_weight_txt" style={{fontFamily:props.data[id].c[2].v,fontWeight:"600"}}><DummyText lang={props.data[id].c[22].v} text={""}/></div></>
                                     : <></>
                                 }
                                 {
                                     props.data[id].c[19].v === "Y"
-                                    ? <><div className="font_weight_title">ExtraBold 700</div><div className="font_weight_txt" style={{fontFamily:props.data[id].c[2].v,fontWeight:"700"}}><DummyText lang={props.data[id].c[22].v}/></div></>
+                                    ? <><div className="font_weight_title">ExtraBold 700</div><div className="font_weight_txt" style={{fontFamily:props.data[id].c[2].v,fontWeight:"700"}}><DummyText lang={props.data[id].c[22].v} text={""}/></div></>
                                     : <></>
                                 }
                                 {
                                     props.data[id].c[20].v === "Y"
-                                    ? <><div className="font_weight_title">Heavy 800</div><div className="font_weight_txt" style={{fontFamily:props.data[id].c[2].v,fontWeight:"800"}}><DummyText lang={props.data[id].c[22].v}/></div></>
+                                    ? <><div className="font_weight_title">Heavy 800</div><div className="font_weight_txt" style={{fontFamily:props.data[id].c[2].v,fontWeight:"800"}}><DummyText lang={props.data[id].c[22].v} text={""}/></div></>
                                     : <></>
                                 }
                                 {
                                     props.data[id].c[21].v === "Y"
-                                    ? <><div className="font_weight_title">Black 900</div><div className="font_weight_txt" style={{fontFamily:props.data[id].c[2].v,fontWeight:"900"}}><DummyText lang={props.data[id].c[22].v}/></div></>
+                                    ? <><div className="font_weight_title">Black 900</div><div className="font_weight_txt" style={{fontFamily:props.data[id].c[2].v,fontWeight:"900"}}><DummyText lang={props.data[id].c[22].v} text={""}/></div></>
                                     : <></>
                                 }
                             </div>
