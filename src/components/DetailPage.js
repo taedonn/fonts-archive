@@ -40,7 +40,7 @@ function DetailPage(props) {
                         <div className="font_detail_page_divider"></div>
                         <div className="font_detail_page">
                             <div className="download_btn_wrap">
-                                <a className="source_btn" href={props.data[id].c[6].v} style={{borderColor:props.data[id].c[5].v,color:props.data[id].c[5].v}} target="_blank" rel="noopener noreferrer">원본 페이지로 이동</a>
+                                <a className="source_btn" href={props.data[id].c[6].v} style={{borderColor:"#8AB4F8",color:"#8AB4F8"}} target="_blank" rel="noopener noreferrer">원본 페이지로 이동</a>
                                 <a className="download_btn" href={props.data[id].c[7].v} target="_blank" rel="noopener noreferrer">폰트 다운로드</a>
                             </div>
                             <p className="font_detail_page_title">웹 폰트 사용하기</p>
