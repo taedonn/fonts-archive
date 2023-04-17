@@ -1,8 +1,10 @@
-import { Link, useParams, Navigate } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import SideMenu from './SideMenu';
 import DummyText from './DummyText';
 
-const alphabet = '가 나 다 라 마 바 사 아 자 차 카 타 파 하 a b c d e f g h i j k l m n o p q r s t u v w x y z 0 1 2 3 4 5 6 7 8 9 가 나 다 라 마 바 사 아 자 차 카 타 파 하 a b c d e f g h i j k l m n o p q r s t u v w x y z 0 1 2 3 4 5 6 7 8 9 가 나 다 라 마 바 사 아 자 차 카 타 파 하 a b c d e f g h i j k l m n o p q r s t u v w x y z 0 1 2 3 4 5 6 7 8 9'
+const alphabet = '가 나 다 라 마 바 사 아 자 차 카 타 파 하 a b c d e f g h i j k l m n o p q r s t u v w x y z 0 1 2 3 4 5 6 7 8 9 가 나 다 라 마 바 사 아 자 차 카 타 파 하 a b c d e f g h i j k l m n o p q r s t u v w x y z 0 1 2 3 4 5 6 7 8 9 가 나 다 라 마 바 사 아 자 차 카 타 파 하 a b c d e f g h i j k l m n o p q r s t u v w x y z 0 1 2 3 4 5 6 7 8 9';
+
+const urlString = window.location.href.split('DetailPage/')[1];
 
 function DetailPage(props) {
     const { id } = useParams();
@@ -28,7 +30,7 @@ function DetailPage(props) {
         <>
             {
                 props.data[id] === undefined
-                ? <Navigate replace to='/'/>
+                ? props.data[id] === urlString
                 : <>
                     <SideMenu data={props.data}/>
                     <div className="font_detail_page_wrap">
