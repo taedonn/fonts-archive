@@ -10,6 +10,7 @@ const url = 'https://docs.google.com/spreadsheets/d/1ryt-0PI5_hWA3AnP0gcyTRyKh8k
 
 function App() {
     const [data, setData] = useState([]);
+    const [fixedData, setFixedData] = useState([]);
 
     useEffect(() => { handleLoad(url); },[]);
 
@@ -20,8 +21,9 @@ function App() {
         .then(rep => {
             // JSON만 추출
             let data = JSON.parse(rep.substring(47).slice(0, -2));
-            let item = data.table.rows;
-            setData(item);
+            let data2 = JSON.parse(rep.substring(47).slice(0, -2));
+            setData(data.table.rows);
+            setFixedData(data2.table.rows);
         });
     }
 
@@ -39,9 +41,9 @@ function App() {
             <div className={window.innerWidth > 1080 ? 'wrap expand' : 'wrap shrink'}>
                 <BrowserRouter>
                     <Routes>
-                        <Route path='/' element={<Main data={data}/>}></Route>
-                        <Route path='/DetailPage/:id' element={<DetailPage data={data}/>}></Route>
-                        <Route path='*' element={<Navigate replace to='/' data={data}/>}></Route>
+                        <Route path='/' element={<Main fixedData={fixedData} data={data}/>}></Route>
+                        <Route path='/DetailPage/:id' element={<DetailPage fixedData={fixedData} data={data}/>}></Route>
+                        <Route path='*' element={<Navigate replace to='/' fixedData={fixedData} data={data}/>}></Route>
                     </Routes>
                 </BrowserRouter>
                 <div className='profile_fixed'>

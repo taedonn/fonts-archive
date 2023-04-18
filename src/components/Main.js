@@ -154,7 +154,7 @@ function Main(props) {
 
     return (
         <>
-            <SideMenu data={defaultList}/>
+            <SideMenu data={props.fixedData}/>
             <div className='main_menu'>
                 <div className='main_menu_fixed'>
                     <div className='search_bar'>
@@ -314,7 +314,7 @@ function Main(props) {
                         </div>
                     </div>
                 </div>
-                <FontBox data={list} text={txt} fontWeight={fontWeight}/>
+                <FontBox data={list} text={txt} fontWeight={fontWeight} sortby={sortby}/>
             </div>
         </>
     );

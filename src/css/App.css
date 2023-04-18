@@ -137,14 +137,16 @@ a {
 }
 
 .side_menu .font_list {
-    width: 90%;
+    width: 100%;
     margin-top: 30px;
 }
 
 .side_menu .font_list .font_name {
     display: block;
     font-size: 14px;
-    margin-bottom: 8px;
+    padding: 6px 5%;
+    margin-bottom: 0;
+    border-radius: 8px;
     cursor: pointer;
     transition: 0.2s;
 }
@@ -192,8 +194,8 @@ a {
 }
 
 .main_menu .main_menu_fixed {
-    padding: 40px;
-    padding-bottom: 40px;
+    padding: 20px;
+    padding-bottom: 20px;
     position: fixed;
     right: 0;
     top: 0;
@@ -244,7 +246,7 @@ a {
     flex-flow: row wrap;
     justify-content: flex-start;
     align-items: center;
-    margin-top: 16px;
+    margin-top: 12px;
 }
 
 .main_menu .category .category_box {
@@ -375,18 +377,18 @@ a {
     justify-content: space-between;
     align-items: stretch;
     position: relative;
-    margin-top: 181px;
-    padding-right: 40px;
+    margin-top: 138px;
+    padding-right: 20px;
     padding-bottom: 32px;
     transition: 0.2s;
 }
 
 .wrap.expand .main_menu .font_area_wrap {
-    padding-left: 320px;
+    padding-left: 300px;
 }
 
 .wrap.shrink .main_menu .font_area_wrap {
-    padding-left: 40px;
+    padding-left: 20px;
 }
 
 .main_menu .font_area_wrap::-webkit-scrollbar {
@@ -929,6 +931,7 @@ a {
 
 .bright_mode .side_menu .search_bar input, .bright_mode .main_menu .search_bar input {
     border-color: #CDCED2;
+    background-color: #E9EAEE;
     color: #636568;
 }
 
@@ -949,7 +952,10 @@ a {
         transition: 0.2s;
     }
     .bright_mode .side_menu .font_list .font_name:hover {
-        color: #35363A;
+        background-color: #DEE1E6;
+    }
+    .bright_mode .side_menu .search_bar input:hover, .bright_mode .main_menu .search_bar input:hover {
+        background-color: #DEE1E6;
     }
 }
 
@@ -978,7 +984,7 @@ a {
 }
 
 .bright_mode .main_menu .main_menu_fixed {
-    background-color: #E9EAEE;
+    background-color: #E9EAEEF0;
 }
 
 .bright_mode .main_menu .category_box > input + label {
@@ -1240,6 +1246,7 @@ a {
 
 .night_mode .side_menu .search_bar input, .night_mode .main_menu .search_bar input {
     border-color: #4C4D50;
+    background-color: #202124;
     color: #CDCED2;
 }
 
@@ -1257,10 +1264,13 @@ a {
 
 @media (hover: hover) and (pointer: fine) {
     .night_mode .side_menu .font_list .font_name {
-        transition: 0.2s;
+        transition: 0.1s;
     }
     .night_mode .side_menu .font_list .font_name:hover {
-        color: #E9EAEE;
+        background-color: #35363A;
+    }
+    .night_mode .side_menu .search_bar input:hover, .night_mode .main_menu .search_bar input:hover {
+        background-color: #35363A;
     }
 }
 
@@ -1289,7 +1299,7 @@ a {
 }
 
 .night_mode .main_menu .main_menu_fixed {
-    background-color: #202124;
+    background-color: #202124F0;
 }
 
 .night_mode .main_menu .category_box > input + label {
@@ -1540,11 +1550,6 @@ a {
         margin-bottom: 60px;
     }
 
-    .main_menu .font_area_wrap {
-        margin-top: 181px;
-        padding-bottom: 32px;
-    }
-
     .main_menu .font_box .font_text {
         font-size: 28px;
     }
@@ -1572,11 +1577,15 @@ a {
     }
 
     .main_menu .main_menu_fixed {
-        padding: 20px;
+        padding: 16px 20px;
     }
 
     .wrap.expand .main_menu .main_menu_fixed {
         width: calc(100% - 240px);
+    }
+
+    .main_menu .category {
+        margin-top: 10px;
     }
 
     .main_menu .category .divider {
@@ -1609,7 +1618,7 @@ a {
     }
 
     .main_menu .font_area_wrap {
-        margin-top: 138px;
+        margin-top: 124px;
         padding-right: 20px;
         padding-bottom: 28px;
     }
@@ -1898,6 +1907,34 @@ a {
         padding-left: 52px;
     }
 
+    .main_menu .category_box > label {
+        height: 28px;
+        padding: 0 14px;
+        padding-bottom: 1px;
+    }
+
+    .main_menu .category_box > input ~ .category_option {
+        width: 106px;
+        top: 36px;
+    }
+
+    .main_menu .category_box > input ~ .category_option {
+        padding: 16px 12px;
+    }
+
+    .main_menu .category_box input ~ .category_option .chk_box {
+        margin-bottom: 12px;
+    }
+
+    .main_menu .category_box input ~ .category_option span {
+        font-size: 12px;
+    }
+
+    .main_menu .category_box input ~ .category_option svg {
+        width: 14px;
+        margin-right: 8px;
+    }
+
     .main_menu .font_box {
         width: 100%;
         min-height: 160px;
@@ -1912,7 +1949,7 @@ a {
     }
 
     .main_menu .font_area_wrap {
-        margin-top: 128px;
+        margin-top: 114px;
     }
 
     .font_detail_page_wrap .font_name {
