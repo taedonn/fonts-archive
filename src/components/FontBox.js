@@ -39,11 +39,11 @@ function FontBox(props) {
                 {
                     props.data.slice(0,num).map((dataEach) => (
                         <Link className="font_box fade_in" onClick={boxOnClick} to={`/DetailPage/${dataEach.c[0].v}`} key={dataEach.c[0].v}>
-                            <div className="font_name" style={{fontFamily:dataEach.c[2].v}}>{dataEach.c[1].v}</div>
+                            <div className="font_name" style={{fontFamily:dataEach.c[2].v,fontWeight:props.fontWeight}}>{dataEach.c[1].v}</div>
                             <div className='font_info_wrap'>
-                                <div className="font_source" style={{fontFamily:dataEach.c[2].v}}><span>by</span> {dataEach.c[4].v}</div>
+                                <div className="font_source" style={{fontFamily:dataEach.c[2].v,fontWeight:props.fontWeight}}><span>by</span> {dataEach.c[4].v}</div>
                             </div>
-                            <div className="font_text" style={{fontFamily:dataEach.c[2].v}}><DummyText lang={dataEach.c[22].v} text={props.text}/></div>
+                            <div className="font_text" style={{fontFamily:dataEach.c[2].v,fontWeight:props.fontWeight}}><DummyText lang={dataEach.c[22].v} text={props.text}/></div>
                             <link href={dataEach.c[12].v} rel="stylesheet" type="text/css" itemProp="url"/>
                         </Link>
                     ))
