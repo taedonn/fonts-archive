@@ -9,9 +9,12 @@ function Main(props) {
     const [txt, setTxt] = useState("");
     const defaultFontWeight = "400"
     const [fontWeight, setFontWeight] = useState(defaultFontWeight);
+    const defaultSortby = "name";
+    const [sortby, setSortby] = useState(defaultSortby);
 
     useEffect(() => { setList(defaultList); },[defaultList]);
     useEffect(() => { setFontWeight(defaultFontWeight); },[defaultFontWeight]);
+    useEffect(() => { setSortby(defaultSortby); },[defaultSortby]);
 
     // 셀렉트박스 외 영역 클릭 시 셀렉트박스 클릭 해제
     const searchRef1_1 = useRef(null);
@@ -41,6 +44,20 @@ function Main(props) {
         return () => { document.removeEventListener("mouseup", handleOutside2); };
     }, [searchRef2_1]);
 
+    // 셀렉트박스 외 영역 클릭 시 셀렉트박스 클릭 해제 2
+    const searchRef3_1 = useRef(null);
+    const searchRef3_2 = useRef(null);
+
+    useEffect(() => {
+        function handleOutside2(e) {
+            if (searchRef3_1.current && !searchRef3_1.current.contains(e.target) && !searchRef3_2.current.contains(e.target)) {
+                document.getElementById('category_3_select').checked = false;
+            }
+        }
+        document.addEventListener("mouseup", handleOutside2);
+        return () => { document.removeEventListener("mouseup", handleOutside2); };
+    }, [searchRef3_1]);
+
     const textChange = (e) => {
         if (e.target.value === "") { setTxt("원하는 문구를 적어보세요"); }
         else { setTxt(e.target.value); }
@@ -64,7 +81,25 @@ function Main(props) {
         window.scrollTo(0,0);
 
         // 데이터 필터링
-        filterData(defaultList, typeFaceChk);
+        filterData(defaultList, typeFaceChk, sortby);
+    }
+
+    const filterData = (data, checkedValue, sort) => {
+        let filteredData = data.filter((item) => checkedValue.includes(item.c[3].v) );
+        if (sort === "name") { 
+            let dataSortedByName = filteredData.sort(function(a,b) {
+                return b.c[1].v.localeCompare(a.c[1].v);
+            }).reverse();
+            setList(dataSortedByName);
+        }
+        else if (sort === "latest") {
+            let dataSortedByLatest = filteredData.sort(function(a,b) {
+                if (a.c[5].v > b.c[5].v) return -1;
+                else if (b.c[5].v > a.c[5].v) return 1;
+                else return 0;
+            });
+            setList(dataSortedByLatest);
+        }
     }
 
     const fontWeightChange = (e) => {
@@ -72,9 +107,28 @@ function Main(props) {
         if (e.target.checked) { setFontWeight(e.target.value); }
     }
 
-    const filterData = (data, checkedValue) => {
-        const filteredData = data.filter((item) => checkedValue.includes(item.c[3].v) );
-        setList(filteredData);
+    const sortbyChange = (e) => {
+        // 어떤 Sortby가 체크되어 있는지 체크
+        if (e.target.checked) {
+            setSortby(e.target.value);
+            if (e.target.value === "name") {
+                let sortbyName = list.sort(function(a,b) {
+                    return b.c[1].v.localeCompare(a.c[1].v);
+                }).reverse();
+                setList(sortbyName);
+            }
+            else if (e.target.value === "latest") {
+                let sortbyLatest = list.sort(function(a,b) {
+                    if (a.c[5].v > b.c[5].v) return -1;
+                    else if (b.c[5].v > a.c[5].v) return 1;
+                    else return 0;
+                });
+                setList(sortbyLatest);
+            }
+        }
+
+        // 스크롤 맨 위로
+        window.scrollTo(0,0);
     }
 
     const handleChange = (e) => {
@@ -91,9 +145,16 @@ function Main(props) {
         }
     }
 
+    const handleChange3 = (e) => {
+        if (e.target.checked) {
+            document.getElementsByClassName('category_option_3')[0].classList.add('fade_in');
+            setTimeout(function() { document.getElementsByClassName('category_option_3')[0].classList.remove('fade_in'); },600);
+        }
+    }
+
     return (
         <>
-            <SideMenu data={props.data}/>
+            <SideMenu data={defaultList}/>
             <div className='main_menu'>
                 <div className='main_menu_fixed'>
                     <div className='search_bar'>
@@ -144,7 +205,6 @@ function Main(props) {
                                 </div>
                             </div>
                         </div>
-                        <div className='divider'></div>
                         <div className='category_box category_2'>
                             <input type='checkbox' id='category_2_select' onChange={handleChange2}/>
                             <label className='category_2_select' ref={searchRef2_2} htmlFor='category_2_select'>
@@ -223,6 +283,32 @@ function Main(props) {
                                         <svg className='chk_fill_btn' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm10.03 4.97a.75.75 0 0 1 .011 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.75.75 0 0 1 1.08-.022z"/></svg>
                                     </label>
                                     <span>900</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div className='divider'></div>
+                        <div className='category_box category_3'>
+                            <input type='checkbox' id='category_3_select' onChange={handleChange3}/>
+                            <label className='category_3_select' ref={searchRef3_2} htmlFor='category_3_select'>
+                                정렬 기준
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M7.022 1.566a1.13 1.13 0 0 1 1.96 0l6.857 11.667c.457.778-.092 1.767-.98 1.767H1.144c-.889 0-1.437-.99-.98-1.767L7.022 1.566z"/></svg>
+                            </label>
+                            <div className='category_option category_option_3' ref={searchRef3_1}>
+                                <input className='handle_sortby' type='radio' id='name' value='name' name='sortby' onChange={sortbyChange} defaultChecked/>
+                                <div className='chk_box'>
+                                    <label htmlFor='name'>
+                                        <svg className='chk_btn' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.235.235 0 0 1 .02-.022z"/></svg>
+                                        <svg className='chk_fill_btn' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm10.03 4.97a.75.75 0 0 1 .011 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.75.75 0 0 1 1.08-.022z"/></svg>
+                                    </label>
+                                    <span>이름순</span>
+                                </div>
+                                <input className='handle_sortby' type='radio' id='latest' value='latest' name='sortby' onChange={sortbyChange}/>
+                                <div className='chk_box'>
+                                    <label htmlFor='latest'>
+                                        <svg className='chk_btn' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.235.235 0 0 1 .02-.022z"/></svg>
+                                        <svg className='chk_fill_btn' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm10.03 4.97a.75.75 0 0 1 .011 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.75.75 0 0 1 1.08-.022z"/></svg>
+                                    </label>
+                                    <span>최신순</span>
                                 </div>
                             </div>
                         </div>

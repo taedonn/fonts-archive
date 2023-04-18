@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-function SideMenu({data}) {
+function SideMenu(props) {
     // 서치 기능
     const searchChange = (e) => {
         let fontList = document.getElementsByClassName('font_list')[0].getElementsByClassName('font_name');
@@ -65,7 +65,7 @@ function SideMenu({data}) {
                     </div>
                     <div className='font_list'>
                         {
-                            data.map((dataEach) => 
+                            props.data.map((dataEach) => 
                                 <Link className="font_name" onClick={listOnClick} to={`/DetailPage/${dataEach.c[0].v}`} key={dataEach.c[0].v}>{dataEach.c[1].v}</Link>
                             )
                         }

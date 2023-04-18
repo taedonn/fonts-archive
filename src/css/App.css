@@ -254,6 +254,10 @@ a {
     align-items: center;
 }
 
+.main_menu .category .category_2 {
+    margin-left: 8px;
+}
+
 .main_menu .category input {
     display: none;
 }

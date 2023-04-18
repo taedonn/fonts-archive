@@ -1,4 +1,4 @@
-import { useLayoutEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Main from './Main'
 import DetailPage from './DetailPage'
@@ -11,9 +11,7 @@ const url = 'https://docs.google.com/spreadsheets/d/1ryt-0PI5_hWA3AnP0gcyTRyKh8k
 function App() {
     const [data, setData] = useState([]);
 
-    useLayoutEffect(() => {
-        handleLoad(url);
-    },[]);
+    useEffect(() => { handleLoad(url); },[]);
 
     // 데이터 연동
     const handleLoad = (url) => {
