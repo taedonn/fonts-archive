@@ -144,15 +144,13 @@ function Main(props) {
         let filteredData = data.filter((item) => checkedValue.includes(item.c[3].v) );
         if (sort === "name") { 
             let dataSortedByName = filteredData.sort(function(a,b) {
-                return b.c[1].v.localeCompare(a.c[1].v);
-            }).reverse();
+                return a.c[1].v.localeCompare(b.c[1].v);
+            });
             setList(dataSortedByName);
         }
         else if (sort === "latest") {
             let dataSortedByLatest = filteredData.sort(function(a,b) {
-                if (a.c[5].v > b.c[5].v) return -1;
-                else if (b.c[5].v > a.c[5].v) return 1;
-                else return 0;
+                return b.c[0].v - a.c[0].v;
             });
             setList(dataSortedByLatest);
         }
@@ -178,15 +176,13 @@ function Main(props) {
         let filteredData = data.filter((item) => checkedValue.includes(item.c[22].v) );
         if (sort === "name") { 
             let dataSortedByName = filteredData.sort(function(a,b) {
-                return b.c[1].v.localeCompare(a.c[1].v);
-            }).reverse();
+                return a.c[1].v.localeCompare(b.c[1].v);
+            });
             setList(dataSortedByName);
         }
         else if (sort === "latest") {
             let dataSortedByLatest = filteredData.sort(function(a,b) {
-                if (a.c[5].v > b.c[5].v) return -1;
-                else if (b.c[5].v > a.c[5].v) return 1;
-                else return 0;
+                return b.c[0].v - a.c[0].v;
             });
             setList(dataSortedByLatest);
         }
@@ -203,16 +199,14 @@ function Main(props) {
             setSortby(e.target.value);
             if (e.target.value === "name") {
                 let sortbyName = list.sort(function(a,b) {
-                    return b.c[1].v.localeCompare(a.c[1].v);
-                }).reverse();
+                    return a.c[1].v.localeCompare(b.c[1].v);
+                });
                 setList(sortbyName);
                 setSortbyBox("이름순");
             }
             else if (e.target.value === "latest") {
                 let sortbyLatest = list.sort(function(a,b) {
-                    if (a.c[5].v > b.c[5].v) return -1;
-                    else if (b.c[5].v > a.c[5].v) return 1;
-                    else return 0;
+                    return b.c[0].v - a.c[0].v;
                 });
                 setList(sortbyLatest);
                 setSortbyBox("최신순");
@@ -225,7 +219,7 @@ function Main(props) {
 
     return (
         <>
-            <SideMenu data={props.fixedData}/>
+            <SideMenu data={props.fixedDataByName}/>
             <div className='main_menu'>
                 <div className='main_menu_fixed'>
                     <div className='search_bar'>

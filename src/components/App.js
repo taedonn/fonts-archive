@@ -10,7 +10,8 @@ const url = 'https://docs.google.com/spreadsheets/d/1ryt-0PI5_hWA3AnP0gcyTRyKh8k
 
 function App() {
     const [data, setData] = useState([]);
-    const [fixedData, setFixedData] = useState([]);
+    const [fixedDataByLatest, setFixedDataByLatest] = useState([]);
+    const [fixedDataByName, setFixedDataByName] = useState([]);
 
     useEffect(() => { handleLoad(url); },[]);
 
@@ -20,10 +21,12 @@ function App() {
         .then(res => res.text())
         .then(rep => {
             // JSON만 추출
-            let data1 = JSON.parse(rep.substring(47).slice(0, -2));
-            let data2 = JSON.parse(rep.substring(47).slice(0, -2));
-            setData(data1.table.rows);
-            setFixedData(data2.table.rows.sort(function(a,b) { return b.c[1].v.localeCompare(a.c[1].v); }).reverse());
+            let data = JSON.parse(rep.substring(47).slice(0, -2));
+            let dataByLatest = JSON.parse(rep.substring(47).slice(0, -2));
+            let dataByName = JSON.parse(rep.substring(47).slice(0, -2));
+            setData(data.table.rows);
+            setFixedDataByLatest(dataByLatest.table.rows.sort(function(a,b) { return a.c[0].v - b.c[0].v; }));
+            setFixedDataByName(dataByName.table.rows.sort(function(a,b) { return a.c[1].v.localeCompare(b.c[1].v); }));
         });
     }
 
@@ -41,9 +44,9 @@ function App() {
             <div className={window.innerWidth > 1080 ? 'wrap expand' : 'wrap shrink'}>
                 <BrowserRouter>
                     <Routes>
-                        <Route path='/' element={<Main fixedData={fixedData} data={data}/>}></Route>
-                        <Route path='/DetailPage/:id' element={<DetailPage fixedData={fixedData} data={data}/>}></Route>
-                        <Route path='*' element={<Navigate replace to='/' fixedData={fixedData} data={data}/>}></Route>
+                        <Route path='/' element={<Main data={data} fixedDataByName={fixedDataByName}/>}></Route>
+                        <Route path='/DetailPage/:id' element={<DetailPage data={data} fixedDataByLatest={fixedDataByLatest} fixedDataByName={fixedDataByName}/>}></Route>
+                        <Route path='*' element={<Navigate replace to='/' data={data} fixedDataByName={fixedDataByName}/>}></Route>
                     </Routes>
                 </BrowserRouter>
                 <div className='profile_fixed'>

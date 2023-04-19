@@ -58,7 +58,7 @@ function FontBox(props) {
             <div className="font_area_wrap">
                 {
                     props.sortby === "latest"
-                    ? props.data.sort(function(a,b) { if (a.c[5].v > b.c[5].v) return -1; else if (b.c[5].v > a.c[5].v) return 1; else return 0; }).slice(0,num).map((dataEach) => (
+                    ? props.data.sort(function(a,b) { return b.c[0].v - a.c[0].v; }).slice(0,num).map((dataEach) => (
                         <Link className="font_box fade_in" onClick={boxOnClick} to={`/DetailPage/${dataEach.c[0].v}`} key={dataEach.c[0].v}>
                             <div className="font_name" style={{fontFamily:dataEach.c[2].v,fontWeight:props.fontWeight}}>{dataEach.c[1].v}</div>
                             <div className='font_info_wrap'>
@@ -68,7 +68,7 @@ function FontBox(props) {
                             <link href={dataEach.c[12].v} rel="stylesheet" type="text/css" itemProp="url"/>
                         </Link>
                     ))
-                    : props.data.sort(function(a,b) { return b.c[1].v.localeCompare(a.c[1].v); }).reverse().slice(0,num).map((dataEach) => (
+                    : props.data.sort(function(a,b) { return a.c[1].v.localeCompare(b.c[1].v); }).slice(0,num).map((dataEach) => (
                         <Link className="font_box fade_in" onClick={boxOnClick} to={`/DetailPage/${dataEach.c[0].v}`} key={dataEach.c[0].v}>
                             <div className="font_name" style={{fontFamily:dataEach.c[2].v,fontWeight:props.fontWeight}}>{dataEach.c[1].v}</div>
                             <div className='font_info_wrap'>
