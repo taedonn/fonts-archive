@@ -119,7 +119,10 @@ function Main(props) {
         else { setTxt(e.target.value); }
         let textArea = document.getElementsByClassName('font_text');
         for (let i = 0; i < textArea.length; i++) {
-            if (e.target.value === "") { textArea[i].innerText = "원하는 문구를 적어보세요"; }
+            if (e.target.value === "") {
+                if (textArea[i].id === "KR") { textArea[i].innerText = "원하는 문구를 적어보세요"; }
+                else { textArea[i].innerText = "Type something."; }
+            }
             else { textArea[i].innerText = e.target.value; }
         }
     }

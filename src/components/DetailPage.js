@@ -2,7 +2,8 @@ import { Link, useParams } from "react-router-dom";
 import SideMenu from './SideMenu';
 import DummyText from './DummyText';
 
-const alphabet = '가 나 다 라 마 바 사 아 자 차 카 타 파 하 a b c d e f g h i j k l m n o p q r s t u v w x y z 0 1 2 3 4 5 6 7 8 9 가 나 다 라 마 바 사 아 자 차 카 타 파 하 a b c d e f g h i j k l m n o p q r s t u v w x y z 0 1 2 3 4 5 6 7 8 9 가 나 다 라 마 바 사 아 자 차 카 타 파 하 a b c d e f g h i j k l m n o p q r s t u v w x y z 0 1 2 3 4 5 6 7 8 9';
+const alphabetKR = '가 나 다 라 마 바 사 아 자 차 카 타 파 하 a b c d e f g h i j k l m n o p q r s t u v w x y z 0 1 2 3 4 5 6 7 8 9 가 나 다 라 마 바 사 아 자 차 카 타 파 하 a b c d e f g h i j k l m n o p q r s t u v w x y z 0 1 2 3 4 5 6 7 8 9 가 나 다 라 마 바 사 아 자 차 카 타 파 하 a b c d e f g h i j k l m n o p q r s t u v w x y z 0 1 2 3 4 5 6 7 8 9';
+const alphabetEN = 'A B C D E F G H I J K L M N O P Q R S T U V W X Y Z a b c d e f g h i j k l m n o p q r s t u v w x y z 0 1 2 3 4 5 6 7 8 9 A B C D E F G H I J K L M N O P Q R S T U V W X Y Z a b c d e f g h i j k l m n o p q r s t u v w x y z 0 1 2 3 4 5 6 7 8 9 A B C D E F G H I J K L M N O P Q R S T U V W X Y Z a b c d e f g h i j k l m n o p q r s t u v w x y z 0 1 2 3 4 5 6 7 8 9';
 
 const urlString = window.location.href.split('DetailPage/')[1];
 
@@ -24,7 +25,10 @@ function DetailPage(props) {
     const detailTextChange = (e) => {
         let detailTextArea = document.getElementsByClassName('font_weight_txt');
         for (let i = 0; i < detailTextArea.length; i++) {
-            if (e.target.value === "") { detailTextArea[i].innerText = "원하는 문구를 적어보세요." }
+            if (e.target.value === "") {
+                if (detailTextArea[i].id === "KR") { detailTextArea[i].innerText = "원하는 문구를 적어보세요."; }
+                else { detailTextArea[i].innerText = "Type something."; }
+            }
             else { detailTextArea[i].innerText = e.target.value; }
         }
     }
@@ -86,66 +90,66 @@ function DetailPage(props) {
                                 <input className="font_weight_change" type="text" placeholder="Type Something" onChange={detailTextChange}/>
                                 {
                                     props.fixedDataByLatest[id].c[13].v === "Y"
-                                    ? <><div className="font_weight_title">Thin 100</div><div className="font_weight_txt" style={{fontFamily:props.fixedDataByLatest[id].c[2].v,fontWeight:"100"}}><DummyText lang={props.fixedDataByLatest[id].c[22].v} text={""}/></div></>
+                                    ? <><div className="font_weight_title">Thin 100</div><div className="font_weight_txt" id={props.fixedDataByLatest[id].c[22].v} style={{fontFamily:props.fixedDataByLatest[id].c[2].v,fontWeight:"100"}}><DummyText lang={props.fixedDataByLatest[id].c[22].v} text={""}/></div></>
                                     : <></>
                                 }
                                 {
                                     props.fixedDataByLatest[id].c[14].v === "Y"
-                                    ? <><div className="font_weight_title">ExtraLight 200</div><div className="font_weight_txt" style={{fontFamily:props.fixedDataByLatest[id].c[2].v,fontWeight:"200"}}><DummyText lang={props.fixedDataByLatest[id].c[22].v} text={""}/></div></>
+                                    ? <><div className="font_weight_title">ExtraLight 200</div><div className="font_weight_txt" id={props.fixedDataByLatest[id].c[22].v} style={{fontFamily:props.fixedDataByLatest[id].c[2].v,fontWeight:"200"}}><DummyText lang={props.fixedDataByLatest[id].c[22].v} text={""}/></div></>
                                     : <></>
                                 }
                                 {
                                     props.fixedDataByLatest[id].c[15].v === "Y"
-                                    ? <><div className="font_weight_title">Light 300</div><div className="font_weight_txt" style={{fontFamily:props.fixedDataByLatest[id].c[2].v,fontWeight:"300"}}><DummyText lang={props.fixedDataByLatest[id].c[22].v} text={""}/></div></>
+                                    ? <><div className="font_weight_title">Light 300</div><div className="font_weight_txt" id={props.fixedDataByLatest[id].c[22].v} style={{fontFamily:props.fixedDataByLatest[id].c[2].v,fontWeight:"300"}}><DummyText lang={props.fixedDataByLatest[id].c[22].v} text={""}/></div></>
                                     : <></>
                                 }
                                 {
                                     props.fixedDataByLatest[id].c[16].v === "Y"
-                                    ? <><div className="font_weight_title">Regular 400</div><div className="font_weight_txt" style={{fontFamily:props.fixedDataByLatest[id].c[2].v,fontWeight:"400"}}><DummyText lang={props.fixedDataByLatest[id].c[22].v} text={""}/></div></>
+                                    ? <><div className="font_weight_title">Regular 400</div><div className="font_weight_txt" id={props.fixedDataByLatest[id].c[22].v} style={{fontFamily:props.fixedDataByLatest[id].c[2].v,fontWeight:"400"}}><DummyText lang={props.fixedDataByLatest[id].c[22].v} text={""}/></div></>
                                     : <></>
                                 }
                                 {
                                     props.fixedDataByLatest[id].c[17].v === "Y"
-                                    ? <><div className="font_weight_title">Medium 500</div><div className="font_weight_txt" style={{fontFamily:props.fixedDataByLatest[id].c[2].v,fontWeight:"500"}}><DummyText lang={props.fixedDataByLatest[id].c[22].v} text={""}/></div></>
+                                    ? <><div className="font_weight_title">Medium 500</div><div className="font_weight_txt" id={props.fixedDataByLatest[id].c[22].v} style={{fontFamily:props.fixedDataByLatest[id].c[2].v,fontWeight:"500"}}><DummyText lang={props.fixedDataByLatest[id].c[22].v} text={""}/></div></>
                                     : <></>
                                 }
                                 {
                                     props.fixedDataByLatest[id].c[18].v === "Y"
-                                    ? <><div className="font_weight_title">Bold 600</div><div className="font_weight_txt" style={{fontFamily:props.fixedDataByLatest[id].c[2].v,fontWeight:"600"}}><DummyText lang={props.fixedDataByLatest[id].c[22].v} text={""}/></div></>
+                                    ? <><div className="font_weight_title">Bold 600</div><div className="font_weight_txt" id={props.fixedDataByLatest[id].c[22].v} style={{fontFamily:props.fixedDataByLatest[id].c[2].v,fontWeight:"600"}}><DummyText lang={props.fixedDataByLatest[id].c[22].v} text={""}/></div></>
                                     : <></>
                                 }
                                 {
                                     props.fixedDataByLatest[id].c[19].v === "Y"
-                                    ? <><div className="font_weight_title">ExtraBold 700</div><div className="font_weight_txt" style={{fontFamily:props.fixedDataByLatest[id].c[2].v,fontWeight:"700"}}><DummyText lang={props.fixedDataByLatest[id].c[22].v} text={""}/></div></>
+                                    ? <><div className="font_weight_title">ExtraBold 700</div><div className="font_weight_txt" id={props.fixedDataByLatest[id].c[22].v} style={{fontFamily:props.fixedDataByLatest[id].c[2].v,fontWeight:"700"}}><DummyText lang={props.fixedDataByLatest[id].c[22].v} text={""}/></div></>
                                     : <></>
                                 }
                                 {
                                     props.fixedDataByLatest[id].c[20].v === "Y"
-                                    ? <><div className="font_weight_title">Heavy 800</div><div className="font_weight_txt" style={{fontFamily:props.fixedDataByLatest[id].c[2].v,fontWeight:"800"}}><DummyText lang={props.fixedDataByLatest[id].c[22].v} text={""}/></div></>
+                                    ? <><div className="font_weight_title">Heavy 800</div><div className="font_weight_txt" id={props.fixedDataByLatest[id].c[22].v} style={{fontFamily:props.fixedDataByLatest[id].c[2].v,fontWeight:"800"}}><DummyText lang={props.fixedDataByLatest[id].c[22].v} text={""}/></div></>
                                     : <></>
                                 }
                                 {
                                     props.fixedDataByLatest[id].c[21].v === "Y"
-                                    ? <><div className="font_weight_title">Black 900</div><div className="font_weight_txt" style={{fontFamily:props.fixedDataByLatest[id].c[2].v,fontWeight:"900"}}><DummyText lang={props.fixedDataByLatest[id].c[22].v} text={""}/></div></>
+                                    ? <><div className="font_weight_title">Black 900</div><div className="font_weight_txt" id={props.fixedDataByLatest[id].c[22].v} style={{fontFamily:props.fixedDataByLatest[id].c[2].v,fontWeight:"900"}}><DummyText lang={props.fixedDataByLatest[id].c[22].v} text={""}/></div></>
                                     : <></>
                                 }
                             </div>
                             <p className="font_detail_page_title">폰트 크기</p>
                             <div className="font_size_wrap">
-                                <div><h2>10px</h2><h3 style={{fontFamily:props.fixedDataByLatest[id].c[2].v}} className="font_size_10">{alphabet}</h3></div>
-                                <div><h2>12px</h2><h3 style={{fontFamily:props.fixedDataByLatest[id].c[2].v}} className="font_size_12">{alphabet}</h3></div>
-                                <div><h2>14px</h2><h3 style={{fontFamily:props.fixedDataByLatest[id].c[2].v}} className="font_size_14">{alphabet}</h3></div>
-                                <div><h2>16px</h2><h3 style={{fontFamily:props.fixedDataByLatest[id].c[2].v}} className="font_size_16">{alphabet}</h3></div>
-                                <div><h2>18px</h2><h3 style={{fontFamily:props.fixedDataByLatest[id].c[2].v}} className="font_size_18">{alphabet}</h3></div>
-                                <div><h2>20px</h2><h3 style={{fontFamily:props.fixedDataByLatest[id].c[2].v}} className="font_size_20">{alphabet}</h3></div>
-                                <div><h2>24px</h2><h3 style={{fontFamily:props.fixedDataByLatest[id].c[2].v}} className="font_size_24">{alphabet}</h3></div>
-                                <div><h2>28px</h2><h3 style={{fontFamily:props.fixedDataByLatest[id].c[2].v}} className="font_size_28">{alphabet}</h3></div>
-                                <div><h2>32px</h2><h3 style={{fontFamily:props.fixedDataByLatest[id].c[2].v}} className="font_size_32">{alphabet}</h3></div>
-                                <div><h2>36px</h2><h3 style={{fontFamily:props.fixedDataByLatest[id].c[2].v}} className="font_size_36">{alphabet}</h3></div>
-                                <div><h2>40px</h2><h3 style={{fontFamily:props.fixedDataByLatest[id].c[2].v}} className="font_size_40">{alphabet}</h3></div>
-                                <div><h2>48px</h2><h3 style={{fontFamily:props.fixedDataByLatest[id].c[2].v}} className="font_size_48">{alphabet}</h3></div>
-                                <div><h2>56px</h2><h3 style={{fontFamily:props.fixedDataByLatest[id].c[2].v}} className="font_size_56">{alphabet}</h3></div>
-                                <div><h2>64px</h2><h3 style={{fontFamily:props.fixedDataByLatest[id].c[2].v}} className="font_size_64">{alphabet}</h3></div>
+                                <div><h2>10px</h2><h3 style={{fontFamily:props.fixedDataByLatest[id].c[2].v}} className="font_size_10">{props.fixedDataByLatest[id].c[22].v === "KR" ? alphabetKR : alphabetEN}</h3></div>
+                                <div><h2>12px</h2><h3 style={{fontFamily:props.fixedDataByLatest[id].c[2].v}} className="font_size_12">{props.fixedDataByLatest[id].c[22].v === "KR" ? alphabetKR : alphabetEN}</h3></div>
+                                <div><h2>14px</h2><h3 style={{fontFamily:props.fixedDataByLatest[id].c[2].v}} className="font_size_14">{props.fixedDataByLatest[id].c[22].v === "KR" ? alphabetKR : alphabetEN}</h3></div>
+                                <div><h2>16px</h2><h3 style={{fontFamily:props.fixedDataByLatest[id].c[2].v}} className="font_size_16">{props.fixedDataByLatest[id].c[22].v === "KR" ? alphabetKR : alphabetEN}</h3></div>
+                                <div><h2>18px</h2><h3 style={{fontFamily:props.fixedDataByLatest[id].c[2].v}} className="font_size_18">{props.fixedDataByLatest[id].c[22].v === "KR" ? alphabetKR : alphabetEN}</h3></div>
+                                <div><h2>20px</h2><h3 style={{fontFamily:props.fixedDataByLatest[id].c[2].v}} className="font_size_20">{props.fixedDataByLatest[id].c[22].v === "KR" ? alphabetKR : alphabetEN}</h3></div>
+                                <div><h2>24px</h2><h3 style={{fontFamily:props.fixedDataByLatest[id].c[2].v}} className="font_size_24">{props.fixedDataByLatest[id].c[22].v === "KR" ? alphabetKR : alphabetEN}</h3></div>
+                                <div><h2>28px</h2><h3 style={{fontFamily:props.fixedDataByLatest[id].c[2].v}} className="font_size_28">{props.fixedDataByLatest[id].c[22].v === "KR" ? alphabetKR : alphabetEN}</h3></div>
+                                <div><h2>32px</h2><h3 style={{fontFamily:props.fixedDataByLatest[id].c[2].v}} className="font_size_32">{props.fixedDataByLatest[id].c[22].v === "KR" ? alphabetKR : alphabetEN}</h3></div>
+                                <div><h2>36px</h2><h3 style={{fontFamily:props.fixedDataByLatest[id].c[2].v}} className="font_size_36">{props.fixedDataByLatest[id].c[22].v === "KR" ? alphabetKR : alphabetEN}</h3></div>
+                                <div><h2>40px</h2><h3 style={{fontFamily:props.fixedDataByLatest[id].c[2].v}} className="font_size_40">{props.fixedDataByLatest[id].c[22].v === "KR" ? alphabetKR : alphabetEN}</h3></div>
+                                <div><h2>48px</h2><h3 style={{fontFamily:props.fixedDataByLatest[id].c[2].v}} className="font_size_48">{props.fixedDataByLatest[id].c[22].v === "KR" ? alphabetKR : alphabetEN}</h3></div>
+                                <div><h2>56px</h2><h3 style={{fontFamily:props.fixedDataByLatest[id].c[2].v}} className="font_size_56">{props.fixedDataByLatest[id].c[22].v === "KR" ? alphabetKR : alphabetEN}</h3></div>
+                                <div><h2>64px</h2><h3 style={{fontFamily:props.fixedDataByLatest[id].c[2].v}} className="font_size_64">{props.fixedDataByLatest[id].c[22].v === "KR" ? alphabetKR : alphabetEN}</h3></div>
                             </div>
                             <p className="font_detail_page_title">라이센스 사용 범위</p>
                             <table className="license">
