@@ -20,10 +20,26 @@ function FontBox(props) {
 
     // 스크롤 이벤트
     const handleScroll = () => {
+        // 셀렉트박스 스크롤 시 체크 해제
+        let select1 = document.getElementById("category_1_select");
+        let select2 = document.getElementById("category_2_select");
+        let select3 = document.getElementById("category_3_select");
+        if (select1 !== null) { select1.checked = false; }
+        if (select2 !== null) { select2.checked = false; }
+        if (select3 !== null) { select3.checked = false; }
+
         if ((window.scrollY + window.innerHeight) >= document.body.offsetHeight) { handleTypeFace(); }
     }
 
     const handleScrollMobile = () => {
+        // 셀렉트박스 스크롤 시 체크 해제
+        let select1 = document.getElementById("category_1_select");
+        let select2 = document.getElementById("category_2_select");
+        let select3 = document.getElementById("category_3_select");
+        if (select1 !== null) { select1.checked = false; }
+        if (select2 !== null) { select2.checked = false; }
+        if (select3 !== null) { select3.checked = false; }
+
         if ((window.scrollY + window.innerHeight) >= document.body.offsetHeight - (window.innerHeight * 0.1)) { handleTypeFace(); }
     }
 
