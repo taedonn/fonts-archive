@@ -256,7 +256,7 @@ a {
     align-items: center;
 }
 
-.main_menu .category .category_2 {
+.main_menu .category .category_2, .main_menu .category .category_4 {
     margin-left: 8px;
 }
 
@@ -303,6 +303,14 @@ a {
     border-radius: 12px;
     border: 1px solid;
     padding: 22px 16px;
+}
+
+.main_menu .category_box.category_3 > input ~ .category_option {
+    width: 114px;
+}
+
+.main_menu .category_box.category_4 > input ~ .category_option {
+    width: 166px;
 }
 
 .main_menu .category_box > input ~ .category_option.fade_in {
@@ -1646,14 +1654,26 @@ a {
     }
 
     .main_menu .category .divider {
-        margin: 0 12px;
+        margin: 0 10px;
     }
 
     .main_menu .category_box > label {
         height: 30px;
-        padding: 0 18px;
+        padding: 0 14px;
         padding-bottom: 1px;
         font-size: 12px;
+    }
+
+    .main_menu .category .category_2, .main_menu .category .category_4 {
+        margin-left: 6px;
+    }
+
+    .main_menu .category_box.category_3 > input ~ .category_option {
+        width: 92px;
+    }
+
+    .main_menu .category_box.category_4 > input ~ .category_option {
+        width: 140px;
     }
 
     .main_menu .category_box > label svg {
@@ -1661,17 +1681,22 @@ a {
     }
 
     .main_menu .category_box > input ~ .category_option {
-        width: 116px;
-        top: 40px;
+        width: 106px;
+        top: 38px;
         padding: 16px 14px;
     }
 
     .main_menu .category_box input ~ .category_option svg {
-        width: 16px;
+        width: 14px;
+        margin-right: 8px;
     }
 
     .main_menu .category_box input ~ .category_option .chk_box {
-        margin-bottom: 14px;
+        margin-bottom: 12px;
+    }
+
+    .main_menu .category_box input ~ .category_option span {
+        font-size: 12px;
     }
 
     .main_menu .font_area_wrap {
@@ -1946,31 +1971,50 @@ a {
     }
 
     .main_menu .category_box > label {
-        height: 28px;
-        padding: 0 14px;
-        padding-bottom: 1px;
+        height: 26px;
+        font-size: 10px;
+        padding: 0 10px;
+    }
+
+    .main_menu .category .divider {
+        margin: 0 6px;
+    }
+
+    .main_menu .category .category_2, .main_menu .category .category_4 {
+        margin-left: 6px;
+    }
+
+    .main_menu .category_box > label svg {
+        margin-left: 6px;
     }
 
     .main_menu .category_box > input ~ .category_option {
-        width: 106px;
-        top: 36px;
+        width: 84px;
+        top: 32px;
+    }
+
+    .main_menu .category_box.category_3 > input ~ .category_option {
+        width: 76px;
+    }
+
+    .main_menu .category_box.category_4 > input ~ .category_option {
+        width: 116px;
     }
 
     .main_menu .category_box > input ~ .category_option {
-        padding: 16px 12px;
+        padding: 14px 10px;
     }
 
     .main_menu .category_box input ~ .category_option .chk_box {
-        margin-bottom: 12px;
+        margin-bottom: 10px;
     }
 
     .main_menu .category_box input ~ .category_option span {
-        font-size: 12px;
+        font-size: 10px;
     }
 
     .main_menu .category_box input ~ .category_option svg {
-        width: 14px;
-        margin-right: 8px;
+        width: 12px;
     }
 
     .main_menu .font_box {
@@ -1987,7 +2031,7 @@ a {
     }
 
     .main_menu .font_area_wrap {
-        margin-top: 114px;
+        margin-top: 112px;
     }
 
     .font_detail_page_wrap .font_name {

@@ -24,9 +24,11 @@ function FontBox(props) {
         let select1 = document.getElementById("category_1_select");
         let select2 = document.getElementById("category_2_select");
         let select3 = document.getElementById("category_3_select");
+        let select4 = document.getElementById("category_4_select");
         if (select1 !== null) { select1.checked = false; }
         if (select2 !== null) { select2.checked = false; }
         if (select3 !== null) { select3.checked = false; }
+        if (select4 !== null) { select4.checked = false; }
 
         if ((window.scrollY + window.innerHeight) >= document.body.offsetHeight) { handleTypeFace(); }
     }
@@ -36,9 +38,11 @@ function FontBox(props) {
         let select1 = document.getElementById("category_1_select");
         let select2 = document.getElementById("category_2_select");
         let select3 = document.getElementById("category_3_select");
+        let select4 = document.getElementById("category_4_select");
         if (select1 !== null) { select1.checked = false; }
         if (select2 !== null) { select2.checked = false; }
         if (select3 !== null) { select3.checked = false; }
+        if (select4 !== null) { select4.checked = false; }
 
         if ((window.scrollY + window.innerHeight) >= document.body.offsetHeight - (window.innerHeight * 0.1)) { handleTypeFace(); }
     }

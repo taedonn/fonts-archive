@@ -20,10 +20,10 @@ function App() {
         .then(res => res.text())
         .then(rep => {
             // JSON만 추출
-            let data = JSON.parse(rep.substring(47).slice(0, -2));
+            let data1 = JSON.parse(rep.substring(47).slice(0, -2));
             let data2 = JSON.parse(rep.substring(47).slice(0, -2));
-            setData(data.table.rows);
-            setFixedData(data2.table.rows);
+            setData(data1.table.rows);
+            setFixedData(data2.table.rows.sort(function(a,b) { return b.c[1].v.localeCompare(a.c[1].v); }).reverse());
         });
     }
 
