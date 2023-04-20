@@ -887,11 +887,11 @@ a {
     display: none;
 }
 
-.profile_fixed div, .profile_fixed label {
+.profile_fixed_btn {
     width: 40px;
     height: 40px;
-    border: 1px solid;
     border-radius: 50%;
+    position: relative;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -901,10 +901,51 @@ a {
     transition: 0.2s;
 }
 
-.profile_fixed svg {
+.profile_fixed_btn svg {
     width: 18px;
     height: 18px;
     transition: 0.2s;
+}
+
+.profile_fixed_tooltip {
+    width: max-content;
+    height: 40px;
+    border-radius: 12px;
+    position: absolute;
+    right: 56px;
+    top: 50%;
+    transform: translateX(0px) translateY(-50%);
+    display: none;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1;
+    padding: 0 20px;
+    padding-bottom: 1px;
+    transition: 0.2s;
+}
+
+.profile_fixed_tooltip::before {
+    content: "";
+    width: 12px;
+    height: 12px;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translate(50%, -50%) rotate(45deg);
+    transition: 0.2s;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .profile_fixed_btn:hover .profile_fixed_tooltip {
+        display: flex;
+        animation-name: tooltip_fade_in;
+        animation-duration: 0.2s;
+        animation-iteration-count: 1;
+        animation-fill-mode: both;
+    }
 }
 
 /* 애니메이션 */
@@ -916,6 +957,17 @@ a {
     to {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+@keyframes tooltip_fade_in {
+    from {
+        opacity: 0;
+        transform: translate(0px) translateY(-50%);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-4px) translateY(-50%);
     }
 }
 
@@ -1009,6 +1061,7 @@ a {
     background-color: #DDE0E9;
     border-color: #1a73e8;
     color: #35363A;
+    filter: drop-shadow(1px 2px 4px #97989C);
 }
 
 .bright_mode .main_menu .category_box > input + label svg {
@@ -1034,6 +1087,7 @@ a {
 .bright_mode .main_menu .category_box input ~ .category_option {
     background-color: #DDE0E9;
     border-color: #1a73e8;
+    filter: drop-shadow(1px 2px 4px #636568);
 }
 
 .bright_mode .main_menu .category_box input ~ .category_option svg {
@@ -1249,22 +1303,23 @@ a {
     color: #97989C;
 }
 
-.bright_mode .profile_fixed div, .bright_mode .profile_fixed label {
+.bright_mode .profile_fixed_btn {
     background-color: #E9EAEE;
-    border-color: #CDCED2;
+    filter: drop-shadow(1px 2px 4px #636568);
 }
 
-@media (hover: hover) and (pointer: fine) {
-    .bright_mode .profile_fixed div, .bright_mode .profile_fixed label {
-        transition: 0.2s;
-    }
-    .bright_mode .profile_fixed div:hover, .bright_mode .profile_fixed label:hover {
-        background-color: #DEE1E6;
-    }
-}
-
-.bright_mode .profile_fixed svg {
+.bright_mode .profile_fixed_btn svg {
     fill: #35363A;
+}
+
+.bright_mode .profile_fixed_tooltip {
+    background-color: #E9EAEE;
+    color: #36363A;
+    filter: drop-shadow(1px 2px 4px #97989C);
+}
+
+.bright_mode .profile_fixed_tooltip::before {
+    background-color: #E9EAEE;
 }
 
 /* 나잇 모드 */
@@ -1357,6 +1412,7 @@ a {
     background-color: #1A1E25;
     border-color: #8ab4f8;
     color: #E9EAEE;
+    filter: drop-shadow(1px 2px 4px #101010);
 }
 
 .night_mode .main_menu .category_box > input + label svg {
@@ -1382,6 +1438,7 @@ a {
 .night_mode .main_menu .category_box input ~ .category_option {
     background-color: #1A1E25;
     border-color: #8ab4f8;
+    filter: drop-shadow(1px 2px 4px #101010);
 }
 
 .night_mode .main_menu .category_box input ~ .category_option svg {
@@ -1597,23 +1654,23 @@ a {
     color: #97989C;
 }
 
-.night_mode .profile_fixed div, .night_mode .profile_fixed label {
-    background-color: #202124;
-    border-color: #4C4D50;
+.night_mode .profile_fixed_btn {
+    background-color: #000;
+    filter: drop-shadow(1px 2px 4px #101010);
 }
 
-@media (hover: hover) and (pointer: fine) {
-    .night_mode .profile_fixed div, .night_mode .profile_fixed label {
-        transition: 0.2s;
-    }
-
-    .night_mode .profile_fixed div:hover, .night_mode .profile_fixed label:hover {
-        background-color: #35363A;
-    }
-}
-
-.night_mode .profile_fixed svg {
+.night_mode .profile_fixed_btn svg {
     fill: #CDCED2;
+}
+
+.night_mode .profile_fixed_tooltip {
+    background-color: #000;
+    color: #DEE1E6;
+    filter: drop-shadow(1px 2px 4px #101010);
+}
+
+.night_mode .profile_fixed_tooltip::before {
+    background-color: #000;
 }
 
 /* 반응형 */
@@ -1952,15 +2009,23 @@ a {
         bottom: 12px;
     }
 
-    .profile_fixed div, .profile_fixed label {
+    .profile_fixed_btn {
         width: 36px;
         height: 36px;
         margin-top: 6px;
     }
 
-    .profile_fixed svg {
+    .profile_fixed_btn svg {
         width: 16px;
         height: 16px;
+    }
+
+    .profile_fixed_tooltip {
+        height: 36px;
+        right: 48px;
+        font-size: 12px;
+        padding: 0 16px;
+        padding-bottom: 1px;
     }
 }
 
