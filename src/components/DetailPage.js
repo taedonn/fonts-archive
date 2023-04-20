@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { Link, useParams } from "react-router-dom";
 import SideMenu from './SideMenu';
 import DummyText from './DummyText';
@@ -9,6 +10,12 @@ const urlString = window.location.href.split('DetailPage/')[1];
 
 function DetailPage(props) {
     const { id } = useParams();
+
+    // Title 변경
+    const defaultTitle = props.fixedDataByLatest[id].c[1].v
+    const [title, setTitle] = useState(defaultTitle);
+    useEffect(() => { setTitle(defaultTitle); document.querySelector("title").innerHTML = title + " | Fonts Archive" },[defaultTitle, title]);
+
 
     // 웹 폰트 적용하기 복사 버튼 클릭 이벤트
     const copyOnClick = (e) => {
