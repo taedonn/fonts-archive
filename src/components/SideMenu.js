@@ -1,14 +1,21 @@
+import { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 
 function SideMenu(props) {
+    const total = props.data.length;
+    const [filtered, setFiltered] = useState(total);
+    useEffect(() => { setFiltered(total); },[total]);
+
     // 서치 기능
     const searchChange = (e) => {
         let fontList = document.getElementsByClassName('font_list')[0].getElementsByClassName('font_name');
-
+        let filteredNum = 0;
         for (let i = 0; i < fontList.length; i++) {
             if (fontList[i].innerText.toLowerCase().indexOf(e.target.value.toLowerCase()) === -1) { fontList[i].style.display = 'none'; }
-            else { fontList[i].style.display = 'block'; }
+            else { fontList[i].style.display = 'block'; filteredNum++; }
         }
+        const TimeoutId = setTimeout(() => setFiltered(filteredNum), 100);
+        for (let i = 0; i < TimeoutId; i++) { clearTimeout(i); }
     }
 
     // 사이드 메뉴 접기 / 펼치기
@@ -64,6 +71,7 @@ function SideMenu(props) {
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/></svg>
                     </div>
                     <div className='font_list'>
+                        <div className="font_filtered">{filtered} <span>of</span> {total}</div>
                         {
                             props.data.map((dataEach) => 
                                 <Link className="font_name" onClick={listOnClick} to={`/DetailPage/${dataEach.c[0].v}`} key={dataEach.c[0].v}>{dataEach.c[1].v}</Link>
