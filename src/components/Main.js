@@ -7,6 +7,7 @@ function Main(props) {
     const defaultList = props.data;
     const defaultFontWeight = "400"
     const defaultSortby = "latest";
+    const defaultTitle = "Fonts Archive";
     const [list, setList] = useState(defaultList);
     const [fontWeight, setFontWeight] = useState(defaultFontWeight);
     const [sortby, setSortby] = useState(defaultSortby);
@@ -18,6 +19,7 @@ function Main(props) {
     useEffect(() => { setList(defaultList); },[defaultList]);
     useEffect(() => { setFontWeight(defaultFontWeight); },[defaultFontWeight]);
     useEffect(() => { setSortby(defaultSortby); },[defaultSortby]);
+    useEffect(() => { document.querySelector("title").innerHTML = defaultTitle; },[defaultTitle]);
 
     /* 
         셀렉트박스 외 영역 클릭 시 셀렉트박스 클릭 해제 끝
