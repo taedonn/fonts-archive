@@ -30,7 +30,7 @@ function FontBox(props) {
         if (select3 !== null) { select3.checked = false; }
         if (select4 !== null) { select4.checked = false; }
 
-        if ((window.scrollY + window.innerHeight) >= document.body.offsetHeight) { handleTypeFace(); }
+        if ((window.scrollY + window.innerHeight) >= document.body.offsetHeight - (window.innerHeight * 0.1)) { handleTypeFace(); }
     }
 
     const handleScrollMobile = () => {
@@ -78,6 +78,11 @@ function FontBox(props) {
                 }
                 <div className="font_box_empty"></div>
             </div>
+            {
+                props.data.length > num
+                ? <span className="loader"></span>
+                : <><span className="no_loader"></span></>
+            }
         </>
     )
 }
