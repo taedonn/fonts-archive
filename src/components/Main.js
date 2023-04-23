@@ -7,7 +7,7 @@ function Main(props) {
     const defaultList = props.data;
     const defaultFontWeight = "400"
     const defaultSortby = "latest";
-    const defaultTitle = "Fonts Archive";
+    const defaultTitle = "FONTS ARCHIVE";
     const [list, setList] = useState(defaultList);
     const [fontWeight, setFontWeight] = useState(defaultFontWeight);
     const [sortby, setSortby] = useState(defaultSortby);
