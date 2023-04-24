@@ -47,7 +47,7 @@ function DetailPage(props) {
                         <Link to={'/'}><svg className="close_btn" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/></svg></Link>
                         <div className="font_name">{props.fixedDataByLatest[id].c[1].v}</div>
                         <div className="font_source"><span>제작</span>{props.fixedDataByLatest[id].c[4].v}</div>
-                        <div className="type_face"><span>형태</span>{props.fixedDataByLatest[id].c[3].v}</div>
+                        <div className="type_face"><span>형태</span>{props.fixedDataByLatest[id].c[3].v === "Sans Serif" ? "고딕" : (props.fixedDataByLatest[id].c[3].v === "Serif" ? "명조" : (props.fixedDataByLatest[id].c[3].v === "Hand Writing") ? "손글씨" : "장식체")}</div>
                         <div className="font_detail_page_divider"></div>
                         <div className="font_detail_page">
                             <div className="download_btn_wrap">
