@@ -25,20 +25,32 @@ function SideMenu(props) {
             document.getElementsByClassName('wrap')[0].classList.add('shrink');
 
             // 720px 이하일 때 사이드 메뉴 접기 & 화면 고정 해제
-            if (window.innerWidth <= 720) { document.body.classList.remove('fixed'); }
+            if (window.innerWidth <= 720) {
+                const scrollY = document.body.style.top;
+                document.body.style.cssText = '';
+                window.scrollTo(0, parseInt(scrollY || '0', 10) * -1);
+            }
         }
         else {
             document.getElementsByClassName('wrap')[0].classList.remove('shrink');
             document.getElementsByClassName('wrap')[0].classList.add('expand');
             
             // 720px 이하일 때 사이드 메뉴 펼치기 & 화면 고정
-            if (window.innerWidth <= 720) { document.body.classList.add('fixed'); }
+            if (window.innerWidth <= 720) { document.body.style.cssText = `position: fixed; top: -${window.scrollY}px; overflow-y: scroll; transition: 0.2s`; }
         }
     }
 
     // 사이드 메뉴 마우스오버 시 스크롤 막기
-    const sideOnMouseOver = () => { document.body.classList.add('fixed'); }
-    const sideOnMouseOut = () => { document.body.classList.remove('fixed'); }
+    const sideOnMouseOver = () => {
+        if (window.innerWidth > 720) { document.body.style.cssText = `position: fixed; top: -${window.scrollY}px; overflow-y: scroll; transition: 0.2s`; }
+    }
+    const sideOnMouseOut = () => {
+        if (window.innerWidth > 720) {
+            const scrollY = document.body.style.top;
+            document.body.style.cssText = '';
+            window.scrollTo(0, parseInt(scrollY || '0', 10) * -1);
+        }
+    }
 
     // 폰트 리스트 클릭 시 윈도우 맨위로 이동
     const listOnClick = () => {
@@ -49,7 +61,9 @@ function SideMenu(props) {
             document.getElementById('expand_btn').checked = false;
             document.getElementsByClassName('wrap')[0].classList.remove('expand');
             document.getElementsByClassName('wrap')[0].classList.add('shrink');
-            document.body.classList.remove('fixed');
+            const scrollY = document.body.style.top;
+            document.body.style.cssText = '';
+            window.scrollTo(0, parseInt(scrollY || '0', 10) * -1);
         }
     }
 
