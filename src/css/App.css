@@ -9,7 +9,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
 
 body {
+    width: 100%;
     transition: 0.2s;
+}
+
+title {
+    display: none;
 }
 
 input {
@@ -26,6 +31,7 @@ a {
 
 .wrap {
     width: 100%;
+    position: relative;
     font-family: "Noto Sans KR";
     display: flex;
     flex-direction: row;
@@ -1038,6 +1044,10 @@ a {
     background-color: #E9EAEE;
 }
 
+.bright_mode .wrap {
+    color: #E9EAEE;
+}
+
 .bright_mode::-webkit-scrollbar {
     width: 16px;
 }
@@ -1412,6 +1422,10 @@ a {
 
 .night_mode {
     background-color: #202124;
+}
+
+.night_mode .wrap {
+    color: #202124;
 }
 
 .night_mode::-webkit-scrollbar {

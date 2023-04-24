@@ -19,7 +19,7 @@ function Main(props) {
     useEffect(() => { setList(defaultList); },[defaultList]);
     useEffect(() => { setFontWeight(defaultFontWeight); },[defaultFontWeight]);
     useEffect(() => { setSortby(defaultSortby); },[defaultSortby]);
-    useEffect(() => { document.querySelector("title").innerHTML = defaultTitle; },[defaultTitle]);
+    useEffect(() => { document.title = defaultTitle; },[defaultTitle]);
 
     /* 
         셀렉트박스 외 영역 클릭 시 셀렉트박스 클릭 해제 끝

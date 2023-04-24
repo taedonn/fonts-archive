@@ -40,7 +40,7 @@ function DetailPage(props) {
                 ? props.fixedDataByLatest[id] === urlString
                 : <>
                     {window.scrollTo(0,0)}
-                    {document.querySelector('title').innerHTML = props.fixedDataByLatest[id].c[1].v + " · FONTS ARCHIVE"}
+                    {document.title = props.fixedDataByLatest[id].c[1].v + " · FONTS ARCHIVE"}
                     <SideMenu data={props.fixedDataByName}/>
                     <div className="font_detail_page_wrap">
                         <link href={props.fixedDataByLatest[id].c[12].v} rel="stylesheet" itemProp="url"/>
