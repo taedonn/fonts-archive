@@ -1,5 +1,8 @@
+// 훅
 import { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+
+// 컴포넌트
 import Main from './Main'
 import DetailPage from './DetailPage'
 
@@ -9,13 +12,11 @@ const query = 'Select *';
 const url = 'https://docs.google.com/spreadsheets/d/1ryt-0PI5_hWA3AnP0gcyTRyKh8kqAooApts_cI0yhQ0/gviz/tq?&sheet=' + sheetName + '&tq=' + query;
 
 function App() {
+    // 데이터 연동 훅
     const [data, setData] = useState([]);
     const [fixedDataByLatest, setFixedDataByLatest] = useState([]);
     const [fixedDataByName, setFixedDataByName] = useState([]);
-
     useEffect(() => { handleLoad(url); },[]);
-
-    // 데이터 연동
     const handleLoad = (url) => {
         fetch(url)
         .then(res => res.text())
@@ -30,10 +31,13 @@ function App() {
         });
     }
 
+    // 맨 위로 버튼 클릭 이벤트
     const goUp = () => { window.scrollTo({top:0,behavior:'smooth'}); }
 
+    // 깃허브 저장소 바로가기 클릭 이벤트
     const goGitHub = () => { window.open('https://github.com/taedonn/fonts-archive','_blank'); }
 
+    // 컬러 모드 변경하기 클릭 이벤트
     const goNightMode = (e) => {
         if(e.target.checked) { document.body.classList.replace('night_mode','bright_mode'); }
         else { document.body.classList.replace('bright_mode','night_mode'); }

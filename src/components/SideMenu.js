@@ -1,7 +1,9 @@
+// 훅
 import { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 
 function SideMenu(props) {
+    // 데이터 훅
     const total = props.data.length;
     const [filtered, setFiltered] = useState(total);
     useEffect(() => { setFiltered(total); },[total]);

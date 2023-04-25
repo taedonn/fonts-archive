@@ -1,4 +1,7 @@
+// 훅
 import { Link, useParams } from "react-router-dom";
+
+// 컴포넌트
 import SideMenu from './SideMenu';
 import DummyText from './DummyText';
 

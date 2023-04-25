@@ -1,39 +1,60 @@
+// 훅
 import { useRef, useEffect, useState } from 'react';
-import '../css/App.css';
+import { useCookies } from 'react-cookie';
+
+// 컴포넌트
 import FontBox from './FontBox';
 import SideMenu from './SideMenu';
 
+// 스타일
+import '../css/App.css';
+
 function Main(props) {
-    const defaultList = props.data;
-    const defaultFontWeight = "400"
-    const defaultSortby = "latest";
+    // 쿠키 훅
+    const [cookies, setCookie] = useCookies([]);
+
+    // 제목 훅
     const defaultTitle = "FONTS ARCHIVE";
-    const [list, setList] = useState(defaultList);
-    const [fontWeight, setFontWeight] = useState(defaultFontWeight);
-    const [sortby, setSortby] = useState(defaultSortby);
-    const [txt, setTxt] = useState("");
-    const [fontWeightBox, setFontWeightBox] = useState("400");
-    const [sortbyBox, setSortbyBox] = useState("최신순");
-
-
-    useEffect(() => { setList(defaultList); },[defaultList]);
-    useEffect(() => { setFontWeight(defaultFontWeight); },[defaultFontWeight]);
-    useEffect(() => { setSortby(defaultSortby); },[defaultSortby]);
     useEffect(() => { document.title = defaultTitle; },[defaultTitle]);
+
+    // 데이터 훅
+    const defaultList = props.data;
+    const [list, setList] = useState(defaultList);
+    useEffect(() => { setList(defaultList); },[defaultList]);
+
+    // 정렬 순 훅
+    const defaultSortby = "latest";
+    const [sortby, setSortby] = useState(defaultSortby);
+    useEffect(() => {
+        if (cookies.sortby === undefined) { setSortby(defaultSortby); }
+        else { setSortby(cookies.sortby); }
+    },[defaultSortby, cookies.sortby]);
+
+    // 폰트 두께 훅
+    const defaultFontWeight = "400";
+    const [fontWeight, setFontWeight] = useState(defaultFontWeight);
+    useEffect(() => {
+        if (cookies.fontWeight === undefined) { setFontWeight(defaultFontWeight); }
+        else { setFontWeight(cookies.fontWeight); }
+    },[defaultFontWeight, cookies.fontWeight]);
+
+    // 텍스트 문구 변경 훅
+    const [txt, setTxt] = useState("");
 
     /* 
         셀렉트박스 외 영역 클릭 시 셀렉트박스 클릭 해제 끝
         ----------------------------------------------
     */
-    const searchRef1_1 = useRef(null);
+    const searchRef1_1 = useRef(null); // 언어 선택
     const searchRef1_2 = useRef(null);
-    const searchRef2_1 = useRef(null);
+    const searchRef2_1 = useRef(null); // 폰트 형태
     const searchRef2_2 = useRef(null);
-    const searchRef3_1 = useRef(null);
+    const searchRef3_1 = useRef(null); // 정렬 순
     const searchRef3_2 = useRef(null);
-    const searchRef4_1 = useRef(null);
+    const searchRef4_1 = useRef(null); // 폰트 두께
     const searchRef4_2 = useRef(null);
 
+    // 셀렉트 박스 - '언어 선택' 외 영역 클릭 시 선택 해제
     useEffect(() => {
         function handleOutside(e) {
             if (searchRef1_1.current && !searchRef1_1.current.contains(e.target) && !searchRef1_2.current.contains(e.target)) {
@@ -44,6 +65,7 @@ function Main(props) {
         return () => { document.removeEventListener("mouseup", handleOutside); };
     }, [searchRef1_1]);
 
+    // 셀렉트 박스 - '폰트 형태' 외 영역 클릭 시 선택 해제
     useEffect(() => {
         function handleOutside2(e) {
             if (searchRef2_1.current && !searchRef2_1.current.contains(e.target) && !searchRef2_2.current.contains(e.target)) {
@@ -54,16 +76,7 @@ function Main(props) {
         return () => { document.removeEventListener("mouseup", handleOutside2); };
     }, [searchRef2_1]);
 
-    useEffect(() => {
-        function handleOutside2(e) {
-            if (searchRef3_1.current && !searchRef3_1.current.contains(e.target) && !searchRef3_2.current.contains(e.target)) {
-                document.getElementById('category_3_select').checked = false;
-            }
-        }
-        document.addEventListener("mouseup", handleOutside2);
-        return () => { document.removeEventListener("mouseup", handleOutside2); };
-    }, [searchRef3_1]);
-
+    // 셀렉트 박스 - '정렬 순' 외 영역 클릭 시 선택 해제
     useEffect(() => {
         function handleOutside3(e) {
             if (searchRef3_1.current && !searchRef3_1.current.contains(e.target) && !searchRef3_2.current.contains(e.target)) {
@@ -74,6 +87,7 @@ function Main(props) {
         return () => { document.removeEventListener("mouseup", handleOutside3); };
     }, [searchRef3_1]);
 
+    // 셀렉트 박스 - '폰트 두께' 외 영역 클릭 시 선택 해제
     useEffect(() => {
         function handleOutside4(e) {
             if (searchRef4_1.current && !searchRef4_1.current.contains(e.target) && !searchRef4_2.current.contains(e.target)) {
@@ -84,6 +98,7 @@ function Main(props) {
         return () => { document.removeEventListener("mouseup", handleOutside4); };
     }, [searchRef4_1]);
 
+    // 셀렉트 박스 - '언어 선택' 클릭 이벤트
     const handleChange = (e) => {
         if (e.target.checked) {
             document.getElementsByClassName('category_option_1')[0].classList.add('fade_in');
@@ -91,6 +106,7 @@ function Main(props) {
         }
     }
 
+    // 셀렉트 박스 - '폰트 형태' 클릭 이벤트
     const handleChange2 = (e) => {
         if (e.target.checked) {
             document.getElementsByClassName('category_option_2')[0].classList.add('fade_in');
@@ -98,6 +114,7 @@ function Main(props) {
         }
     }
 
+    // 셀렉트 박스 - '정렬 순' 클릭 이벤트
     const handleChange3 = (e) => {
         if (e.target.checked) {
             document.getElementsByClassName('category_option_3')[0].classList.add('fade_in');
@@ -105,6 +122,7 @@ function Main(props) {
         }
     }
 
+    // 셀렉트 박스 - '폰트 두께' 클릭 이벤트
     const handleChange4 = (e) => {
         if (e.target.checked) {
             document.getElementsByClassName('category_option_4')[0].classList.add('fade_in');
@@ -116,6 +134,7 @@ function Main(props) {
         ----------------------------------------------
     */
 
+    // 텍스트 문구 변경 이벤트
     const textChange = (e) => {
         if (e.target.value === "") { setTxt("원하는 문구를 적어보세요"); }
         else { setTxt(e.target.value); }
@@ -129,54 +148,28 @@ function Main(props) {
         }
     }
 
-    const typeFaceChange = () => {
-        let typeFace = document.getElementsByClassName('handle_type_face');
-        let typeFaceChk = [];
-
-        // 어떤 Type Face가 체크되어 있는지 체크
-        for (let i = 0; i < typeFace.length; i++) {
-            if (typeFace[i].checked) { typeFaceChk.push(typeFace[i].value); }
-        }
-
-        // 스크롤 맨 위로
-        window.scrollTo(0,0);
-
-        // 데이터 필터링
-        filterData(defaultList, typeFaceChk, sortby);
-    }
-
-    const filterData = (data, checkedValue, sort) => {
-        let filteredData = data.filter((item) => checkedValue.includes(item.c[3].v) );
-        if (sort === "name") { 
-            let dataSortedByName = filteredData.sort(function(a,b) {
-                return a.c[1].v.localeCompare(b.c[1].v);
-            });
-            setList(dataSortedByName);
-        }
-        else if (sort === "latest") {
-            let dataSortedByLatest = filteredData.sort(function(a,b) {
-                return b.c[0].v - a.c[0].v;
-            });
-            setList(dataSortedByLatest);
-        }
-    }
-
+    // 언어 선택 클릭 이벤트
     const langChange = () => {
         let lang = document.getElementsByClassName('handle_lang');
         let langChk = [];
+        let cookieChk = "";
 
         // 어떤 언어가 체크되어 있는지 체크
         for (let i = 0; i < lang.length; i++) {
-            if (lang[i].checked) { langChk.push(lang[i].value); }
+            if (lang[i].checked) { langChk.push(lang[i].value); cookieChk += i; }
         }
 
         // 스크롤 맨 위로
         window.scrollTo(0,0);
+
+        // 쿠키 생성
+        setCookie('lang', cookieChk, {path:'/', secure:true, sameSite:'none'});
 
         // 데이터 필터링
         filterLangData(defaultList, langChk, sortby);
     }
 
+    // 언어 선택 데이터 필터링 - 언어 선택 클릭 시
     const filterLangData = (data, checkedValue, sort) => {
         let filteredData = data.filter((item) => checkedValue.includes(item.c[22].v) );
         if (sort === "name") { 
@@ -193,33 +186,73 @@ function Main(props) {
         }
     }
 
-    const fontWeightChange = (e) => {
-        // 어떤 Font Weight가 체크되어 있는지 체크
-        if (e.target.checked) { setFontWeight(e.target.value); setFontWeightBox(e.target.value); }
+    // 폰트 형태 클릭 이벤트
+    const typeFaceChange = () => {
+        let typeFace = document.getElementsByClassName('handle_type_face');
+        let typeFaceChk = [];
+        let cookieChk = "";
+
+        // 어떤 Type Face가 체크되어 있는지 체크
+        for (let i = 0; i < typeFace.length; i++) {
+            if (typeFace[i].checked) { typeFaceChk.push(typeFace[i].value); cookieChk += i; }
+        }
+
+        // 스크롤 맨 위로
+        window.scrollTo(0,0);
+
+        // 쿠키 생성
+        setCookie('typeFace', cookieChk, {path:'/', secure:true, sameSite:'none'});
+
+        // 데이터 필터링
+        filterData(defaultList, typeFaceChk, sortby);
     }
 
+    // 폰트 형태 데이터 필터링
+    const filterData = (data, checkedValue, sort) => {
+        let filteredData = data.filter((item) => checkedValue.includes(item.c[3].v) );
+        if (sort === "name") { 
+            let dataSortedByName = filteredData.sort(function(a,b) {
+                return a.c[1].v.localeCompare(b.c[1].v);
+            });
+            setList(dataSortedByName);
+        }
+        else if (sort === "latest") {
+            let dataSortedByLatest = filteredData.sort(function(a,b) {
+                return b.c[0].v - a.c[0].v;
+            });
+            setList(dataSortedByLatest);
+        }
+    }
+
+    // 정렬 순 클릭 이벤트
     const sortbyChange = (e) => {
-        // 어떤 Sortby가 체크되어 있는지 체크
         if (e.target.checked) {
             setSortby(e.target.value);
+            setCookie('sortby', e.target.value, {path:'/', secure:true, sameSite:'none'});
             if (e.target.value === "name") {
                 let sortbyName = list.sort(function(a,b) {
                     return a.c[1].v.localeCompare(b.c[1].v);
                 });
                 setList(sortbyName);
-                setSortbyBox("이름순");
             }
             else if (e.target.value === "latest") {
                 let sortbyLatest = list.sort(function(a,b) {
                     return b.c[0].v - a.c[0].v;
                 });
                 setList(sortbyLatest);
-                setSortbyBox("최신순");
             }
         }
 
         // 스크롤 맨 위로
         window.scrollTo(0,0);
+    }
+
+    // 폰트 두께 클릭 이벤트
+    const fontWeightChange = (e) => {
+        if (e.target.checked) {
+            setCookie('fontWeight', e.target.value, {path:'/', secure:true, sameSite:'none'});
+            setFontWeight(e.target.value);
+        }
     }
 
     return (
@@ -241,7 +274,7 @@ function Main(props) {
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M7.022 1.566a1.13 1.13 0 0 1 1.96 0l6.857 11.667c.457.778-.092 1.767-.98 1.767H1.144c-.889 0-1.437-.99-.98-1.767L7.022 1.566z"/></svg>
                             </label>
                             <div className='category_option category_option_1' ref={searchRef1_1}>
-                                <input className='handle_lang' type='checkbox' id='KR' value='KR' onChange={langChange} defaultChecked/>
+                                <input className='handle_lang' type='checkbox' id='KR' value='KR' onChange={langChange} defaultChecked={cookies.lang === undefined ? true : (cookies.lang.includes("0") === true ? true : false)}/>
                                 <div className='chk_box'>
                                     <label htmlFor='KR'>
                                         <svg className='chk_btn' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.235.235 0 0 1 .02-.022z"/></svg>
@@ -249,7 +282,7 @@ function Main(props) {
                                     </label>
                                     <span>한국어</span>
                                 </div>
-                                <input className='handle_lang' type='checkbox' id='EN' value='EN' onChange={langChange} defaultChecked/>
+                                <input className='handle_lang' type='checkbox' id='EN' value='EN' onChange={langChange} defaultChecked={cookies.lang === undefined ? true : (cookies.lang.includes("1") === true ? true : false)}/>
                                 <div className='chk_box'>
                                     <label htmlFor='EN'>
                                         <svg className='chk_btn' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.235.235 0 0 1 .02-.022z"/></svg>
@@ -266,7 +299,7 @@ function Main(props) {
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M7.022 1.566a1.13 1.13 0 0 1 1.96 0l6.857 11.667c.457.778-.092 1.767-.98 1.767H1.144c-.889 0-1.437-.99-.98-1.767L7.022 1.566z"/></svg>
                             </label>
                             <div className='category_option category_option_2' ref={searchRef2_1}>
-                                <input className='handle_type_face' type='checkbox' id='sansSerif' onChange={typeFaceChange} value='Sans Serif' defaultChecked/>
+                                <input className='handle_type_face' type='checkbox' id='sansSerif' onChange={typeFaceChange} value='Sans Serif' defaultChecked={cookies.typeFace === undefined ? true : (cookies.typeFace.includes("0") === true ? true : false)}/>
                                 <div className='chk_box'>
                                     <label htmlFor='sansSerif'>
                                         <svg className='chk_btn' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.235.235 0 0 1 .02-.022z"/></svg>
@@ -274,7 +307,7 @@ function Main(props) {
                                     </label>
                                     <span>고딕</span>
                                 </div>
-                                <input className='handle_type_face' type='checkbox' id='serif' onChange={typeFaceChange} value='Serif' defaultChecked/>
+                                <input className='handle_type_face' type='checkbox' id='serif' onChange={typeFaceChange} value='Serif' defaultChecked={cookies.typeFace === undefined ? true : (cookies.typeFace.includes("1") === true ? true : false)}/>
                                 <div className='chk_box'>
                                     <label htmlFor='serif'>
                                         <svg className='chk_btn' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.235.235 0 0 1 .02-.022z"/></svg>
@@ -282,7 +315,7 @@ function Main(props) {
                                     </label>
                                     <span>명조</span>
                                 </div>
-                                <input className='handle_type_face' type='checkbox' id='handWriting' onChange={typeFaceChange} value='Hand Writing' defaultChecked/>
+                                <input className='handle_type_face' type='checkbox' id='handWriting' onChange={typeFaceChange} value='Hand Writing' defaultChecked={cookies.typeFace === undefined ? true : (cookies.typeFace.includes("2") === true ? true : false)}/>
                                 <div className='chk_box'>
                                     <label htmlFor='handWriting'>
                                         <svg className='chk_btn' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.235.235 0 0 1 .02-.022z"/></svg>
@@ -290,7 +323,7 @@ function Main(props) {
                                     </label>
                                     <span>손글씨</span>
                                 </div>
-                                <input className='handle_type_face' type='checkbox' id='display' onChange={typeFaceChange} value='Display' defaultChecked/>
+                                <input className='handle_type_face' type='checkbox' id='display' onChange={typeFaceChange} value='Display' defaultChecked={cookies.typeFace === undefined ? true : (cookies.typeFace.includes("3") === true ? true : false)}/>
                                 <div className='chk_box'>
                                     <label htmlFor='display'>
                                         <svg className='chk_btn' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.235.235 0 0 1 .02-.022z"/></svg>
@@ -304,11 +337,11 @@ function Main(props) {
                         <div className='category_box category_3'>
                             <input type='checkbox' id='category_3_select' onChange={handleChange3}/>
                             <label className='category_3_select' ref={searchRef3_2} htmlFor='category_3_select'>
-                                {sortbyBox}
+                                {sortby === 'latest' ? '최신순' : '이름순'}
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M7.022 1.566a1.13 1.13 0 0 1 1.96 0l6.857 11.667c.457.778-.092 1.767-.98 1.767H1.144c-.889 0-1.437-.99-.98-1.767L7.022 1.566z"/></svg>
                             </label>
                             <div className='category_option category_option_3' ref={searchRef3_1}>
-                                <input className='handle_sortby' type='radio' id='latest' value='latest' name='sortby' onChange={sortbyChange} defaultChecked/>
+                                <input className='handle_sortby' type='radio' id='latest' value='latest' name='sortby' onChange={sortbyChange} defaultChecked={cookies.sortby === undefined ? true : (cookies.sortby === "latest" ? true : false)}/>
                                 <div className='chk_box'>
                                     <label htmlFor='latest'>
                                         <svg className='chk_btn' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.235.235 0 0 1 .02-.022z"/></svg>
@@ -316,7 +349,7 @@ function Main(props) {
                                     </label>
                                     <span>최신순</span>
                                 </div>
-                                <input className='handle_sortby' type='radio' id='name' value='name' name='sortby' onChange={sortbyChange}/>
+                                <input className='handle_sortby' type='radio' id='name' value='name' name='sortby' onChange={sortbyChange} defaultChecked={cookies.sortby === undefined ? false : (cookies.sortby === "name" ? true : false)}/>
                                 <div className='chk_box'>
                                     <label htmlFor='name'>
                                         <svg className='chk_btn' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.235.235 0 0 1 .02-.022z"/></svg>
@@ -329,11 +362,11 @@ function Main(props) {
                         <div className='category_box category_4'>
                             <input type='checkbox' id='category_4_select' onChange={handleChange4}/>
                             <label className='category_4_select' ref={searchRef4_2} htmlFor='category_4_select'>
-                                폰트 두께 ({fontWeightBox})
+                                폰트 두께 ({fontWeight})
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M7.022 1.566a1.13 1.13 0 0 1 1.96 0l6.857 11.667c.457.778-.092 1.767-.98 1.767H1.144c-.889 0-1.437-.99-.98-1.767L7.022 1.566z"/></svg>
                             </label>
                             <div className='category_option category_option_4' ref={searchRef4_1}>
-                                <input className='handle_font_weight' type='radio' id='100' value='100' name='font_weight' onChange={fontWeightChange}/>
+                                <input className='handle_font_weight' type='radio' id='100' value='100' name='font_weight' onChange={fontWeightChange} defaultChecked={cookies.fontWeight === undefined ? false : (cookies.fontWeight === "100" ? true : false)}/>
                                 <div className='chk_box'>
                                     <label htmlFor='100'>
                                         <svg className='chk_btn' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.235.235 0 0 1 .02-.022z"/></svg>
@@ -341,7 +374,7 @@ function Main(props) {
                                     </label>
                                     <span>100 Thin</span>
                                 </div>
-                                <input className='handle_font_weight' type='radio' id='200' value='200' name='font_weight' onChange={fontWeightChange}/>
+                                <input className='handle_font_weight' type='radio' id='200' value='200' name='font_weight' onChange={fontWeightChange} defaultChecked={cookies.fontWeight === undefined ? false : (cookies.fontWeight === "200" ? true : false)}/>
                                 <div className='chk_box'>
                                     <label htmlFor='200'>
                                         <svg className='chk_btn' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.235.235 0 0 1 .02-.022z"/></svg>
@@ -349,7 +382,7 @@ function Main(props) {
                                     </label>
                                     <span>200 ExtraLight</span>
                                 </div>
-                                <input className='handle_font_weight' type='radio' id='300' value='300' name='font_weight' onChange={fontWeightChange}/>
+                                <input className='handle_font_weight' type='radio' id='300' value='300' name='font_weight' onChange={fontWeightChange} defaultChecked={cookies.fontWeight === undefined ? false : (cookies.fontWeight === "300" ? true : false)}/>
                                 <div className='chk_box'>
                                     <label htmlFor='300'>
                                         <svg className='chk_btn' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.235.235 0 0 1 .02-.022z"/></svg>
@@ -357,7 +390,7 @@ function Main(props) {
                                     </label>
                                     <span>300 Light</span>
                                 </div>
-                                <input className='handle_font_weight' type='radio' id='400' value='400' name='font_weight' onChange={fontWeightChange} defaultChecked/>
+                                <input className='handle_font_weight' type='radio' id='400' value='400' name='font_weight' onChange={fontWeightChange} defaultChecked={cookies.fontWeight === undefined ? true : (cookies.fontWeight === "400" ? true : false)}/>
                                 <div className='chk_box'>
                                     <label htmlFor='400'>
                                         <svg className='chk_btn' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.235.235 0 0 1 .02-.022z"/></svg>
@@ -365,7 +398,7 @@ function Main(props) {
                                     </label>
                                     <span>400 Regular</span>
                                 </div>
-                                <input className='handle_font_weight' type='radio' id='500' value='500' name='font_weight' onChange={fontWeightChange}/>
+                                <input className='handle_font_weight' type='radio' id='500' value='500' name='font_weight' onChange={fontWeightChange} defaultChecked={cookies.fontWeight === undefined ? false : (cookies.fontWeight === "500" ? true : false)}/>
                                 <div className='chk_box'>
                                     <label htmlFor='500'>
                                         <svg className='chk_btn' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.235.235 0 0 1 .02-.022z"/></svg>
@@ -373,7 +406,7 @@ function Main(props) {
                                     </label>
                                     <span>500 Medium</span>
                                 </div>
-                                <input className='handle_font_weight' type='radio' id='600' value='600' name='font_weight' onChange={fontWeightChange}/>
+                                <input className='handle_font_weight' type='radio' id='600' value='600' name='font_weight' onChange={fontWeightChange} defaultChecked={cookies.fontWeight === undefined ? false : (cookies.fontWeight === "600" ? true : false)}/>
                                 <div className='chk_box'>
                                     <label htmlFor='600'>
                                         <svg className='chk_btn' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.235.235 0 0 1 .02-.022z"/></svg>
@@ -381,7 +414,7 @@ function Main(props) {
                                     </label>
                                     <span>600 Bold</span>
                                 </div>
-                                <input className='handle_font_weight' type='radio' id='700' value='700' name='font_weight' onChange={fontWeightChange}/>
+                                <input className='handle_font_weight' type='radio' id='700' value='700' name='font_weight' onChange={fontWeightChange} defaultChecked={cookies.fontWeight === undefined ? false : (cookies.fontWeight === "700" ? true : false)}/>
                                 <div className='chk_box'>
                                     <label htmlFor='700'>
                                         <svg className='chk_btn' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.235.235 0 0 1 .02-.022z"/></svg>
@@ -389,7 +422,7 @@ function Main(props) {
                                     </label>
                                     <span>700 ExtraBold</span>
                                 </div>
-                                <input className='handle_font_weight' type='radio' id='800' value='800' name='font_weight' onChange={fontWeightChange}/>
+                                <input className='handle_font_weight' type='radio' id='800' value='800' name='font_weight' onChange={fontWeightChange} defaultChecked={cookies.fontWeight === undefined ? false : (cookies.fontWeight === "800" ? true : false)}/>
                                 <div className='chk_box'>
                                     <label htmlFor='800'>
                                         <svg className='chk_btn' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.235.235 0 0 1 .02-.022z"/></svg>
@@ -397,7 +430,7 @@ function Main(props) {
                                     </label>
                                     <span>800 Heavy</span>
                                 </div>
-                                <input className='handle_font_weight' type='radio' id='900' value='900' name='font_weight' onChange={fontWeightChange}/>
+                                <input className='handle_font_weight' type='radio' id='900' value='900' name='font_weight' onChange={fontWeightChange} defaultChecked={cookies.fontWeight === undefined ? false : (cookies.fontWeight === "900" ? true : false)}/>
                                 <div className='chk_box'>
                                     <label htmlFor='900'>
                                         <svg className='chk_btn' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.235.235 0 0 1 .02-.022z"/></svg>
