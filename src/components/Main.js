@@ -30,6 +30,22 @@ function Main(props) {
         else { setSortby(cookies.sortby); }
     },[defaultSortby, cookies.sortby]);
 
+    // 언어 선택 훅
+    const defaultLang = "01";
+    const [lang, setLang] = useState(defaultLang);
+    useEffect(() => {
+        if (cookies.lang === undefined) { setLang(defaultLang); }
+        else { setLang(cookies.lang); }
+    },[defaultLang, cookies.lang]);
+
+    // 폰트 형태 훅
+    const defaultTypeFace = "0123";
+    const [typeFace, setTypeFace] = useState(defaultTypeFace);
+    useEffect(() => {
+        if (cookies.typeFace === undefined) { setTypeFace(defaultTypeFace); }
+        else { setTypeFace(cookies.typeFace); }
+    },[defaultTypeFace, cookies.typeFace]);
+
     // 폰트 두께 훅
     const defaultFontWeight = "400";
     const [fontWeight, setFontWeight] = useState(defaultFontWeight);
@@ -37,6 +53,34 @@ function Main(props) {
         if (cookies.fontWeight === undefined) { setFontWeight(defaultFontWeight); }
         else { setFontWeight(cookies.fontWeight); }
     },[defaultFontWeight, cookies.fontWeight]);
+
+    // 셀렉트 박스 전체 체크
+    useEffect(() => {
+        let thisData = props.data;
+
+        // 언어 선택 체크
+        let checkedLang = [];
+        if (cookies.lang === undefined) { checkedLang = ["KR", "EN"]; }
+        else {
+            if (cookies.lang.includes(0)) { checkedLang.push("KR"); }
+            if (cookies.lang.includes(1)) { checkedLang.push("EN"); }
+        }
+
+        // 폰트 형태 체크
+        let checkedTypeFace = [];
+        if (cookies.typeFace === undefined) { checkedTypeFace = ["Sans Serif", "Serif", "Hand Writing", "Display"] }
+        else {
+            if (cookies.typeFace.includes(0)) { checkedTypeFace.push("Sans Serif"); }
+            if (cookies.typeFace.includes(1)) { checkedTypeFace.push("Serif"); }
+            if (cookies.typeFace.includes(2)) { checkedTypeFace.push("Hand Writing"); }
+            if (cookies.typeFace.includes(3)) { checkedTypeFace.push("Display"); }
+        }
+
+        if (cookies.lang !== undefined || cookies.typeFace !== undefined) {
+            let filteredData = thisData.filter((item) => checkedTypeFace.includes(item.c[3].v) && checkedLang.includes(item.c[22].v) );
+            setList(filteredData);
+        }
+    },[props.data, cookies.lang, cookies.typeFace]);
 
     // 텍스트 문구 변경 훅
     const [txt, setTxt] = useState("");
@@ -150,14 +194,15 @@ function Main(props) {
 
     // 언어 선택 클릭 이벤트
     const langChange = () => {
-        let lang = document.getElementsByClassName('handle_lang');
-        let langChk = [];
+        let thisLang = document.getElementsByClassName('handle_lang');
+        let langChk = "";
         let cookieChk = "";
 
         // 어떤 언어가 체크되어 있는지 체크
-        for (let i = 0; i < lang.length; i++) {
-            if (lang[i].checked) { langChk.push(lang[i].value); cookieChk += i; }
+        for (let i = 0; i < thisLang.length; i++) {
+            if (thisLang[i].checked) { langChk += i; cookieChk += i; }
         }
+        setLang(langChk);
 
         // 스크롤 맨 위로
         window.scrollTo(0,0);
@@ -166,36 +211,20 @@ function Main(props) {
         setCookie('lang', cookieChk, {path:'/', secure:true, sameSite:'none'});
 
         // 데이터 필터링
-        filterLangData(defaultList, langChk, sortby);
-    }
-
-    // 언어 선택 데이터 필터링 - 언어 선택 클릭 시
-    const filterLangData = (data, checkedValue, sort) => {
-        let filteredData = data.filter((item) => checkedValue.includes(item.c[22].v) );
-        if (sort === "name") { 
-            let dataSortedByName = filteredData.sort(function(a,b) {
-                return a.c[1].v.localeCompare(b.c[1].v);
-            });
-            setList(dataSortedByName);
-        }
-        else if (sort === "latest") {
-            let dataSortedByLatest = filteredData.sort(function(a,b) {
-                return b.c[0].v - a.c[0].v;
-            });
-            setList(dataSortedByLatest);
-        }
+        filterData(defaultList, langChk, typeFace, sortby);
     }
 
     // 폰트 형태 클릭 이벤트
     const typeFaceChange = () => {
         let typeFace = document.getElementsByClassName('handle_type_face');
-        let typeFaceChk = [];
+        let typeFaceChk = "";
         let cookieChk = "";
 
         // 어떤 Type Face가 체크되어 있는지 체크
         for (let i = 0; i < typeFace.length; i++) {
-            if (typeFace[i].checked) { typeFaceChk.push(typeFace[i].value); cookieChk += i; }
+            if (typeFace[i].checked) { typeFaceChk += i; cookieChk += i; }
         }
+        setTypeFace(typeFaceChk);
 
         // 스크롤 맨 위로
         window.scrollTo(0,0);
@@ -204,22 +233,33 @@ function Main(props) {
         setCookie('typeFace', cookieChk, {path:'/', secure:true, sameSite:'none'});
 
         // 데이터 필터링
-        filterData(defaultList, typeFaceChk, sortby);
+        filterData(defaultList, lang, typeFaceChk, sortby);
     }
 
-    // 폰트 형태 데이터 필터링
-    const filterData = (data, checkedValue, sort) => {
-        let filteredData = data.filter((item) => checkedValue.includes(item.c[3].v) );
-        if (sort === "name") { 
-            let dataSortedByName = filteredData.sort(function(a,b) {
-                return a.c[1].v.localeCompare(b.c[1].v);
-            });
+    // 데이터 필터링
+    const filterData = (data, langVal,  typeFaceVal, sortVal) => {
+        // 언어 선택 체크
+        let checkedLang = [];
+        if (langVal.includes(0)) { checkedLang.push("KR"); }
+        if (langVal.includes(1)) { checkedLang.push("EN"); }
+
+        // 폰트 형태 체크
+        let checkedTypeFace = [];
+        if (typeFaceVal.includes(0)) { checkedTypeFace.push("Sans Serif"); }
+        if (typeFaceVal.includes(1)) { checkedTypeFace.push("Serif"); }
+        if (typeFaceVal.includes(2)) { checkedTypeFace.push("Hand Writing"); }
+        if (typeFaceVal.includes(3)) { checkedTypeFace.push("Display"); }
+
+        // 데이터 필터링
+        let filteredData = data.filter((item) => checkedTypeFace.includes(item.c[3].v) && checkedLang.includes(item.c[22].v) );
+
+        // 정렬 순 체크
+        if (sortVal === "name") { 
+            let dataSortedByName = filteredData.sort(function(a,b) { return a.c[1].v.localeCompare(b.c[1].v); });
             setList(dataSortedByName);
         }
-        else if (sort === "latest") {
-            let dataSortedByLatest = filteredData.sort(function(a,b) {
-                return b.c[0].v - a.c[0].v;
-            });
+        else if (sortVal === "latest") {
+            let dataSortedByLatest = filteredData.sort(function(a,b) { return b.c[0].v - a.c[0].v; });
             setList(dataSortedByLatest);
         }
     }
