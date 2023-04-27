@@ -11,6 +11,7 @@ const alphabetEN = 'A B C D E F G H I J K L M N O P Q R S T U V W X Y Z a b c d 
 const urlString = window.location.href.split('DetailPage/')[1];
 
 function DetailPage(props) {
+    // URL에서 id값 추출하는 훅
     const { id } = useParams();
 
     // 웹 폰트 적용하기 복사 버튼 클릭 이벤트

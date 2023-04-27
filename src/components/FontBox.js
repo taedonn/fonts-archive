@@ -6,7 +6,9 @@ import { Link } from "react-router-dom";
 import DummyText from "./DummyText";
 
 function FontBox(props) {
-    const [num, setNum] = useState(12);
+    // 데이터 훅
+    const defaultNum = 12;
+    const [num, setNum] = useState(defaultNum);
 
     useEffect(() => {
         // 스크롤 이벤트
