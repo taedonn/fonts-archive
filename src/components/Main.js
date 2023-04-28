@@ -95,8 +95,8 @@ function Main(props) {
     const searchRef2_2 = useRef(null);
     const searchRef3_1 = useRef(null); // 정렬 순
     const searchRef3_2 = useRef(null);
-    const searchRef4_1 = useRef(null); // 폰트 두께
-    const searchRef4_2 = useRef(null);
+    // const searchRef4_1 = useRef(null); // 폰트 두께
+    // const searchRef4_2 = useRef(null);
 
     // 셀렉트 박스 - '언어 선택' 외 영역 클릭 시 선택 해제
     useEffect(() => {
@@ -132,15 +132,15 @@ function Main(props) {
     }, [searchRef3_1]);
 
     // 셀렉트 박스 - '폰트 두께' 외 영역 클릭 시 선택 해제
-    useEffect(() => {
-        function handleOutside4(e) {
-            if (searchRef4_1.current && !searchRef4_1.current.contains(e.target) && !searchRef4_2.current.contains(e.target)) {
-                document.getElementById('category_4_select').checked = false;
-            }
-        }
-        document.addEventListener("mouseup", handleOutside4);
-        return () => { document.removeEventListener("mouseup", handleOutside4); };
-    }, [searchRef4_1]);
+    // useEffect(() => {
+    //     function handleOutside4(e) {
+    //         if (searchRef4_1.current && !searchRef4_1.current.contains(e.target) && !searchRef4_2.current.contains(e.target)) {
+    //             document.getElementById('category_4_select').checked = false;
+    //         }
+    //     }
+    //     document.addEventListener("mouseup", handleOutside4);
+    //     return () => { document.removeEventListener("mouseup", handleOutside4); };
+    // }, [searchRef4_1]);
 
     // 셀렉트 박스 - '언어 선택' 클릭 이벤트
     const handleChange = (e) => {
@@ -167,12 +167,12 @@ function Main(props) {
     }
 
     // 셀렉트 박스 - '폰트 두께' 클릭 이벤트
-    const handleChange4 = (e) => {
-        if (e.target.checked) {
-            document.getElementsByClassName('category_option_4')[0].classList.add('fade_in');
-            setTimeout(function() { document.getElementsByClassName('category_option_4')[0].classList.remove('fade_in'); },600);
-        }
-    }
+    // const handleChange4 = (e) => {
+    //     if (e.target.checked) {
+    //         document.getElementsByClassName('category_option_4')[0].classList.add('fade_in');
+    //         setTimeout(function() { document.getElementsByClassName('category_option_4')[0].classList.remove('fade_in'); },600);
+    //     }
+    // }
     /* 
         셀렉트박스 외 영역 클릭 시 셀렉트박스 클릭 해제 끝
         ----------------------------------------------
@@ -288,12 +288,12 @@ function Main(props) {
     }
 
     // 폰트 두께 클릭 이벤트
-    const fontWeightChange = (e) => {
-        if (e.target.checked) {
-            setCookie('fontWeight', e.target.value, {path:'/', secure:true, sameSite:'none'});
-            setFontWeight(e.target.value);
-        }
-    }
+    // const fontWeightChange = (e) => {
+    //     if (e.target.checked) {
+    //         setCookie('fontWeight', e.target.value, {path:'/', secure:true, sameSite:'none'});
+    //         setFontWeight(e.target.value);
+    //     }
+    // }
 
     return (
         <>
@@ -399,7 +399,7 @@ function Main(props) {
                                 </div>
                             </div>
                         </div>
-                        <div className='category_box category_4'>
+                        {/* <div className='category_box category_4'>
                             <input type='checkbox' id='category_4_select' onChange={handleChange4}/>
                             <label className='category_4_select' ref={searchRef4_2} htmlFor='category_4_select'>
                                 폰트 두께 ({fontWeight})
@@ -479,7 +479,7 @@ function Main(props) {
                                     <span>900 Black</span>
                                 </div>
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
                 <FontBox data={list} text={txt} fontWeight={fontWeight} sortby={sortby}/>

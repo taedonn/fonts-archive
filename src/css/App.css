@@ -482,7 +482,7 @@ a {
 
 .main_menu .font_box {
     width: calc(33.3% - 8px);
-    min-height: 240px;
+    height: 360px;
     padding: 20px;
     border: 1px solid;
     border-radius: 8px;
@@ -508,7 +508,6 @@ a {
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
-    margin-bottom: 16px;
 }
 
 .main_menu .font_box .font_info_wrap div {
@@ -523,11 +522,25 @@ a {
     transition: 0.2s;
 }
 
+.main_menu .font_box .font_divider {
+    width: 100%;
+    height: 1px;
+    margin: 16px 0;
+}
+
 .main_menu .font_box .font_text {
-    font-size: 32px;
+    font-size: 36px;
     line-height: 1.5;
     font-weight: 400;
+    overflow: hidden;
     transition: 0.2s;
+}
+
+.main_menu .font_box .font_text p {
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
 }
 
 .font_detail_page_wrap .close_btn {
@@ -1244,6 +1257,10 @@ a {
     color: #646568;
 }
 
+.bright_mode .main_menu .font_box .font_divider {
+    background-color: #CDCED2;
+}
+
 .bright_mode .main_menu .font_box .font_text {
     color: #35363A;
 }
@@ -1625,6 +1642,10 @@ a {
     color: #CDCED2;
 }
 
+.night_mode .main_menu .font_box .font_divider {
+    background-color: #4C4D50;
+}
+
 .night_mode .main_menu .font_box .font_text {
     color: #DEE1E6;
 }
@@ -1800,6 +1821,14 @@ a {
 }
 
 /* 반응형 */
+@media screen and (max-width: 1400px) {
+    .main_menu .font_box {
+        height: 280px;
+    }
+    .main_menu .font_box .font_text {
+        font-size: 28px;
+    }
+}
 @media screen and (max-width: 1080px) {
     .side_menu {
         width: 240px;
@@ -1904,7 +1933,7 @@ a {
 
     .main_menu .font_box {
         width: calc(50% - 6px);
-        min-height: 200px;
+        height: 200px;
         padding: 16px;
     }
 
@@ -1914,6 +1943,10 @@ a {
     
     .main_menu .font_box .type_face {
         margin-bottom: 12px;
+    }
+
+    .main_menu .font_box .font_divider {
+        margin: 12px 0;
     }
 
     .main_menu .font_box .font_text {
@@ -2224,7 +2257,7 @@ a {
 
     .main_menu .font_box {
         width: 100%;
-        min-height: 160px;
+        height: 180px;
     }
 
     .main_menu .font_box .font_info_wrap {

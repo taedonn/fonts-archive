@@ -17,6 +17,7 @@ function FontBox(props) {
                 setNum(defaultNum + 12);
                 clearInterval(handleScrollPos);
             }
+            else { clearInterval(handleScrollPos); }
         },200);
         return () => { clearInterval(handleScrollPos); }
     },[]);
@@ -40,11 +41,9 @@ function FontBox(props) {
         let select1 = document.getElementById("category_1_select");
         let select2 = document.getElementById("category_2_select");
         let select3 = document.getElementById("category_3_select");
-        let select4 = document.getElementById("category_4_select");
         if (select1 !== null) { select1.checked = false; }
         if (select2 !== null) { select2.checked = false; }
         if (select3 !== null) { select3.checked = false; }
-        if (select4 !== null) { select4.checked = false; }
 
         if ((window.scrollY + window.innerHeight) >= document.body.offsetHeight - (window.innerHeight * 0.1)) { handleTypeFace(); }
     }
@@ -63,7 +62,8 @@ function FontBox(props) {
                             <div className='font_info_wrap'>
                                 <div className="font_source" style={{fontFamily:"'"+dataEach.c[2].v+"'",fontWeight:props.fontWeight}}><span>by</span> {dataEach.c[4].v}</div>
                             </div>
-                            <div className="font_text" id={dataEach.c[22].v} style={{fontFamily:"'"+dataEach.c[2].v+"'",fontWeight:props.fontWeight}}><DummyText lang={dataEach.c[22].v} text={props.text}/></div>
+                            <div className="font_divider"></div>
+                            <div className="font_text" id={dataEach.c[22].v} style={{fontFamily:"'"+dataEach.c[2].v+"'",fontWeight:props.fontWeight}}><p><DummyText lang={dataEach.c[22].v} text={props.text}/></p></div>
                             <link href={dataEach.c[12].v} rel="stylesheet" type="text/css" itemProp="url"/>
                         </Link>
                     ))
@@ -73,7 +73,8 @@ function FontBox(props) {
                             <div className='font_info_wrap'>
                                 <div className="font_source" style={{fontFamily:"'"+dataEach.c[2].v+"'",fontWeight:props.fontWeight}}><span>by</span> {dataEach.c[4].v}</div>
                             </div>
-                            <div className="font_text" style={{fontFamily:"'"+dataEach.c[2].v+"'",fontWeight:props.fontWeight}}><DummyText lang={dataEach.c[22].v} text={props.text}/></div>
+                            <div className="font_divider"></div>
+                            <div className="font_text" style={{fontFamily:"'"+dataEach.c[2].v+"'",fontWeight:props.fontWeight}}><p><DummyText lang={dataEach.c[22].v} text={props.text}/></p></div>
                             <link href={dataEach.c[12].v} rel="stylesheet" type="text/css" itemProp="url"/>
                         </Link>
                     ))
