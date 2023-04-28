@@ -36,7 +36,6 @@ function FontBox(props) {
 
     // 스크롤 이벤트
     const handleScroll = () => {
-        console.log("Y");
         // 셀렉트박스 스크롤 시 체크 해제
         let select1 = document.getElementById("category_1_select");
         let select2 = document.getElementById("category_2_select");
