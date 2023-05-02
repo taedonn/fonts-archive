@@ -868,6 +868,19 @@ a {
 .font_detail_page_wrap .font_size_wrap .font_size_56 { font-size: 56px; }
 .font_detail_page_wrap .font_size_wrap .font_size_64 { font-size: 64px; }
 
+.font_detail_page_wrap .license {
+    width: 100%;
+    font-family: "Noto Sans KR";
+    font-size: 16px;
+    line-height: 2;
+    white-space: pre-wrap;
+    word-break: keep-all;
+    border: 1px solid;
+    padding: 28px;
+    margin-bottom: 20px;
+    transition: 0.2s;
+}
+
 .font_detail_page_wrap table {
     width: 100%;
     border-collapse: collapse;
@@ -1356,6 +1369,28 @@ a {
     border-color: #CDCED2;
 }
 
+.bright_mode .font_detail_page_wrap .license {
+    border-color: #CDCED2;
+    color: #35363A;
+}
+
+.bright_mode .font_detail_page_wrap .license::-webkit-scrollbar {
+    width: 8px;
+}
+
+.bright_mode .font_detail_page_wrap .license::-webkit-scrollbar-thumb {
+    border-radius: 8px;
+    background-color: #CDCED2;
+}
+
+.bright_mode .font_detail_page_wrap .license::-webkit-scrollbar-thumb:hover {
+    background-color: #B1B2B6;
+}
+
+.bright_mode .font_detail_page_wrap .license::-webkit-scrollbar-track {
+    background-color: #E9EAEE;
+}
+
 .bright_mode .font_detail_page_wrap table thead {
     border-color: #35363A;
 }
@@ -1741,6 +1776,28 @@ a {
     border-color: #4C4D50;
 }
 
+.night_mode .font_detail_page_wrap .license {
+    border-color: #4C4D50;
+    color: #DEE1E6;
+}
+
+.night_mode .font_detail_page_wrap .license::-webkit-scrollbar {
+    width: 8px;
+}
+
+.night_mode .font_detail_page_wrap .license::-webkit-scrollbar-thumb {
+    border-radius: 8px;
+    background-color: #35363A;
+}
+
+.night_mode .font_detail_page_wrap .license::-webkit-scrollbar-thumb:hover {
+    background-color: #4C4D50;
+}
+
+.night_mode .font_detail_page_wrap .license::-webkit-scrollbar-track {
+    background-color: #202124;
+}
+
 .night_mode .font_detail_page_wrap table thead {
     border-color: #35363A;
 }
@@ -2012,6 +2069,12 @@ a {
         margin-bottom: 40px;
     }
 
+    .font_detail_page_wrap .license {
+        font-size: 14px;
+        padding: 20px 24px;
+        margin-bottom: 16px;
+    }
+
     .font_detail_page_wrap table {
         margin-top: 0;
     }
@@ -2134,6 +2197,12 @@ a {
 
     .cdn_wrap .cdn_code pre {
         font-size: 12px;
+    }
+
+    .font_detail_page_wrap .license {
+        font-size: 12px;
+        padding: 16px 20px;
+        margin-bottom: 12px;
     }
 
     .font_detail_page_wrap table th {

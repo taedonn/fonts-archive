@@ -75,8 +75,9 @@ function DetailPage(props) {
                                 <a className="download_btn" href={props.fixedDataByLatest[id].c[7].v} target="_blank" rel="noopener noreferrer">폰트 다운로드</a>
                             </div>
                             {
-                                props.fixedDataByLatest[id].c[27].v === "Y"
-                                ? <>
+                                props.fixedDataByLatest[id].c[27].v === "N"
+                                ? <></>
+                                : <>
                                     <p className="font_detail_page_title">웹 폰트 사용하기</p>
                                     <div className="cdn_wrap">
                                         <input type="radio" id="cdn_css" name="cdn" value="CSS" onChange={handleWebFont} defaultChecked/>
@@ -117,7 +118,7 @@ function DetailPage(props) {
                                             }
                                         </div>
                                     </div>
-                                </> : <></>
+                                </>
                             }
                             <p className="font_detail_page_title">폰트 두께</p>
                             <div className="font_weight_wrap">
@@ -186,7 +187,14 @@ function DetailPage(props) {
                                 <div><h2>64px</h2><h3 style={{fontFamily:"'"+props.fixedDataByLatest[id].c[2].v+"'"}} className="font_size_64">{props.fixedDataByLatest[id].c[22].v === "KR" ? alphabetKR : alphabetEN}</h3></div>
                             </div>
                             <p className="font_detail_page_title">라이센스 사용 범위</p>
-                            <table className="license">
+                            {
+                                props.fixedDataByLatest[id].c[32].v === null
+                                ? <></>
+                                : <>
+                                    <pre className='license'>{props.fixedDataByLatest[id].c[32].v}</pre>
+                                </>
+                            }
+                            <table>
                                 <thead>
                                     <tr>
                                         <th>카테고리</th>
