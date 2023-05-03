@@ -42,15 +42,11 @@ function FontBox(props) {
         if (select1 !== null) { select1.checked = false; }
         if (select2 !== null) { select2.checked = false; }
         if (select3 !== null) { select3.checked = false; }
-        console.log("Y");
 
         if ((window.scrollY + window.innerHeight) >= document.body.offsetHeight - (window.innerHeight * 0.5)) { setNum(num + 12); }
     }
 
-    const throttledScroll = throttle(handleScroll,1000)
-
-    // 데이터 연동
-    // const handleTypeFace = () => { setNum(num + 12); }
+    const throttledScroll = throttle(handleScroll,1000);
 
     return (
         <>
