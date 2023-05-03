@@ -290,7 +290,7 @@ button {
     border: 1px solid;
     border-radius: 40px;
     font-size: 14px;
-    line-height: 1.25;
+    line-height: 1;
     transition: 0.2s;
     cursor: pointer;
 }
