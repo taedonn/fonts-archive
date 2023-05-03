@@ -72,10 +72,14 @@ function DetailPage(props) {
                         <div className="font_detail_page">
                             <div className="download_btn_wrap">
                                 <a className="source_btn" href={props.fixedDataByLatest[id].c[6].v} target="_blank" rel="noopener noreferrer">다운로드 페이지로 이동</a>
-                                <a className="download_btn" href={props.fixedDataByLatest[id].c[7].v} target="_blank" rel="noopener noreferrer">폰트 다운로드</a>
+                                {
+                                    props.fixedDataByLatest[id].c[29].v[0] === "N"
+                                    ? <></>
+                                    : <a className="download_btn" href={props.fixedDataByLatest[id].c[7].v} target="_blank" rel="noopener noreferrer">폰트 다운로드</a>
+                                }
                             </div>
                             {
-                                props.fixedDataByLatest[id].c[27].v === "N"
+                                props.fixedDataByLatest[id].c[27].v === "N" || props.fixedDataByLatest[id].c[29].v[0] === "N"
                                 ? <></>
                                 : <>
                                     <p className="font_detail_page_title">웹 폰트 사용하기</p>
@@ -591,7 +595,11 @@ function DetailPage(props) {
                                 props.fixedDataByLatest[id].c[32].v === null
                                 ? <></>
                                 : <>
-                                    <pre className='license'>{props.fixedDataByLatest[id].c[32].v}</pre>
+                                    <div className='license_wrap'>
+                                        <h2>라이센스 본문</h2>
+                                        <div className='license_divider'></div>
+                                        <pre className='license'>{props.fixedDataByLatest[id].c[32].v}</pre>
+                                    </div>
                                 </>
                             }
                         </div>

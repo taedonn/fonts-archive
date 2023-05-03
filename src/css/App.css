@@ -889,6 +889,34 @@ button {
 .font_detail_page_wrap .font_size_wrap .font_size_56 { font-size: 56px; }
 .font_detail_page_wrap .font_size_wrap .font_size_64 { font-size: 64px; }
 
+.font_detail_page_wrap .license_wrap {
+    width: 100%;
+    border: 1px solid;
+    padding: 32px 28px;
+    margin-top: 20px;
+    transition: 0.2s;
+}
+
+.font_detail_page_wrap .license_wrap h2 {
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 1.25;
+    transition: 0.2s;
+}
+
+.font_detail_page_wrap .license_wrap .license_divider {
+    width: 100%;
+    height: 1px;
+    margin: 20px 0;
+    transition: 0.2s;
+}
+
+.font_detail_page_wrap .license_wrap pre {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 2;
+}
+
 .font_detail_page_wrap .license {
     width: 100%;
     font-family: "Noto Sans KR";
@@ -896,9 +924,7 @@ button {
     line-height: 2;
     white-space: pre-wrap;
     word-break: keep-all;
-    border: 1px solid;
-    padding: 24px 28px;
-    margin-top: 20px;
+    color: inherit;
     transition: 0.2s;
 }
 
@@ -1390,9 +1416,13 @@ button {
     border-color: #CDCED2;
 }
 
-.bright_mode .font_detail_page_wrap .license {
+.bright_mode .font_detail_page_wrap .license_wrap {
     border-color: #CDCED2;
     color: #35363A;
+}
+
+.bright_mode .font_detail_page_wrap .license_divider {
+    background-color: #CDCED2;
 }
 
 .bright_mode .font_detail_page_wrap .license::-webkit-scrollbar {
@@ -1797,9 +1827,13 @@ button {
     border-color: #4C4D50;
 }
 
-.night_mode .font_detail_page_wrap .license {
+.night_mode .font_detail_page_wrap .license_wrap {
     border-color: #4C4D50;
     color: #DEE1E6;
+}
+
+.night_mode .font_detail_page_wrap .license_divider {
+    background-color: #4C4D50;
 }
 
 .night_mode .font_detail_page_wrap .license::-webkit-scrollbar {
@@ -2089,10 +2123,21 @@ button {
         margin-bottom: 40px;
     }
 
-    .font_detail_page_wrap .license {
-        font-size: 14px;
-        padding: 20px 24px;
+    .font_detail_page_wrap .license_wrap {
+        padding: 28px 24px;
         margin-top: 16px;
+    }
+
+    .font_detail_page_wrap .license_wrap h2 {
+        font-size: 20px;
+    }
+
+    .font_detail_page_wrap .license_divider {
+        margin: 16px 0;
+    }
+
+    .font_detail_page_wrap .license_wrap pre {
+        font-size: 14px;
     }
 
     .font_detail_page_wrap table {
@@ -2219,10 +2264,17 @@ button {
         font-size: 12px;
     }
 
-    .font_detail_page_wrap .license {
-        font-size: 12px;
-        padding: 16px 20px;
+    .font_detail_page_wrap .license_wrap {
+        padding: 24px 20px;
         margin-top: 12px;
+    }
+
+    .font_detail_page_wrap .license_wrap h2 {
+        font-size: 16px;
+    }
+
+    .font_detail_page_wrap .license_wrap pre {
+        font-size: 12px;
     }
 
     .font_detail_page_wrap table th {
