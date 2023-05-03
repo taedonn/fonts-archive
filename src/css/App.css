@@ -27,6 +27,11 @@ a {
     outline: none;
 }
 
+button {
+    border: none;
+    background-color: transparent;
+}
+
 /* 스타일 */
 
 .wrap {
@@ -275,7 +280,8 @@ a {
 }
 
 .main_menu .category_box > label {
-    height: 34.5px;
+    height: 34px;
+    position: relative;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -287,6 +293,21 @@ a {
     line-height: 1.25;
     transition: 0.2s;
     cursor: pointer;
+}
+
+.main_menu .category_box > label .button_wrap {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 2;
+}
+
+.main_menu .category_box > label button {
+    width: 100%;
+    height: 100%;
+    font-size: inherit;
+    line-height: inherit;
+    color: inherit;
 }
 
 .main_menu .category_box > label svg {
@@ -304,7 +325,7 @@ a {
     align-items: flex-start;
     position: absolute;
     z-index: 2;
-    left: -5px;
+    left: -7px;
     top: 44px;
     border-radius: 12px;
     border: 1px solid;
@@ -876,8 +897,8 @@ a {
     white-space: pre-wrap;
     word-break: keep-all;
     border: 1px solid;
-    padding: 28px;
-    margin-bottom: 20px;
+    padding: 24px 28px;
+    margin-top: 20px;
     transition: 0.2s;
 }
 
@@ -1910,7 +1931,6 @@ a {
     .main_menu .category_box > label {
         height: 30px;
         padding: 0 14px;
-        padding-bottom: 1px;
         font-size: 12px;
     }
 
@@ -2072,7 +2092,7 @@ a {
     .font_detail_page_wrap .license {
         font-size: 14px;
         padding: 20px 24px;
-        margin-bottom: 16px;
+        margin-top: 16px;
     }
 
     .font_detail_page_wrap table {
@@ -2202,7 +2222,7 @@ a {
     .font_detail_page_wrap .license {
         font-size: 12px;
         padding: 16px 20px;
-        margin-bottom: 12px;
+        margin-top: 12px;
     }
 
     .font_detail_page_wrap table th {

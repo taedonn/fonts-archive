@@ -187,13 +187,6 @@ function DetailPage(props) {
                                 <div><h2>64px</h2><h3 style={{fontFamily:"'"+props.fixedDataByLatest[id].c[2].v+"'"}} className="font_size_64">{props.fixedDataByLatest[id].c[22].v === "KR" ? alphabetKR : alphabetEN}</h3></div>
                             </div>
                             <p className="font_detail_page_title">라이센스 사용 범위</p>
-                            {
-                                props.fixedDataByLatest[id].c[32].v === null
-                                ? <></>
-                                : <>
-                                    <pre className='license'>{props.fixedDataByLatest[id].c[32].v}</pre>
-                                </>
-                            }
                             <table>
                                 <thead>
                                     <tr>
@@ -594,6 +587,13 @@ function DetailPage(props) {
                                     </tr>
                                 </tbody>
                             </table>
+                            {
+                                props.fixedDataByLatest[id].c[32].v === null
+                                ? <></>
+                                : <>
+                                    <pre className='license'>{props.fixedDataByLatest[id].c[32].v}</pre>
+                                </>
+                            }
                         </div>
                     </div>
                 </>

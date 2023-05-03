@@ -1,6 +1,7 @@
 // 훅
 import { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
+import { throttle } from 'lodash';
 
 // 컴포넌트
 import DummyText from "./DummyText";
@@ -24,14 +25,13 @@ function FontBox(props) {
 
     useEffect(() => {
         // 스크롤 이벤트
-        const timer = setInterval(() => {
-            window.addEventListener('scroll', () => { handleScroll(); });
-            document.addEventListener('touchmove', () => { handleScroll(); });
-        },200);
+        window.addEventListener('scroll', throttledScroll);
+        document.addEventListener('touchmove', throttledScroll);
+
         return () => {
-            clearInterval(timer);
-            window.removeEventListener('scroll', () => { handleScroll(); });
-            document.removeEventListener('touchmove', () => { handleScroll(); });
+            // 스크롤 이벤트 제거
+            window.removeEventListener('scroll', throttledScroll);
+            document.addEventListener('touchmove', throttledScroll);
         }
     });
 
@@ -44,12 +44,15 @@ function FontBox(props) {
         if (select1 !== null) { select1.checked = false; }
         if (select2 !== null) { select2.checked = false; }
         if (select3 !== null) { select3.checked = false; }
+        console.log("Y");
 
-        if ((window.scrollY + window.innerHeight) >= document.body.offsetHeight - (window.innerHeight * 0.1)) { handleTypeFace(); }
+        if ((window.scrollY + window.innerHeight) >= document.body.offsetHeight - (window.innerHeight * 0.5)) { setNum(num + 12); }
     }
 
+    const throttledScroll = throttle(handleScroll,1000)
+
     // 데이터 연동
-    const handleTypeFace = () => { setNum(num + 12); }
+    // const handleTypeFace = () => { setNum(num + 12); }
 
     return (
         <>

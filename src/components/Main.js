@@ -95,8 +95,6 @@ function Main(props) {
     const searchRef2_2 = useRef(null);
     const searchRef3_1 = useRef(null); // 정렬 순
     const searchRef3_2 = useRef(null);
-    // const searchRef4_1 = useRef(null); // 폰트 두께
-    // const searchRef4_2 = useRef(null);
 
     // 셀렉트 박스 - '언어 선택' 외 영역 클릭 시 선택 해제
     useEffect(() => {
@@ -131,17 +129,6 @@ function Main(props) {
         return () => { document.removeEventListener("mouseup", handleOutside3); };
     }, [searchRef3_1]);
 
-    // 셀렉트 박스 - '폰트 두께' 외 영역 클릭 시 선택 해제
-    // useEffect(() => {
-    //     function handleOutside4(e) {
-    //         if (searchRef4_1.current && !searchRef4_1.current.contains(e.target) && !searchRef4_2.current.contains(e.target)) {
-    //             document.getElementById('category_4_select').checked = false;
-    //         }
-    //     }
-    //     document.addEventListener("mouseup", handleOutside4);
-    //     return () => { document.removeEventListener("mouseup", handleOutside4); };
-    // }, [searchRef4_1]);
-
     // 셀렉트 박스 - '언어 선택' 클릭 이벤트
     const handleChange = (e) => {
         if (e.target.checked) {
@@ -166,13 +153,6 @@ function Main(props) {
         }
     }
 
-    // 셀렉트 박스 - '폰트 두께' 클릭 이벤트
-    // const handleChange4 = (e) => {
-    //     if (e.target.checked) {
-    //         document.getElementsByClassName('category_option_4')[0].classList.add('fade_in');
-    //         setTimeout(function() { document.getElementsByClassName('category_option_4')[0].classList.remove('fade_in'); },600);
-    //     }
-    // }
     /* 
         셀렉트박스 외 영역 클릭 시 셀렉트박스 클릭 해제 끝
         ----------------------------------------------
@@ -287,14 +267,6 @@ function Main(props) {
         window.scrollTo(0,0);
     }
 
-    // 폰트 두께 클릭 이벤트
-    // const fontWeightChange = (e) => {
-    //     if (e.target.checked) {
-    //         setCookie('fontWeight', e.target.value, {path:'/', secure:true, sameSite:'none'});
-    //         setFontWeight(e.target.value);
-    //     }
-    // }
-
     return (
         <>
             <SideMenu data={props.fixedDataByName}/>
@@ -310,8 +282,11 @@ function Main(props) {
                         <div className='category_box category_1'>
                             <input type='checkbox' id='category_1_select' onChange={handleChange}/>
                             <label className='category_1_select' ref={searchRef1_2} htmlFor='category_1_select'>
-                                언어 선택
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M7.022 1.566a1.13 1.13 0 0 1 1.96 0l6.857 11.667c.457.778-.092 1.767-.98 1.767H1.144c-.889 0-1.437-.99-.98-1.767L7.022 1.566z"/></svg>
+                                <div className='button_wrap'></div>
+                                <button>
+                                    언어 선택
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M7.022 1.566a1.13 1.13 0 0 1 1.96 0l6.857 11.667c.457.778-.092 1.767-.98 1.767H1.144c-.889 0-1.437-.99-.98-1.767L7.022 1.566z"/></svg>
+                                </button>
                             </label>
                             <div className='category_option category_option_1' ref={searchRef1_1}>
                                 <input className='handle_lang' type='checkbox' id='KR' value='KR' onChange={langChange} defaultChecked={cookies.lang === undefined ? true : (cookies.lang.includes("0") === true ? true : false)}/>
@@ -335,8 +310,11 @@ function Main(props) {
                         <div className='category_box category_2'>
                             <input type='checkbox' id='category_2_select' onChange={handleChange2}/>
                             <label className='category_2_select' ref={searchRef2_2} htmlFor='category_2_select'>
-                                폰트 형태
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M7.022 1.566a1.13 1.13 0 0 1 1.96 0l6.857 11.667c.457.778-.092 1.767-.98 1.767H1.144c-.889 0-1.437-.99-.98-1.767L7.022 1.566z"/></svg>
+                                <div className='button_wrap'></div>
+                                <button>
+                                    폰트 형태
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M7.022 1.566a1.13 1.13 0 0 1 1.96 0l6.857 11.667c.457.778-.092 1.767-.98 1.767H1.144c-.889 0-1.437-.99-.98-1.767L7.022 1.566z"/></svg>
+                                </button>
                             </label>
                             <div className='category_option category_option_2' ref={searchRef2_1}>
                                 <input className='handle_type_face' type='checkbox' id='sansSerif' onChange={typeFaceChange} value='Sans Serif' defaultChecked={cookies.typeFace === undefined ? true : (cookies.typeFace.includes("0") === true ? true : false)}/>
@@ -377,8 +355,11 @@ function Main(props) {
                         <div className='category_box category_3'>
                             <input type='checkbox' id='category_3_select' onChange={handleChange3}/>
                             <label className='category_3_select' ref={searchRef3_2} htmlFor='category_3_select'>
-                                {sortby === 'latest' ? '최신순' : '이름순'}
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M7.022 1.566a1.13 1.13 0 0 1 1.96 0l6.857 11.667c.457.778-.092 1.767-.98 1.767H1.144c-.889 0-1.437-.99-.98-1.767L7.022 1.566z"/></svg>
+                                <div className='button_wrap'></div>
+                                <button>
+                                    {sortby === 'latest' ? '최신순' : '이름순'}
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M7.022 1.566a1.13 1.13 0 0 1 1.96 0l6.857 11.667c.457.778-.092 1.767-.98 1.767H1.144c-.889 0-1.437-.99-.98-1.767L7.022 1.566z"/></svg>
+                                </button>
                             </label>
                             <div className='category_option category_option_3' ref={searchRef3_1}>
                                 <input className='handle_sortby' type='radio' id='latest' value='latest' name='sortby' onChange={sortbyChange} defaultChecked={cookies.sortby === undefined ? true : (cookies.sortby === "latest" ? true : false)}/>
@@ -399,87 +380,6 @@ function Main(props) {
                                 </div>
                             </div>
                         </div>
-                        {/* <div className='category_box category_4'>
-                            <input type='checkbox' id='category_4_select' onChange={handleChange4}/>
-                            <label className='category_4_select' ref={searchRef4_2} htmlFor='category_4_select'>
-                                폰트 두께 ({fontWeight})
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M7.022 1.566a1.13 1.13 0 0 1 1.96 0l6.857 11.667c.457.778-.092 1.767-.98 1.767H1.144c-.889 0-1.437-.99-.98-1.767L7.022 1.566z"/></svg>
-                            </label>
-                            <div className='category_option category_option_4' ref={searchRef4_1}>
-                                <input className='handle_font_weight' type='radio' id='100' value='100' name='font_weight' onChange={fontWeightChange} defaultChecked={cookies.fontWeight === undefined ? false : (cookies.fontWeight === "100" ? true : false)}/>
-                                <div className='chk_box'>
-                                    <label htmlFor='100'>
-                                        <svg className='chk_btn' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.235.235 0 0 1 .02-.022z"/></svg>
-                                        <svg className='chk_fill_btn' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm10.03 4.97a.75.75 0 0 1 .011 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.75.75 0 0 1 1.08-.022z"/></svg>
-                                    </label>
-                                    <span>100 Thin</span>
-                                </div>
-                                <input className='handle_font_weight' type='radio' id='200' value='200' name='font_weight' onChange={fontWeightChange} defaultChecked={cookies.fontWeight === undefined ? false : (cookies.fontWeight === "200" ? true : false)}/>
-                                <div className='chk_box'>
-                                    <label htmlFor='200'>
-                                        <svg className='chk_btn' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.235.235 0 0 1 .02-.022z"/></svg>
-                                        <svg className='chk_fill_btn' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm10.03 4.97a.75.75 0 0 1 .011 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.75.75 0 0 1 1.08-.022z"/></svg>
-                                    </label>
-                                    <span>200 ExtraLight</span>
-                                </div>
-                                <input className='handle_font_weight' type='radio' id='300' value='300' name='font_weight' onChange={fontWeightChange} defaultChecked={cookies.fontWeight === undefined ? false : (cookies.fontWeight === "300" ? true : false)}/>
-                                <div className='chk_box'>
-                                    <label htmlFor='300'>
-                                        <svg className='chk_btn' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.235.235 0 0 1 .02-.022z"/></svg>
-                                        <svg className='chk_fill_btn' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm10.03 4.97a.75.75 0 0 1 .011 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.75.75 0 0 1 1.08-.022z"/></svg>
-                                    </label>
-                                    <span>300 Light</span>
-                                </div>
-                                <input className='handle_font_weight' type='radio' id='400' value='400' name='font_weight' onChange={fontWeightChange} defaultChecked={cookies.fontWeight === undefined ? true : (cookies.fontWeight === "400" ? true : false)}/>
-                                <div className='chk_box'>
-                                    <label htmlFor='400'>
-                                        <svg className='chk_btn' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.235.235 0 0 1 .02-.022z"/></svg>
-                                        <svg className='chk_fill_btn' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm10.03 4.97a.75.75 0 0 1 .011 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.75.75 0 0 1 1.08-.022z"/></svg>
-                                    </label>
-                                    <span>400 Regular</span>
-                                </div>
-                                <input className='handle_font_weight' type='radio' id='500' value='500' name='font_weight' onChange={fontWeightChange} defaultChecked={cookies.fontWeight === undefined ? false : (cookies.fontWeight === "500" ? true : false)}/>
-                                <div className='chk_box'>
-                                    <label htmlFor='500'>
-                                        <svg className='chk_btn' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.235.235 0 0 1 .02-.022z"/></svg>
-                                        <svg className='chk_fill_btn' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm10.03 4.97a.75.75 0 0 1 .011 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.75.75 0 0 1 1.08-.022z"/></svg>
-                                    </label>
-                                    <span>500 Medium</span>
-                                </div>
-                                <input className='handle_font_weight' type='radio' id='600' value='600' name='font_weight' onChange={fontWeightChange} defaultChecked={cookies.fontWeight === undefined ? false : (cookies.fontWeight === "600" ? true : false)}/>
-                                <div className='chk_box'>
-                                    <label htmlFor='600'>
-                                        <svg className='chk_btn' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.235.235 0 0 1 .02-.022z"/></svg>
-                                        <svg className='chk_fill_btn' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm10.03 4.97a.75.75 0 0 1 .011 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.75.75 0 0 1 1.08-.022z"/></svg>
-                                    </label>
-                                    <span>600 Bold</span>
-                                </div>
-                                <input className='handle_font_weight' type='radio' id='700' value='700' name='font_weight' onChange={fontWeightChange} defaultChecked={cookies.fontWeight === undefined ? false : (cookies.fontWeight === "700" ? true : false)}/>
-                                <div className='chk_box'>
-                                    <label htmlFor='700'>
-                                        <svg className='chk_btn' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.235.235 0 0 1 .02-.022z"/></svg>
-                                        <svg className='chk_fill_btn' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm10.03 4.97a.75.75 0 0 1 .011 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.75.75 0 0 1 1.08-.022z"/></svg>
-                                    </label>
-                                    <span>700 ExtraBold</span>
-                                </div>
-                                <input className='handle_font_weight' type='radio' id='800' value='800' name='font_weight' onChange={fontWeightChange} defaultChecked={cookies.fontWeight === undefined ? false : (cookies.fontWeight === "800" ? true : false)}/>
-                                <div className='chk_box'>
-                                    <label htmlFor='800'>
-                                        <svg className='chk_btn' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.235.235 0 0 1 .02-.022z"/></svg>
-                                        <svg className='chk_fill_btn' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm10.03 4.97a.75.75 0 0 1 .011 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.75.75 0 0 1 1.08-.022z"/></svg>
-                                    </label>
-                                    <span>800 Heavy</span>
-                                </div>
-                                <input className='handle_font_weight' type='radio' id='900' value='900' name='font_weight' onChange={fontWeightChange} defaultChecked={cookies.fontWeight === undefined ? false : (cookies.fontWeight === "900" ? true : false)}/>
-                                <div className='chk_box'>
-                                    <label htmlFor='900'>
-                                        <svg className='chk_btn' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.235.235 0 0 1 .02-.022z"/></svg>
-                                        <svg className='chk_fill_btn' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm10.03 4.97a.75.75 0 0 1 .011 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.75.75 0 0 1 1.08-.022z"/></svg>
-                                    </label>
-                                    <span>900 Black</span>
-                                </div>
-                            </div>
-                        </div> */}
                     </div>
                 </div>
                 <FontBox data={list} text={txt} fontWeight={fontWeight} sortby={sortby}/>
