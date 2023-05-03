@@ -26,12 +26,10 @@ function FontBox(props) {
     useEffect(() => {
         // 스크롤 이벤트
         window.addEventListener('scroll', throttledScroll);
-        document.addEventListener('touchmove', throttledScroll);
 
         return () => {
             // 스크롤 이벤트 제거
             window.removeEventListener('scroll', throttledScroll);
-            document.addEventListener('touchmove', throttledScroll);
         }
     });
 
