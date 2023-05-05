@@ -1,19 +1,46 @@
-# Fonts Archive
+# Getting Started with Create React App
 
-라이브 데모 : https://fonts.taedonn.com
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-[![Node Version](https://img.shields.io/badge/featured%20on-Node%20%4016.13.2-%2368a063)](#) [![NPM Version](https://img.shields.io/badge/featured%20on-NPM%20%408.1.2-%23cc3534)](#) [![React Version](https://img.shields.io/badge/featured%20on-react--scripts%20%405.0.1-%2361DAFB)](#)
+## Available Scripts
 
-&nbsp;
+In the project directory, you can run:
 
-## Fonts Archive란? 
+### `npm start`
 
-단체(Organization) 방문하기 : https://github.com/fonts-archive
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-[![Organization Link](https://img.shields.io/badge/featured%20on-GitHub%20Organization-%232B3137)](#)
+The page will reload if you make edits.\
+You will also see any lint errors in the console.
 
-Fonts Archive는 상업용 무료 한글 폰트의 CDN 링크를 아카이빙하기위해 제작된 웹사이트입니다. 이 프로젝트는 눈누와 같은 사이트에서, 웹 개발 시 사용할 폰트를 font-face 이외에 link, import 등 다른 방식으로 제공하지 않아 발생하는 불편함을 해소하기 위해 시작됐습니다. 이 웹사이트에 아카이빙된 모든 폰트들은 상업적 목적으로 사용이 허가된 무료 폰트들이지만, 폰트 별 사용 범위는 폰트 제작사의 규정에 따라 다를 수 있습니다.
+### `npm test`
 
-![Fonts Archive Logo](https://i.ibb.co/bKXPjMY/fonts-archive-logo.png)
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-&nbsp;
+### `npm run build`
+
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
+
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
+
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+### `npm run eject`
+
+**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+
+If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+
+You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+
+## Learn More
+
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).
