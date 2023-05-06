@@ -6,12 +6,21 @@ module.exports = {
         './src/app/**/*.{js,ts,jsx,tsx,mdx}',
     ],
     theme: {
-        extend: {
-        backgroundImage: {
-            'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-            'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
-        },
-        },
+        extend: {},
+        colorScheme: {
+            dark: {
+                bg_1: "#202124",
+                bg_2: "#35363A",
+                bg_3: "#4C4D50",
+                bg_4: "#646568",
+                bg_5: "#97989C",
+                fg_1: "#B1B2B6",
+                fg_2: "#CDCED2",
+                fg_3: "#DEE1E6",
+                fg_4: "#E9EAEE",
+                fg_5: "#FFFFFF",
+            }
+        }
     },
     plugins: [],
 }
