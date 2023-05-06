@@ -2,7 +2,7 @@
 
 라이브 데모 : https://fonts.taedonn.com
 
-[![React Version](https://img.shields.io/badge/featured%20on-react%20%4018.2.0-%2361DAFB)](#) [![Next Version](https://img.shields.io/badge/featured%20on-Next.js%20%4013.4.1-%23000000)](#)
+[![React Version](https://img.shields.io/badge/featured%20on-react%20%4018.2.0-%2361DAFB)](#) [![Next Version](https://img.shields.io/badge/featured%20on-Next.js%20%4013.4.1-%23202124)](#)
 
 &nbsp;
 
