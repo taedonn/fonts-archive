@@ -1,19 +1,34 @@
-# Fonts Archive
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-라이브 데모 : https://fonts.taedonn.com
+## Getting Started
 
-[![Node Version](https://img.shields.io/badge/featured%20on-Node%20%4016.13.2-%2368a063)](#) [![NPM Version](https://img.shields.io/badge/featured%20on-NPM%20%408.1.2-%23cc3534)](#) [![React Version](https://img.shields.io/badge/featured%20on-react--scripts%20%405.0.1-%2361DAFB)](#)
+First, run the development server:
 
-&nbsp;
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+```
 
-## Fonts Archive란? 
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-단체(Organization) 방문하기 : https://github.com/fonts-archive
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-[![Organization Link](https://img.shields.io/badge/featured%20on-GitHub%20Organization-%232B3137)](#)
+This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-Fonts Archive는 상업용 무료 한글 폰트의 CDN 링크를 아카이빙하기위해 제작된 웹사이트입니다. 이 프로젝트는 눈누와 같은 사이트에서, 웹 개발 시 사용할 폰트를 font-face 이외에 link, import 등 다른 방식으로 제공하지 않아 발생하는 불편함을 해소하기 위해 시작됐습니다. 이 웹사이트에 아카이빙된 모든 폰트들은 상업적 목적으로 사용이 허가된 무료 폰트들이지만, 폰트 별 사용 범위는 폰트 제작사의 규정에 따라 다를 수 있습니다.
+## Learn More
 
-![Fonts Archive Logo](https://i.ibb.co/bKXPjMY/fonts-archive-logo.png)
+To learn more about Next.js, take a look at the following resources:
 
-&nbsp;
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+
+## Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
