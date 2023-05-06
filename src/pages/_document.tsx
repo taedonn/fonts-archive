@@ -7,11 +7,7 @@ class MyDocument extends Document {
     render() {
         return (
         <Html>
-            <Head>
-                <title>FONTS ARCHIVE</title>
-                <meta name="description" content="A website that archives license-free Korean fonts"></meta>
-                <link rel='icon' href='/favicon.svg'/>
-            </Head>
+            <Head/>
             <body>
                 <Main/>
                 <NextScript/>
