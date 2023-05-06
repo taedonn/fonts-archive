@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --theme-grey-1: #202124;
+    --theme-grey-2: #35363A;
+    --theme-grey-3: #4C4D50;
+    --theme-grey-4: #646568;
+    --theme-grey-5: #97989C;
+    --theme-grey-6: #CDCED2;
+    --theme-grey-7: #DEE1E6;
+    --theme-grey-7: #E9EAEE;
+}
+
+body {
+    background-color: var(--theme-grey-1);
+}
