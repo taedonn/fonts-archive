@@ -4,9 +4,17 @@
 import type { AppProps } from "next/app";
 import Head from 'next/head';
 
-export const metadata = {
-    title: 'FONTS ARCHIVE',
-    description: 'A website that archives license-free Korean fonts',
+// 스타일
+import '../styles/globals.css';
+
+// 폰트
+import { Noto_Sans_KR } from 'next/font/google';
+const notoSansKR = Noto_Sans_KR({
+    weight: ['100', '300', '400', '500', '700', '900'],
+    preload: false,
+});
+export const cls = (...classnames: string[]) => {
+    return classnames.join(' ');
 }
 
 export default function App({ Component, pageProps }: AppProps) {
@@ -17,7 +25,9 @@ export default function App({ Component, pageProps }: AppProps) {
                 <meta name="description" content="A website that archives license-free Korean fonts"></meta>
                 <link rel='icon' href='/favicon.svg'/>
             </Head>
-            <Component {...pageProps} />
+            <main className={cls(notoSansKR.className)}>
+                <Component {...pageProps}/>
+            </main>
         </>
     );
-};
+}; 

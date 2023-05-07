@@ -6,13 +6,13 @@ import Document, { Html, Head, Main, NextScript } from "next/document";
 class MyDocument extends Document {
     render() {
         return (
-        <Html>
-            <Head/>
-            <body>
-                <Main/>
-                <NextScript/>
-            </body>
-        </Html>
+            <Html>
+                <Head/>
+                <body className="bg-dark-theme-2 expand">
+                    <Main/>
+                    <NextScript/>
+                </body>
+            </Html>
         );
     }
 }
