@@ -13,4 +13,26 @@ datasource db {
 model fonts {
     code Int @id @default(autoincrement())
     name String
+    lang String
+    date String
+    font_family String
+    font_type String
+    font_weight String
+    source String
+    source_link String
+    github_link String
+    cdn_css String
+    cdn_link String
+    cdn_import String
+    cdn_font_face String @db.VarChar(4000)
+    license_print String
+    license_web String
+    license_video String
+    license_package String
+    license_embed String
+    license_bici String
+    license_ofl String
+    license_purpose String
+    license_source String
+    license String @db.VarChar(4000)
 }
