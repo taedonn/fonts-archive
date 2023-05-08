@@ -28,7 +28,10 @@ button {
 
 .shrink .side-menu-btn {
     position: fixed;
-    z-index: 20;
     left: 12px;
     border-color: #4C4D50;
+}
+
+.shrink .interface {
+    width: 100%;
 }

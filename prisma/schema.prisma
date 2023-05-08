@@ -26,6 +26,7 @@ model fonts {
     cdn_link String
     cdn_import String
     cdn_font_face String @db.VarChar(4000)
+    cdn_url String
     license_print String
     license_web String
     license_video String
