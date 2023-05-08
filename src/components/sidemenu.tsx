@@ -1,7 +1,8 @@
 // 훅
 import Link from "next/link";
 
-export default function SideMenu() {
+export default function SideMenu({fonts}:{fonts:any}) {
+    /** 펼치기 버튼 클릭 */
     const expandChk = (e:React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.checked) {
             document.body.classList.add("shrink");
@@ -31,8 +32,13 @@ export default function SideMenu() {
                         <svg className="w-[16px] h-[16px] absolute left-[16px] top-[50%] translate-y-[-50%] fill-dark-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/></svg>
                     </div>
                     <div className='w-[100%] mt-[20px]'>
-                        <div className="text-[16px] font-medium text-dark-theme-8 px-[5%] py-[6px]"><span>of</span></div>
+                        <div className="text-[16px] font-medium text-dark-theme-8 px-[5%] py-[6px]"><span>of</span> {fonts.length}</div>
                     </div>
+                    {
+                        fonts.map((font:any) => (
+                            <Link key={font.code} href={`/DetailPage/${font.code}`} className="w-[100%] block text-[14px] text-left text-dark-theme-8 px-[5%] py-[6px] rounded-[8px] duration-200 hover:bg-dark-theme-3">{font.name}</Link>
+                        ))
+                    }
                 </div>
             </div>
         </>
