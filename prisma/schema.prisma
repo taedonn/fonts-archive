@@ -15,6 +15,7 @@ model fonts {
     name String
     lang String
     date String
+    view Int
     font_family String
     font_type String
     font_weight String
