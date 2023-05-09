@@ -20,21 +20,29 @@ module.exports = {
                 "dark-theme-9": "#DEE1E6",
                 "dark-theme-9": "#E9EAEE",
                 "dark-theme-10": "#FFFFFF",
+                "blue-theme-bg": "#1A1E25",
+                "blue-theme-border": "#8AB4F8",
+                "blur-theme": "#202124CC",
             },
             width: {
                 "content": "max-content"
             },
             animation: {
+                "fade-in": "fade-in 0.2s 1 both",
                 "tooltip-fade-in": "tooltip-fade-in 0.2s 1 both"
             },
             keyframes: {
+                "fade-in": {
+                    "0%": { opacity: "0", transform: "translateY(12px)" },
+                    "100%": { opacity: "1", transform: "translateY(0)" }
+                },
                 "tooltip-fade-in": {
                     "0%": { opacity: "0", transform: "translate(0px) translateY(-50%)" },
                     "100%": { opacity: "1", transform: "translate(-4px) translateY(-50%)" }
                 }
             },
             dropShadow: {
-                "tooltip": "1px 2px 4px #101010"
+                "default": "1px 2px 4px #101010"
             }
         },
     },

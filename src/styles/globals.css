@@ -22,6 +22,26 @@ button {
     background-color: transparent;
 }
 
+/* 스크롤바 */
+body::-webkit-scrollbar {
+    width: 16px;
+}
+
+body::-webkit-scrollbar-thumb {
+    border-radius: 8px;
+    background-color: #4C4D50;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+    border-radius: 8px;
+    background-color: #646568;
+}
+
+body::-webkit-scrollbar-track {
+    background-color: #35363A;
+}
+
+/* 사이드메뉴 펼치기/접기 */
 .shrink .side-menu {
     left: -280px;
 }
@@ -34,4 +54,46 @@ button {
 
 .shrink .interface {
     width: 100%;
+}
+
+.shrink .main-menu {
+    width: 100%;
+}
+
+/* 셀렉트 박스 클릭 */
+.select ~ .option { display: none; }
+.select:checked ~ .option { display: flex; }
+
+/* 셀렉트 박스 클릭 시 스타일 변경 */
+.select:checked + label {
+    background-color: #1A1E25;
+    border-color: #8AB4F8;
+    color: #E9EAEE;
+    fill: #E9EAEE;
+    filter: drop-shadow(1px 2px 4px #101010);
+}
+.select:checked + label svg {
+    transform: rotate(0deg);
+}
+
+/* 셀렉트 박스 - 옵션 클릭 */
+.option-input + div svg:first-of-type { display: block; }
+.option-input + div svg:last-of-type { display: none; }
+.option-input:checked + div svg:first-of-type { display: none; }
+.option-input:checked + div svg:last-of-type { display: block; }
+
+/* 폰트 박스 맨 앞 3개 마진 0으로 설정 */
+.main-menu > a:nth-of-type(1), 
+.main-menu > a:nth-of-type(2), 
+.main-menu > a:nth-of-type(3),
+.main-menu > a:nth-of-type(4) { 
+    margin-top: 0; 
+}
+
+/* text ellipse */
+.ellipsed-text {
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
 }
