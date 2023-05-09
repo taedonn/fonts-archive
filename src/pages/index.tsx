@@ -1,7 +1,7 @@
 // 훅
 import { useRef, useState, useEffect } from "react";
 import Link from "next/link";
-import client from "@/libs/client";
+// import client from "@/libs/client";
 
 
 // 컴포넌트
@@ -114,7 +114,7 @@ const Index = ({fonts}:any) => {
                         폰트 검색하기...
                         <svg className="w-[12px] absolute left-[16px] top-[50%] translate-y-[-50%] fill-dark-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/></svg>
                         <div className="absolute right-[16px] text-[12px] flex flex-row justify-center items-center">
-                            <span className="text-[15px] leading-none mt-px">⌘</span>
+                            <svg className="w-[10px] mr-px fill-dark-theme-8" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80"><g><path d="M64,48L64,48h-8V32h8c8.836,0,16-7.164,16-16S72.836,0,64,0c-8.837,0-16,7.164-16,16v8H32v-8c0-8.836-7.164-16-16-16 S0,7.164,0,16s7.164,16,16,16h8v16h-8l0,0l0,0C7.164,48,0,55.164,0,64s7.164,16,16,16c8.837,0,16-7.164,16-16l0,0v-8h16v7.98 c0,0.008-0.001,0.014-0.001,0.02c0,8.836,7.164,16,16,16s16-7.164,16-16S72.836,48.002,64,48z M64,8c4.418,0,8,3.582,8,8 s-3.582,8-8,8h-8v-8C56,11.582,59.582,8,64,8z M8,16c0-4.418,3.582-8,8-8s8,3.582,8,8v8h-8C11.582,24,8,20.417,8,16z M16,72 c-4.418,0-8-3.582-8-8s3.582-8,8-8l0,0h8v8C24,68.418,20.418,72,16,72z M32,48V32h16v16H32z M64,72c-4.418,0-8-3.582-8-8l0,0v-8 h7.999c4.418,0,8,3.582,8,8S68.418,72,64,72z"/></g></svg>
                             <span className="text-[12px] leading-none">K</span>
                         </div>
                     </button>
@@ -215,7 +215,7 @@ const Index = ({fonts}:any) => {
                 </div>
             </div>
             {/* 메인 */}
-            <div className='w-[100%] flex flex-col justify-start items-end'>
+            {/* <div className='w-[100%] flex flex-col justify-start items-end'>
                 <div className="main-menu w-[100%] relative flex flex-wrap flex-row justify-between items-stretch mt-[68px] p-[16px]">
                     {
                         fonts.map((font:any) => (
@@ -233,30 +233,30 @@ const Index = ({fonts}:any) => {
                         ))
                     }
                 </div>
-            </div>
+            </div> */}
         </>
     );
 }
 
-export async function getServerSideProps() {
-    try {
-        const fonts = await client.fonts.findMany({
-            select: { // 특정 필드만 선택
-                code: true,
-                name: true,
-                lang: true,
-                date: true,
-                source: true,
-                font_family: true,
-                font_type: true,
-                cdn_url: true
-            }
-        });
-        return { props: { fonts } }
-    } catch (error) {
-        console.log(error)
-        return { props: {} }
-    }
-}
+// export async function getServerSideProps() {
+//     try {
+//         const fonts = await client.fonts.findMany({
+//             select: { // 특정 필드만 선택
+//                 code: true,
+//                 name: true,
+//                 lang: true,
+//                 date: true,
+//                 source: true,
+//                 font_family: true,
+//                 font_type: true,
+//                 cdn_url: true
+//             }
+//         });
+//         return { props: { fonts } }
+//     } catch (error) {
+//         console.log(error)
+//         return { props: {} }
+//     }
+// }
 
 export default Index;
