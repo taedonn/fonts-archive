@@ -6,6 +6,7 @@ import Link from "next/link";
 
 // 컴포넌트
 import Tooltip from "@/components/tooltip";
+import FontBox from "@/components/fontbox";
 
 const Index = ({fonts}:any) => {
     /** 셀렉트 박스 - "언어 선택" 영역 */
@@ -104,13 +105,13 @@ const Index = ({fonts}:any) => {
                     <Link href="/" className="w-[36px] h-[36px] flex flex-row justify-center items-center rounded-[8px] mr-[12px] bg-dark-theme-3/80 hover:bg-dark-theme-4/60 hover:drop-shadow-default">
                         <svg className="w-[18px] pb-px fill-dark-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="m2.244 13.081.943-2.803H6.66l.944 2.803H8.86L5.54 3.75H4.322L1 13.081h1.244zm2.7-7.923L6.34 9.314H3.51l1.4-4.156h.034zm9.146 7.027h.035v.896h1.128V8.125c0-1.51-1.114-2.345-2.646-2.345-1.736 0-2.59.916-2.666 2.174h1.108c.068-.718.595-1.19 1.517-1.19.971 0 1.518.52 1.518 1.464v.731H12.19c-1.647.007-2.522.8-2.522 2.058 0 1.319.957 2.18 2.345 2.18 1.06 0 1.716-.43 2.078-1.011zm-1.763.035c-.752 0-1.456-.397-1.456-1.244 0-.65.424-1.115 1.408-1.115h1.805v.834c0 .896-.752 1.525-1.757 1.525z"/></svg>
                     </Link>
-                    <div className="relative w-[400px] group">
+                    <div className="relative w-[380px] group">
                         <input type='text' placeholder='원하는 문구를 적어보세요...' className="w-[100%] text-[14px] text-normal text-dark-theme-8 leading-none border rounded-full border-dark-theme-4 px-[20px] py-[10px] pl-[52px] bg-transparent group-hover:bg-dark-theme-3/40 focus:bg-dark-theme-3/40"/>
                         <svg className="w-[16px] h-[16px] absolute left-[24px] top-[50%] translate-y-[-50%] fill-dark-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="m2.244 13.081.943-2.803H6.66l.944 2.803H8.86L5.54 3.75H4.322L1 13.081h1.244zm2.7-7.923L6.34 9.314H3.51l1.4-4.156h.034zm9.146 7.027h.035v.896h1.128V8.125c0-1.51-1.114-2.345-2.646-2.345-1.736 0-2.59.916-2.666 2.174h1.108c.068-.718.595-1.19 1.517-1.19.971 0 1.518.52 1.518 1.464v.731H12.19c-1.647.007-2.522.8-2.522 2.058 0 1.319.957 2.18 2.345 2.18 1.06 0 1.716-.43 2.078-1.011zm-1.763.035c-.752 0-1.456-.397-1.456-1.244 0-.65.424-1.115 1.408-1.115h1.805v.834c0 .896-.752 1.525-1.757 1.525z"/></svg>
                     </div>
                 </div>
                 <div className='w-content flex flex-row justify-start items-center'>
-                    <button className="w-[240px] h-[32px] relative text-[14px] text-normal text-dark-theme-8 leading-none bg-dark-theme-3/80 flex flex-start justify-start items-center rounded-[8px] pl-[38px] pr-[20px] pb-px hover:bg-dark-theme-4/60 hover:drop-shadow-default">
+                    <button className="w-[220px] h-[32px] relative text-[14px] text-normal text-dark-theme-8 leading-none bg-dark-theme-3/80 flex flex-start justify-start items-center rounded-[8px] pl-[38px] pr-[20px] pb-px hover:bg-dark-theme-4/60 hover:drop-shadow-default">
                         폰트 검색하기...
                         <svg className="w-[12px] absolute left-[16px] top-[50%] translate-y-[-50%] fill-dark-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/></svg>
                         <div className="absolute right-[16px] text-[12px] flex flex-row justify-center items-center">
@@ -215,48 +216,9 @@ const Index = ({fonts}:any) => {
                 </div>
             </div>
             {/* 메인 */}
-            {/* <div className='w-[100%] flex flex-col justify-start items-end'>
-                <div className="main-menu w-[100%] relative flex flex-wrap flex-row justify-between items-stretch mt-[68px] p-[16px]">
-                    {
-                        fonts.map((font:any) => (
-                            <Link href={`/DetailPage/${font.code}`} key={font.code} className="w-[calc(25%-8px)] h-[360px] block p-[20px] border border-dark-theme-4 rounded-[8px] mt-[12px] hover:bg-dark-theme-3/40 cursor-pointer">
-                                <link href={font.cdn_url} rel="stylesheet" type="text/css" itemProp="url"></link>
-                                <div style={{fontFamily:"'"+font.font_family+"'"}} className="text-[18px] text-normal leading-tight mb-[8px] text-dark-theme-8">{font.name}</div>
-                                <div className="flex flex-row justify-start items-center">
-                                    <div style={{fontFamily:"'"+font.font_family+"'"}} className="inline-block text-[14px] text-normal text-dark-theme-6 leading-tight"><span className="text-dark-theme-8">by</span> {font.source}</div>
-                                </div>
-                                <div className="w-[100%] h-px my-[16px] bg-dark-theme-4"></div>
-                                <div style={{fontFamily:"'"+font.font_family+"'"}} className="text-[36px] text-normal leading-normal overflow-hidden">
-                                    <p className="ellipsed-text text-dark-theme-8">너 지금 멋지게 헤엄치려고 숨 참는 것부터 하고 있다고 생각해.</p>
-                                </div>
-                            </Link>
-                        ))
-                    }
-                </div>
-            </div> */}
+            <FontBox/>
         </>
     );
 }
-
-// export async function getServerSideProps() {
-//     try {
-//         const fonts = await client.fonts.findMany({
-//             select: { // 특정 필드만 선택
-//                 code: true,
-//                 name: true,
-//                 lang: true,
-//                 date: true,
-//                 source: true,
-//                 font_family: true,
-//                 font_type: true,
-//                 cdn_url: true
-//             }
-//         });
-//         return { props: { fonts } }
-//     } catch (error) {
-//         console.log(error)
-//         return { props: {} }
-//     }
-// }
 
 export default Index;
