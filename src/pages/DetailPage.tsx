@@ -4,7 +4,7 @@ import client from "@/libs/client";
 // 컴포넌트
 import Tooltip from "@/components/tooltip";
 
-export default function DetailPage() {
+export default function DetailPage({fonts}:any) {
     return (
         <>
             <Tooltip/>

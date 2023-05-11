@@ -1,13 +1,17 @@
 // 훅
 import { useRef, useState, useEffect } from "react";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 
 // 컴포넌트
 import Tooltip from "@/components/tooltip";
 import FontBox from "@/components/fontbox";
 
-const Index = () => {
+const Index = ({paramsSort}: any) => {
+    /** useRouter 훅 */
+    const router = useRouter();
+
     /** 셀렉트 박스 - "언어 선택" 영역 */
     const refLangSelect = useRef<HTMLLabelElement>(null);
     const refLangOption = useRef<HTMLDivElement>(null);
@@ -84,15 +88,18 @@ const Index = () => {
     }
 
     /** 옵션 - "정렬순" 훅 */
-    const defaultSort = "date";
+    const defaultSort: string = paramsSort;
     const [sort, setSort] = useState(defaultSort);
-    useEffect(() => {
-        setSort(defaultSort);
-    },[defaultSort]);
+    useEffect(() => { setSort(defaultSort);},[defaultSort]);
 
     /** 옵션 - "정렬순" 클릭 */
     const handleSortOptionChange = (e:React.ChangeEvent<HTMLInputElement>) => {
-        if (e.target.checked) { setSort(e.target.value); }
+        if (e.target.checked) {
+            setSort(e.target.value);
+            router
+            .push({ pathname: '/', query: { sort: e.target.value }})
+            .then(() => router.reload());
+        }
     }
 
     return (
@@ -194,7 +201,7 @@ const Index = () => {
                             </button>
                         </label>
                         <div ref={refSortOption} id="option-sort" className='option w-[114px] absolute z-2 left-[-7px] top-[40px] border border-blue-theme-border rounded-[12px] flex flex-col justify-start items-start px-[16px] py-[22px] bg-blue-theme-bg drop-shadow-default'>
-                            <input onChange={handleSortOptionChange} type='radio' id="option-sort-latest" name="option-sort" value="date" className="option-input hidden" defaultChecked/>
+                            <input onChange={handleSortOptionChange} type='radio' id="option-sort-latest" name="option-sort" value="date" className="option-input hidden" defaultChecked={sort === "date" ? true : false}/>
                             <div className='flex flex-row justify-start items-center mb-[16px]'>
                                 <label htmlFor='option-sort-latest'>
                                     <svg className='w-[18px] mr-[10px] cursor-pointer fill-blue-theme-border' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.235.235 0 0 1 .02-.022z"/></svg>
@@ -202,7 +209,7 @@ const Index = () => {
                                 </label>
                                 <span className="text-[14px] text-dark-theme-9 leading-tight">최신순</span>
                             </div>
-                            <input onChange={handleSortOptionChange} type='radio' id="option-sort-name" name="option-sort" value="name" className="option-input hidden"/>
+                            <input onChange={handleSortOptionChange} type='radio' id="option-sort-name" name="option-sort" value="name" className="option-input hidden" defaultChecked={sort === "name" ? true : false}/>
                             <div className='flex flex-row justify-start items-center'>
                                 <label htmlFor='option-sort-name'>
                                     <svg className='w-[18px] mr-[10px] cursor-pointer fill-blue-theme-border' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.235.235 0 0 1 .02-.022z"/></svg>
@@ -218,6 +225,21 @@ const Index = () => {
             <FontBox sort={sort}/>
         </>
     );
+}
+
+export async function getServerSideProps(ctx: any) {
+    try {
+        const sort = ctx.query.sort === "" || ctx.query.sort === undefined ? "date" : (ctx.query.sort === "name" ? "name" : "date");
+        return {
+            props: {
+                paramsSort: sort
+            }
+        }
+    }
+    catch (error) {
+        console.log(error);
+        return { props: {} }
+    }
 }
 
 export default Index;
