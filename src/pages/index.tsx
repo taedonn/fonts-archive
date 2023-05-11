@@ -260,13 +260,15 @@ const Index = ({params}: any) => {
         return () => { window.removeEventListener('scroll', throttledScroll); }
     });
 
-    /** 키다운 이벤트 */
+    /** 키 다운 이벤트 */
     useEffect(() => {
-        window.addEventListener("keypress", (e: KeyboardEvent) => {
-            if (e.key === "k") {
-                console.log("k");
-            }
-        });
+        const keys: any[] = [];
+        window.addEventListener("keydown", (e: KeyboardEvent) => {
+            keys[e.keyCode] = true;
+            if (keys[17] && keys[75]) { handleFontSearch(); e.preventDefault(); }
+            else if (keys[27]) { handleFontSearchCloseBtn(); }
+        }, false);
+        window.addEventListener("keyup", (e: KeyboardEvent) => { keys[e.keyCode] = false; }, false);
     }, []);
 
     return (
