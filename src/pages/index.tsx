@@ -8,7 +8,7 @@ import { useRouter } from "next/router";
 import Tooltip from "@/components/tooltip";
 import FontBox from "@/components/fontbox";
 
-const Index = ({paramsSort}: any) => {
+const Index = ({params}: any) => {
     /** useRouter 훅 */
     const router = useRouter();
 
@@ -87,8 +87,23 @@ const Index = ({paramsSort}: any) => {
         }
     }
 
+    /** 옵션 - "언어 선택" 훅 */
+    const defaultLang: string = params.lang;
+    const [lang, setLang] = useState(defaultLang);
+    useEffect(() => { setLang(defaultLang);},[defaultLang]);
+
+    /** 옵션 - "언어 선택" 클릭 */
+    const handleLangOptionChange = (e:React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.checked) {
+            // setLang(e.target.value);
+            router
+            .push({ pathname: '/', query: { lang: e.target.value }})
+            .then(() => router.reload());
+        }
+    }
+
     /** 옵션 - "정렬순" 훅 */
-    const defaultSort: string = paramsSort;
+    const defaultSort: string = params.sort;
     const [sort, setSort] = useState(defaultSort);
     useEffect(() => { setSort(defaultSort);},[defaultSort]);
 
@@ -136,7 +151,7 @@ const Index = ({paramsSort}: any) => {
                             </button>
                         </label>
                         <div ref={refLangOption} id="option-lang" className='option w-[128px] absolute z-2 left-[-7px] top-[40px] border border-blue-theme-border rounded-[12px] flex flex-col justify-start items-start px-[16px] py-[22px] bg-blue-theme-bg drop-shadow-default'>
-                            <input type='radio' id="option-lang-all" name="option-lang" className="option-input hidden" defaultChecked/>
+                            <input onChange={handleLangOptionChange} type='radio' id="option-lang-all" name="option-lang" value="all" className="option-input hidden" defaultChecked={lang === "all" ? true : false}/>
                             <div className='flex flex-row justify-start items-center mb-[16px]'>
                                 <label htmlFor='option-lang-all'>
                                     <svg className='w-[18px] mr-[10px] cursor-pointer fill-blue-theme-border' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.235.235 0 0 1 .02-.022z"/></svg>
@@ -144,7 +159,7 @@ const Index = ({paramsSort}: any) => {
                                 </label>
                                 <span className="text-[14px] text-dark-theme-9 leading-tight">전체</span>
                             </div>
-                            <input type='radio' id="option-lang-kr" name="option-lang" className="option-input hidden"/>
+                            <input onChange={handleLangOptionChange} type='radio' id="option-lang-kr" name="option-lang" value="kr" className="option-input hidden" defaultChecked={lang === "kr" ? true : false}/>
                             <div className='flex flex-row justify-start items-center mb-[16px]'>
                                 <label htmlFor='option-lang-kr'>
                                     <svg className='w-[18px] mr-[10px] cursor-pointer fill-blue-theme-border' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.235.235 0 0 1 .02-.022z"/></svg>
@@ -152,7 +167,7 @@ const Index = ({paramsSort}: any) => {
                                 </label>
                                 <span className="text-[14px] text-dark-theme-9 leading-tight">한국어</span>
                             </div>
-                            <input type='radio' id="option-lang-en" name="option-lang" className="option-input hidden"/>
+                            <input onChange={handleLangOptionChange} type='radio' id="option-lang-en" name="option-lang" value="en" className="option-input hidden" defaultChecked={lang === "en" ? true : false}/>
                             <div className='flex flex-row justify-start items-center'>
                                 <label htmlFor='option-lang-en'>
                                     <svg className='w-[18px] mr-[10px] cursor-pointer fill-blue-theme-border' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.235.235 0 0 1 .02-.022z"/></svg>
@@ -230,9 +245,14 @@ const Index = ({paramsSort}: any) => {
 export async function getServerSideProps(ctx: any) {
     try {
         const sort = ctx.query.sort === "" || ctx.query.sort === undefined ? "date" : (ctx.query.sort === "name" ? "name" : "date");
+        const lang = ctx.query.lang === "" || ctx.query.lang === undefined ? "all" : (ctx.query.lang === "all" ? "all" : (ctx.query.lang === "kr") ? "kr" : "en");
+
         return {
             props: {
-                paramsSort: sort
+                params: {
+                    sort: sort,
+                    lang: lang
+                }
             }
         }
     }

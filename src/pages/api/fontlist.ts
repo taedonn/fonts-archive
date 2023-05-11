@@ -20,7 +20,8 @@ export interface data {
 export default async function handler(req: NextApiRequest, res: NextApiResponse<data>) {
     if (req.method === 'GET') {
         const limit = 24
-        const sort: object = req.query.sort === 'date' ? { date: 'desc' } : { name: 'desc' }
+        const sort: object = req.query.sort === 'name' ? { name: 'asc' } : { date: 'desc' }
+        const lang: string = req.query.lang === 'kr' ? 'KR' : (req.query.lang === 'en' ? 'EN' : '');
         const cursor = req.query.id ?? ''
         const cursorObj: object | undefined = cursor === '' ? undefined : { code: parseInt(cursor as string, 10) }
 
@@ -34,6 +35,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
                 font_family: true,
                 font_type: true,
                 cdn_url: true,
+            },
+            where: { // 필터링
+                lang: lang
             },
             orderBy: [ // 정렬
                 sort
