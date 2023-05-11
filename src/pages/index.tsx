@@ -1,14 +1,13 @@
 // 훅
 import { useRef, useState, useEffect } from "react";
 import Link from "next/link";
-// import client from "@/libs/client";
 
 
 // 컴포넌트
 import Tooltip from "@/components/tooltip";
 import FontBox from "@/components/fontbox";
 
-const Index = ({fonts}:any) => {
+const Index = () => {
     /** 셀렉트 박스 - "언어 선택" 영역 */
     const refLangSelect = useRef<HTMLLabelElement>(null);
     const refLangOption = useRef<HTMLDivElement>(null);
@@ -85,7 +84,7 @@ const Index = ({fonts}:any) => {
     }
 
     /** 옵션 - "정렬순" 훅 */
-    const defaultSort = "latest";
+    const defaultSort = "date";
     const [sort, setSort] = useState(defaultSort);
     useEffect(() => {
         setSort(defaultSort);
@@ -190,12 +189,12 @@ const Index = ({fonts}:any) => {
                         <label ref={refSortSelect} htmlFor='select-sort' className="h-[32px] relative flex flex-row justify-center items-center text-[14px] text-dark-theme-8 leading-none px-[20px] border border-dark-theme-5 rounded-full cursor-pointer fill-dark-theme-8 hover:bg-blue-theme-bg hover:border-blue-theme-border hover:text-dark-theme-9 hover:fill-dark-theme-9 hover:drop-shadow-default">
                             <div className='w-[100%] h-[100%] absolute z-10'></div>
                             <button className="w-[100%] h-[100%] flex flex-row justify-center items-center text-inherit leading-none text-[14px]">
-                                {sort === "latest" ? "최신순" : "이름순"}
+                                {sort === "date" ? "최신순" : "이름순"}
                                 <svg className="w-[8px] rotate-180 ml-[12px] fill-inherit" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M7.022 1.566a1.13 1.13 0 0 1 1.96 0l6.857 11.667c.457.778-.092 1.767-.98 1.767H1.144c-.889 0-1.437-.99-.98-1.767L7.022 1.566z"/></svg>
                             </button>
                         </label>
                         <div ref={refSortOption} id="option-sort" className='option w-[114px] absolute z-2 left-[-7px] top-[40px] border border-blue-theme-border rounded-[12px] flex flex-col justify-start items-start px-[16px] py-[22px] bg-blue-theme-bg drop-shadow-default'>
-                            <input onChange={handleSortOptionChange} type='radio' id="option-sort-latest" name="option-sort" value="latest" className="option-input hidden" defaultChecked/>
+                            <input onChange={handleSortOptionChange} type='radio' id="option-sort-latest" name="option-sort" value="date" className="option-input hidden" defaultChecked/>
                             <div className='flex flex-row justify-start items-center mb-[16px]'>
                                 <label htmlFor='option-sort-latest'>
                                     <svg className='w-[18px] mr-[10px] cursor-pointer fill-blue-theme-border' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.235.235 0 0 1 .02-.022z"/></svg>
@@ -216,7 +215,7 @@ const Index = ({fonts}:any) => {
                 </div>
             </div>
             {/* 메인 */}
-            <FontBox/>
+            <FontBox sort={sort}/>
         </>
     );
 }

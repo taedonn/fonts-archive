@@ -5,7 +5,10 @@ import { useInfiniteQuery } from 'react-query';
 import { useInView } from 'react-intersection-observer';
 import axios from 'axios';
 
-export default function FontBox() {
+// 컴포넌트
+import DummyText from "./dummytext";
+
+export default function FontBox({sort}:{sort: string}) {
     /** react-intersection-observer 훅 */
     const { ref, inView } = useInView()
 
@@ -26,7 +29,7 @@ export default function FontBox() {
         hasNextPage
     } = useInfiniteQuery('fonts', async ({ pageParam = '' }) => {
         await new Promise((res) => setTimeout(res, 200));
-        const res = await axios.get('/api/fontlist', {params: { id: pageParam }});
+        const res = await axios.get('/api/fontlist', {params: { id: pageParam, sort: sort }});
         return res.data;
     },{
         getNextPageParam: (lastPage) => lastPage.nextId ?? false,
@@ -36,6 +39,9 @@ export default function FontBox() {
         <>
             <div className='w-[100%] flex flex-col justify-start items-end'>
                 <div className="main-menu w-[100%] relative flex flex-wrap flex-row justify-between items-stretch mt-[68px] p-[16px]">
+                    {/* 로딩 바 */}
+                    {isLoading ? <div className="w-[100%] pt-[28px] pb-0 flex flex-row justify-center items-center"><span className="loader"></span></div> : null}
+
                     {/* fetchNextPage */}
                     {data && data.pages.map((page) => {
                         return (
@@ -50,7 +56,7 @@ export default function FontBox() {
                                     font_type: string
                                     cdn_url: string
                                 }) => (
-                                    <Link href={`/DetailPage/${font.code}`} key={font.code} className="w-[calc(33.3%-8px)] h-[360px] block p-[20px] border border-dark-theme-4 rounded-[8px] mt-[12px] hover:bg-dark-theme-3/40 cursor-pointer">
+                                    <Link href={`/DetailPage/${font.code}`} key={font.code} className="w-[calc(25%-8px)] h-[360px] block p-[20px] border border-dark-theme-4 rounded-[8px] mt-[12px] hover:bg-dark-theme-3/40 cursor-pointer">
                                         <link href={font.cdn_url} rel="stylesheet" type="text/css" itemProp="url"></link>
                                         <div style={{fontFamily:"'"+font.font_family+"'"}} className="text-[18px] text-normal leading-tight mb-[8px] text-dark-theme-8">{font.name}</div>
                                         <div className="flex flex-row justify-start items-center">
@@ -58,7 +64,7 @@ export default function FontBox() {
                                         </div>
                                         <div className="w-[100%] h-px my-[16px] bg-dark-theme-4"></div>
                                         <div style={{fontFamily:"'"+font.font_family+"'"}} className="text-[36px] text-normal leading-normal overflow-hidden">
-                                            <p className="ellipsed-text text-dark-theme-8">너 지금 멋지게 헤엄치려고 숨 참는 것부터 하고 있다고 생각해.</p>
+                                            <p className="ellipsed-text text-dark-theme-8"><DummyText lang={font.lang}/></p>
                                         </div>
                                     </Link>
                                 ))}
@@ -67,7 +73,9 @@ export default function FontBox() {
                     })}
 
                     {/* 정렬 맞추기 위한 빈 div */}
-                    <div className="w-[calc(33.3%-8px)]"></div>
+                    <div className="w-[calc(25%-8px)]"></div>
+                    <div className="w-[calc(25%-8px)]"></div>
+                    <div className="w-[calc(25%-8px)]"></div>
 
                     {/* 뷰포트 만날 시 다음 데이터 로딩 */}
                     <span className="w-[100%]" ref={ref}></span>

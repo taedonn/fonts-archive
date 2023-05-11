@@ -19,12 +19,13 @@ export interface data {
   
 export default async function handler(req: NextApiRequest, res: NextApiResponse<data>) {
     if (req.method === 'GET') {
-        const limit = 12
+        const limit = 24
+        const sort: object = req.query.sort === 'date' ? { date: 'desc' } : { name: 'desc' }
         const cursor = req.query.id ?? ''
         const cursorObj: object | undefined = cursor === '' ? undefined : { code: parseInt(cursor as string, 10) }
 
         const fonts = await client.fonts.findMany({
-            select: {
+            select: { // 특정 column 선택
                 code: true,
                 name: true,
                 lang: true,
@@ -34,9 +35,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
                 font_type: true,
                 cdn_url: true,
             },
-            take: limit,
-            skip: cursor !== '' ? 1 : 0,
-            cursor: cursorObj,
+            orderBy: [ // 정렬
+                sort
+            ],
+            take: limit, // 가져오는 데이터 수
+            skip: cursor !== '' ? 1 : 0, // 건너뛸 데이터 수
+            cursor: cursorObj, // 불러온 마지막 데이터의 ID값
         })
         return res.json({ fonts, nextId: fonts.length === limit ? fonts[limit - 1].code : undefined })
     }

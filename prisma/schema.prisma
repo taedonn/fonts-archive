@@ -25,7 +25,7 @@ model fonts {
     cdn_css String
     cdn_link String
     cdn_import String
-    cdn_font_face String @db.VarChar(4000)
+    cdn_font_face String @db.VarChar(6000)
     cdn_url String
     license_print String
     license_web String
@@ -36,5 +36,5 @@ model fonts {
     license_ofl String
     license_purpose String
     license_source String
-    license String @db.VarChar(4000)
+    license String @db.VarChar(6000)
 }

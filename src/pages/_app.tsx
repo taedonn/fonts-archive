@@ -25,14 +25,14 @@ export default function App({ Component, pageProps }: AppProps) {
     return (
         <>
             <QueryClientProvider client={queryClient}>
-            <Head>
-                <title>FONTS ARCHIVE</title>
-                <meta name="description" content="A website that archives license-free Korean fonts"></meta>
-                <link rel='icon' href='/favicon.svg'/>
-            </Head>
-            <main className={cls(notoSansKR.className)}>
-                <Component {...pageProps}/>
-            </main>
+                <Head>
+                    <title>FONTS ARCHIVE</title>
+                    <meta name="description" content="A website that archives license-free Korean fonts"></meta>
+                    <link rel='icon' href='/favicon.svg'/>
+                </Head>
+                <main className={cls(notoSansKR.className)}>
+                    <Component {...pageProps}/>
+                </main>
             </QueryClientProvider>
         </>
     );
