@@ -84,13 +84,19 @@ const dummyTextEn: string[] = [
 ]
 const randomNumEn: number = Math.floor(Math.random() * (dummyTextEn.length - 1));
 
-export default function DummyText({lang}:{lang: string}) {
+export default function DummyText({lang, text}:{lang: string, text: string}) {
     return (
         <>
             {
-                lang === "KR"
+                lang === "KR" && text === ""
                 ? dummyText[randomNum]
-                : dummyTextEn[randomNumEn]
+                : ( lang === "KR" && text !== ""
+                    ? text
+                    : ( lang === "EN" && text === ""
+                        ? dummyTextEn[randomNumEn]
+                        : text
+                    )
+                )
             }
         </>
     )

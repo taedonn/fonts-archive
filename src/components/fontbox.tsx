@@ -8,7 +8,7 @@ import axios from 'axios';
 // 컴포넌트
 import DummyText from "./dummytext";
 
-export default function FontBox({sort}:{sort: string}) {
+export default function FontBox({lang, type, sort, text}:{lang: string, type: string, sort: string, text: string}) {
     /** react-intersection-observer 훅 */
     const { ref, inView } = useInView()
 
@@ -29,7 +29,7 @@ export default function FontBox({sort}:{sort: string}) {
         hasNextPage
     } = useInfiniteQuery('fonts', async ({ pageParam = '' }) => {
         await new Promise((res) => setTimeout(res, 200));
-        const res = await axios.get('/api/fontlist', {params: { id: pageParam, sort: sort }});
+        const res = await axios.get('/api/fontlist', {params: { id: pageParam, lang: lang, type: type, sort: sort }});
         return res.data;
     },{
         getNextPageParam: (lastPage) => lastPage.nextId ?? false,
@@ -64,7 +64,7 @@ export default function FontBox({sort}:{sort: string}) {
                                         </div>
                                         <div className="w-[100%] h-px my-[16px] bg-dark-theme-4"></div>
                                         <div style={{fontFamily:"'"+font.font_family+"'"}} className="text-[36px] text-normal leading-normal overflow-hidden">
-                                            <p className="ellipsed-text text-dark-theme-8"><DummyText lang={font.lang}/></p>
+                                            <p className="ellipsed-text text-dark-theme-8"><DummyText lang={font.lang} text={text}/></p>
                                         </div>
                                     </Link>
                                 ))}

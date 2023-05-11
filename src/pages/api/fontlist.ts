@@ -20,9 +20,11 @@ export interface data {
 export default async function handler(req: NextApiRequest, res: NextApiResponse<data>) {
     if (req.method === 'GET') {
         const limit = 24
-        const sort: object = req.query.sort === 'name' ? { name: 'asc' } : { date: 'desc' }
-        const lang: string = req.query.lang === 'kr' ? 'KR' : (req.query.lang === 'en' ? 'EN' : '');
-        const cursor = req.query.id ?? ''
+        const thisQuery = req.query;
+        const sort: object = thisQuery.sort === 'name' ? { name: 'asc' } : { date: 'desc' }
+        const lang: string | object = thisQuery.lang === 'kr' ? 'KR' : (thisQuery.lang === 'en' ? 'EN' : {});
+        const type: string | object = thisQuery.type === 'sans-serif' ? 'Sans Serif' : (thisQuery.type === 'serif' ? 'Serif' : {});
+        const cursor = thisQuery.id ?? ''
         const cursorObj: object | undefined = cursor === '' ? undefined : { code: parseInt(cursor as string, 10) }
 
         const fonts = await client.fonts.findMany({
@@ -36,8 +38,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
                 font_type: true,
                 cdn_url: true,
             },
-            where: { // 필터링
-                lang: lang
+            where: {
+                lang: lang,
+                font_type: type,
             },
             orderBy: [ // 정렬
                 sort
