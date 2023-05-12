@@ -33,8 +33,8 @@ module.exports = {
             },
             keyframes: {
                 "fade-in": {
-                    "0%": { opacity: "0", transform: "translateY(12px)" },
-                    "100%": { opacity: "1", transform: "translateY(0)" }
+                    "0%": { opacity: "0", transform: "translateX(-50%) translateY(12px)" },
+                    "100%": { opacity: "1", transform: "translateX(-50%) translateY(0)" }
                 },
                 "tooltip-fade-in": {
                     "0%": { opacity: "0", transform: "translate(0px) translateY(-50%)" },

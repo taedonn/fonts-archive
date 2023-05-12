@@ -19,6 +19,7 @@ a {
 
 button {
     border: none;
+    outline: none;
     background-color: transparent;
 }
 
@@ -127,3 +128,13 @@ body::-webkit-scrollbar-track {
     75% {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,0 100%,0 100%)}
     100% {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,0 100%,0 0)}
 }
+
+/* 검색 기능 */
+.search-list .search-link:first-of-type { margin-top: 0; }
+.search-list .search-link:last-of-type { margin-bottom: 36px; }
+
+/* 검색 기능 스크롤 바 */
+.search-list::-webkit-scrollbar { width: 10px; background: transparent; }
+.search-list::-webkit-scrollbar-thumb { border-radius: 8px; background-color: #4C4D50; }
+.search-list::-webkit-scrollbar-thumb:hover { border-radius: 8px; background-color: #646568; }
+.search-list::-webkit-scrollbar-track { background-color: #35363A; }

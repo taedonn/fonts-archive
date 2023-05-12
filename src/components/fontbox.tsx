@@ -81,7 +81,7 @@ export default function FontBox({lang, type, sort, text}:{lang: string, type: st
                     <span className="w-[100%]" ref={ref}></span>
 
                     {/* 로딩 바 */}
-                    {isFetchingNextPage ? <div className="w-[100%] pt-[28px] pb-0 flex flex-row justify-center items-center"><span className="loader"></span></div> : null}
+                    {hasNextPage ? <div className="w-[100%] pt-[28px] pb-0 flex flex-row justify-center items-center"><span className="loader"></span></div> : null}
                 </div>
             </div>
         </>

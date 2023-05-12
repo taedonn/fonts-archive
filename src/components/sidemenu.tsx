@@ -12,6 +12,7 @@ export default function SideMenu({fonts}:{fonts:any}) {
         }
         else {
             document.body.classList.remove("shrink");
+            document.body.classList.remove("shrink");
             document.body.classList.add("expand");
         }
     }

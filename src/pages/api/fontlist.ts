@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import client from '@/libs/client';
 
-export type fonts = {
+type fonts = {
     code: number
     name: string
     lang: string
@@ -12,7 +12,7 @@ export type fonts = {
     cdn_url: string
 }
   
-export interface data {
+interface data {
     fonts: fonts[]
     nextId: number | undefined
 }
@@ -21,9 +21,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     if (req.method === 'GET') {
         const limit = 24
         const thisQuery = req.query;
-        const sort: object = thisQuery.sort === 'name' ? { name: 'asc' } : { date: 'desc' }
         const lang: string | object = thisQuery.lang === 'kr' ? 'KR' : (thisQuery.lang === 'en' ? 'EN' : {});
-        const type: string | object = thisQuery.type === 'sans-serif' ? 'Sans Serif' : (thisQuery.type === 'serif' ? 'Serif' : {});
+        const type: string | object = thisQuery.type === 'sans-serif' ? 'Sans Serif' : (thisQuery.type === 'serif' ? 'Serif' : (thisQuery.type === 'hand-writing' ? 'Hand Writing' : (thisQuery.type === 'display' ? 'Display' : {})));
+        const sort: object = thisQuery.sort === 'name' ? { name: 'asc' } : { date: 'desc' }
         const cursor = thisQuery.id ?? ''
         const cursorObj: object | undefined = cursor === '' ? undefined : { code: parseInt(cursor as string, 10) }
 

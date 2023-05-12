@@ -4,7 +4,6 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { throttle } from "lodash";
 
-
 // 컴포넌트
 import Tooltip from "@/components/tooltip";
 import FontBox from "@/components/fontbox";
@@ -99,46 +98,30 @@ const Index = ({params}: any) => {
         if (e.target.checked) {
             if (e.target.value === "all") {
                 if (type === "all" && sort === "date") {
-                    router
-                    .push({ pathname: '/'})
-                    .then(() => router.reload());
+                    router.push({ pathname: '/'}).then(() => router.reload());
                 }
                 else if (type !== "all" && sort === "date") {
-                    router
-                    .push({ pathname: '/', query: { type: type }})
-                    .then(() => router.reload());
+                    router.push({ pathname: '/', query: { type: type }}).then(() => router.reload());
                 }
                 else if (type === "all" && sort !== "date") {
-                    router
-                    .push({ pathname: '/', query: { sort: sort }})
-                    .then(() => router.reload());
+                    router.push({ pathname: '/', query: { sort: sort }}).then(() => router.reload());
                 }
                 else {
-                    router
-                    .push({ pathname: '/', query: { type: type, sort: sort }})
-                    .then(() => router.reload());
+                    router.push({ pathname: '/', query: { type: type, sort: sort }}).then(() => router.reload());
                 }
             }
             else {
                 if (type === "all" && sort === "date") {
-                    router
-                    .push({ pathname: '/', query: { lang: e.target.value }})
-                    .then(() => router.reload());
+                    router.push({ pathname: '/', query: { lang: e.target.value }}).then(() => router.reload());
                 }
                 else if (type !== "all" && sort === "date") {
-                    router
-                    .push({ pathname: '/', query: { lang: e.target.value, type: type }})
-                    .then(() => router.reload());
+                    router.push({ pathname: '/', query: { lang: e.target.value, type: type }}).then(() => router.reload());
                 }
                 else if (type === "all" && sort !== "date") {
-                    router
-                    .push({ pathname: '/', query: { lang: e.target.value, sort: sort }})
-                    .then(() => router.reload());
+                    router.push({ pathname: '/', query: { lang: e.target.value, sort: sort }}).then(() => router.reload());
                 }
                 else {
-                    router
-                    .push({ pathname: '/', query: { lang: e.target.value, type: type, sort: sort }})
-                    .then(() => router.reload());
+                    router.push({ pathname: '/', query: { lang: e.target.value, type: type, sort: sort }}).then(() => router.reload());
                 }   
             }
         }
@@ -254,6 +237,9 @@ const Index = ({params}: any) => {
     }
     const throttledScroll = throttle(handleScroll,500);
 
+    /** 로고 클릭 시 새로고침 */
+    const handleLogo = () => { router.push({ pathname: '/' }).then(() => router.reload()); }
+
     /** lodash/throttle을 이용해 스크롤 */
     useEffect(() => {
         window.addEventListener('scroll', throttledScroll);
@@ -261,15 +247,23 @@ const Index = ({params}: any) => {
     });
 
     /** 키 다운 이벤트 */
-    useEffect(() => {
-        const keys: any[] = [];
-        window.addEventListener("keydown", (e: KeyboardEvent) => {
-            keys[e.keyCode] = true;
-            if (keys[17] && keys[75]) { handleFontSearch(); e.preventDefault(); }
-            else if (keys[27]) { handleFontSearchCloseBtn(); }
-        }, false);
-        window.addEventListener("keyup", (e: KeyboardEvent) => { keys[e.keyCode] = false; }, false);
-    }, []);
+    // useEffect(() => {
+    //     const keys: any = [];
+    //     const handleKeydown = (e: KeyboardEvent) => {
+    //         keys[e.key] = true;
+    //         if (keys["Control"] && keys["k"]) { handleFontSearch(); e.preventDefault(); }
+    //         else if (keys["Escape"]) { handleFontSearchCloseBtn(); }
+    //     }
+    //     const handleKeyup = (e: KeyboardEvent) => {keys[e.key] = false;}
+
+    //     window.addEventListener("keydown", handleKeydown, false);
+    //     window.addEventListener("keyup", handleKeyup, false);
+
+    //     return () => {
+    //         window.removeEventListener("keydown", handleKeydown);
+    //         window.removeEventListener("keyup", handleKeyup);
+    //     }
+    // }, []);
 
     return (
         <>
@@ -277,7 +271,7 @@ const Index = ({params}: any) => {
             {/* 헤더 */}
             <div className='interface w-[100%] h-[68px] px-[16px] fixed right-0 top-0 z-10 flex flex-row justify-between items-center backdrop-blur bg-blur-theme border-b border-dark-theme-4'>
                 <div className="flex flex-row justify-start items-center">
-                    <Link href="/" className="w-[36px] h-[36px] flex flex-row justify-center items-center rounded-[8px] mr-[12px] bg-dark-theme-3/80 hover:bg-dark-theme-4/60 hover:drop-shadow-default">
+                    <Link onClick={handleLogo} href="/" className="w-[36px] h-[36px] flex flex-row justify-center items-center rounded-[8px] mr-[12px] bg-dark-theme-3/80 hover:bg-dark-theme-4/60 hover:drop-shadow-default">
                         <svg className="w-[18px] pb-px fill-dark-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="m2.244 13.081.943-2.803H6.66l.944 2.803H8.86L5.54 3.75H4.322L1 13.081h1.244zm2.7-7.923L6.34 9.314H3.51l1.4-4.156h.034zm9.146 7.027h.035v.896h1.128V8.125c0-1.51-1.114-2.345-2.646-2.345-1.736 0-2.59.916-2.666 2.174h1.108c.068-.718.595-1.19 1.517-1.19.971 0 1.518.52 1.518 1.464v.731H12.19c-1.647.007-2.522.8-2.522 2.058 0 1.319.957 2.18 2.345 2.18 1.06 0 1.716-.43 2.078-1.011zm-1.763.035c-.752 0-1.456-.397-1.456-1.244 0-.65.424-1.115 1.408-1.115h1.805v.834c0 .896-.752 1.525-1.757 1.525z"/></svg>
                     </Link>
                     <div className="relative w-[380px] group">
@@ -286,15 +280,6 @@ const Index = ({params}: any) => {
                     </div>
                 </div>
                 <div className='w-content flex flex-row justify-start items-center'>
-                    <button onClick={handleFontSearch} className="w-[220px] h-[32px] relative text-[14px] text-normal text-dark-theme-8 leading-none bg-dark-theme-3/80 flex flex-start justify-start items-center rounded-[8px] pl-[38px] pr-[20px] pb-px hover:bg-dark-theme-4/60 hover:drop-shadow-default">
-                        폰트 검색하기...
-                        <svg className="w-[12px] absolute left-[16px] top-[50%] translate-y-[-50%] fill-dark-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/></svg>
-                        <div className="absolute right-[16px] text-[12px] flex flex-row justify-center items-center">
-                            <svg className="w-[10px] mr-px fill-dark-theme-8" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80"><g><path d="M64,48L64,48h-8V32h8c8.836,0,16-7.164,16-16S72.836,0,64,0c-8.837,0-16,7.164-16,16v8H32v-8c0-8.836-7.164-16-16-16 S0,7.164,0,16s7.164,16,16,16h8v16h-8l0,0l0,0C7.164,48,0,55.164,0,64s7.164,16,16,16c8.837,0,16-7.164,16-16l0,0v-8h16v7.98 c0,0.008-0.001,0.014-0.001,0.02c0,8.836,7.164,16,16,16s16-7.164,16-16S72.836,48.002,64,48z M64,8c4.418,0,8,3.582,8,8 s-3.582,8-8,8h-8v-8C56,11.582,59.582,8,64,8z M8,16c0-4.418,3.582-8,8-8s8,3.582,8,8v8h-8C11.582,24,8,20.417,8,16z M16,72 c-4.418,0-8-3.582-8-8s3.582-8,8-8l0,0h8v8C24,68.418,20.418,72,16,72z M32,48V32h16v16H32z M64,72c-4.418,0-8-3.582-8-8l0,0v-8 h7.999c4.418,0,8,3.582,8,8S68.418,72,64,72z"/></g></svg>
-                            <span className="text-[12px] leading-none">K</span>
-                        </div>
-                    </button>
-                    <div className='w-px h-[20px] rounded-full mx-[10px] bg-dark-theme-4'></div>
                     <div className='w-content relative flex flex-row justify-start items-center'>
                         <input type='checkbox' id='select-lang' onChange={handleLangChange} className="select hidden"/>
                         <label ref={refLangSelect} htmlFor='select-lang' className="h-[32px] relative flex flex-row justify-center items-center text-[14px] text-dark-theme-8 leading-none px-[20px] border border-dark-theme-5 rounded-full cursor-pointer fill-dark-theme-8 hover:bg-blue-theme-bg hover:border-blue-theme-border hover:text-dark-theme-9 hover:fill-dark-theme-9 hover:drop-shadow-default">
@@ -304,7 +289,7 @@ const Index = ({params}: any) => {
                                 <svg className="w-[8px] rotate-180 ml-[12px] fill-inherit" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M7.022 1.566a1.13 1.13 0 0 1 1.96 0l6.857 11.667c.457.778-.092 1.767-.98 1.767H1.144c-.889 0-1.437-.99-.98-1.767L7.022 1.566z"/></svg>
                             </button>
                         </label>
-                        <div ref={refLangOption} id="option-lang" className='option w-[128px] absolute z-2 left-[-3px] top-[40px] border border-blue-theme-border rounded-[12px] flex flex-col justify-start items-start px-[16px] py-[22px] bg-blue-theme-bg drop-shadow-default'>
+                        <div ref={refLangOption} id="option-lang" className='option w-[128px] absolute z-2 left-[50%] top-[40px] translate-x-[-50%] border border-blue-theme-border rounded-[12px] flex flex-col justify-start items-start px-[16px] py-[22px] bg-blue-theme-bg drop-shadow-default'>
                             <input onChange={handleLangOptionChange} type='radio' id="option-lang-all" name="option-lang" value="all" className="option-input hidden" defaultChecked={lang === "all" ? true : false}/>
                             <div className='flex flex-row justify-start items-center mb-[16px]'>
                                 <label htmlFor='option-lang-all'>
@@ -340,7 +325,7 @@ const Index = ({params}: any) => {
                                 <svg className="w-[8px] rotate-180 ml-[12px] fill-inherit" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M7.022 1.566a1.13 1.13 0 0 1 1.96 0l6.857 11.667c.457.778-.092 1.767-.98 1.767H1.144c-.889 0-1.437-.99-.98-1.767L7.022 1.566z"/></svg>
                             </button>
                         </label>
-                        <div ref={refTypeOption} id="option-type" className='option w-[128px] absolute z-2 left-[-3px] top-[40px] border border-blue-theme-border rounded-[12px] flex flex-col justify-start items-start px-[16px] py-[22px] bg-blue-theme-bg drop-shadow-default'>
+                        <div ref={refTypeOption} id="option-type" className='option w-[128px] absolute z-2 left-[50%] top-[40px] translate-x-[-50%] border border-blue-theme-border rounded-[12px] flex flex-col justify-start items-start px-[16px] py-[22px] bg-blue-theme-bg drop-shadow-default'>
                             <input onChange={handleTypeOptionChange} type='radio' id="option-type-all" name="option-type" value="all" className="option-input hidden" defaultChecked={type === "all" ? true : false}/>
                             <div className='flex flex-row justify-start items-center mb-[16px]'>
                                 <label htmlFor='option-type-all'>
@@ -358,12 +343,28 @@ const Index = ({params}: any) => {
                                 <span className="text-[14px] text-dark-theme-9 leading-tight">고딕</span>
                             </div>
                             <input onChange={handleTypeOptionChange} type='radio' id="option-type-serif" name="option-type" value="serif" className="option-input hidden" defaultChecked={type === "serif" ? true : false}/>
-                            <div className='flex flex-row justify-start items-center'>
+                            <div className='flex flex-row justify-start items-center mb-[16px]'>
                                 <label htmlFor='option-type-serif'>
                                     <svg className='w-[18px] mr-[10px] cursor-pointer fill-blue-theme-border' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.235.235 0 0 1 .02-.022z"/></svg>
                                     <svg className='w-[18px] mr-[10px] cursor-pointer fill-blue-theme-border' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm10.03 4.97a.75.75 0 0 1 .011 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.75.75 0 0 1 1.08-.022z"/></svg>
                                 </label>
                                 <span className="text-[14px] text-dark-theme-9 leading-tight">명조</span>
+                            </div>
+                            <input onChange={handleTypeOptionChange} type='radio' id="option-type-hand-writing" name="option-type" value="hand-writing" className="option-input hidden" defaultChecked={type === "hand-writing" ? true : false}/>
+                            <div className='flex flex-row justify-start items-center mb-[16px]'>
+                                <label htmlFor='option-type-hand-writing'>
+                                    <svg className='w-[18px] mr-[10px] cursor-pointer fill-blue-theme-border' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.235.235 0 0 1 .02-.022z"/></svg>
+                                    <svg className='w-[18px] mr-[10px] cursor-pointer fill-blue-theme-border' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm10.03 4.97a.75.75 0 0 1 .011 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.75.75 0 0 1 1.08-.022z"/></svg>
+                                </label>
+                                <span className="text-[14px] text-dark-theme-9 leading-tight">손글씨</span>
+                            </div>
+                            <input onChange={handleTypeOptionChange} type='radio' id="option-type-display" name="option-type" value="display" className="option-input hidden" defaultChecked={type === "display" ? true : false}/>
+                            <div className='flex flex-row justify-start items-center'>
+                                <label htmlFor='option-type-display'>
+                                    <svg className='w-[18px] mr-[10px] cursor-pointer fill-blue-theme-border' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.235.235 0 0 1 .02-.022z"/></svg>
+                                    <svg className='w-[18px] mr-[10px] cursor-pointer fill-blue-theme-border' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm10.03 4.97a.75.75 0 0 1 .011 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.75.75 0 0 1 1.08-.022z"/></svg>
+                                </label>
+                                <span className="text-[14px] text-dark-theme-9 leading-tight">장식체</span>
                             </div>
                         </div>
                     </div>
@@ -377,7 +378,7 @@ const Index = ({params}: any) => {
                                 <svg className="w-[8px] rotate-180 ml-[12px] fill-inherit" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M7.022 1.566a1.13 1.13 0 0 1 1.96 0l6.857 11.667c.457.778-.092 1.767-.98 1.767H1.144c-.889 0-1.437-.99-.98-1.767L7.022 1.566z"/></svg>
                             </button>
                         </label>
-                        <div ref={refSortOption} id="option-sort" className='option w-[114px] absolute z-2 left-[-4px] top-[40px] border border-blue-theme-border rounded-[12px] flex flex-col justify-start items-start px-[16px] py-[22px] bg-blue-theme-bg drop-shadow-default'>
+                        <div ref={refSortOption} id="option-sort" className='option w-[114px] absolute z-2 left-[50%] top-[40px] translate-x-[-50%] border border-blue-theme-border rounded-[12px] flex flex-col justify-start items-start px-[16px] py-[22px] bg-blue-theme-bg drop-shadow-default'>
                             <input onChange={handleSortOptionChange} type='radio' id="option-sort-latest" name="option-sort" value="date" className="option-input hidden" defaultChecked={sort === "date" ? true : false}/>
                             <div className='flex flex-row justify-start items-center mb-[16px]'>
                                 <label htmlFor='option-sort-latest'>
@@ -396,23 +397,32 @@ const Index = ({params}: any) => {
                             </div>
                         </div>
                     </div>
+                    <div className='w-px h-[20px] rounded-full mx-[10px] bg-dark-theme-4'></div>
+                    <button onClick={handleFontSearch} className="w-[220px] h-[32px] relative text-[14px] text-normal text-dark-theme-8 leading-none bg-dark-theme-3/80 flex flex-start justify-start items-center rounded-[8px] pl-[38px] pr-[20px] pb-px hover:bg-dark-theme-4/60 hover:drop-shadow-default">
+                        폰트 검색하기...
+                        <svg className="w-[12px] absolute left-[16px] top-[50%] translate-y-[-50%] fill-dark-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/></svg>
+                        <div className="absolute right-[16px] text-[12px] flex flex-row justify-center items-center">
+                            <span className="text-[12px] leading-none">Ctrl + K</span>
+                        </div>
+                    </button>
                 </div>
             </div>
             {/* 메인 */}
             <FontBox lang={lang} type={type} sort={sort} text={text}/>
 
             {/* 폰트 검색 */}
-            <FontSearch display={searchDisplay} closeBtn={handleFontSearchCloseBtn}/>
+            <FontSearch display={searchDisplay} closeBtn={handleFontSearchCloseBtn} showBtn={handleFontSearch}/>
         </>
     );
 }
 
 export async function getServerSideProps(ctx: any) {
     try {
+        /** 쿼리 스트링 가져오기 */
         const thisQuery = ctx.query;
+        const lang = thisQuery.lang === "" || thisQuery.lang === undefined ? "all" : (thisQuery.lang === "kr" ? "kr" : (thisQuery.lang === "en" ? "en" : "all"));
+        const type = thisQuery.type === "" || thisQuery.type === undefined ? "all" : (thisQuery.type === "sans-serif" ? "sans-serif" : (thisQuery.type === "serif" ? "serif" : (thisQuery.type === "hand-writing" ? "hand-writing" : (thisQuery.type === "display" ? "display" : "all"))));
         const sort = thisQuery.sort === "" || thisQuery.sort === undefined ? "date" : (thisQuery.sort === "name" ? "name" : "date");
-        const lang = thisQuery.lang === "" || thisQuery.lang === undefined ? "all" : (thisQuery.lang === "kr" ? "kr" : (thisQuery.lang === "en") ? "en" : "all");
-        const type = thisQuery.type === "" || thisQuery.type === undefined ? "all" : (thisQuery.type === "sans-serif" ? "sans-serif" : (thisQuery.type === "serif") ? "serif" : "all")
 
         return {
             props: {
