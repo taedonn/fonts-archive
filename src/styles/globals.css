@@ -78,11 +78,31 @@ body::-webkit-scrollbar-track {
 .option-input:checked + div svg:last-of-type { display: block; }
 
 /* 폰트 박스 맨 앞 3개 마진 0으로 설정 */
-.main-menu > a:nth-of-type(1), 
-.main-menu > a:nth-of-type(2), 
-.main-menu > a:nth-of-type(3),
-.main-menu > a:nth-of-type(4) { 
-    margin-top: 0; 
+@media screen and (min-width: 1280px) {
+    .main-menu > a:nth-of-type(1), 
+    .main-menu > a:nth-of-type(2), 
+    .main-menu > a:nth-of-type(3),
+    .main-menu > a:nth-of-type(4) { 
+        margin-top: 0; 
+    }
+}
+@media screen and (max-width: 1280px) {
+    .main-menu > a:nth-of-type(1), 
+    .main-menu > a:nth-of-type(2), 
+    .main-menu > a:nth-of-type(3) { 
+        margin-top: 0; 
+    }
+}
+@media screen and (max-width: 1024px) {
+    .main-menu > a:nth-of-type(1), 
+    .main-menu > a:nth-of-type(2) { 
+        margin-top: 0; 
+    }
+    .main-menu > a:nth-of-type(3) { margin-top: 12px; }
+}
+@media screen and (max-width: 768px) {
+    .main-menu > a:nth-of-type(1) { margin-top: 0; }
+    .main-menu > a:nth-of-type(2) { margin-top: 12px; }
 }
 
 /* text ellipse */
@@ -128,6 +148,18 @@ body::-webkit-scrollbar-track {
     75% {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,0 100%,0 100%)}
     100% {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,0 100%,0 0)}
 }
+@media screen and (max-width: 768px) {
+    .loader {
+        width: 32px;
+        height: 32px
+    }
+    .loader::before , 
+    .loader::after {
+        border: 3px solid #CDCED2;
+        animation: prixClipFix 2s linear infinite ;
+    }
+    .loader::after { border-color: #8AB4F8; }
+}
 
 /* 검색 기능 */
 .search-list .search-link:first-of-type { margin-top: 0; }
@@ -138,3 +170,7 @@ body::-webkit-scrollbar-track {
 .search-list::-webkit-scrollbar-thumb { border-radius: 8px; background-color: #4C4D50; }
 .search-list::-webkit-scrollbar-thumb:hover { border-radius: 8px; background-color: #646568; }
 .search-list::-webkit-scrollbar-track { background-color: #35363A; }
+
+@media screen and (max-width: 768px) {
+    .search-list .search-link:last-of-type { margin-bottom: 24px; }
+}

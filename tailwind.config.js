@@ -7,6 +7,12 @@ module.exports = {
     ],
     theme: {
         extend: {
+            screens: {
+                "txl": { "max": "1280px" },
+                "tlg": { "max": "1024px" },
+                "tmd": { "max": "768px" },
+                "tsm": { "max": "640px" },
+            },
             colors: {
                 "transparent": "transparent",
                 "dark-theme-1": "#000000",
