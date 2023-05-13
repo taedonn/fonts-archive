@@ -38,7 +38,7 @@ export default function FontBox({lang, type, sort, text}:{lang: string, type: st
     return (
         <>
             <div className='w-[100%] flex flex-col justify-start items-end'>
-                <div className="main-menu w-[100%] relative flex flex-wrap flex-row justify-between items-stretch mt-[60px] tlg:mt-[114px] tmd:mt-[108px] p-[12px] pb-[16px] tmd:pb-[16px]">
+                <div className="main-menu w-[100%] relative flex flex-wrap flex-row justify-between items-stretch mt-[60px] tlg:mt-[116px] tmd:mt-[108px] p-[12px] pb-[16px] tmd:pb-[16px]">
                     {/* 로딩 바 */}
                     {isLoading ? <div className="w-[100%] pt-[28px] pb-0 flex flex-row justify-center items-center"><span className="loader"></span></div> : null}
 
@@ -56,7 +56,7 @@ export default function FontBox({lang, type, sort, text}:{lang: string, type: st
                                     font_type: string
                                     cdn_url: string
                                 }) => (
-                                    <Link href={`/DetailPage/${font.code}`} key={font.code} className="w-[calc(25%-8px)] txl:w-[calc(33.3%-8px)] tlg:w-[calc(50%-6px)] tmd:w-[100%] h-[360px] txl:h-[300px] tlg:h-[240px] tmd:h-[200px] block p-[20px] tlg:p-[16px] border border-dark-theme-4 rounded-[8px] mt-[12px] hover:bg-dark-theme-3/40 cursor-pointer">
+                                    <Link href={`/DetailPage/${font.code}`} key={font.code} className="w-[calc(25%-8px)] txl:w-[calc(33.3%-6px)] tlg:w-[calc(50%-4px)] tmd:w-[100%] h-[360px] txl:h-[300px] tlg:h-[240px] tmd:h-[200px] block p-[20px] tlg:p-[16px] border border-dark-theme-4 rounded-[8px] mt-[12px] txl:mt-[10px] tlg:mt-[8px] tmd:mt-[6px] hover:bg-dark-theme-3/40 cursor-pointer">
                                         <link href={font.cdn_url} rel="stylesheet" type="text/css" itemProp="url"></link>
                                         <div style={{fontFamily:"'"+font.font_family+"'"}} className="text-[18px] tlg:text-[16px] text-normal leading-tight mb-[8px] tlg:mb-[6px] text-dark-theme-8">{font.name}</div>
                                         <div className="flex flex-row justify-start items-center">
@@ -73,9 +73,9 @@ export default function FontBox({lang, type, sort, text}:{lang: string, type: st
                     })}
 
                     {/* 정렬 맞추기 위한 빈 div */}
-                    <div className="w-[calc(25%-8px)]"></div>
-                    <div className="w-[calc(25%-8px)]"></div>
-                    <div className="w-[calc(25%-8px)]"></div>
+                    <div className="w-[calc(25%-8px)] txl:w-[calc(33.3%-6px)] tlg:w-[calc(50%-4px)] tmd:w-[100%]"></div>
+                    <div className="w-[calc(25%-8px)] txl:w-[calc(33.3%-6px)] tlg:w-[calc(50%-4px)] tmd:w-[100%]"></div>
+                    <div className="w-[calc(25%-8px)] txl:w-[calc(33.3%-6px)] tlg:w-[calc(50%-4px)] tmd:w-[100%]"></div>
 
                     {/* 뷰포트 만날 시 다음 데이터 로딩 */}
                     <span className="w-[100%]" ref={ref}></span>

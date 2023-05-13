@@ -4,6 +4,7 @@ import { useQuery } from "react-query";
 import Link from "next/link";
 import axios from "axios";
 import { debounce } from "lodash";
+import { isMacOs } from "react-device-detect";
 
 export default function FontSearch({display, closeBtn, showBtn}:{display: string, closeBtn: any, showBtn: any}) {
     /** 키 다운 이벤트 */
@@ -11,8 +12,13 @@ export default function FontSearch({display, closeBtn, showBtn}:{display: string
         const keys: any = [];
         const handleKeydown = (e: KeyboardEvent) => {
             keys[e.key] = true;
-            if (keys["Control"] && keys["k"]) { showBtn(); e.preventDefault(); }
-            else if (keys["Escape"]) { closeBtn(); }
+            if (isMacOs) {
+                if (keys["Meta"] && keys["k"]) { showBtn(); e.preventDefault(); }
+                if (keys["Escape"]) { closeBtn(); }
+            } else {
+                if (keys["Control"] && keys["k"]) { showBtn(); e.preventDefault(); }
+                if (keys["Escape"]) { closeBtn(); }
+            }
         }
         const handleKeyup = (e: KeyboardEvent) => {keys[e.key] = false;}
 
@@ -76,7 +82,7 @@ export default function FontSearch({display, closeBtn, showBtn}:{display: string
                             {isSuccess && !isLoading && !isRefetching
                                 ? ( data.fonts.length !== 0
                                     ? <div className="w-[100%] px-[24px] tmd:px-[16px]">
-                                        <div className="text-[18px] tmd:text-[14px] text-dark-theme-8 leading-none mt-[24px] mb-[16px] tmd:mb-[12px] font-bold">검색 결과</div>
+                                        <div className="text-[18px] tmd:text-[14px] text-dark-theme-8 leading-none mt-[28px] tmd:mt-[24px] mb-[16px] tmd:mb-[12px] font-bold">검색 결과</div>
                                         {data && data.fonts.map((font: {
                                             code: number,
                                             name: string,

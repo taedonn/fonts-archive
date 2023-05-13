@@ -98,11 +98,11 @@ body::-webkit-scrollbar-track {
     .main-menu > a:nth-of-type(2) { 
         margin-top: 0; 
     }
-    .main-menu > a:nth-of-type(3) { margin-top: 12px; }
+    .main-menu > a:nth-of-type(3) { margin-top: 8px; }
 }
 @media screen and (max-width: 768px) {
     .main-menu > a:nth-of-type(1) { margin-top: 0; }
-    .main-menu > a:nth-of-type(2) { margin-top: 12px; }
+    .main-menu > a:nth-of-type(2) { margin-top: 6px; }
 }
 
 /* text ellipse */
@@ -163,7 +163,7 @@ body::-webkit-scrollbar-track {
 
 /* 검색 기능 */
 .search-list .search-link:first-of-type { margin-top: 0; }
-.search-list .search-link:last-of-type { margin-bottom: 36px; }
+.search-list .search-link:last-of-type { margin-bottom: 28px; }
 
 /* 검색 기능 스크롤 바 */
 .search-list::-webkit-scrollbar { width: 10px; background: transparent; }
