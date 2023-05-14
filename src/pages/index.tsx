@@ -249,7 +249,9 @@ const Index = ({params}: any) => {
 
     return (
         <>
+            {/* 고정 메뉴 */}
             <Tooltip/>
+            
             {/* 헤더 */}
             <div className='interface w-[100%] h-[60px] tlg:h-auto px-[16px] tlg:px-0 fixed right-0 top-0 z-10 flex flex-row tlg:flex-col justify-between tlg:justify-center items-center tlg:items-start backdrop-blur bg-blur-theme border-b border-dark-theme-4'>
                 <div className="tlg:w-[100%] tlg:px-[12px] tlg:py-[12px] tmd:py-[10px] tlg:border-b tlg:border-dark-theme-4 flex flex-row justify-start items-center">
@@ -396,6 +398,7 @@ const Index = ({params}: any) => {
                     </button>
                 </div>
             </div>
+            
             {/* 메인 */}
             <FontBox lang={lang} type={type} sort={sort} text={text}/>
 
