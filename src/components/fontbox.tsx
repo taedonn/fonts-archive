@@ -8,7 +8,7 @@ import axios from 'axios';
 // 컴포넌트
 import DummyText from "./dummytext";
 
-export default function FontBox({lang, type, sort, text}:{lang: string, type: string, sort: string, text: string}) {
+export default function FontBox({lang, type, sort, text, randomNum}:{lang: string, type: string, sort: string, text: string, randomNum: number}) {
     /** react-intersection-observer 훅 */
     const { ref, inView } = useInView()
 
@@ -38,7 +38,7 @@ export default function FontBox({lang, type, sort, text}:{lang: string, type: st
     return (
         <>
             <div className='w-[100%] flex flex-col justify-start items-end'>
-                <div className="main-menu w-[100%] relative flex flex-wrap flex-row justify-between items-stretch mt-[60px] tlg:mt-[116px] tmd:mt-[108px] p-[12px] pb-[16px] tmd:pb-[16px]">
+                <div className="main-menu w-[100%] relative flex flex-wrap flex-row justify-between items-stretch mt-[60px] tlg:mt-[116px] tmd:mt-[108px] p-[20px] pt-[12px]">
                     {/* 로딩 바 */}
                     {isLoading ? <div className="w-[100%] pt-[28px] pb-0 flex flex-row justify-center items-center"><span className="loader"></span></div> : null}
 
@@ -64,7 +64,7 @@ export default function FontBox({lang, type, sort, text}:{lang: string, type: st
                                         </div>
                                         <div className="w-[100%] h-px my-[16px] tlg:my-[12px] bg-dark-theme-4"></div>
                                         <div style={{fontFamily:"'"+font.font_family+"'"}} className="text-[36px] txl:text-[32px] tlg:text-[24px] text-normal leading-normal overflow-hidden">
-                                            <p className="ellipsed-text text-dark-theme-8"><DummyText lang={font.lang} text={text}/></p>
+                                            <p className="ellipsed-text text-dark-theme-8"><DummyText lang={font.lang} text={text} randomNum={randomNum}/></p>
                                         </div>
                                     </Link>
                                 ))}

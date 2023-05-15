@@ -184,3 +184,13 @@ body::-webkit-scrollbar-track {
 
 /* 웹 폰트 적용하기 스크롤바 */
 .cdn_pre::-webkit-scrollbar { display: none; }
+
+.font-weight-wrap .font-weight:last-of-type { margin-bottom: 0; }
+
+.font-size {
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}

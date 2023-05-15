@@ -8,8 +8,12 @@ import { isMacOs } from "react-device-detect";
 // 컴포넌트
 import Tooltip from "@/components/tooltip";
 import FontSearch from "@/components/fontsearch";
+import DummyText from "@/components/dummytext";
 
-function DetailPage({fontInfo}:{fontInfo: any}) {
+const alphabetKR = '가 나 다 라 마 바 사 아 자 차 카 타 파 하 a b c d e f g h i j k l m n o p q r s t u v w x y z 0 1 2 3 4 5 6 7 8 9 가 나 다 라 마 바 사 아 자 차 카 타 파 하 a b c d e f g h i j k l m n o p q r s t u v w x y z 0 1 2 3 4 5 6 7 8 9 가 나 다 라 마 바 사 아 자 차 카 타 파 하 a b c d e f g h i j k l m n o p q r s t u v w x y z 0 1 2 3 4 5 6 7 8 9';
+const alphabetEN = 'A B C D E F G H I J K L M N O P Q R S T U V W X Y Z a b c d e f g h i j k l m n o p q r s t u v w x y z 0 1 2 3 4 5 6 7 8 9 A B C D E F G H I J K L M N O P Q R S T U V W X Y Z a b c d e f g h i j k l m n o p q r s t u v w x y z 0 1 2 3 4 5 6 7 8 9 A B C D E F G H I J K L M N O P Q R S T U V W X Y Z a b c d e f g h i j k l m n o p q r s t u v w x y z 0 1 2 3 4 5 6 7 8 9';
+
+function DetailPage({fontInfo, randomNum}:{fontInfo: any, randomNum: number}) {
     /** useRouter 훅 */
     const router = useRouter();
 
@@ -80,13 +84,23 @@ function DetailPage({fontInfo}:{fontInfo: any}) {
         },1000);
     }
 
+    /** 폰트 두께 텍스트 체인지 이벤트 */
+    const defaultText = "";
+    const [text, setText] = useState(defaultText);
+    useEffect(() => {
+        setText(defaultText);
+    }, [defaultText])
+    const handleFontWeightChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setText(e.target.value);
+    }
+
     return (
         <>
             {/* 고정 메뉴 */}
             <Tooltip/>
 
             {/* 헤더 */}
-            <div className='interface w-[100%] h-[60px] tlg:h-auto px-[32px] tlg:px-0 fixed right-0 top-0 z-10 flex flex-row tlg:flex-col justify-between tlg:justify-center items-center tlg:items-start backdrop-blur bg-blur-theme border-b border-dark-theme-4'>
+            <div className='interface w-[100%] h-[60px] tlg:h-auto px-[20px] tlg:px-0 fixed right-0 top-0 z-10 flex flex-row tlg:flex-col justify-between tlg:justify-center items-center tlg:items-start backdrop-blur bg-blur-theme border-b border-dark-theme-4'>
                 <div className="tlg:w-[100%] tlg:px-[12px] tlg:py-[12px] tmd:py-[10px] tlg:border-b tlg:border-dark-theme-4 flex flex-row justify-start items-center">
                     <Link onClick={handleLogo} href="/" className="w-[36px] tlg:w-[32px] h-[36px] tlg:h-[32px] flex flex-row justify-center items-center rounded-[8px] tlg:rounded-[6px] mr-[12px] bg-dark-theme-3/80 hover:bg-dark-theme-4/60 hover:drop-shadow-default">
                         <svg className="w-[18px] tlg:w-[16px] pb-px fill-dark-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="m2.244 13.081.943-2.803H6.66l.944 2.803H8.86L5.54 3.75H4.322L1 13.081h1.244zm2.7-7.923L6.34 9.314H3.51l1.4-4.156h.034zm9.146 7.027h.035v.896h1.128V8.125c0-1.51-1.114-2.345-2.646-2.345-1.736 0-2.59.916-2.666 2.174h1.108c.068-.718.595-1.19 1.517-1.19.971 0 1.518.52 1.518 1.464v.731H12.19c-1.647.007-2.522.8-2.522 2.058 0 1.319.957 2.18 2.345 2.18 1.06 0 1.716-.43 2.078-1.011zm-1.763.035c-.752 0-1.456-.397-1.456-1.244 0-.65.424-1.115 1.408-1.115h1.805v.834c0 .896-.752 1.525-1.757 1.525z"/></svg>
@@ -114,7 +128,7 @@ function DetailPage({fontInfo}:{fontInfo: any}) {
             </div>
 
             {/* 메인 */}
-            <div className="w-[100%] mt-[60px] p-[32px] py-[32px]">
+            <div className="w-[100%] mt-[60px] p-[20px] py-[20px]">
                 <link href={font.cdn_url} rel="stylesheet" type="text/css" itemProp="url"></link>
                 <div className="w-[100%] flex flex-col justify-start items-start">
                     <div style={{fontFamily:font.font_family}} className="text-[32px] text-dark-theme-8 leading-tight mb-[12px]">{font.name}</div>
@@ -178,8 +192,94 @@ function DetailPage({fontInfo}:{fontInfo: any}) {
                         }
                     </div>
                 </div>
-                <div className="flex flex-col justify-start items-start mb-[60px]">
+                <div className="font-weight-wrap flex flex-col justify-start items-start mb-[60px]">
                     <h2 className="text-[24px] text-dark-theme-8 font-medium mb-[20px]">폰트 두께</h2>
+                    <input onChange={handleFontWeightChange} type="text" placeholder="Type something..." className="w-[100%] h-[50px] text-[14px] text-dark-theme-8 leading-none px-[24px] pb-px mb-[32px] border border-dark-theme-4 rounded-full bg-transparent"/>
+                    {
+                        font.font_weight[0] === "Y"
+                        ? <>
+                            <div className="text-[14px] text-dark-theme-8 leading-none mb-[16px]">Thin 100</div>
+                            <div style={{fontFamily:font.font_family, fontWeight:"100"}} className="font-weight w-[100%] text-[20px] text-dark-theme-8 pb-[16px] mb-[32px] border-b border-dark-theme-4"><DummyText lang={font.lang} text={text} randomNum={randomNum}/></div>
+                        </>
+                        : <></>
+                    }
+                    {
+                        font.font_weight[1] === "Y"
+                        ? <>
+                            <div className="text-[14px] text-dark-theme-8 leading-none mb-[16px]">ExtraLight 200</div>
+                            <div style={{fontFamily:font.font_family, fontWeight:"200"}} className="font-weight w-[100%] text-[20px] text-dark-theme-8 pb-[16px] mb-[32px] border-b border-dark-theme-4"><DummyText lang={font.lang} text={text} randomNum={randomNum}/></div>
+                        </>
+                        : <></>
+                    }
+                    {
+                        font.font_weight[2] === "Y"
+                        ? <>
+                            <div className="text-[14px] text-dark-theme-8 leading-none mb-[16px]">Light 300</div>
+                            <div style={{fontFamily:font.font_family, fontWeight:"300"}} className="font-weight w-[100%] text-[20px] text-dark-theme-8 pb-[16px] mb-[32px] border-b border-dark-theme-4"><DummyText lang={font.lang} text={text} randomNum={randomNum}/></div>
+                        </>
+                        : <></>
+                    }
+                    {
+                        font.font_weight[3] === "Y"
+                        ? <>
+                            <div className="text-[14px] text-dark-theme-8 leading-none mb-[16px]">Regular 400</div>
+                            <div style={{fontFamily:font.font_family, fontWeight:"400"}} className="font-weight w-[100%] text-[20px] text-dark-theme-8 pb-[16px] mb-[32px] border-b border-dark-theme-4"><DummyText lang={font.lang} text={text} randomNum={randomNum}/></div>
+                        </>
+                        : <></>
+                    }
+                    {
+                        font.font_weight[4] === "Y"
+                        ? <>
+                            <div className="text-[14px] text-dark-theme-8 leading-none mb-[16px]">Medium 500</div>
+                            <div style={{fontFamily:font.font_family, fontWeight:"500"}} className="font-weight w-[100%] text-[20px] text-dark-theme-8 pb-[16px] mb-[32px] border-b border-dark-theme-4"><DummyText lang={font.lang} text={text} randomNum={randomNum}/></div>
+                        </>
+                        : <></>
+                    }
+                    {
+                        font.font_weight[5] === "Y"
+                        ? <>
+                            <div className="text-[14px] text-dark-theme-8 leading-none mb-[16px]">Bold 600</div>
+                            <div style={{fontFamily:font.font_family, fontWeight:"600"}} className="font-weight w-[100%] text-[20px] text-dark-theme-8 pb-[16px] mb-[32px] border-b border-dark-theme-4"><DummyText lang={font.lang} text={text} randomNum={randomNum}/></div>
+                        </>
+                        : <></>
+                    }
+                    {
+                        font.font_weight[6] === "Y"
+                        ? <>
+                            <div className="text-[14px] text-dark-theme-8 leading-none mb-[16px]">ExtraBold 700</div>
+                            <div style={{fontFamily:font.font_family, fontWeight:"700"}} className="font-weight w-[100%] text-[20px] text-dark-theme-8 pb-[16px] mb-[32px] border-b border-dark-theme-4"><DummyText lang={font.lang} text={text} randomNum={randomNum}/></div>
+                        </>
+                        : <></>
+                    }
+                    {
+                        font.font_weight[7] === "Y"
+                        ? <>
+                            <div className="text-[14px] text-dark-theme-8 leading-none mb-[16px]">Heavy 800</div>
+                            <div style={{fontFamily:font.font_family, fontWeight:"800"}} className="font-weight w-[100%] text-[20px] text-dark-theme-8 pb-[16px] mb-[32px] border-b border-dark-theme-4"><DummyText lang={font.lang} text={text} randomNum={randomNum}/></div>
+                        </>
+                        : <></>
+                    }
+                    {
+                        font.font_weight[8] === "Y"
+                        ? <>
+                            <div className="text-[14px] text-dark-theme-8 leading-none mb-[16px]">Black 900</div>
+                            <div style={{fontFamily:font.font_family, fontWeight:"900"}} className="font-weight w-[100%] text-[20px] text-dark-theme-8 pb-[16px] mb-[32px] border-b border-dark-theme-4"><DummyText lang={font.lang} text={text} randomNum={randomNum}/></div>
+                        </>
+                        : <></>
+                    }
+                </div>
+                <div className="flex flex-col justify-start items-start mb-[60px]">
+                    <h2 className="text-[24px] text-dark-theme-8 font-medium mb-[20px]">폰트 크기</h2>
+                    <div className="flex flex-row justify-start items-center">
+                        <div className="text-[14px] text-dark-theme-6 leading-none pr-[16px]">10px</div>
+                        <div style={{fontFamily:font.font_family}} className="font-size text-[10px] text-dark-theme-8 leading-none">
+                            {
+                                font.lang === "KR"
+                                ? alphabetKR
+                                : alphabetEN
+                            }
+                        </div>
+                    </div>
                 </div>
             </div>
             
@@ -235,8 +335,13 @@ export async function getStaticProps(ctx: any) {
         },
     })
 
+    const randomNum: number = Math.floor(Math.random() * 19);
+
     return {
-        props: { fontInfo: fonts }
+        props: {
+            fontInfo: fonts,
+            randomNum: randomNum,
+        }
     }
 }
 
