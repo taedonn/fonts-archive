@@ -247,6 +247,14 @@ const Index = ({params}: any) => {
         return () => { window.removeEventListener('scroll', throttledScroll); }
     });
 
+    /** 키값 변경 */
+    const [isMac, setIsMac] = useState<boolean | undefined>(undefined);
+    useEffect(() => {
+        if (isMacOs) { setIsMac(true) }
+        else { setIsMac(false); }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isMacOs]);
+
     return (
         <>
             {/* 고정 메뉴 */}
@@ -267,7 +275,7 @@ const Index = ({params}: any) => {
                     <div className='w-content relative flex flex-row justify-start items-center'>
                         <input type='checkbox' id='select-lang' onChange={handleLangChange} className="select hidden"/>
                         <label ref={refLangSelect} htmlFor='select-lang' className="h-[32px] tlg:h-[30px] tmd:h-[28px] relative flex flex-row justify-center items-center text-[14px] text-dark-theme-8 leading-none px-[20px] tlg:px-[16px] tmd:px-[12px] border border-dark-theme-5 rounded-full cursor-pointer fill-dark-theme-8 hover:bg-blue-theme-bg hover:border-blue-theme-border hover:text-dark-theme-9 hover:fill-dark-theme-9 hover:drop-shadow-default">
-                            <div className='w-[100%] h-[100%] absolute z-10'></div>
+                            <div className='w-[100%] h-[100%] absolute z-10 bottom-px'></div>
                             <button className="w-[100%] h-[100%] flex flex-row justify-center items-center text-inherit leading-none text-[14px] tlg:text-[12px] tmd:text-[10px]">
                                 언어 선택
                                 <svg className="w-[8px] tlg:w-[6px] rotate-180 ml-[12px] tlg:ml-[8px] fill-inherit" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M7.022 1.566a1.13 1.13 0 0 1 1.96 0l6.857 11.667c.457.778-.092 1.767-.98 1.767H1.144c-.889 0-1.437-.99-.98-1.767L7.022 1.566z"/></svg>
@@ -385,14 +393,17 @@ const Index = ({params}: any) => {
                     <button onClick={handleFontSearch} className="w-[220px] tlg:w-[200px] tmd:w-[34px] h-[32px] tlg:h-[30px] relative text-[14px] tlg:text-[12px] text-normal text-dark-theme-8 leading-none bg-dark-theme-3/80 flex flex-start justify-start items-center rounded-[8px] pl-[38px] tlg:pl-[30px] tmd:pl-0 pb-px hover:bg-dark-theme-4/60 hover:drop-shadow-default">
                         <span className="tmd:hidden">폰트 검색하기...</span>
                         <svg className="w-[12px] tlg:w-[10px] absolute left-[16px] tlg:left-[12px] top-[50%] translate-y-[-50%] fill-dark-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/></svg>
-                        <div className="absolute right-[16px] flex flex-row justify-center items-center">
+                        <div className="w-content h-[100%] absolute right-[16px] flex flex-row justify-center items-center">
                             {
-                                isMacOs
+                                isMac === true
                                 ? <div className="flex flex-row justify-center items-center">
-                                    <svg className="w-[12px] fill-dark-theme-8 mr-px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.5 2A1.5 1.5 0 0 1 5 3.5V5H3.5a1.5 1.5 0 1 1 0-3zM6 5V3.5A2.5 2.5 0 1 0 3.5 6H5v4H3.5A2.5 2.5 0 1 0 6 12.5V11h4v1.5a2.5 2.5 0 1 0 2.5-2.5H11V6h1.5A2.5 2.5 0 1 0 10 3.5V5H6zm4 1v4H6V6h4zm1-1V3.5A1.5 1.5 0 1 1 12.5 5H11zm0 6h1.5a1.5 1.5 0 1 1-1.5 1.5V11zm-6 0v1.5A1.5 1.5 0 1 1 3.5 11H5z"/></svg>
-                                    <span className="text-[12px]">K</span>
+                                    <svg className="w-[10px] mt-px fill-dark-theme-8 mr-px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.5 2A1.5 1.5 0 0 1 5 3.5V5H3.5a1.5 1.5 0 1 1 0-3zM6 5V3.5A2.5 2.5 0 1 0 3.5 6H5v4H3.5A2.5 2.5 0 1 0 6 12.5V11h4v1.5a2.5 2.5 0 1 0 2.5-2.5H11V6h1.5A2.5 2.5 0 1 0 10 3.5V5H6zm4 1v4H6V6h4zm1-1V3.5A1.5 1.5 0 1 1 12.5 5H11zm0 6h1.5a1.5 1.5 0 1 1-1.5 1.5V11zm-6 0v1.5A1.5 1.5 0 1 1 3.5 11H5z"/></svg>
+                                    <span className="text-[12px] leading-none">K</span>
                                 </div>
-                                : <span className="tmd:hidden text-[12px] tlg:text-[10px] leading-none">Ctrl + K</span>
+                                : ( isMac === false
+                                    ? <span className="tmd:hidden text-[12px] tlg:text-[10px] leading-none">Ctrl + K</span>
+                                    : <></>
+                                )
                             }
                         </div>
                     </button>
