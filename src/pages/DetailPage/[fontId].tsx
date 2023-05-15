@@ -114,8 +114,8 @@ function DetailPage({fontInfo, randomNum}:{fontInfo: any, randomNum: number}) {
                             {
                                 isMac === true
                                 ? <div className="flex flex-row justify-center items-center">
-                                    <svg className="w-[10px] mt-px fill-dark-theme-8 mr-px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.5 2A1.5 1.5 0 0 1 5 3.5V5H3.5a1.5 1.5 0 1 1 0-3zM6 5V3.5A2.5 2.5 0 1 0 3.5 6H5v4H3.5A2.5 2.5 0 1 0 6 12.5V11h4v1.5a2.5 2.5 0 1 0 2.5-2.5H11V6h1.5A2.5 2.5 0 1 0 10 3.5V5H6zm4 1v4H6V6h4zm1-1V3.5A1.5 1.5 0 1 1 12.5 5H11zm0 6h1.5a1.5 1.5 0 1 1-1.5 1.5V11zm-6 0v1.5A1.5 1.5 0 1 1 3.5 11H5z"/></svg>
-                                    <span className="text-[12px] leading-none">K</span>
+                                    <svg className="tmd:hidden w-[10px] mt-px fill-dark-theme-8 mr-px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.5 2A1.5 1.5 0 0 1 5 3.5V5H3.5a1.5 1.5 0 1 1 0-3zM6 5V3.5A2.5 2.5 0 1 0 3.5 6H5v4H3.5A2.5 2.5 0 1 0 6 12.5V11h4v1.5a2.5 2.5 0 1 0 2.5-2.5H11V6h1.5A2.5 2.5 0 1 0 10 3.5V5H6zm4 1v4H6V6h4zm1-1V3.5A1.5 1.5 0 1 1 12.5 5H11zm0 6h1.5a1.5 1.5 0 1 1-1.5 1.5V11zm-6 0v1.5A1.5 1.5 0 1 1 3.5 11H5z"/></svg>
+                                    <span className="tmd:hidden text-[12px] leading-none">K</span>
                                 </div>
                                 : ( isMac === false
                                     ? <span className="tmd:hidden text-[12px] tlg:text-[10px] leading-none">Ctrl + K</span>
@@ -270,15 +270,553 @@ function DetailPage({fontInfo, randomNum}:{fontInfo: any, randomNum: number}) {
                 </div>
                 <div className="flex flex-col justify-start items-start mb-[60px]">
                     <h2 className="text-[24px] text-dark-theme-8 font-medium mb-[20px]">폰트 크기</h2>
-                    <div className="flex flex-row justify-start items-center">
-                        <div className="text-[14px] text-dark-theme-6 leading-none pr-[16px]">10px</div>
-                        <div style={{fontFamily:font.font_family}} className="font-size text-[10px] text-dark-theme-8 leading-none">
+                    <div className="flex flex-row justify-start items-center mb-[24px]">
+                        <div className="text-[14px] text-dark-theme-6 leading-tight pr-[16px]">10px</div>
+                        <div style={{fontFamily:font.font_family}} className="font-size text-[10px] text-dark-theme-8 leading-tight">
                             {
                                 font.lang === "KR"
                                 ? alphabetKR
                                 : alphabetEN
                             }
                         </div>
+                    </div>
+                    <div className="flex flex-row justify-start items-center mb-[24px]">
+                        <div className="text-[14px] text-dark-theme-6 leading-tight pr-[16px]">12px</div>
+                        <div style={{fontFamily:font.font_family}} className="font-size text-[12px] text-dark-theme-8 leading-tight">
+                            {
+                                font.lang === "KR"
+                                ? alphabetKR
+                                : alphabetEN
+                            }
+                        </div>
+                    </div>
+                    <div className="flex flex-row justify-start items-center mb-[24px]">
+                        <div className="text-[14px] text-dark-theme-6 leading-tight pr-[16px]">14px</div>
+                        <div style={{fontFamily:font.font_family}} className="font-size text-[14px] text-dark-theme-8 leading-tight">
+                            {
+                                font.lang === "KR"
+                                ? alphabetKR
+                                : alphabetEN
+                            }
+                        </div>
+                    </div>
+                    <div className="flex flex-row justify-start items-center mb-[24px]">
+                        <div className="text-[14px] text-dark-theme-6 leading-tight pr-[16px]">16px</div>
+                        <div style={{fontFamily:font.font_family}} className="font-size text-[16px] text-dark-theme-8 leading-tight">
+                            {
+                                font.lang === "KR"
+                                ? alphabetKR
+                                : alphabetEN
+                            }
+                        </div>
+                    </div>
+                    <div className="flex flex-row justify-start items-center mb-[24px]">
+                        <div className="text-[14px] text-dark-theme-6 leading-tight pr-[16px]">18px</div>
+                        <div style={{fontFamily:font.font_family}} className="font-size text-[18px] text-dark-theme-8 leading-tight">
+                            {
+                                font.lang === "KR"
+                                ? alphabetKR
+                                : alphabetEN
+                            }
+                        </div>
+                    </div>
+                    <div className="flex flex-row justify-start items-center mb-[24px]">
+                        <div className="text-[14px] text-dark-theme-6 leading-tight pr-[16px]">20px</div>
+                        <div style={{fontFamily:font.font_family}} className="font-size text-[20px] text-dark-theme-8 leading-tight">
+                            {
+                                font.lang === "KR"
+                                ? alphabetKR
+                                : alphabetEN
+                            }
+                        </div>
+                    </div>
+                    <div className="flex flex-row justify-start items-center mb-[24px]">
+                        <div className="text-[14px] text-dark-theme-6 leading-tight pr-[16px]">28px</div>
+                        <div style={{fontFamily:font.font_family}} className="font-size text-[28px] text-dark-theme-8 leading-tight">
+                            {
+                                font.lang === "KR"
+                                ? alphabetKR
+                                : alphabetEN
+                            }
+                        </div>
+                    </div>
+                    <div className="flex flex-row justify-start items-center mb-[24px]">
+                        <div className="text-[14px] text-dark-theme-6 leading-tight pr-[16px]">32px</div>
+                        <div style={{fontFamily:font.font_family}} className="font-size text-[32px] text-dark-theme-8 leading-tight">
+                            {
+                                font.lang === "KR"
+                                ? alphabetKR
+                                : alphabetEN
+                            }
+                        </div>
+                    </div>
+                    <div className="flex flex-row justify-start items-center mb-[24px]">
+                        <div className="text-[14px] text-dark-theme-6 leading-tight pr-[16px]">36px</div>
+                        <div style={{fontFamily:font.font_family}} className="font-size text-[36px] text-dark-theme-8 leading-tight">
+                            {
+                                font.lang === "KR"
+                                ? alphabetKR
+                                : alphabetEN
+                            }
+                        </div>
+                    </div>
+                    <div className="flex flex-row justify-start items-center mb-[24px]">
+                        <div className="text-[14px] text-dark-theme-6 leading-tight pr-[16px]">24px</div>
+                        <div style={{fontFamily:font.font_family}} className="font-size text-[24px] text-dark-theme-8 leading-tight">
+                            {
+                                font.lang === "KR"
+                                ? alphabetKR
+                                : alphabetEN
+                            }
+                        </div>
+                    </div>
+                    <div className="flex flex-row justify-start items-center mb-[24px]">
+                        <div className="text-[14px] text-dark-theme-6 leading-tight pr-[16px]">40px</div>
+                        <div style={{fontFamily:font.font_family}} className="font-size text-[40px] text-dark-theme-8 leading-tight">
+                            {
+                                font.lang === "KR"
+                                ? alphabetKR
+                                : alphabetEN
+                            }
+                        </div>
+                    </div>
+                    <div className="flex flex-row justify-start items-center mb-[24px]">
+                        <div className="text-[14px] text-dark-theme-6 leading-tight pr-[16px]">48px</div>
+                        <div style={{fontFamily:font.font_family}} className="font-size text-[48px] text-dark-theme-8 leading-tight">
+                            {
+                                font.lang === "KR"
+                                ? alphabetKR
+                                : alphabetEN
+                            }
+                        </div>
+                    </div>
+                    <div className="flex flex-row justify-start items-center mb-[24px]">
+                        <div className="text-[14px] text-dark-theme-6 leading-tight pr-[16px]">56px</div>
+                        <div style={{fontFamily:font.font_family}} className="font-size text-[56px] text-dark-theme-8 leading-tight">
+                            {
+                                font.lang === "KR"
+                                ? alphabetKR
+                                : alphabetEN
+                            }
+                        </div>
+                    </div>
+                    <div className="flex flex-row justify-start items-center">
+                        <div className="text-[14px] text-dark-theme-6 leading-tight pr-[16px]">64px</div>
+                        <div style={{fontFamily:font.font_family}} className="font-size text-[64px] text-dark-theme-8 leading-tight">
+                            {
+                                font.lang === "KR"
+                                ? alphabetKR
+                                : alphabetEN
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div className="flex flex-col justify-start items-start">
+                    <h2 className="text-[24px] text-dark-theme-8 font-medium mb-[20px]">라이센스 사용 범위</h2>
+                    <table className="w-[100%] mb-[20px]">
+                        <thead className="h-[60px] bg-dark-theme-3 border-x border-dark-theme-3">
+                            <tr className="text-[16px] text-dark-theme-8 font-medium">
+                                <th className="w-[240px] border-r border-dark-theme-4">카테고리</th>
+                                <th>사용 범위</th>
+                                <th className="w-[240px] border-l border-dark-theme-4">허용 여부</th>
+                            </tr>
+                        </thead>
+                        <tbody className="text-[16px] text-dark-theme-8 text-center font-normal border-x border-b border-dark-theme-4">
+                            <tr>
+                                <td rowSpan={5} className="border-r border-dark-theme-4">인쇄</td>
+                                <td className="h-[60px] border-r border-dark-theme-4">브로슈어, 카탈로그, DM, 전단지, 포스터, 패키지, 캘린더 등 인쇄물</td>
+                                <td className="h-[60px] flex flex-row justify-center items-center">
+                                    {
+                                        font.license_print[0] === "Y"
+                                        ? <svg className="w-[16px] fill-dark-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
+                                        : ( font.license_print[0] === "N"
+                                            ? <div style={{color:"#C30010"}}>금지</div>
+                                            : ( font.license_print[0] === "R"
+                                                ? <>권장</>
+                                                : ( font.license_print[0] === "Q"
+                                                    ? <div style={{color:"#C30010"}}>문의</div>
+                                                    : <></>
+                                                )
+                                            )
+                                        )
+                                    }
+                                </td>
+                            </tr>
+                            <tr>
+                                <td className="h-[60px] border-r border-t border-dark-theme-4">책, 만화책, 잡지, 정기간행물, 신문 등 출판물</td>
+                                <td className="h-[60px] flex flex-row justify-center items-center border-t border-dark-theme-4">
+                                    {
+                                        font.license_print[1] === "Y"
+                                        ? <svg className="w-[16px] fill-dark-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
+                                        : ( font.license_print[1] === "N"
+                                            ? <div style={{color:"#C30010"}}>금지</div>
+                                            : ( font.license_print[1] === "R"
+                                                ? <>권장</>
+                                                : ( font.license_print[1] === "Q"
+                                                    ? <div style={{color:"#C30010"}}>문의</div>
+                                                    : <></>
+                                                )
+                                            )
+                                        )
+                                    }
+                                </td>
+                            </tr>
+                            <tr>
+                                <td className="h-[60px] border-r border-t border-dark-theme-4">간판, 현수막, 판넬 등 제작물</td>
+                                <td className="h-[60px] flex flex-row justify-center items-center border-t border-dark-theme-4">
+                                    {
+                                        font.license_print[2] === "Y"
+                                        ? <svg className="w-[16px] fill-dark-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
+                                        : ( font.license_print[2] === "N"
+                                            ? <div style={{color:"#C30010"}}>금지</div>
+                                            : ( font.license_print[2] === "R"
+                                                ? <>권장</>
+                                                : ( font.license_print[2] === "Q"
+                                                    ? <div style={{color:"#C30010"}}>문의</div>
+                                                    : <></>
+                                                )
+                                            )
+                                        )
+                                    }
+                                </td>
+                            </tr>
+                            <tr>
+                                <td className="h-[60px] border-r border-t border-dark-theme-4">신문광고, 잡지광고, 차량광고 등 광고물</td>
+                                <td className="h-[60px] flex flex-row justify-center items-center border-t border-dark-theme-4">
+                                    {
+                                        font.license_print[3] === "Y"
+                                        ? <svg className="w-[16px] fill-dark-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
+                                        : ( font.license_print[3] === "N"
+                                            ? <div style={{color:"#C30010"}}>금지</div>
+                                            : ( font.license_print[3] === "R"
+                                                ? <>권장</>
+                                                : ( font.license_print[3] === "Q"
+                                                    ? <div style={{color:"#C30010"}}>문의</div>
+                                                    : <></>
+                                                )
+                                            )
+                                        )
+                                    }
+                                </td>
+                            </tr>
+                            <tr>
+                                <td className="h-[60px] border-r border-t border-dark-theme-4">인쇄 및 문서 공유를 위한 PDF 파일 제작</td>
+                                <td className="h-[60px] flex flex-row justify-center items-center border-t border-dark-theme-4">
+                                    {
+                                        font.license_print[4] === "Y"
+                                        ? <svg className="w-[16px] fill-dark-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
+                                        : ( font.license_print[4] === "N"
+                                            ? <div style={{color:"#C30010"}}>금지</div>
+                                            : ( font.license_print[4] === "R"
+                                                ? <>권장</>
+                                                : ( font.license_print[4] === "Q"
+                                                    ? <div style={{color:"#C30010"}}>문의</div>
+                                                    : <></>
+                                                )
+                                            )
+                                        )
+                                    }
+                                </td>
+                            </tr>
+                            <tr>
+                                <td rowSpan={2} className="border-r border-t border-dark-theme-4">웹사이트</td>
+                                <td className="h-[60px] border-r border-t border-dark-theme-4">웹페이지, 광고 배너, 메일, E-브로슈어 등</td>
+                                <td className="h-[60px] flex flex-row justify-center items-center border-t border-dark-theme-4">
+                                    {
+                                        font.license_web[0] === "Y"
+                                        ? <svg className="w-[16px] fill-dark-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
+                                        : ( font.license_web[0] === "N"
+                                            ? <div style={{color:"#C30010"}}>금지</div>
+                                            : ( font.license_web[0] === "R"
+                                                ? <>권장</>
+                                                : ( font.license_web[0] === "Q"
+                                                    ? <div style={{color:"#C30010"}}>문의</div>
+                                                    : <></>
+                                                )
+                                            )
+                                        )
+                                    }
+                                </td>
+                            </tr>
+                            <tr>
+                                <td className="h-[60px] border-r border-t border-dark-theme-4">웹서버용 폰트</td>
+                                <td className="h-[60px] flex flex-row justify-center items-center border-t border-dark-theme-4">
+                                    {
+                                        font.license_web[1] === "Y"
+                                        ? <svg className="w-[16px] fill-dark-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
+                                        : ( font.license_web[1] === "N"
+                                            ? <div style={{color:"#C30010"}}>금지</div>
+                                            : ( font.license_web[1] === "R"
+                                                ? <>권장</>
+                                                : ( font.license_web[1] === "Q"
+                                                    ? <div style={{color:"#C30010"}}>문의</div>
+                                                    : <></>
+                                                )
+                                            )
+                                        )
+                                    }
+                                </td>
+                            </tr>
+                            <tr>
+                                <td rowSpan={5} className="border-r border-t border-dark-theme-4">영상</td>
+                                <td className="h-[60px] border-r border-t border-dark-theme-4">방송 및 영상물 자막</td>
+                                <td className="h-[60px] flex flex-row justify-center items-center border-t border-dark-theme-4">
+                                    {
+                                        font.license_video[0] === "Y"
+                                        ? <svg className="w-[16px] fill-dark-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
+                                        : ( font.license_video[0] === "N"
+                                            ? <div style={{color:"#C30010"}}>금지</div>
+                                            : ( font.license_video[0] === "R"
+                                                ? <>권장</>
+                                                : ( font.license_video[0] === "Q"
+                                                    ? <div style={{color:"#C30010"}}>문의</div>
+                                                    : <></>
+                                                )
+                                            )
+                                        )
+                                    }
+                                </td>
+                            </tr>
+                            <tr>
+                                <td className="h-[60px] border-r border-t border-dark-theme-4">TV-CF, 온라인 영상광고</td>
+                                <td className="h-[60px] flex flex-row justify-center items-center border-t border-dark-theme-4">
+                                    {
+                                        font.license_video[1] === "Y"
+                                        ? <svg className="w-[16px] fill-dark-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
+                                        : ( font.license_video[1] === "N"
+                                            ? <div style={{color:"#C30010"}}>금지</div>
+                                            : ( font.license_video[1] === "R"
+                                                ? <>권장</>
+                                                : ( font.license_video[1] === "Q"
+                                                    ? <div style={{color:"#C30010"}}>문의</div>
+                                                    : <></>
+                                                )
+                                            )
+                                        )
+                                    }
+                                </td>
+                            </tr>
+                            <tr>
+                                <td className="h-[60px] border-r border-t border-dark-theme-4">영화(DVD / 비디오), 오프닝, 엔딩크레딧 자막</td>
+                                <td className="h-[60px] flex flex-row justify-center items-center border-t border-dark-theme-4">
+                                    {
+                                        font.license_video[2] === "Y"
+                                        ? <svg className="w-[16px] fill-dark-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
+                                        : ( font.license_video[2] === "N"
+                                            ? <div style={{color:"#C30010"}}>금지</div>
+                                            : ( font.license_video[2] === "R"
+                                                ? <>권장</>
+                                                : ( font.license_video[2] === "Q"
+                                                    ? <div style={{color:"#C30010"}}>문의</div>
+                                                    : <></>
+                                                )
+                                            )
+                                        )
+                                    }
+                                </td>
+                            </tr>
+                            <tr>
+                                <td className="h-[60px] border-r border-t border-dark-theme-4">개인 UCC 및 홍보물</td>
+                                <td className="h-[60px] flex flex-row justify-center items-center border-t border-dark-theme-4">
+                                    {
+                                        font.license_video[3] === "Y"
+                                        ? <svg className="w-[16px] fill-dark-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
+                                        : ( font.license_video[3] === "N"
+                                            ? <div style={{color:"#C30010"}}>금지</div>
+                                            : ( font.license_video[3] === "R"
+                                                ? <>권장</>
+                                                : ( font.license_video[3] === "Q"
+                                                    ? <div style={{color:"#C30010"}}>문의</div>
+                                                    : <></>
+                                                )
+                                            )
+                                        )
+                                    }
+                                </td>
+                            </tr>
+                            <tr>
+                                <td className="h-[60px] border-r border-t border-dark-theme-4">E-Learning 콘텐츠, 온라인 동영상강좌, 플래시 강좌</td>
+                                <td className="h-[60px] flex flex-row justify-center items-center border-t border-dark-theme-4">
+                                    {
+                                        font.license_video[4] === "Y"
+                                        ? <svg className="w-[16px] fill-dark-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
+                                        : ( font.license_video[4] === "N"
+                                            ? <div style={{color:"#C30010"}}>금지</div>
+                                            : ( font.license_video[4] === "R"
+                                                ? <>권장</>
+                                                : ( font.license_video[4] === "Q"
+                                                    ? <div style={{color:"#C30010"}}>문의</div>
+                                                    : <></>
+                                                )
+                                            )
+                                        )
+                                    }
+                                </td>
+                            </tr>
+                            <tr>
+                                <td className="border-r border-t border-dark-theme-4">포장지</td>
+                                <td className="h-[60px] border-r border-t border-dark-theme-4">판매용 상품의 패키지</td>
+                                <td className="h-[60px] flex flex-row justify-center items-center border-t border-dark-theme-4">
+                                    {
+                                        font.license_package[0] === "Y"
+                                        ? <svg className="w-[16px] fill-dark-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
+                                        : ( font.license_package[0] === "N"
+                                            ? <div style={{color:"#C30010"}}>금지</div>
+                                            : ( font.license_package[0] === "R"
+                                                ? <>권장</>
+                                                : ( font.license_package[0] === "Q"
+                                                    ? <div style={{color:"#C30010"}}>문의</div>
+                                                    : <></>
+                                                )
+                                            )
+                                        )
+                                    }
+                                </td>
+                            </tr>
+                            <tr>
+                                <td className="border-r border-t border-dark-theme-4">임베딩</td>
+                                <td className="h-[60px] border-r border-t border-dark-theme-4">웹사이트 및 프로그램 서버 내 폰트 탑재, E-book 제작</td>
+                                <td className="h-[60px] flex flex-row justify-center items-center border-t border-dark-theme-4">
+                                    {
+                                        font.license_embed[0] === "Y"
+                                        ? <svg className="w-[16px] fill-dark-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
+                                        : ( font.license_embed[0] === "N"
+                                            ? <div style={{color:"#C30010"}}>금지</div>
+                                            : ( font.license_embed[0] === "R"
+                                                ? <>권장</>
+                                                : ( font.license_embed[0] === "Q"
+                                                    ? <div style={{color:"#C30010"}}>문의</div>
+                                                    : <></>
+                                                )
+                                            )
+                                        )
+                                    }
+                                </td>
+                            </tr>
+                            <tr>
+                                <td className="border-r border-t border-dark-theme-4">BI/CI</td>
+                                <td className="h-[60px] border-r border-t border-dark-theme-4">회사명, 브랜드명, 상품명, 로고, 마크, 슬로건, 캐치프레이즈</td>
+                                <td className="h-[60px] flex flex-row justify-center items-center border-t border-dark-theme-4">
+                                    {
+                                        font.license_bici[0] === "Y"
+                                        ? <svg className="w-[16px] fill-dark-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
+                                        : ( font.license_bici[0] === "N"
+                                            ? <div style={{color:"#C30010"}}>금지</div>
+                                            : ( font.license_bici[0] === "R"
+                                                ? <>권장</>
+                                                : ( font.license_bici[0] === "Q"
+                                                    ? <div style={{color:"#C30010"}}>문의</div>
+                                                    : <></>
+                                                )
+                                            )
+                                        )
+                                    }
+                                </td>
+                            </tr>
+                            <tr>
+                                <td rowSpan={2} className="border-r border-t border-dark-theme-4">OFL</td>
+                                <td className="h-[60px] border-r border-t border-dark-theme-4">폰트 파일의 수정, 편집 및 재배포</td>
+                                <td className="h-[60px] flex flex-row justify-center items-center border-t border-dark-theme-4">
+                                    {
+                                        font.license_ofl[0] === "Y"
+                                        ? <svg className="w-[16px] fill-dark-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
+                                        : ( font.license_ofl[0] === "N"
+                                            ? <div style={{color:"#C30010"}}>금지</div>
+                                            : ( font.license_ofl[0] === "R"
+                                                ? <>권장</>
+                                                : ( font.license_ofl[0] === "Q"
+                                                    ? <div style={{color:"#C30010"}}>문의</div>
+                                                    : <></>
+                                                )
+                                            )
+                                        )
+                                    }
+                                </td>
+                            </tr>
+                            <tr>
+                                <td className="h-[60px] border-r border-t border-dark-theme-4">폰트 파일의 유료 판매</td>
+                                <td className="h-[60px] flex flex-row justify-center items-center border-t border-dark-theme-4">
+                                    {
+                                        font.license_ofl[1] === "Y"
+                                        ? <svg className="w-[16px] fill-dark-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
+                                        : ( font.license_ofl[1] === "N"
+                                            ? <div style={{color:"#C30010"}}>금지</div>
+                                            : ( font.license_ofl[1] === "R"
+                                                ? <>권장</>
+                                                : ( font.license_ofl[1] === "Q"
+                                                    ? <div style={{color:"#C30010"}}>문의</div>
+                                                    : <></>
+                                                )
+                                            )
+                                        )
+                                    }
+                                </td>
+                            </tr>
+                            <tr>
+                                <td rowSpan={2} className="border-r border-t border-dark-theme-4">용도</td>
+                                <td className="h-[60px] border-r border-t border-dark-theme-4">개인적 용도 사용</td>
+                                <td className="h-[60px] flex flex-row justify-center items-center border-t border-dark-theme-4">
+                                    {
+                                        font.license_purpose[0] === "Y"
+                                        ? <svg className="w-[16px] fill-dark-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
+                                        : ( font.license_purpose[0] === "N"
+                                            ? <div style={{color:"#C30010"}}>금지</div>
+                                            : ( font.license_purpose[0] === "R"
+                                                ? <>권장</>
+                                                : ( font.license_purpose[0] === "Q"
+                                                    ? <div style={{color:"#C30010"}}>문의</div>
+                                                    : <></>
+                                                )
+                                            )
+                                        )
+                                    }
+                                </td>
+                            </tr>
+                            <tr>
+                                <td className="h-[60px] border-r border-t border-dark-theme-4">상업적 용도 사용</td>
+                                <td className="h-[60px] flex flex-row justify-center items-center border-t border-dark-theme-4">
+                                    {
+                                        font.license_purpose[1] === "Y"
+                                        ? <svg className="w-[16px] fill-dark-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
+                                        : ( font.license_purpose[1] === "N"
+                                            ? <div style={{color:"#C30010"}}>금지</div>
+                                            : ( font.license_purpose[1] === "R"
+                                                ? <>권장</>
+                                                : ( font.license_purpose[1] === "Q"
+                                                    ? <div style={{color:"#C30010"}}>문의</div>
+                                                    : <></>
+                                                )
+                                            )
+                                        )
+                                    }
+                                </td>
+                            </tr>
+                            <tr>
+                                <td className="border-r border-t border-dark-theme-4">출처</td>
+                                <td className="h-[60px] border-r border-t border-dark-theme-4">출처 표시</td>
+                                <td className="h-[60px] flex flex-row justify-center items-center border-t border-dark-theme-4">
+                                    {
+                                        font.license_source[0] === "Y"
+                                        ? <svg className="w-[16px] fill-dark-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
+                                        : ( font.license_source[0] === "N"
+                                            ? <div style={{color:"#C30010"}}>금지</div>
+                                            : ( font.license_source[0] === "R"
+                                                ? <>권장</>
+                                                : ( font.license_source[0] === "Q"
+                                                    ? <div style={{color:"#C30010"}}>문의</div>
+                                                    : <></>
+                                                )
+                                            )
+                                        )
+                                    }
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div className="w-[100%] border border-dark-theme-4 px-[28px] py-[32px]">
+                        <h2 className="text-[24px] text-dark-theme-8 font-medium leading-none">라이센스 본문</h2>
+                        <div className="w-[100%] h-px bg-dark-theme-4 my-[20px]"></div>
+                        <pre style={{fontFamily:"Noto Sans KR"}} className="whitespace-pre-wrap text-[16px] text-dark-theme-8 leading-loose">{font.license}</pre>
                     </div>
                 </div>
             </div>
