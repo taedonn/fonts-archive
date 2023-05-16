@@ -98,11 +98,11 @@ body::-webkit-scrollbar-track {
     .main-menu > a:nth-of-type(2) { 
         margin-top: 0; 
     }
-    .main-menu > a:nth-of-type(3) { margin-top: 8px; }
+    .main-menu > a:nth-of-type(3) { margin-top: 10px; }
 }
 @media screen and (max-width: 768px) {
     .main-menu > a:nth-of-type(1) { margin-top: 0; }
-    .main-menu > a:nth-of-type(2) { margin-top: 6px; }
+    .main-menu > a:nth-of-type(2) { margin-top: 10px; }
 }
 
 /* text ellipse */
@@ -185,8 +185,10 @@ body::-webkit-scrollbar-track {
 /* 웹 폰트 적용하기 스크롤바 */
 .cdn_pre::-webkit-scrollbar { display: none; }
 
+/* 폰트 두께 마지막 마진 0 */
 .font-weight-wrap .font-weight:last-of-type { margin-bottom: 0; }
 
+/* 폰트 크기 한 줄 이후 숨김 */
 .font-size {
     text-overflow: ellipsis;
     display: -webkit-box;

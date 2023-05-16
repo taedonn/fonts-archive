@@ -38,7 +38,7 @@ export default function FontBox({lang, type, sort, text, randomNum}:{lang: strin
     return (
         <>
             <div className='w-[100%] flex flex-col justify-start items-end'>
-                <div className="main-menu w-[100%] relative flex flex-wrap flex-row justify-between items-stretch mt-[60px] tlg:mt-[116px] tmd:mt-[108px] p-[20px] pt-[12px]">
+                <div className="main-menu w-[100%] relative flex flex-wrap flex-row justify-between items-stretch mt-[60px] tlg:mt-[116px] tmd:mt-[108px] p-[20px] tlg:p-[16px] tmd:p-[12px] pt-[12px] tlg:pt-[12px]">
                     {/* 로딩 바 */}
                     {isLoading ? <div className="w-[100%] pt-[28px] pb-0 flex flex-row justify-center items-center"><span className="loader"></span></div> : null}
 
@@ -56,7 +56,7 @@ export default function FontBox({lang, type, sort, text, randomNum}:{lang: strin
                                     font_type: string
                                     cdn_url: string
                                 }) => (
-                                    <Link href={`/DetailPage/${font.code}`} key={font.code} className="w-[calc(25%-8px)] txl:w-[calc(33.3%-6px)] tlg:w-[calc(50%-4px)] tmd:w-[100%] h-[360px] txl:h-[300px] tlg:h-[240px] tmd:h-[200px] block p-[20px] tlg:p-[16px] border border-dark-theme-4 rounded-[8px] mt-[12px] txl:mt-[10px] tlg:mt-[8px] tmd:mt-[6px] hover:bg-dark-theme-3/40 cursor-pointer">
+                                    <Link href={`/DetailPage/${font.code}`} key={font.code} className="w-[calc(25%-8px)] txl:w-[calc(33.3%-6px)] tlg:w-[calc(50%-4px)] tmd:w-[100%] h-[360px] txl:h-[300px] tlg:h-[240px] tmd:h-[220px] block p-[20px] tlg:p-[16px] border border-dark-theme-4 rounded-[8px] mt-[12px] txl:mt-[10px] hover:bg-dark-theme-3/40 cursor-pointer">
                                         <link href={font.cdn_url} rel="stylesheet" type="text/css" itemProp="url"></link>
                                         <div style={{fontFamily:"'"+font.font_family+"'"}} className="text-[18px] tlg:text-[16px] text-normal leading-tight mb-[8px] tlg:mb-[6px] text-dark-theme-8">{font.name}</div>
                                         <div className="flex flex-row justify-start items-center">
