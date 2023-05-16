@@ -7,17 +7,38 @@ import { debounce } from "lodash";
 import { isMacOs } from "react-device-detect";
 
 export default function FontSearch({display, closeBtn, showBtn}:{display: string, closeBtn: any, showBtn: any}) {
+    /** 검색 키워드 state */
+    const [keyword, setKeyword] = useState<string>("");
+
+    /** active 상태 체크하는 state */
+    const [activeEl, setActiveEl] = useState<number>(0);
+
+    /** 전체 검색 결과 state */
+    const [totalEl, setTotalEl] = useState<number>(0);
+
+    /** 검색 결과 창 높이 state */
+    const targetRef = useRef<HTMLDivElement>(null);
+    
     /** 키 다운 이벤트 */
     useEffect(() => {
         const keys: any = [];
         const handleKeydown = (e: KeyboardEvent) => {
             keys[e.key] = true;
+            // PC 환경 체크
             if (isMacOs) {
                 if (keys["Meta"] && keys["k"]) { showBtn(); e.preventDefault(); }
                 if (keys["Escape"]) { closeBtn(); }
             } else {
                 if (keys["Control"] && keys["k"]) { showBtn(); e.preventDefault(); }
                 if (keys["Escape"]) { closeBtn(); }
+            }
+
+            // 검색창 보임/숨김 체크
+            if (keys["ArrowUp"] && display === "show") {
+                if (activeEl !== 0) { setActiveEl(activeEl - 1); e.preventDefault(); }
+            }
+            if (keys["ArrowDown"] && display === "show") {
+                if (activeEl !== (totalEl - 1)) { setActiveEl(activeEl + 1); e.preventDefault(); }
             }
         }
         const handleKeyup = (e: KeyboardEvent) => {keys[e.key] = false;}
@@ -29,7 +50,7 @@ export default function FontSearch({display, closeBtn, showBtn}:{display: string
             window.removeEventListener("keydown", handleKeydown);
             window.removeEventListener("keyup", handleKeyup);
         }
-    }, [showBtn, closeBtn]);
+    }, [showBtn, closeBtn, activeEl]);
 
     /** esc 버튼 클릭 */
     const handleCloseBtn = () => { closeBtn(); }
@@ -49,27 +70,39 @@ export default function FontSearch({display, closeBtn, showBtn}:{display: string
         return () => document.removeEventListener("mouseup", handleSearchOutside);
     },[closeBtn, refSearchOutside]);
 
-    /** 검색 키워드 */
-    const [keyword, setKeyword] = useState<string>("");
-
     /** useQuery를 이용한 데이터 파싱 */
-    const {isLoading, isRefetching, isSuccess, data, refetch} = useQuery(['font-search'], () => axios.get("/api/fontsearch", {params: {keyword: keyword}}).then((res) => {return res.data}));
+    const {isLoading, isRefetching, isSuccess, data, refetch} = useQuery(['font-search'], () => axios.get("/api/fontsearch", {params: {keyword: keyword}}).then((res) => { return res.data }));
     
     /** lodash/debounce가 적용된 검색 기능 */
     const handleSearch = (e: ChangeEvent<HTMLInputElement>) => { debouncedSearch(e); }
     const debouncedSearch = debounce((e) => { setKeyword(e.target.value); }, 500);
 
     /** 검색 키워드가 변경되면 refetch */
-    useEffect(() => { refetch(); }, [keyword, refetch]);
+    useEffect(() => { setActiveEl(0); refetch(); }, [keyword, refetch]);
 
     /** 검색 결과 클릭 시 창 닫기 */
     const handleLinkClick = () => { closeBtn(); }
 
+    /** 검색창 닫을 때 active 링크를 0으로 리셋 */
+    useEffect(() => { setActiveEl(0); }, [closeBtn]);
+
     /** 검색 결과 마우스 오버 시 active */
-    const [activeEl, setActiveEl] = useState<string | null>(null);
-    const handleLinkMouseOver = (idx: number) => {
-        setActiveEl("link"+idx);
-    }
+    const handleLinkMouseOver = (idx: number) => { setActiveEl(idx); }
+
+    /** 검색 결과 총 개수 */
+    useEffect(() => { if (data !== undefined) { setTotalEl(data.fonts.length); } }, [data]);
+
+    /** active 링크가 targetElement보다 스크롤이 아래에 있을 때 */
+    useEffect(() => {
+        if (targetRef.current) {
+            const targetElement = targetRef.current.getBoundingClientRect();
+            const targetScrollBottom = targetElement.top + targetElement.height;
+            const activeElement = document.getElementById("active") as HTMLAnchorElement;
+            const activeScrollBottom = activeElement.getBoundingClientRect().top + activeElement.getBoundingClientRect().height;
+            
+            if (activeScrollBottom >= targetScrollBottom) { targetRef.current.scrollTop = activeScrollBottom; }
+          }
+    }, [activeEl]);
 
     return (
         <>
@@ -82,7 +115,7 @@ export default function FontSearch({display, closeBtn, showBtn}:{display: string
                             <input onChange={handleSearch} type="text" placeholder="폰트 검색하기..." autoFocus className="w-[calc(100%-108px)] tmd:w-[calc(100%-84px)] h-[100%] text-[14px] tmd:text-[12px] leading-none text-dark-theme-8 bg-transparent"/>
                             <button onClick={handleCloseBtn} className="w-[36px] h-[24px] rounded-[6px] absolute right-[16px] tmd:right-[12px] top-[50%] translate-y-[-50%] text-[10px] leading-none text-dark-theme-8 bg-dark-theme-3/80 hover:bg-dark-theme-4/60 hover:drop-shadow-default">ESC</button>
                         </div>
-                        <div className="search-list w-[100%] min-h-[150px] tmd:min-h-[120px] max-h-[500px] relative overflow-auto">
+                        <div ref={targetRef} className="search-list w-[100%] min-h-[150px] tmd:min-h-[120px] max-h-[500px] relative overflow-auto">
                             {/* 로딩 바 */}
                             {isLoading ? <div className="w-[100%] h-[100%] absolute left-0 top-0 flex flex-row justify-center items-center"><span className="loader"></span></div> : <></>}
                             {isRefetching ? <div className="w-[100%] h-[100%] absolute left-0 top-0 flex flex-row justify-center items-center"><span className="loader"></span></div> : <></>}
@@ -98,11 +131,8 @@ export default function FontSearch({display, closeBtn, showBtn}:{display: string
                                             source: string,
                                             font_family: string,
                                         }, idx: number) => {
-                                            const elementProps: React.AnchorHTMLAttributes<HTMLAnchorElement> = {};
-                                            if (idx === 0 && activeEl === null) { elementProps.id = "active" }
-
                                             return (
-                                                <Link onClick={handleLinkClick} onMouseOver={() => handleLinkMouseOver(idx)} {...elementProps} href={`/DetailPage/${font.code}`} key={font.code} className={activeEl === "link"+idx ? "active search-link w-[100%] h-[60px] tmd:h-[48px] relative px-[16px] mt-[8px] flex flex-row justify-start items-center rounded-[8px] bg-dark-theme-3/80 group" : "search-link w-[100%] h-[60px] tmd:h-[48px] relative px-[16px] mt-[8px] flex flex-row justify-start items-center rounded-[8px] bg-dark-theme-3/80 group"}>
+                                                <Link onClick={handleLinkClick} onMouseOver={() => handleLinkMouseOver(idx)} id={activeEl === idx ? "active" : ""} href={`/DetailPage/${font.code}`} key={font.code} className="search-link w-[100%] h-[60px] tmd:h-[48px] relative px-[16px] mt-[8px] flex flex-row justify-start items-center rounded-[8px] bg-dark-theme-3/80">
                                                     <div className="w-[24px] tmd:w-[20px] h-[24px] tmd:h-[20px] border rounded-[6px] tmd:rounded-[4px] flex flex-row justify-center items-center mr-[12px] bg-dark-theme-4 border-dark-theme-4 when-active-1">
                                                         <svg className="w-[18px] tmd:w-[14px] fill-dark-theme-6 when-active-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8.39 12.648a1.32 1.32 0 0 0-.015.18c0 .305.21.508.5.508.266 0 .492-.172.555-.477l.554-2.703h1.204c.421 0 .617-.234.617-.547 0-.312-.188-.53-.617-.53h-.985l.516-2.524h1.265c.43 0 .618-.227.618-.547 0-.313-.188-.524-.618-.524h-1.046l.476-2.304a1.06 1.06 0 0 0 .016-.164.51.51 0 0 0-.516-.516.54.54 0 0 0-.539.43l-.523 2.554H7.617l.477-2.304c.008-.04.015-.118.015-.164a.512.512 0 0 0-.523-.516.539.539 0 0 0-.531.43L6.53 5.484H5.414c-.43 0-.617.22-.617.532 0 .312.187.539.617.539h.906l-.515 2.523H4.609c-.421 0-.609.219-.609.531 0 .313.188.547.61.547h.976l-.516 2.492c-.008.04-.015.125-.015.18 0 .305.21.508.5.508.265 0 .492-.172.554-.477l.555-2.703h2.242l-.515 2.492zm-1-6.109h2.266l-.515 2.563H6.859l.532-2.563z"/></svg>
                                                     </div>
