@@ -69,6 +69,7 @@ function DetailPage({fontInfo, randomNum}:{fontInfo: any, randomNum: number}) {
     useEffect(() => {
         const cdnFontFace = document.getElementById("cdn-font-face") as HTMLDivElement;
         if (webFont === "font-face") { cdnFontFace.innerHTML = font.cdn_font_face; }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [webFont]);
 
     /** 웹 폰트 적용하기 복사 버튼 클릭 이벤트 */
