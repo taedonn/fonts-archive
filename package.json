@@ -6,9 +6,9 @@
     "postinstall": "prisma generate",
     "scripts": {
         "dev": "next dev",
-        "build": "prisma generate && next build && next export",
+        "build": "prisma generate && next build",
         "predeploy": "npm run build",
-        "deploy": "touch out/.nojekyll && gh-pages -d out --dotfiles",
+        "deploy": "gh-pages -d out --dotfiles",
         "start": "next start",
         "lint": "next lint"
     },
