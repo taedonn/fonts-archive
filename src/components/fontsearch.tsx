@@ -78,7 +78,7 @@ export default function FontSearch({display, closeBtn, showBtn}:{display: string
     },[closeBtn, refSearchOutside]);
 
     /** useQuery를 이용한 데이터 파싱 */
-    const {isLoading, isRefetching, isSuccess, data, refetch} = useQuery(['font-search'], () => axios.get("/api/fontsearch", {params: {keyword: keyword}}).then((res) => { return res.data }));
+    const {isLoading, isRefetching, isSuccess, data, refetch} = useQuery(['font-search'], async () => await axios.get("https://https://fonts-archive.vercel.app/api/fetchfontsearch", {params: {keyword: keyword}}).then((res) => { return res.data }));
     
     /** lodash/debounce가 적용된 검색 기능 */
     const handleSearch = (e: ChangeEvent<HTMLInputElement>) => { debouncedSearch(e); }
@@ -94,7 +94,7 @@ export default function FontSearch({display, closeBtn, showBtn}:{display: string
     const handleLinkMouseOver = (idx: number) => { setActiveEl(idx); }
 
     /** 검색 결과 총 개수 */
-    useEffect(() => { if (data !== undefined) { setTotalEl(data.fonts.length); } }, [data]);
+    useEffect(() => { if (data !== undefined) { setTotalEl(data.length); } }, [data]);
 
     /** active 링크가 targetElement보다 스크롤이 아래에 있을 때 */
     useEffect(() => {
@@ -131,10 +131,10 @@ export default function FontSearch({display, closeBtn, showBtn}:{display: string
 
                             {/* 검색 결과 */}
                             {isSuccess && !isLoading && !isRefetching
-                                ? ( data.fonts.length !== 0
+                                ? ( data.length !== 0
                                     ? <div className="w-[100%] px-[24px] tmd:px-[16px]">
                                         <div className="text-[18px] tmd:text-[14px] text-dark-theme-8 leading-none mt-[28px] tmd:mt-[24px] mb-[16px] tmd:mb-[12px] font-bold">검색 결과</div>
-                                        {data && data.fonts.map((font: {
+                                        {data && data.map((font: {
                                             code: number,
                                             name: string,
                                             source: string,
@@ -153,7 +153,7 @@ export default function FontSearch({display, closeBtn, showBtn}:{display: string
                                             )
                                         })}
                                     </div>
-                                    : ( data.fonts.length === 0 && keyword !== ""
+                                    : ( data.length === 0 && keyword !== ""
                                         ? <div className="w-[100%] h-[100%] absolute left-0 top-0 flex flex-row justify-center items-center text-[16px] tmd:text-[12px] leading-none text-dark-theme-7">&quot;<span className="text-dark-theme-9 font-medium">{keyword}</span>&quot; 에 대한 검색 결과가 없습니다.</div>
                                         : <div className="w-[100%] h-[100%] absolute left-0 top-0 flex flex-row justify-center items-center text-[16px] tmd:text-[12px] leading-none text-dark-theme-7"><span className="text-dark-theme-9 font-medium mr-[8px]">영문/한글 폰트 이름,</span> 또는 <span className="text-dark-theme-9 font-medium ml-[8px]">회사 이름</span>을 검색해 주세요.</div>
                                     )
