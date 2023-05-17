@@ -1,11 +1,12 @@
 {
-    "name": "next-test",
+    "name": "fonts-archive",
     "version": "0.1.0",
     "private": true,
     "homepage": "https://fonts.taedonn.com",
+    "postinstall": "prisma generate",
     "scripts": {
         "dev": "next dev",
-        "build": "next build",
+        "build": "prisma generate && next build && next export",
         "predeploy": "npm run build",
         "deploy": "touch out/.nojekyll && gh-pages -d out --dotfiles",
         "start": "next start",

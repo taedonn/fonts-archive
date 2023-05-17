@@ -224,12 +224,12 @@ const Index = ({params}: any) => {
 
     /** lodash/throttle을 이용해 스크롤 제어 */
     const handleScroll = () => {
-        const inputLang = document.getElementById("select-lang") as HTMLInputElement;
-        const inputType = document.getElementById("select-type") as HTMLInputElement;
-        const inputSort = document.getElementById("select-sort") as HTMLInputElement;
-        inputLang.checked = false;
-        inputType.checked = false;
-        inputSort.checked = false;
+        // const inputLang = document.getElementById("select-lang") as HTMLInputElement;
+        // const inputType = document.getElementById("select-type") as HTMLInputElement;
+        // const inputSort = document.getElementById("select-sort") as HTMLInputElement;
+        // inputLang.checked = false;
+        // inputType.checked = false;
+        // inputSort.checked = false;
     }
     const throttledScroll = throttle(handleScroll,500);
 
@@ -265,7 +265,7 @@ const Index = ({params}: any) => {
                     </div>
                 </div>
                 <div className='tlg:w-[100%] tlg:px-[16px] tmd:px-[12px] tlg:py-[12px] tmd:py-[10px] w-content flex flex-row justify-start items-center'>
-                    <div className='w-content relative flex flex-row justify-start items-center'>
+                    {/* <div className='w-content relative flex flex-row justify-start items-center'>
                         <input type='checkbox' id='select-lang' onChange={handleLangChange} className="select hidden"/>
                         <label ref={refLangSelect} htmlFor='select-lang' className="h-[32px] tlg:h-[30px] tmd:h-[28px] relative flex flex-row justify-center items-center text-[14px] text-dark-theme-8 leading-none tracking-normal px-[20px] tlg:px-[16px] tmd:px-[12px] border border-dark-theme-5 rounded-full cursor-pointer fill-dark-theme-8 hover:bg-blue-theme-bg hover:border-blue-theme-border hover:text-dark-theme-9 hover:fill-dark-theme-9 hover:drop-shadow-default">
                             <div className='w-[100%] h-[100%] absolute z-10'></div>
@@ -382,7 +382,7 @@ const Index = ({params}: any) => {
                             </div>
                         </div>
                     </div>
-                    <div className='w-px h-[20px] tlg:h-[16px] rounded-full mx-[10px] tlg:mx-[8px] bg-dark-theme-4'></div>
+                    <div className='w-px h-[20px] tlg:h-[16px] rounded-full mx-[10px] tlg:mx-[8px] bg-dark-theme-4'></div> */}
                     <button onClick={handleFontSearch} className="w-[220px] tlg:w-[200px] tmd:w-[34px] h-[32px] tlg:h-[30px] relative text-[14px] tlg:text-[12px] text-normal text-dark-theme-8 leading-none bg-dark-theme-3/80 flex flex-start justify-start items-center rounded-[8px] pl-[38px] tlg:pl-[30px] tmd:pl-0 pb-px hover:bg-dark-theme-4/60 hover:drop-shadow-default">
                         <span className="mt-[2px] tmd:hidden">폰트 검색하기...</span>
                         <svg className="w-[12px] tlg:w-[10px] absolute left-[16px] tlg:left-[12px] top-[50%] translate-y-[-50%] fill-dark-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/></svg>
@@ -412,30 +412,24 @@ const Index = ({params}: any) => {
     );
 }
 
-export async function getServerSideProps(ctx: any) {
-    try {
-        /** 쿼리 스트링 가져오기 */
-        const thisQuery = ctx.query;
-        const lang = thisQuery.lang === "" || thisQuery.lang === undefined ? "all" : (thisQuery.lang === "kr" ? "kr" : (thisQuery.lang === "en" ? "en" : "all"));
-        const type = thisQuery.type === "" || thisQuery.type === undefined ? "all" : (thisQuery.type === "sans-serif" ? "sans-serif" : (thisQuery.type === "serif" ? "serif" : (thisQuery.type === "hand-writing" ? "hand-writing" : (thisQuery.type === "display" ? "display" : "all"))));
-        const sort = thisQuery.sort === "" || thisQuery.sort === undefined ? "date" : (thisQuery.sort === "name" ? "name" : "date");
+export async function getStaticProps(ctx: any) {
+    /** 쿼리 스트링 가져오기 */
+    // const thisQuery = ctx.query;
+    // const lang = thisQuery.lang === "" || thisQuery.lang === undefined ? "all" : (thisQuery.lang === "kr" ? "kr" : (thisQuery.lang === "en" ? "en" : "all"));
+    // const type = thisQuery.type === "" || thisQuery.type === undefined ? "all" : (thisQuery.type === "sans-serif" ? "sans-serif" : (thisQuery.type === "serif" ? "serif" : (thisQuery.type === "hand-writing" ? "hand-writing" : (thisQuery.type === "display" ? "display" : "all"))));
+    // const sort = thisQuery.sort === "" || thisQuery.sort === undefined ? "date" : (thisQuery.sort === "name" ? "name" : "date");
 
-        const randomNum: number = Math.floor(Math.random() * 19);
+    const randomNum: number = Math.floor(Math.random() * 19);
 
-        return {
-            props: {
-                params: {
-                    sort: sort,
-                    lang: lang,
-                    type: type,
-                    randomNum: randomNum,
-                }
+    return {
+        props: {
+            params: {
+                lang: "all",
+                type: "all",
+                sort: "date",
+                randomNum: randomNum,
             }
         }
-    }
-    catch (error) {
-        console.log(error);
-        return { props: {} }
     }
 }
 
