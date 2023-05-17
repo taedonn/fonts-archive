@@ -1,10 +1,9 @@
 // 훅
 import { useEffect, useState } from "react";
-import client from "@/libs/client";
 import { isMacOs } from "react-device-detect";
 import { NextSeo } from 'next-seo';
-import { fetchFont } from "@/libs/fetchFont";
-import { fetchFontInfo } from "@/libs/fetchFontInfo";
+import { FetchFont } from "../api/DetailPage/fetchFont";
+import { FetchFontInfo } from "../api/DetailPage/fetchFontInfo";
 
 // 컴포넌트
 import Tooltip from "@/components/tooltip";
@@ -834,7 +833,7 @@ function DetailPage({fontInfo, randomNum}:{fontInfo: any, randomNum: number}) {
 }
 
 export async function getStaticPaths() {
-    const fonts = await fetchFont();
+    const fonts = await FetchFont();
 
     const paths = fonts.map((font: any) => ({
         params: { fontId: font.code.toString() },
@@ -844,7 +843,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps(ctx: any) {
-    const fonts = await fetchFontInfo(ctx.params.fontId);
+    const fonts = await FetchFontInfo(ctx.params.fontId);
 
     const randomNum: number = Math.floor(Math.random() * 19);
 

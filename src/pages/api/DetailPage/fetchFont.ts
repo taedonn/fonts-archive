@@ -1,6 +1,6 @@
-import client from "./client"
+import client from "@/libs/client";
 
-export async function fetchFont() {
+export async function FetchFont() {
     const fonts = await client.fonts.findMany({
         select: { code: true, },
     });
