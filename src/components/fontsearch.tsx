@@ -17,7 +17,7 @@ export default function FontSearch({display, closeBtn, showBtn}:{display: string
 
     /** 검색 결과 스크롤 위치 state */
     const parentRef = useRef<HTMLDivElement>(null);
-    const activeRef = useRef<HTMLDivElement>(null);
+    const activeRef = useRef<HTMLAnchorElement>(null);
     
     /** 키 다운 이벤트 */
     useEffect(() => {
@@ -45,10 +45,7 @@ export default function FontSearch({display, closeBtn, showBtn}:{display: string
             }
 
             // 엔터키 눌렀을 때 해당 페이지로 이동
-            if (keys["Enter"] && activeRef.current) {
-                const link = activeRef.current.getAttribute("data-link") as string;
-                location.href = link;
-            }
+            if (keys["Enter"] && activeRef.current) { location.href = activeRef.current.href; }
         }
         const handleKeyup = (e: KeyboardEvent) => {keys[e.key] = false;}
 
@@ -89,12 +86,6 @@ export default function FontSearch({display, closeBtn, showBtn}:{display: string
 
     /** 검색 키워드가 변경되면 refetch */
     useEffect(() => { setActiveEl(0); refetch(); }, [keyword, refetch]);
-
-    /** 검색 결과 클릭 시 창 닫기 */
-    const handleLinkClick = (e: React.MouseEvent<HTMLDivElement>) => {
-        const link = e.currentTarget.getAttribute("data-link") as string;
-        location.href = link;
-    }
 
     /** 검색창 닫을 때 active 링크를 0으로 리셋 */
     useEffect(() => { setActiveEl(0); }, [closeBtn]);
@@ -150,7 +141,7 @@ export default function FontSearch({display, closeBtn, showBtn}:{display: string
                                             font_family: string,
                                         }, idx: number) => {
                                             return (
-                                                <div onClick={handleLinkClick} onMouseOver={() => handleLinkMouseOver(idx)} id={activeEl === idx ? "active" : ""} ref={activeEl === idx ? activeRef : null} data-link={`/DetailPage/${font.code}`} key={font.code} className="search-link w-[100%] h-[60px] tmd:h-[48px] relative px-[16px] mt-[8px] flex flex-row justify-start items-center rounded-[8px] bg-dark-theme-3/80 cursor-pointer">
+                                                <a onMouseOver={() => handleLinkMouseOver(idx)} id={activeEl === idx ? "active" : ""} ref={activeEl === idx ? activeRef : null} href={`/DetailPage/${font.code}`} key={font.code} className="search-link w-[100%] h-[60px] tmd:h-[48px] relative px-[16px] mt-[8px] flex flex-row justify-start items-center rounded-[8px] bg-dark-theme-3/80 cursor-pointer">
                                                     <div className="w-[24px] tmd:w-[20px] h-[24px] tmd:h-[20px] border rounded-[6px] tmd:rounded-[4px] flex flex-row justify-center items-center mr-[12px] bg-dark-theme-4 border-dark-theme-4 when-active-1">
                                                         <svg className="w-[18px] tmd:w-[14px] fill-dark-theme-6 when-active-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8.39 12.648a1.32 1.32 0 0 0-.015.18c0 .305.21.508.5.508.266 0 .492-.172.555-.477l.554-2.703h1.204c.421 0 .617-.234.617-.547 0-.312-.188-.53-.617-.53h-.985l.516-2.524h1.265c.43 0 .618-.227.618-.547 0-.313-.188-.524-.618-.524h-1.046l.476-2.304a1.06 1.06 0 0 0 .016-.164.51.51 0 0 0-.516-.516.54.54 0 0 0-.539.43l-.523 2.554H7.617l.477-2.304c.008-.04.015-.118.015-.164a.512.512 0 0 0-.523-.516.539.539 0 0 0-.531.43L6.53 5.484H5.414c-.43 0-.617.22-.617.532 0 .312.187.539.617.539h.906l-.515 2.523H4.609c-.421 0-.609.219-.609.531 0 .313.188.547.61.547h.976l-.516 2.492c-.008.04-.015.125-.015.18 0 .305.21.508.5.508.265 0 .492-.172.554-.477l.555-2.703h2.242l-.515 2.492zm-1-6.109h2.266l-.515 2.563H6.859l.532-2.563z"/></svg>
                                                     </div>
@@ -158,7 +149,7 @@ export default function FontSearch({display, closeBtn, showBtn}:{display: string
                                                     <div className="text-[14px] text-dark-theme-6 font-normal leading-none tmd:hidden ml-[10px] when-active-4">{font.font_family}</div>
                                                     <div className="text-[12px] text-dark-theme-6 leading-none tmd:hidden ml-[10px] when-active-5">{font.source}</div>
                                                     <svg className="w-[12px] tmd:w-[10px] absolute right-[12px] fill-dark-theme-6 when-active-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/></svg>
-                                                </div>
+                                                </a>
                                             )
                                         })}
                                     </div>

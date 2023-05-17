@@ -1,7 +1,5 @@
 // 훅
 import { useRef, useState, useEffect } from "react";
-import Link from "next/link";
-import { useRouter } from "next/router";
 import { throttle } from "lodash";
 import { isMacOs } from "react-device-detect";
 
@@ -11,9 +9,6 @@ import FontBox from "@/components/fontbox";
 import FontSearch from "@/components/fontsearch";
 
 const Index = ({params}: any) => {
-    /** useRouter 훅 */
-    const router = useRouter();
-
     /** 셀렉트 박스 - "언어 선택" 영역 */
     const refLangSelect = useRef<HTMLLabelElement>(null);
     const refLangOption = useRef<HTMLDivElement>(null);
@@ -99,30 +94,30 @@ const Index = ({params}: any) => {
         if (e.target.checked) {
             if (e.target.value === "all") {
                 if (type === "all" && sort === "date") {
-                    router.push({ pathname: '/'}).then(() => router.reload());
+                    location.href = "/";
                 }
                 else if (type !== "all" && sort === "date") {
-                    router.push({ pathname: '/', query: { type: type }}).then(() => router.reload());
+                    location.href = `/?type=${type}`;
                 }
                 else if (type === "all" && sort !== "date") {
-                    router.push({ pathname: '/', query: { sort: sort }}).then(() => router.reload());
+                    location.href = `/?sort=${sort}`;
                 }
                 else {
-                    router.push({ pathname: '/', query: { type: type, sort: sort }}).then(() => router.reload());
+                    location.href = `/?type=${type}&sort=${sort}`;
                 }
             }
             else {
                 if (type === "all" && sort === "date") {
-                    router.push({ pathname: '/', query: { lang: e.target.value }}).then(() => router.reload());
+                    location.href = `/?lang=${e.target.value}`;
                 }
                 else if (type !== "all" && sort === "date") {
-                    router.push({ pathname: '/', query: { lang: e.target.value, type: type }}).then(() => router.reload());
+                    location.href = `/?lang=${e.target.value}&type=${type}`;
                 }
                 else if (type === "all" && sort !== "date") {
-                    router.push({ pathname: '/', query: { lang: e.target.value, sort: sort }}).then(() => router.reload());
+                    location.href = `/?lang=${e.target.value}&sort=${sort}`;
                 }
                 else {
-                    router.push({ pathname: '/', query: { lang: e.target.value, type: type, sort: sort }}).then(() => router.reload());
+                    location.href = `/?lang=${e.target.value}&type=${type}&sort=${sort}`;
                 }   
             }
         }
@@ -138,30 +133,30 @@ const Index = ({params}: any) => {
         if (e.target.checked) {
             if (e.target.value === "all") {
                 if (lang === "all" && sort === "date") {
-                    router.push({ pathname: '/'}).then(() => router.reload());
+                    location.href = "/";
                 }
                 else if (lang !== "all" && sort === "date") {
-                    router.push({ pathname: '/', query: { lang: lang }}).then(() => router.reload());
+                    location.href = `/?lang=${lang}`;
                 }
                 else if (lang === "all" && sort !== "date") {
-                    router.push({ pathname: '/', query: { sort: sort }}).then(() => router.reload());
+                    location.href = `/?sort=${sort}`;
                 }
                 else {
-                    router.push({ pathname: '/', query: { lang: lang, sort: sort }}).then(() => router.reload());
+                    location.href = `/?lang=${lang}&sort=${sort}`;
                 }
             }
             else {
                 if (lang === "all" && sort === "date") {
-                    router.push({ pathname: '/', query: { type: e.target.value }}).then(() => router.reload());
+                    location.href = `/?type=${e.target.value}`;
                 }
                 else if (lang !== "all" && sort === "date") {
-                    router.push({ pathname: '/', query: { lang: lang, type: e.target.value }}).then(() => router.reload());
+                    location.href = `/?lang=${lang}&type=${e.target.value}`;
                 }
                 else if (lang === "all" && sort !== "date") {
-                    router.push({ pathname: '/', query: { type: e.target.value, sort: sort }}).then(() => router.reload());
+                    location.href = `/?type=${e.target.value}&sort=${sort}`;
                 }
                 else {
-                    router.push({ pathname: '/', query: { lang: lang, type: e.target.value, sort: sort }}).then(() => router.reload());
+                    location.href = `/?lang=${lang}&type=${e.target.value}&sort=${sort}`;
                 }
             }
         }
@@ -177,30 +172,30 @@ const Index = ({params}: any) => {
         if (e.target.checked) {
             if (e.target.value === "date") {
                 if (lang === "all" && type === "all") {
-                    router.push({ pathname: '/'}).then(() => router.reload());
+                    location.href = "/";
                 }
                 else if (lang !== "all" && type === "all") {
-                    router.push({ pathname: '/', query: { lang: lang }}).then(() => router.reload());
+                    location.href = `/?lang=${lang}`;
                 }
                 else if (lang === "all" && type !== "all") {
-                    router.push({ pathname: '/', query: { type: type }}).then(() => router.reload());
+                    location.href = `/?type=${type}`;
                 }
                 else {
-                    router.push({ pathname: '/', query: { lang: lang, type: type }}).then(() => router.reload());
+                    location.href = `/?lang=${lang}&type=${type}`;
                 }
             }
             else {
                 if (lang === "all" && type === "all") {
-                    router.push({ pathname: '/', query: { sort: e.target.value }}).then(() => router.reload());
+                    location.href = `/?sort=${e.target.value}`;
                 }
                 else if (lang !== "all" && type === "all") {
-                    router.push({ pathname: '/', query: { lang: lang, sort: e.target.value }}).then(() => router.reload());
+                    location.href = `/?lang=${lang}&sort=${e.target.value}`;
                 }
                 else if (lang === "all" && type !== "all") {
-                    router.push({ pathname: '/', query: { type: type, sort: e.target.value }}).then(() => router.reload());
+                    location.href = `/?type=${type}&sort=${e.target.value}`;
                 }
                 else {
-                    router.push({ pathname: '/', query: { lang: lang, type: type, sort: e.target.value }}).then(() => router.reload());
+                    location.href = `/?lang=${lang}&type=${type}&sort=${e.target.value}`;
                 }   
             }
         }
@@ -274,7 +269,7 @@ const Index = ({params}: any) => {
                         <input type='checkbox' id='select-lang' onChange={handleLangChange} className="select hidden"/>
                         <label ref={refLangSelect} htmlFor='select-lang' className="h-[32px] tlg:h-[30px] tmd:h-[28px] relative flex flex-row justify-center items-center text-[14px] text-dark-theme-8 leading-none tracking-normal px-[20px] tlg:px-[16px] tmd:px-[12px] border border-dark-theme-5 rounded-full cursor-pointer fill-dark-theme-8 hover:bg-blue-theme-bg hover:border-blue-theme-border hover:text-dark-theme-9 hover:fill-dark-theme-9 hover:drop-shadow-default">
                             <div className='w-[100%] h-[100%] absolute z-10'></div>
-                            <button className="w-[100%] flex flex-row justify-center items-center text-inherit leading-[32px] text-[14px] tlg:text-[12px] tmd:text-[10px]">
+                            <button className="w-[100%] flex flex-row justify-center items-center text-inherit leading-[32px] text-[14px] tlg:text-[12px] tmd:text-[10px] pt-px">
                                 언어 선택
                                 <svg className="w-[8px] tlg:w-[6px] rotate-180 ml-[12px] tlg:ml-[8px] fill-inherit" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M7.022 1.566a1.13 1.13 0 0 1 1.96 0l6.857 11.667c.457.778-.092 1.767-.98 1.767H1.144c-.889 0-1.437-.99-.98-1.767L7.022 1.566z"/></svg>
                             </button>
@@ -310,7 +305,7 @@ const Index = ({params}: any) => {
                         <input type='checkbox' id='select-type' onChange={handleTypeChange} className="select hidden"/>
                         <label ref={refTypeSelect} htmlFor='select-type' className="h-[32px] tlg:h-[30px] tmd:h-[28px] relative flex flex-row justify-center items-center text-[14px] text-dark-theme-8 leading-none px-[20px] tlg:px-[16px] tmd:px-[12px] border border-dark-theme-5 rounded-full cursor-pointer fill-dark-theme-8 hover:bg-blue-theme-bg hover:border-blue-theme-border hover:text-dark-theme-9 hover:fill-dark-theme-9 hover:drop-shadow-default">
                             <div className='w-[100%] h-[100%] absolute z-10'></div>
-                            <button className="w-[100%] h-[100%] flex flex-row justify-center items-center text-inherit leading-none text-[14px] tlg:text-[12px] tmd:text-[10px]">
+                            <button className="w-[100%] h-[100%] flex flex-row justify-center items-center text-inherit leading-none text-[14px] tlg:text-[12px] tmd:text-[10px] pt-px">
                                 폰트 형태
                                 <svg className="w-[8px] tlg:w-[6px] rotate-180 ml-[12px] tlg:ml-[8px] fill-inherit" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M7.022 1.566a1.13 1.13 0 0 1 1.96 0l6.857 11.667c.457.778-.092 1.767-.98 1.767H1.144c-.889 0-1.437-.99-.98-1.767L7.022 1.566z"/></svg>
                             </button>
@@ -363,7 +358,7 @@ const Index = ({params}: any) => {
                         <input type='checkbox' id='select-sort' onChange={handleSortChange} className="select hidden"/>
                         <label ref={refSortSelect} htmlFor='select-sort' className="h-[32px] tlg:h-[30px] tmd:h-[28px] relative flex flex-row justify-center items-center text-[14px] text-dark-theme-8 leading-none px-[20px] tlg:px-[16px] border border-dark-theme-5 rounded-full cursor-pointer fill-dark-theme-8 hover:bg-blue-theme-bg hover:border-blue-theme-border hover:text-dark-theme-9 hover:fill-dark-theme-9 hover:drop-shadow-default">
                             <div className='w-[100%] h-[100%] absolute z-10'></div>
-                            <button className="w-[100%] h-[100%] flex flex-row justify-center items-center text-inherit leading-none text-[14px] tlg:text-[12px] tmd:text-[10px]">
+                            <button className="w-[100%] h-[100%] flex flex-row justify-center items-center text-inherit leading-none text-[14px] tlg:text-[12px] tmd:text-[10px] pt-px">
                                 {sort === "date" ? "최신순" : "이름순"}
                                 <svg className="w-[8px] tlg:w-[6px] rotate-180 ml-[12px] tlg:ml-[8px] fill-inherit" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M7.022 1.566a1.13 1.13 0 0 1 1.96 0l6.857 11.667c.457.778-.092 1.767-.98 1.767H1.144c-.889 0-1.437-.99-.98-1.767L7.022 1.566z"/></svg>
                             </button>
@@ -396,7 +391,7 @@ const Index = ({params}: any) => {
                                 isMac === true
                                 ? <div className="flex flex-row justify-center items-center">
                                     <svg className="tmd:hidden w-[10px] fill-dark-theme-8 mr-px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.5 2A1.5 1.5 0 0 1 5 3.5V5H3.5a1.5 1.5 0 1 1 0-3zM6 5V3.5A2.5 2.5 0 1 0 3.5 6H5v4H3.5A2.5 2.5 0 1 0 6 12.5V11h4v1.5a2.5 2.5 0 1 0 2.5-2.5H11V6h1.5A2.5 2.5 0 1 0 10 3.5V5H6zm4 1v4H6V6h4zm1-1V3.5A1.5 1.5 0 1 1 12.5 5H11zm0 6h1.5a1.5 1.5 0 1 1-1.5 1.5V11zm-6 0v1.5A1.5 1.5 0 1 1 3.5 11H5z"/></svg>
-                                    <span className="tmd:hidden text-[12px] leading-none">K</span>
+                                    <span className="tmd:hidden text-[12px] leading-none pt-px">K</span>
                                 </div>
                                 : ( isMac === false
                                     ? <span className="tmd:hidden text-[12px] tlg:text-[10px] leading-none">Ctrl + K</span>

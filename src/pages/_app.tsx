@@ -2,7 +2,7 @@
 
 // 훅
 import type { AppProps } from "next/app";
-import Head from 'next/head';
+import { NextSeo } from 'next-seo';
 
 // react-query
 import { QueryClientProvider, QueryClient } from "react-query";
@@ -15,11 +15,16 @@ export default function App({ Component, pageProps }: AppProps) {
     return (
         <>
             <QueryClientProvider client={queryClient}>
-                <Head>
-                    <title>FONTS ARCHIVE</title>
-                    <meta name="description" content="A website that archives license-free Korean fonts"></meta>
-                    <link rel='icon' href='/favicon.svg'/>
-                </Head>
+                <NextSeo
+                    title="FONTS ARCHIVE"
+                    description="A website that archives license free Korean fonts"
+                    additionalLinkTags={[
+                        {
+                            rel:"icon",
+                            href: "/favicon.svg"
+                        }
+                    ]}
+                />
                 <main>
                     <Component {...pageProps}/>
                 </main>

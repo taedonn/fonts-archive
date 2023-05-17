@@ -1,9 +1,10 @@
 // 훅
 import { useEffect, useState } from "react";
-import Link from "next/link";
-import { useRouter } from "next/router";
 import client from "@/libs/client";
 import { isMacOs } from "react-device-detect";
+import { NextSeo } from 'next-seo';
+import { fetchFont } from "@/libs/fetchFont";
+import { fetchFontInfo } from "@/libs/fetchFontInfo";
 
 // 컴포넌트
 import Tooltip from "@/components/tooltip";
@@ -14,14 +15,8 @@ const alphabetKR = '가 나 다 라 마 바 사 아 자 차 카 타 파 하 a b 
 const alphabetEN = 'A B C D E F G H I J K L M N O P Q R S T U V W X Y Z a b c d e f g h i j k l m n o p q r s t u v w x y z 0 1 2 3 4 5 6 7 8 9 A B C D E F G H I J K L M N O P Q R S T U V W X Y Z a b c d e f g h i j k l m n o p q r s t u v w x y z 0 1 2 3 4 5 6 7 8 9 A B C D E F G H I J K L M N O P Q R S T U V W X Y Z a b c d e f g h i j k l m n o p q r s t u v w x y z 0 1 2 3 4 5 6 7 8 9';
 
 function DetailPage({fontInfo, randomNum}:{fontInfo: any, randomNum: number}) {
-    /** useRouter 훅 */
-    const router = useRouter();
-
     /** 폰트 데이터 props */
     const font = fontInfo[0];
-
-    /** 타이틀 변경 */
-    useEffect(() => { document.title = font.name + " · FONTS ARCHIVE" }, [font]);
 
     /** 폰트 검색 훅 */
     const defaultSearchDisplay = "hide"
@@ -103,6 +98,9 @@ function DetailPage({fontInfo, randomNum}:{fontInfo: any, randomNum: number}) {
 
     return (
         <>
+            {/* Head 부분*/}
+            <NextSeo title={font.name + " · FONTS ARCHIVE"}/>
+
             {/* 고정 메뉴 */}
             <Tooltip/>
 
@@ -123,7 +121,7 @@ function DetailPage({fontInfo, randomNum}:{fontInfo: any, randomNum: number}) {
                                 isMac === true
                                 ? <div className="flex flex-row justify-center items-center">
                                     <svg className="tmd:hidden w-[10px] fill-dark-theme-8 mr-px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.5 2A1.5 1.5 0 0 1 5 3.5V5H3.5a1.5 1.5 0 1 1 0-3zM6 5V3.5A2.5 2.5 0 1 0 3.5 6H5v4H3.5A2.5 2.5 0 1 0 6 12.5V11h4v1.5a2.5 2.5 0 1 0 2.5-2.5H11V6h1.5A2.5 2.5 0 1 0 10 3.5V5H6zm4 1v4H6V6h4zm1-1V3.5A1.5 1.5 0 1 1 12.5 5H11zm0 6h1.5a1.5 1.5 0 1 1-1.5 1.5V11zm-6 0v1.5A1.5 1.5 0 1 1 3.5 11H5z"/></svg>
-                                    <span className="tmd:hidden text-[12px] leading-none">K</span>
+                                    <span className="tmd:hidden text-[12px] leading-none pt-px">K</span>
                                 </div>
                                 : ( isMac === false
                                     ? <span className="tmd:hidden text-[12px] tlg:text-[10px] leading-none">Ctrl + K</span>
@@ -836,50 +834,17 @@ function DetailPage({fontInfo, randomNum}:{fontInfo: any, randomNum: number}) {
 }
 
 export async function getStaticPaths() {
-    const fonts = await client.fonts.findMany({
-        select: { code: true, },
-    })
+    const fonts = await fetchFont();
 
     const paths = fonts.map((font: any) => ({
         params: { fontId: font.code.toString() },
     }))
 
     return { paths, fallback: false }
-  }
+}
 
 export async function getStaticProps(ctx: any) {
-    const fonts = await client.fonts.findMany({
-        select: { // 특정 column 선택
-            code: true,
-            name: true,
-            lang: true,
-            view: true,
-            font_family: true,
-            font_type: true,
-            font_weight: true,
-            source: true,
-            source_link: true,
-            github_link: true,
-            cdn_css: true,
-            cdn_link: true,
-            cdn_import: true,
-            cdn_font_face: true,
-            cdn_url: true,
-            license_print: true,
-            license_web: true,
-            license_video: true,
-            license_package: true,
-            license_embed: true,
-            license_bici: true,
-            license_ofl: true,
-            license_purpose: true,
-            license_source: true,
-            license: true,
-        },
-        where: {
-            code: Number(ctx.params.fontId),
-        },
-    })
+    const fonts = await fetchFontInfo(ctx.params.fontId);
 
     const randomNum: number = Math.floor(Math.random() * 19);
 
