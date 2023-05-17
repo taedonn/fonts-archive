@@ -8,9 +8,9 @@ class MyDocument extends Document {
         return (
             <Html>
                 <Head>
-                    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet"/>
+                    <link rel="preload" href="https://cdn.jsdelivr.net/gh/fonts-archive/SpoqaHanSansNeo/SpoqaHanSansNeo.css" type="text/css"/>
                 </Head>
-                <body style={{fontFamily:"Noto Sans KR"}} className="bg-dark-theme-2 expand">
+                <body style={{fontFamily:"Spoqa Han Sans Neo"}} className="bg-dark-theme-2 expand">
                     <Main/>
                     <NextScript/>
                 </body>

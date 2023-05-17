@@ -22,9 +22,6 @@ function DetailPage({fontInfo, randomNum}:{fontInfo: any, randomNum: number}) {
 
     /** 타이틀 변경 */
     useEffect(() => { document.title = font.name + " · FONTS ARCHIVE" }, [font]);
-    
-    /** 로고 클릭 시 새로고침 */
-    const handleLogo = () => { router.push({ pathname: '/' }); }
 
     /** 폰트 검색 훅 */
     const defaultSearchDisplay = "hide"
@@ -112,19 +109,20 @@ function DetailPage({fontInfo, randomNum}:{fontInfo: any, randomNum: number}) {
             {/* 헤더 */}
             <div className='interface w-[100%] h-[60px] px-[20px] tlg:px-[16px] tmd:px-[12px] fixed right-0 top-0 z-10 flex flex-row justify-between items-center backdrop-blur bg-blur-theme border-b border-dark-theme-4'>
                 <div className="flex flex-row justify-start items-center">
-                    <Link onClick={handleLogo} href="/" className="w-[36px] tlg:w-[32px] h-[36px] tlg:h-[32px] flex flex-row justify-center items-center rounded-[8px] tlg:rounded-[6px] mr-[12px] bg-dark-theme-3/80 hover:bg-dark-theme-4/60 hover:drop-shadow-default">
+                    {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+                    <a href="/" className="w-[36px] tlg:w-[32px] h-[36px] tlg:h-[32px] flex flex-row justify-center items-center rounded-[8px] tlg:rounded-[6px] mr-[12px] bg-dark-theme-3/80 hover:bg-dark-theme-4/60 hover:drop-shadow-default">
                         <svg className="w-[18px] tlg:w-[16px] pb-px fill-dark-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="m2.244 13.081.943-2.803H6.66l.944 2.803H8.86L5.54 3.75H4.322L1 13.081h1.244zm2.7-7.923L6.34 9.314H3.51l1.4-4.156h.034zm9.146 7.027h.035v.896h1.128V8.125c0-1.51-1.114-2.345-2.646-2.345-1.736 0-2.59.916-2.666 2.174h1.108c.068-.718.595-1.19 1.517-1.19.971 0 1.518.52 1.518 1.464v.731H12.19c-1.647.007-2.522.8-2.522 2.058 0 1.319.957 2.18 2.345 2.18 1.06 0 1.716-.43 2.078-1.011zm-1.763.035c-.752 0-1.456-.397-1.456-1.244 0-.65.424-1.115 1.408-1.115h1.805v.834c0 .896-.752 1.525-1.757 1.525z"/></svg>
-                    </Link>
+                    </a>
                 </div>
                 <div className="w-content flex flex-row justify-start items-center">
                     <button onClick={handleFontSearch} className="w-[220px] tlg:w-[200px] tmd:w-[34px] h-[32px] tlg:h-[30px] relative text-[14px] tlg:text-[12px] text-normal text-dark-theme-8 leading-none bg-dark-theme-3/80 flex flex-start justify-start items-center rounded-[8px] pl-[38px] tlg:pl-[30px] tmd:pl-0 pb-px hover:bg-dark-theme-4/60 hover:drop-shadow-default">
-                        <span className="tmd:hidden">폰트 검색하기...</span>
+                        <span className="mt-[2px] tmd:hidden">폰트 검색하기...</span>
                         <svg className="w-[12px] tlg:w-[10px] absolute left-[16px] tlg:left-[12px] top-[50%] translate-y-[-50%] fill-dark-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/></svg>
                         <div className="absolute right-[16px] flex flex-row justify-center items-center">
                             {
                                 isMac === true
                                 ? <div className="flex flex-row justify-center items-center">
-                                    <svg className="tmd:hidden w-[10px] mt-px fill-dark-theme-8 mr-px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.5 2A1.5 1.5 0 0 1 5 3.5V5H3.5a1.5 1.5 0 1 1 0-3zM6 5V3.5A2.5 2.5 0 1 0 3.5 6H5v4H3.5A2.5 2.5 0 1 0 6 12.5V11h4v1.5a2.5 2.5 0 1 0 2.5-2.5H11V6h1.5A2.5 2.5 0 1 0 10 3.5V5H6zm4 1v4H6V6h4zm1-1V3.5A1.5 1.5 0 1 1 12.5 5H11zm0 6h1.5a1.5 1.5 0 1 1-1.5 1.5V11zm-6 0v1.5A1.5 1.5 0 1 1 3.5 11H5z"/></svg>
+                                    <svg className="tmd:hidden w-[10px] fill-dark-theme-8 mr-px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.5 2A1.5 1.5 0 0 1 5 3.5V5H3.5a1.5 1.5 0 1 1 0-3zM6 5V3.5A2.5 2.5 0 1 0 3.5 6H5v4H3.5A2.5 2.5 0 1 0 6 12.5V11h4v1.5a2.5 2.5 0 1 0 2.5-2.5H11V6h1.5A2.5 2.5 0 1 0 10 3.5V5H6zm4 1v4H6V6h4zm1-1V3.5A1.5 1.5 0 1 1 12.5 5H11zm0 6h1.5a1.5 1.5 0 1 1-1.5 1.5V11zm-6 0v1.5A1.5 1.5 0 1 1 3.5 11H5z"/></svg>
                                     <span className="tmd:hidden text-[12px] leading-none">K</span>
                                 </div>
                                 : ( isMac === false
@@ -149,11 +147,11 @@ function DetailPage({fontInfo, randomNum}:{fontInfo: any, randomNum: number}) {
                     <div className="w-[100%] h-px my-[20px] tlg:my-[16px] bg-dark-theme-4"></div>
                 </div>
                 <div className="flex flex-row justify-start items-center mb-[60px] tlg:mb-[48px] tmd:mb-[40px]">
-                    <a href={font.source_link} target="_blank" className="h-[40px] tlg:h-[36px] tmd:h-[32px] flex flex-row justify-center items-center text-[16px] tlg:text-[14px] tmd:text-[12px] text-blue-theme-border font-medium border-2 tmd:border border-blue-theme-border rounded-full px-[20px] pb-[2px] tmd:pb-px mr-[12px] tmd:mr-[8px] cursor-pointer hover:bg-blue-theme-border/10">다운로드 페이지로 이동</a>
+                    <a href={font.source_link} target="_blank" className="h-[40px] tlg:h-[36px] tmd:h-[32px] flex flex-row justify-center items-center text-[16px] tlg:text-[14px] tmd:text-[12px] text-blue-theme-border font-medium border-2 tmd:border border-blue-theme-border rounded-full px-[20px] mr-[12px] tmd:mr-[8px] cursor-pointer hover:bg-blue-theme-border/10">다운로드 페이지로 이동</a>
                     {
                         font.license_ofl[0] === "N"
                         ? <></>
-                        : <a href={font.github_link} target="_blank" className="w-[180px] tlg:w-[140px] tmd:w-[128px] h-[40px] tlg:h-[36px] tmd:h-[32px] flex flex-row justify-center items-center text-[16px] tlg:text-[14px] tmd:text-[12px] text-dark-theme-8 font-medium border-2 tmd:border border-dark-theme-8 rounded-full px-[20px] pb-[2px] tmd:pb-px cursor-pointer hover:bg-dark-theme-8/10">폰트 다운로드</a>
+                        : <a href={font.github_link} target="_blank" className="w-[180px] tlg:w-[140px] tmd:w-[128px] h-[40px] tlg:h-[36px] tmd:h-[32px] flex flex-row justify-center items-center text-[16px] tlg:text-[14px] tmd:text-[12px] text-dark-theme-8 font-medium border-2 tmd:border border-dark-theme-8 rounded-full px-[20px] cursor-pointer hover:bg-dark-theme-8/10">폰트 다운로드</a>
                     }
                 </div>
                 {
