@@ -9,6 +9,9 @@ import FontBox from "@/components/fontbox";
 import FontSearch from "@/components/fontsearch";
 
 const Index = ({params}: any) => {
+    /** 더미텍스트 생성을 위한 랜덤 숫자 */
+    const randomNum: number = Math.floor(Math.random() * 19);
+
     /** 셀렉트 박스 - "언어 선택" 영역 */
     const refLangSelect = useRef<HTMLLabelElement>(null);
     const refLangOption = useRef<HTMLDivElement>(null);
@@ -91,37 +94,7 @@ const Index = ({params}: any) => {
 
     /** 옵션 - "언어 선택" 클릭 */
     const handleLangOptionChange = (e:React.ChangeEvent<HTMLInputElement>) => {
-        if (e.target.checked) {
-            setLang(e.target.value);
-            // if (e.target.value === "all") {
-            //     if (type === "all" && sort === "date") {
-            //         location.href = "/";
-            //     }
-            //     else if (type !== "all" && sort === "date") {
-            //         location.href = `/?type=${type}`;
-            //     }
-            //     else if (type === "all" && sort !== "date") {
-            //         location.href = `/?sort=${sort}`;
-            //     }
-            //     else {
-            //         location.href = `/?type=${type}&sort=${sort}`;
-            //     }
-            // }
-            // else {
-            //     if (type === "all" && sort === "date") {
-            //         location.href = `/?lang=${e.target.value}`;
-            //     }
-            //     else if (type !== "all" && sort === "date") {
-            //         location.href = `/?lang=${e.target.value}&type=${type}`;
-            //     }
-            //     else if (type === "all" && sort !== "date") {
-            //         location.href = `/?lang=${e.target.value}&sort=${sort}`;
-            //     }
-            //     else {
-            //         location.href = `/?lang=${e.target.value}&type=${type}&sort=${sort}`;
-            //     }   
-            // }
-        }
+        if (e.target.checked) { setLang(e.target.value); }
     }
 
     /** 옵션 - "폰트 형태" 훅 */
@@ -131,37 +104,7 @@ const Index = ({params}: any) => {
 
     /** 옵션 - "폰트 형태" 클릭 */
     const handleTypeOptionChange = (e:React.ChangeEvent<HTMLInputElement>) => {
-        if (e.target.checked) {
-            setType(e.target.value);
-            // if (e.target.value === "all") {
-            //     if (lang === "all" && sort === "date") {
-            //         location.href = "/";
-            //     }
-            //     else if (lang !== "all" && sort === "date") {
-            //         location.href = `/?lang=${lang}`;
-            //     }
-            //     else if (lang === "all" && sort !== "date") {
-            //         location.href = `/?sort=${sort}`;
-            //     }
-            //     else {
-            //         location.href = `/?lang=${lang}&sort=${sort}`;
-            //     }
-            // }
-            // else {
-            //     if (lang === "all" && sort === "date") {
-            //         location.href = `/?type=${e.target.value}`;
-            //     }
-            //     else if (lang !== "all" && sort === "date") {
-            //         location.href = `/?lang=${lang}&type=${e.target.value}`;
-            //     }
-            //     else if (lang === "all" && sort !== "date") {
-            //         location.href = `/?type=${e.target.value}&sort=${sort}`;
-            //     }
-            //     else {
-            //         location.href = `/?lang=${lang}&type=${e.target.value}&sort=${sort}`;
-            //     }
-            // }
-        }
+        if (e.target.checked) { setType(e.target.value); }
     }
 
     /** 옵션 - "정렬순" 훅 */
@@ -171,37 +114,7 @@ const Index = ({params}: any) => {
 
     /** 옵션 - "정렬순" 클릭 */
     const handleSortOptionChange = (e:React.ChangeEvent<HTMLInputElement>) => {
-        if (e.target.checked) {
-            setSort(e.target.value);
-            // if (e.target.value === "date") {
-            //     if (lang === "all" && type === "all") {
-            //         location.href = "/";
-            //     }
-            //     else if (lang !== "all" && type === "all") {
-            //         location.href = `/?lang=${lang}`;
-            //     }
-            //     else if (lang === "all" && type !== "all") {
-            //         location.href = `/?type=${type}`;
-            //     }
-            //     else {
-            //         location.href = `/?lang=${lang}&type=${type}`;
-            //     }
-            // }
-            // else {
-            //     if (lang === "all" && type === "all") {
-            //         location.href = `/?sort=${e.target.value}`;
-            //     }
-            //     else if (lang !== "all" && type === "all") {
-            //         location.href = `/?lang=${lang}&sort=${e.target.value}`;
-            //     }
-            //     else if (lang === "all" && type !== "all") {
-            //         location.href = `/?type=${type}&sort=${e.target.value}`;
-            //     }
-            //     else {
-            //         location.href = `/?lang=${lang}&type=${type}&sort=${e.target.value}`;
-            //     }   
-            // }
-        }
+        if (e.target.checked) { setSort(e.target.value); }
     }
 
     /** 텍스트 입력칸 훅 */
@@ -409,7 +322,7 @@ const Index = ({params}: any) => {
             </div>
             
             {/* 메인 */}
-            <FontBox lang={lang} type={type} sort={sort} text={text} randomNum={params.randomNum}/>
+            <FontBox lang={lang} type={type} sort={sort} text={text} randomNum={randomNum}/>
 
             {/* 폰트 검색 */}
             <FontSearch display={searchDisplay} closeBtn={handleFontSearchCloseBtn} showBtn={handleFontSearch}/>
@@ -419,15 +332,12 @@ const Index = ({params}: any) => {
 
 export async function getStaticProps(ctx: any) {
     try {
-        const randomNum: number = Math.floor(Math.random() * 19);
-
         return {
             props: {
                 params: {
                     lang: "all",
                     type: "all",
                     sort: "date",
-                    randomNum: randomNum,
                 }
             }
         }
