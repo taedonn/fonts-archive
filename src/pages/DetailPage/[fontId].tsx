@@ -104,7 +104,7 @@ function DetailPage({fontInfo, randomNum}:{fontInfo: any, randomNum: number}) {
             <Tooltip/>
 
             {/* 헤더 */}
-            <div className='interface w-[100%] h-[60px] tlg:h-[auto] px-[20px] tlg:px-[16px] tmd:px-[12px] tlg:py-[12px] tmd:py-[10px] fixed right-0 top-0 z-10 flex flex-row justify-between items-center backdrop-blur bg-blur-theme border-b border-dark-theme-4'>
+            <div className='interface w-[100%] h-[60px] tlg:h-[56px] px-[20px] tlg:px-[16px] tmd:px-[12px] fixed right-0 top-0 z-10 flex flex-row justify-between items-center backdrop-blur bg-blur-theme border-b border-dark-theme-4'>
                 <div className="flex flex-row justify-start items-center">
                     {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
                     <a href="/" className="w-[36px] tlg:w-[32px] h-[36px] tlg:h-[32px] flex flex-row justify-center items-center rounded-[8px] tlg:rounded-[6px] mr-[12px] bg-dark-theme-3/80 hover:bg-dark-theme-4/60 hover:drop-shadow-default">
@@ -112,9 +112,9 @@ function DetailPage({fontInfo, randomNum}:{fontInfo: any, randomNum: number}) {
                     </a>
                 </div>
                 <div className="w-content flex flex-row justify-start items-center">
-                    <button onClick={handleFontSearch} className="w-[220px] tlg:w-[200px] tmd:w-[34px] h-[32px] tlg:h-[30px] relative text-[14px] tlg:text-[12px] text-normal text-dark-theme-8 leading-none bg-dark-theme-3/80 flex flex-start justify-start items-center rounded-[8px] pl-[38px] tlg:pl-[30px] tmd:pl-0 pb-px hover:bg-dark-theme-4/60 hover:drop-shadow-default">
-                        <span className="mt-[2px] tmd:hidden">폰트 검색하기...</span>
-                        <svg className="w-[12px] tlg:w-[10px] absolute left-[16px] tlg:left-[12px] top-[50%] translate-y-[-50%] fill-dark-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/></svg>
+                    <button onClick={handleFontSearch} className="w-[220px] tlg:w-[200px] tmd:w-[32px] h-[32px] relative text-[14px] tlg:text-[12px] text-normal text-dark-theme-8 leading-none bg-dark-theme-3/80 flex flex-start justify-start items-center rounded-[8px] tmd:rounded-[6px] pl-[38px] tlg:pl-[30px] tmd:pl-0 pb-px hover:bg-dark-theme-4/60 hover:drop-shadow-default">
+                        <span className="tmd:hidden">폰트 검색하기...</span>
+                        <svg className="w-[12px] tlg:w-[10px] absolute left-[16px] tlg:left-[11px] top-[50%] translate-y-[-50%] fill-dark-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/></svg>
                         <div className="absolute right-[16px] flex flex-row justify-center items-center">
                             {
                                 isMac === true
@@ -133,7 +133,7 @@ function DetailPage({fontInfo, randomNum}:{fontInfo: any, randomNum: number}) {
             </div>
 
             {/* 메인 */}
-            <div className="w-[100%] mt-[60px] tlg:mt-[57px] tmd:mt-[53px] p-[20px] tlg:p-[16px] tmd:p-[12px] py-[28px] tlg:py-[24px] tmd:py-[20px]">
+            <div className="w-[100%] mt-[60px] tlg:mt-[56px] p-[20px] tlg:p-[16px] tmd:p-[12px] py-[24px] tlg:py-[20px] tmd:py-[16px]">
                 <link href={font.cdn_url} rel="stylesheet" type="text/css" itemProp="url"></link>
                 <div className="w-[100%] flex flex-col justify-start items-start">
                     <div style={{fontFamily:font.font_family}} className="text-[32px] tlg:text-[28px] tmd:text-[24px] text-dark-theme-8 font-medium leading-tight mb-[12px] tlg:mb-[8px]">{font.name}</div>

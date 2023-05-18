@@ -1,5 +1,5 @@
 // 훅
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useInfiniteQuery } from 'react-query';
 import { useInView } from 'react-intersection-observer';
 import axios from 'axios';
@@ -9,7 +9,7 @@ import DummyText from "./dummytext";
 
 export default function FontBox({lang, type, sort, text, randomNum}:{lang: string, type: string, sort: string, text: string, randomNum: number}) {
     /** react-intersection-observer 훅 */
-    const { ref, inView } = useInView()
+    const { ref, inView } = useInView();
 
     /** react-intersection-observer 사용해 ref를 지정한 요소가 viewport에 있을 때 fetchNextPage 함수 실행 */
     useEffect(() => {
@@ -20,10 +20,9 @@ export default function FontBox({lang, type, sort, text, randomNum}:{lang: strin
     /** useInfiniteQuery 사용해 다음에 불러올 데이터 업데이트 */
     const {
         isLoading,
-        isError,
         data,
-        error,
-        isFetchingNextPage,
+        remove,
+        refetch,
         fetchNextPage,
         hasNextPage
     } = useInfiniteQuery('fonts', async ({ pageParam = '' }) => {
@@ -34,10 +33,15 @@ export default function FontBox({lang, type, sort, text, randomNum}:{lang: strin
         getNextPageParam: (lastPage) => lastPage.nextId ?? false,
     });
 
+    useEffect(() => {
+        remove();
+        refetch()
+    }, [lang, type, sort, remove, refetch]);
+
     return (
         <>
             <div className='w-[100%] flex flex-col justify-start items-end'>
-                <div className="main-menu w-[100%] relative flex flex-wrap flex-row justify-between items-stretch mt-[60px] tlg:mt-[112px] tmd:mt-[104px] p-[20px] tlg:p-[16px] tmd:p-[12px] pt-[12px] tlg:pt-[12px]">
+                <div className="main-menu w-[100%] relative flex flex-wrap flex-row justify-between items-stretch mt-[60px] tlg:mt-[56px] p-[20px] tlg:p-[16px] tmd:p-[12px] pt-[10px] tlg:pt-[10px] tmd:pt-[10px]">
                     {/* 로딩 바 */}
                     {isLoading ? <div className="w-[100%] pt-[28px] pb-0 flex flex-row justify-center items-center"><span className="loader"></span></div> : null}
 
