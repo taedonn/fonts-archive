@@ -104,7 +104,7 @@ function DetailPage({fontInfo, randomNum}:{fontInfo: any, randomNum: number}) {
             <Tooltip/>
 
             {/* 헤더 */}
-            <div className='interface w-[100%] h-[60px] px-[20px] tlg:px-[16px] tmd:px-[12px] fixed right-0 top-0 z-10 flex flex-row justify-between items-center backdrop-blur bg-blur-theme border-b border-dark-theme-4'>
+            <div className='interface w-[100%] h-[60px] tlg:h-[auto] px-[20px] tlg:px-[16px] tmd:px-[12px] tlg:py-[12px] tmd:py-[10px] fixed right-0 top-0 z-10 flex flex-row justify-between items-center backdrop-blur bg-blur-theme border-b border-dark-theme-4'>
                 <div className="flex flex-row justify-start items-center">
                     {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
                     <a href="/" className="w-[36px] tlg:w-[32px] h-[36px] tlg:h-[32px] flex flex-row justify-center items-center rounded-[8px] tlg:rounded-[6px] mr-[12px] bg-dark-theme-3/80 hover:bg-dark-theme-4/60 hover:drop-shadow-default">
@@ -133,7 +133,7 @@ function DetailPage({fontInfo, randomNum}:{fontInfo: any, randomNum: number}) {
             </div>
 
             {/* 메인 */}
-            <div className="w-[100%] mt-[60px] p-[20px] tlg:p-[16px] tmd:p-[12px] py-[28px] tlg:py-[24px] tmd:py-[20px]">
+            <div className="w-[100%] mt-[60px] tlg:mt-[57px] tmd:mt-[53px] p-[20px] tlg:p-[16px] tmd:p-[12px] py-[28px] tlg:py-[24px] tmd:py-[20px]">
                 <link href={font.cdn_url} rel="stylesheet" type="text/css" itemProp="url"></link>
                 <div className="w-[100%] flex flex-col justify-start items-start">
                     <div style={{fontFamily:font.font_family}} className="text-[32px] tlg:text-[28px] tmd:text-[24px] text-dark-theme-8 font-medium leading-tight mb-[12px] tlg:mb-[8px]">{font.name}</div>

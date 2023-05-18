@@ -37,7 +37,7 @@ export default function FontBox({lang, type, sort, text, randomNum}:{lang: strin
     return (
         <>
             <div className='w-[100%] flex flex-col justify-start items-end'>
-                <div className="main-menu w-[100%] relative flex flex-wrap flex-row justify-between items-stretch mt-[60px] tlg:mt-[116px] tmd:mt-[108px] p-[20px] tlg:p-[16px] tmd:p-[12px] pt-[12px] tlg:pt-[12px]">
+                <div className="main-menu w-[100%] relative flex flex-wrap flex-row justify-between items-stretch mt-[60px] tlg:mt-[112px] tmd:mt-[104px] p-[20px] tlg:p-[16px] tmd:p-[12px] pt-[12px] tlg:pt-[12px]">
                     {/* 로딩 바 */}
                     {isLoading ? <div className="w-[100%] pt-[28px] pb-0 flex flex-row justify-center items-center"><span className="loader"></span></div> : null}
 
