@@ -4,6 +4,7 @@ import { isMacOs } from "react-device-detect";
 import { NextSeo } from 'next-seo';
 import { FetchFont } from "../api/DetailPage/fetchFont";
 import { FetchFontInfo } from "../api/DetailPage/fetchFontInfo";
+import axios from "axios";
 
 // 컴포넌트
 import Tooltip from "@/components/tooltip";
@@ -24,15 +25,30 @@ function DetailPage({fontInfo, randomNum}:{fontInfo: any, randomNum: number}) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => { viewUpdate(); }, [font]);
 
+    /** 조회수 불러오기 */
+    // const defaultView = null;
+    // const [view, setView] = useState<any>(defaultView);
+    // const viewFetch = async () => {
+    //     const view = await axios.get("/api/fetchview", { params: { code: font.code } }).then(res => {return res.data.code}).catch(error => console.log(error))
+    //     setView(view);
+    // }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // useEffect(() => { console.log(view); viewFetch(); }, [defaultView, view]);
+
     /** 조회수 단위 변경 : 1000 => 1K */
     const ranges = [
         { divider: 1e6 , suffix: 'M' },
         { divider: 1e3 , suffix: 'k' }
     ];
-    const formatNumber = (n: number) => {
-        for (let i = 0; i < ranges.length; i++) {
-            if (n >= ranges[i].divider) {
-                return (n / ranges[i].divider).toString() + ranges[i].suffix;
+    const formatNumber = (n: number | null) => {
+        if (n === null) {
+            return ""
+        }
+        else {
+            for (let i = 0; i < ranges.length; i++) {
+                if (n >= ranges[i].divider) {
+                    return (n / ranges[i].divider).toString() + ranges[i].suffix;
+                }
             }
         }
         return n.toString();
@@ -161,7 +177,7 @@ function DetailPage({fontInfo, randomNum}:{fontInfo: any, randomNum: number}) {
                     <div className="flex flex-row justify-start items-center">
                         <div style={{fontFamily:font.font_family}} className="text-[16px] tlg:text-[14px] tmd:text-[12px] leading-tight text-dark-theme-8 ml-[2px] mr-[16px] tlg:mr-[14px] tmd:mr-[12px]">제작<span className="text-dark-theme-6 ml-[8px] tlg:ml-[6px]">{font.source}</span></div>
                         <div style={{fontFamily:font.font_family}} className="text-[16px] tlg:text-[14px] tmd:text-[12px] leading-tight text-dark-theme-8  mr-[16px] tlg:mr-[14px] tmd:mr-[12px]">형태<span className="text-dark-theme-6 ml-[8px] tlg:ml-[6px]">{font.font_type === "Sans Serif" ? "고딕" : (font.font_type === "Serif" ? "명조" : (font.font_type === "Hand Writing" ? "손글씨" : "장식체"))}</span></div>
-                        <div style={{fontFamily:font.font_family}} className="text-[16px] tlg:text-[14px] tmd:text-[12px] leading-tight text-dark-theme-8 ">조회수<span className="text-dark-theme-6 ml-[8px] tlg:ml-[6px]">{formatNumber(font.view)}</span></div>
+                        <div style={{fontFamily:font.font_family}} className="text-[16px] tlg:text-[14px] tmd:text-[12px] leading-tight text-dark-theme-8 ">조회수<span className="text-dark-theme-6 ml-[8px] tlg:ml-[6px]">{font.view}</span></div>
                     </div>
                     <div className="w-[100%] h-px my-[20px] tlg:my-[16px] bg-dark-theme-4"></div>
                 </div>
