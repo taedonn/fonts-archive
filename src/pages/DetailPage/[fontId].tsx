@@ -17,6 +17,13 @@ function DetailPage({fontInfo, randomNum}:{fontInfo: any, randomNum: number}) {
     /** 폰트 데이터 props */
     const font = fontInfo[0];
 
+    /** 조회수 업데이트 */
+    const viewUpdate = async () => {
+        await fetch("/api/updateview", { method: "POST", body: JSON.stringify(font) });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    useEffect(() => { viewUpdate(); }, [font]);
+
     /** 폰트 검색 훅 */
     const defaultSearchDisplay = "hide"
     const [searchDisplay, setSearchDisplay] = useState(defaultSearchDisplay);
@@ -833,25 +840,33 @@ function DetailPage({fontInfo, randomNum}:{fontInfo: any, randomNum: number}) {
 }
 
 export async function getStaticPaths() {
-    const fonts = await FetchFont();
+    try {
+        const fonts = await FetchFont();
 
-    const paths = fonts.map((font: any) => ({
-        params: { fontId: font.code.toString() },
-    }))
+        const paths = fonts.map((font: any) => ({
+            params: { fontId: font.code.toString() },
+        }));
 
-    return { paths, fallback: false }
+        return { paths, fallback: false }
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 export async function getStaticProps(ctx: any) {
-    const fonts = await FetchFontInfo(ctx.params.fontId);
+    try {
+        const fonts = await FetchFontInfo(ctx.params.fontId);
 
-    const randomNum: number = Math.floor(Math.random() * 19);
+        const randomNum: number = Math.floor(Math.random() * 19);
 
-    return {
-        props: {
-            fontInfo: fonts,
-            randomNum: randomNum,
+        return {
+            props: {
+                fontInfo: fonts,
+                randomNum: randomNum,
+            }
         }
+    } catch (error) {
+        console.log(error);
     }
 }
 
