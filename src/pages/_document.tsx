@@ -11,7 +11,7 @@ class MyDocument extends Document {
                     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fonts-archive/SpoqaHanSansNeo/SpoqaHanSansNeo.css" type="text/css"/>
                     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" type="text/css"></link>
                 </Head>
-                <body style={{fontFamily:"Spoqa Han Sans Neo, Noto Sans KR"}} className="bg-dark-theme-2 expand">
+                <body style={{fontFamily: "Spoqa Han Sans Neo, Noto Sans KR"}} className="bg-dark-theme-2">
                     <Main/>
                     <NextScript/>
                 </body>

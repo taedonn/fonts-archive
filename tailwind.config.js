@@ -26,7 +26,7 @@ module.exports = {
                 "dark-theme-9": "#DEE1E6",
                 "dark-theme-9": "#E9EAEE",
                 "dark-theme-10": "#FFFFFF",
-                "blue-theme-bg": "#1A1E25",
+                "blue-theme-bg": "#17181B",
                 "blue-theme-border": "#8AB4F8",
                 "blur-theme": "#202124CC",
             },

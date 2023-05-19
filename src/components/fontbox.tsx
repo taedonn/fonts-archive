@@ -26,7 +26,7 @@ export default function FontBox({lang, type, sort, text, randomNum}:{lang: strin
         fetchNextPage,
         hasNextPage
     } = useInfiniteQuery('fonts', async ({ pageParam = '' }) => {
-        await new Promise((res) => setTimeout(res, 200));
+        await new Promise((res) => setTimeout(res, 100));
         const res = await axios.get('/api/fontlist', {params: { id: pageParam, lang: lang, type: type, sort: sort }});
         return res.data;
     },{
