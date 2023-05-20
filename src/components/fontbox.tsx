@@ -59,7 +59,7 @@ export default function FontBox({lang, type, sort, text, randomNum}:{lang: strin
                                     font_type: string
                                     cdn_url: string
                                 }) => (
-                                    <a href={`/DetailPage/${font.code}`} key={font.code} className="w-[calc(25%-8px)] txl:w-[calc(33.3%-6px)] tlg:w-[calc(50%-4px)] tmd:w-[100%] h-[360px] txl:h-[300px] tlg:h-[240px] tmd:h-[220px] block p-[20px] tlg:p-[16px] border border-dark-theme-4 rounded-[8px] mt-[12px] txl:mt-[10px] cursor-pointer hover:bg-dark-theme-3/40">
+                                    <a href={`/DetailPage/${font.code}`} key={font.code} className="w-[calc(25%-8px)] txl:w-[calc(33.3%-6px)] tlg:w-[calc(50%-4px)] tmd:w-[100%] h-[360px] txl:h-[300px] tlg:h-[240px] tmd:h-[220px] block p-[20px] tlg:p-[16px] border border-dark-theme-4 rounded-[8px] mt-[12px] txl:mt-[10px] cursor-pointer betterhover:hover:bg-dark-theme-3/40">
                                         <link href={font.cdn_url} rel="stylesheet" type="text/css" itemProp="url"></link>
                                         <div style={{fontFamily:"'"+font.font_family+"'"}} className="text-[18px] tlg:text-[16px] text-normal leading-tight mb-[8px] tlg:mb-[6px] text-dark-theme-8">{font.name}</div>
                                         <div className="flex flex-row justify-start items-center">

@@ -12,6 +12,7 @@ module.exports = {
                 "tlg": { "max": "1024px" },
                 "tmd": { "max": "768px" },
                 "tsm": { "max": "640px" },
+                "betterhover": { "raw": "(hover: hover)" }
             },
             colors: {
                 "transparent": "transparent",
