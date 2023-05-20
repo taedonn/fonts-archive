@@ -122,7 +122,7 @@ export default function FontSearch({display, closeBtn, showBtn}:{display: string
                         <div className="w-[100%] h-[56px] tmd:h-[44px] relative flex flex-row justify-center items-center border-b border-dark-theme-3">
                         <svg className="w-[16px] tmd:w-[12px] absolute left-[24px] tmd:left-[16px] top-[50%] translate-y-[-50%] fill-dark-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/></svg>
                             <input onChange={handleSearch} type="text" placeholder="폰트 검색하기..." autoFocus className="w-[calc(100%-108px)] tmd:w-[calc(100%-84px)] h-[100%] text-[14px] tmd:text-[12px] leading-none text-dark-theme-8 bg-transparent"/>
-                            <button onClick={handleCloseBtn} className="w-[36px] h-[24px] rounded-[6px] absolute right-[16px] tmd:right-[12px] top-[50%] translate-y-[-50%] text-[10px] leading-none text-dark-theme-8 bg-dark-theme-3/80 hover:bg-dark-theme-4/60 hover:drop-shadow-default">ESC</button>
+                            <button onClick={handleCloseBtn} className="w-[36px] h-[24px] rounded-[6px] absolute right-[16px] tmd:right-[12px] top-[50%] translate-y-[-50%] text-[10px] leading-none text-dark-theme-8 bg-dark-theme-3/80 hover:bg-dark-theme-4/60 tlg:hover:bg-dark-theme-3/80 hover:drop-shadow-default tlg:hover:drop-shadow-none">ESC</button>
                         </div>
                         <div ref={parentRef} className="search-list w-[100%] min-h-[150px] tmd:min-h-[120px] max-h-[500px] relative overflow-auto">
                             {/* 로딩 바 */}

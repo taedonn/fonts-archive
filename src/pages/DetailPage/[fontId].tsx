@@ -144,12 +144,12 @@ function DetailPage({fontInfo, randomNum}:{fontInfo: any, randomNum: number}) {
             <div className='interface w-[100%] h-[60px] tlg:h-[56px] px-[20px] tlg:px-[16px] tmd:px-[12px] fixed right-0 top-0 z-10 flex flex-row justify-between items-center backdrop-blur bg-blur-theme border-b border-dark-theme-4'>
                 <div className="flex flex-row justify-start items-center">
                     {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-                    <a href="/" className="w-[36px] tlg:w-[32px] h-[36px] tlg:h-[32px] flex flex-row justify-center items-center rounded-[8px] tlg:rounded-[6px] mr-[12px] bg-dark-theme-3/80 hover:bg-dark-theme-4/60 hover:drop-shadow-default">
+                    <a href="/" className="w-[36px] tlg:w-[32px] h-[36px] tlg:h-[32px] flex flex-row justify-center items-center rounded-[8px] tlg:rounded-[6px] mr-[12px] bg-dark-theme-3/80 hover:bg-dark-theme-4/60 tlg:hover:bg-dark-theme-3/80 hover:drop-shadow-default tlg:hover:drop-shadow-none">
                         <svg className="w-[18px] tlg:w-[16px] pb-px fill-dark-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="m2.244 13.081.943-2.803H6.66l.944 2.803H8.86L5.54 3.75H4.322L1 13.081h1.244zm2.7-7.923L6.34 9.314H3.51l1.4-4.156h.034zm9.146 7.027h.035v.896h1.128V8.125c0-1.51-1.114-2.345-2.646-2.345-1.736 0-2.59.916-2.666 2.174h1.108c.068-.718.595-1.19 1.517-1.19.971 0 1.518.52 1.518 1.464v.731H12.19c-1.647.007-2.522.8-2.522 2.058 0 1.319.957 2.18 2.345 2.18 1.06 0 1.716-.43 2.078-1.011zm-1.763.035c-.752 0-1.456-.397-1.456-1.244 0-.65.424-1.115 1.408-1.115h1.805v.834c0 .896-.752 1.525-1.757 1.525z"/></svg>
                     </a>
                 </div>
                 <div className="w-content flex flex-row justify-start items-center">
-                    <button onClick={handleFontSearch} className="w-[220px] tlg:w-[200px] tmd:w-[32px] h-[32px] relative text-[14px] tlg:text-[12px] text-normal text-dark-theme-8 leading-none bg-dark-theme-3/80 flex flex-start justify-start items-center rounded-[8px] tmd:rounded-[6px] pl-[38px] tlg:pl-[30px] tmd:pl-0 pb-px hover:bg-dark-theme-4/60 hover:drop-shadow-default">
+                    <button onClick={handleFontSearch} className="w-[220px] tlg:w-[200px] tmd:w-[32px] h-[32px] relative text-[14px] tlg:text-[12px] text-normal text-dark-theme-8 leading-none bg-dark-theme-3/80 flex flex-start justify-start items-center rounded-[8px] tmd:rounded-[6px] pl-[38px] tlg:pl-[30px] tmd:pl-0 pb-px hover:bg-dark-theme-4/60 tlg:hover:bg-dark-theme-3/80 hover:drop-shadow-default tlg:hover:drop-shadow-none">
                         <span className="tmd:hidden">폰트 검색하기...</span>
                         <svg className="w-[12px] tlg:w-[10px] absolute left-[16px] tlg:left-[11px] top-[50%] translate-y-[-50%] fill-dark-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/></svg>
                         <div className="absolute right-[16px] flex flex-row justify-center items-center">
@@ -182,11 +182,11 @@ function DetailPage({fontInfo, randomNum}:{fontInfo: any, randomNum: number}) {
                     <div className="w-[100%] h-px my-[20px] tlg:my-[16px] bg-dark-theme-4"></div>
                 </div>
                 <div className="flex flex-row justify-start items-center mb-[60px] tlg:mb-[48px] tmd:mb-[40px]">
-                    <a href={font.source_link} target="_blank" className="h-[40px] tlg:h-[36px] tmd:h-[32px] flex flex-row justify-center items-center text-[16px] tlg:text-[14px] tmd:text-[12px] text-blue-theme-border font-medium border-2 tmd:border border-blue-theme-border rounded-full px-[20px] mr-[12px] tmd:mr-[8px] cursor-pointer hover:bg-blue-theme-border/10">다운로드 페이지로 이동</a>
+                    <a href={font.source_link} target="_blank" className="h-[40px] tlg:h-[36px] tmd:h-[32px] flex flex-row justify-center items-center text-[16px] tlg:text-[14px] tmd:text-[12px] text-blue-theme-border font-medium border-2 tmd:border border-blue-theme-border rounded-full px-[20px] mr-[12px] tmd:mr-[8px] cursor-pointer hover:bg-blue-theme-border/10 tlg:hover:bg-transparent">다운로드 페이지로 이동</a>
                     {
                         font.license_ofl[0] === "N"
                         ? <></>
-                        : <a href={font.github_link} target="_blank" className="w-[180px] tlg:w-[140px] tmd:w-[128px] h-[40px] tlg:h-[36px] tmd:h-[32px] flex flex-row justify-center items-center text-[16px] tlg:text-[14px] tmd:text-[12px] text-dark-theme-8 font-medium border-2 tmd:border border-dark-theme-8 rounded-full px-[20px] cursor-pointer hover:bg-dark-theme-8/10">폰트 다운로드</a>
+                        : <a href={font.github_link} target="_blank" className="w-[180px] tlg:w-[140px] tmd:w-[128px] h-[40px] tlg:h-[36px] tmd:h-[32px] flex flex-row justify-center items-center text-[16px] tlg:text-[14px] tmd:text-[12px] text-dark-theme-8 font-medium border-2 tmd:border border-dark-theme-8 rounded-full px-[20px] cursor-pointer hover:bg-dark-theme-8/10 tlg:hover:bg-transparent">폰트 다운로드</a>
                     }
                 </div>
                 {
@@ -247,7 +247,7 @@ function DetailPage({fontInfo, randomNum}:{fontInfo: any, randomNum: number}) {
                 }
                 <div className="font-weight-wrap flex flex-col justify-start items-start mb-[60px] tlg:mb-[48px] tmd:mb-[40px]">
                     <h2 className="text-[24px] tlg:text-[20px] tmd:text-[18px] text-dark-theme-8 font-medium mb-[20px] tlg:mb-[16px] tmd:mb-[14px]">폰트 두께</h2>
-                    <input onChange={handleFontWeightChange} type="text" placeholder="Type something..." className="w-[100%] h-[50px] tmd:h-[auto] text-[14px] text-dark-theme-8 leading-none px-[24px] tlg:px-[20px] tmd:py-[12px] pb-px mb-[32px] tlg:mb-[20px] border border-dark-theme-4 rounded-full bg-transparent"/>
+                    <input onChange={handleFontWeightChange} type="text" placeholder="원하는 문구를 적어보세요..." className="w-[100%] h-[50px] tmd:h-[auto] text-[14px] text-dark-theme-8 leading-none px-[24px] tlg:px-[20px] tmd:py-[12px] pb-px mb-[32px] tlg:mb-[20px] border border-dark-theme-4 rounded-full bg-transparent hover:bg-dark-theme-3/40 tlg:hover:bg-transparent focus:bg-dark-theme-3/40 tlg:focus:bg-transparent"/>
                     {
                         font.font_weight[0] === "Y"
                         ? <>

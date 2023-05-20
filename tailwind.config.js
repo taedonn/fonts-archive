@@ -12,7 +12,6 @@ module.exports = {
                 "tlg": { "max": "1024px" },
                 "tmd": { "max": "768px" },
                 "tsm": { "max": "640px" },
-                "betterhover": { "raw": "(hover: hover)" }
             },
             colors: {
                 "transparent": "transparent",
@@ -49,7 +48,8 @@ module.exports = {
                 }
             },
             dropShadow: {
-                "default": "1px 2px 4px #101010"
+                "default": "1px 2px 4px #101010",
+                "none": "0 0 0 transparent"
             }
         },
     },
