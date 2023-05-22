@@ -50,7 +50,7 @@ export default function FontBox({lang, type, sort, text, randomNum}:{lang: strin
                         return (
                             <React.Fragment key={page.nextId ?? 'lastPage'}>
                                 {page.fonts.map((font: {
-                                    code: number;
+                                    code: number
                                     name: string
                                     lang: string
                                     date: string
