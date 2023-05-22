@@ -144,7 +144,7 @@ function DetailPage({fontInfo, randomNum}:{fontInfo: any, randomNum: number}) {
             <div className='interface w-[100%] h-[60px] tlg:h-[56px] px-[20px] tlg:px-[16px] tmd:px-[12px] fixed right-0 top-0 z-10 flex flex-row justify-between items-center backdrop-blur bg-blur-theme border-b border-dark-theme-4'>
                 <div className="flex flex-row justify-start items-center">
                     {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-                    <a href="/" className="w-[36px] tlg:w-[32px] h-[36px] tlg:h-[32px] flex flex-row justify-center items-center rounded-[8px] tlg:rounded-[6px] mr-[12px] bg-dark-theme-3/80 hover:bg-dark-theme-4/60 tlg:hover:bg-dark-theme-3/80 hover:drop-shadow-default tlg:hover:drop-shadow-none">
+                    <a href="/" aria-label="logo" className="w-[36px] tlg:w-[32px] h-[36px] tlg:h-[32px] flex flex-row justify-center items-center rounded-[8px] tlg:rounded-[6px] mr-[12px] bg-dark-theme-3/80 hover:bg-dark-theme-4/60 tlg:hover:bg-dark-theme-3/80 hover:drop-shadow-default tlg:hover:drop-shadow-none">
                         <svg className="w-[18px] tlg:w-[16px] pb-px fill-dark-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="m2.244 13.081.943-2.803H6.66l.944 2.803H8.86L5.54 3.75H4.322L1 13.081h1.244zm2.7-7.923L6.34 9.314H3.51l1.4-4.156h.034zm9.146 7.027h.035v.896h1.128V8.125c0-1.51-1.114-2.345-2.646-2.345-1.736 0-2.59.916-2.666 2.174h1.108c.068-.718.595-1.19 1.517-1.19.971 0 1.518.52 1.518 1.464v.731H12.19c-1.647.007-2.522.8-2.522 2.058 0 1.319.957 2.18 2.345 2.18 1.06 0 1.716-.43 2.078-1.011zm-1.763.035c-.752 0-1.456-.397-1.456-1.244 0-.65.424-1.115 1.408-1.115h1.805v.834c0 .896-.752 1.525-1.757 1.525z"/></svg>
                     </a>
                 </div>
@@ -473,11 +473,11 @@ function DetailPage({fontInfo, randomNum}:{fontInfo: any, randomNum: number}) {
                                         font.license_print[0] === "Y"
                                         ? <svg className="w-[16px] tlg:w-[14px] tmd:w-[12px] fill-dark-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
                                         : ( font.license_print[0] === "N"
-                                            ? <div style={{color:"#C30010"}}>금지</div>
+                                            ? <div style={{color:"#FF6190"}}>금지</div>
                                             : ( font.license_print[0] === "R"
                                                 ? <>권장</>
                                                 : ( font.license_print[0] === "Q"
-                                                    ? <div style={{color:"#C30010"}}>문의</div>
+                                                    ? <div style={{color:"#FF6190"}}>문의</div>
                                                     : <></>
                                                 )
                                             )
@@ -492,11 +492,11 @@ function DetailPage({fontInfo, randomNum}:{fontInfo: any, randomNum: number}) {
                                         font.license_print[1] === "Y"
                                         ? <svg className="w-[16px] tlg:w-[14px] tmd:w-[12px] fill-dark-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
                                         : ( font.license_print[1] === "N"
-                                            ? <div style={{color:"#C30010"}}>금지</div>
+                                            ? <div style={{color:"#FF6190"}}>금지</div>
                                             : ( font.license_print[1] === "R"
                                                 ? <>권장</>
                                                 : ( font.license_print[1] === "Q"
-                                                    ? <div style={{color:"#C30010"}}>문의</div>
+                                                    ? <div style={{color:"#FF6190"}}>문의</div>
                                                     : <></>
                                                 )
                                             )
@@ -511,11 +511,11 @@ function DetailPage({fontInfo, randomNum}:{fontInfo: any, randomNum: number}) {
                                         font.license_print[2] === "Y"
                                         ? <svg className="w-[16px] tlg:w-[14px] tmd:w-[12px] fill-dark-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
                                         : ( font.license_print[2] === "N"
-                                            ? <div style={{color:"#C30010"}}>금지</div>
+                                            ? <div style={{color:"#FF6190"}}>금지</div>
                                             : ( font.license_print[2] === "R"
                                                 ? <>권장</>
                                                 : ( font.license_print[2] === "Q"
-                                                    ? <div style={{color:"#C30010"}}>문의</div>
+                                                    ? <div style={{color:"#FF6190"}}>문의</div>
                                                     : <></>
                                                 )
                                             )
@@ -530,11 +530,11 @@ function DetailPage({fontInfo, randomNum}:{fontInfo: any, randomNum: number}) {
                                         font.license_print[3] === "Y"
                                         ? <svg className="w-[16px] tlg:w-[14px] tmd:w-[12px] fill-dark-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
                                         : ( font.license_print[3] === "N"
-                                            ? <div style={{color:"#C30010"}}>금지</div>
+                                            ? <div style={{color:"#FF6190"}}>금지</div>
                                             : ( font.license_print[3] === "R"
                                                 ? <>권장</>
                                                 : ( font.license_print[3] === "Q"
-                                                    ? <div style={{color:"#C30010"}}>문의</div>
+                                                    ? <div style={{color:"#FF6190"}}>문의</div>
                                                     : <></>
                                                 )
                                             )
@@ -549,11 +549,11 @@ function DetailPage({fontInfo, randomNum}:{fontInfo: any, randomNum: number}) {
                                         font.license_print[4] === "Y"
                                         ? <svg className="w-[16px] tlg:w-[14px] tmd:w-[12px] fill-dark-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
                                         : ( font.license_print[4] === "N"
-                                            ? <div style={{color:"#C30010"}}>금지</div>
+                                            ? <div style={{color:"#FF6190"}}>금지</div>
                                             : ( font.license_print[4] === "R"
                                                 ? <>권장</>
                                                 : ( font.license_print[4] === "Q"
-                                                    ? <div style={{color:"#C30010"}}>문의</div>
+                                                    ? <div style={{color:"#FF6190"}}>문의</div>
                                                     : <></>
                                                 )
                                             )
@@ -569,11 +569,11 @@ function DetailPage({fontInfo, randomNum}:{fontInfo: any, randomNum: number}) {
                                         font.license_web[0] === "Y"
                                         ? <svg className="w-[16px] tlg:w-[14px] tmd:w-[12px] fill-dark-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
                                         : ( font.license_web[0] === "N"
-                                            ? <div style={{color:"#C30010"}}>금지</div>
+                                            ? <div style={{color:"#FF6190"}}>금지</div>
                                             : ( font.license_web[0] === "R"
                                                 ? <>권장</>
                                                 : ( font.license_web[0] === "Q"
-                                                    ? <div style={{color:"#C30010"}}>문의</div>
+                                                    ? <div style={{color:"#FF6190"}}>문의</div>
                                                     : <></>
                                                 )
                                             )
@@ -588,11 +588,11 @@ function DetailPage({fontInfo, randomNum}:{fontInfo: any, randomNum: number}) {
                                         font.license_web[1] === "Y"
                                         ? <svg className="w-[16px] tlg:w-[14px] tmd:w-[12px] fill-dark-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
                                         : ( font.license_web[1] === "N"
-                                            ? <div style={{color:"#C30010"}}>금지</div>
+                                            ? <div style={{color:"#FF6190"}}>금지</div>
                                             : ( font.license_web[1] === "R"
                                                 ? <>권장</>
                                                 : ( font.license_web[1] === "Q"
-                                                    ? <div style={{color:"#C30010"}}>문의</div>
+                                                    ? <div style={{color:"#FF6190"}}>문의</div>
                                                     : <></>
                                                 )
                                             )
@@ -608,11 +608,11 @@ function DetailPage({fontInfo, randomNum}:{fontInfo: any, randomNum: number}) {
                                         font.license_video[0] === "Y"
                                         ? <svg className="w-[16px] tlg:w-[14px] tmd:w-[12px] fill-dark-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
                                         : ( font.license_video[0] === "N"
-                                            ? <div style={{color:"#C30010"}}>금지</div>
+                                            ? <div style={{color:"#FF6190"}}>금지</div>
                                             : ( font.license_video[0] === "R"
                                                 ? <>권장</>
                                                 : ( font.license_video[0] === "Q"
-                                                    ? <div style={{color:"#C30010"}}>문의</div>
+                                                    ? <div style={{color:"#FF6190"}}>문의</div>
                                                     : <></>
                                                 )
                                             )
@@ -627,11 +627,11 @@ function DetailPage({fontInfo, randomNum}:{fontInfo: any, randomNum: number}) {
                                         font.license_video[1] === "Y"
                                         ? <svg className="w-[16px] tlg:w-[14px] tmd:w-[12px] fill-dark-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
                                         : ( font.license_video[1] === "N"
-                                            ? <div style={{color:"#C30010"}}>금지</div>
+                                            ? <div style={{color:"#FF6190"}}>금지</div>
                                             : ( font.license_video[1] === "R"
                                                 ? <>권장</>
                                                 : ( font.license_video[1] === "Q"
-                                                    ? <div style={{color:"#C30010"}}>문의</div>
+                                                    ? <div style={{color:"#FF6190"}}>문의</div>
                                                     : <></>
                                                 )
                                             )
@@ -646,11 +646,11 @@ function DetailPage({fontInfo, randomNum}:{fontInfo: any, randomNum: number}) {
                                         font.license_video[2] === "Y"
                                         ? <svg className="w-[16px] tlg:w-[14px] tmd:w-[12px] fill-dark-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
                                         : ( font.license_video[2] === "N"
-                                            ? <div style={{color:"#C30010"}}>금지</div>
+                                            ? <div style={{color:"#FF6190"}}>금지</div>
                                             : ( font.license_video[2] === "R"
                                                 ? <>권장</>
                                                 : ( font.license_video[2] === "Q"
-                                                    ? <div style={{color:"#C30010"}}>문의</div>
+                                                    ? <div style={{color:"#FF6190"}}>문의</div>
                                                     : <></>
                                                 )
                                             )
@@ -665,11 +665,11 @@ function DetailPage({fontInfo, randomNum}:{fontInfo: any, randomNum: number}) {
                                         font.license_video[3] === "Y"
                                         ? <svg className="w-[16px] tlg:w-[14px] tmd:w-[12px] fill-dark-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
                                         : ( font.license_video[3] === "N"
-                                            ? <div style={{color:"#C30010"}}>금지</div>
+                                            ? <div style={{color:"#FF6190"}}>금지</div>
                                             : ( font.license_video[3] === "R"
                                                 ? <>권장</>
                                                 : ( font.license_video[3] === "Q"
-                                                    ? <div style={{color:"#C30010"}}>문의</div>
+                                                    ? <div style={{color:"#FF6190"}}>문의</div>
                                                     : <></>
                                                 )
                                             )
@@ -684,11 +684,11 @@ function DetailPage({fontInfo, randomNum}:{fontInfo: any, randomNum: number}) {
                                         font.license_video[4] === "Y"
                                         ? <svg className="w-[16px] tlg:w-[14px] tmd:w-[12px] fill-dark-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
                                         : ( font.license_video[4] === "N"
-                                            ? <div style={{color:"#C30010"}}>금지</div>
+                                            ? <div style={{color:"#FF6190"}}>금지</div>
                                             : ( font.license_video[4] === "R"
                                                 ? <>권장</>
                                                 : ( font.license_video[4] === "Q"
-                                                    ? <div style={{color:"#C30010"}}>문의</div>
+                                                    ? <div style={{color:"#FF6190"}}>문의</div>
                                                     : <></>
                                                 )
                                             )
@@ -704,11 +704,11 @@ function DetailPage({fontInfo, randomNum}:{fontInfo: any, randomNum: number}) {
                                         font.license_package[0] === "Y"
                                         ? <svg className="w-[16px] tlg:w-[14px] tmd:w-[12px] fill-dark-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
                                         : ( font.license_package[0] === "N"
-                                            ? <div style={{color:"#C30010"}}>금지</div>
+                                            ? <div style={{color:"#FF6190"}}>금지</div>
                                             : ( font.license_package[0] === "R"
                                                 ? <>권장</>
                                                 : ( font.license_package[0] === "Q"
-                                                    ? <div style={{color:"#C30010"}}>문의</div>
+                                                    ? <div style={{color:"#FF6190"}}>문의</div>
                                                     : <></>
                                                 )
                                             )
@@ -724,11 +724,11 @@ function DetailPage({fontInfo, randomNum}:{fontInfo: any, randomNum: number}) {
                                         font.license_embed[0] === "Y"
                                         ? <svg className="w-[16px] tlg:w-[14px] tmd:w-[12px] fill-dark-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
                                         : ( font.license_embed[0] === "N"
-                                            ? <div style={{color:"#C30010"}}>금지</div>
+                                            ? <div style={{color:"#FF6190"}}>금지</div>
                                             : ( font.license_embed[0] === "R"
                                                 ? <>권장</>
                                                 : ( font.license_embed[0] === "Q"
-                                                    ? <div style={{color:"#C30010"}}>문의</div>
+                                                    ? <div style={{color:"#FF6190"}}>문의</div>
                                                     : <></>
                                                 )
                                             )
@@ -744,11 +744,11 @@ function DetailPage({fontInfo, randomNum}:{fontInfo: any, randomNum: number}) {
                                         font.license_bici[0] === "Y"
                                         ? <svg className="w-[16px] tlg:w-[14px] tmd:w-[12px] fill-dark-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
                                         : ( font.license_bici[0] === "N"
-                                            ? <div style={{color:"#C30010"}}>금지</div>
+                                            ? <div style={{color:"#FF6190"}}>금지</div>
                                             : ( font.license_bici[0] === "R"
                                                 ? <>권장</>
                                                 : ( font.license_bici[0] === "Q"
-                                                    ? <div style={{color:"#C30010"}}>문의</div>
+                                                    ? <div style={{color:"#FF6190"}}>문의</div>
                                                     : <></>
                                                 )
                                             )
@@ -764,11 +764,11 @@ function DetailPage({fontInfo, randomNum}:{fontInfo: any, randomNum: number}) {
                                         font.license_ofl[0] === "Y"
                                         ? <svg className="w-[16px] tlg:w-[14px] tmd:w-[12px] fill-dark-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
                                         : ( font.license_ofl[0] === "N"
-                                            ? <div style={{color:"#C30010"}}>금지</div>
+                                            ? <div style={{color:"#FF6190"}}>금지</div>
                                             : ( font.license_ofl[0] === "R"
                                                 ? <>권장</>
                                                 : ( font.license_ofl[0] === "Q"
-                                                    ? <div style={{color:"#C30010"}}>문의</div>
+                                                    ? <div style={{color:"#FF6190"}}>문의</div>
                                                     : <></>
                                                 )
                                             )
@@ -783,11 +783,11 @@ function DetailPage({fontInfo, randomNum}:{fontInfo: any, randomNum: number}) {
                                         font.license_ofl[1] === "Y"
                                         ? <svg className="w-[16px] tlg:w-[14px] tmd:w-[12px] fill-dark-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
                                         : ( font.license_ofl[1] === "N"
-                                            ? <div style={{color:"#C30010"}}>금지</div>
+                                            ? <div style={{color:"#FF6190"}}>금지</div>
                                             : ( font.license_ofl[1] === "R"
                                                 ? <>권장</>
                                                 : ( font.license_ofl[1] === "Q"
-                                                    ? <div style={{color:"#C30010"}}>문의</div>
+                                                    ? <div style={{color:"#FF6190"}}>문의</div>
                                                     : <></>
                                                 )
                                             )
@@ -803,11 +803,11 @@ function DetailPage({fontInfo, randomNum}:{fontInfo: any, randomNum: number}) {
                                         font.license_purpose[0] === "Y"
                                         ? <svg className="w-[16px] tlg:w-[14px] tmd:w-[12px] fill-dark-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
                                         : ( font.license_purpose[0] === "N"
-                                            ? <div style={{color:"#C30010"}}>금지</div>
+                                            ? <div style={{color:"#FF6190"}}>금지</div>
                                             : ( font.license_purpose[0] === "R"
                                                 ? <>권장</>
                                                 : ( font.license_purpose[0] === "Q"
-                                                    ? <div style={{color:"#C30010"}}>문의</div>
+                                                    ? <div style={{color:"#FF6190"}}>문의</div>
                                                     : <></>
                                                 )
                                             )
@@ -822,11 +822,11 @@ function DetailPage({fontInfo, randomNum}:{fontInfo: any, randomNum: number}) {
                                         font.license_purpose[1] === "Y"
                                         ? <svg className="w-[16px] tlg:w-[14px] tmd:w-[12px] fill-dark-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
                                         : ( font.license_purpose[1] === "N"
-                                            ? <div style={{color:"#C30010"}}>금지</div>
+                                            ? <div style={{color:"#FF6190"}}>금지</div>
                                             : ( font.license_purpose[1] === "R"
                                                 ? <>권장</>
                                                 : ( font.license_purpose[1] === "Q"
-                                                    ? <div style={{color:"#C30010"}}>문의</div>
+                                                    ? <div style={{color:"#FF6190"}}>문의</div>
                                                     : <></>
                                                 )
                                             )
@@ -842,11 +842,11 @@ function DetailPage({fontInfo, randomNum}:{fontInfo: any, randomNum: number}) {
                                         font.license_source[0] === "Y"
                                         ? <svg className="w-[16px] tlg:w-[14px] tmd:w-[12px] fill-dark-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
                                         : ( font.license_source[0] === "N"
-                                            ? <div style={{color:"#C30010"}}>금지</div>
+                                            ? <div style={{color:"#FF6190"}}>금지</div>
                                             : ( font.license_source[0] === "R"
                                                 ? <>권장</>
                                                 : ( font.license_source[0] === "Q"
-                                                    ? <div style={{color:"#C30010"}}>문의</div>
+                                                    ? <div style={{color:"#FF6190"}}>문의</div>
                                                     : <></>
                                                 )
                                             )
