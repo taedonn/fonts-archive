@@ -135,7 +135,7 @@ function DetailPage({fontInfo, randomNum}:{fontInfo: any, randomNum: number}) {
     return (
         <>
             {/* Head 부분*/}
-            <NextSeo title={font.name + " · FONTS ARCHIVE"}/>
+            <NextSeo title={font.name + " · 폰트 아카이브"}/>
 
             {/* 고정 메뉴 */}
             <Tooltip/>

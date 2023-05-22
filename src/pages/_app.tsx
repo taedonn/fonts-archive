@@ -16,8 +16,8 @@ export default function App({ Component, pageProps }: AppProps) {
         <>
             <QueryClientProvider client={queryClient}>
                 <NextSeo
-                    title="FONTS ARCHIVE"
-                    description="A website that archives license free Korean fonts"
+                    title="폰트 아카이브"
+                    description="상업용 무료 한글 폰트 아카이브"
                     additionalLinkTags={[
                         {
                             rel:"icon",
