@@ -6,6 +6,7 @@ type fonts = {
     name: string
     lang: string
     date: string
+    view: number
     source: string
     font_family: string
     font_type: string
@@ -33,6 +34,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
                 name: true,
                 lang: true,
                 date: true,
+                view: true,
                 source: true,
                 font_family: true,
                 font_type: true,
