@@ -4,9 +4,9 @@
       <h1 align="center">Fonts Archive</h1>
   </a>
   <p align="center">
-    <img src="https://img.shields.io/badge/Published%20with-Next.js%20%4013.4.1-%23202124"/>
-    <img src="https://img.shields.io/badge/featured%20with-react%20%4018.2.0-%2361DAFB"/>
-    <img src="https://img.shields.io/badge/Built%20on-Node%20%4016.13.2-%233C873A"/>
+    <img src="https://img.shields.io/badge/Made%20with-Next.js%20%4013.4.1-%23202124"/>
+    <img src="https://img.shields.io/badge/Protected%20under-MIT%40License-%233C873A"/>
+    <img src="https://img.shields.io/badge/Protected%20Under-MIT%20License-A31F34"/>
   </p>
 </p>
 
