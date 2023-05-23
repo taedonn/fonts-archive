@@ -1,3 +1,8 @@
+<div style="width: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+<img src="./public/logo.png" style="width: 160px; margin-bottom: 20px;"/>
+<h2>Fonts Archive</h2>
+</div>
+
 # Fonts Archive
 
 라이브 데모 : https://fonts.taedonn.com
