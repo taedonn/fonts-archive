@@ -5,8 +5,8 @@
   </a>
   <p align="center">
     <img src="https://img.shields.io/badge/Made%20with-Next.js%20%4013.4.1-%23202124"/>
-    <img src="https://img.shields.io/badge/Protected%20under-MIT%40License-%233C873A"/>
-    <img src="https://img.shields.io/badge/Protected%20Under-MIT%20License-A31F34"/>
+    <img src="https://img.shields.io/badge/Built%20on-Node%20%4016.13.2-%2337873A"/>
+    <img src="https://img.shields.io/badge/Protected%20under-GPL%20v3.0-blue"/>
   </p>
 </p>
 
