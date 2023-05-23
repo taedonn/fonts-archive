@@ -1,7 +1,16 @@
-<div style="width: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center;">
-<img src="./public/logo.png" style="width: 160px; margin-bottom: 20px;"/>
-<h2>Fonts Archive</h2>
-</div>
+<p align="center">
+  <a href="https://fonts.taedonn.com">
+      <img src="./public/logo.png" height="120">
+      <h1 align="center">Fonts Archive</h1>
+  </a>
+  <p align="center">
+    <img src="https://img.shields.io/badge/Published%20with-Next.js%20%4013.4.1-%23202124"/>
+    <img src="https://img.shields.io/badge/featured%20with-react%20%4018.2.0-%2361DAFB"/>
+    <img src="https://img.shields.io/badge/Built%20on-Node%20%4016.13.2-%233C873A"/>
+  </p>
+</p>
+
+&nbsp;
 
 # Fonts Archive
 
