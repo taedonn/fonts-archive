@@ -1,6 +1,6 @@
 // 훅
 import { useRef, useState, useEffect } from "react";
-import { throttle } from "lodash";
+import { throttle, debounce } from "lodash";
 import { isMacOs } from "react-device-detect";
 
 // 컴포넌트
@@ -163,6 +163,11 @@ const Index = ({params}: any) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isMacOs]);
 
+    /** 폰트 검색 기능 */
+    const [searchword, setSearchword] = useState("");
+    const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => { debouncedSearch(e); }
+    const debouncedSearch = debounce((e) => { setSearchword(e.target.value); }, 500);
+
     return (
         <>
             {/* 고정 메뉴 */}
@@ -317,7 +322,11 @@ const Index = ({params}: any) => {
                         </div>
                         <div className='w-px h-[20px] tlg:h-[16px] rounded-full mx-[10px] tlg:mx-[8px] bg-dark-theme-4'></div>
                     </div>
-                    <button onClick={handleFontSearch} className="w-[220px] tlg:w-[200px] tmd:w-[32px] h-[32px] tlg:h-[30px] relative text-[14px] tlg:text-[12px] text-normal text-dark-theme-8 leading-none bg-dark-theme-3/80 flex flex-start justify-start items-center rounded-[8px] tmd:rounded-[6px] pl-[38px] tlg:pl-[30px] tmd:pl-0 pb-px hover:bg-dark-theme-4/60 tlg:hover:bg-dark-theme-3/80 hover:drop-shadow-default tlg:hover:drop-shadow-none">
+                    <div className="w-content relative tlg:hidden">
+                        <input onChange={handleSearch} type="text" placeholder="폰트, 회사명을 검색해 보세요..." className="w-[320px] txl:w-[200px] text-[14px] text-normal text-dark-theme-8 leading-none border rounded-full border-dark-theme-4 px-[20px] py-[10px] pl-[44px] bg-transparent group-hover:bg-dark-theme-3/40 tlg:group-hover:bg-transparent focus:bg-dark-theme-3/40"/>
+                        <svg className="w-[12px] absolute left-[20px] top-[50%] translate-y-[-50%] fill-dark-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/></svg>
+                    </div>
+                    <button onClick={handleFontSearch} className="w-[220px] tlg:w-[200px] tmd:w-[32px] h-[32px] tlg:h-[30px] relative text-[14px] tlg:text-[12px] text-normal text-dark-theme-8 leading-none bg-dark-theme-3/80 hidden tlg:flex flex-start justify-start items-center rounded-[8px] tmd:rounded-[6px] pl-[38px] tlg:pl-[30px] tmd:pl-0 pb-px hover:bg-dark-theme-4/60 tlg:hover:bg-dark-theme-3/80 hover:drop-shadow-default tlg:hover:drop-shadow-none">
                         <span className="tmd:hidden">폰트 검색하기...</span>
                         <svg className="w-[12px] tlg:w-[10px] absolute left-[16px] tlg:left-[11px] top-[50%] translate-y-[-50%] fill-dark-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/></svg>
                         <div className="w-content h-[100%] absolute right-[16px] flex flex-row justify-center items-center">
@@ -338,7 +347,7 @@ const Index = ({params}: any) => {
             </div>
             
             {/* 메인 */}
-            <FontBox lang={lang} type={type} sort={sort} text={text} randomNum={randomNum}/>
+            <FontBox lang={lang} type={type} sort={sort} searchword={searchword} text={text} randomNum={randomNum}/>
 
             {/* 폰트 검색 */}
             <FontSearch display={searchDisplay} closeBtn={handleFontSearchCloseBtn} showBtn={handleFontSearch}/>

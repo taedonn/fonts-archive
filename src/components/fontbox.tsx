@@ -7,7 +7,7 @@ import axios from 'axios';
 // 컴포넌트
 import DummyText from "./dummytext";
 
-export default function FontBox({lang, type, sort, text, randomNum}:{lang: string, type: string, sort: string, text: string, randomNum: number}) {
+export default function FontBox({lang, type, sort, searchword, text, randomNum}:{lang: string, type: string, sort: string, searchword: string, text: string, randomNum: number}) {
     /** react-intersection-observer 훅 */
     const { ref, inView } = useInView();
 
@@ -27,7 +27,7 @@ export default function FontBox({lang, type, sort, text, randomNum}:{lang: strin
         hasNextPage
     } = useInfiniteQuery('fonts', async ({ pageParam = '' }) => {
         await new Promise((res) => setTimeout(res, 100));
-        const res = await axios.get('/api/fontlist', {params: { id: pageParam, lang: lang, type: type, sort: sort }});
+        const res = await axios.get('/api/fontlist', {params: { id: pageParam, lang: lang, type: type, sort: sort, searchword: searchword }});
         return res.data;
     },{
         getNextPageParam: (lastPage) => lastPage.nextId ?? false,
@@ -35,8 +35,8 @@ export default function FontBox({lang, type, sort, text, randomNum}:{lang: strin
 
     useEffect(() => {
         remove();
-        refetch()
-    }, [lang, type, sort, remove, refetch]);
+        refetch();
+    }, [lang, type, sort, searchword, remove, refetch]);
 
     return (
         <>

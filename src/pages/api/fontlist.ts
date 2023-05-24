@@ -25,6 +25,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
         const lang: string | object = thisQuery.lang === 'kr' ? 'KR' : (thisQuery.lang === 'en' ? 'EN' : {});
         const type: string | object = thisQuery.type === 'sans-serif' ? 'Sans Serif' : (thisQuery.type === 'serif' ? 'Serif' : (thisQuery.type === 'hand-writing' ? 'Hand Writing' : (thisQuery.type === 'display' ? 'Display' : (thisQuery.type === 'pixel' ? 'Pixel' : {}))));
         const sort: object[] = thisQuery.sort === 'view' ? [{ view: 'desc' },{ name: 'asc' }] : (thisQuery.sort === 'date' ? [{ code: 'desc' }] : [{ lang: 'desc' },{ name: 'asc' }]);
+        const searchword: object[] = thisQuery.searchword === undefined || thisQuery.searchword === '' ? [{ name: { not: '' } }] : [{ name: { contains: thisQuery.searchword } },{ source: { contains: thisQuery.searchword } },{ font_family: { contains: thisQuery.searchword } }];
         const cursor = thisQuery.id ?? ''
         const cursorObj: object | undefined = cursor === '' ? undefined : { code: parseInt(cursor as string, 10) }
 
@@ -41,6 +42,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
                 cdn_url: true,
             },
             where: {
+                OR: searchword,
                 lang: lang,
                 font_type: type,
             },
