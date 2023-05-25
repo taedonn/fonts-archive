@@ -35,12 +35,17 @@ module.exports = {
             },
             animation: {
                 "fade-in": "fade-in 0.2s 1 both",
+                "fontbox-fade-in": "fontbox-fade-in 0.4s 1 both",
                 "tooltip-fade-in": "tooltip-fade-in 0.2s 1 both"
             },
             keyframes: {
                 "fade-in": {
                     "0%": { opacity: "0", transform: "translateX(-50%) translateY(12px)" },
                     "100%": { opacity: "1", transform: "translateX(-50%) translateY(0)" }
+                },
+                "fontbox-fade-in": {
+                    "0%": { opacity: "0", transform: "translateY(12px)" },
+                    "100%": { opacity: "1", transform: "translateY(0)" }
                 },
                 "tooltip-fade-in": {
                     "0%": { opacity: "0", transform: "translate(0px) translateY(-50%)" },
