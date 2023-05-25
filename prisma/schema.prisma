@@ -11,6 +11,14 @@ datasource db {
     relationMode = "prisma"
 }
 
+model portfolio {
+    id Int @id @default(autoincrement())
+    name String
+    description String
+    img_link String
+    url String
+}
+
 model fonts {
     code Int @id @default(autoincrement())
     name String
