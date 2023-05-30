@@ -181,3 +181,7 @@ body::-webkit-scrollbar-track {
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
+
+/* 컬러 테마 */
+#color-theme ~ .color-theme-select { display: none; }
+#color-theme:checked ~ .color-theme-select { display: block; }
