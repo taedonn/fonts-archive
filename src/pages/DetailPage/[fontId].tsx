@@ -3,6 +3,7 @@ import { useEffect, useLayoutEffect, useState, useRef } from "react";
 import { isMacOs } from "react-device-detect";
 import Link from "next/link";
 import { NextSeo } from 'next-seo';
+import { throttle } from "lodash";
 import { FetchFont } from "../api/DetailPage/fetchFont";
 import { FetchFontInfo } from "../api/DetailPage/fetchFontInfo";
 import axios from "axios";
@@ -133,6 +134,19 @@ function DetailPage({fontInfo, randomNum}:{fontInfo: any, randomNum: number}) {
         license.innerHTML = font.license;
     }, [font.license]);
 
+    /** lodash/throttle을 이용해 스크롤 제어 */
+    const handleScroll = () => {
+        const inputTheme = document.getElementById("color-theme") as HTMLInputElement;
+        inputTheme.checked = false;
+    }
+    const throttledScroll = throttle(handleScroll,500);
+
+    /** lodash/throttle을 이용해 스크롤 */
+    useEffect(() => {
+        window.addEventListener('scroll', throttledScroll);
+        return () => { window.removeEventListener('scroll', throttledScroll); }
+    });
+
     /** 컬러 테마 ref */
     const refThemeLabel = useRef<HTMLLabelElement>(null);
     const refThemeDiv = useRef<HTMLDivElement>(null);
@@ -159,16 +173,17 @@ function DetailPage({fontInfo, randomNum}:{fontInfo: any, randomNum: number}) {
     }
 
     /** 컬러 테마 state */
-    const defaultTheme = "system";
+    const defaultTheme = "dark";
     const [theme, setTheme] = useState(defaultTheme);
     useLayoutEffect(() => {
-        if (localStorage.getItem("theme") === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark');
-            setTheme("dark");
-        } else {
-            document.documentElement.classList.remove('dark');
-            setTheme("light");
-        }
+        // if (localStorage.getItem("theme") === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        //     document.documentElement.classList.add('dark');
+        //     setTheme("dark");
+        // } else {
+        //     document.documentElement.classList.remove('dark');
+        //     setTheme("light");
+        // }
+        document.documentElement.classList.add('dark');
     }, []);
 
     /** 컬러 테마 변경 */
@@ -242,21 +257,21 @@ function DetailPage({fontInfo, randomNum}:{fontInfo: any, randomNum: number}) {
                             <svg style={theme === "dark" ? {display: "block"} : {display: "none"}} className={`dark-mode w-[20px] ${theme === "dark" ? `fill-theme-blue-1` : `fill-theme-9/80`}`} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278zM4.858 1.311A7.269 7.269 0 0 0 1.025 7.71c0 4.02 3.279 7.276 7.319 7.276a7.316 7.316 0 0 0 5.205-2.162c-.337.042-.68.063-1.029.063-4.61 0-8.343-3.714-8.343-8.29 0-1.167.242-2.278.681-3.286z"/><path d="M10.794 3.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387a1.734 1.734 0 0 0-1.097 1.097l-.387 1.162a.217.217 0 0 1-.412 0l-.387-1.162A1.734 1.734 0 0 0 9.31 6.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387a1.734 1.734 0 0 0 1.097-1.097l.387-1.162zM13.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732l-.774-.258a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L13.863.1z"/></svg>
                         </label>
                         <div ref={refThemeDiv} id="color-theme-select" className="color-theme-select w-[128px] absolute left-[50%] top-[40px] translate-x-[-50%] rounded-[8px] px-[16px] py-[8px] bg-theme-6 dark:bg-theme-blue-2 drop-shadow-default dark:drop-shadow-dark">
-                            <input onChange={handleColorThemeChange} type="radio" name="color-theme-select" id="light-mode" value="light" className="hidden" defaultChecked={theme === "light" ? true : false}/>
+                            {/* <input onChange={handleColorThemeChange} type="radio" name="color-theme-select" id="light-mode" value="light" className="hidden" defaultChecked={theme === "light" ? true : false}/>
                             <label htmlFor="light-mode" className="flex flex-row justify-start items-center py-[8px] cursor-pointer">
                                 <svg className={`light-mode w-[16px] ${theme === "light" ? "fill-theme-yellow" : "fill-theme-9/80 dark:fill-theme-9/80"}`} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"/></svg>
                                 <span className={`text-[14px] ml-[10px] ${theme === "light" ? "text-theme-yellow" : "text-theme-9/80 dark:text-theme-9/80"}`}>라이트 모드</span>
-                            </label>
+                            </label> */}
                             <input onChange={handleColorThemeChange} type="radio" name="color-theme-select" id="dark-mode" value="dark" className="hidden" defaultChecked={theme === "dark" ? true : false}/>
                             <label htmlFor="dark-mode" className="flex flex-row justify-start items-center py-[8px] cursor-pointer">
                                 <svg className={`"dark-mode w-[16px] ${theme === "dark" ? "fill-theme-blue-1" : "fill-theme-9/80 dark:fill-theme-9/80"}`} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278zM4.858 1.311A7.269 7.269 0 0 0 1.025 7.71c0 4.02 3.279 7.276 7.319 7.276a7.316 7.316 0 0 0 5.205-2.162c-.337.042-.68.063-1.029.063-4.61 0-8.343-3.714-8.343-8.29 0-1.167.242-2.278.681-3.286z"/><path d="M10.794 3.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387a1.734 1.734 0 0 0-1.097 1.097l-.387 1.162a.217.217 0 0 1-.412 0l-.387-1.162A1.734 1.734 0 0 0 9.31 6.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387a1.734 1.734 0 0 0 1.097-1.097l.387-1.162zM13.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732l-.774-.258a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L13.863.1z"/></svg>
                                 <span className={`text-[14px] ml-[10px] ${theme === "dark" ? "text-theme-blue-1" : "text-theme-9/80 dark:text-theme-9/80"}`}>다크 모드</span>
                             </label>
-                            <input onChange={handleColorThemeChange} type="radio" name="color-theme-select" id="system-mode" value="system" className="hidden"/>
+                            {/* <input onChange={handleColorThemeChange} type="radio" name="color-theme-select" id="system-mode" value="system" className="hidden"/>
                             <label htmlFor="system-mode" className="flex flex-row justify-start items-center py-[8px] cursor-pointer">
                                 <svg className="system-mode w-[18px] fill-theme-10/80 dark:fill-theme-9/80" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M13.5 3a.5.5 0 0 1 .5.5V11H2V3.5a.5.5 0 0 1 .5-.5h11zm-11-1A1.5 1.5 0 0 0 1 3.5V12h14V3.5A1.5 1.5 0 0 0 13.5 2h-11zM0 12.5h16a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 12.5z"/></svg>
                                 <span className="text-[14px] text-theme-10/80 dark:text-theme-9/80 ml-[8px]">시스템 모드</span>
-                            </label>
+                            </label> */}
                         </div>
                     </div>
                     <Link href="https://github.com/taedonn/fonts-archive" target="_blank" className="w-[32px] h-[32px] flex flex-row justify-center items-center">
