@@ -58,28 +58,12 @@ body::-webkit-scrollbar-track {
 .select:checked + label svg {
     transform: rotate(0deg);
 }
-html.body .select:checked + label {
+html.dark .select:checked + label {
     background-color: #17181B;
     border-color: #8AB4F8;
     color: #E9EAEE;
     fill: #E9EAEE;
     filter: drop-shadow(1px 2px 4px #101010);
-}
-@media (hover: hover) and (pointer: fine) {
-    .select:checked + label {
-        background-color: #FFF;
-        border-color: #FFD951;
-        color: #646568;
-        fill: #646568;
-        filter: drop-shadow(1px 2px 4px #97989C);
-    }
-    html.body .select:checked + label {
-        background-color: #17181B;
-        border-color: #8AB4F8;
-        color: #E9EAEE;
-        fill: #E9EAEE;
-        filter: drop-shadow(1px 2px 4px #101010);
-    }
 }
 
 /* 셀렉트 박스 - 옵션 클릭 */
