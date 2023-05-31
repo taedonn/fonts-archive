@@ -5,6 +5,7 @@ module.exports = {
         './src/components/**/*.{js,ts,jsx,tsx,mdx}',
         './src/app/**/*.{js,ts,jsx,tsx,mdx}',
     ],
+    darkMode: "class",
     theme: {
         extend: {
             screens: {
@@ -23,13 +24,11 @@ module.exports = {
                 "theme-6": "#97989C",
                 "theme-7": "#B1B2B6",
                 "theme-8": "#CDCED2",
-                "theme-9": "#DEE1E6",
                 "theme-9": "#E9EAEE",
                 "theme-10": "#FFFFFF",
-                "blur-theme": "#202124CC",
                 "theme-blue-1": "#8AB4F8",
                 "theme-blue-2": "#17181B",
-                "theme-yellow": "#FFD951"
+                "theme-yellow": "#FFD951",
             },
             width: {
                 "content": "max-content"
@@ -54,7 +53,8 @@ module.exports = {
                 }
             },
             dropShadow: {
-                "default": "1px 2px 4px #101010",
+                "default": "1px 2px 4px #97989C",
+                "dark": "1px 2px 4px #101010",
                 "none": "0 0 0 transparent"
             }
         },
