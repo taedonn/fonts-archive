@@ -59,15 +59,15 @@ export default function FontBox({lang, type, sort, searchword, text, randomNum}:
                                     font_type: string
                                     cdn_url: string
                                 }) => (
-                                    <a href={`/DetailPage/${font.code}`} key={font.code} className="w-[calc(25%-8px)] txl:w-[calc(33.3%-6px)] tlg:w-[calc(50%-4px)] tmd:w-[100%] h-[360px] txl:h-[300px] tlg:h-[240px] tmd:h-[220px] block p-[20px] tlg:p-[16px] border dark:border-theme-4 rounded-[8px] mt-[12px] txl:mt-[10px] cursor-pointer hover:dark:bg-theme-3/40 tlg:hover:bg-transparent animate-fontbox-fade-in">
+                                    <a href={`/DetailPage/${font.code}`} key={font.code} className="w-[calc(25%-8px)] txl:w-[calc(33.3%-6px)] tlg:w-[calc(50%-4px)] tmd:w-[100%] h-[360px] txl:h-[300px] tlg:h-[240px] tmd:h-[220px] block p-[20px] tlg:p-[16px] border border-theme-7 dark:border-theme-4 rounded-[8px] mt-[12px] txl:mt-[10px] cursor-pointer hover:bg-theme-8/60 hover:dark:bg-theme-3/40 tlg:hover:bg-transparent animate-fontbox-fade-in">
                                         <link href={font.cdn_url} rel="stylesheet" type="text/css" itemProp="url"></link>
-                                        <div style={{fontFamily:"'"+font.font_family+"'"}} className="text-[18px] tlg:text-[16px] text-normal leading-tight mb-[8px] tlg:mb-[6px] dark:text-theme-8">{font.name}</div>
+                                        <div style={{fontFamily:"'"+font.font_family+"'"}} className="text-[18px] tlg:text-[16px] text-normal leading-tight mb-[8px] tlg:mb-[6px] text-theme-3 dark:text-theme-8">{font.name}</div>
                                         <div className="flex flex-row justify-start items-center">
-                                            <div style={{fontFamily:"'"+font.font_family+"'"}} className="inline-block text-[14px] tlg:text-[12px] text-normal dark:text-theme-6 leading-tight"><span className="dark:text-theme-8">by</span> {font.source}</div>
+                                            <div style={{fontFamily:"'"+font.font_family+"'"}} className="inline-block text-[14px] tlg:text-[12px] text-normal text-theme-5 dark:text-theme-6 leading-tight"><span className="text-theme-3 dark:text-theme-8">by</span> {font.source}</div>
                                         </div>
-                                        <div className="w-[100%] h-px my-[16px] tlg:my-[12px] dark:bg-theme-4"></div>
+                                        <div className="w-[100%] h-px my-[16px] tlg:my-[12px] bg-theme-7 dark:bg-theme-5"></div>
                                         <div style={{fontFamily:"'"+font.font_family+"'"}} className="text-[36px] txl:text-[32px] tlg:text-[24px] text-normal leading-normal overflow-hidden">
-                                            <p className="ellipsed-text dark:text-theme-8"><DummyText lang={font.lang} text={text} randomNum={randomNum}/></p>
+                                            <p className="ellipsed-text text-theme-3 dark:text-theme-8"><DummyText lang={font.lang} text={text} randomNum={randomNum}/></p>
                                         </div>
                                     </a>
                                 ))}
