@@ -453,7 +453,7 @@ const Index = ({params}: any) => {
     );
 }
 
-export async function getStaticProps(ctx: any) {
+export async function getServerSideProps(ctx: any) {
     try {
         return {
             props: {
