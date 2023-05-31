@@ -50,7 +50,7 @@ body::-webkit-scrollbar-track {
 /* 셀렉트 박스 클릭 시 스타일 변경 */
 .select:checked + label {
     background-color: #FFF;
-    border-color: #FFD951;
+    border-color: #FCBE11;
     color: #646568;
     fill: #646568;
     filter: drop-shadow(1px 2px 4px #97989C);
