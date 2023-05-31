@@ -177,10 +177,10 @@ function DetailPage({fontInfo, randomNum}:{fontInfo: any, randomNum: number}) {
     }
 
     /** 컬러 테마 state */
-    const defaultTheme = cookies.theme;
+    const defaultTheme = "dark";
     const [theme, setTheme] = useState(defaultTheme);
     useLayoutEffect(() => {
-        if (defaultTheme === "dark") {
+        if (cookies.theme === undefined || cookies.theme === "dark") {
             document.documentElement.classList.add('dark');
             setTheme("dark");
         } else {
