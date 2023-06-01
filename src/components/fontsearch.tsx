@@ -1,9 +1,11 @@
-// 훅
+// react hooks
 import React, { ChangeEvent, useEffect, useRef, useState } from "react";
 import { useQuery } from "react-query";
-import axios from "axios";
-import { debounce } from "lodash";
 import { isMacOs } from "react-device-detect";
+import { debounce } from "lodash";
+
+// hooks
+import axios from "axios";
 
 export default function FontSearch({display, closeBtn, showBtn}:{display: string, closeBtn: any, showBtn: any}) {
     /** 검색 키워드 state */

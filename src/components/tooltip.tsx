@@ -1,7 +1,4 @@
 export default function Tooltip() {
-    // 깃허브 저장소 바로가기 클릭 이벤트
-    const goGitHub = () => { window.open('https://github.com/taedonn/fonts-archive','_blank'); }
-
     // 맨 위로 버튼 클릭 이벤트
     const goUp = () => { window.scrollTo({top:0,behavior:'smooth'}); }
 

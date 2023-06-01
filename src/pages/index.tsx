@@ -1,11 +1,13 @@
-// 훅
+// next hooks
 import Link from "next/link";
+
+// react hooks
 import { useRef, useState, useEffect, useLayoutEffect } from "react";
 import { useCookies } from 'react-cookie';
-import { throttle, debounce } from "lodash";
 import { isMacOs } from "react-device-detect";
+import { throttle, debounce } from "lodash";
 
-// 컴포넌트
+// components
 import Tooltip from "@/components/tooltip";
 import FontBox from "@/components/fontbox";
 import FontSearch from "@/components/fontsearch";

@@ -250,3 +250,11 @@ html.dark .dark-svg {
 html.dark .dark-txt {
     color: #8AB4F8;
 }
+
+/* Material UI */
+html.dark .font-size-slider.MuiSlider-root {
+    color: #8AB4F8;
+}
+html.dark .font-size-slider .PrivateValueLabel-label-5 {
+    color: #17181B;
+}

@@ -1,14 +1,14 @@
 // 서버로 요청이 들어왔을 때 가장 먼저 실행되는 component
 
-// 훅
+// next hooks
 import type { AppProps } from "next/app";
 import { NextSeo } from 'next-seo';
 
-// react-query
+// react-query hooks
 import { QueryClientProvider, QueryClient } from "react-query";
 const queryClient = new QueryClient();
 
-// 스타일
+// styles
 import '../styles/globals.css';
 
 export default function App({ Component, pageProps }: AppProps) {

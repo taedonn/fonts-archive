@@ -1,5 +1,7 @@
-// 훅
+// next hooks
 import Link from "next/link";
+
+// react hooks
 import { ChangeEvent, useState } from "react";
 import { debounce } from "lodash";
 

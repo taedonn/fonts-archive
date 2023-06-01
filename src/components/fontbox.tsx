@@ -1,7 +1,9 @@
-// 훅
+// react hooks
 import React, { useEffect } from 'react';
 import { useInfiniteQuery } from 'react-query';
 import { useInView } from 'react-intersection-observer';
+
+// hooks
 import axios from 'axios';
 
 // 컴포넌트

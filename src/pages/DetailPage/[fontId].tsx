@@ -1,28 +1,38 @@
-// 훅
-import { useEffect, useLayoutEffect, useState, useRef } from "react";
-import { useCookies } from 'react-cookie';
-import { isMacOs } from "react-device-detect";
+// Next hooks
 import Link from "next/link";
 import { NextSeo } from 'next-seo';
+
+// react hooks
+import { useEffect, useLayoutEffect, useState, useRef } from "react";
+import { useCookies } from 'react-cookie';
+
+// hooks
+import axios from "axios";
+import { isMacOs } from "react-device-detect";
 import { throttle } from "lodash";
+
+// api
 import { FetchFont } from "../api/DetailPage/fetchFont";
 import { FetchFontInfo } from "../api/DetailPage/fetchFontInfo";
-import axios from "axios";
 
-// 컴포넌트
+// materail-ui hooks
+import { Slider, Typography } from "@material-ui/core";
+
+// components
 import Tooltip from "@/components/tooltip";
 import FontSearch from "@/components/fontsearch";
 import DummyText from "@/components/dummytext";
+import { FetchFontComp } from "../api/DetailPage/fetchFontComp";
 
 const alphabetKR = '가 나 다 라 마 바 사 아 자 차 카 타 파 하 a b c d e f g h i j k l m n o p q r s t u v w x y z 0 1 2 3 4 5 6 7 8 9 가 나 다 라 마 바 사 아 자 차 카 타 파 하 a b c d e f g h i j k l m n o p q r s t u v w x y z 0 1 2 3 4 5 6 7 8 9 가 나 다 라 마 바 사 아 자 차 카 타 파 하 a b c d e f g h i j k l m n o p q r s t u v w x y z 0 1 2 3 4 5 6 7 8 9';
 const alphabetEN = 'A B C D E F G H I J K L M N O P Q R S T U V W X Y Z a b c d e f g h i j k l m n o p q r s t u v w x y z 0 1 2 3 4 5 6 7 8 9 A B C D E F G H I J K L M N O P Q R S T U V W X Y Z a b c d e f g h i j k l m n o p q r s t u v w x y z 0 1 2 3 4 5 6 7 8 9 A B C D E F G H I J K L M N O P Q R S T U V W X Y Z a b c d e f g h i j k l m n o p q r s t u v w x y z 0 1 2 3 4 5 6 7 8 9';
 
-function DetailPage({fontInfo, randomNum}:{fontInfo: any, randomNum: number}) {
+function DetailPage({fonts, comps, randomNum}:{fonts: any, comps: string, randomNum: number}) {
     // 쿠키 훅
     const [cookies, setCookie] = useCookies<string>([]);
 
-    /** 폰트 데이터 props */
-    const font = fontInfo[0];
+    // 폰트 데이터 props
+    const font = fonts[0];
 
     /** 조회수 업데이트 */
     const viewUpdate = async () => {
@@ -211,6 +221,11 @@ function DetailPage({fontInfo, randomNum}:{fontInfo: any, randomNum: number}) {
         themeInput.checked = false;
     }
 
+    /** MUI 슬라이더에 unit 추가 */
+    const fnAddUnit = (value: number) => {
+        return value + "px";
+    }
+
     return (
         <>
             {/* Head 부분*/}
@@ -348,8 +363,28 @@ function DetailPage({fontInfo, randomNum}:{fontInfo: any, randomNum: number}) {
                     </>
                 }
                 <div className="font-weight-wrap flex flex-col justify-start items-start mb-[60px] tlg:mb-[48px] tmd:mb-[40px]">
-                    <h2 className="text-[24px] tlg:text-[20px] tmd:text-[18px] text-theme-3 dark:text-theme-8 font-medium mb-[20px] tlg:mb-[16px] tmd:mb-[14px]">폰트 두께</h2>
+                    <h2 className="text-[24px] tlg:text-[20px] tmd:text-[18px] text-theme-3 dark:text-theme-8 font-medium mb-[20px] tlg:mb-[16px] tmd:mb-[14px]">폰트 미리보기</h2>
                     <input onChange={handleFontWeightChange} type="text" placeholder="원하는 문구를 적어보세요..." className="w-[100%] h-[50px] tmd:h-[auto] text-[14px] text-theme-5 dark:text-theme-8 placeholder-theme-5 dark:placeholder-theme-6 leading-none px-[24px] tlg:px-[20px] tmd:py-[12px] pb-px mb-[32px] tlg:mb-[20px] border border-theme-7 dark:border-theme-4 rounded-full bg-transparent hover:dark:bg-theme-3/40 tlg:hover:dark:bg-transparent focus:dark:bg-theme-3/40 tlg:focus:dark:bg-transparent"/>
+                    {/* <div className="rounded-[12px] px-[40px] pt-[32px] pb-[16px] mb-[32px] dark:bg-theme-blue-2">
+                        <div className="flex flex-col justify-center items-start">
+                            <p className="text-[16px] text-normal leading-none mb-[12px] dark:text-theme-8">
+                                폰트 크기 Font Size
+                            </p>
+                            <div className="w-[280px] h-[100%]">
+                                <Slider
+                                    className="font-size-slider"
+                                    aria-label="font-size-slider"
+                                    aria-valuetext="px"
+                                    valueLabelDisplay="auto"
+                                    getAriaValueText={fnAddUnit}
+                                    valueLabelFormat={fnAddUnit}
+                                    defaultValue={16}
+                                    min={16}
+                                    max={64}
+                                />
+                            </div>
+                        </div>
+                    </div> */}
                     {
                         font.font_weight[0] === "Y"
                         ? <>
@@ -989,12 +1024,13 @@ export async function getStaticPaths() {
 export async function getStaticProps(ctx: any) {
     try {
         const fonts = await FetchFontInfo(ctx.params.fontId);
-
+        const comps = await FetchFontComp(fonts[0].source, ctx.params.fontId);
         const randomNum: number = Math.floor(Math.random() * 19);
 
         return {
             props: {
-                fontInfo: fonts,
+                fonts: fonts,
+                comps: comps,
                 randomNum: randomNum,
             }
         }
