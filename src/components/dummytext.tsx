@@ -87,7 +87,6 @@ const dummyTextEn: string[] = [
 const randomNumEn: number = Math.floor(Math.random() * dummyTextEn.length);
 
 export default function DummyText({lang, text, num}:{lang: string, text: string, num: number}) {
-    console.log(Math.floor(Math.random() * (dummyTextEn.length)));
     return (
         <>
             {
