@@ -7,7 +7,7 @@ import axios from 'axios';
 // 컴포넌트
 import DummyText from "./dummytext";
 
-export default function FontBox({lang, type, sort, searchword, text, randomNum}:{lang: string, type: string, sort: string, searchword: string, text: string, randomNum: number}) {
+export default function FontBox({lang, type, sort, searchword, text, num}:{lang: string, type: string, sort: string, searchword: string, text: string, num: number}) {
     /** react-intersection-observer 훅 */
     const { ref, inView } = useInView();
 
@@ -67,7 +67,7 @@ export default function FontBox({lang, type, sort, searchword, text, randomNum}:
                                         </div>
                                         <div className="w-[100%] h-px my-[16px] tlg:my-[12px] bg-theme-7 dark:bg-theme-5"></div>
                                         <div style={{fontFamily:"'"+font.font_family+"'"}} className="text-[36px] txl:text-[32px] tlg:text-[24px] text-normal leading-normal overflow-hidden">
-                                            <p className="ellipsed-text text-theme-3 dark:text-theme-8"><DummyText lang={font.lang} text={text} randomNum={randomNum}/></p>
+                                            <p className="ellipsed-text text-theme-3 dark:text-theme-8"><DummyText lang={font.lang} text={text} num={num}/></p>
                                         </div>
                                     </a>
                                 ))}

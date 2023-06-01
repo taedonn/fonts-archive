@@ -40,6 +40,8 @@ const dummyText: string[] = [
     '내일은 내일, 중요한건 오늘이다.'
 ]
 
+const randomNum: number = Math.floor(Math.random() * dummyText.length - 1);
+
 const dummyTextEn: string[] = [
     'Man is the artificer of his own happiness.',
 
@@ -82,16 +84,18 @@ const dummyTextEn: string[] = [
     'Stay positive. Good days are on their way.'
 ]
 
-export default function DummyText({lang, text, randomNum}:{lang: string, text: string, randomNum: number}) {
+const randomNumEn: number = Math.floor(Math.random() * dummyTextEn.length - 1);
+
+export default function DummyText({lang, text, num}:{lang: string, text: string, num: number}) {
     return (
         <>
             {
                 lang === "KR" && text === ""
-                ? dummyText[randomNum]
+                ? dummyText[num === 999 ? randomNum : num]
                 : ( lang === "KR" && text !== ""
                     ? text
                     : ( lang === "EN" && text === ""
-                        ? dummyTextEn[randomNum]
+                        ? dummyTextEn[num === 999 ? randomNumEn : num]
                         : text
                     )
                 )

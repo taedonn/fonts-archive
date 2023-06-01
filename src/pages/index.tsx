@@ -13,9 +13,6 @@ import FontSearch from "@/components/fontsearch";
 const Index = ({params}: any) => {
     // 쿠키 훅
     const [cookies, setCookie] = useCookies<string>([]);
-    
-    /** 더미텍스트 생성을 위한 랜덤 숫자 */
-    const randomNum: number = Math.floor(Math.random() * 19);
 
     /** 셀렉트 박스 - "언어 선택" 영역 */
     const refLangSelect = useRef<HTMLLabelElement>(null);
@@ -173,7 +170,7 @@ const Index = ({params}: any) => {
 
     /** 키값 변경 */
     const [isMac, setIsMac] = useState<boolean | undefined>(undefined);
-    useEffect(() => {
+    useLayoutEffect(() => {
         if (isMacOs) { setIsMac(true) }
         else { setIsMac(false); }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -440,7 +437,7 @@ const Index = ({params}: any) => {
             </div>
             
             {/* 메인 */}
-            <FontBox lang={lang} type={type} sort={sort} searchword={searchword} text={text} randomNum={randomNum}/>
+            <FontBox lang={lang} type={type} sort={sort} searchword={searchword} text={text} num={999}/>
 
             {/* 폰트 검색 */}
             <FontSearch display={searchDisplay} closeBtn={handleFontSearchCloseBtn} showBtn={handleFontSearch}/>

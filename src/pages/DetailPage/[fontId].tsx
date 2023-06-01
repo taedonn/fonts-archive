@@ -180,14 +180,19 @@ function DetailPage({fontInfo, randomNum}:{fontInfo: any, randomNum: number}) {
     const defaultTheme = "dark";
     const [theme, setTheme] = useState(defaultTheme);
     useLayoutEffect(() => {
+        const lightMode = document.getElementById("light-mode") as HTMLInputElement;
+        const darkMode = document.getElementById("dark-mode") as HTMLInputElement;
+
         if (cookies.theme === undefined || cookies.theme === "dark") {
             document.documentElement.classList.add('dark');
+            darkMode.checked = true;
             setTheme("dark");
         } else {
             document.documentElement.classList.remove('dark');
             setTheme("light");
+            lightMode.checked = true;
         }
-    }, [defaultTheme]);
+    }, [cookies.theme]);
 
     /** 컬러 테마 변경 */
     const handleColorThemeChange = (e:React.ChangeEvent<HTMLInputElement>) => {
@@ -248,12 +253,12 @@ function DetailPage({fontInfo, randomNum}:{fontInfo: any, randomNum: number}) {
                             <svg className={`dark-mode dark-label w-[20px]`} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278zM4.858 1.311A7.269 7.269 0 0 0 1.025 7.71c0 4.02 3.279 7.276 7.319 7.276a7.316 7.316 0 0 0 5.205-2.162c-.337.042-.68.063-1.029.063-4.61 0-8.343-3.714-8.343-8.29 0-1.167.242-2.278.681-3.286z"/><path d="M10.794 3.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387a1.734 1.734 0 0 0-1.097 1.097l-.387 1.162a.217.217 0 0 1-.412 0l-.387-1.162A1.734 1.734 0 0 0 9.31 6.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387a1.734 1.734 0 0 0 1.097-1.097l.387-1.162zM13.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732l-.774-.258a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L13.863.1z"/></svg>
                         </label>
                         <div ref={refThemeDiv} id="color-theme-select" className="color-theme-select w-[128px] absolute left-[50%] top-[40px] translate-x-[-50%] rounded-[8px] px-[16px] py-[8px] bg-theme-5 dark:bg-theme-blue-2 drop-shadow-default dark:drop-shadow-dark">
-                            <input onChange={handleColorThemeChange} type="radio" name="color-theme-select" id="light-mode" value="light" className="hidden" defaultChecked={theme === "light" ? true : false}/>
+                            <input onChange={handleColorThemeChange} type="radio" name="color-theme-select" id="light-mode" value="light" className="hidden"/>
                             <label htmlFor="light-mode" className="flex flex-row justify-start items-center py-[8px] cursor-pointer">
                                 <svg className={`light-svg w-[16px] fill-theme-9/80"`} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"/></svg>
                                 <span className={`light-txt text-[14px] ml-[10px]`}>라이트 모드</span>
                             </label>
-                            <input onChange={handleColorThemeChange} type="radio" name="color-theme-select" id="dark-mode" value="dark" className="hidden" defaultChecked={theme === "dark" ? true : false}/>
+                            <input onChange={handleColorThemeChange} type="radio" name="color-theme-select" id="dark-mode" value="dark" className="hidden"/>
                             <label htmlFor="dark-mode" className="flex flex-row justify-start items-center py-[8px] cursor-pointer">
                                 <svg className={`dark-svg w-[16px] fill-theme-9/80`} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278zM4.858 1.311A7.269 7.269 0 0 0 1.025 7.71c0 4.02 3.279 7.276 7.319 7.276a7.316 7.316 0 0 0 5.205-2.162c-.337.042-.68.063-1.029.063-4.61 0-8.343-3.714-8.343-8.29 0-1.167.242-2.278.681-3.286z"/><path d="M10.794 3.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387a1.734 1.734 0 0 0-1.097 1.097l-.387 1.162a.217.217 0 0 1-.412 0l-.387-1.162A1.734 1.734 0 0 0 9.31 6.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387a1.734 1.734 0 0 0 1.097-1.097l.387-1.162zM13.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732l-.774-.258a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L13.863.1z"/></svg>
                                 <span className={`dark-txt text-[14px] ml-[10px]`}>다크 모드</span>
@@ -349,7 +354,7 @@ function DetailPage({fontInfo, randomNum}:{fontInfo: any, randomNum: number}) {
                         font.font_weight[0] === "Y"
                         ? <>
                             <div className="text-[14px] tmd:text-[12px] text-theme-3 dark:text-theme-8 leading-none mb-[16px] tlg:mb-[14px]">Thin 100</div>
-                            <div style={{fontFamily:font.font_family, fontWeight:"100"}} className="font-weight w-[100%] text-[20px] tlg:text-[16px] text-theme-3 dark:text-theme-8 pb-[16px] tlg:pb-[14px] mb-[32px] tlg:mb-[20px] border-b border-theme-7 dark:border-theme-4"><DummyText lang={font.lang} text={text} randomNum={randomNum}/></div>
+                            <div style={{fontFamily:font.font_family, fontWeight:"100"}} className="font-weight w-[100%] text-[20px] tlg:text-[16px] text-theme-3 dark:text-theme-8 pb-[16px] tlg:pb-[14px] mb-[32px] tlg:mb-[20px] border-b border-theme-7 dark:border-theme-4"><DummyText lang={font.lang} text={text} num={randomNum}/></div>
                         </>
                         : <></>
                     }
@@ -357,7 +362,7 @@ function DetailPage({fontInfo, randomNum}:{fontInfo: any, randomNum: number}) {
                         font.font_weight[1] === "Y"
                         ? <>
                             <div className="text-[14px] tmd:text-[12px] text-theme-3 dark:text-theme-8 leading-none mb-[16px] tlg:mb-[14px]">ExtraLight 200</div>
-                            <div style={{fontFamily:font.font_family, fontWeight:"200"}} className="font-weight w-[100%] text-[20px] tlg:text-[16px] text-theme-3 dark:text-theme-8 pb-[16px] tlg:pb-[14px] mb-[32px] tlg:mb-[20px] border-b border-theme-7 dark:border-theme-4"><DummyText lang={font.lang} text={text} randomNum={randomNum}/></div>
+                            <div style={{fontFamily:font.font_family, fontWeight:"200"}} className="font-weight w-[100%] text-[20px] tlg:text-[16px] text-theme-3 dark:text-theme-8 pb-[16px] tlg:pb-[14px] mb-[32px] tlg:mb-[20px] border-b border-theme-7 dark:border-theme-4"><DummyText lang={font.lang} text={text} num={randomNum}/></div>
                         </>
                         : <></>
                     }
@@ -365,7 +370,7 @@ function DetailPage({fontInfo, randomNum}:{fontInfo: any, randomNum: number}) {
                         font.font_weight[2] === "Y"
                         ? <>
                             <div className="text-[14px] tmd:text-[12px] text-theme-3 dark:text-theme-8 leading-none mb-[16px] tlg:mb-[14px]">Light 300</div>
-                            <div style={{fontFamily:font.font_family, fontWeight:"300"}} className="font-weight w-[100%] text-[20px] tlg:text-[16px] text-theme-3 dark:text-theme-8 pb-[16px] tlg:pb-[14px] mb-[32px] tlg:mb-[20px] border-b border-theme-7 dark:border-theme-4"><DummyText lang={font.lang} text={text} randomNum={randomNum}/></div>
+                            <div style={{fontFamily:font.font_family, fontWeight:"300"}} className="font-weight w-[100%] text-[20px] tlg:text-[16px] text-theme-3 dark:text-theme-8 pb-[16px] tlg:pb-[14px] mb-[32px] tlg:mb-[20px] border-b border-theme-7 dark:border-theme-4"><DummyText lang={font.lang} text={text} num={randomNum}/></div>
                         </>
                         : <></>
                     }
@@ -373,7 +378,7 @@ function DetailPage({fontInfo, randomNum}:{fontInfo: any, randomNum: number}) {
                         font.font_weight[3] === "Y"
                         ? <>
                             <div className="text-[14px] tmd:text-[12px] text-theme-3 dark:text-theme-8 leading-none mb-[16px] tlg:mb-[14px]">Regular 400</div>
-                            <div style={{fontFamily:font.font_family, fontWeight:"400"}} className="font-weight w-[100%] text-[20px] tlg:text-[16px] text-theme-3 dark:text-theme-8 pb-[16px] tlg:pb-[14px] mb-[32px] tlg:mb-[20px] border-b border-theme-7 dark:border-theme-4"><DummyText lang={font.lang} text={text} randomNum={randomNum}/></div>
+                            <div style={{fontFamily:font.font_family, fontWeight:"400"}} className="font-weight w-[100%] text-[20px] tlg:text-[16px] text-theme-3 dark:text-theme-8 pb-[16px] tlg:pb-[14px] mb-[32px] tlg:mb-[20px] border-b border-theme-7 dark:border-theme-4"><DummyText lang={font.lang} text={text} num={randomNum}/></div>
                         </>
                         : <></>
                     }
@@ -381,7 +386,7 @@ function DetailPage({fontInfo, randomNum}:{fontInfo: any, randomNum: number}) {
                         font.font_weight[4] === "Y"
                         ? <>
                             <div className="text-[14px] tmd:text-[12px] text-theme-3 dark:text-theme-8 leading-none mb-[16px] tlg:mb-[14px]">Medium 500</div>
-                            <div style={{fontFamily:font.font_family, fontWeight:"500"}} className="font-weight w-[100%] text-[20px] tlg:text-[16px] text-theme-3 dark:text-theme-8 pb-[16px] tlg:pb-[14px] mb-[32px] tlg:mb-[20px] border-b border-theme-7 dark:border-theme-4"><DummyText lang={font.lang} text={text} randomNum={randomNum}/></div>
+                            <div style={{fontFamily:font.font_family, fontWeight:"500"}} className="font-weight w-[100%] text-[20px] tlg:text-[16px] text-theme-3 dark:text-theme-8 pb-[16px] tlg:pb-[14px] mb-[32px] tlg:mb-[20px] border-b border-theme-7 dark:border-theme-4"><DummyText lang={font.lang} text={text} num={randomNum}/></div>
                         </>
                         : <></>
                     }
@@ -389,7 +394,7 @@ function DetailPage({fontInfo, randomNum}:{fontInfo: any, randomNum: number}) {
                         font.font_weight[5] === "Y"
                         ? <>
                             <div className="text-[14px] tmd:text-[12px] text-theme-3 dark:text-theme-8 leading-none mb-[16px] tlg:mb-[14px]">SemiBold 600</div>
-                            <div style={{fontFamily:font.font_family, fontWeight:"600"}} className="font-weight w-[100%] text-[20px] tlg:text-[16px] text-theme-3 dark:text-theme-8 pb-[16px] tlg:pb-[14px] mb-[32px] tlg:mb-[20px] border-b border-theme-7 dark:border-theme-4"><DummyText lang={font.lang} text={text} randomNum={randomNum}/></div>
+                            <div style={{fontFamily:font.font_family, fontWeight:"600"}} className="font-weight w-[100%] text-[20px] tlg:text-[16px] text-theme-3 dark:text-theme-8 pb-[16px] tlg:pb-[14px] mb-[32px] tlg:mb-[20px] border-b border-theme-7 dark:border-theme-4"><DummyText lang={font.lang} text={text} num={randomNum}/></div>
                         </>
                         : <></>
                     }
@@ -397,7 +402,7 @@ function DetailPage({fontInfo, randomNum}:{fontInfo: any, randomNum: number}) {
                         font.font_weight[6] === "Y"
                         ? <>
                             <div className="text-[14px] tmd:text-[12px] text-theme-3 dark:text-theme-8 leading-none mb-[16px] tlg:mb-[14px]">Bold 700</div>
-                            <div style={{fontFamily:font.font_family, fontWeight:"700"}} className="font-weight w-[100%] text-[20px] tlg:text-[16px] text-theme-3 dark:text-theme-8 pb-[16px] tlg:pb-[14px] mb-[32px] tlg:mb-[20px] border-b border-theme-7 dark:border-theme-4"><DummyText lang={font.lang} text={text} randomNum={randomNum}/></div>
+                            <div style={{fontFamily:font.font_family, fontWeight:"700"}} className="font-weight w-[100%] text-[20px] tlg:text-[16px] text-theme-3 dark:text-theme-8 pb-[16px] tlg:pb-[14px] mb-[32px] tlg:mb-[20px] border-b border-theme-7 dark:border-theme-4"><DummyText lang={font.lang} text={text} num={randomNum}/></div>
                         </>
                         : <></>
                     }
@@ -405,7 +410,7 @@ function DetailPage({fontInfo, randomNum}:{fontInfo: any, randomNum: number}) {
                         font.font_weight[7] === "Y"
                         ? <>
                             <div className="text-[14px] tmd:text-[12px] text-theme-3 dark:text-theme-8 leading-none mb-[16px] tlg:mb-[14px]">Heavy 800</div>
-                            <div style={{fontFamily:font.font_family, fontWeight:"800"}} className="font-weight w-[100%] text-[20px] tlg:text-[16px] text-theme-3 dark:text-theme-8 pb-[16px] tlg:pb-[14px] mb-[32px] tlg:mb-[20px] border-b border-theme-7 dark:border-theme-4"><DummyText lang={font.lang} text={text} randomNum={randomNum}/></div>
+                            <div style={{fontFamily:font.font_family, fontWeight:"800"}} className="font-weight w-[100%] text-[20px] tlg:text-[16px] text-theme-3 dark:text-theme-8 pb-[16px] tlg:pb-[14px] mb-[32px] tlg:mb-[20px] border-b border-theme-7 dark:border-theme-4"><DummyText lang={font.lang} text={text} num={randomNum}/></div>
                         </>
                         : <></>
                     }
@@ -413,7 +418,7 @@ function DetailPage({fontInfo, randomNum}:{fontInfo: any, randomNum: number}) {
                         font.font_weight[8] === "Y"
                         ? <>
                             <div className="text-[14px] tmd:text-[12px] text-theme-3 dark:text-theme-8 leading-none mb-[16px] tlg:mb-[14px]">Black 900</div>
-                            <div style={{fontFamily:font.font_family, fontWeight:"900"}} className="font-weight w-[100%] text-[20px] tlg:text-[16px] text-theme-3 dark:text-theme-8 pb-[16px] tlg:pb-[14px] mb-[32px] tlg:mb-[20px] border-b border-theme-7 dark:border-theme-4"><DummyText lang={font.lang} text={text} randomNum={randomNum}/></div>
+                            <div style={{fontFamily:font.font_family, fontWeight:"900"}} className="font-weight w-[100%] text-[20px] tlg:text-[16px] text-theme-3 dark:text-theme-8 pb-[16px] tlg:pb-[14px] mb-[32px] tlg:mb-[20px] border-b border-theme-7 dark:border-theme-4"><DummyText lang={font.lang} text={text} num={randomNum}/></div>
                         </>
                         : <></>
                     }
