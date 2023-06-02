@@ -238,19 +238,19 @@ function DetailPage({fonts, comps, randomNum}:{fonts: any, comps: string, random
 
     /** MUI 폰트 크기 뒤에 px 추가 */
     const fnAddUnit = (value: number) => {
-        setFontSize(value);
+        //setFontSize(value);
         return value + "px";
     }
 
     /** MUI 행간 값 */
     const fnLineheightValue = (value: number) => {
-        setLineHeight(value / 10);
+        //setLineHeight(value / 10);
         return value / 10;
     }
 
     /** MUI 자간 값 */
     const fnLetterSpacingValue = (value: number) => {
-        setLetterSpacing(value / 10);
+        //setLetterSpacing(value / 10);
         return value / 10;
     }
 
