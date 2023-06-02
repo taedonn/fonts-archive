@@ -316,20 +316,20 @@ function DetailPage({fonts, comps, randomNum, initFontSize, initLineHeight, init
             <div className="w-[100%] mt-[60px] tlg:mt-[56px] p-[20px] tlg:p-[16px] tmd:p-[12px] py-[24px] tlg:py-[20px] tmd:py-[16px]">
                 <link href={font.cdn_url} rel="stylesheet" type="text/css" itemProp="url"></link>
                 <div className="w-[100%] flex flex-col justify-start items-start">
-                    <div style={{fontFamily:font.font_family}} className="text-[32px] tlg:text-[28px] tmd:text-[24px] text-theme-3 dark:text-theme-8 font-medium leading-tight mb-[12px] tlg:mb-[8px]">{font.name}</div>
+                    <div style={{fontFamily:font.font_family}} className="text-[32px] tlg:text-[28px] tmd:text-[24px] text-theme-3 dark:text-theme-9 font-medium leading-tight mb-[12px] tlg:mb-[8px]">{font.name}</div>
                     <div className="flex flex-row justify-start items-center">
-                        <div style={{fontFamily:font.font_family}} className="text-[16px] tlg:text-[14px] tmd:text-[12px] leading-tight text-theme-3 dark:text-theme-8 ml-[2px] mr-[16px] tlg:mr-[14px] tmd:mr-[12px]">제작<span className="text-theme-5 dark:text-theme-6 ml-[8px] tlg:ml-[6px]">{font.source}</span></div>
-                        <div style={{fontFamily:font.font_family}} className="text-[16px] tlg:text-[14px] tmd:text-[12px] leading-tight text-theme-3 dark:text-theme-8  mr-[16px] tlg:mr-[14px] tmd:mr-[12px]">형태<span className="text-theme-5 dark:text-theme-6 ml-[8px] tlg:ml-[6px]">{font.font_type === "Sans Serif" ? "고딕" : (font.font_type === "Serif" ? "명조" : (font.font_type === "Hand Writing" ? "손글씨" : (font.font_type === "Display" ? "장식체" : "픽셀체")))}</span></div>
-                        <div style={{fontFamily:font.font_family}} className="text-[16px] tlg:text-[14px] tmd:text-[12px] leading-tight text-theme-3 dark:text-theme-8 ">조회수<span className="text-theme-5 dark:text-theme-6 ml-[8px] tlg:ml-[6px]">{formatNumber(view)}</span></div>
+                        <div style={{fontFamily:font.font_family}} className="text-[16px] tlg:text-[14px] tmd:text-[12px] leading-tight text-theme-3 dark:text-theme-9 ml-[2px] mr-[16px] tlg:mr-[14px] tmd:mr-[12px]">제작<span className="text-theme-5 dark:text-theme-7 ml-[8px] tlg:ml-[6px]">{font.source}</span></div>
+                        <div style={{fontFamily:font.font_family}} className="text-[16px] tlg:text-[14px] tmd:text-[12px] leading-tight text-theme-3 dark:text-theme-9  mr-[16px] tlg:mr-[14px] tmd:mr-[12px]">형태<span className="text-theme-5 dark:text-theme-7 ml-[8px] tlg:ml-[6px]">{font.font_type === "Sans Serif" ? "고딕" : (font.font_type === "Serif" ? "명조" : (font.font_type === "Hand Writing" ? "손글씨" : (font.font_type === "Display" ? "장식체" : "픽셀체")))}</span></div>
+                        <div style={{fontFamily:font.font_family}} className="text-[16px] tlg:text-[14px] tmd:text-[12px] leading-tight text-theme-3 dark:text-theme-9 ">조회수<span className="text-theme-5 dark:text-theme-7 ml-[8px] tlg:ml-[6px]">{formatNumber(view)}</span></div>
                     </div>
                     <div className="w-[100%] h-px my-[20px] tlg:my-[16px] bg-theme-7 dark:bg-theme-4"></div>
                 </div>
                 <div className="flex flex-row justify-start items-center mb-[60px] tlg:mb-[48px] tmd:mb-[40px]">
-                    <Link aria-label="source-link" href={font.source_link} target="_blank" className="h-[40px] tlg:h-[36px] tmd:h-[32px] flex flex-row justify-center items-center text-[16px] tlg:text-[14px] tmd:text-[12px] text-theme-3 dark:text-theme-blue-1 font-medium dark:border-2 tmd:dark:border border-theme-yellow dark:border-theme-blue-1 rounded-full px-[20px] mr-[12px] tmd:mr-[8px] cursor-pointer bg-theme-yellow dark:bg-transparent hover:bg-theme-yellow/90 hover:dark:bg-theme-blue-1/10 tlg:hover:bg-transparent">다운로드 페이지로 이동</Link>
+                    <Link aria-label="source-link" href={font.source_link} target="_blank" className="h-[40px] tlg:h-[36px] tmd:h-[32px] flex flex-row justify-center items-center text-[16px] tlg:text-[14px] tmd:text-[12px] text-theme-3 dark:text-theme-blue-1 font-medium dark:border-2 tmd:dark:border dark:border-theme-blue-1 rounded-full px-[20px] mr-[12px] tmd:mr-[8px] cursor-pointer bg-theme-yellow hover:bg-theme-yellow/90 tlg:hover-bg-theme-yellow dark:bg-transparent hover:dark:bg-theme-blue-1/10 tlg:hover:dark:bg-transparent">다운로드 페이지로 이동</Link>
                     {
                         font.license_ofl[0] === "N"
                         ? <></>
-                        : <Link aria-label="github-source-link" href={font.github_link} target="_blank" className="w-[180px] tlg:w-[140px] tmd:w-[128px] h-[40px] tlg:h-[36px] tmd:h-[32px] flex flex-row justify-center items-center text-[16px] tlg:text-[14px] tmd:text-[12px] text-theme-9 dark:text-theme-8 font-medium dark:border-2 tmd:dark:border border-theme-4 dark:border-theme-8 rounded-full px-[20px] cursor-pointer bg-theme-4 dark:bg-transparent hover:bg-theme-4/90 hover:dark:bg-theme-8/10 tlg:hover:bg-transparent">폰트 다운로드</Link>
+                        : <Link aria-label="github-source-link" href={font.github_link} target="_blank" className="w-[180px] tlg:w-[140px] tmd:w-[128px] h-[40px] tlg:h-[36px] tmd:h-[32px] flex flex-row justify-center items-center text-[16px] tlg:text-[14px] tmd:text-[12px] text-theme-9 dark:text-theme-9 font-medium dark:border-2 tmd:dark:border border-theme-4 dark:border-theme-9 rounded-full px-[20px] cursor-pointer bg-theme-4 hover:bg-theme-4/90 tlg:hover:bg-theme-4 dark:bg-transparent hover:dark:bg-theme-9/10 tlg:hover:dark:bg-transparent">폰트 다운로드</Link>
                     }
                 </div>
                 {
@@ -337,48 +337,48 @@ function DetailPage({fonts, comps, randomNum, initFontSize, initLineHeight, init
                     ? <></>
                     : <>
                         <div className="flex flex-col justify-start items-start mb-[60px] tlg:mb-[48px] tmd:mb-[40px]">
-                            <h2 className="text-[24px] tlg:text-[20px] tmd:text-[18px] text-theme-3 dark:text-theme-8 font-medium mb-[20px] tlg:mb-[16px] tmd:mb-[14px]">웹 폰트 사용하기</h2>
+                            <h2 className="text-[24px] tlg:text-[20px] tmd:text-[18px] text-theme-3 dark:text-theme-9 font-medium mb-[20px] tlg:mb-[16px] tmd:mb-[14px]">웹 폰트 사용하기</h2>
                             <div className="cdn w-[1000px] tlg:w-[100%] h-[60px] tlg:h-[48px] tmd:h-[40px] overflow-hidden border-x border-t border-b border-theme-4 dark:border-theme-3/80 rounded-t-[8px] flex flex-row justify-start items-center">
                                 <input onChange={handleWebFont} type="radio" id="cdn_css" name="cdn" value="CSS" className="hidden" defaultChecked/>
-                                <label htmlFor="cdn_css" className="w-[25%] h-[100%] border-r border-theme-8 dark:border-theme-3/80 flex flex-row justify-center items-center text-[16px] tlg:text-[14px] tmd:text-[10px] text-theme-3 focused:text-theme-9 dark:text-theme-8 leading-none cursor-pointer">CSS 설정하기</label>
+                                <label htmlFor="cdn_css" className="w-[25%] h-[100%] border-r border-theme-8 dark:border-theme-3/80 flex flex-row justify-center items-center text-[16px] tlg:text-[14px] tmd:text-[10px] text-theme-3 focused:text-theme-9 dark:text-theme-9 leading-none cursor-pointer">CSS 설정하기</label>
                                 <input onChange={handleWebFont} type="radio" id="cdn_link" name="cdn" value="link" className="hidden"/>
-                                <label htmlFor="cdn_link" className="w-[25%] h-[100%] border-r border-theme-8 dark:border-theme-3/80 flex flex-row justify-center items-center text-[16px] tlg:text-[14px] tmd:text-[10px] text-theme-3 dark:text-theme-8 leading-none cursor-pointer">link 방식</label>
+                                <label htmlFor="cdn_link" className="w-[25%] h-[100%] border-r border-theme-8 dark:border-theme-3/80 flex flex-row justify-center items-center text-[16px] tlg:text-[14px] tmd:text-[10px] text-theme-3 dark:text-theme-9 leading-none cursor-pointer">link 방식</label>
                                 <input onChange={handleWebFont} type="radio" id="cdn_import" name="cdn" value="import" className="hidden"/>
-                                <label htmlFor="cdn_import" className="w-[25%] h-[100%] border-r border-theme-8 dark:border-theme-3/80 flex flex-row justify-center items-center text-[16px] tlg:text-[14px] tmd:text-[10px] text-theme-3 dark:text-theme-8 leading-none cursor-pointer">import 방식</label>
+                                <label htmlFor="cdn_import" className="w-[25%] h-[100%] border-r border-theme-8 dark:border-theme-3/80 flex flex-row justify-center items-center text-[16px] tlg:text-[14px] tmd:text-[10px] text-theme-3 dark:text-theme-9 leading-none cursor-pointer">import 방식</label>
                                 <input onChange={handleWebFont} type="radio" id="cdn_font_face" name="cdn" value="font-face" className="hidden"/>
-                                <label htmlFor="cdn_font_face" className="w-[25%] h-[100%] flex flex-row justify-center items-center text-[16px] tlg:text-[14px] tmd:text-[10px] text-theme-3 dark:text-theme-8 leading-none cursor-pointer">font-face 방식</label>
+                                <label htmlFor="cdn_font_face" className="w-[25%] h-[100%] flex flex-row justify-center items-center text-[16px] tlg:text-[14px] tmd:text-[10px] text-theme-3 dark:text-theme-9 leading-none cursor-pointer">font-face 방식</label>
                             </div>
                             <div className="w-[1000px] tlg:w-[100%] border-x border-b rounded-b-[8px] border-theme-4 dark:border-theme-blue-2 bg-theme-4 dark:bg-theme-blue-2">
                                 {
                                     webFont === "CSS"
                                     ? <div className="w-[100%] relative pl-[32px] tlg:pl-[24px] tmd:pl-[16px] pr-[66px] tlg:pr-[60px] overflow-hidden">
-                                        <div className="cdn_pre w-[100%] h-[72px] tlg:h-[60px] tmd:h-[48px] flex flex-row justify-start items-center overflow-x-auto"><pre style={{fontFamily:"Noto Sans KR"}} className="text-[16px] tlg:text-[14px] tmd:text-[12px] text-theme-9 dark:text-theme-8">{font.cdn_css}</pre></div>
+                                        <div className="cdn_pre w-[100%] h-[72px] tlg:h-[60px] tmd:h-[48px] flex flex-row justify-start items-center overflow-x-auto"><pre style={{fontFamily:"Noto Sans KR"}} className="text-[16px] tlg:text-[14px] tmd:text-[12px] text-theme-9">{font.cdn_css}</pre></div>
                                         <div className="absolute z-10 right-[20px] tlg:right-[16px] tmd:right-[12px] top-[50%] translate-y-[-50%] cursor-pointer">
-                                            <svg onClick={copyOnClick} className="copy_btn w-[32px] tmd:w-[28px] p-[8px] fill-theme-8 dark:fill-theme-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/><path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/></svg>
-                                            <svg className="copy_chk_btn w-[32px] tmd:w-[28px] p-[8px] fill-theme-8 dark:fill-theme-6 hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/></svg>
+                                            <svg onClick={copyOnClick} className="copy_btn w-[32px] tmd:w-[28px] p-[8px] fill-theme-9 dark:fill-theme-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/><path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/></svg>
+                                            <svg className="copy_chk_btn w-[32px] tmd:w-[28px] p-[8px] fill-theme-9 dark:fill-theme-7 hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/></svg>
                                         </div>
                                     </div>
                                     : ( webFont === "link"
                                         ? <div className="w-[100%] relative pl-[32px] tlg:pl-[24px] tmd:pl-[16px] pr-[66px] tlg:pr-[60px] overflow-hidden">
-                                            <div className="cdn_pre w-[100%] h-[72px] tlg:h-[60px] tmd:h-[48px] flex flex-row justify-start items-center overflow-x-auto"><pre style={{fontFamily:"Noto Sans KR"}} className="text-[16px] tlg:text-[14px] tmd:text-[12px] text-theme-9 dark:text-theme-8">{font.cdn_link}</pre></div>
+                                            <div className="cdn_pre w-[100%] h-[72px] tlg:h-[60px] tmd:h-[48px] flex flex-row justify-start items-center overflow-x-auto"><pre style={{fontFamily:"Noto Sans KR"}} className="text-[16px] tlg:text-[14px] tmd:text-[12px] text-theme-9">{font.cdn_link}</pre></div>
                                             <div className="absolute z-10 right-[20px] tlg:right-[16px] tmd:right-[12px] top-[50%] translate-y-[-50%] cursor-pointer">
-                                                <svg onClick={copyOnClick} className="copy_btn w-[32px] tmd:w-[28px] p-[8px] fill-theme-8 dark:fill-theme-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/><path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/></svg>
-                                                <svg className="copy_chk_btn w-[32px] tmd:w-[28px] p-[8px] fill-theme-8 dark:fill-theme-6 hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/></svg>
+                                                <svg onClick={copyOnClick} className="copy_btn w-[32px] tmd:w-[28px] p-[8px] fill-theme-9 dark:fill-theme-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/><path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/></svg>
+                                                <svg className="copy_chk_btn w-[32px] tmd:w-[28px] p-[8px] fill-theme-9 dark:fill-theme-7 hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/></svg>
                                             </div>
                                         </div>
                                         : ( webFont === "import"
                                             ? <div className="w-[100%] relative pl-[32px] tlg:pl-[24px] tmd:pl-[16px] pr-[66px] tlg:pr-[60px] overflow-hidden">
-                                                <div className="cdn_pre w-[100%] h-[72px] tlg:h-[60px] tmd:h-[48px] flex flex-row justify-start items-center overflow-x-auto"><pre style={{fontFamily:"Noto Sans KR"}} className="text-[16px] tlg:text-[14px] tmd:text-[12px] text-theme-9 dark:text-theme-8">{font.cdn_import}</pre></div>
+                                                <div className="cdn_pre w-[100%] h-[72px] tlg:h-[60px] tmd:h-[48px] flex flex-row justify-start items-center overflow-x-auto"><pre style={{fontFamily:"Noto Sans KR"}} className="text-[16px] tlg:text-[14px] tmd:text-[12px] text-theme-9">{font.cdn_import}</pre></div>
                                                 <div className="absolute z-10 right-[20px] tlg:right-[16px] tmd:right-[12px] top-[50%] translate-y-[-50%] cursor-pointer">
-                                                    <svg onClick={copyOnClick} className="copy_btn w-[32px] tmd:w-[28px] p-[8px] fill-theme-8 dark:fill-theme-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/><path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/></svg>
-                                                    <svg className="copy_chk_btn w-[32px] tmd:w-[28px] p-[8px] fill-theme-8 dark:fill-theme-6 hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/></svg>
+                                                    <svg onClick={copyOnClick} className="copy_btn w-[32px] tmd:w-[28px] p-[8px] fill-theme-9 dark:fill-theme-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/><path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/></svg>
+                                                    <svg className="copy_chk_btn w-[32px] tmd:w-[28px] p-[8px] fill-theme-9 dark:fill-theme-7 hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/></svg>
                                                 </div>
                                             </div>
                                             : <div className="w-[100%] relative pl-[32px] tlg:pl-[24px] tmd:pl-[16px] pr-[66px] tlg:pr-[60px] overflow-hidden">
-                                                <div className="cdn_pre w-[100%] h-[auto] py-[24px] tlg:py-[20px] tmd:py-[15px] flex flex-row justify-start items-center overflow-auto whitespace-nowrap"><div id="cdn-font-face" style={{fontFamily:"Noto Sans KR"}} className="font-face text-[16px] tlg:text-[14px] tmd:text-[12px] text-theme-9 dark:text-theme-8">{font.cdn_font_face}</div></div>
+                                                <div className="cdn_pre w-[100%] h-[auto] py-[24px] tlg:py-[20px] tmd:py-[15px] flex flex-row justify-start items-center overflow-auto whitespace-nowrap"><div id="cdn-font-face" style={{fontFamily:"Noto Sans KR"}} className="font-face text-[16px] tlg:text-[14px] tmd:text-[12px] text-theme-9">{font.cdn_font_face}</div></div>
                                                 <div className="absolute z-10 right-[20px] tlg:right-[16px] tmd:right-[12px] top-[36px] tlg:top-[30px] tmd:top-[24px] translate-y-[-50%] cursor-pointer">
-                                                    <svg onClick={copyOnClick} className="copy_btn w-[32px] tmd:w-[28px] p-[8px] fill-theme-8 dark:fill-theme-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/><path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/></svg>
-                                                    <svg className="copy_chk_btn w-[32px] tmd:w-[28px] p-[8px] fill-theme-8 dark:fill-theme-6 hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/></svg>
+                                                    <svg onClick={copyOnClick} className="copy_btn w-[32px] tmd:w-[28px] p-[8px] fill-theme-9 dark:fill-theme-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/><path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/></svg>
+                                                    <svg className="copy_chk_btn w-[32px] tmd:w-[28px] p-[8px] fill-theme-9 dark:fill-theme-7 hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/></svg>
                                                 </div>
                                             </div>
                                         )
@@ -389,7 +389,7 @@ function DetailPage({fonts, comps, randomNum, initFontSize, initLineHeight, init
                     </>
                 }
                 <div className="max-w-[100%] w-content flex flex-col justify-start items-start mb-[60px] tlg:mb-[48px] tmd:mb-[40px]">
-                    <h2 className="text-[24px] tlg:text-[20px] tmd:text-[18px] text-theme-3 dark:text-theme-8 font-medium mb-[20px] tlg:mb-[16px] tmd:mb-[14px]">폰트 미리보기</h2>
+                    <h2 className="text-[24px] tlg:text-[20px] tmd:text-[18px] text-theme-3 dark:text-theme-9 font-medium mb-[20px] tlg:mb-[16px] tmd:mb-[14px]">폰트 미리보기</h2>
                     <div className="w-[100%] px-[16px] py-[8px] mb-[20px] tlg:mb-[16px] border-b border-theme-7 dark:border-theme-4">
                         <textarea onChange={handleFontWeightChange} onInput={handleHeightChange} placeholder="원하는 문구를 적어보세요..." className="w-[100%] h-[18px] resize-none text-[14px] text-theme-5 dark:text-theme-8 placeholder-theme-5 dark:placeholder-theme-6 leading-tight bg-transparent"/>
                     </div>
@@ -458,79 +458,79 @@ function DetailPage({fonts, comps, randomNum, initFontSize, initLineHeight, init
                         {
                             font.font_weight[0] === "Y"
                             ? <>
-                                <div className="text-[14px] tlg:text-[11px] text-theme-7 dark:text-theme-8 leading-none mb-[12px]">Thin 100</div>
-                                <pre style={{fontFamily:font.font_family, fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"100"}} className="font-preview w-[100%] text-theme-9 dark:text-theme-8 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
+                                <div className="text-[14px] tlg:text-[11px] text-theme-7 leading-none mb-[12px]">Thin 100</div>
+                                <pre style={{fontFamily:font.font_family, fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"100"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
                             </>
                             : <></>
                         }
                         {
                             font.font_weight[1] === "Y"
                             ? <>
-                                <div className="text-[14px] tlg:text-[11px] text-theme-7 dark:text-theme-8 leading-none mb-[12px]">ExtraLight 200</div>
-                                <pre style={{fontFamily:font.font_family, fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"200"}} className="font-preview w-[100%] text-theme-9 dark:text-theme-8 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
+                                <div className="text-[14px] tlg:text-[11px] text-theme-7 leading-none mb-[12px]">ExtraLight 200</div>
+                                <pre style={{fontFamily:font.font_family, fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"200"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
                             </>
                             : <></>
                         }
                         {
                             font.font_weight[2] === "Y"
                             ? <>
-                                <div className="text-[14px] tlg:text-[11px] text-theme-7 dark:text-theme-8 leading-none mb-[12px]">Light 300</div>
-                                <pre style={{fontFamily:font.font_family, fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"300"}} className="font-preview w-[100%] text-theme-9 dark:text-theme-8 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
+                                <div className="text-[14px] tlg:text-[11px] text-theme-7 leading-none mb-[12px]">Light 300</div>
+                                <pre style={{fontFamily:font.font_family, fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"300"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
                             </>
                             : <></>
                         }
                         {
                             font.font_weight[3] === "Y"
                             ? <>
-                                <div className="text-[14px] tlg:text-[11px] text-theme-7 dark:text-theme-8 leading-none mb-[12px]">Regular 400</div>
-                                <pre style={{fontFamily:font.font_family, fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"400"}} className="font-preview w-[100%] text-theme-9 dark:text-theme-8 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
+                                <div className="text-[14px] tlg:text-[11px] text-theme-7 leading-none mb-[12px]">Regular 400</div>
+                                <pre style={{fontFamily:font.font_family, fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"400"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
                             </>
                             : <></>
                         }
                         {
                             font.font_weight[4] === "Y"
                             ? <>
-                                <div className="text-[14px] tlg:text-[11px] text-theme-7 dark:text-theme-8 leading-none mb-[12px]">Medium 500</div>
-                                <pre style={{fontFamily:font.font_family, fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"500"}} className="font-preview w-[100%] text-theme-9 dark:text-theme-8 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
+                                <div className="text-[14px] tlg:text-[11px] text-theme-7 leading-none mb-[12px]">Medium 500</div>
+                                <pre style={{fontFamily:font.font_family, fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"500"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
                             </>
                             : <></>
                         }
                         {
                             font.font_weight[5] === "Y"
                             ? <>
-                                <div className="text-[14px] tlg:text-[11px] text-theme-7 dark:text-theme-8 leading-none mb-[12px]">SemiBold 600</div>
-                                <pre style={{fontFamily:font.font_family, fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"600"}} className="font-preview w-[100%] text-theme-9 dark:text-theme-8 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
+                                <div className="text-[14px] tlg:text-[11px] text-theme-7 leading-none mb-[12px]">SemiBold 600</div>
+                                <pre style={{fontFamily:font.font_family, fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"600"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
                             </>
                             : <></>
                         }
                         {
                             font.font_weight[6] === "Y"
                             ? <>
-                                <div className="text-[14px] tlg:text-[11px] text-theme-7 dark:text-theme-8 leading-none mb-[12px]">Bold 700</div>
-                                <pre style={{fontFamily:font.font_family, fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"700"}} className="font-preview w-[100%] text-theme-9 dark:text-theme-8 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
+                                <div className="text-[14px] tlg:text-[11px] text-theme-7 leading-none mb-[12px]">Bold 700</div>
+                                <pre style={{fontFamily:font.font_family, fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"700"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
                             </>
                             : <></>
                         }
                         {
                             font.font_weight[7] === "Y"
                             ? <>
-                                <div className="text-[14px] tlg:text-[11px] text-theme-7 dark:text-theme-8 leading-none mb-[12px]">Heavy 800</div>
-                                <pre style={{fontFamily:font.font_family, fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"800"}} className="font-preview w-[100%] text-theme-9 dark:text-theme-8 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
+                                <div className="text-[14px] tlg:text-[11px] text-theme-7 leading-none mb-[12px]">Heavy 800</div>
+                                <pre style={{fontFamily:font.font_family, fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"800"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
                             </>
                             : <></>
                         }
                         {
                             font.font_weight[8] === "Y"
                             ? <>
-                                <div className="text-[14px] tmd:text-[12px] text-theme-7 dark:text-theme-8 leading-none mb-[12px]">Black 900</div>
-                                <pre style={{fontFamily:font.font_family, fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"900"}} className="font-preview w-[100%] text-theme-9 dark:text-theme-8 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
+                                <div className="text-[14px] tmd:text-[12px] text-theme-7 leading-none mb-[12px]">Black 900</div>
+                                <pre style={{fontFamily:font.font_family, fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"900"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
                             </>
                             : <></>
                         }
                     </div>
                 </div>
                 <div className="flex flex-col justify-start items-start">
-                    <h2 className="text-[24px] tlg:text-[20px] tmd:text-[18px] text-theme-3 dark:text-theme-8 font-medium mb-[20px] tlg:mb-[16px] tmd:mb-[14px]">라이센스 사용 범위</h2>
+                    <h2 className="text-[24px] tlg:text-[20px] tmd:text-[18px] text-theme-3 dark:text-theme-9 font-medium mb-[20px] tlg:mb-[16px] tmd:mb-[14px]">라이센스 사용 범위</h2>
                     <table className="w-[100%] mb-[20px] tlg:mb-[16px]">
                         <thead className="h-[60px] tlg:h-[48px] bg-theme-8 dark:bg-theme-3 border-x border-theme-8 dark:border-theme-3">
                             <tr className="text-[16px] tlg:text-[14px] tmd:text-[12px] text-theme-3 dark:text-theme-8 font-medium">
@@ -541,18 +541,18 @@ function DetailPage({fonts, comps, randomNum, initFontSize, initLineHeight, init
                         </thead>
                         <tbody className="text-[16px] tlg:text-[14px] tmd:text-[12px] leading-tight text-theme-3 dark:text-theme-8 text-center font-normal border-x border-b border-theme-7 dark:border-theme-4">
                             <tr className="tlg:relative">
-                                <td rowSpan={5} className="border-r border-theme-7 dark:border-theme-4">인쇄</td>
-                                <td className="h-[60px] tlg:h-[auto] tlg:p-[16px] tmd:p-[12px] border-r border-theme-7 dark:border-theme-4">브로슈어, 카탈로그, DM, 전단지, 포스터, 패키지, 캘린더 등 인쇄물</td>
+                                <td className="border-r border-theme-7 dark:border-theme-4">인쇄</td>
+                                <td className="h-[60px] tlg:h-[auto] tlg:p-[16px] tmd:p-[12px] border-r border-theme-7 dark:border-theme-4">브로슈어, 포스터, 책, 잡지 및 출판용 인쇄물 등</td>
                                 <td className="h-[60px] tlg:h-[100%] tlg:w-[120px] tmd:w-[88px] tlg:absolute flex flex-row justify-center items-center">
                                     {
                                         font.license_print[0] === "Y"
                                         ? <svg className="w-[16px] tlg:w-[14px] tmd:w-[12px] fill-theme-3 dark:fill-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
                                         : ( font.license_print[0] === "N"
-                                            ? <div style={{color:"#FF6190"}}>금지</div>
+                                            ? <div style={{color:"#FF0000"}}>금지</div>
                                             : ( font.license_print[0] === "R"
                                                 ? <>권장</>
                                                 : ( font.license_print[0] === "Q"
-                                                    ? <div style={{color:"#FF6190"}}>문의</div>
+                                                    ? <div style={{color:"#FF0000"}}>문의</div>
                                                     : <></>
                                                 )
                                             )
@@ -561,94 +561,18 @@ function DetailPage({fonts, comps, randomNum, initFontSize, initLineHeight, init
                                 </td>
                             </tr>
                             <tr className="tlg:relative">
-                                <td className="h-[60px] tlg:h-[auto] tlg:p-[16px] tmd:p-[12px] border-r border-t border-theme-7 dark:border-theme-4">책, 만화책, 잡지, 정기간행물, 신문 등 출판물</td>
-                                <td className="h-[60px] tlg:h-[100%] tlg:w-[120px] tmd:w-[88px] tlg:absolute flex flex-row justify-center items-center border-t border-theme-7 dark:border-theme-4">
-                                    {
-                                        font.license_print[1] === "Y"
-                                        ? <svg className="w-[16px] tlg:w-[14px] tmd:w-[12px] fill-theme-3 dark:fill-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
-                                        : ( font.license_print[1] === "N"
-                                            ? <div style={{color:"#FF6190"}}>금지</div>
-                                            : ( font.license_print[1] === "R"
-                                                ? <>권장</>
-                                                : ( font.license_print[1] === "Q"
-                                                    ? <div style={{color:"#FF6190"}}>문의</div>
-                                                    : <></>
-                                                )
-                                            )
-                                        )
-                                    }
-                                </td>
-                            </tr>
-                            <tr className="tlg:relative">
-                                <td className="h-[60px] tlg:h-[auto] tlg:p-[16px] tmd:p-[12px] border-r border-t border-theme-7 dark:border-theme-4">간판, 현수막, 판넬 등 제작물</td>
-                                <td className="h-[60px] tlg:h-[100%] tlg:w-[120px] tmd:w-[88px] tlg:absolute flex flex-row justify-center items-center border-t border-theme-7 dark:border-theme-4">
-                                    {
-                                        font.license_print[2] === "Y"
-                                        ? <svg className="w-[16px] tlg:w-[14px] tmd:w-[12px] fill-theme-3 dark:fill-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
-                                        : ( font.license_print[2] === "N"
-                                            ? <div style={{color:"#FF6190"}}>금지</div>
-                                            : ( font.license_print[2] === "R"
-                                                ? <>권장</>
-                                                : ( font.license_print[2] === "Q"
-                                                    ? <div style={{color:"#FF6190"}}>문의</div>
-                                                    : <></>
-                                                )
-                                            )
-                                        )
-                                    }
-                                </td>
-                            </tr>
-                            <tr className="tlg:relative">
-                                <td className="h-[60px] tlg:h-[auto] tlg:p-[16px] tmd:p-[12px] border-r border-t border-theme-7 dark:border-theme-4">신문광고, 잡지광고, 차량광고 등 광고물</td>
-                                <td className="h-[60px] tlg:h-[100%] tlg:w-[120px] tmd:w-[88px] tlg:absolute flex flex-row justify-center items-center border-t border-theme-7 dark:border-theme-4">
-                                    {
-                                        font.license_print[3] === "Y"
-                                        ? <svg className="w-[16px] tlg:w-[14px] tmd:w-[12px] fill-theme-3 dark:fill-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
-                                        : ( font.license_print[3] === "N"
-                                            ? <div style={{color:"#FF6190"}}>금지</div>
-                                            : ( font.license_print[3] === "R"
-                                                ? <>권장</>
-                                                : ( font.license_print[3] === "Q"
-                                                    ? <div style={{color:"#FF6190"}}>문의</div>
-                                                    : <></>
-                                                )
-                                            )
-                                        )
-                                    }
-                                </td>
-                            </tr>
-                            <tr className="tlg:relative">
-                                <td className="h-[60px] tlg:h-[auto] tlg:p-[16px] tmd:p-[12px] border-r border-t border-theme-7 dark:border-theme-4">인쇄 및 문서 공유를 위한 PDF 파일 제작</td>
-                                <td className="h-[60px] tlg:h-[100%] tlg:w-[120px] tmd:w-[88px] tlg:absolute flex flex-row justify-center items-center border-t border-theme-7 dark:border-theme-4">
-                                    {
-                                        font.license_print[4] === "Y"
-                                        ? <svg className="w-[16px] tlg:w-[14px] tmd:w-[12px] fill-theme-3 dark:fill-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
-                                        : ( font.license_print[4] === "N"
-                                            ? <div style={{color:"#FF6190"}}>금지</div>
-                                            : ( font.license_print[4] === "R"
-                                                ? <>권장</>
-                                                : ( font.license_print[4] === "Q"
-                                                    ? <div style={{color:"#FF6190"}}>문의</div>
-                                                    : <></>
-                                                )
-                                            )
-                                        )
-                                    }
-                                </td>
-                            </tr>
-                            <tr className="tlg:relative">
-                                <td rowSpan={2} className="border-r border-t border-theme-7 dark:border-theme-4">웹사이트</td>
+                                <td className="border-r border-t border-theme-7 dark:border-theme-4">웹사이트</td>
                                 <td className="h-[60px] tlg:h-[auto] tlg:p-[16px] tmd:p-[12px] border-r border-t border-theme-7 dark:border-theme-4">웹페이지, 광고 배너, 메일, E-브로슈어 등</td>
                                 <td className="h-[60px] tlg:h-[100%] tlg:w-[120px] tmd:w-[88px] tlg:absolute flex flex-row justify-center items-center border-t border-theme-7 dark:border-theme-4">
                                     {
                                         font.license_web[0] === "Y"
                                         ? <svg className="w-[16px] tlg:w-[14px] tmd:w-[12px] fill-theme-3 dark:fill-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
                                         : ( font.license_web[0] === "N"
-                                            ? <div style={{color:"#FF6190"}}>금지</div>
+                                            ? <div style={{color:"#FF0000"}}>금지</div>
                                             : ( font.license_web[0] === "R"
                                                 ? <>권장</>
                                                 : ( font.license_web[0] === "Q"
-                                                    ? <div style={{color:"#FF6190"}}>문의</div>
+                                                    ? <div style={{color:"#FF0000"}}>문의</div>
                                                     : <></>
                                                 )
                                             )
@@ -657,113 +581,18 @@ function DetailPage({fonts, comps, randomNum, initFontSize, initLineHeight, init
                                 </td>
                             </tr>
                             <tr className="tlg:relative">
-                                <td className="h-[60px] tlg:h-[auto] tlg:p-[16px] tmd:p-[12px] border-r border-t border-theme-7 dark:border-theme-4">웹서버용 폰트</td>
-                                <td className="h-[60px] tlg:h-[100%] tlg:w-[120px] tmd:w-[88px] tlg:absolute flex flex-row justify-center items-center border-t border-theme-7 dark:border-theme-4">
-                                    {
-                                        font.license_web[1] === "Y"
-                                        ? <svg className="w-[16px] tlg:w-[14px] tmd:w-[12px] fill-theme-3 dark:fill-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
-                                        : ( font.license_web[1] === "N"
-                                            ? <div style={{color:"#FF6190"}}>금지</div>
-                                            : ( font.license_web[1] === "R"
-                                                ? <>권장</>
-                                                : ( font.license_web[1] === "Q"
-                                                    ? <div style={{color:"#FF6190"}}>문의</div>
-                                                    : <></>
-                                                )
-                                            )
-                                        )
-                                    }
-                                </td>
-                            </tr>
-                            <tr className="tlg:relative">
-                                <td rowSpan={5} className="border-r border-t border-theme-7 dark:border-theme-4">영상</td>
-                                <td className="h-[60px] tlg:h-[auto] tlg:p-[16px] tmd:p-[12px] border-r border-t border-theme-7 dark:border-theme-4">방송 및 영상물 자막</td>
+                                <td className="border-r border-t border-theme-7 dark:border-theme-4">영상</td>
+                                <td className="h-[60px] tlg:h-[auto] tlg:p-[16px] tmd:p-[12px] border-r border-t border-theme-7 dark:border-theme-4">영상물 자막, 영화 오프닝/엔딩 크레딧, UCC 등</td>
                                 <td className="h-[60px] tlg:h-[100%] tlg:w-[120px] tmd:w-[88px] tlg:absolute flex flex-row justify-center items-center border-t border-theme-7 dark:border-theme-4">
                                     {
                                         font.license_video[0] === "Y"
                                         ? <svg className="w-[16px] tlg:w-[14px] tmd:w-[12px] fill-theme-3 dark:fill-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
                                         : ( font.license_video[0] === "N"
-                                            ? <div style={{color:"#FF6190"}}>금지</div>
+                                            ? <div style={{color:"#FF0000"}}>금지</div>
                                             : ( font.license_video[0] === "R"
                                                 ? <>권장</>
                                                 : ( font.license_video[0] === "Q"
-                                                    ? <div style={{color:"#FF6190"}}>문의</div>
-                                                    : <></>
-                                                )
-                                            )
-                                        )
-                                    }
-                                </td>
-                            </tr>
-                            <tr className="tlg:relative">
-                                <td className="h-[60px] tlg:h-[auto] tlg:p-[16px] tmd:p-[12px] border-r border-t border-theme-7 dark:border-theme-4">TV-CF, 온라인 영상광고</td>
-                                <td className="h-[60px] tlg:h-[100%] tlg:w-[120px] tmd:w-[88px] tlg:absolute flex flex-row justify-center items-center border-t border-theme-7 dark:border-theme-4">
-                                    {
-                                        font.license_video[1] === "Y"
-                                        ? <svg className="w-[16px] tlg:w-[14px] tmd:w-[12px] fill-theme-3 dark:fill-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
-                                        : ( font.license_video[1] === "N"
-                                            ? <div style={{color:"#FF6190"}}>금지</div>
-                                            : ( font.license_video[1] === "R"
-                                                ? <>권장</>
-                                                : ( font.license_video[1] === "Q"
-                                                    ? <div style={{color:"#FF6190"}}>문의</div>
-                                                    : <></>
-                                                )
-                                            )
-                                        )
-                                    }
-                                </td>
-                            </tr>
-                            <tr className="tlg:relative">
-                                <td className="h-[60px] tlg:h-[auto] tlg:p-[16px] tmd:p-[12px] border-r border-t border-theme-7 dark:border-theme-4">영화(DVD / 비디오), 오프닝, 엔딩크레딧 자막</td>
-                                <td className="h-[60px] tlg:h-[100%] tlg:w-[120px] tmd:w-[88px] tlg:absolute flex flex-row justify-center items-center border-t border-theme-7 dark:border-theme-4">
-                                    {
-                                        font.license_video[2] === "Y"
-                                        ? <svg className="w-[16px] tlg:w-[14px] tmd:w-[12px] fill-theme-3 dark:fill-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
-                                        : ( font.license_video[2] === "N"
-                                            ? <div style={{color:"#FF6190"}}>금지</div>
-                                            : ( font.license_video[2] === "R"
-                                                ? <>권장</>
-                                                : ( font.license_video[2] === "Q"
-                                                    ? <div style={{color:"#FF6190"}}>문의</div>
-                                                    : <></>
-                                                )
-                                            )
-                                        )
-                                    }
-                                </td>
-                            </tr>
-                            <tr className="tlg:relative">
-                                <td className="h-[60px] tlg:h-[auto] tlg:p-[16px] tmd:p-[12px] border-r border-t border-theme-7 dark:border-theme-4">개인 UCC 및 홍보물</td>
-                                <td className="h-[60px] tlg:h-[100%] tlg:w-[120px] tmd:w-[88px] tlg:absolute flex flex-row justify-center items-center border-t border-theme-7 dark:border-theme-4">
-                                    {
-                                        font.license_video[3] === "Y"
-                                        ? <svg className="w-[16px] tlg:w-[14px] tmd:w-[12px] fill-theme-3 dark:fill-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
-                                        : ( font.license_video[3] === "N"
-                                            ? <div style={{color:"#FF6190"}}>금지</div>
-                                            : ( font.license_video[3] === "R"
-                                                ? <>권장</>
-                                                : ( font.license_video[3] === "Q"
-                                                    ? <div style={{color:"#FF6190"}}>문의</div>
-                                                    : <></>
-                                                )
-                                            )
-                                        )
-                                    }
-                                </td>
-                            </tr>
-                            <tr className="tlg:relative">
-                                <td className="h-[60px] tlg:h-[auto] tlg:p-[16px] tmd:p-[12px] border-r border-t border-theme-7 dark:border-theme-4">E-Learning 콘텐츠, 온라인 동영상강좌, 플래시 강좌</td>
-                                <td className="h-[60px] tlg:h-[100%] tlg:w-[120px] tmd:w-[88px] tlg:absolute flex flex-row justify-center items-center border-t border-theme-7 dark:border-theme-4">
-                                    {
-                                        font.license_video[4] === "Y"
-                                        ? <svg className="w-[16px] tlg:w-[14px] tmd:w-[12px] fill-theme-3 dark:fill-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
-                                        : ( font.license_video[4] === "N"
-                                            ? <div style={{color:"#FF6190"}}>금지</div>
-                                            : ( font.license_video[4] === "R"
-                                                ? <>권장</>
-                                                : ( font.license_video[4] === "Q"
-                                                    ? <div style={{color:"#FF6190"}}>문의</div>
+                                                    ? <div style={{color:"#FF0000"}}>문의</div>
                                                     : <></>
                                                 )
                                             )
@@ -779,11 +608,11 @@ function DetailPage({fonts, comps, randomNum, initFontSize, initLineHeight, init
                                         font.license_package[0] === "Y"
                                         ? <svg className="w-[16px] tlg:w-[14px] tmd:w-[12px] fill-theme-3 dark:fill-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
                                         : ( font.license_package[0] === "N"
-                                            ? <div style={{color:"#FF6190"}}>금지</div>
+                                            ? <div style={{color:"#FF0000"}}>금지</div>
                                             : ( font.license_package[0] === "R"
                                                 ? <>권장</>
                                                 : ( font.license_package[0] === "Q"
-                                                    ? <div style={{color:"#FF6190"}}>문의</div>
+                                                    ? <div style={{color:"#FF0000"}}>문의</div>
                                                     : <></>
                                                 )
                                             )
@@ -799,11 +628,11 @@ function DetailPage({fonts, comps, randomNum, initFontSize, initLineHeight, init
                                         font.license_embed[0] === "Y"
                                         ? <svg className="w-[16px] tlg:w-[14px] tmd:w-[12px] fill-theme-3 dark:fill-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
                                         : ( font.license_embed[0] === "N"
-                                            ? <div style={{color:"#FF6190"}}>금지</div>
+                                            ? <div style={{color:"#FF0000"}}>금지</div>
                                             : ( font.license_embed[0] === "R"
                                                 ? <>권장</>
                                                 : ( font.license_embed[0] === "Q"
-                                                    ? <div style={{color:"#FF6190"}}>문의</div>
+                                                    ? <div style={{color:"#FF0000"}}>문의</div>
                                                     : <></>
                                                 )
                                             )
@@ -819,11 +648,11 @@ function DetailPage({fonts, comps, randomNum, initFontSize, initLineHeight, init
                                         font.license_bici[0] === "Y"
                                         ? <svg className="w-[16px] tlg:w-[14px] tmd:w-[12px] fill-theme-3 dark:fill-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
                                         : ( font.license_bici[0] === "N"
-                                            ? <div style={{color:"#FF6190"}}>금지</div>
+                                            ? <div style={{color:"#FF0000"}}>금지</div>
                                             : ( font.license_bici[0] === "R"
                                                 ? <>권장</>
                                                 : ( font.license_bici[0] === "Q"
-                                                    ? <div style={{color:"#FF6190"}}>문의</div>
+                                                    ? <div style={{color:"#FF0000"}}>문의</div>
                                                     : <></>
                                                 )
                                             )
@@ -832,18 +661,24 @@ function DetailPage({fonts, comps, randomNum, initFontSize, initLineHeight, init
                                 </td>
                             </tr>
                             <tr className="tlg:relative">
-                                <td rowSpan={2} className="border-r border-t border-theme-7 dark:border-theme-4">OFL</td>
-                                <td className="h-[60px] tlg:h-[auto] tlg:p-[16px] tmd:p-[12px] border-r border-t border-theme-7 dark:border-theme-4">폰트 파일의 수정, 편집 및 재배포</td>
+                                <td className="border-r border-t border-theme-7 dark:border-theme-4">OFL</td>
+                                <td className="h-[60px] tlg:h-[auto] tlg:p-[16px] tmd:p-[12px] border-r border-t border-theme-7 dark:border-theme-4">
+                                    {
+                                        font.license_ofl[0] === "Y"
+                                        ? <span>폰트 파일의 수정/ 복제/ 배포 가능. 단, 폰트 파일의 유료 판매는 금지</span>
+                                        : <span>폰트 파일의 수정/ 복제/ 배포/ 유료 판매 금지</span>
+                                    }
+                                </td>
                                 <td className="h-[60px] tlg:h-[100%] tlg:w-[120px] tmd:w-[88px] tlg:absolute flex flex-row justify-center items-center border-t border-theme-7 dark:border-theme-4">
                                     {
                                         font.license_ofl[0] === "Y"
                                         ? <svg className="w-[16px] tlg:w-[14px] tmd:w-[12px] fill-theme-3 dark:fill-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
                                         : ( font.license_ofl[0] === "N"
-                                            ? <div style={{color:"#FF6190"}}>금지</div>
+                                            ? <div style={{color:"#FF0000"}}>금지</div>
                                             : ( font.license_ofl[0] === "R"
                                                 ? <>권장</>
                                                 : ( font.license_ofl[0] === "Q"
-                                                    ? <div style={{color:"#FF6190"}}>문의</div>
+                                                    ? <div style={{color:"#FF0000"}}>문의</div>
                                                     : <></>
                                                 )
                                             )
@@ -852,56 +687,24 @@ function DetailPage({fonts, comps, randomNum, initFontSize, initLineHeight, init
                                 </td>
                             </tr>
                             <tr className="tlg:relative">
-                                <td className="h-[60px] tlg:h-[auto] tlg:p-[16px] tmd:p-[12px] border-r border-t border-theme-7 dark:border-theme-4">폰트 파일의 유료 판매</td>
-                                <td className="h-[60px] tlg:h-[100%] tlg:w-[120px] tmd:w-[88px] tlg:absolute flex flex-row justify-center items-center border-t border-theme-7 dark:border-theme-4">
+                                <td className="border-r border-t border-theme-7 dark:border-theme-4">용도</td>
+                                <td className="h-[60px] tlg:h-[auto] tlg:p-[16px] tmd:p-[12px] border-r border-t border-theme-7 dark:border-theme-4">
                                     {
-                                        font.license_ofl[1] === "Y"
-                                        ? <svg className="w-[16px] tlg:w-[14px] tmd:w-[12px] fill-theme-3 dark:fill-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
-                                        : ( font.license_ofl[1] === "N"
-                                            ? <div style={{color:"#FF6190"}}>금지</div>
-                                            : ( font.license_ofl[1] === "R"
-                                                ? <>권장</>
-                                                : ( font.license_ofl[1] === "Q"
-                                                    ? <div style={{color:"#FF6190"}}>문의</div>
-                                                    : <></>
-                                                )
-                                            )
-                                        )
+                                        font.license_purpose[0] === "Y"
+                                        ? <span>개인적, 상업적 용도 모두 사용 가능</span>
+                                        : <span>개인적 용도 사용 가능, 상업적 용도 사용 금지</span>
                                     }
                                 </td>
-                            </tr>
-                            <tr className="tlg:relative">
-                                <td rowSpan={2} className="border-r border-t border-theme-7 dark:border-theme-4">용도</td>
-                                <td className="h-[60px] tlg:h-[auto] tlg:p-[16px] tmd:p-[12px] border-r border-t border-theme-7 dark:border-theme-4">개인적 용도 사용</td>
                                 <td className="h-[60px] tlg:h-[100%] tlg:w-[120px] tmd:w-[88px] tlg:absolute flex flex-row justify-center items-center border-t border-theme-7 dark:border-theme-4">
                                     {
                                         font.license_purpose[0] === "Y"
                                         ? <svg className="w-[16px] tlg:w-[14px] tmd:w-[12px] fill-theme-3 dark:fill-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
                                         : ( font.license_purpose[0] === "N"
-                                            ? <div style={{color:"#FF6190"}}>금지</div>
+                                            ? <div style={{color:"#FF0000"}}>금지</div>
                                             : ( font.license_purpose[0] === "R"
                                                 ? <>권장</>
                                                 : ( font.license_purpose[0] === "Q"
-                                                    ? <div style={{color:"#FF6190"}}>문의</div>
-                                                    : <></>
-                                                )
-                                            )
-                                        )
-                                    }
-                                </td>
-                            </tr>
-                            <tr className="tlg:relative">
-                                <td className="h-[60px] tlg:h-[auto] tlg:p-[16px] tmd:p-[12px] border-r border-t border-theme-7 dark:border-theme-4">상업적 용도 사용</td>
-                                <td className="h-[60px] tlg:h-[100%] tlg:w-[120px] tmd:w-[88px] tlg:absolute flex flex-row justify-center items-center border-t border-theme-7 dark:border-theme-4">
-                                    {
-                                        font.license_purpose[1] === "Y"
-                                        ? <svg className="w-[16px] tlg:w-[14px] tmd:w-[12px] fill-theme-3 dark:fill-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
-                                        : ( font.license_purpose[1] === "N"
-                                            ? <div style={{color:"#FF6190"}}>금지</div>
-                                            : ( font.license_purpose[1] === "R"
-                                                ? <>권장</>
-                                                : ( font.license_purpose[1] === "Q"
-                                                    ? <div style={{color:"#FF6190"}}>문의</div>
+                                                    ? <div style={{color:"#FF0000"}}>문의</div>
                                                     : <></>
                                                 )
                                             )
@@ -917,11 +720,11 @@ function DetailPage({fonts, comps, randomNum, initFontSize, initLineHeight, init
                                         font.license_source[0] === "Y"
                                         ? <svg className="w-[16px] tlg:w-[14px] tmd:w-[12px] fill-theme-3 dark:fill-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
                                         : ( font.license_source[0] === "N"
-                                            ? <div style={{color:"#FF6190"}}>금지</div>
+                                            ? <div style={{color:"#FF0000"}}>금지</div>
                                             : ( font.license_source[0] === "R"
                                                 ? <>권장</>
                                                 : ( font.license_source[0] === "Q"
-                                                    ? <div style={{color:"#FF6190"}}>문의</div>
+                                                    ? <div style={{color:"#FF0000"}}>문의</div>
                                                     : <></>
                                                 )
                                             )
