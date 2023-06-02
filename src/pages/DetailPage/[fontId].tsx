@@ -396,7 +396,7 @@ function DetailPage({fonts, comps, randomNum, initFontSize, initLineHeight, init
                     <div className="font-preview-wrap max-w-[100%] overflow-hidden rounded-[12px] p-[32px] pb-[16px] tlg:p-[20px] tlg:pt-[28px] tlg:pb-[14px] bg-theme-4 dark:bg-theme-blue-2">
                         <div className="w-[100%] flex flex-row flex-wrap justify-start items-center">
                             <div className="flex flex-col justify-center items-start mr-[60px] tlg:mr-[40px] mb-[20px] tlg:mb-[16px]">
-                                <p className="text-[16px] tlg:text-[14px] text-normal leading-none mb-[12px] tlg:mb-[6px] text-theme-9">
+                                <p className="text-[16px] tlg:text-[14px] text-normal leading-none mb-[12px] tlg:mb-[2px] text-theme-9">
                                     폰트 크기<span className="text-[13px] tlg:text-[11px] text-theme-7 ml-[8px]">Font Size</span>
                                 </p>
                                 <div className="w-[280px] tlg:w-[200px] mx-[34px] relative">
@@ -416,7 +416,7 @@ function DetailPage({fonts, comps, randomNum, initFontSize, initLineHeight, init
                                 </div>
                             </div>
                             <div className="flex flex-col justify-center items-start mr-[60px] tlg:mr-[40px] mb-[20px] tlg:mb-[16px]">
-                                <p className="text-[16px] tlg:text-[14px] text-normal leading-none mb-[12px] tlg:mb-[6px] text-theme-9">
+                                <p className="text-[16px] tlg:text-[14px] text-normal leading-none mb-[12px] tlg:mb-[2px] text-theme-9">
                                     행간<span className="text-[13px] tlg:text-[11px] text-theme-7 ml-[8px]">Line Height</span>
                                 </p>
                                 <div className="w-[280px] tlg:w-[200px] mx-[20px] relative">
@@ -435,7 +435,7 @@ function DetailPage({fonts, comps, randomNum, initFontSize, initLineHeight, init
                                 </div>
                             </div>
                             <div className="flex flex-col justify-center items-start mr-[60px] tlg:mr-[40px] mb-[20px] tlg:mb-[16px]">
-                                <p className="text-[16px] tlg:text-[14px] text-normal leading-none mb-[12px] tlg:mb-[6px] text-theme-9">
+                                <p className="text-[16px] tlg:text-[14px] text-normal leading-none mb-[12px] tlg:mb-[2px] text-theme-9">
                                     자간<span className="text-[13px] tlg:text-[11px] text-theme-7 ml-[8px]">Letter Spacing</span>
                                 </p>
                                 <div className="w-[280px] tlg:w-[200px] ml-[48px] relative">
