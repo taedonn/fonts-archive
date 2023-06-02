@@ -531,50 +531,62 @@ function DetailPage({fonts, comps, randomNum, initFontSize, initLineHeight, init
                 </div>
                 <div className="flex flex-col justify-start items-start">
                     <h2 className="text-[24px] tlg:text-[20px] tmd:text-[18px] text-theme-3 dark:text-theme-9 font-medium mb-[20px] tlg:mb-[16px] tmd:mb-[14px]">라이센스 사용 범위</h2>
-                    <table className="w-[100%] mb-[20px] tlg:mb-[16px]">
-                        <thead className="h-[60px] tlg:h-[48px] bg-theme-8 dark:bg-theme-3 border-x border-theme-8 dark:border-theme-3">
-                            <tr className="text-[16px] tlg:text-[14px] tmd:text-[12px] text-theme-3 dark:text-theme-8 font-medium">
-                                <th className="w-[240px] tlg:w-[120px] tmd:w-[88px] border-r border-theme-7 dark:border-theme-4">카테고리</th>
+                    <table className="text-left mb-[20px] tlg:mb-[16px] rounded-[12px] border dark:border-theme-5">
+                        <thead className="h-[44px] border-b dark:border-theme-5">
+                            <tr className="text-[14px] text-theme-3 dark:text-theme-9 font-medium">
+                                <th className="w-[140px] pl-[20px]">카테고리</th>
                                 <th>사용 범위</th>
-                                <th className="w-[240px] tlg:w-[120px] tmd:w-[88px] border-l border-theme-7 dark:border-theme-4">허용 여부</th>
+                                <th className="pr-[20px] text-right">허용 여부</th>
                             </tr>
                         </thead>
-                        <tbody className="text-[16px] tlg:text-[14px] tmd:text-[12px] leading-tight text-theme-3 dark:text-theme-8 text-center font-normal border-x border-b border-theme-7 dark:border-theme-4">
-                            <tr className="tlg:relative">
-                                <td className="border-r border-theme-7 dark:border-theme-4">인쇄</td>
-                                <td className="h-[60px] tlg:h-[auto] tlg:p-[16px] tmd:p-[12px] border-r border-theme-7 dark:border-theme-4">브로슈어, 포스터, 책, 잡지 및 출판용 인쇄물 등</td>
-                                <td className="h-[60px] tlg:h-[100%] tlg:w-[120px] tmd:w-[88px] tlg:absolute flex flex-row justify-center items-center">
+                        <tbody className="text-[14px] leading-tight text-theme-3 dark:text-theme-7 text-left font-normal">
+                            <tr className="h-[44px] border-b dark:border-theme-5">
+                                <td className="pl-[20px]">인쇄</td>
+                                <td>
                                     {
                                         font.license_print[0] === "Y"
-                                        ? <svg className="w-[16px] tlg:w-[14px] tmd:w-[12px] fill-theme-3 dark:fill-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
-                                        : ( font.license_print[0] === "N"
-                                            ? <div style={{color:"#FF0000"}}>금지</div>
-                                            : ( font.license_print[0] === "R"
-                                                ? <>권장</>
-                                                : ( font.license_print[0] === "Q"
-                                                    ? <div style={{color:"#FF0000"}}>문의</div>
-                                                    : <></>
-                                                )
+                                        ? <span className="text-theme-7">브로슈어, 포스터, 책, 잡지 및 출판용 인쇄물 등</span>
+                                        : ( font.license_print[0] === "H" || font.license_print[0] === "N"
+                                            ? <span className="text-theme-red/80 line-through">브로슈어, 포스터, 책, 잡지 및 출판용 인쇄물 등</span>
+                                            : <></>
+                                        )
+                                    }
+                                </td>
+                                <td className="h-[44px] pr-[20px] flex flex-row justify-end items-center">
+                                    {
+                                        font.license_print[0] === "Y"
+                                        ? <svg className="w-[12px] dark:fill-theme-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
+                                        : ( font.license_print[0] === "H"
+                                            ? <svg className="w-[12px] dark:fill-theme-red/80" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.146.146 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.163.163 0 0 1-.054.06.116.116 0 0 1-.066.017H1.146a.115.115 0 0 1-.066-.017.163.163 0 0 1-.054-.06.176.176 0 0 1 .002-.183L7.884 2.073a.147.147 0 0 1 .054-.057zm1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566z"/></svg>
+                                            : ( font.license_print[0] === "N"
+                                                ? <svg className="w-[12px] dark:fill-theme-red/80" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg>
+                                                : <></>
                                             )
                                         )
                                     }
                                 </td>
                             </tr>
-                            <tr className="tlg:relative">
-                                <td className="border-r border-t border-theme-7 dark:border-theme-4">웹사이트</td>
-                                <td className="h-[60px] tlg:h-[auto] tlg:p-[16px] tmd:p-[12px] border-r border-t border-theme-7 dark:border-theme-4">웹페이지, 광고 배너, 메일, E-브로슈어 등</td>
-                                <td className="h-[60px] tlg:h-[100%] tlg:w-[120px] tmd:w-[88px] tlg:absolute flex flex-row justify-center items-center border-t border-theme-7 dark:border-theme-4">
+                            <tr className="h-[44px] border-b dark:border-theme-5">
+                                <td className="pl-[20px]">웹사이트</td>
+                                <td>
                                     {
                                         font.license_web[0] === "Y"
-                                        ? <svg className="w-[16px] tlg:w-[14px] tmd:w-[12px] fill-theme-3 dark:fill-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
-                                        : ( font.license_web[0] === "N"
-                                            ? <div style={{color:"#FF0000"}}>금지</div>
-                                            : ( font.license_web[0] === "R"
-                                                ? <>권장</>
-                                                : ( font.license_web[0] === "Q"
-                                                    ? <div style={{color:"#FF0000"}}>문의</div>
-                                                    : <></>
-                                                )
+                                        ? <span className="text-theme-7">웹페이지, 광고 배너, 메일, E-브로슈어 등</span>
+                                        : ( font.license_web[0] === "H" || font.license_print[0] === "N"
+                                            ? <span className="text-theme-red/80 line-through">웹페이지, 광고 배너, 메일, E-브로슈어 등</span>
+                                            : <></>
+                                        )
+                                    }
+                                </td>
+                                <td className="h-[44px] pr-[20px] flex flex-row justify-end items-center">
+                                    {
+                                        font.license_web[0] === "Y"
+                                        ? <svg className="w-[12px] dark:fill-theme-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
+                                        : ( font.license_web[0] === "H"
+                                            ? <svg className="w-[12px] dark:fill-theme-red/80" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.146.146 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.163.163 0 0 1-.054.06.116.116 0 0 1-.066.017H1.146a.115.115 0 0 1-.066-.017.163.163 0 0 1-.054-.06.176.176 0 0 1 .002-.183L7.884 2.073a.147.147 0 0 1 .054-.057zm1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566z"/></svg>
+                                            : ( font.license_web[0] === "N"
+                                                ? <svg className="w-[12px] dark:fill-theme-red/80" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg>
+                                                : <></>
                                             )
                                         )
                                     }
