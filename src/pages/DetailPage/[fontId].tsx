@@ -27,12 +27,17 @@ import { FetchFontComp } from "../api/DetailPage/fetchFontComp";
 const alphabetKR = '가 나 다 라 마 바 사 아 자 차 카 타 파 하 a b c d e f g h i j k l m n o p q r s t u v w x y z 0 1 2 3 4 5 6 7 8 9 가 나 다 라 마 바 사 아 자 차 카 타 파 하 a b c d e f g h i j k l m n o p q r s t u v w x y z 0 1 2 3 4 5 6 7 8 9 가 나 다 라 마 바 사 아 자 차 카 타 파 하 a b c d e f g h i j k l m n o p q r s t u v w x y z 0 1 2 3 4 5 6 7 8 9';
 const alphabetEN = 'A B C D E F G H I J K L M N O P Q R S T U V W X Y Z a b c d e f g h i j k l m n o p q r s t u v w x y z 0 1 2 3 4 5 6 7 8 9 A B C D E F G H I J K L M N O P Q R S T U V W X Y Z a b c d e f g h i j k l m n o p q r s t u v w x y z 0 1 2 3 4 5 6 7 8 9 A B C D E F G H I J K L M N O P Q R S T U V W X Y Z a b c d e f g h i j k l m n o p q r s t u v w x y z 0 1 2 3 4 5 6 7 8 9';
 
-function DetailPage({fonts, comps, randomNum}:{fonts: any, comps: string, randomNum: number}) {
+function DetailPage({fonts, comps, randomNum, initFontSize, initLineHeight, initLetterSpacing}:{fonts: any, comps: string, randomNum: number, initFontSize: number, initLineHeight: number, initLetterSpacing: number}) {
     // 쿠키 훅
     const [cookies, setCookie] = useCookies<string>([]);
 
     // 폰트 데이터 props
     const font = fonts[0];
+
+    // 폰트 미리보기 props
+    const defaultFontSize = initFontSize;
+    const defaultLineHeight = initLineHeight;
+    const defaultLetterSpacing = initLetterSpacing;
 
     /** 조회수 업데이트 */
     const viewUpdate = async () => {
@@ -222,11 +227,7 @@ function DetailPage({fonts, comps, randomNum}:{fonts: any, comps: string, random
     }
 
     // 폰트 미리보기 state
-    const defaultFontsize = 12;
-    const defaultLineHeight = 1.2;
-    const defaultLetterSpacing = 0;
-
-    const [fontSize, setFontSize] = useState<number>(defaultFontsize);
+    const [fontSize, setFontSize] = useState<number>(defaultFontSize);
     const [lineHeight, setLineHeight] = useState<number>(defaultLineHeight);
     const [letterSpacing, setLetterSpacing] = useState<number>(defaultLetterSpacing);
 
@@ -238,19 +239,16 @@ function DetailPage({fonts, comps, randomNum}:{fonts: any, comps: string, random
 
     /** MUI 폰트 크기 뒤에 px 추가 */
     const fnAddUnit = (value: number) => {
-        //setFontSize(value);
         return value + "px";
     }
 
     /** MUI 행간 값 */
     const fnLineheightValue = (value: number) => {
-        //setLineHeight(value / 10);
         return value / 10;
     }
 
     /** MUI 자간 값 */
     const fnLetterSpacingValue = (value: number) => {
-        //setLetterSpacing(value / 10);
         return value / 10;
     }
 
@@ -390,24 +388,25 @@ function DetailPage({fonts, comps, randomNum}:{fonts: any, comps: string, random
                         </div>
                     </>
                 }
-                <div className="flex flex-col justify-start items-start mb-[60px] tlg:mb-[48px] tmd:mb-[40px]">
+                <div className="max-w-[100%] w-content flex flex-col justify-start items-start mb-[60px] tlg:mb-[48px] tmd:mb-[40px]">
                     <h2 className="text-[24px] tlg:text-[20px] tmd:text-[18px] text-theme-3 dark:text-theme-8 font-medium mb-[20px] tlg:mb-[16px] tmd:mb-[14px]">폰트 미리보기</h2>
-                    <div className="w-[100%] px-[16px] py-[8px] mb-[20px] border-b border-theme-7 dark:border-theme-4">
+                    <div className="w-[100%] px-[16px] py-[8px] mb-[20px] tlg:mb-[16px] border-b border-theme-7 dark:border-theme-4">
                         <textarea onChange={handleFontWeightChange} onInput={handleHeightChange} placeholder="원하는 문구를 적어보세요..." className="w-[100%] h-[18px] resize-none text-[14px] text-theme-5 dark:text-theme-8 placeholder-theme-5 dark:placeholder-theme-6 leading-tight bg-transparent"/>
                     </div>
-                    <div className="font-preview-wrap max-w-[100%] overflow-hidden rounded-[12px] px-[32px] pt-[32px] pb-[16px] dark:bg-theme-blue-2">
-                        <div className="flex flex-row justify-start items-center">
-                            <div className="flex flex-col justify-center items-start">
-                                <p className="text-[16px] text-normal leading-none mb-[12px] dark:text-theme-9">
-                                    폰트 크기<span className="text-[13px] dark:text-theme-7 ml-[8px]">Font Size</span>
+                    <div className="font-preview-wrap max-w-[100%] overflow-hidden rounded-[12px] p-[32px] pb-[16px] tlg:p-[20px] tlg:pt-[28px] tlg:pb-[14px] dark:bg-theme-blue-2">
+                        <div className="w-[100%] flex flex-row flex-wrap justify-start items-center">
+                            <div className="flex flex-col justify-center items-start mr-[60px] tlg:mr-[40px] mb-[20px] tlg:mb-[16px]">
+                                <p className="text-[16px] tlg:text-[14px] text-normal leading-none mb-[12px] tlg:mb-[6px] dark:text-theme-9">
+                                    폰트 크기<span className="text-[13px] tlg:text-[11px] dark:text-theme-7 ml-[8px]">Font Size</span>
                                 </p>
-                                <div className="w-[280px] mx-[34px] relative">
+                                <div className="w-[280px] tlg:w-[200px] mx-[34px] relative">
                                     <Slider
                                         className="font-size-slider"
                                         aria-label="font-size-slider"
                                         aria-valuetext="px"
                                         valueLabelDisplay="auto"
                                         valueLabelFormat={fnAddUnit}
+                                        onChange={(e, v) => setFontSize(Number(v))}
                                         defaultValue={20}
                                         min={12}
                                         max={64}
@@ -416,16 +415,17 @@ function DetailPage({fonts, comps, randomNum}:{fonts: any, comps: string, random
                                     <div className="absolute right-[-34px] top-[50%] translate-y-[-70%] text-[12px] text-theme-9">64px</div>
                                 </div>
                             </div>
-                            <div className="flex flex-col justify-center items-start ml-[60px]">
-                                <p className="text-[16px] text-normal leading-none mb-[12px] dark:text-theme-9">
-                                    행간<span className="text-[13px] dark:text-theme-7 ml-[8px]">Line Height</span>
+                            <div className="flex flex-col justify-center items-start mr-[60px] tlg:mr-[40px] mb-[20px] tlg:mb-[16px]">
+                                <p className="text-[16px] tlg:text-[14px] text-normal leading-none mb-[12px] tlg:mb-[6px] dark:text-theme-9">
+                                    행간<span className="text-[13px] tlg:text-[11px] dark:text-theme-7 ml-[8px]">Line Height</span>
                                 </p>
-                                <div className="w-[280px] mx-[20px] relative">
+                                <div className="w-[280px] tlg:w-[200px] mx-[20px] relative">
                                     <Slider
                                         className="font-size-slider"
                                         aria-label="font-size-slider"
                                         valueLabelDisplay="auto"
                                         valueLabelFormat={fnLineheightValue}
+                                        onChange={(e, v) => setLineHeight(Number(v)/10)}
                                         defaultValue={12}
                                         min={10}
                                         max={20}
@@ -434,16 +434,17 @@ function DetailPage({fonts, comps, randomNum}:{fonts: any, comps: string, random
                                     <div className="absolute right-[-18px] top-[50%] translate-y-[-70%] text-[12px] text-theme-9">2</div>
                                 </div>
                             </div>
-                            <div className="flex flex-col justify-center items-start ml-[60px]">
-                                <p className="text-[16px] text-normal leading-none mb-[12px] dark:text-theme-9">
-                                    자간<span className="text-[13px] dark:text-theme-7 ml-[8px]">Letter Spacing</span>
+                            <div className="flex flex-col justify-center items-start mb-[20px] tlg:mb-[16px]">
+                                <p className="text-[16px] tlg:text-[14px] text-normal leading-none mb-[12px] tlg:mb-[6px] dark:text-theme-9">
+                                    자간<span className="text-[13px] tlg:text-[11px] dark:text-theme-7 ml-[8px]">Letter Spacing</span>
                                 </p>
-                                <div className="w-[280px] ml-[48px] mr-[32px] relative">
+                                <div className="w-[280px] tlg:w-[200px] ml-[48px] mr-[32px] relative">
                                     <Slider
                                         className="font-size-slider"
                                         aria-label="font-size-slider"
                                         valueLabelDisplay="auto"
                                         valueLabelFormat={fnLetterSpacingValue}
+                                        onChange={(e, v) => setLetterSpacing(Number(v)/10)}
                                         defaultValue={0}
                                         min={-5}
                                         max={10}
@@ -453,68 +454,68 @@ function DetailPage({fonts, comps, randomNum}:{fonts: any, comps: string, random
                                 </div>
                             </div>
                         </div>
-                        <div className="w-[100%] h-px mt-[16px] mb-[36px] bg-theme-5"></div>
+                        <div className="w-[100%] h-px mb-[36px] tlg:mb-[28px] bg-theme-5"></div>
                         {
                             font.font_weight[0] === "Y"
                             ? <>
-                                <div className="text-[14px] tmd:text-[12px] text-theme-3 dark:text-theme-8 leading-none mb-[12px]">Thin 100</div>
-                                <pre style={{fontFamily:font.font_family, fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing, fontWeight:"100"}} className="font-preview w-[100%] text-theme-3 dark:text-theme-8 pb-[16px] tlg:pb-[14px] mb-[20px]"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
+                                <div className="text-[14px] tlg:text-[11px] text-theme-3 dark:text-theme-8 leading-none mb-[12px]">Thin 100</div>
+                                <pre style={{fontFamily:font.font_family, fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing, fontWeight:"100"}} className="font-preview w-[100%] text-theme-3 dark:text-theme-8 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
                             </>
                             : <></>
                         }
                         {
                             font.font_weight[1] === "Y"
                             ? <>
-                                <div className="text-[14px] tmd:text-[12px] text-theme-3 dark:text-theme-8 leading-none mb-[12px]">ExtraLight 200</div>
-                                <pre style={{fontFamily:font.font_family, fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing, fontWeight:"200"}} className="font-preview w-[100%] text-theme-3 dark:text-theme-8 pb-[16px] tlg:pb-[14px] mb-[20px]"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
+                                <div className="text-[14px] tlg:text-[11px] text-theme-3 dark:text-theme-8 leading-none mb-[12px]">ExtraLight 200</div>
+                                <pre style={{fontFamily:font.font_family, fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing, fontWeight:"200"}} className="font-preview w-[100%] text-theme-3 dark:text-theme-8 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
                             </>
                             : <></>
                         }
                         {
                             font.font_weight[2] === "Y"
                             ? <>
-                                <div className="text-[14px] tmd:text-[12px] text-theme-3 dark:text-theme-8 leading-none mb-[12px]">Light 300</div>
-                                <pre style={{fontFamily:font.font_family, fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing, fontWeight:"300"}} className="font-preview w-[100%] text-theme-3 dark:text-theme-8 pb-[16px] tlg:pb-[14px] mb-[20px]"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
+                                <div className="text-[14px] tlg:text-[11px] text-theme-3 dark:text-theme-8 leading-none mb-[12px]">Light 300</div>
+                                <pre style={{fontFamily:font.font_family, fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing, fontWeight:"300"}} className="font-preview w-[100%] text-theme-3 dark:text-theme-8 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
                             </>
                             : <></>
                         }
                         {
                             font.font_weight[3] === "Y"
                             ? <>
-                                <div className="text-[14px] tmd:text-[12px] text-theme-3 dark:text-theme-7 leading-none mb-[12px]">Regular 400</div>
-                                <pre style={{fontFamily:font.font_family, fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"400"}} className="font-preview w-[100%] text-theme-3 dark:text-theme-8 pb-[16px] tlg:pb-[14px] mb-[20px]"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
+                                <div className="text-[14px] tlg:text-[11px] text-theme-3 dark:text-theme-7 leading-none mb-[12px]">Regular 400</div>
+                                <pre style={{fontFamily:font.font_family, fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"400"}} className="font-preview w-[100%] text-theme-3 dark:text-theme-8 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
                             </>
                             : <></>
                         }
                         {
                             font.font_weight[4] === "Y"
                             ? <>
-                                <div className="text-[14px] tmd:text-[12px] text-theme-3 dark:text-theme-8 leading-none mb-[12px]">Medium 500</div>
-                                <pre style={{fontFamily:font.font_family, fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing, fontWeight:"500"}} className="font-preview w-[100%] text-theme-3 dark:text-theme-8 pb-[16px] tlg:pb-[14px] mb-[20px]"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
+                                <div className="text-[14px] tlg:text-[11px] text-theme-3 dark:text-theme-8 leading-none mb-[12px]">Medium 500</div>
+                                <pre style={{fontFamily:font.font_family, fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing, fontWeight:"500"}} className="font-preview w-[100%] text-theme-3 dark:text-theme-8 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
                             </>
                             : <></>
                         }
                         {
                             font.font_weight[5] === "Y"
                             ? <>
-                                <div className="text-[14px] tmd:text-[12px] text-theme-3 dark:text-theme-8 leading-none mb-[12px]">SemiBold 600</div>
-                                <pre style={{fontFamily:font.font_family, fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing, fontWeight:"600"}} className="font-preview w-[100%] text-theme-3 dark:text-theme-8 pb-[16px] tlg:pb-[14px] mb-[20px]"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
+                                <div className="text-[14px] tlg:text-[11px] text-theme-3 dark:text-theme-8 leading-none mb-[12px]">SemiBold 600</div>
+                                <pre style={{fontFamily:font.font_family, fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing, fontWeight:"600"}} className="font-preview w-[100%] text-theme-3 dark:text-theme-8 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
                             </>
                             : <></>
                         }
                         {
                             font.font_weight[6] === "Y"
                             ? <>
-                                <div className="text-[14px] tmd:text-[12px] text-theme-3 dark:text-theme-7 leading-none mb-[12px]">Bold 700</div>
-                                <pre style={{fontFamily:font.font_family, fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"700"}} className="font-preview w-[100%] text-theme-3 dark:text-theme-8 pb-[16px] tlg:pb-[14px] mb-[20px]"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
+                                <div className="text-[14px] tlg:text-[11px] text-theme-3 dark:text-theme-7 leading-none mb-[12px]">Bold 700</div>
+                                <pre style={{fontFamily:font.font_family, fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"700"}} className="font-preview w-[100%] text-theme-3 dark:text-theme-8 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
                             </>
                             : <></>
                         }
                         {
                             font.font_weight[7] === "Y"
                             ? <>
-                                <div className="text-[14px] tmd:text-[12px] text-theme-3 dark:text-theme-8 leading-none mb-[12px]">Heavy 800</div>
-                                <pre style={{fontFamily:font.font_family, fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing, fontWeight:"800"}} className="font-preview w-[100%] text-theme-3 dark:text-theme-8 pb-[16px] tlg:pb-[14px] mb-[20px]"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
+                                <div className="text-[14px] tlg:text-[11px] text-theme-3 dark:text-theme-8 leading-none mb-[12px]">Heavy 800</div>
+                                <pre style={{fontFamily:font.font_family, fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing, fontWeight:"800"}} className="font-preview w-[100%] text-theme-3 dark:text-theme-8 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
                             </>
                             : <></>
                         }
@@ -522,7 +523,7 @@ function DetailPage({fonts, comps, randomNum}:{fonts: any, comps: string, random
                             font.font_weight[8] === "Y"
                             ? <>
                                 <div className="text-[14px] tmd:text-[12px] text-theme-3 dark:text-theme-8 leading-none mb-[12px]">Black 900</div>
-                                <pre style={{fontFamily:font.font_family, fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing, fontWeight:"900"}} className="font-preview w-[100%] text-theme-3 dark:text-theme-8 pb-[16px] tlg:pb-[14px] mb-[20px]"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
+                                <pre style={{fontFamily:font.font_family, fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing, fontWeight:"900"}} className="font-preview w-[100%] text-theme-3 dark:text-theme-8 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
                             </>
                             : <></>
                         }
@@ -969,6 +970,9 @@ export async function getStaticProps(ctx: any) {
                 fonts: fonts,
                 comps: comps,
                 randomNum: randomNum,
+                initFontSize: 20,
+                initLineHeight: 1.2,
+                initLetterSpacing: 0
             }
         }
     } catch (error) {
