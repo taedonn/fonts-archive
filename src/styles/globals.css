@@ -12,6 +12,10 @@ input {
     outline: none;
 }
 
+textarea {
+    outline: none;
+}
+
 a {
     text-decoration: none;
     outline: none;
@@ -196,8 +200,8 @@ html.dark .cdn input:checked + label { background-color: #4C4D50; }
 /* 웹 폰트 적용하기 스크롤바 */
 .cdn_pre::-webkit-scrollbar { display: none; }
 
-/* 폰트 두께 마지막 마진 0 */
-.font-weight-wrap .font-weight:last-of-type { margin-bottom: 0; }
+/* 폰트 미리보기 마지막 마진 0 */
+.font-preview-wrap .font-preview:last-of-type { margin-bottom: 0; }
 
 /* 폰트 크기 한 줄 이후 숨김 */
 .font-size {
@@ -255,6 +259,6 @@ html.dark .dark-txt {
 html.dark .font-size-slider.MuiSlider-root {
     color: #8AB4F8;
 }
-html.dark .font-size-slider .PrivateValueLabel-label-5 {
+html.dark .font-size-slider .MuiSlider-valueLabel > span > span {
     color: #17181B;
 }
