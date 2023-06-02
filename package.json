@@ -6,12 +6,13 @@
     "postinstall": "prisma generate",
     "scripts": {
         "dev": "next dev",
-        "build": "prisma generate && npm install --legacy-peer-deps && next build",
+        "build": "prisma generate && next build",
         "start": "next start",
         "lint": "next lint"
     },
     "dependencies": {
-        "@material-ui/core": "^4.12.4",
+        "@emotion/react": "^11.11.0",
+        "@emotion/styled": "^11.11.0",
         "@mui/material": "^5.13.3",
         "@prisma/client": "^4.13.0",
         "@types/lodash": "^4.14.194",

@@ -16,7 +16,7 @@ import { FetchFont } from "../api/DetailPage/fetchFont";
 import { FetchFontInfo } from "../api/DetailPage/fetchFontInfo";
 
 // materail-ui hooks
-import { Slider, Typography } from "@material-ui/core";
+import { Slider } from "@mui/material";
 
 // components
 import Tooltip from "@/components/tooltip";
@@ -244,13 +244,13 @@ function DetailPage({fonts, comps, randomNum}:{fonts: any, comps: string, random
 
     /** MUI 행간 값 */
     const fnLineheightValue = (value: number) => {
-        setLineHeight(value / 10)
+        setLineHeight(value / 10);
         return value / 10;
     }
 
     /** MUI 자간 값 */
     const fnLetterSpacingValue = (value: number) => {
-        setLetterSpacing(value / 10)
+        setLetterSpacing(value / 10);
         return value / 10;
     }
 
