@@ -65,7 +65,7 @@ html.dark body::-webkit-scrollbar-track {
 
 /* 셀렉트 박스 클릭 시 스타일 변경 */
 .select:checked + label {
-    background-color: #646568;
+    background-color: #4C4D50;
     border-color: #FCBE11;
     color: #FFFFFFCC;
     fill: #FFFFFFCC;

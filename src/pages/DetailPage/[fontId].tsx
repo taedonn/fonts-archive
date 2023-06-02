@@ -325,11 +325,11 @@ function DetailPage({fonts, comps, randomNum, initFontSize, initLineHeight, init
                     <div className="w-[100%] h-px my-[20px] tlg:my-[16px] bg-theme-7 dark:bg-theme-4"></div>
                 </div>
                 <div className="flex flex-row justify-start items-center mb-[60px] tlg:mb-[48px] tmd:mb-[40px]">
-                    <Link aria-label="source-link" href={font.source_link} target="_blank" className="h-[40px] tlg:h-[36px] tmd:h-[32px] flex flex-row justify-center items-center text-[16px] tlg:text-[14px] tmd:text-[12px] text-theme-yellow dark:text-theme-blue-1 font-medium border-2 tmd:border border-theme-yellow dark:border-theme-blue-1 rounded-full px-[20px] mr-[12px] tmd:mr-[8px] cursor-pointer hover:bg-theme-yellow/10 hover:dark:bg-theme-blue-1/10 tlg:hover:bg-transparent">다운로드 페이지로 이동</Link>
+                    <Link aria-label="source-link" href={font.source_link} target="_blank" className="h-[40px] tlg:h-[36px] tmd:h-[32px] flex flex-row justify-center items-center text-[16px] tlg:text-[14px] tmd:text-[12px] text-theme-3 dark:text-theme-blue-1 font-medium dark:border-2 tmd:dark:border border-theme-yellow dark:border-theme-blue-1 rounded-full px-[20px] mr-[12px] tmd:mr-[8px] cursor-pointer bg-theme-yellow dark:bg-transparent hover:bg-theme-yellow/90 hover:dark:bg-theme-blue-1/10 tlg:hover:bg-transparent">다운로드 페이지로 이동</Link>
                     {
                         font.license_ofl[0] === "N"
                         ? <></>
-                        : <Link aria-label="github-source-link" href={font.github_link} target="_blank" className="w-[180px] tlg:w-[140px] tmd:w-[128px] h-[40px] tlg:h-[36px] tmd:h-[32px] flex flex-row justify-center items-center text-[16px] tlg:text-[14px] tmd:text-[12px] text-theme-3 dark:text-theme-8 font-medium border-2 tmd:border border-theme-3 dark:border-theme-8 rounded-full px-[20px] cursor-pointer hover:bg-theme-3/10 hover:dark:bg-theme-8/10 tlg:hover:bg-transparent">폰트 다운로드</Link>
+                        : <Link aria-label="github-source-link" href={font.github_link} target="_blank" className="w-[180px] tlg:w-[140px] tmd:w-[128px] h-[40px] tlg:h-[36px] tmd:h-[32px] flex flex-row justify-center items-center text-[16px] tlg:text-[14px] tmd:text-[12px] text-theme-9 dark:text-theme-8 font-medium dark:border-2 tmd:dark:border border-theme-4 dark:border-theme-8 rounded-full px-[20px] cursor-pointer bg-theme-4 dark:bg-transparent hover:bg-theme-4/90 hover:dark:bg-theme-8/10 tlg:hover:bg-transparent">폰트 다운로드</Link>
                     }
                 </div>
                 {
@@ -352,7 +352,7 @@ function DetailPage({fonts, comps, randomNum, initFontSize, initLineHeight, init
                                 {
                                     webFont === "CSS"
                                     ? <div className="w-[100%] relative pl-[32px] tlg:pl-[24px] tmd:pl-[16px] pr-[66px] tlg:pr-[60px] overflow-hidden">
-                                        <div className="cdn_pre w-[100%] h-[72px] tlg:h-[60px] tmd:h-[48px] flex flex-row justify-start items-center overflow-x-auto"><pre style={{fontFamily:"Noto Sans KR"}} className="text-[16px] tlg:text-[14px] tmd:text-[12px] text-theme-8 dark:text-theme-8">{font.cdn_css}</pre></div>
+                                        <div className="cdn_pre w-[100%] h-[72px] tlg:h-[60px] tmd:h-[48px] flex flex-row justify-start items-center overflow-x-auto"><pre style={{fontFamily:"Noto Sans KR"}} className="text-[16px] tlg:text-[14px] tmd:text-[12px] text-theme-9 dark:text-theme-8">{font.cdn_css}</pre></div>
                                         <div className="absolute z-10 right-[20px] tlg:right-[16px] tmd:right-[12px] top-[50%] translate-y-[-50%] cursor-pointer">
                                             <svg onClick={copyOnClick} className="copy_btn w-[32px] tmd:w-[28px] p-[8px] fill-theme-8 dark:fill-theme-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/><path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/></svg>
                                             <svg className="copy_chk_btn w-[32px] tmd:w-[28px] p-[8px] fill-theme-8 dark:fill-theme-6 hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/></svg>
@@ -360,7 +360,7 @@ function DetailPage({fonts, comps, randomNum, initFontSize, initLineHeight, init
                                     </div>
                                     : ( webFont === "link"
                                         ? <div className="w-[100%] relative pl-[32px] tlg:pl-[24px] tmd:pl-[16px] pr-[66px] tlg:pr-[60px] overflow-hidden">
-                                            <div className="cdn_pre w-[100%] h-[72px] tlg:h-[60px] tmd:h-[48px] flex flex-row justify-start items-center overflow-x-auto"><pre style={{fontFamily:"Noto Sans KR"}} className="text-[16px] tlg:text-[14px] tmd:text-[12px] text-theme-8 dark:text-theme-8">{font.cdn_link}</pre></div>
+                                            <div className="cdn_pre w-[100%] h-[72px] tlg:h-[60px] tmd:h-[48px] flex flex-row justify-start items-center overflow-x-auto"><pre style={{fontFamily:"Noto Sans KR"}} className="text-[16px] tlg:text-[14px] tmd:text-[12px] text-theme-9 dark:text-theme-8">{font.cdn_link}</pre></div>
                                             <div className="absolute z-10 right-[20px] tlg:right-[16px] tmd:right-[12px] top-[50%] translate-y-[-50%] cursor-pointer">
                                                 <svg onClick={copyOnClick} className="copy_btn w-[32px] tmd:w-[28px] p-[8px] fill-theme-8 dark:fill-theme-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/><path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/></svg>
                                                 <svg className="copy_chk_btn w-[32px] tmd:w-[28px] p-[8px] fill-theme-8 dark:fill-theme-6 hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/></svg>
@@ -368,14 +368,14 @@ function DetailPage({fonts, comps, randomNum, initFontSize, initLineHeight, init
                                         </div>
                                         : ( webFont === "import"
                                             ? <div className="w-[100%] relative pl-[32px] tlg:pl-[24px] tmd:pl-[16px] pr-[66px] tlg:pr-[60px] overflow-hidden">
-                                                <div className="cdn_pre w-[100%] h-[72px] tlg:h-[60px] tmd:h-[48px] flex flex-row justify-start items-center overflow-x-auto"><pre style={{fontFamily:"Noto Sans KR"}} className="text-[16px] tlg:text-[14px] tmd:text-[12px] text-theme-8 dark:text-theme-8">{font.cdn_import}</pre></div>
+                                                <div className="cdn_pre w-[100%] h-[72px] tlg:h-[60px] tmd:h-[48px] flex flex-row justify-start items-center overflow-x-auto"><pre style={{fontFamily:"Noto Sans KR"}} className="text-[16px] tlg:text-[14px] tmd:text-[12px] text-theme-9 dark:text-theme-8">{font.cdn_import}</pre></div>
                                                 <div className="absolute z-10 right-[20px] tlg:right-[16px] tmd:right-[12px] top-[50%] translate-y-[-50%] cursor-pointer">
                                                     <svg onClick={copyOnClick} className="copy_btn w-[32px] tmd:w-[28px] p-[8px] fill-theme-8 dark:fill-theme-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/><path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/></svg>
                                                     <svg className="copy_chk_btn w-[32px] tmd:w-[28px] p-[8px] fill-theme-8 dark:fill-theme-6 hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/></svg>
                                                 </div>
                                             </div>
                                             : <div className="w-[100%] relative pl-[32px] tlg:pl-[24px] tmd:pl-[16px] pr-[66px] tlg:pr-[60px] overflow-hidden">
-                                                <div className="cdn_pre w-[100%] h-[auto] py-[24px] tlg:py-[20px] tmd:py-[15px] flex flex-row justify-start items-center overflow-auto whitespace-nowrap"><div id="cdn-font-face" style={{fontFamily:"Noto Sans KR"}} className="font-face text-[16px] tlg:text-[14px] tmd:text-[12px] text-theme-8 dark:text-theme-8">{font.cdn_font_face}</div></div>
+                                                <div className="cdn_pre w-[100%] h-[auto] py-[24px] tlg:py-[20px] tmd:py-[15px] flex flex-row justify-start items-center overflow-auto whitespace-nowrap"><div id="cdn-font-face" style={{fontFamily:"Noto Sans KR"}} className="font-face text-[16px] tlg:text-[14px] tmd:text-[12px] text-theme-9 dark:text-theme-8">{font.cdn_font_face}</div></div>
                                                 <div className="absolute z-10 right-[20px] tlg:right-[16px] tmd:right-[12px] top-[36px] tlg:top-[30px] tmd:top-[24px] translate-y-[-50%] cursor-pointer">
                                                     <svg onClick={copyOnClick} className="copy_btn w-[32px] tmd:w-[28px] p-[8px] fill-theme-8 dark:fill-theme-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/><path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/></svg>
                                                     <svg className="copy_chk_btn w-[32px] tmd:w-[28px] p-[8px] fill-theme-8 dark:fill-theme-6 hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/></svg>
@@ -458,72 +458,72 @@ function DetailPage({fonts, comps, randomNum, initFontSize, initLineHeight, init
                         {
                             font.font_weight[0] === "Y"
                             ? <>
-                                <div className="text-[14px] tlg:text-[11px] text-theme-8 leading-none mb-[12px]">Thin 100</div>
-                                <pre style={{fontFamily:font.font_family, fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"100"}} className="font-preview w-[100%] text-theme-8 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
+                                <div className="text-[14px] tlg:text-[11px] text-theme-7 dark:text-theme-8 leading-none mb-[12px]">Thin 100</div>
+                                <pre style={{fontFamily:font.font_family, fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"100"}} className="font-preview w-[100%] text-theme-9 dark:text-theme-8 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
                             </>
                             : <></>
                         }
                         {
                             font.font_weight[1] === "Y"
                             ? <>
-                                <div className="text-[14px] tlg:text-[11px] text-theme-8 leading-none mb-[12px]">ExtraLight 200</div>
-                                <pre style={{fontFamily:font.font_family, fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"200"}} className="font-preview w-[100%] text-theme-8 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
+                                <div className="text-[14px] tlg:text-[11px] text-theme-7 dark:text-theme-8 leading-none mb-[12px]">ExtraLight 200</div>
+                                <pre style={{fontFamily:font.font_family, fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"200"}} className="font-preview w-[100%] text-theme-9 dark:text-theme-8 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
                             </>
                             : <></>
                         }
                         {
                             font.font_weight[2] === "Y"
                             ? <>
-                                <div className="text-[14px] tlg:text-[11px] text-theme-8 leading-none mb-[12px]">Light 300</div>
-                                <pre style={{fontFamily:font.font_family, fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"300"}} className="font-preview w-[100%] text-theme-8 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
+                                <div className="text-[14px] tlg:text-[11px] text-theme-7 dark:text-theme-8 leading-none mb-[12px]">Light 300</div>
+                                <pre style={{fontFamily:font.font_family, fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"300"}} className="font-preview w-[100%] text-theme-9 dark:text-theme-8 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
                             </>
                             : <></>
                         }
                         {
                             font.font_weight[3] === "Y"
                             ? <>
-                                <div className="text-[14px] tlg:text-[11px] text-theme-7 leading-none mb-[12px]">Regular 400</div>
-                                <pre style={{fontFamily:font.font_family, fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"400"}} className="font-preview w-[100%] text-theme-8 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
+                                <div className="text-[14px] tlg:text-[11px] text-theme-7 dark:text-theme-8 leading-none mb-[12px]">Regular 400</div>
+                                <pre style={{fontFamily:font.font_family, fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"400"}} className="font-preview w-[100%] text-theme-9 dark:text-theme-8 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
                             </>
                             : <></>
                         }
                         {
                             font.font_weight[4] === "Y"
                             ? <>
-                                <div className="text-[14px] tlg:text-[11px] text-theme-8 leading-none mb-[12px]">Medium 500</div>
-                                <pre style={{fontFamily:font.font_family, fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"500"}} className="font-preview w-[100%] text-theme-8 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
+                                <div className="text-[14px] tlg:text-[11px] text-theme-7 dark:text-theme-8 leading-none mb-[12px]">Medium 500</div>
+                                <pre style={{fontFamily:font.font_family, fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"500"}} className="font-preview w-[100%] text-theme-9 dark:text-theme-8 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
                             </>
                             : <></>
                         }
                         {
                             font.font_weight[5] === "Y"
                             ? <>
-                                <div className="text-[14px] tlg:text-[11px] text-theme-8 leading-none mb-[12px]">SemiBold 600</div>
-                                <pre style={{fontFamily:font.font_family, fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"600"}} className="font-preview w-[100%] text-theme-8 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
+                                <div className="text-[14px] tlg:text-[11px] text-theme-7 dark:text-theme-8 leading-none mb-[12px]">SemiBold 600</div>
+                                <pre style={{fontFamily:font.font_family, fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"600"}} className="font-preview w-[100%] text-theme-9 dark:text-theme-8 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
                             </>
                             : <></>
                         }
                         {
                             font.font_weight[6] === "Y"
                             ? <>
-                                <div className="text-[14px] tlg:text-[11px] text-theme-7 leading-none mb-[12px]">Bold 700</div>
-                                <pre style={{fontFamily:font.font_family, fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"700"}} className="font-preview w-[100%] text-theme-8 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
+                                <div className="text-[14px] tlg:text-[11px] text-theme-7 dark:text-theme-8 leading-none mb-[12px]">Bold 700</div>
+                                <pre style={{fontFamily:font.font_family, fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"700"}} className="font-preview w-[100%] text-theme-9 dark:text-theme-8 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
                             </>
                             : <></>
                         }
                         {
                             font.font_weight[7] === "Y"
                             ? <>
-                                <div className="text-[14px] tlg:text-[11px] text-theme-8 leading-none mb-[12px]">Heavy 800</div>
-                                <pre style={{fontFamily:font.font_family, fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"800"}} className="font-preview w-[100%] text-theme-8 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
+                                <div className="text-[14px] tlg:text-[11px] text-theme-7 dark:text-theme-8 leading-none mb-[12px]">Heavy 800</div>
+                                <pre style={{fontFamily:font.font_family, fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"800"}} className="font-preview w-[100%] text-theme-9 dark:text-theme-8 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
                             </>
                             : <></>
                         }
                         {
                             font.font_weight[8] === "Y"
                             ? <>
-                                <div className="text-[14px] tmd:text-[12px] text-theme-8 leading-none mb-[12px]">Black 900</div>
-                                <pre style={{fontFamily:font.font_family, fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"900"}} className="font-preview w-[100%] text-theme-8 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
+                                <div className="text-[14px] tmd:text-[12px] text-theme-7 dark:text-theme-8 leading-none mb-[12px]">Black 900</div>
+                                <pre style={{fontFamily:font.font_family, fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"900"}} className="font-preview w-[100%] text-theme-9 dark:text-theme-8 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
                             </>
                             : <></>
                         }
