@@ -24,9 +24,6 @@ import FontSearch from "@/components/fontsearch";
 import DummyText from "@/components/dummytext";
 import { FetchFontComp } from "../api/DetailPage/fetchFontComp";
 
-const alphabetKR = '가 나 다 라 마 바 사 아 자 차 카 타 파 하 a b c d e f g h i j k l m n o p q r s t u v w x y z 0 1 2 3 4 5 6 7 8 9 가 나 다 라 마 바 사 아 자 차 카 타 파 하 a b c d e f g h i j k l m n o p q r s t u v w x y z 0 1 2 3 4 5 6 7 8 9 가 나 다 라 마 바 사 아 자 차 카 타 파 하 a b c d e f g h i j k l m n o p q r s t u v w x y z 0 1 2 3 4 5 6 7 8 9';
-const alphabetEN = 'A B C D E F G H I J K L M N O P Q R S T U V W X Y Z a b c d e f g h i j k l m n o p q r s t u v w x y z 0 1 2 3 4 5 6 7 8 9 A B C D E F G H I J K L M N O P Q R S T U V W X Y Z a b c d e f g h i j k l m n o p q r s t u v w x y z 0 1 2 3 4 5 6 7 8 9 A B C D E F G H I J K L M N O P Q R S T U V W X Y Z a b c d e f g h i j k l m n o p q r s t u v w x y z 0 1 2 3 4 5 6 7 8 9';
-
 function DetailPage({fonts, comps, randomNum, initFontSize, initLineHeight, initLetterSpacing}:{fonts: any, comps: string, randomNum: number, initFontSize: number, initLineHeight: number, initLetterSpacing: number}) {
     // 쿠키 훅
     const [cookies, setCookie] = useCookies<string>([]);
@@ -261,7 +258,7 @@ function DetailPage({fonts, comps, randomNum, initFontSize, initLineHeight, init
             <Tooltip/>
 
             {/* 헤더 */}
-            <div className='interface w-[100%] h-[60px] tlg:h-[56px] px-[20px] tlg:px-[16px] tmd:px-[12px] fixed right-0 top-0 z-10 flex flex-row justify-between items-center backdrop-blur bg-theme-9/80 dark:bg-theme-2/80 border-b border-theme-7 dark:border-theme-4'>
+            <div className='interface w-[100%] h-[60px] tlg:h-[56px] px-[20px] tlg:px-[16px] tmd:px-[12px] fixed right-0 top-0 z-20 flex flex-row justify-between items-center backdrop-blur bg-theme-9/80 dark:bg-theme-2/80 border-b border-theme-7 dark:border-theme-4'>
                 <div className="flex flex-row justify-start items-center">
                     {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
                     <a href="/" aria-label="logo" className="w-[36px] tlg:w-[32px] h-[36px] tlg:h-[32px] flex flex-row justify-center items-center rounded-[8px] tlg:rounded-[6px] mr-[12px] bg-theme-4 dark:bg-theme-1/80 hover:dark:bg-theme-1/60 tlg:hover:dark:bg-theme-1/80 hover:drop-shadow-default hover:dark:drop-shadow-dark tlg:hover:drop-shadow-none">
@@ -327,13 +324,13 @@ function DetailPage({fonts, comps, randomNum, initFontSize, initLineHeight, init
                 <div className="flex flex-row justify-start items-center mb-[60px] tlg:mb-[48px] tmd:mb-[40px]">
                     <Link aria-label="source-link" href={font.source_link} target="_blank" className="h-[40px] tlg:h-[36px] tmd:h-[32px] flex flex-row justify-center items-center text-[16px] tlg:text-[14px] tmd:text-[12px] text-theme-3 dark:text-theme-blue-1 font-medium dark:border-2 tmd:dark:border dark:border-theme-blue-1 rounded-full px-[20px] mr-[12px] tmd:mr-[8px] cursor-pointer bg-theme-yellow hover:bg-theme-yellow/90 tlg:hover:bg-theme-yellow dark:bg-transparent hover:dark:bg-theme-blue-1/10 tlg:hover:dark:bg-transparent">다운로드 페이지로 이동</Link>
                     {
-                        font.license_ofl[0] === "N"
+                        font.license_ofl === "N"
                         ? <></>
                         : <Link aria-label="github-source-link" href={font.github_link} target="_blank" className="w-[180px] tlg:w-[140px] tmd:w-[128px] h-[40px] tlg:h-[36px] tmd:h-[32px] flex flex-row justify-center items-center text-[16px] tlg:text-[14px] tmd:text-[12px] text-theme-9 dark:text-theme-9 font-medium dark:border-2 tmd:dark:border border-theme-4 dark:border-theme-9 rounded-full px-[20px] cursor-pointer bg-theme-4 hover:bg-theme-4/90 tlg:hover:bg-theme-4 dark:bg-transparent hover:dark:bg-theme-9/10 tlg:hover:dark:bg-transparent">폰트 다운로드</Link>
                     }
                 </div>
                 {
-                    font.license_embed === "N" || font.license_ofl[0] === "N"
+                    font.license_embed === "N" || font.license_ofl === "N"
                     ? <></>
                     : <>
                         <div className="flex flex-col justify-start items-start mb-[60px] tlg:mb-[48px] tmd:mb-[40px]">
@@ -529,227 +526,213 @@ function DetailPage({fonts, comps, randomNum, initFontSize, initLineHeight, init
                         }
                     </div>
                 </div>
-                <div className="flex flex-col justify-start items-start">
-                    <h2 className="text-[24px] tlg:text-[20px] tmd:text-[18px] text-theme-3 dark:text-theme-9 font-medium mb-[20px] tlg:mb-[16px] tmd:mb-[14px]">라이센스 사용 범위</h2>
-                    <table className="text-left mb-[20px] tlg:mb-[16px] rounded-[12px] border dark:border-theme-5">
-                        <thead className="h-[44px] border-b dark:border-theme-5">
-                            <tr className="text-[14px] text-theme-3 dark:text-theme-9 font-medium">
-                                <th className="w-[140px] pl-[20px]">카테고리</th>
-                                <th>사용 범위</th>
-                                <th className="pr-[20px] text-right">허용 여부</th>
+                <h2 className="text-[24px] tlg:text-[20px] tmd:text-[18px] text-theme-3 dark:text-theme-9 font-medium mb-[20px] tlg:mb-[16px] tmd:mb-[14px]">라이센스 사용 범위</h2>
+                <div className="flex flex-row tlg:flex-col justify-between items-start">
+                    <table className="tlg:w-[100%] tlg:mb-[16px] tmd:mb-[12px] text-left rounded-[12px] border border-theme-7 dark:border-theme-5">
+                        <thead className="h-[44px] border-b border-theme-7 dark:border-theme-5">
+                            <tr className="text-[14px] tlg:text-[12px] text-theme-3 dark:text-theme-9 font-medium">
+                                <th className="w-[140px] tlg:w-[100px] tmd:w-[80px] pl-[20px] tlg:pl-[16px] tmd:pl-[12px]">카테고리</th>
+                                <th className="w-[400px] tlg:w-[auto]">사용 범위</th>
+                                <th className="w-[100px] tlg:w-[100px] tmd:w-[80px] pr-[20px] tlg:pr-[16px] tmd:pr-[12px] text-right">허용 여부</th>
                             </tr>
                         </thead>
-                        <tbody className="text-[14px] leading-tight text-theme-3 dark:text-theme-7 text-left font-normal">
-                            <tr className="h-[44px] border-b dark:border-theme-5">
-                                <td className="pl-[20px]">인쇄</td>
+                        <tbody className="text-[14px] tlg:text-[12px] leading-tight text-theme-5 dark:text-theme-7 fill-theme-5 dark:fill-theme-7 text-left font-normal">
+                            <tr className="h-[44px] border-b border-theme-7 dark:border-theme-5">
+                                <td className="pl-[20px] tlg:pl-[16px] tmd:pl-[12px]">인쇄</td>
                                 <td>
                                     {
-                                        font.license_print[0] === "Y"
-                                        ? <span className="text-theme-7">브로슈어, 포스터, 책, 잡지 및 출판용 인쇄물 등</span>
-                                        : ( font.license_print[0] === "H" || font.license_print[0] === "N"
-                                            ? <span className="text-theme-red/80 line-through">브로슈어, 포스터, 책, 잡지 및 출판용 인쇄물 등</span>
-                                            : <></>
-                                        )
+                                        font.license_print === "Y"
+                                        ? <span>브로슈어, 포스터, 책, 잡지 및 출판용 인쇄물 등</span>
+                                        : <span className="text-theme-red/80 line-through">브로슈어, 포스터, 책, 잡지 및 출판용 인쇄물 등</span>
                                     }
                                 </td>
-                                <td className="h-[44px] pr-[20px] flex flex-row justify-end items-center">
+                                <td className="h-[44px] pr-[20px] tlg:pr-[16px] tmd:pr-[12px] flex flex-row justify-end items-center">
                                     {
-                                        font.license_print[0] === "Y"
-                                        ? <svg className="w-[12px] dark:fill-theme-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
-                                        : ( font.license_print[0] === "H"
-                                            ? <svg className="w-[12px] dark:fill-theme-red/80" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.146.146 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.163.163 0 0 1-.054.06.116.116 0 0 1-.066.017H1.146a.115.115 0 0 1-.066-.017.163.163 0 0 1-.054-.06.176.176 0 0 1 .002-.183L7.884 2.073a.147.147 0 0 1 .054-.057zm1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566z"/></svg>
-                                            : ( font.license_print[0] === "N"
-                                                ? <svg className="w-[12px] dark:fill-theme-red/80" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg>
+                                        font.license_print === "Y"
+                                        ? <svg className="w-[12px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
+                                        : ( font.license_print === "H"
+                                            ? <svg className="w-[12px] fill-theme-red/80" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.146.146 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.163.163 0 0 1-.054.06.116.116 0 0 1-.066.017H1.146a.115.115 0 0 1-.066-.017.163.163 0 0 1-.054-.06.176.176 0 0 1 .002-.183L7.884 2.073a.147.147 0 0 1 .054-.057zm1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566z"/></svg>
+                                            : ( font.license_print === "N"
+                                                ? <svg className="w-[20px] translate-x-[4px] fill-theme-red/80" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg>
                                                 : <></>
                                             )
                                         )
                                     }
                                 </td>
                             </tr>
-                            <tr className="h-[44px] border-b dark:border-theme-5">
-                                <td className="pl-[20px]">웹사이트</td>
+                            <tr className="h-[44px] border-b border-theme-7 dark:border-theme-5">
+                                <td className="pl-[20px] tlg:pl-[16px] tmd:pl-[12px]">웹사이트</td>
                                 <td>
                                     {
-                                        font.license_web[0] === "Y"
-                                        ? <span className="text-theme-7">웹페이지, 광고 배너, 메일, E-브로슈어 등</span>
-                                        : ( font.license_web[0] === "H" || font.license_print[0] === "N"
-                                            ? <span className="text-theme-red/80 line-through">웹페이지, 광고 배너, 메일, E-브로슈어 등</span>
-                                            : <></>
-                                        )
+                                        font.license_web === "Y"
+                                        ? <span>웹페이지, 광고 배너, 메일, E-브로슈어 등</span>
+                                        : <span className="text-theme-red/80 line-through">웹페이지, 광고 배너, 메일, E-브로슈어 등</span>
                                     }
                                 </td>
-                                <td className="h-[44px] pr-[20px] flex flex-row justify-end items-center">
+                                <td className="h-[44px] pr-[20px] tlg:pr-[16px] tmd:pr-[12px] flex flex-row justify-end items-center">
                                     {
-                                        font.license_web[0] === "Y"
-                                        ? <svg className="w-[12px] dark:fill-theme-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
-                                        : ( font.license_web[0] === "H"
-                                            ? <svg className="w-[12px] dark:fill-theme-red/80" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.146.146 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.163.163 0 0 1-.054.06.116.116 0 0 1-.066.017H1.146a.115.115 0 0 1-.066-.017.163.163 0 0 1-.054-.06.176.176 0 0 1 .002-.183L7.884 2.073a.147.147 0 0 1 .054-.057zm1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566z"/></svg>
-                                            : ( font.license_web[0] === "N"
-                                                ? <svg className="w-[12px] dark:fill-theme-red/80" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg>
+                                        font.license_web === "Y"
+                                        ? <svg className="w-[12px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
+                                        : ( font.license_web === "H"
+                                            ? <svg className="w-[12px] fill-theme-red/80" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.146.146 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.163.163 0 0 1-.054.06.116.116 0 0 1-.066.017H1.146a.115.115 0 0 1-.066-.017.163.163 0 0 1-.054-.06.176.176 0 0 1 .002-.183L7.884 2.073a.147.147 0 0 1 .054-.057zm1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566z"/></svg>
+                                            : ( font.license_web === "N"
+                                                ? <svg className="w-[20px] translate-x-[4px] fill-theme-red/80" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg>
                                                 : <></>
                                             )
                                         )
                                     }
                                 </td>
                             </tr>
-                            <tr className="tlg:relative">
-                                <td className="border-r border-t border-theme-7 dark:border-theme-4">영상</td>
-                                <td className="h-[60px] tlg:h-[auto] tlg:p-[16px] tmd:p-[12px] border-r border-t border-theme-7 dark:border-theme-4">영상물 자막, 영화 오프닝/엔딩 크레딧, UCC 등</td>
-                                <td className="h-[60px] tlg:h-[100%] tlg:w-[120px] tmd:w-[88px] tlg:absolute flex flex-row justify-center items-center border-t border-theme-7 dark:border-theme-4">
+                            <tr className="h-[44px] border-b border-theme-7 dark:border-theme-5">
+                                <td className="pl-[20px] tlg:pl-[16px] tmd:pl-[12px]">영상</td>
+                                <td>
                                     {
-                                        font.license_video[0] === "Y"
-                                        ? <svg className="w-[16px] tlg:w-[14px] tmd:w-[12px] fill-theme-3 dark:fill-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
-                                        : ( font.license_video[0] === "N"
-                                            ? <div style={{color:"#FF0000"}}>금지</div>
-                                            : ( font.license_video[0] === "R"
-                                                ? <>권장</>
-                                                : ( font.license_video[0] === "Q"
-                                                    ? <div style={{color:"#FF0000"}}>문의</div>
-                                                    : <></>
-                                                )
+                                        font.license_video === "Y"
+                                        ? <span>영상물 자막, 영화 오프닝/엔딩 크레딧, UCC 등</span>
+                                        : <span className="text-theme-red/80 line-through">영상물 자막, 영화 오프닝/엔딩 크레딧, UCC 등</span>
+                                    }
+                                </td>
+                                <td className="h-[44px] pr-[20px] tlg:pr-[16px] tmd:pr-[12px] flex flex-row justify-end items-center">
+                                    {
+                                        font.license_video === "Y"
+                                        ? <svg className="w-[12px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
+                                        : ( font.license_video === "H"
+                                            ? <svg className="w-[12px] fill-theme-red/80" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.146.146 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.163.163 0 0 1-.054.06.116.116 0 0 1-.066.017H1.146a.115.115 0 0 1-.066-.017.163.163 0 0 1-.054-.06.176.176 0 0 1 .002-.183L7.884 2.073a.147.147 0 0 1 .054-.057zm1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566z"/></svg>
+                                            : ( font.license_video === "N"
+                                                ? <svg className="w-[20px] translate-x-[4px] fill-theme-red/80" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg>
+                                                : <></>
                                             )
                                         )
                                     }
                                 </td>
                             </tr>
-                            <tr className="tlg:relative">
-                                <td className="border-r border-t border-theme-7 dark:border-theme-4">포장지</td>
-                                <td className="h-[60px] tlg:h-[auto] tlg:p-[16px] tmd:p-[12px] border-r border-t border-theme-7 dark:border-theme-4">판매용 상품의 패키지</td>
-                                <td className="h-[60px] tlg:h-[100%] tlg:w-[120px] tmd:w-[88px] tlg:absolute flex flex-row justify-center items-center border-t border-theme-7 dark:border-theme-4">
+                            <tr className="h-[44px] border-b border-theme-7 dark:border-theme-5">
+                                <td className="pl-[20px] tlg:pl-[16px] tmd:pl-[12px]">포장지</td>
+                                <td>
                                     {
-                                        font.license_package[0] === "Y"
-                                        ? <svg className="w-[16px] tlg:w-[14px] tmd:w-[12px] fill-theme-3 dark:fill-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
-                                        : ( font.license_package[0] === "N"
-                                            ? <div style={{color:"#FF0000"}}>금지</div>
-                                            : ( font.license_package[0] === "R"
-                                                ? <>권장</>
-                                                : ( font.license_package[0] === "Q"
-                                                    ? <div style={{color:"#FF0000"}}>문의</div>
-                                                    : <></>
-                                                )
+                                        font.license_package === "Y"
+                                        ? <span>판매용 상품의 패키지</span>
+                                        : <span className="text-theme-red/80 line-through">판매용 상품의 패키지</span>
+                                    }
+                                </td>
+                                <td className="h-[44px] pr-[20px] tlg:pr-[16px] tmd:pr-[12px] flex flex-row justify-end items-center">
+                                    {
+                                        font.license_package === "Y"
+                                        ? <svg className="w-[12px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
+                                        : ( font.license_package === "H"
+                                            ? <svg className="w-[12px] fill-theme-red/80" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.146.146 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.163.163 0 0 1-.054.06.116.116 0 0 1-.066.017H1.146a.115.115 0 0 1-.066-.017.163.163 0 0 1-.054-.06.176.176 0 0 1 .002-.183L7.884 2.073a.147.147 0 0 1 .054-.057zm1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566z"/></svg>
+                                            : ( font.license_package === "N"
+                                                ? <svg className="w-[20px] translate-x-[4px] fill-theme-red/80" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg>
+                                                : <></>
                                             )
                                         )
                                     }
                                 </td>
                             </tr>
-                            <tr className="tlg:relative">
-                                <td className="border-r border-t border-theme-7 dark:border-theme-4">임베딩</td>
-                                <td className="h-[60px] tlg:h-[auto] tlg:p-[16px] tmd:p-[12px] border-r border-t border-theme-7 dark:border-theme-4">웹사이트 및 프로그램 서버 내 폰트 탑재, E-book 제작</td>
-                                <td className="h-[60px] tlg:h-[100%] tlg:w-[120px] tmd:w-[88px] tlg:absolute flex flex-row justify-center items-center border-t border-theme-7 dark:border-theme-4">
+                            <tr className="h-[44px] border-b border-theme-7 dark:border-theme-5">
+                                <td className="pl-[20px] tlg:pl-[16px] tmd:pl-[12px]">임베딩</td>
+                                <td>
                                     {
-                                        font.license_embed[0] === "Y"
-                                        ? <svg className="w-[16px] tlg:w-[14px] tmd:w-[12px] fill-theme-3 dark:fill-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
-                                        : ( font.license_embed[0] === "N"
-                                            ? <div style={{color:"#FF0000"}}>금지</div>
-                                            : ( font.license_embed[0] === "R"
-                                                ? <>권장</>
-                                                : ( font.license_embed[0] === "Q"
-                                                    ? <div style={{color:"#FF0000"}}>문의</div>
-                                                    : <></>
-                                                )
+                                        font.license_embed === "Y"
+                                        ? <span>웹사이트 및 프로그램 서버 내 폰트 탑재, E-book 제작</span>
+                                        : <span className="text-theme-red/80 line-through">웹사이트 및 프로그램 서버 내 폰트 탑재, E-book 제작</span>
+                                    }
+                                </td>
+                                <td className="h-[44px] pr-[20px] tlg:pr-[16px] tmd:pr-[12px] flex flex-row justify-end items-center">
+                                    {
+                                        font.license_embed === "Y"
+                                        ? <svg className="w-[12px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
+                                        : ( font.license_embed === "H"
+                                            ? <svg className="w-[12px] fill-theme-red/80" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.146.146 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.163.163 0 0 1-.054.06.116.116 0 0 1-.066.017H1.146a.115.115 0 0 1-.066-.017.163.163 0 0 1-.054-.06.176.176 0 0 1 .002-.183L7.884 2.073a.147.147 0 0 1 .054-.057zm1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566z"/></svg>
+                                            : ( font.license_embed === "N"
+                                                ? <svg className="w-[20px] translate-x-[4px] fill-theme-red/80" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg>
+                                                : <></>
                                             )
                                         )
                                     }
                                 </td>
                             </tr>
-                            <tr className="tlg:relative">
-                                <td className="border-r border-t border-theme-7 dark:border-theme-4">BI/CI</td>
-                                <td className="h-[60px] tlg:h-[auto] tlg:p-[16px] tmd:p-[12px] border-r border-t border-theme-7 dark:border-theme-4">회사명, 브랜드명, 상품명, 로고, 마크, 슬로건, 캐치프레이즈</td>
-                                <td className="h-[60px] tlg:h-[100%] tlg:w-[120px] tmd:w-[88px] tlg:absolute flex flex-row justify-center items-center border-t border-theme-7 dark:border-theme-4">
+                            <tr className="h-[44px] border-b border-theme-7 dark:border-theme-5">
+                                <td className="pl-[20px] tlg:pl-[16px] tmd:pl-[12px]">BI/CI</td>
+                                <td>
                                     {
-                                        font.license_bici[0] === "Y"
-                                        ? <svg className="w-[16px] tlg:w-[14px] tmd:w-[12px] fill-theme-3 dark:fill-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
-                                        : ( font.license_bici[0] === "N"
-                                            ? <div style={{color:"#FF0000"}}>금지</div>
-                                            : ( font.license_bici[0] === "R"
-                                                ? <>권장</>
-                                                : ( font.license_bici[0] === "Q"
-                                                    ? <div style={{color:"#FF0000"}}>문의</div>
-                                                    : <></>
-                                                )
+                                        font.license_bici === "Y"
+                                        ? <span>회사명, 브랜드명, 상품명, 로고, 마크, 슬로건, 캐치프레이즈</span>
+                                        : <span className="text-theme-red/80 line-through">회사명, 브랜드명, 상품명, 로고, 마크, 슬로건, 캐치프레이즈</span>
+                                    }
+                                </td>
+                                <td className="h-[44px] pr-[20px] tlg:pr-[16px] tmd:pr-[12px] flex flex-row justify-end items-center">
+                                    {
+                                        font.license_bici === "Y"
+                                        ? <svg className="w-[12px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
+                                        : ( font.license_bici === "H"
+                                            ? <svg className="w-[12px] fill-theme-red/80" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.146.146 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.163.163 0 0 1-.054.06.116.116 0 0 1-.066.017H1.146a.115.115 0 0 1-.066-.017.163.163 0 0 1-.054-.06.176.176 0 0 1 .002-.183L7.884 2.073a.147.147 0 0 1 .054-.057zm1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566z"/></svg>
+                                            : ( font.license_bici === "N"
+                                                ? <svg className="w-[20px] translate-x-[4px] fill-theme-red/80" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg>
+                                                : <></>
                                             )
                                         )
                                     }
                                 </td>
                             </tr>
-                            <tr className="tlg:relative">
-                                <td className="border-r border-t border-theme-7 dark:border-theme-4">OFL</td>
-                                <td className="h-[60px] tlg:h-[auto] tlg:p-[16px] tmd:p-[12px] border-r border-t border-theme-7 dark:border-theme-4">
+                            <tr className="h-[44px] border-b border-theme-7 dark:border-theme-5">
+                                <td className="pl-[20px] tlg:pl-[16px] tmd:pl-[12px]">OFL</td>
+                                <td>
                                     {
-                                        font.license_ofl[0] === "Y"
+                                        font.license_ofl === "Y"
                                         ? <span>폰트 파일의 수정/ 복제/ 배포 가능. 단, 폰트 파일의 유료 판매는 금지</span>
-                                        : <span>폰트 파일의 수정/ 복제/ 배포/ 유료 판매 금지</span>
+                                        : <span className="text-theme-red/80 line-through">폰트 파일의 수정/ 복제/ 배포/ 유료 판매 금지</span>
                                     }
                                 </td>
-                                <td className="h-[60px] tlg:h-[100%] tlg:w-[120px] tmd:w-[88px] tlg:absolute flex flex-row justify-center items-center border-t border-theme-7 dark:border-theme-4">
+                                <td className="h-[44px] pr-[20px] tlg:pr-[16px] tmd:pr-[12px] flex flex-row justify-end items-center">
                                     {
-                                        font.license_ofl[0] === "Y"
-                                        ? <svg className="w-[16px] tlg:w-[14px] tmd:w-[12px] fill-theme-3 dark:fill-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
-                                        : ( font.license_ofl[0] === "N"
-                                            ? <div style={{color:"#FF0000"}}>금지</div>
-                                            : ( font.license_ofl[0] === "R"
-                                                ? <>권장</>
-                                                : ( font.license_ofl[0] === "Q"
-                                                    ? <div style={{color:"#FF0000"}}>문의</div>
-                                                    : <></>
-                                                )
+                                        font.license_ofl === "Y"
+                                        ? <svg className="w-[12px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
+                                        : ( font.license_ofl === "H"
+                                            ? <svg className="w-[12px] fill-theme-red/80" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.146.146 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.163.163 0 0 1-.054.06.116.116 0 0 1-.066.017H1.146a.115.115 0 0 1-.066-.017.163.163 0 0 1-.054-.06.176.176 0 0 1 .002-.183L7.884 2.073a.147.147 0 0 1 .054-.057zm1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566z"/></svg>
+                                            : ( font.license_ofl === "N"
+                                                ? <svg className="w-[20px] translate-x-[4px] fill-theme-red/80" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg>
+                                                : <></>
                                             )
                                         )
                                     }
                                 </td>
                             </tr>
-                            <tr className="tlg:relative">
-                                <td className="border-r border-t border-theme-7 dark:border-theme-4">용도</td>
-                                <td className="h-[60px] tlg:h-[auto] tlg:p-[16px] tmd:p-[12px] border-r border-t border-theme-7 dark:border-theme-4">
+                            <tr className="h-[44px] border-b border-theme-7 dark:border-theme-5">
+                                <td className="pl-[20px] tlg:pl-[16px] tmd:pl-[12px]">용도</td>
+                                <td>
                                     {
-                                        font.license_purpose[0] === "Y"
+                                        font.license_purpose === "Y"
                                         ? <span>개인적, 상업적 용도 모두 사용 가능</span>
-                                        : <span>개인적 용도 사용 가능, 상업적 용도 사용 금지</span>
+                                        : <span className="text-theme-red/80 line-through">개인적 용도 사용 가능, 상업적 용도 사용 금지</span>
                                     }
                                 </td>
-                                <td className="h-[60px] tlg:h-[100%] tlg:w-[120px] tmd:w-[88px] tlg:absolute flex flex-row justify-center items-center border-t border-theme-7 dark:border-theme-4">
+                                <td className="h-[44px] pr-[20px] tlg:pr-[16px] tmd:pr-[12px] flex flex-row justify-end items-center">
                                     {
-                                        font.license_purpose[0] === "Y"
-                                        ? <svg className="w-[16px] tlg:w-[14px] tmd:w-[12px] fill-theme-3 dark:fill-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
-                                        : ( font.license_purpose[0] === "N"
-                                            ? <div style={{color:"#FF0000"}}>금지</div>
-                                            : ( font.license_purpose[0] === "R"
-                                                ? <>권장</>
-                                                : ( font.license_purpose[0] === "Q"
-                                                    ? <div style={{color:"#FF0000"}}>문의</div>
-                                                    : <></>
-                                                )
-                                            )
-                                        )
+                                        font.license_purpose === "Y"
+                                        ? <svg className="w-[12px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
+                                        : <svg className="w-[12px] fill-theme-red/80" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.146.146 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.163.163 0 0 1-.054.06.116.116 0 0 1-.066.017H1.146a.115.115 0 0 1-.066-.017.163.163 0 0 1-.054-.06.176.176 0 0 1 .002-.183L7.884 2.073a.147.147 0 0 1 .054-.057zm1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566z"/></svg>
                                     }
                                 </td>
                             </tr>
-                            <tr className="tlg:relative">
-                                <td className="border-r border-t border-theme-7 dark:border-theme-4">출처</td>
-                                <td className="h-[60px] tlg:h-[auto] tlg:p-[16px] tmd:p-[12px] border-r border-t border-theme-7 dark:border-theme-4">출처 표시</td>
-                                <td className="h-[60px] tlg:h-[100%] tlg:w-[120px] tmd:w-[88px] tlg:absolute flex flex-row justify-center items-center border-t border-theme-7 dark:border-theme-4">
+                            <tr className="h-[44px]">
+                                <td className="pl-[20px] tlg:pl-[16px] tmd:pl-[12px]">출처</td>
+                                <td>출처 표시</td>
+                                <td className="h-[44px] pr-[20px] tlg:pr-[16px] tmd:pr-[12px] flex flex-row justify-end items-center">
                                     {
-                                        font.license_source[0] === "Y"
-                                        ? <svg className="w-[16px] tlg:w-[14px] tmd:w-[12px] fill-theme-3 dark:fill-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
-                                        : ( font.license_source[0] === "N"
-                                            ? <div style={{color:"#FF0000"}}>금지</div>
-                                            : ( font.license_source[0] === "R"
-                                                ? <>권장</>
-                                                : ( font.license_source[0] === "Q"
-                                                    ? <div style={{color:"#FF0000"}}>문의</div>
-                                                    : <></>
-                                                )
-                                            )
-                                        )
+                                        font.license_source === "Y"
+                                        ? <svg className="w-[12px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
+                                        : <span>권장</span>
                                     }
                                 </td>
                             </tr>
                         </tbody>
                     </table>
-                    <div className="w-[100%] border border-theme-7 dark:border-theme-4 px-[28px] tlg:px-[24px] tmd:px-[20px] py-[32px] tlg:py-[28px] tmd:py-[24px]">
-                        <h2 className="text-[24px] tlg:text-[20px] tmd:text-[16px] text-theme-3 dark:text-theme-8 font-medium leading-none">라이센스 본문</h2>
-                        <div className="w-[100%] h-px bg-theme-7 dark:bg-theme-4 my-[20px] tmd:my-[16px]"></div>
-                        <div style={{fontFamily:"Noto Sans KR"}} id="license" className="whitespace-pre-wrap text-[16px] tlg:text-[14px] tmd:text-[12px] text-theme-3 dark:text-theme-8 leading-loose"></div>
+                    <div className="w-[calc(100%-660px)] tlg:w-[100%] h-[450px] tlg:h-[auto] border border-theme-7 dark:border-theme-5">
+                        <h2 className="h-[44px] flex flex-row justify-start items-center text-[14px] tlg:text-[12px] text-theme-3 dark:text-theme-9 border-b border-theme-7 dark:border-theme-5 font-medium leading-none pl-[20px] tlg:pl-[16px] tmd:pl-[12px]">라이센스 본문</h2>
+                        <div className="license-wrap w-[100%] h-[404px] tlg:h-[auto] overflow-y-auto px-[20px] tlg:px-[16px] tmd:px-[12px] py-[8px]">
+                            <div id="license" className="text-[14px] tlg:text-[12px] text-theme-5 dark:text-theme-7 leading-loose"></div>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -59,6 +59,33 @@ html.dark body::-webkit-scrollbar-track {
     background-color: #35363A;
 }
 
+/* 라이센스 스크롤바 */
+.license-wrap::-webkit-scrollbar {
+    width: 12px;
+}
+.license-wrap::-webkit-scrollbar-thumb {
+    border-radius: 6px;
+    background-color: #B1B2B6;
+}
+.license-wrap::-webkit-scrollbar-thumb:hover {
+    border-radius: 6px;
+    background-color: #97989C;
+}
+.license-wrap::-webkit-scrollbar-track {
+    background-color: #CDCED2;
+}
+html.dark .license-wrap::-webkit-scrollbar-thumb {
+    border-radius: 6px;
+    background-color: #4C4D50;
+}
+html.dark .license-wrap::-webkit-scrollbar-thumb:hover {
+    border-radius: 6px;
+    background-color: #646568;
+}
+html.dark .license-wrap::-webkit-scrollbar-track {
+    background-color: #35363A;
+}
+
 /* 셀렉트 박스 클릭 */
 .select ~ .option { display: none; }
 .select:checked ~ .option { display: flex; }
