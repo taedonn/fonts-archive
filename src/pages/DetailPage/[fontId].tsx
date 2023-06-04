@@ -725,7 +725,7 @@ function DetailPage({fonts, randomNum, initFontSize, initLineHeight, initLetterS
                                 </tr>
                             </tbody>
                         </table>
-                        <div className="w-[calc(100%-680px)] tlg:w-[100%] h-[450px] tlg:h-[auto] border border-theme-7 dark:border-theme-5">
+                        <div className="w-[calc(100%-690px)] tlg:w-[100%] h-[450px] tlg:h-[auto] border border-theme-7 dark:border-theme-5">
                             <h2 className="h-[44px] flex flex-row justify-start items-center text-[16px] tlg:text-[14px] tmd:text-[12px] text-theme-3 dark:text-theme-9 border-b border-theme-7 dark:border-theme-5 font-medium leading-none pl-[20px] tlg:pl-[16px] tmd:pl-[12px]">라이센스 본문</h2>
                             <div className="license-wrap w-[100%] h-[404px] tlg:h-[auto] overflow-y-auto px-[20px] tlg:px-[16px] tmd:px-[12px] py-[8px]">
                                 <div id="license" className="text-[16px] tlg:text-[14px] tmd:text-[12px] text-theme-5 dark:text-theme-7 leading-loose"></div>
