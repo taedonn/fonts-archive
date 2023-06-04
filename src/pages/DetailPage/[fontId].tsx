@@ -536,7 +536,7 @@ function DetailPage({fonts, randomNum, initFontSize, initLineHeight, initLetterS
                                 <tr className="text-[16px] tlg:text-[14px] tmd:text-[12px] text-theme-3 dark:text-theme-9 font-medium">
                                     <th className="w-[120px] tlg:w-[100px] tmd:w-[80px] pl-[20px] tlg:pl-[16px] tmd:pl-[12px]">카테고리</th>
                                     <th className="w-[450px] tlg:w-[auto]">사용 범위</th>
-                                    <th className="w-[90px] tmd:w-[80px] pr-[20px] tlg:pr-[16px] tmd:pr-[12px] text-right">허용 여부</th>
+                                    <th className="w-[100px] tmd:w-[80px] pr-[20px] tlg:pr-[16px] tmd:pr-[12px] text-right">허용 여부</th>
                                 </tr>
                             </thead>
                             <tbody className="text-[16px] tlg:text-[14px] tmd:text-[12px] leading-tight text-theme-5 dark:text-theme-7 fill-theme-5 dark:fill-theme-7 text-left font-normal">
