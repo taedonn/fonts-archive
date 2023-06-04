@@ -143,6 +143,30 @@ html.dark .select:checked + label {
     .main-menu > a:nth-of-type(2) { margin-top: 10px; }
 }
 
+/* 폰트 박스 맨 앞 3개 마진 0으로 설정 - with Google AdSense */
+/* @media screen and (min-width: 1280px) {
+    .main-menu > a:nth-of-type(1), 
+    .main-menu > a:nth-of-type(2), 
+    .main-menu > a:nth-of-type(3) { 
+        margin-top: 0; 
+    }
+}
+@media screen and (max-width: 1280px) {
+    .main-menu > a:nth-of-type(1), 
+    .main-menu > a:nth-of-type(2) { 
+        margin-top: 0; 
+    }
+}
+@media screen and (max-width: 1024px) {
+    .main-menu > a:nth-of-type(1) { 
+        margin-top: 0; 
+    }
+    .main-menu > a:nth-of-type(2) { margin-top: 10px; }
+}
+@media screen and (max-width: 768px) {
+    .main-menu > a:nth-of-type(1) { margin-top: 10px; }
+} */
+
 /* text ellipse */
 .ellipsed-text {
     text-overflow: ellipsis;
@@ -290,6 +314,9 @@ html.dark .font-size-slider.MuiSlider-root {
     color: #8AB4F8;
 }
 .font-size-slider .MuiSlider-valueLabel {
+    font-family: "Spoqa Han Sans Neo", "Noto Sans KR";
+    font-size: 13px;
+    font-weight: 500;
     background-color: #FCBE11;
 }
 html.dark .font-size-slider .MuiSlider-valueLabel {
@@ -318,4 +345,21 @@ html.dark .font-size-slider .MuiSlider-thumb.Mui-focusVisible {
 html.dark .font-size-slider .MuiSlider-thumb:active {
     color: #8AB4F8;
     box-shadow: 0 0 0 12px #8AB4F84D;
+}
+
+/* 같은 제작사의 다른 폰트 호버 이벤트 */
+.same-source { font-family: "Spoqa Han Sans Neo", "Noto Sans KR"; }
+.same-source::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    width: 8px;
+    height: 8px;
+    left: 50%;
+    bottom: -4px;
+    transform: translateX(-50%) rotate(45deg);
+    background-color: #FCBE11;
+}
+html.dark .same-source::after {
+    background-color: #8AB4F8;
 }
