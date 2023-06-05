@@ -363,3 +363,6 @@ html.dark .font-size-slider .MuiSlider-thumb:active {
 html.dark .same-source::after {
     background-color: #8AB4F8;
 }
+
+/* 라이센스 본문 링크 */
+#license a { text-decoration: underline; }
