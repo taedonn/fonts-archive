@@ -7,12 +7,11 @@ import React, { useEffect, useLayoutEffect, useState, useRef } from "react";
 import { useCookies } from 'react-cookie';
 
 // hooks
-import axios from "axios";
 import { isMacOs } from "react-device-detect";
 import { throttle } from "lodash";
 
 // api
-import { FetchFont } from "../api/DetailPage/fetchFont";
+import { FetchView } from "../api/fetchview";
 import { FetchFontInfo } from "../api/DetailPage/fetchFontInfo";
 
 // materail-ui hooks
@@ -23,17 +22,18 @@ import Tooltip from "@/components/tooltip";
 import FontSearch from "@/components/fontsearch";
 import DummyText from "@/components/dummytext";
 
-function DetailPage({fonts, randomNum, initFontSize, initLineHeight, initLetterSpacing}:{fonts: any, randomNum: number, initFontSize: number, initLineHeight: number, initLetterSpacing: number}) {
+function DetailPage({params}: any) {
+
     // 쿠키 훅
     const [cookies, setCookie] = useCookies<string>([]);
 
     // 폰트 데이터 props
-    const font = fonts[0];
+    const font = params.fonts[0];
 
     // 폰트 미리보기 props
-    const defaultFontSize = initFontSize;
-    const defaultLineHeight = initLineHeight;
-    const defaultLetterSpacing = initLetterSpacing;
+    const defaultFontSize = params.initFontSize;
+    const defaultLineHeight = params.initLineHeight;
+    const defaultLetterSpacing = params.initLetterSpacing;
 
     /** 조회수 업데이트 */
     const viewUpdate = async () => {
@@ -43,14 +43,16 @@ function DetailPage({fonts, randomNum, initFontSize, initLineHeight, initLetterS
     useEffect(() => { viewUpdate(); }, [font]);
 
     /** 조회수 불러오기 */
-    const defaultView = null;
-    const [view, setView] = useState<number | null>(defaultView);
-    const viewFetch = async () => {
-        const res = await axios.get("/api/fetchview", { params: { code: font.code } }).then(res => { return res.data; }).catch(error => console.log(error));
-        setView(res.fonts[0].view);
-    }
+    const defaultView = font.view;
+    const [view, setView] = useState<number>(defaultView);
+
+    /** 조회수 불러오기 클라이언트 사이드 */
+    // const viewFetch = async () => {
+    //     const res = await axios.get("/api/fetchview", { params: { code: font.code } }).then(res => { return res.data; }).catch(error => console.log(error));
+    //     setView(res.fonts[0].view);
+    // }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    useLayoutEffect(() => { viewFetch(); }, [view]);
+    // useLayoutEffect(() => { viewFetch(); }, [view]);
 
     /** 조회수 단위 변경 : 1000 => 1K */
     const ranges = [
@@ -458,7 +460,7 @@ function DetailPage({fonts, randomNum, initFontSize, initLineHeight, initLetterS
                             font.font_weight[0] === "Y"
                             ? <>
                                 <div className="text-[14px] tlg:text-[11px] text-theme-7 leading-none mb-[12px]">Thin 100</div>
-                                <pre style={{fontFamily:font.font_family, fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"100"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
+                                <pre style={{fontFamily:font.font_family, fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"100"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
                             </>
                             : <></>
                         }
@@ -466,7 +468,7 @@ function DetailPage({fonts, randomNum, initFontSize, initLineHeight, initLetterS
                             font.font_weight[1] === "Y"
                             ? <>
                                 <div className="text-[14px] tlg:text-[11px] text-theme-7 leading-none mb-[12px]">ExtraLight 200</div>
-                                <pre style={{fontFamily:font.font_family, fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"200"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
+                                <pre style={{fontFamily:font.font_family, fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"200"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
                             </>
                             : <></>
                         }
@@ -474,7 +476,7 @@ function DetailPage({fonts, randomNum, initFontSize, initLineHeight, initLetterS
                             font.font_weight[2] === "Y"
                             ? <>
                                 <div className="text-[14px] tlg:text-[11px] text-theme-7 leading-none mb-[12px]">Light 300</div>
-                                <pre style={{fontFamily:font.font_family, fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"300"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
+                                <pre style={{fontFamily:font.font_family, fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"300"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
                             </>
                             : <></>
                         }
@@ -482,7 +484,7 @@ function DetailPage({fonts, randomNum, initFontSize, initLineHeight, initLetterS
                             font.font_weight[3] === "Y"
                             ? <>
                                 <div className="text-[14px] tlg:text-[11px] text-theme-7 leading-none mb-[12px]">Regular 400</div>
-                                <pre style={{fontFamily:font.font_family, fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"400"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
+                                <pre style={{fontFamily:font.font_family, fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"400"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
                             </>
                             : <></>
                         }
@@ -490,7 +492,7 @@ function DetailPage({fonts, randomNum, initFontSize, initLineHeight, initLetterS
                             font.font_weight[4] === "Y"
                             ? <>
                                 <div className="text-[14px] tlg:text-[11px] text-theme-7 leading-none mb-[12px]">Medium 500</div>
-                                <pre style={{fontFamily:font.font_family, fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"500"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
+                                <pre style={{fontFamily:font.font_family, fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"500"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
                             </>
                             : <></>
                         }
@@ -498,7 +500,7 @@ function DetailPage({fonts, randomNum, initFontSize, initLineHeight, initLetterS
                             font.font_weight[5] === "Y"
                             ? <>
                                 <div className="text-[14px] tlg:text-[11px] text-theme-7 leading-none mb-[12px]">SemiBold 600</div>
-                                <pre style={{fontFamily:font.font_family, fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"600"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
+                                <pre style={{fontFamily:font.font_family, fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"600"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
                             </>
                             : <></>
                         }
@@ -506,7 +508,7 @@ function DetailPage({fonts, randomNum, initFontSize, initLineHeight, initLetterS
                             font.font_weight[6] === "Y"
                             ? <>
                                 <div className="text-[14px] tlg:text-[11px] text-theme-7 leading-none mb-[12px]">Bold 700</div>
-                                <pre style={{fontFamily:font.font_family, fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"700"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
+                                <pre style={{fontFamily:font.font_family, fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"700"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
                             </>
                             : <></>
                         }
@@ -514,7 +516,7 @@ function DetailPage({fonts, randomNum, initFontSize, initLineHeight, initLetterS
                             font.font_weight[7] === "Y"
                             ? <>
                                 <div className="text-[14px] tlg:text-[11px] text-theme-7 leading-none mb-[12px]">Heavy 800</div>
-                                <pre style={{fontFamily:font.font_family, fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"800"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
+                                <pre style={{fontFamily:font.font_family, fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"800"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
                             </>
                             : <></>
                         }
@@ -522,7 +524,7 @@ function DetailPage({fonts, randomNum, initFontSize, initLineHeight, initLetterS
                             font.font_weight[8] === "Y"
                             ? <>
                                 <div className="text-[14px] tmd:text-[12px] text-theme-7 leading-none mb-[12px]">Black 900</div>
-                                <pre style={{fontFamily:font.font_family, fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"900"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
+                                <pre style={{fontFamily:font.font_family, fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"900"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
                             </>
                             : <></>
                         }
@@ -748,32 +750,57 @@ function DetailPage({fonts, randomNum, initFontSize, initLineHeight, initLetterS
     )
 }
 
-export async function getStaticPaths() {
-    try {
-        const fonts = await FetchFont();
+// getStaticProps
+// export async function getStaticPaths() {
+//     try {
+//         const fonts = await FetchFont();
 
-        const paths = fonts.map((font: any) => ({
-            params: { fontId: font.code.toString() },
-        }));
+//         const paths = fonts.map((font: any) => ({
+//             params: { fontId: font.code.toString() },
+//         }));
 
-        return { paths, fallback: false }
-    } catch (error) {
-        console.log(error);
-    }
-}
+//         return { paths, fallback: false }
+//     } catch (error) {
+//         console.log(error);
+//     }
+// }
 
-export async function getStaticProps(ctx: any) {
+// export async function getStaticProps(ctx: any) {
+//     try {
+//         const fonts = await FetchFontInfo(ctx.params.fontId);
+//         const randomNum: number = Math.floor(Math.random() * 19);
+
+//         return {
+//             props: {
+//                 fonts: fonts,
+//                 randomNum: randomNum,
+//                 initFontSize: 20,
+//                 initLineHeight: 1.2,
+//                 initLetterSpacing: 0
+//             }
+//         }
+//     } catch (error) {
+//         console.log(error);
+//     }
+// }
+
+export async function getServerSideProps(ctx: any) {
     try {
         const fonts = await FetchFontInfo(ctx.params.fontId);
+        const view = await FetchView(ctx.params.fontId);
+
         const randomNum: number = Math.floor(Math.random() * 19);
 
         return {
             props: {
-                fonts: fonts,
-                randomNum: randomNum,
-                initFontSize: 20,
-                initLineHeight: 1.2,
-                initLetterSpacing: 0
+                params: {
+                    fonts: fonts,
+                    view: view,
+                    initFontSize: 20,
+                    initLineHeight: 1.2,
+                    initLetterSpacing: 0,
+                    randomNum: randomNum,
+                }
             }
         }
     } catch (error) {
