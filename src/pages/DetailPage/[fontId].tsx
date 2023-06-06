@@ -11,7 +11,6 @@ import { isMacOs } from "react-device-detect";
 import { throttle } from "lodash";
 
 // api
-import { FetchView } from "../api/fetchview";
 import { FetchFontInfo } from "../api/DetailPage/fetchFontInfo";
 
 // materail-ui hooks
@@ -30,29 +29,12 @@ function DetailPage({params}: any) {
     // 폰트 데이터 props
     const font = params.fonts[0];
 
-    // 폰트 미리보기 props
-    const defaultFontSize = params.initFontSize;
-    const defaultLineHeight = params.initLineHeight;
-    const defaultLetterSpacing = params.initLetterSpacing;
-
     /** 조회수 업데이트 */
     const viewUpdate = async () => {
         await fetch("/api/updateview", { method: "POST", body: JSON.stringify(font) });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => { viewUpdate(); }, [font]);
-
-    /** 조회수 불러오기 */
-    const defaultView = font.view;
-    const [view, setView] = useState<number>(defaultView);
-
-    /** 조회수 불러오기 클라이언트 사이드 */
-    // const viewFetch = async () => {
-    //     const res = await axios.get("/api/fetchview", { params: { code: font.code } }).then(res => { return res.data; }).catch(error => console.log(error));
-    //     setView(res.fonts[0].view);
-    // }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    // useLayoutEffect(() => { viewFetch(); }, [view]);
 
     /** 조회수 단위 변경 : 1000 => 1K */
     const ranges = [
@@ -73,10 +55,8 @@ function DetailPage({params}: any) {
         return n.toString();
     }
 
-    /** 폰트 검색 훅 */
-    const defaultSearchDisplay = "hide"
-    const [searchDisplay, setSearchDisplay] = useState(defaultSearchDisplay);
-    useEffect(() => { setSearchDisplay(defaultSearchDisplay); }, [defaultSearchDisplay])
+    // 폰트 검색 디폴트: 숨김
+    const [searchDisplay, setSearchDisplay] = useState("hide");
 
     /** 폰트 검색 버튼 클릭 */
     const handleFontSearch = () => {
@@ -90,7 +70,7 @@ function DetailPage({params}: any) {
         document.body.style.overflow = "auto";
     }
 
-    /** 키값 변경 */
+    // 키값 변경 디폴트: undefined
     const [isMac, setIsMac] = useState<boolean | undefined>(undefined);
     useEffect(() => {
         if (isMacOs) { setIsMac(true) }
@@ -98,12 +78,8 @@ function DetailPage({params}: any) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isMacOs]);
 
-    /** 웹 폰트 적용하기 훅 */
-    const defaultWebFont = "CSS";
-    const [webFont, setWebFont] = useState(defaultWebFont);
-    useEffect(() => {
-        setWebFont(defaultWebFont);
-    },[defaultWebFont]);
+    // 웹 폰트 사용하기 디폴트: CSS 설정하기
+    const [webFont, setWebFont] = useState("CSS");
 
     /** 웹 폰트 클릭 시 코드 변경 */
     const handleWebFont = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -135,17 +111,15 @@ function DetailPage({params}: any) {
         },1000);
     }
 
+    // 폰트 미리보기 디폴트: 빈 문자열
+    const [text, setText] = useState("");
+
     /** 폰트 미리보기 텍스트 체인지 이벤트 */
-    const defaultText = "";
-    const [text, setText] = useState(defaultText);
-    useEffect(() => {
-        setText(defaultText);
-    }, [defaultText])
     const handleFontWeightChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         setText(e.target.value);
     }
 
-    /** 라이센스 본문 */
+    // 라이센스 본문
     useEffect(() => {
         const license = document.getElementById("license") as HTMLDivElement;
         license.innerHTML = font.license;
@@ -158,17 +132,17 @@ function DetailPage({params}: any) {
     }
     const throttledScroll = throttle(handleScroll,500);
 
-    /** lodash/throttle을 이용해 스크롤 */
+    // lodash/throttle을 이용해 스크롤
     useEffect(() => {
         window.addEventListener('scroll', throttledScroll);
         return () => { window.removeEventListener('scroll', throttledScroll); }
     });
 
-    /** 컬러 테마 ref */
+    // 컬러 테마 ref
     const refThemeLabel = useRef<HTMLLabelElement>(null);
     const refThemeDiv = useRef<HTMLDivElement>(null);
 
-    /** 컬러 테마 영역 외 클릭 */
+    // 컬러 테마 영역 외 클릭
     useEffect(() => {
         function handleThemeOutside(e:Event) {
             const themeInput = document.getElementById("color-theme") as HTMLInputElement;
@@ -189,9 +163,10 @@ function DetailPage({params}: any) {
         }
     }
 
-    /** 컬러 테마 state */
-    const defaultTheme = "dark";
-    const [theme, setTheme] = useState(defaultTheme);
+    // 컬러 테마 디폴트: 나잇 모드 */
+    const [theme, setTheme] = useState("dark");
+
+    // 컬러 테마 쿠키 있을 때, 쿠키값에 따라 컬러 테마 변경
     useLayoutEffect(() => {
         const lightMode = document.getElementById("light-mode") as HTMLInputElement;
         const darkMode = document.getElementById("dark-mode") as HTMLInputElement;
@@ -225,9 +200,9 @@ function DetailPage({params}: any) {
     }
 
     // 폰트 미리보기 state
-    const [fontSize, setFontSize] = useState<number>(defaultFontSize);
-    const [lineHeight, setLineHeight] = useState<number>(defaultLineHeight);
-    const [letterSpacing, setLetterSpacing] = useState<number>(defaultLetterSpacing);
+    const [fontSize, setFontSize] = useState<number>(20);
+    const [lineHeight, setLineHeight] = useState<number>(1.2);
+    const [letterSpacing, setLetterSpacing] = useState<number>(0);
 
     /** MUI TextArea 줄바꿈 시 높이 변경 */
     const handleHeightChange = (e: any) => {
@@ -321,7 +296,7 @@ function DetailPage({params}: any) {
                             </Link>
                         </div>
                         <div style={{fontFamily:font.font_family}} className="text-[16px] tlg:text-[14px] tmd:text-[12px] leading-tight text-theme-3 dark:text-theme-9  mr-[16px] tlg:mr-[14px] tmd:mr-[12px]">형태<span className="text-theme-5 dark:text-theme-7 ml-[8px] tlg:ml-[6px]">{font.font_type === "Sans Serif" ? "고딕" : (font.font_type === "Serif" ? "명조" : (font.font_type === "Hand Writing" ? "손글씨" : (font.font_type === "Display" ? "장식체" : "픽셀체")))}</span></div>
-                        <div style={{fontFamily:font.font_family}} className="text-[16px] tlg:text-[14px] tmd:text-[12px] leading-tight text-theme-3 dark:text-theme-9 ">조회수<span className="text-theme-5 dark:text-theme-7 ml-[8px] tlg:ml-[6px]">{formatNumber(view)}</span></div>
+                        <div style={{fontFamily:font.font_family}} className="text-[16px] tlg:text-[14px] tmd:text-[12px] leading-tight text-theme-3 dark:text-theme-9 ">조회수<span className="text-theme-5 dark:text-theme-7 ml-[8px] tlg:ml-[6px]">{formatNumber(font.view)}</span></div>
                     </div>
                     <div className="w-[100%] h-px my-[20px] tlg:my-[16px] bg-theme-7 dark:bg-theme-4"></div>
                 </div>
@@ -786,19 +761,16 @@ function DetailPage({params}: any) {
 
 export async function getServerSideProps(ctx: any) {
     try {
+        // 폰트 정보 불러오기
         const fonts = await FetchFontInfo(ctx.params.fontId);
-        const view = await FetchView(ctx.params.fontId);
 
+        // 랜덤 넘버
         const randomNum: number = Math.floor(Math.random() * 19);
 
         return {
             props: {
                 params: {
                     fonts: fonts,
-                    view: view,
-                    initFontSize: 20,
-                    initLineHeight: 1.2,
-                    initLetterSpacing: 0,
                     randomNum: randomNum,
                 }
             }

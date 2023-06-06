@@ -19,7 +19,7 @@ export default function SideMenu({fonts}:{fonts:any}) {
         }
     }
 
-    /** lodash/debounce 적용한 서치 훅 */
+    // lodash/debounce 적용한 서치 디폴트: 전체 숫자
     const [filter, setFilter] = useState(fonts.length);
     const searchChange = (e:ChangeEvent<HTMLInputElement>) => { debouncedSearchChange(e); }
 

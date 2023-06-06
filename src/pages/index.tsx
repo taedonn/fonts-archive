@@ -16,11 +16,11 @@ const Index = ({params}: any) => {
     // 쿠키 훅
     const [cookies, setCookie] = useCookies<string>([]);
 
-    /** 셀렉트 박스 - "언어 선택" 영역 */
+    // 셀렉트 박스 - "언어 선택" 영역
     const refLangSelect = useRef<HTMLLabelElement>(null);
     const refLangOption = useRef<HTMLDivElement>(null);
 
-    /** 셀렉트 박스 - "언어 선택" 외 영역 클릭 */
+    // 셀렉트 박스 - "언어 선택" 외 영역 클릭
     useEffect(() => {
         function handleLangOutside(e:Event) {
             const selectInput = document.getElementById("select-lang") as HTMLInputElement;
@@ -41,11 +41,11 @@ const Index = ({params}: any) => {
         }
     }
 
-    /** 셀렉트 박스 - "폰트 형태" 영역 */
+    // 셀렉트 박스 - "폰트 형태" 영역
     const refTypeSelect = useRef<HTMLLabelElement>(null);
     const refTypeOption = useRef<HTMLDivElement>(null);
 
-    /** 셀렉트 박스 - "폰트 형태" 외 영역 클릭 */
+    // 셀렉트 박스 - "폰트 형태" 외 영역 클릭
     useEffect(() => {
         function handleTypeOutside(e:Event) {
             const selectInput = document.getElementById("select-type") as HTMLInputElement;
@@ -66,11 +66,11 @@ const Index = ({params}: any) => {
         }
     }
 
-    /** 셀렉트 박스 - "정렬순" 영역 */
+    // 셀렉트 박스 - "정렬순" 영역
     const refSortSelect = useRef<HTMLLabelElement>(null);
     const refSortOption = useRef<HTMLDivElement>(null);
 
-    /** 셀렉트 박스 - 정렬순" 외 영역 클릭 */
+    // 셀렉트 박스 - 정렬순" 외 영역 클릭
     useEffect(() => {
         function handleSortOutside(e:Event) {
             const selectInput = document.getElementById("select-sort") as HTMLInputElement;
@@ -91,10 +91,8 @@ const Index = ({params}: any) => {
         }
     }
 
-    /** 옵션 - "언어 선택" 훅 */
-    const defaultLang: string = params.lang;
-    const [lang, setLang] = useState(defaultLang);
-    useLayoutEffect(() => { setLang(defaultLang);},[defaultLang]);
+    // 옵션 - "언어 선택" 디폴트: "전체"
+    const [lang, setLang] = useState<string>(params.lang);
 
     /** 옵션 - "언어 선택" 클릭 */
     const handleLangOptionChange = (e:React.ChangeEvent<HTMLInputElement>) => {
@@ -104,10 +102,8 @@ const Index = ({params}: any) => {
         }
     }
 
-    /** 옵션 - "폰트 형태" 훅 */
-    const defaultType: string = params.type;
-    const [type, setType] = useState(defaultType);
-    useLayoutEffect(() => { setType(defaultType);},[defaultType]);
+    // 옵션 - "폰트 형태" 디폴트: 전체
+    const [type, setType] = useState<string>(params.type);
 
     /** 옵션 - "폰트 형태" 클릭 */
     const handleTypeOptionChange = (e:React.ChangeEvent<HTMLInputElement>) => {
@@ -117,10 +113,8 @@ const Index = ({params}: any) => {
         }
     }
 
-    /** 옵션 - "정렬순" 훅 */
-    const defaultSort: string = params.sort;
-    const [sort, setSort] = useState(defaultSort);
-    useLayoutEffect(() => { setSort(defaultSort);},[defaultSort]);
+    // 옵션 - "정렬순" 디폴트: 조회순
+    const [sort, setSort] = useState<string>(params.sort);
 
     /** 옵션 - "정렬순" 클릭 */
     const handleSortOptionChange = (e:React.ChangeEvent<HTMLInputElement>) => {
@@ -130,14 +124,12 @@ const Index = ({params}: any) => {
         }
     }
 
-    /** 텍스트 입력칸 훅 */
+    // 텍스트 입력칸 디폴트: 빈 문자열
     const [text, setText] = useState("");
     const handleTextChange = (e:React.ChangeEvent<HTMLInputElement>) => { setText(e.target.value); }
 
-    /** 폰트 검색 훅 */
-    const defaultSearchDisplay = "hide"
-    const [searchDisplay, setSearchDisplay] = useState(defaultSearchDisplay);
-    useEffect(() => { setSearchDisplay(defaultSearchDisplay); }, [defaultSearchDisplay])
+    // 폰트 검색 훅
+    const [searchDisplay, setSearchDisplay] = useState("hide");
 
     /** 폰트 검색 버튼 클릭 */
     const handleFontSearch = () => {
@@ -164,13 +156,13 @@ const Index = ({params}: any) => {
     }
     const throttledScroll = throttle(handleScroll,500);
 
-    /** lodash/throttle을 이용해 스크롤 */
+    // lodash/throttle을 이용해 스크롤
     useEffect(() => {
         window.addEventListener('scroll', throttledScroll);
         return () => { window.removeEventListener('scroll', throttledScroll); }
     });
 
-    /** 키값 변경 */
+    // 키값 변경 디폴트: undefined
     const [isMac, setIsMac] = useState<boolean | undefined>(undefined);
     useLayoutEffect(() => {
         if (isMacOs) { setIsMac(true) }
@@ -178,7 +170,7 @@ const Index = ({params}: any) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isMacOs]);
 
-    /** 폰트 검색 기능 */
+    // 폰트 검색 기능
     const [searchword, setSearchword] = useState(params.source);
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => { debouncedSearch(e); }
     const debouncedSearch = debounce((e) => { setSearchword(e.target.value); }, 500);
@@ -187,7 +179,7 @@ const Index = ({params}: any) => {
     const refThemeLabel = useRef<HTMLLabelElement>(null);
     const refThemeDiv = useRef<HTMLDivElement>(null);
 
-    /** 컬러 테마 영역 외 클릭 */
+    // 컬러 테마 영역 외 클릭
     useEffect(() => {
         function handleThemeOutside(e:Event) {
             const themeInput = document.getElementById("color-theme") as HTMLInputElement;
@@ -208,18 +200,17 @@ const Index = ({params}: any) => {
         }
     }
 
-    /** 컬러 테마 state */
-    const defaultTheme = params.theme;
+    // 컬러 테마 디폴트: 나잇 모드
     const [theme, setTheme] = useState(params.theme);
     useLayoutEffect(() => {
-        if (defaultTheme === "dark") {
+        if (params.theme === "dark") {
             document.documentElement.classList.add('dark');
             setTheme("dark");
         } else {
             document.documentElement.classList.remove('dark');
             setTheme("light");
         }
-    }, [defaultTheme]);
+    }, [params.theme]);
 
     /** 컬러 테마 변경 */
     const handleColorThemeChange = (e:React.ChangeEvent<HTMLInputElement>) => {

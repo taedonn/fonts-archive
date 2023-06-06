@@ -1,5 +1,5 @@
 export default function Tooltip() {
-    // 맨 위로 버튼 클릭 이벤트
+    /** 맨 위로 버튼 클릭 이벤트 */
     const goUp = () => { window.scrollTo({top:0,behavior:'smooth'}); }
 
     return (

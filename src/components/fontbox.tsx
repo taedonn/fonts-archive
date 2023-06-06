@@ -10,16 +10,16 @@ import axios from 'axios';
 import DummyText from "./dummytext";
 
 export default function FontBox({lang, type, sort, searchword, text, num}:{lang: string, type: string, sort: string, searchword: string, text: string, num: number}) {
-    /** react-intersection-observer 훅 */
+    // react-intersection-observer 훅
     const { ref, inView } = useInView();
 
-    /** react-intersection-observer 사용해 ref를 지정한 요소가 viewport에 있을 때 fetchNextPage 함수 실행 */
+    // react-intersection-observer 사용해 ref를 지정한 요소가 viewport에 있을 때 fetchNextPage 함수 실행
     useEffect(() => {
         if (inView && hasNextPage) { fetchNextPage(); }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [inView]);
 
-    /** useInfiniteQuery 사용해 다음에 불러올 데이터 업데이트 */
+    // useInfiniteQuery 사용해 다음에 불러올 데이터 업데이트
     const {
         isLoading,
         data,
@@ -35,6 +35,7 @@ export default function FontBox({lang, type, sort, searchword, text, num}:{lang:
         getNextPageParam: (lastPage) => lastPage.nextId ?? false,
     });
 
+    // 폰트 검색 필터링 값 변경 시 기존 데이터 지우고 useInfiniteQuery 재실행
     useEffect(() => {
         remove();
         refetch();

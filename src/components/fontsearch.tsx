@@ -8,20 +8,20 @@ import { debounce } from "lodash";
 import axios from "axios";
 
 export default function FontSearch({display, closeBtn, showBtn}:{display: string, closeBtn: any, showBtn: any}) {
-    /** 검색 키워드 state */
+    // 검색 키워드 디폴트: 빈 문자열
     const [keyword, setKeyword] = useState<string>("");
 
-    /** active 상태 체크하는 state */
+    // active 상태 체크 디폴트: 0
     const [activeEl, setActiveEl] = useState<number>(0);
 
-    /** 전체 검색 결과 state */
+    // 전체 검색 결과 디폴트: 0
     const [totalEl, setTotalEl] = useState<number>(0);
 
-    /** 검색 결과 스크롤 위치 state */
+    // 검색 결과 스크롤 위치 디폴트: null
     const parentRef = useRef<HTMLDivElement>(null);
     const activeRef = useRef<HTMLAnchorElement>(null);
     
-    /** 키 다운 이벤트 */
+    // 키 다운 이벤트
     useEffect(() => {
         const keys: any = [];
         const handleKeydown = (e: KeyboardEvent) => {
@@ -64,13 +64,13 @@ export default function FontSearch({display, closeBtn, showBtn}:{display: string
     /** esc 버튼 클릭 */
     const handleCloseBtn = () => { closeBtn(); }
 
-    /** showBtn, closeBtn 함수가 실행될 때 keyword를 빈칸으로 변경 */
+    // showBtn, closeBtn 함수가 실행될 때 keyword를 빈칸으로 변경
     useEffect(() => { setKeyword(""); }, [showBtn, closeBtn]);
 
-    /** 검색 영역 외 클릭 시 */
+    // 검색 영역 외 클릭 시
     const refSearchOutside = useRef<HTMLDivElement>(null);
 
-    /** 셀렉트 박스 - "언어 선택" 외 영역 클릭 */
+    // 셀렉트 박스 - "언어 선택" 외 영역 클릭
     useEffect(() => {
         function handleSearchOutside(e:Event) {
             if (refSearchOutside?.current && !refSearchOutside.current.contains(e.target as Node)) { closeBtn(); }
@@ -79,26 +79,26 @@ export default function FontSearch({display, closeBtn, showBtn}:{display: string
         return () => document.removeEventListener("mouseup", handleSearchOutside);
     },[closeBtn, refSearchOutside]);
 
-    /** useQuery를 이용한 데이터 파싱 */
+    // useQuery를 이용한 데이터 파싱
     const {isLoading, isRefetching, isSuccess, data, refetch} = useQuery(['font-search'], async () => await axios.get("/api/fontsearch", {params: {keyword: keyword}}).then((res) => { return res.data }));
     
-    /** lodash/debounce가 적용된 검색 기능 */
+    // lodash/debounce가 적용된 검색 기능
     const handleSearch = (e: ChangeEvent<HTMLInputElement>) => { debouncedSearch(e); }
     const debouncedSearch = debounce((e) => { setKeyword(e.target.value); }, 500);
 
-    /** 검색 키워드가 변경되면 refetch */
+    // 검색 키워드가 변경되면 refetch
     useEffect(() => { setActiveEl(0); refetch(); }, [keyword, refetch]);
 
-    /** 검색창 닫을 때 active 링크를 0으로 리셋 */
+    // 검색창 닫을 때 active 링크를 0으로 리셋
     useEffect(() => { setActiveEl(0); }, [closeBtn]);
 
-    /** 검색 결과 마우스 오버 시 active */
+    // 검색 결과 마우스 오버 시 active
     const handleLinkMouseOver = (idx: number) => { setActiveEl(idx); }
 
-    /** 검색 결과 총 개수 */
+    // 검색 결과 총 개수
     useEffect(() => { if (data !== undefined) { setTotalEl(data.fonts.length); } }, [data]);
 
-    /** active 링크가 targetElement보다 스크롤이 아래에 있을 때 */
+    // active 링크가 targetElement보다 스크롤이 아래에 있을 때
     useEffect(() => {
         if (parentRef.current && activeRef.current) {
             const parent = parentRef.current.getBoundingClientRect();
