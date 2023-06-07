@@ -9,7 +9,7 @@ import axios from 'axios';
 // 컴포넌트
 import DummyText from "./dummytext";
 
-export default function FontBox({lang, type, sort, searchword, text, num}:{lang: string, type: string, sort: string, searchword: string, text: string, num: number}) {
+export default function FontBox ({lang, type, sort, searchword, text, num}:{lang: string, type: string, sort: string, searchword: string, text: string, num: number}) {
     // react-intersection-observer 훅
     const { ref, inView } = useInView();
 
