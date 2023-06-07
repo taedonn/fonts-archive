@@ -82,7 +82,7 @@ export default function FontSearch(
     // 검색 영역 외 클릭 시
     const refSearchOutside = useRef<HTMLDivElement>(null);
 
-    // 셀렉트 박스 - "언어 선택" 외 영역 클릭
+    // 셀렉트 박스 - "검색 선택" 외 영역 클릭
     useEffect(() => {
         function handleSearchOutside(e:Event) {
             if (refSearchOutside?.current && !refSearchOutside.current.contains(e.target as Node)) { closeBtn(); }
