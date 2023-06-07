@@ -9,7 +9,6 @@ import { throttle } from "lodash";
 
 // components
 import FontSearch from "./fontsearch";
-import Filter from "./filter";
 
 export default function Header (
     {
@@ -182,21 +181,6 @@ export default function Header (
         document.body.style.overflow = "auto";
     }
 
-    // 필터링 디폴트: 숨김
-    const [filterDisplay, setFilterDisplay] = useState("hide");
-
-    /** 필터링 보임 */
-    const handleFilterShow = () => {
-        setFilterDisplay("show");
-        document.body.style.overflow = "hidden";
-    }
-
-    /** 필터링 숨김 */
-    const handleFilterClose = () => {
-        setFilterDisplay("hide");
-        document.body.style.overflow = "auto";
-    }
-
     return (
         <>
             <div className='interface w-[100%] h-[60px] tlg:h-[56px] px-[20px] tlg:px-[16px] tmd:px-[12px] fixed right-0 top-0 z-10 flex flex-row justify-between items-center backdrop-blur bg-theme-9/80 dark:bg-theme-2/80 border-b border-theme-7 dark:border-theme-4'>
@@ -219,7 +203,6 @@ export default function Header (
                     {
                         page === "index"
                         ? <>
-                            {/* 필터링 기능 - PC */}
                             <div className="flex flex-row justify-end items-center tlg:hidden">
                                 <div className='w-content relative flex flex-row justify-start items-center'>
                                     <input type='checkbox' id='select-lang' onChange={handleLangChange} className="select hidden"/>
@@ -359,10 +342,6 @@ export default function Header (
                                 <input onChange={handleSearch} type="text" placeholder="폰트, 회사명을 검색해 보세요..." defaultValue={source} className="w-[280px] txl:w-[200px] text-[14px] text-normal placeholder-theme-5 dark:placeholder-theme-6 text-theme-5 dark:text-theme-8 leading-none border rounded-full border-theme-7 dark:border-theme-4 px-[20px] py-[10px] pl-[44px] bg-transparent group-hover:dark:bg-theme-3/40 tlg:group-hover:bg-transparent focus:dark:bg-theme-3/40"/>
                                 <svg className="w-[12px] absolute left-[20px] top-[50%] translate-y-[-50%] fill-theme-5 dark:fill-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/></svg>
                             </div>
-                            {/* 필터링 기능 - 모바일 */}
-                            <button onClick={handleFilterShow} className="hidden tlg:flex w-[30px] h-[30px] relative text-[14px] tlg:text-[12px] text-normal text-theme-5 dark:text-theme-8 leading-none bg-theme-8 dark:bg-theme-3/80 flex-row justify-center items-center rounded-[8px] tmd:rounded-[6px] mr-[8px] hover:bg-theme-8 hover:bg-theme-7/60 hover:dark:bg-theme-4/60 tlg:hover:dark:bg-theme-3/80 hover:drop-shadow-default hover:dark:drop-shadow-dark tlg:hover:drop-shadow-none tlg:hover:dark:drop-shadow-none">
-                                <svg className="w-[14px] fill-theme-5 dark:fill-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path fillRule="evenodd" d="M10.5 1a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V4H1.5a.5.5 0 0 1 0-1H10V1.5a.5.5 0 0 1 .5-.5ZM12 3.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5Zm-6.5 2A.5.5 0 0 1 6 6v1.5h8.5a.5.5 0 0 1 0 1H6V10a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5ZM1 8a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2A.5.5 0 0 1 1 8Zm9.5 2a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0V13H1.5a.5.5 0 0 1 0-1H10v-1.5a.5.5 0 0 1 .5-.5Zm1.5 2.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5Z"/></svg>
-                            </button>
                         </> : <></>
                     }
                     <button onClick={handleFontSearch} className={`${page === "index" ? "hidden tlg:flex" : "flex"} w-[220px] tlg:w-[200px] tmd:w-[32px] h-[32px] tlg:h-[30px] relative text-[14px] tlg:text-[12px] text-normal text-theme-5 dark:text-theme-8 leading-none bg-theme-8 dark:bg-theme-3/80 flex-start justify-start items-center rounded-[8px] tmd:rounded-[6px] pl-[38px] tlg:pl-[30px] tmd:pl-0 pb-px hover:bg-theme-8 hover:bg-theme-7/60 hover:dark:bg-theme-4/60 tlg:hover:dark:bg-theme-3/80 hover:drop-shadow-default hover:dark:drop-shadow-dark tlg:hover:drop-shadow-none tlg:hover:dark:drop-shadow-none`}>
@@ -382,8 +361,8 @@ export default function Header (
                             }
                         </div>
                     </button>
-                    <div className='w-px h-[20px] tlg:h-[16px] rounded-full mx-[10px] mr-[8px] tlg:mx-[8px] tmd:mx-[12px] tlg:mr-[4px] tmd:mr-[4px] bg-theme-7 dark:bg-theme-4'></div>
-                    <div className="relative mx-[10px] txl:mx-[8px] tmd:mx-0 tmd:mr-[2px]">
+                    <div className='w-px h-[20px] tlg:h-[16px] rounded-full mx-[10px] tlg:mx-[8px] mr-[6px] tlg:mr-[4px] bg-theme-7 dark:bg-theme-4'></div>
+                    <div className="relative mx-[10px] txl:mx-[8px]">
                         <input onChange={handleColorTheme} type="checkbox" id="color-theme" className="hidden"/>
                         <label ref={refThemeLabel} htmlFor="color-theme" className="w-[32px] h-[32px] flex flex-row justify-center items-center cursor-pointer">
                             <svg style={theme === "light" ? {display: "block"} : {display: "none"}} className={`light-mode w-[20px] ${theme === "light" ? `fill-theme-yellow` : `fill-theme-9/80`}`} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"/></svg>
@@ -414,15 +393,6 @@ export default function Header (
                 display={searchDisplay} 
                 closeBtn={handleFontSearchCloseBtn} 
                 showBtn={handleFontSearch}
-            />
-
-            {/* 모바일 필터링 */}
-            <Filter
-                display={filterDisplay}
-                closeBtn={handleFilterClose}
-                handleLangOptionChange={handleLangOptionChange}
-                handleTypeOptionChange={handleTypeOptionChange}
-                handleSortOptionChange={handleSortOptionChange}
             />
         </>
     )
