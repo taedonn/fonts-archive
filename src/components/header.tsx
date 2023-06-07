@@ -355,7 +355,7 @@ export default function Header (
                                     <span className="tmd:hidden text-[12px] leading-none pt-px">K</span>
                                 </div>
                                 : ( isMac === false
-                                    ? <span className="tmd:hidden text-[12px] leading-none">Ctrl + K</span>
+                                    ? <span className="tmd:hidden mt-px text-[12px] leading-none">Ctrl + K</span>
                                     : <></>
                                 )
                             }
