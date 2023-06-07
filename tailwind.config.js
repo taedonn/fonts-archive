@@ -35,11 +35,21 @@ module.exports = {
                 "content": "max-content"
             },
             animation: {
+                "zoom-in": "zoom-in 0.2s 1 both",
+                "fontbox-zoom-in": "fontbox-zoom-in 0.2s 1 both",
                 "fade-in": "fade-in 0.2s 1 both",
                 "fontbox-fade-in": "fontbox-fade-in 0.4s 1 both",
                 "tooltip-fade-in": "tooltip-fade-in 0.2s 1 both"
             },
             keyframes: {
+                "zoom-in": {
+                    "0%": { opacity: "0", transform: "scale(0.5)" },
+                    "100%": { opacity: "1", transform: "scale(1)" }
+                },
+                "fontbox-zoom-in": {
+                    "0%": { opacity: "0", transform: "translateX(-50%) scale(0.5)" },
+                    "100%": { opacity: "1", transform: "translateX(-50%) scale(1)" }
+                },
                 "fade-in": {
                     "0%": { opacity: "0", transform: "translateX(-50%) translateY(12px)" },
                     "100%": { opacity: "1", transform: "translateX(-50%) translateY(0)" }
