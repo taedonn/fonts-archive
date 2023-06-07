@@ -12,13 +12,13 @@ import FontSearch from "./fontsearch";
 
 export default function Header (
     {
+        isMac,
+        theme,
         page,
         lang,
         type,
         sort,
         source,
-        theme,
-        isMac,
         handleTextChange,
         handleLangOptionChange,
         handleTypeOptionChange,
@@ -27,13 +27,13 @@ export default function Header (
         handleColorThemeChange,
     }:
     {
+        isMac: boolean,
+        theme: string,
         page: string,
         lang: string,
         type: string,
         sort: string,
         source: string,
-        theme: string,
-        isMac: boolean | undefined,
         handleTextChange: any,
         handleLangOptionChange: any,
         handleTypeOptionChange: any,
@@ -384,6 +384,7 @@ export default function Header (
 
             {/* 폰트 검색 */}
             <FontSearch 
+                isMac={isMac}
                 display={searchDisplay} 
                 closeBtn={handleFontSearchCloseBtn} 
                 showBtn={handleFontSearch}

@@ -1,7 +1,6 @@
 // react hooks
-import { useState, useLayoutEffect } from "react";
+import { useState } from "react";
 import { useCookies } from 'react-cookie';
-import { isMacOs } from "react-device-detect";
 import { debounce } from "lodash";
 
 // components
@@ -12,6 +11,9 @@ import FontBox from "@/components/fontbox";
 const Index = ({params}: any) => {
     // 쿠키 훅
     const [cookies, setCookie] = useCookies<string>([]);
+
+    // 디바이스 체크
+    const isMac: boolean = params.userAgent.includes("Mac OS") ? true : false
 
     // 옵션 - "언어 선택" 디폴트: "전체"
     const [lang, setLang] = useState<string>(params.lang);
@@ -50,14 +52,6 @@ const Index = ({params}: any) => {
     const [text, setText] = useState("");
     const handleTextChange = (e:React.ChangeEvent<HTMLInputElement>) => { setText(e.target.value); }
 
-    // 키값 변경 디폴트: undefined
-    const [isMac, setIsMac] = useState<boolean | undefined>(undefined);
-    useLayoutEffect(() => {
-        if (isMacOs) { setIsMac(true) }
-        else { setIsMac(false); }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isMacOs]);
-
     // 폰트 검색 기능
     const [searchword, setSearchword] = useState(params.source);
     const debouncedSearch = debounce((e) => { setSearchword(e.target.value); }, 500);
@@ -85,18 +79,15 @@ const Index = ({params}: any) => {
 
     return (
         <>
-            {/* 고정 메뉴 */}
-            <Tooltip/>
-            
             {/* 헤더 */}
             <Header
+                isMac={isMac}
+                theme={theme}
                 page={"index"}
                 lang={lang}
                 type={type}
                 sort={sort}
                 source={params.source}
-                theme={theme}
-                isMac={isMac}
                 handleTextChange={handleTextChange}
                 handleLangOptionChange={handleLangOptionChange}
                 handleTypeOptionChange={handleTypeOptionChange}
@@ -104,6 +95,9 @@ const Index = ({params}: any) => {
                 handleSearch={handleSearch}
                 handleColorThemeChange={handleColorThemeChange}
             />
+
+            {/* 고정 메뉴 */}
+            <Tooltip/>
             
             {/* 메인 */}
             <FontBox 
@@ -129,6 +123,9 @@ export async function getServerSideProps(ctx: any) {
         // 필터링 파라미터 체크
         const source = ctx.query.search === undefined ? "" : ctx.query.search;
 
+        // 디바이스 체크
+        const userAgent = ctx.req ? ctx.req.headers['user-agent'] : navigator.userAgent;
+
         return {
             props: {
                 params: {
@@ -136,7 +133,8 @@ export async function getServerSideProps(ctx: any) {
                     type: cookieType,
                     sort: cookieSort,
                     theme: cookieTheme,
-                    source: source
+                    source: source,
+                    userAgent: userAgent,
                 }
             }
         }

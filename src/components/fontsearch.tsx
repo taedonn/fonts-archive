@@ -1,13 +1,25 @@
 // react hooks
 import React, { ChangeEvent, useEffect, useRef, useState } from "react";
 import { useQuery } from "react-query";
-import { isMacOs } from "react-device-detect";
 import { debounce } from "lodash";
 
 // hooks
 import axios from "axios";
 
-export default function FontSearch({display, closeBtn, showBtn}:{display: string, closeBtn: any, showBtn: any}) {
+export default function FontSearch(
+    {
+        isMac,
+        display, 
+        closeBtn, 
+        showBtn
+    }:
+    {
+        isMac: boolean
+        display: string, 
+        closeBtn: any, 
+        showBtn: any
+    }
+) {
     // 검색 키워드 디폴트: 빈 문자열
     const [keyword, setKeyword] = useState<string>("");
 
@@ -27,7 +39,7 @@ export default function FontSearch({display, closeBtn, showBtn}:{display: string
         const handleKeydown = (e: KeyboardEvent) => {
             keys[e.key] = true;
             // PC 환경 체크
-            if (isMacOs) {
+            if (isMac) {
                 if (keys["Meta"] && keys["k"]) { showBtn(); e.preventDefault(); }
                 if (keys["Escape"]) { closeBtn(); }
             } else {

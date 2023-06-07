@@ -6,9 +6,6 @@ import { NextSeo } from 'next-seo';
 import React, { useEffect, useState } from "react";
 import { useCookies } from 'react-cookie';
 
-// hooks
-import { isMacOs } from "react-device-detect";
-
 // api
 import { FetchFontInfo } from "../api/DetailPage/fetchFontInfo";
 
@@ -24,16 +21,13 @@ function DetailPage({params}: any) {
     // 쿠키 훅
     const [cookies, setCookie] = useCookies<string>([]);
 
+    // console.log(params.userAgent);
+
     // 빈 함수
     const emptyFn = () => { return; }
 
-    // 키값 변경 디폴트: undefined
-    const [isMac, setIsMac] = useState<boolean | undefined>(undefined);
-    useEffect(() => {
-        if (isMacOs) { setIsMac(true) }
-        else { setIsMac(false); }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isMacOs]);
+    // 디바이스 체크
+    const isMac: boolean = params.userAgent.includes("Mac OS") ? true : false
 
     // 컬러 테마 디폴트: 나잇 모드 */
     const [theme, setTheme] = useState(params.theme);
@@ -159,18 +153,15 @@ function DetailPage({params}: any) {
                 description={font.name + " - 상업용 무료 한글 폰트 아카이브"}
             />
 
-            {/* 고정 메뉴 */}
-            <Tooltip/>
-
             {/* 헤더 */}
             <Header
+                isMac={isMac}
+                theme={theme}
                 page={"DetailPage"}
                 lang={""}
                 type={""}
                 sort={""}
                 source={""}
-                theme={theme}
-                isMac={isMac}
                 handleTextChange={emptyFn}
                 handleLangOptionChange={emptyFn}
                 handleTypeOptionChange={emptyFn}
@@ -178,6 +169,9 @@ function DetailPage({params}: any) {
                 handleSearch={emptyFn}
                 handleColorThemeChange={handleColorThemeChange}
             />
+
+            {/* 고정 메뉴 */}
+            <Tooltip/>
 
             {/* 메인 */}
             <div className="w-[100%] mt-[60px] tlg:mt-[56px] p-[20px] tlg:p-[16px] tmd:p-[12px] py-[24px] tlg:py-[20px] tmd:py-[16px]">
@@ -664,12 +658,16 @@ export async function getServerSideProps(ctx: any) {
         // 쿠키
         const cookieTheme = ctx.req.cookies.theme === undefined ? "dark" : ctx.req.cookies.theme;
 
+        // 디바이스 체크
+        const userAgent = ctx.req ? ctx.req.headers['user-agent'] : navigator.userAgent;
+
         return {
             props: {
                 params: {
                     fonts: fonts,
                     randomNum: randomNum,
                     theme: cookieTheme,
+                    userAgent: userAgent,
                 }
             }
         }
