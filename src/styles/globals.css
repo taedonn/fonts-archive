@@ -366,3 +366,10 @@ html.dark .same-source::after {
 
 /* 라이센스 본문 링크 */
 #license a { text-decoration: underline; }
+
+/* 계정 정보 */
+#account ~ .account-select { display: none; }
+#account:checked ~ .account-select { display: block; }
+
+#account:checked + label svg { fill: #4C4D50; }
+html.dark #account:checked + label svg { fill: #E9EAEE; }

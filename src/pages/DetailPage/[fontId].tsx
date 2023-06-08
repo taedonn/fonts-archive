@@ -4,7 +4,6 @@ import { NextSeo } from 'next-seo';
 
 // react hooks
 import React, { useEffect, useState } from "react";
-import { useCookies } from 'react-cookie';
 
 // api
 import { FetchFontInfo } from "../api/DetailPage/fetchFontInfo";
@@ -18,36 +17,11 @@ import Tooltip from "@/components/tooltip";
 import DummyText from "@/components/dummytext";
 
 function DetailPage({params}: any) {
-    // 쿠키 훅
-    const [cookies, setCookie] = useCookies<string>([]);
-
-    // console.log(params.userAgent);
+    // 디바이스 체크
+    const isMac: boolean = params.userAgent.includes("Mac OS") ? true : false;
 
     // 빈 함수
     const emptyFn = () => { return; }
-
-    // 디바이스 체크
-    const isMac: boolean = params.userAgent.includes("Mac OS") ? true : false
-
-    // 컬러 테마 디폴트: 나잇 모드 */
-    const [theme, setTheme] = useState(params.theme);
-
-    /** 컬러 테마 변경 */
-    const handleColorThemeChange = (e:React.ChangeEvent<HTMLInputElement>) => {
-        const themeInput = document.getElementById("color-theme") as HTMLInputElement;
-
-        if (e.target.checked) {
-            setCookie('theme', e.target.value, {path:'/', secure:true, sameSite:'none'});
-            if (e.target.value === "dark") {
-                document.documentElement.classList.add('dark');
-                setTheme("dark");
-            } else {
-                document.documentElement.classList.remove('dark');
-                setTheme("light");
-            }
-        }
-        themeInput.checked = false;
-    }
 
     // 폰트 데이터 props
     const font = params.fonts[0];
@@ -156,7 +130,7 @@ function DetailPage({params}: any) {
             {/* 헤더 */}
             <Header
                 isMac={isMac}
-                theme={theme}
+                theme={params.theme}
                 page={"DetailPage"}
                 lang={""}
                 type={""}
@@ -167,7 +141,6 @@ function DetailPage({params}: any) {
                 handleTypeOptionChange={emptyFn}
                 handleSortOptionChange={emptyFn}
                 handleSearch={emptyFn}
-                handleColorThemeChange={handleColorThemeChange}
             />
 
             {/* 고정 메뉴 */}

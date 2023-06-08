@@ -57,32 +57,12 @@ const Index = ({params}: any) => {
     const debouncedSearch = debounce((e) => { setSearchword(e.target.value); }, 500);
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => { debouncedSearch(e); }
 
-    // 컬러 테마 디폴트: 나잇 모드
-    const [theme, setTheme] = useState(params.theme);
-
-    /** 컬러 테마 변경 */
-    const handleColorThemeChange = (e:React.ChangeEvent<HTMLInputElement>) => {
-        const themeInput = document.getElementById("color-theme") as HTMLInputElement;
-
-        if (e.target.checked) {
-            setCookie('theme', e.target.value, {path:'/', secure:true, sameSite:'none'});
-            if (e.target.value === "dark") {
-                document.documentElement.classList.add('dark');
-                setTheme("dark");
-            } else {
-                document.documentElement.classList.remove('dark');
-                setTheme("light");
-            }
-        }
-        themeInput.checked = false;
-    }
-
     return (
         <>
             {/* 헤더 */}
             <Header
                 isMac={isMac}
-                theme={theme}
+                theme={params.theme}
                 page={"index"}
                 lang={lang}
                 type={type}
@@ -93,7 +73,6 @@ const Index = ({params}: any) => {
                 handleTypeOptionChange={handleTypeOptionChange}
                 handleSortOptionChange={handleSortOptionChange}
                 handleSearch={handleSearch}
-                handleColorThemeChange={handleColorThemeChange}
             />
 
             {/* 고정 메뉴 */}

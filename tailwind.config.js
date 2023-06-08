@@ -38,6 +38,7 @@ module.exports = {
                 "zoom-in": "zoom-in 0.2s 1 both",
                 "fontbox-zoom-in": "fontbox-zoom-in 0.2s 1 both",
                 "fade-in": "fade-in 0.2s 1 both",
+                "account-fade-in": "fontbox-fade-in 0.2s 1 both",
                 "fontbox-fade-in": "fontbox-fade-in 0.4s 1 both",
                 "tooltip-fade-in": "tooltip-fade-in 0.2s 1 both"
             },
