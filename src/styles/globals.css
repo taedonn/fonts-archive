@@ -373,3 +373,14 @@ html.dark .same-source::after {
 
 #account:checked + label svg { fill: #4C4D50; }
 html.dark #account:checked + label svg { fill: #E9EAEE; }
+
+/* 약관 동의 */
+#terms-check ~ label .uncheck { display: block; }
+#terms-check ~ label .check { display: none; }
+#terms-check:checked ~ label .uncheck { display: none; }
+#terms-check:checked ~ label .check { display: block; }
+
+#privacy-check ~ label .uncheck { display: block; }
+#privacy-check ~ label .check { display: none; }
+#privacy-check:checked ~ label .uncheck { display: none; }
+#privacy-check:checked ~ label .check { display: block; }
