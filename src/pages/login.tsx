@@ -1,9 +1,5 @@
 // next hooks
-import Link from 'next/link';
 import { NextSeo } from 'next-seo';
-
-// react hooks
-import { useCookies } from 'react-cookie';
 
 // components
 import Header from "@/components/header";
@@ -48,18 +44,22 @@ const Login = ({params}: any) => {
                         <input type='text' id='id' tabIndex={1} autoComplete='on' placeholder='이메일을 입력해 주세요.' className='w-[100%] text-[14px] mt-[6px] px-[14px] py-[8px] rounded-[8px] border-[2px] border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1 placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2'/>
                         <label htmlFor='pw' className='w-[100%] flex flex-row justify-between items-center text-[14px] ml-px mt-[18px]'>
                             <span>비밀번호</span>
-                            <Link href="/findpw" className='text-[12px] text-theme-yellow dark:text-theme-blue-1 hover:underline tlg:hover:no-underline'>비밀번호를 잊으셨나요?</Link>
+                            {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+                            <a href="/findpw" className='text-[12px] text-theme-yellow dark:text-theme-blue-1 hover:underline tlg:hover:no-underline'>비밀번호를 잊으셨나요?</a>
                         </label>
                         <input type='password' id='pw' tabIndex={2} autoComplete='on' placeholder='비밀번호를 입력해 주세요.' className='w-[100%] text-[14px] mt-[6px] px-[14px] py-[8px] rounded-[8px] border-[2px] border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1 placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2'/>
                         <button className='w-[100%] h-[40px] rounded-[8px] mt-[14px] text-[14px] font-medium text-theme-4 dark:text-theme-blue-2 bg-theme-yellow/80 hover:bg-theme-yellow tlg:hover:bg-theme-yellow/80 dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1/80'>로그인</button>
                     </form>
                     <div className='w-[100%] h-[52px] flex flex-row justify-center items-center mt-[16px] text-[14px] rounded-[8px] border border-theme-7 dark:border-theme-4'>
                         <span className='text-theme-4 dark:text-theme-9 mr-[12px]'>처음 방문하셨나요?</span>
+                        {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
                         <a href="/regist" className='text-theme-yellow dark:text-theme-blue-1 hover:underline tlg:hover:no-underline'>회원가입하기</a>
                     </div>
                     <div className='w-[100%] flex flex-row justify-center items-center text-[12px] mt-[12px]'>
+                        {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
                         <a href="/terms" className='text-theme-5 dark:text-theme-6 hover:underline tlg:hover:underline'>서비스 이용약관</a>
                         <div className='text-theme-5 dark:text-theme-6 mx-[4px]'>·</div>
+                        {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
                         <a href="/privacy" className='text-theme-5 dark:text-theme-6 hover:underline tlg:hover:underline'>개인정보처리방침</a>
                     </div>
                 </div>
