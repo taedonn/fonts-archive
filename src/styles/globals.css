@@ -153,8 +153,6 @@ html.dark .select:checked + label {
 
 /* 로딩 스피너 */
 .loader {
-    width: 40px;
-    height: 40px;
     border: 2px solid #CDCED2;
     border-bottom-color: #97989C;
     border-radius: 50%;
@@ -169,12 +167,6 @@ html.dark .loader {
 @keyframes rotation {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
-}
-@media screen and (max-width: 768px) {
-    .loader {
-        width: 36px;
-        height: 36px;
-    }
 }
 
 /* 검색 기능 */

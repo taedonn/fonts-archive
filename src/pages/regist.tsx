@@ -2,6 +2,12 @@
 import Link from 'next/link';
 import { NextSeo } from 'next-seo';
 
+// react hooks
+import { useQuery } from 'react-query';
+
+// hooks
+import axios from 'axios';
+
 // components
 import Header from "@/components/header";
 
@@ -11,6 +17,14 @@ const Regist = ({params}: any) => {
 
     // 빈 함수
     const emptyFn = () => { return; }
+
+    const {
+        isLoading, 
+        isRefetching, 
+        isSuccess, 
+        data, 
+        refetch
+    } = useQuery(['font-search'], async () => await axios.get("/api/fontsearch", {params: {keyword: ""}}).then((res) => { return res.data }));
 
     return (
         <>
@@ -41,7 +55,7 @@ const Regist = ({params}: any) => {
                 <div className='w-[360px] flex flex-col justify-center items-start mt-[100px] mb-[40px] tlg:mt-[40px]'>
                     <h2 className='text-[20px] tlg:text-[18px] text-theme-4 dark:text-theme-9 font-medium mb-[12px] tlg:mb-[8px]'>회원가입</h2>
                     <form className='w-[100%] p-[20px] rounded-[8px] text-theme-10 dark:text-theme-9 bg-theme-5 dark:bg-theme-3 drop-shadow-default dark:drop-shadow-dark'>
-                    <label htmlFor='id' className='block text-[14px] ml-px'>이름</label>
+                        <label htmlFor='id' className='block text-[14px] ml-px'>이름</label>
                         <input type='text' id='name' tabIndex={1} autoComplete='on' placeholder='홍길동' className='w-[100%] text-[14px] mt-[6px] px-[14px] py-[8px] rounded-[8px] border-[2px] border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1 placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2'/>
                         <label htmlFor='name' className='block text-[14px] ml-px mt-[24px]'>이메일</label>
                         <input type='text' id='id' tabIndex={2} autoComplete='on' placeholder='example@example.com' className='w-[100%] text-[14px] mt-[6px] px-[14px] py-[8px] rounded-[8px] border-[2px] border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1 placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2'/>
@@ -73,7 +87,9 @@ const Regist = ({params}: any) => {
                                 <Link href="/privacy" target='_blank' className='text-[12px] text-theme-6 dark:text-theme-7 flex flex-row justify-center items-center hover:underline tlg:hover:no-underline'>전문보기</Link>
                             </div>
                         </div>
-                        <button className='w-[100%] h-[40px] rounded-[8px] mt-[24px] text-[14px] font-medium text-theme-4 dark:text-theme-blue-2 bg-theme-yellow/80 hover:bg-theme-yellow tlg:hover:bg-theme-yellow/80 dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1/80'>이메일 인증 후 가입하기</button>
+                        <button className='w-[100%] h-[40px] rounded-[8px] mt-[24px] text-[14px] font-medium text-theme-4 dark:text-theme-blue-2 bg-theme-yellow/80 hover:bg-theme-yellow tlg:hover:bg-theme-yellow/80 dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1/80'>
+                            이메일 인증 후 가입하기
+                        </button>
                     </form>
                 </div>
             </div>
