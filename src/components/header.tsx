@@ -452,12 +452,16 @@ export default function Header (
             </div>
 
             {/* 폰트 검색 */}
-            <FontSearch 
-                isMac={isMac}
-                display={searchDisplay} 
-                closeBtn={handleFontSearchCloseBtn} 
-                showBtn={handleFontSearch}
-            />
+            {
+                page === "index"
+                ? <></>
+                : <FontSearch 
+                    isMac={isMac}
+                    display={searchDisplay} 
+                    closeBtn={handleFontSearchCloseBtn} 
+                    showBtn={handleFontSearch}
+                />
+            }
         </>
     )
 }

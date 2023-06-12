@@ -1,4 +1,5 @@
 // next hooks
+import Link from 'next/link';
 import { NextSeo } from 'next-seo';
 
 // components
@@ -56,11 +57,9 @@ const Login = ({params}: any) => {
                         <a href="/regist" className='text-theme-yellow dark:text-theme-blue-1 hover:underline tlg:hover:no-underline'>회원가입하기</a>
                     </div>
                     <div className='w-[100%] flex flex-row justify-center items-center text-[12px] mt-[12px]'>
-                        {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-                        <a href="/terms" className='text-theme-5 dark:text-theme-6 hover:underline tlg:hover:underline'>서비스 이용약관</a>
+                        <Link href="/terms" target="_blank" className='text-theme-5 dark:text-theme-6 hover:underline tlg:hover:underline'>서비스 이용약관</Link>
                         <div className='text-theme-5 dark:text-theme-6 mx-[4px]'>·</div>
-                        {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-                        <a href="/privacy" className='text-theme-5 dark:text-theme-6 hover:underline tlg:hover:underline'>개인정보처리방침</a>
+                        <Link href="/privacy" target="_blank" className='text-theme-5 dark:text-theme-6 hover:underline tlg:hover:underline'>개인정보처리방침</Link>
                     </div>
                 </div>
             </div>
