@@ -31,6 +31,7 @@ const Regist = ({params}: any) => {
     const [nameChk, setNameChk] = useState<String>("");
     const [idChk, setIdChk] = useState<String>("");
     const [pwChk, setPwChk] = useState<String>("");
+    const [pwConfirmChk, setPwConfirmChk] = useState<String>("");
     const [termsChk, setTermsChk] = useState<String>("");
     const [privacyChk, setPrivacyChk] = useState<String>("");
 
@@ -39,21 +40,32 @@ const Regist = ({params}: any) => {
         const formName = document.getElementById("name") as HTMLInputElement;
         const formId = document.getElementById("id") as HTMLInputElement;
         const formPw = document.getElementById("pw") as HTMLInputElement;
+        const formPwConfirm = document.getElementById("pw-confirm") as HTMLInputElement;
         const formTermsChk = document.getElementById("terms-check") as HTMLInputElement;
         const formPrivacyChk = document.getElementById("privacy-check") as HTMLInputElement;
 
-        // 이메일 패턴
-        const emailPattern = /^[A-Za-z0-9_.-]+@[A-Za-z0-9-]+\.[A-Za-z0-9-]+/;
+        // 유효성 패턴
+        const emailPattern = /^[A-Za-z0-9_.-]+@[A-Za-z0-9-]+\.[A-Za-z0-9-]+/; // 이메일 패턴
+        const pwPattern = /^(?=.*?[a-zA-Z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,20}$/; // 비밀번호 패턴
 
         // 서밋 전 유효성 검사를 위해 서밋 이벤트 막기
         e.preventDefault();
 
-        // 이름칸이 비어있을 경우
+        // 이름 유효성 검사
         if (formName.value === '') { setNameChk('empty'); }
 
-        // 이메일이 비어있을 경우
+        // 이메일 유효성 검사
         if (formId.value === '') { setIdChk('empty'); }
         else if (!emailPattern.test(formId.value)) { setIdChk('wrong-pattern'); }
+
+        // 비밀번호 유효성 검사
+        if (formPw.value === '') { setPwChk('empty'); }
+        else if (!pwPattern.test(formPw.value)) { setPwChk('wrong-pattern'); }
+
+        // 비밀번호 재입력 유효성 검사
+        if (formPwConfirm.value === '') { setPwConfirmChk('empty'); }
+        else if (formPwConfirm.value !== formPw.value) { setPwConfirmChk('unmatch'); }
+        else { setPwConfirmChk(''); }
     }
 
     /** 유효성 검사 후 다시 이름 입력 시 경고 메시지 해제 */
@@ -61,6 +73,12 @@ const Regist = ({params}: any) => {
 
     /** 유효성 검사 후 다시 아이디 입력 시 경고 메시지 해제 */
     const handleIdRewrite = () => { setIdChk(''); }
+
+    /** 유효성 검사 후 다시 비밀번호 입력 시 경고 메시지 해제 */
+    const handlePwRewrite = () => { setPwChk(''); }
+
+    /** 유효성 검사 후 다시 비밀번호 재입력 입력 시 경고 메시지 해제 */
+    const handlePwConfirmRewrite = () => { setPwConfirmChk(''); }
 
     return (
         <>
@@ -112,8 +130,24 @@ const Regist = ({params}: any) => {
                             )
                         }
                         <label htmlFor='pw' className='w-[100%] flex flex-row justify-between items-center text-[14px] ml-px mt-[24px]'>비밀번호</label>
-                        <input type='password' id='pw' tabIndex={3} autoComplete='on' placeholder='영문, 숫자, 특수문자 포함 8~20자' className='w-[100%] text-[14px] mt-[6px] px-[14px] py-[8px] rounded-[8px] border-[2px] border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1 placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2'/>
-                        <input type='password' id='pw-confirm' tabIndex={4} autoComplete='on' placeholder='비밀번호 재입력' className='w-[100%] text-[14px] mt-[6px] px-[14px] py-[8px] rounded-[8px] border-[2px] border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1 placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2'/>
+                        <input onChange={handlePwRewrite} type='password' id='pw' tabIndex={3} autoComplete='on' placeholder='영문, 숫자, 특수문자 포함 8~20자' className={`${pwChk === '' ? 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' : 'border-theme-red focus:border-theme-red dark:border-theme-red focus:dark:border-theme-red'} w-[100%] text-[14px] mt-[6px] px-[14px] py-[8px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2`}/>
+                        {
+                            pwChk === ''
+                            ? <></>
+                            : ( pwChk === 'empty'
+                                ? <span className='text-[12px] text-theme-red mt-[12px] ml-[16px]'>비밀번호를 입력해 주세요.</span>
+                                : <span className='text-[12px] text-theme-red mt-[12px] ml-[16px]'>비밀번호 형식이 올바르지 않습니다.</span>
+                            )
+                        }
+                        <input onChange={handlePwConfirmRewrite} type='password' id='pw-confirm' tabIndex={4} autoComplete='on' placeholder='비밀번호 재입력' className={`${pwConfirmChk === '' ? 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' : 'border-theme-red focus:border-theme-red dark:border-theme-red focus:dark:border-theme-red'} w-[100%] text-[14px] mt-[6px] px-[14px] py-[8px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2`}/>
+                        {
+                            pwConfirmChk === ''
+                            ? <></>
+                            : ( pwConfirmChk === 'empty'
+                                ? <span className='text-[12px] text-theme-red mt-[12px] ml-[16px]'>비밀번호를 다시 입력해 주세요.</span>
+                                : <span className='text-[12px] text-theme-red mt-[12px] ml-[16px]'>비밀번호가 일치하지 않습니다.</span>
+                            )
+                        }
                         <div className='w-[100%] h-px my-[24px] bg-theme-4/80 dark:bg-theme-blue-2/80'></div>
                         <div className='w-[100%] flex flex-col justify-start items-start'>
                             <div className='w-[100%] flex flex-row justify-between items-center'>
