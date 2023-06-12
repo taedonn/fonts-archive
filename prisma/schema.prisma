@@ -36,3 +36,13 @@ model fonts {
   license_source  String
   license         String @db.Text
 }
+
+model fontsUser {
+  user_no            Int    @id @default(autoincrement())
+  user_name          String
+  user_id            String
+  user_pw            String
+  user_session_id    String
+  user_email_token   String
+  user_email_confirm String
+}
