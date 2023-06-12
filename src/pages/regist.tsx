@@ -32,8 +32,8 @@ const Regist = ({params}: any) => {
     const [idChk, setIdChk] = useState<String>("");
     const [pwChk, setPwChk] = useState<String>("");
     const [pwConfirmChk, setPwConfirmChk] = useState<String>("");
-    const [termsChk, setTermsChk] = useState<String>("");
-    const [privacyChk, setPrivacyChk] = useState<String>("");
+    const [termsChk, setTermsChk] = useState<Boolean>(false);
+    const [privacyChk, setPrivacyChk] = useState<Boolean>(false);
 
     /** 폼 서밋 전 유효성 검사 */
     const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -65,7 +65,12 @@ const Regist = ({params}: any) => {
         // 비밀번호 재입력 유효성 검사
         if (formPwConfirm.value === '') { setPwConfirmChk('empty'); }
         else if (formPwConfirm.value !== formPw.value) { setPwConfirmChk('unmatch'); }
-        else { setPwConfirmChk(''); }
+
+        // 서비스 이용약관 체크 여부 검사
+        if (!formTermsChk.checked) { setTermsChk(false); }
+
+        // 개인정보 처리방침 체크 여부 검사
+        if (!formPrivacyChk.checked) { setPrivacyChk(false); }
     }
 
     /** 유효성 검사 후 다시 이름 입력 시 경고 메시지 해제 */
@@ -79,6 +84,12 @@ const Regist = ({params}: any) => {
 
     /** 유효성 검사 후 다시 비밀번호 재입력 입력 시 경고 메시지 해제 */
     const handlePwConfirmRewrite = () => { setPwConfirmChk(''); }
+
+    /** 서비스 이용약관 체크 이벤트 */
+    const handleTermsChange = () => { setTermsChk(true); }
+
+    /** 서비스 이용약관 체크 이벤트 */
+    const handlePrivacyChange = () => { setPrivacyChk(true); }
 
     return (
         <>
@@ -152,7 +163,7 @@ const Regist = ({params}: any) => {
                         <div className='w-[100%] flex flex-col justify-start items-start'>
                             <div className='w-[100%] flex flex-row justify-between items-center'>
                                 <div className='flex flex-row justify-start items-center'>
-                                    <input type='checkbox' id='terms-check' className='hidden'/>
+                                    <input onChange={handleTermsChange} type='checkbox' id='terms-check' className='hidden'/>
                                     <label htmlFor='terms-check' className='w-[20px] h-[20px] flex flex-row justify-center items-center cursor-pointer'>
                                         <svg className='uncheck w-[16px] fill-theme-yellow dark:fill-theme-blue-1' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.235.235 0 0 1 .02-.022z"/></svg>
                                         <svg className='check w-[16px] fill-theme-yellow dark:fill-theme-blue-1' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm10.03 4.97a.75.75 0 0 1 .011 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.75.75 0 0 1 1.08-.022z"/></svg>
@@ -163,7 +174,7 @@ const Regist = ({params}: any) => {
                             </div>
                             <div className='w-[100%] flex flex-row justify-between items-center mt-[8px]'>
                                 <div className='flex flex-row justify-start items-center'>
-                                    <input type='checkbox' id='privacy-check' className='hidden'/>
+                                    <input onChange={handlePrivacyChange} type='checkbox' id='privacy-check' className='hidden'/>
                                     <label htmlFor='privacy-check' className='w-[20px] h-[20px] flex flex-row justify-center items-center cursor-pointer'>
                                         <svg className='uncheck w-[16px] fill-theme-yellow dark:fill-theme-blue-1' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.235.235 0 0 1 .02-.022z"/></svg>
                                         <svg className='check w-[16px] fill-theme-yellow dark:fill-theme-blue-1' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm10.03 4.97a.75.75 0 0 1 .011 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.75.75 0 0 1 1.08-.022z"/></svg>
@@ -173,7 +184,7 @@ const Regist = ({params}: any) => {
                                 <Link href="/privacy" target='_blank' className='text-[12px] text-theme-6 dark:text-theme-7 flex flex-row justify-center items-center hover:underline tlg:hover:no-underline'>전문보기</Link>
                             </div>
                         </div>
-                        <button className='w-[100%] h-[40px] rounded-[8px] mt-[24px] text-[14px] font-medium text-theme-4 dark:text-theme-blue-2 bg-theme-yellow/80 hover:bg-theme-yellow tlg:hover:bg-theme-yellow/80 dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1/80'>
+                        <button id='submit-button' className='w-[100%] h-[40px] rounded-[8px] mt-[24px] text-[14px] font-medium text-theme-4 dark:text-theme-blue-2 bg-theme-yellow/80 hover:bg-theme-yellow tlg:hover:bg-theme-yellow/80 dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1/80'>
                             이메일 인증 후 가입하기
                         </button>
                     </form>
