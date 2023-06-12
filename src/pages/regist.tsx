@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { NextSeo } from 'next-seo';
 
 // react hooks
+import { useState } from 'react';
 import { useQuery } from 'react-query';
 
 // hooks
@@ -25,6 +26,41 @@ const Regist = ({params}: any) => {
         data, 
         refetch
     } = useQuery(['font-search'], async () => await axios.get("/api/fontsearch", {params: {keyword: ""}}).then((res) => { return res.data }));
+
+    // 폼 유효성 검사 state
+    const [nameChk, setNameChk] = useState<String>("");
+    const [idChk, setIdChk] = useState<String>("");
+    const [pwChk, setPwChk] = useState<String>("");
+    const [termsChk, setTermsChk] = useState<String>("");
+    const [privacyChk, setPrivacyChk] = useState<String>("");
+
+    /** 폼 서밋 전 유효성 검사 */
+    const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        const formName = document.getElementById("name") as HTMLInputElement;
+        const formId = document.getElementById("id") as HTMLInputElement;
+        const formPw = document.getElementById("pw") as HTMLInputElement;
+        const formTermsChk = document.getElementById("terms-check") as HTMLInputElement;
+        const formPrivacyChk = document.getElementById("privacy-check") as HTMLInputElement;
+
+        // 이메일 패턴
+        const emailPattern = /^[A-Za-z0-9_.-]+@[A-Za-z0-9-]+\.[A-Za-z0-9-]+/;
+
+        // 서밋 전 유효성 검사를 위해 서밋 이벤트 막기
+        e.preventDefault();
+
+        // 이름칸이 비어있을 경우
+        if (formName.value === '') { setNameChk('empty'); }
+
+        // 이메일이 비어있을 경우
+        if (formId.value === '') { setIdChk('empty'); }
+        else if (!emailPattern.test(formId.value)) { setIdChk('wrong-pattern'); }
+    }
+
+    /** 유효성 검사 후 다시 이름 입력 시 경고 메시지 해제 */
+    const handleNameRewrite = () => { setNameChk(''); }
+
+    /** 유효성 검사 후 다시 아이디 입력 시 경고 메시지 해제 */
+    const handleIdRewrite = () => { setIdChk(''); }
 
     return (
         <>
@@ -54,11 +90,27 @@ const Regist = ({params}: any) => {
             <div className='w-[100%] flex flex-col justify-center items-center mt-[60px] tlg:mt-[56px]'>
                 <div className='w-[360px] flex flex-col justify-center items-start mt-[100px] mb-[40px] tlg:mt-[40px]'>
                     <h2 className='text-[20px] tlg:text-[18px] text-theme-4 dark:text-theme-9 font-medium mb-[12px] tlg:mb-[8px]'>회원가입</h2>
-                    <form className='w-[100%] p-[20px] rounded-[8px] text-theme-10 dark:text-theme-9 bg-theme-5 dark:bg-theme-3 drop-shadow-default dark:drop-shadow-dark'>
+                    <form onSubmit={handleOnSubmit} id='register-form' className='w-[100%] p-[20px] rounded-[8px] text-theme-10 dark:text-theme-9 bg-theme-5 dark:bg-theme-3 drop-shadow-default dark:drop-shadow-dark'>
                         <label htmlFor='id' className='block text-[14px] ml-px'>이름</label>
-                        <input type='text' id='name' tabIndex={1} autoComplete='on' placeholder='홍길동' className='w-[100%] text-[14px] mt-[6px] px-[14px] py-[8px] rounded-[8px] border-[2px] border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1 placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2'/>
+                        <input onChange={handleNameRewrite} type='text' id='name' tabIndex={1} autoComplete='on' placeholder='홍길동' className={`${nameChk === '' ? 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' : 'border-theme-red focus:border-theme-red dark:border-theme-red focus:dark:border-theme-red'} w-[100%] text-[14px] mt-[6px] px-[14px] py-[8px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
+                        {
+                            nameChk === ''
+                            ? <></>
+                            : <span className='text-[12px] text-theme-red mt-[12px] ml-[16px]'>이름을 입력해 주세요.</span>
+                        }
                         <label htmlFor='name' className='block text-[14px] ml-px mt-[24px]'>이메일</label>
-                        <input type='text' id='id' tabIndex={2} autoComplete='on' placeholder='example@example.com' className='w-[100%] text-[14px] mt-[6px] px-[14px] py-[8px] rounded-[8px] border-[2px] border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1 placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2'/>
+                        <input onChange={handleIdRewrite} type='text' id='id' tabIndex={2} autoComplete='on' placeholder='example@example.com' className={`${idChk === '' ? 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' : 'border-theme-red focus:border-theme-red dark:border-theme-red focus:dark:border-theme-red'} w-[100%] text-[14px] mt-[6px] px-[14px] py-[8px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
+                        {
+                            idChk === ''
+                            ? <></>
+                            : ( idChk === 'empty'
+                                ? <span className='text-[12px] text-theme-red mt-[12px] ml-[16px]'>이메일을 입력해 주세요.</span>
+                                : ( idChk === 'wrong-pattern'
+                                    ? <span className='text-[12px] text-theme-red mt-[12px] ml-[16px]'>이메일 형식이 올바르지 않습니다.</span>
+                                    : <span className='text-[12px] text-theme-red mt-[12px] ml-[16px]'>이미 등록된 이메일입니다.</span>
+                                )
+                            )
+                        }
                         <label htmlFor='pw' className='w-[100%] flex flex-row justify-between items-center text-[14px] ml-px mt-[24px]'>비밀번호</label>
                         <input type='password' id='pw' tabIndex={3} autoComplete='on' placeholder='영문, 숫자, 특수문자 포함 8~20자' className='w-[100%] text-[14px] mt-[6px] px-[14px] py-[8px] rounded-[8px] border-[2px] border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1 placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2'/>
                         <input type='password' id='pw-confirm' tabIndex={4} autoComplete='on' placeholder='비밀번호 재입력' className='w-[100%] text-[14px] mt-[6px] px-[14px] py-[8px] rounded-[8px] border-[2px] border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1 placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2'/>
