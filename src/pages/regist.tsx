@@ -4,7 +4,6 @@ import { NextSeo } from 'next-seo';
 
 // react hooks
 import { useState } from 'react';
-import { useQuery } from 'react-query';
 
 // hooks
 import axios from 'axios';
@@ -19,14 +18,6 @@ const Regist = ({params}: any) => {
     // 빈 함수
     const emptyFn = () => { return; }
 
-    const {
-        isLoading, 
-        isRefetching, 
-        isSuccess, 
-        data, 
-        refetch
-    } = useQuery(['font-search'], async () => await axios.get("/api/fontsearch", {params: {keyword: ""}}).then((res) => { return res.data }));
-
     // 폼 유효성 검사 state
     const [nameChk, setNameChk] = useState<String>("");
     const [idChk, setIdChk] = useState<String>("");
@@ -36,7 +27,7 @@ const Regist = ({params}: any) => {
     const [privacyChk, setPrivacyChk] = useState<Boolean>(false);
 
     /** 폼 서밋 전 유효성 검사 */
-    const handleOnSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleOnSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         const formName = document.getElementById("name") as HTMLInputElement;
         const formId = document.getElementById("id") as HTMLInputElement;
         const formPw = document.getElementById("pw") as HTMLInputElement;
@@ -65,12 +56,6 @@ const Regist = ({params}: any) => {
         // 비밀번호 재입력 유효성 검사
         if (formPwConfirm.value === '') { setPwConfirmChk('empty'); }
         else if (formPwConfirm.value !== formPw.value) { setPwConfirmChk('unmatch'); }
-
-        // 서비스 이용약관 체크 여부 검사
-        if (!formTermsChk.checked) { setTermsChk(false); }
-
-        // 개인정보 처리방침 체크 여부 검사
-        if (!formPrivacyChk.checked) { setPrivacyChk(false); }
     }
 
     /** 유효성 검사 후 다시 이름 입력 시 경고 메시지 해제 */
@@ -86,10 +71,16 @@ const Regist = ({params}: any) => {
     const handlePwConfirmRewrite = () => { setPwConfirmChk(''); }
 
     /** 서비스 이용약관 체크 이벤트 */
-    const handleTermsChange = () => { setTermsChk(true); }
+    const handleTermsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.checked) { setTermsChk(true); }
+        else { setTermsChk(false); }
+    }
 
-    /** 서비스 이용약관 체크 이벤트 */
-    const handlePrivacyChange = () => { setPrivacyChk(true); }
+    /** 개인정보 처리방침 체크 이벤트 */
+    const handlePrivacyChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.checked) { setPrivacyChk(true); }
+        else { setPrivacyChk(false); }
+    }
 
     return (
         <>
@@ -125,7 +116,7 @@ const Regist = ({params}: any) => {
                         {
                             nameChk === ''
                             ? <></>
-                            : <span className='text-[12px] text-theme-red mt-[12px] ml-[16px]'>이름을 입력해 주세요.</span>
+                            : <span className='block text-[12px] text-theme-red mt-[4px] ml-[16px]'>이름을 입력해 주세요.</span>
                         }
                         <label htmlFor='name' className='block text-[14px] ml-px mt-[24px]'>이메일</label>
                         <input onChange={handleIdRewrite} type='text' id='id' tabIndex={2} autoComplete='on' placeholder='example@example.com' className={`${idChk === '' ? 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' : 'border-theme-red focus:border-theme-red dark:border-theme-red focus:dark:border-theme-red'} w-[100%] text-[14px] mt-[6px] px-[14px] py-[8px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
@@ -133,10 +124,10 @@ const Regist = ({params}: any) => {
                             idChk === ''
                             ? <></>
                             : ( idChk === 'empty'
-                                ? <span className='text-[12px] text-theme-red mt-[12px] ml-[16px]'>이메일을 입력해 주세요.</span>
+                                ? <span className='block text-[12px] text-theme-red mt-[4px] ml-[16px]'>이메일을 입력해 주세요.</span>
                                 : ( idChk === 'wrong-pattern'
-                                    ? <span className='text-[12px] text-theme-red mt-[12px] ml-[16px]'>이메일 형식이 올바르지 않습니다.</span>
-                                    : <span className='text-[12px] text-theme-red mt-[12px] ml-[16px]'>이미 등록된 이메일입니다.</span>
+                                    ? <span className='block text-[12px] text-theme-red mt-[4px] ml-[16px]'>이메일 형식이 올바르지 않습니다.</span>
+                                    : <span className='block text-[12px] text-theme-red mt-[4px] ml-[16px]'>이미 등록된 이메일입니다.</span>
                                 )
                             )
                         }
@@ -146,8 +137,8 @@ const Regist = ({params}: any) => {
                             pwChk === ''
                             ? <></>
                             : ( pwChk === 'empty'
-                                ? <span className='text-[12px] text-theme-red mt-[12px] ml-[16px]'>비밀번호를 입력해 주세요.</span>
-                                : <span className='text-[12px] text-theme-red mt-[12px] ml-[16px]'>비밀번호 형식이 올바르지 않습니다.</span>
+                                ? <span className='block text-[12px] text-theme-red mt-[4px] ml-[16px]'>비밀번호를 입력해 주세요.</span>
+                                : <span className='block text-[12px] text-theme-red mt-[4px] ml-[16px]'>비밀번호 형식이 올바르지 않습니다.</span>
                             )
                         }
                         <input onChange={handlePwConfirmRewrite} type='password' id='pw-confirm' tabIndex={4} autoComplete='on' placeholder='비밀번호 재입력' className={`${pwConfirmChk === '' ? 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' : 'border-theme-red focus:border-theme-red dark:border-theme-red focus:dark:border-theme-red'} w-[100%] text-[14px] mt-[6px] px-[14px] py-[8px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2`}/>
@@ -155,8 +146,8 @@ const Regist = ({params}: any) => {
                             pwConfirmChk === ''
                             ? <></>
                             : ( pwConfirmChk === 'empty'
-                                ? <span className='text-[12px] text-theme-red mt-[12px] ml-[16px]'>비밀번호를 다시 입력해 주세요.</span>
-                                : <span className='text-[12px] text-theme-red mt-[12px] ml-[16px]'>비밀번호가 일치하지 않습니다.</span>
+                                ? <span className='block text-[12px] text-theme-red mt-[4px] ml-[16px]'>비밀번호를 다시 입력해 주세요.</span>
+                                : <span className='block text-[12px] text-theme-red mt-[4px] ml-[16px]'>비밀번호가 일치하지 않습니다.</span>
                             )
                         }
                         <div className='w-[100%] h-px my-[24px] bg-theme-4/80 dark:bg-theme-blue-2/80'></div>
