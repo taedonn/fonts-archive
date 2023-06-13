@@ -14,6 +14,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
         const userId = req.query.id === undefined ? '' : req.query.id as string;
 
         const exists: any = !!await client.fontsUser.findFirst({
+            select: {
+                user_id: true,
+            },
             where: {
                 user_id: userId
             }

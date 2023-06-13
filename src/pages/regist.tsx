@@ -3,7 +3,10 @@ import Link from 'next/link';
 import { NextSeo } from 'next-seo';
 
 // react hooks
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+
+// hooks
+import axios from 'axios';
 
 // components
 import Header from "@/components/header";
@@ -36,40 +39,52 @@ const Regist = ({params}: any) => {
         e.preventDefault();
 
         // 유효성 검사
-        if (handleValidateChk()) {
+        if (await handleValidateChk()) {
             // 약관 동의 체크
             if (handleTermsAndPrivacyChk()) {
                 alert("성공");
             } else {
-                setAlertDisplay('show');
-                setAlertText('약관에 동의해 주세요.');
+                // setAlertDisplay('show');
+                // setAlertText('약관에 동의해 주세요.');
+                alert("약관에 동의해 주세요.");
             }
         }
     }
 
     /** 유효성 검사 */
-    const handleValidateChk = () => {
+    const handleValidateChk = async () => {
         // 유효성 패턴
         const emailPattern = /^[A-Za-z0-9_.-]+@[A-Za-z0-9-]+\.[A-Za-z0-9-]+/; // 이메일 패턴
         const pwPattern = /^(?=.*?[a-zA-Z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,20}$/; // 비밀번호 패턴
 
-        // 이름 유효성 검사
-        if (nameVal=== '') { setNameChk('empty'); }
+        // 이메일 중복 체크 state
+        let isIdExists = false;
 
-        // 이메일 유효성 검사
-        if (idVal === '') { setIdChk('empty'); }
-        else if (!emailPattern.test(idVal)) { setIdChk('wrong-pattern'); }
+        // 이메일 중복 체크 api 호출
+        await axios
+        .get('/api/checkifidexists', {params: {id: idVal}})
+        .then(res => {
+            // 이름 유효성 검사
+            if (nameVal=== '') { setNameChk('empty'); }
 
-        // 비밀번호 유효성 검사
-        if (pwVal === '') { setPwChk('empty'); }
-        else if (!pwPattern.test(pwVal)) { setPwChk('wrong-pattern'); }
+            // 이메일 유효성 검사
+            isIdExists = res.data;
+            if (idVal === '') { setIdChk('empty'); }
+            else if (!emailPattern.test(idVal)) { setIdChk('wrong-pattern'); }
+            else if (isIdExists) { setIdChk('is-used'); }
 
-        // 비밀번호 재입력 유효성 검사
-        if (pwConfirmVal === '') { setPwConfirmChk('empty'); }
-        else if (pwConfirmVal !== pwConfirmVal) { setPwConfirmChk('unmatch'); }
+            // 비밀번호 유효성 검사
+            if (pwVal === '') { setPwChk('empty'); }
+            else if (!pwPattern.test(pwVal)) { setPwChk('wrong-pattern'); }
+
+            // 비밀번호 재입력 유효성 검사
+            if (pwConfirmVal === '') { setPwConfirmChk('empty'); }
+            else if (pwConfirmVal !== pwVal) { setPwConfirmChk('unmatch'); }
+        })
+        .catch(err => console.log(err));
 
         // 유효성 검사 결과 return
-        if (nameVal !== '' && idVal !== '' && emailPattern.test(idVal) && pwVal !== '' && pwPattern.test(pwVal) && pwConfirmVal !== '' && pwConfirmVal === pwVal) { return true; } 
+        if (nameVal !== '' && idVal !== '' && emailPattern.test(idVal) && !isIdExists && pwVal !== '' && pwPattern.test(pwVal) && pwConfirmVal !== '' && pwConfirmVal === pwVal) { return true; } 
         else { return false; }
     }
 
@@ -95,11 +110,13 @@ const Regist = ({params}: any) => {
     const handlePwChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setPwVal(e.target.value);
         setPwChk('');
+        setPwConfirmChk('');
     }
 
     /** 유효성 검사 후 다시 비밀번호 재입력 입력 시 경고 메시지 해제 */
     const handlePwConfirmChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setPwConfirmVal(e.target.value);
+        setPwChk('');
         setPwConfirmChk('');
     }
 
@@ -163,7 +180,10 @@ const Regist = ({params}: any) => {
                                 ? <span className='block text-[12px] text-theme-red mt-[4px] ml-[16px]'>이메일을 입력해 주세요.</span>
                                 : ( idChk === 'wrong-pattern'
                                     ? <span className='block text-[12px] text-theme-red mt-[4px] ml-[16px]'>이메일 형식이 올바르지 않습니다.</span>
-                                    : <span className='block text-[12px] text-theme-red mt-[4px] ml-[16px]'>이미 등록된 이메일입니다.</span>
+                                    : ( idChk === 'is-used'
+                                        ? <span className='block text-[12px] text-theme-red mt-[4px] ml-[16px]'>이미 등록된 이메일입니다.</span>
+                                        : <></>
+                                    )
                                 )
                             )
                         }

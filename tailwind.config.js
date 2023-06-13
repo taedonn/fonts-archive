@@ -38,6 +38,7 @@ module.exports = {
                 "fade-in": "fade-in 0.2s 1 both",
                 "zoom-in": "zoom-in 0.2s 1 both",
                 "fontbox-zoom-in": "fontbox-zoom-in 0.2s 1 both",
+                "alert-zoom-in": "alert-zoom-in 0.2s 1 both",
                 "account-fade-in": "fontbox-fade-in 0.2s 1 both",
                 "fontbox-fade-in": "fontbox-fade-in 0.4s 1 both",
                 "tooltip-fade-in": "tooltip-fade-in 0.2s 1 both"
@@ -55,6 +56,10 @@ module.exports = {
                     "0%": { opacity: "0", transform: "translateX(-50%) scale(0.5)" },
                     "100%": { opacity: "1", transform: "translateX(-50%) scale(1)" }
                 },
+                "alert-zoom-in": {
+                    "0%": { opacity: "0", transform: "translateX(-50%) translateY(-24px) scale(0.5)" },
+                    "100%": { opacity: "1", transform: "translateX(-50%) translateY(0) scale(1)" }
+                },
                 "fontbox-fade-in": {
                     "0%": { opacity: "0", transform: "translateY(12px)" },
                     "100%": { opacity: "1", transform: "translateY(0)" }
@@ -62,8 +67,7 @@ module.exports = {
                 "tooltip-fade-in": {
                     "0%": { opacity: "0", transform: "translate(0px) translateY(-50%)" },
                     "100%": { opacity: "1", transform: "translate(-4px) translateY(-50%)" }
-                }
-
+                },
             },
             dropShadow: {
                 "default": "1px 2px 4px #97989C",
