@@ -3,14 +3,13 @@ import Link from 'next/link';
 import { NextSeo } from 'next-seo';
 
 // react hooks
-import { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 // hooks
 import axios from 'axios';
 
 // components
 import Header from "@/components/header";
-import Alert from '@/components/alert';
 
 const Regist = ({params}: any) => {
     // 디바이스 체크
@@ -30,11 +29,12 @@ const Regist = ({params}: any) => {
     const [pwConfirmVal, setPwConfirmVal] = useState<string>("");
     const [termsChk, setTermsChk] = useState<boolean>(false);
     const [privacyChk, setPrivacyChk] = useState<boolean>(false);
-    const [alertDisplay, setAlertDisplay] = useState<string>("");
-    const [alertText, setAlertText] = useState<string>("");
+    const [alertDisplay, setAlertDisplay] = useState<boolean>(false);
 
     /** 폼 서밋 전 유효성 검사 */
     const handleOnSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        const form = document.getElementById('register-form') as HTMLFormElement;
+
         // 서밋 전 유효성 검사를 위해 서밋 이벤트 막기
         e.preventDefault();
 
@@ -42,11 +42,13 @@ const Regist = ({params}: any) => {
         if (await handleValidateChk()) {
             // 약관 동의 체크
             if (handleTermsAndPrivacyChk()) {
-                alert("성공");
+                // 약관 동의 시 Form 서밋
+                form.action = '';
+                form.method = 'POST';
+                form.submit();
             } else {
-                // setAlertDisplay('show');
-                // setAlertText('약관에 동의해 주세요.');
-                alert("약관에 동의해 주세요.");
+                // 약관 미동의 시 알럿 표시
+                setAlertDisplay(true);
             }
         }
     }
@@ -90,8 +92,14 @@ const Regist = ({params}: any) => {
 
     /** 약관 동의 체크 */
     const handleTermsAndPrivacyChk = () => {
-        if (termsChk && privacyChk) { return true; }
-        else { return false; }
+        if (termsChk && privacyChk) {
+            setAlertDisplay(false);
+            return true;
+        }
+        else {
+            setAlertDisplay(true);
+            return false;
+        }
     }
 
     /** 유효성 검사 후 다시 이름 입력 시 경고 메시지 해제 */
@@ -133,7 +141,7 @@ const Regist = ({params}: any) => {
     }
 
     /** 알럿창 닫기 */
-    const handleAlertClose = () => { setAlertDisplay('hide'); }
+    const handleAlertClose = () => { setAlertDisplay(false); }
 
     return (
         <>
@@ -207,6 +215,21 @@ const Regist = ({params}: any) => {
                             )
                         }
                         <div className='w-[100%] h-px my-[24px] bg-theme-4/80 dark:bg-theme-blue-2/80'></div>
+                        {
+                            alertDisplay === true
+                            ? <>
+                                <div className='w-[100%] h-[32px] px-[10px] mb-[8px] flex flex-row justify-between items-center rounded-[6px] border-[2px] border-theme-red/80 dark:border-theme-red/60 text-[12px] text-theme-10 dark:text-theme-9 bg-theme-red/20'>
+                                    <div className='flex flex-row justify-start items-center'>
+                                        <svg className='w-[14px] fill-theme-red/80 dark:fill-theme-red/60' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg>
+                                        <div className='ml-[6px]'>약관에 동의해 주세요.</div>
+                                    </div>
+                                    <div onClick={handleAlertClose} className='flex flex-row justify-center items-center cursor-pointer'>
+                                        <svg className='w-[18px] fill-theme-10 dark:fill-theme-9' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg>
+                                    </div>
+                                </div>
+                            </>
+                            : <></>
+                        }
                         <div className='w-[100%] flex flex-col justify-start items-start'>
                             <div className='w-[100%] flex flex-row justify-between items-center'>
                                 <div className='flex flex-row justify-start items-center'>
@@ -231,19 +254,12 @@ const Regist = ({params}: any) => {
                                 <Link href="/privacy" target='_blank' className='text-[12px] text-theme-6 dark:text-theme-7 flex flex-row justify-center items-center hover:underline tlg:hover:no-underline'>전문보기</Link>
                             </div>
                         </div>
-                        <button id='submit-button' className='w-[100%] h-[40px] rounded-[8px] mt-[24px] text-[14px] font-medium text-theme-4 dark:text-theme-blue-2 bg-theme-yellow/80 hover:bg-theme-yellow tlg:hover:bg-theme-yellow/80 dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1/80'>
+                        <button className='w-[100%] h-[40px] rounded-[8px] mt-[24px] text-[14px] font-medium text-theme-4 dark:text-theme-blue-2 bg-theme-yellow/80 hover:bg-theme-yellow tlg:hover:bg-theme-yellow/80 dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1/80'>
                             이메일 인증 후 가입하기
                         </button>
                     </form>
                 </div>
             </div>
-
-            {/* Alert 창 */}
-            <Alert
-                display={alertDisplay}
-                text={alertText}
-                handleAlertClose={handleAlertClose}
-            />
         </>
     );
 }
