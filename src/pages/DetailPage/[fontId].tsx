@@ -6,7 +6,7 @@ import { NextSeo } from 'next-seo';
 import React, { useEffect, useState } from "react";
 
 // api
-import { fetchfontinfo } from "../api/DetailPage/fetchfontinfo";
+import { FetchFontInfo } from "../api/DetailPage/fetchfontinfo";
 
 // material-ui hooks
 import { Slider } from "@mui/material";
@@ -596,7 +596,7 @@ function DetailPage({params}: any) {
 
 // export async function getStaticProps(ctx: any) {
 //     try {
-//         const fonts = await fetchfontinfo(ctx.params.fontId);
+//         const fonts = await FetchFontInfo(ctx.params.fontId);
 //         const randomNum: number = Math.floor(Math.random() * 19);
 
 //         return {
@@ -616,7 +616,7 @@ function DetailPage({params}: any) {
 export async function getServerSideProps(ctx: any) {
     try {
         // 폰트 정보 불러오기
-        const fonts = await fetchfontinfo(ctx.params.fontId);
+        const fonts = await FetchFontInfo(ctx.params.fontId);
 
         // 랜덤 넘버
         const randomNum: number = Math.floor(Math.random() * 19);
