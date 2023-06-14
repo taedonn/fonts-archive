@@ -6,7 +6,7 @@ import { NextSeo } from 'next-seo';
 import React, { useEffect, useState } from "react";
 
 // api
-import { FetchFontInfo } from "../api/DetailPage/fetchFontInfo";
+import { FetchFontInfo } from "../api/DetailPage/fetchfontinfo";
 
 // materail-ui hooks
 import { Slider } from "@mui/material";

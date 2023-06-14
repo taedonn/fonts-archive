@@ -10,6 +10,7 @@ const queryClient = new QueryClient();
 
 // styles
 import '../styles/globals.css';
+import '../styles/textanimation.css';
 
 export default function App({ Component, pageProps }: AppProps) {
     return (

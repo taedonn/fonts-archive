@@ -43,9 +43,14 @@ const Regist = ({params}: any) => {
             // 약관 동의 체크
             if (handleTermsAndPrivacyChk()) {
                 // 약관 동의 시 Form 서밋
-                form.action = '';
-                form.method = 'POST';
-                form.submit();
+                await axios
+                .post('api/sendregisterform', null, { params: {
+                    name: nameVal,
+                    id: idVal,
+                    pw: pwVal
+                }})
+                .then(() => location.href = '/')
+                .catch(err => console.log(err));
             } else {
                 // 약관 미동의 시 알럿 표시
                 setAlertDisplay(true);

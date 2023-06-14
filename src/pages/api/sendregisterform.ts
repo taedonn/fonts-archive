@@ -19,14 +19,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
         const userName = req.query.name === undefined ? '' : req.query.name as string;
         const userId = req.query.id === undefined ? '' : req.query.id as string;
         const userPw = req.query.pw === undefined ? '' : req.query.pw as string;
+        const userSessionId: string = 'session-' + crypto.randomUUID();
+        const userEmailToken: string = 'email-token-' + crypto.randomUUID();
 
         const sendForm: any = await client.fontsUser.create({
             data: {
                 user_name: userName,
                 user_id: userId,
                 user_pw: userPw,
-                user_session_id: 'SESSION000001',
-                user_email_token: 'randomnum',
+                user_session_id: userSessionId,
+                user_email_token: userEmailToken,
                 user_email_confirm: 'N',
             }
         });
