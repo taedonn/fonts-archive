@@ -43,8 +43,8 @@ const Privacy = ({params}: any) => {
             <Tooltip/>
 
             {/* 메인 */}
-            <div className='w-[100%] flex flex-col justify-center items-center mt-[60px] tlg:mt-[56px]'>
-                <div className='w-[720px] tlg:w-[100%] flex flex-col justify-center items-start my-[40px] tlg:my-[20px] tlg:px-[20px] tmd:px-[16px]'>
+            <div className='w-[100%] flex flex-col justify-center items-center mt-[60px] tlg:mt-[56px] px-[20px] tlg:px-[16px]'>
+                <div className='w-[100%] flex flex-col justify-center items-start my-[28px] tlg:my-[20px]'>
                     <h2 className='text-[28px] tlg:text-[20px] text-theme-4 dark:text-theme-9 font-medium'>개인정보처리방침</h2>
                     <div className='w-[100%] h-px bg-theme-7 dark:bg-theme-5 my-[16px] tlg:my-[12px]'></div>
 <pre style={{fontFamily: "Spoqa Han Sans Neo, Noto Sans KR"}} className='whitespace-pre-wrap text-[14px] text-theme-5 dark:text-theme-9/80 leading-loose'>{

@@ -6,7 +6,7 @@ import { NextSeo } from 'next-seo';
 import React, { useEffect, useState } from "react";
 
 // api
-import { FetchFontInfo } from "../api/DetailPage/fetchfontinfo";
+import { FetchFontInfo } from "../api/detailpage/fetchfontinfo";
 
 // material-ui hooks
 import { Slider } from "@mui/material";
@@ -28,7 +28,7 @@ function DetailPage({params}: any) {
 
     /** 조회수 업데이트 */
     const viewUpdate = async () => {
-        await fetch("/api/updateview", { method: "POST", body: JSON.stringify(font) });
+        await fetch("/api/detailpage/updateview", { method: "POST", body: JSON.stringify(font) });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => { viewUpdate(); }, [font]);
