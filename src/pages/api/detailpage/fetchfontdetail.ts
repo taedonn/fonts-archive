@@ -1,6 +1,6 @@
 import client from "@/libs/client";
 
-export async function FetchFontInfo(id: string) {
+export async function FetchFontDetail(id: string) {
     const fonts = await client.fonts.findMany({
         select: { // 특정 column 선택
             code: true,
