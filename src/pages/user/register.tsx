@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { NextSeo } from 'next-seo';
 
 // react hooks
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 // hooks
 import axios from 'axios';
@@ -11,7 +11,7 @@ import axios from 'axios';
 // components
 import Header from "@/components/header";
 
-const Regist = ({params}: any) => {
+const Register = ({params}: any) => {
     // 디바이스 체크
     const isMac: boolean = params.userAgent.includes("Mac OS") ? true : false;
 
@@ -31,13 +31,25 @@ const Regist = ({params}: any) => {
     const [privacyChk, setPrivacyChk] = useState<boolean>(false);
     const [alertDisplay, setAlertDisplay] = useState<boolean>(false);
 
+    // 뒤로가기 시 history가 남아있으면 state 변경
+    useEffect(() => {
+        const formName = document.getElementById('name') as HTMLInputElement;
+        const formId = document.getElementById('id') as HTMLInputElement;
+        const formPw = document.getElementById('pw') as HTMLInputElement;
+        const formPwConfirm = document.getElementById('pw-confirm') as HTMLInputElement;
+        const formTerms = document.getElementById('terms-check') as HTMLInputElement;
+        const formPrivacy = document.getElementById('privacy-check') as HTMLInputElement;
+
+        if (formName.value !== '') { setNameVal(formName.value); }
+        if (formId.value !== '') { setIdVal(formId.value); }
+        if (formPw.value !== '') { setPwVal(formPw.value); }
+        if (formPwConfirm.value !== '') { setPwConfirmVal(formPwConfirm.value); }
+        if (formTerms.checked) { setTermsChk(true); }
+        if (formPrivacy.checked) { setPrivacyChk(true); }
+    }, []);
+
     /** 폼 서밋 전 유효성 검사 */
-    const handleOnSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        const form = document.getElementById('register-form') as HTMLFormElement;
-
-        // 서밋 전 유효성 검사를 위해 서밋 이벤트 막기
-        e.preventDefault();
-
+    const handleOnSubmit = async () => {
         // 유효성 검사
         if (await handleValidateChk()) {
             // 약관 동의 체크
@@ -60,6 +72,21 @@ const Regist = ({params}: any) => {
             }
         }
     }
+
+    // 엔터키 입력 시 가입하기 버튼 클릭
+    useEffect(() => {
+        const keys: any = [];
+        const handleKeydown = (e: KeyboardEvent) => { keys[e.key] = true; if (keys["Enter"]) { handleOnSubmit(); } }
+        const handleKeyup = (e: KeyboardEvent) => {keys[e.key] = false;}
+
+        window.addEventListener("keydown", handleKeydown, false);
+        window.addEventListener("keyup", handleKeyup, false);
+
+        return () => {
+            window.removeEventListener("keydown", handleKeydown);
+            window.removeEventListener("keyup", handleKeyup);
+        }
+    });
 
     /** 유효성 검사 */
     const handleValidateChk = async () => {
@@ -176,10 +203,10 @@ const Regist = ({params}: any) => {
             />
 
             {/* 메인 */}
-            <div className='w-[100%] flex flex-col justify-center items-center mt-[60px] tlg:mt-[56px]'>
+            <div className='w-[100%] flex flex-col justify-center items-center'>
                 <div className='w-[360px] flex flex-col justify-center items-start mt-[100px] mb-[40px] tlg:mt-[40px]'>
                     <h2 className='text-[20px] tlg:text-[18px] text-theme-4 dark:text-theme-9 font-medium mb-[12px] tlg:mb-[8px]'>회원가입</h2>
-                    <form onSubmit={handleOnSubmit} id='register-form' className='w-[100%] p-[20px] rounded-[8px] text-theme-10 dark:text-theme-9 bg-theme-5 dark:bg-theme-3 drop-shadow-default dark:drop-shadow-dark'>
+                    <div id='register-form' className='w-[100%] p-[20px] rounded-[8px] text-theme-10 dark:text-theme-9 bg-theme-5 dark:bg-theme-3 drop-shadow-default dark:drop-shadow-dark'>
                         <label htmlFor='id' className='block text-[14px] ml-px'>이름</label>
                         <input onChange={handleNameChange} type='text' id='name' tabIndex={1} autoComplete='on' placeholder='홍길동' className={`${nameChk === '' ? 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' : 'border-theme-red focus:border-theme-red dark:border-theme-red focus:dark:border-theme-red'} w-[100%] text-[14px] mt-[6px] px-[14px] py-[8px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
                         {
@@ -262,10 +289,10 @@ const Regist = ({params}: any) => {
                                 <Link href="/user/privacy" target='_blank' className='text-[12px] text-theme-6 dark:text-theme-7 flex flex-row justify-center items-center hover:underline tlg:hover:no-underline'>전문보기</Link>
                             </div>
                         </div>
-                        <button className='w-[100%] h-[40px] rounded-[8px] mt-[24px] text-[14px] font-medium text-theme-4 dark:text-theme-blue-2 bg-theme-yellow/80 hover:bg-theme-yellow tlg:hover:bg-theme-yellow/80 dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1/80'>
+                        <button onClick={handleOnSubmit} className='w-[100%] h-[40px] rounded-[8px] mt-[24px] text-[14px] font-medium text-theme-4 dark:text-theme-blue-2 bg-theme-yellow/80 hover:bg-theme-yellow tlg:hover:bg-theme-yellow/80 dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1/80'>
                             이메일 인증 후 가입하기
                         </button>
-                    </form>
+                    </div>
                 </div>
             </div>
         </>
@@ -294,4 +321,4 @@ export async function getServerSideProps(ctx: any) {
     }
 }
 
-export default Regist;
+export default Register;

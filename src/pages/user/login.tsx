@@ -37,7 +37,7 @@ const Login = ({params}: any) => {
             />
 
             {/* 메인 */}
-            <div className='w-[100%] flex flex-col justify-center items-center mt-[60px] tlg:mt-[56px]'>
+            <div className='w-[100%] flex flex-col justify-center items-center'>
                 <div className='w-[360px] flex flex-col justify-center items-start mt-[100px] tlg:mt-[40px]'>
                     <h2 className='text-[20px] tlg:text-[18px] text-theme-4 dark:text-theme-9 font-medium mb-[12px] tlg:mb-[8px]'>로그인</h2>
                     <form className='w-[100%] p-[20px] rounded-[8px] text-theme-10 dark:text-theme-9 bg-theme-5 dark:bg-theme-3 drop-shadow-default dark:drop-shadow-dark'>
@@ -54,7 +54,7 @@ const Login = ({params}: any) => {
                     <div className='w-[100%] h-[52px] flex flex-row justify-center items-center mt-[16px] text-[14px] rounded-[8px] border border-theme-7 dark:border-theme-4'>
                         <span className='text-theme-4 dark:text-theme-9 mr-[12px]'>처음 방문하셨나요?</span>
                         {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-                        <a href="/user/regist" className='text-theme-yellow dark:text-theme-blue-1 hover:underline tlg:hover:no-underline'>회원가입하기</a>
+                        <a href="/user/register" className='text-theme-yellow dark:text-theme-blue-1 hover:underline tlg:hover:no-underline'>회원가입하기</a>
                     </div>
                     <div className='w-[100%] flex flex-row justify-center items-center text-[12px] mt-[12px]'>
                         <Link href="/user/terms" target="_blank" className='text-theme-5 dark:text-theme-6 hover:underline tlg:hover:underline'>서비스 이용약관</Link>

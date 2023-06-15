@@ -44,7 +44,7 @@ export default function FontBox ({lang, type, sort, searchword, text, num}:{lang
     return (
         <>
             <div className='w-[100%] flex flex-col justify-start items-end'>
-                <div className="main-menu w-[100%] relative flex flex-wrap flex-row justify-between items-stretch mt-[60px] tlg:mt-[56px] p-[20px] tlg:p-[16px] tmd:p-[12px] pt-[10px] tlg:pt-[10px] tmd:pt-[10px]">
+                <div className="main-menu w-[100%] relative flex flex-wrap flex-row justify-between items-stretch pt-[10px] pb-[20px]">
                     {/* 로딩 바 */}
                     {isLoading ? <div className="w-[100%] pt-[20px] pb-0 flex flex-row justify-center items-center"><span className="loader w-[40px] tlg:w-[36px] h-[40px] tlg:h-[36px]"></span></div> : null}
 
@@ -87,7 +87,7 @@ export default function FontBox ({lang, type, sort, searchword, text, num}:{lang
                     <span className="w-[100%]" ref={ref}></span>
 
                     {/* 로딩 바 */}
-                    {hasNextPage ? <div className="w-[100%] pt-[28px] tmd:pt-[16px] pb-0 flex flex-row justify-center items-center"><span className="loader w-[40px] tlg:w-[36px] h-[40px] tlg:h-[36px]"></span></div> : null}
+                    {hasNextPage ? <div className="w-[100%] pt-[28px] flex flex-row justify-center items-center"><span className="loader w-[40px] tlg:w-[36px] h-[40px] tlg:h-[36px]"></span></div> : null}
                 </div>
             </div>
         </>

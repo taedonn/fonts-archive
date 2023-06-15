@@ -13,6 +13,7 @@ module.exports = {
                 "tlg": { "max": "1024px" },
                 "tmd": { "max": "768px" },
                 "tsm": { "max": "640px" },
+                "txs": { "max": "480px" },
             },
             colors: {
                 "transparent": "transparent",
