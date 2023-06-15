@@ -4,8 +4,8 @@ import { NextSeo } from 'next-seo';
 // react hooks
 import React from 'react';
 
-// hooks
-import axios from 'axios';
+// api
+import { FetchEmailFromToken } from '../api/user/fetchemailfromtoken';
 
 // components
 import Header from "@/components/header";
@@ -44,15 +44,15 @@ const SendEmail = ({params}: any) => {
 
             {/* 메인 */}
             <div className='w-[100%] flex flex-col justify-start items-center mt-[60px] tlg:mt-[56px]'>
-                <div className='w-content text-theme-4 dark:text-theme-9 flex flex-col justify-center items-center'>
+                <div className='w-content text-theme-6 dark:text-theme-7 flex flex-col justify-center items-center'>
                     <TextAnimation
                         text={'FONTS ARCHIVE'}
                     />
-                    <h2 className='text-[18px] text-center font-medium leading-relaxed'>
-                        인증메일이 (으)로 전송되었습니다. <br/>
+                    <h2 className='text-[16px] text-center leading-relaxed'>
+                        인증 메일이 <span className='text-theme-10 dark:text-theme-9 font-medium'>[{params.id}]</span>(으)로 전송되었습니다. <br/>
                         받으신 이메일의 링크를 클릭하면 가입이 완료됩니다.
                     </h2>
-                    <h3 className='text-[14px] text-theme-6 dark:text-theme-7 mt-[20px] flex flex-row justify-center items-center'>
+                    <h3 className='text-[14px] mt-[32px] flex flex-row justify-center items-center'>
                         이메일을 확인할 수 없나요?
                         <div className='text-theme-yellow dark:text-theme-blue-1 hover:underline tlg:hover:no-underline ml-[8px] cursor-pointer'>인증 메일 다시 보내기</div>
                     </h3>
@@ -72,13 +72,14 @@ export async function getServerSideProps(ctx: any) {
 
         // 토큰 파라미터를 통해 이메일 받아오기
         const token = ctx.query.token === undefined ? '' : ctx.query.token;
+        const id = await FetchEmailFromToken(token);
 
         return {
             props: {
                 params: {
                     theme: cookieTheme,
                     userAgent: userAgent,
-                    token: token,
+                    id: id,
                 }
             }
         }

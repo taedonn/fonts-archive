@@ -19,8 +19,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
         const userName = req.query.name === undefined ? '' : req.query.name as string;
         const userId = req.query.id === undefined ? '' : req.query.id as string;
         const userPw = req.query.pw === undefined ? '' : req.query.pw as string;
-        const userSessionId: string = 'session-' + crypto.randomUUID();
-        const userEmailToken: string = 'token-' + crypto.randomUUID();
+        const userSessionId: string = crypto.randomUUID();
+        const userEmailToken: string = crypto.randomUUID();
 
         const sendForm: any = await client.fontsUser.create({
             data: {
