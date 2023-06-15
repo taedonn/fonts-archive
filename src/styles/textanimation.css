@@ -31,15 +31,16 @@
     position: absolute;
     transform: translate(-50%, -50%) rotateY(var(--angle)) translateZ(189px);
     width: 50px;
-    height: 56px;
+    height: 60px;
     overflow: hidden;
 }
 
 .panel::before {
     position: absolute;
     left: var(--left);
-    content: "FONTS ARCHIVE · FONTS ARCHIVE · FONTS ARCHIVE · ";
+    content: "폰트 아카이브 · 상업용 무료 한글 폰트 · 아카이빙 웹사이트 · ";
     font-size: 47px;
+    font-weight: 500;
     width: max-content;
 }
 
