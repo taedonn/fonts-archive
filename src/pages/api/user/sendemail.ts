@@ -22,8 +22,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             to: email,
             subject: '[폰트 아카이브] 회원가입 인증 메일입니다.',
             html: `
-                <div>
-                    아래 링크를 클릭해서 인증을 완료해 주세요.
+                <div style="width:100%; display:flex; flex-direction:column; justify-content:flex-start; align-items:center;">
+                    <script>
+                        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fonts-archive/SpoqaHanSansNeo/SpoqaHanSansNeo.css" type="text/css"/>
+                    </script>
+                    <div style="width:600px; font-family:'Spoqa Han Sans Neo'; font-size:16px; line-height:1.25;">
+                        아래 링크를 클릭해서 인증을 완료해 주세요.
+                    </div>
                 </div>
             `
         });

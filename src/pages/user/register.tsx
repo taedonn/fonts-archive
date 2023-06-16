@@ -51,9 +51,9 @@ const Register = ({params}: any) => {
     /** 폼 서밋 전 유효성 검사 */
     const handleOnSubmit = async () => {
         // 이메일 보내기
-        // await axios.post('/api/user/sendemail', null, { params: {
-        //     email: 'grandsky95@hotmail.com'
-        // }}).catch(err => console.log(err));
+        await axios.post('/api/user/sendemail', null, { params: {
+            email: 'grandsky95@hotmail.com'
+        }}).catch(err => console.log(err));
         // 유효성 검사
         if (await handleValidateChk()) {
             // 약관 동의 체크
