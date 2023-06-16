@@ -50,6 +50,10 @@ const Register = ({params}: any) => {
 
     /** 폼 서밋 전 유효성 검사 */
     const handleOnSubmit = async () => {
+        // 이메일 보내기
+        // await axios.post('/api/user/sendemail', null, { params: {
+        //     email: 'grandsky95@hotmail.com'
+        // }}).catch(err => console.log(err));
         // 유효성 검사
         if (await handleValidateChk()) {
             // 약관 동의 체크
@@ -206,7 +210,7 @@ const Register = ({params}: any) => {
             <div className='w-[100%] flex flex-col justify-center items-center'>
                 <div className='w-[360px] flex flex-col justify-center items-start mt-[100px] mb-[40px] tlg:mt-[40px]'>
                     <h2 className='text-[20px] tlg:text-[18px] text-theme-4 dark:text-theme-9 font-medium mb-[12px] tlg:mb-[8px]'>회원가입</h2>
-                    <div id='register-form' className='w-[100%] p-[20px] rounded-[8px] text-theme-10 dark:text-theme-9 bg-theme-5 dark:bg-theme-3 drop-shadow-default dark:drop-shadow-dark'>
+                    <form onSubmit={e => e.preventDefault()} id='register-form' className='w-[100%] p-[20px] rounded-[8px] text-theme-10 dark:text-theme-9 bg-theme-5 dark:bg-theme-3 drop-shadow-default dark:drop-shadow-dark'>
                         <label htmlFor='id' className='block text-[14px] ml-px'>이름</label>
                         <input onChange={handleNameChange} type='text' id='name' tabIndex={1} autoComplete='on' placeholder='홍길동' className={`${nameChk === '' ? 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' : 'border-theme-red focus:border-theme-red dark:border-theme-red focus:dark:border-theme-red'} w-[100%] text-[14px] mt-[6px] px-[14px] py-[8px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
                         {
@@ -292,7 +296,7 @@ const Register = ({params}: any) => {
                         <button onClick={handleOnSubmit} className='w-[100%] h-[40px] rounded-[8px] mt-[24px] text-[14px] font-medium text-theme-4 dark:text-theme-blue-2 bg-theme-yellow/80 hover:bg-theme-yellow tlg:hover:bg-theme-yellow/80 dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1/80'>
                             이메일 인증 후 가입하기
                         </button>
-                    </div>
+                    </form>
                 </div>
             </div>
         </>
