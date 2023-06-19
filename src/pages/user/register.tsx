@@ -52,6 +52,7 @@ const Register = ({params}: any) => {
     const handleOnSubmit = async () => {
         // 이메일 보내기
         await axios.post('/api/user/sendemail', null, { params: {
+            name: '태돈',
             email: 'grandsky95@hotmail.com'
         }}).catch(err => console.log(err));
         // 유효성 검사

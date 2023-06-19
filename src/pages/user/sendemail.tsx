@@ -45,9 +45,7 @@ const SendEmail = ({params}: any) => {
             {/* 메인 */}
             <div className='w-[100%] flex flex-col justify-start items-center'>
                 <div className='w-[100%] text-[14px] tlg:text-[12px] text-theme-6 dark:text-theme-7 flex flex-col justify-center items-center'>
-                    <TextAnimation
-                        text={'FONTS ARCHIVE'}
-                    />
+                    <TextAnimation/>
                     <h2 className='text-center leading-relaxed break-keep'>
                         인증 메일이 <span className='text-theme-5 dark:text-theme-9 font-medium'>[{params.id}]</span>(으)로 전송되었습니다. <br className='txs:hidden'/>
                         받으신 이메일의 링크를 클릭하면 가입이 완료됩니다.
