@@ -7,7 +7,7 @@ type fontsUser = {
     user_pw: string
     user_session_id: string
     user_email_token: string
-    user_email_confirm: string
+    user_email_confirm: boolean
 }
   
 interface data {
@@ -29,7 +29,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
                 user_pw: userPw,
                 user_session_id: userSessionId,
                 user_email_token: userEmailToken,
-                user_email_confirm: 'N',
+                user_email_confirm: false,
             }
         });
 

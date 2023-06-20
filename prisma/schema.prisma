@@ -44,5 +44,5 @@ model fontsUser {
   user_pw            String
   user_session_id    String
   user_email_token   String
-  user_email_confirm String
+  user_email_confirm Boolean
 }

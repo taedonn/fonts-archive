@@ -19,6 +19,7 @@ const Register = ({params}: any) => {
     const emptyFn = () => { return; }
 
     // 폼 유효성 검사 state
+    const [isLoading, setIsLoading] = useState<boolean>(false);
     const [nameChk, setNameChk] = useState<string>("");
     const [nameVal, setNameVal] = useState<string>("");
     const [idChk, setIdChk] = useState<string>("");
@@ -50,15 +51,13 @@ const Register = ({params}: any) => {
 
     /** 폼 서밋 전 유효성 검사 */
     const handleOnSubmit = async () => {
-        // 이메일 보내기
-        await axios.post('/api/user/sendemail', null, { params: {
-            name: '태돈',
-            email: 'grandsky95@hotmail.com'
-        }}).catch(err => console.log(err));
         // 유효성 검사
         if (await handleValidateChk()) {
             // 약관 동의 체크
             if (handleTermsAndPrivacyChk()) {
+                // 로딩 스피너 실행
+                setIsLoading(true);
+
                 // 약관 동의 시 Form 서밋
                 await axios
                 .post('/api/user/sendregisterform', null, { params: {
@@ -66,11 +65,22 @@ const Register = ({params}: any) => {
                     id: idVal,
                     pw: pwVal
                 }})
-                .then(async () => await axios.get('/api/user/sendemailtoken', {
-                        params: { id: idVal }
-                    }).then(res => location.href = '/user/sendemail?token=' + res.data)
-                )
-                .catch(err => console.log(err));
+                .then(async() => {
+                    // 이메일 보내기
+                    await axios.post('/api/user/sendemail', null, { params: {
+                        name: nameVal,
+                        email: idVal
+                    }})
+                    // 이메일 토큰을 가져와 회원가입 완료 랜딩페이지로 이동
+                    .then(async () => await axios.get('/api/user/sendemailtoken', {
+                            params: { id: idVal }
+                        })
+                        .then(res => { 
+                            location.href = '/user/sendemail?token=' + res.data;
+                            setIsLoading(false);
+                        }))
+                        .catch(err => console.log(err));
+                });
             } else {
                 // 약관 미동의 시 알럿 표시
                 setAlertDisplay(true);
@@ -294,8 +304,12 @@ const Register = ({params}: any) => {
                                 <Link href="/user/privacy" target='_blank' className='text-[12px] text-theme-6 dark:text-theme-7 flex flex-row justify-center items-center hover:underline tlg:hover:no-underline'>전문보기</Link>
                             </div>
                         </div>
-                        <button onClick={handleOnSubmit} className='w-[100%] h-[40px] rounded-[8px] mt-[24px] text-[14px] font-medium text-theme-4 dark:text-theme-blue-2 bg-theme-yellow/80 hover:bg-theme-yellow tlg:hover:bg-theme-yellow/80 dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1/80'>
-                            이메일 인증 후 가입하기
+                        <button onClick={handleOnSubmit} className='w-[100%] h-[40px] rounded-[8px] mt-[24px] flex flex-row justify-center items-center text-[14px] font-medium text-theme-4 dark:text-theme-blue-2 bg-theme-yellow/80 hover:bg-theme-yellow tlg:hover:bg-theme-yellow/80 dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1/80'>
+                            {
+                                isLoading === true
+                                ? <span className='loader loader-register w-[18px] h-[18px]'></span>
+                                : '이메일 인증 후 가입하기'
+                            }
                         </button>
                     </form>
                 </div>

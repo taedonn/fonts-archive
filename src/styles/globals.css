@@ -169,6 +169,16 @@ html.dark .loader {
     100% { transform: rotate(360deg); }
 }
 
+/* 로딩 스피너 - 회원가입 페이지 */
+.loader.loader-register {
+    border: 2px solid #FFC800;
+    border-bottom-color: #FFEA17;
+}
+html.dark .loader.loader-register {
+    border: 2px solid #6084CD;
+    border-bottom-color: #B1C9E8;
+}
+
 /* 검색 기능 */
 .search-list .search-link:first-of-type { margin-top: 0; }
 .search-list .search-link:last-of-type { margin-bottom: 28px; }

@@ -3,6 +3,10 @@ import { useState } from "react";
 import { useCookies } from 'react-cookie';
 import { debounce } from "lodash";
 
+// api
+import { CheckIfSessionExists } from "./api/user/checkifsessionexists";
+import { UpdateEmailConfirm } from "./api/user/updateemailconfirm";
+
 // components
 import Header from "@/components/header";
 import Tooltip from "@/components/tooltip";
@@ -104,6 +108,20 @@ export async function getServerSideProps(ctx: any) {
 
         // 디바이스 체크
         const userAgent = ctx.req ? ctx.req.headers['user-agent'] : navigator.userAgent;
+
+        // 파라미터에 세션ID가 있을 경우 세션ID가 유효한지 체크 후, 세션ID 쿠키 갱신 & 이메일 인증 완료 체크
+        ctx.query.session === undefined ? null : (
+            await CheckIfSessionExists(ctx.query.session) === true
+            ? ctx.res.setHeader('Set-Cookie', 'session=' + ctx.query.session + '; HttpOnly') && await UpdateEmailConfirm(ctx.query.session)
+            : null
+        );
+
+        // 쿠키에 저장된 세션ID가 유효한지 체크
+        const sessionExists: boolean = ctx.req.cookies.session === undefined ? false : (
+            await CheckIfSessionExists(ctx.req.cookies.session) === true
+            ? true
+            : false
+        );
 
         return {
             props: {
