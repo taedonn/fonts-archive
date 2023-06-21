@@ -1,8 +1,9 @@
 // next hooks
 import { NextSeo } from 'next-seo';
 
-// react hooks
-import { useCookies } from 'react-cookie';
+// api
+import { CheckIfSessionExists } from "../api/user/checkifsessionexists";
+import { FetchUserInfo } from "../api/user/fetchuserinfo";
 
 // components
 import Header from "@/components/header";
@@ -27,6 +28,7 @@ const Privacy = ({params}: any) => {
             <Header
                 isMac={isMac}
                 theme={params.theme}
+                user={params.user}
                 page={"login"}
                 lang={""}
                 type={""}
@@ -277,11 +279,19 @@ export async function getServerSideProps(ctx: any) {
         // 디바이스 체크
         const userAgent = ctx.req ? ctx.req.headers['user-agent'] : navigator.userAgent;
 
+        // 쿠키에 저장된 세션ID가 유효하면, 유저 정보 가져오기
+        const user = ctx.req.cookies.session === undefined ? null : (
+            await CheckIfSessionExists(ctx.req.cookies.session) === true 
+            ? await FetchUserInfo(ctx.req.cookies.session)
+            : null
+        )
+
         return {
             props: {
                 params: {
                     theme: cookieTheme,
                     userAgent: userAgent,
+                    user: user,
                 }
             }
         }

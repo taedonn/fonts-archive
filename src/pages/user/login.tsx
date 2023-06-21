@@ -2,15 +2,62 @@
 import Link from 'next/link';
 import { NextSeo } from 'next-seo';
 
+// react hooks
+import { useState, useEffect } from 'react';
+
+// hooks
+import axios from 'axios';
+import { useCookies } from 'react-cookie';
+
 // components
 import Header from "@/components/header";
 
 const Login = ({params}: any) => {
+    // 쿠키 훅
+    const [cookies, setCookie] = useCookies<string>([]);
+
     // 디바이스 체크
     const isMac: boolean = params.userAgent.includes("Mac OS") ? true : false;
 
     // 빈 함수
     const emptyFn = () => { return; }
+
+    // 폼 state
+    const [idVal, setIdVal] = useState<string>('');
+    const [pwVal, setPwVal] = useState<string>('');
+
+    // 뒤로가기 시 history가 남아있으면 state 변경
+    useEffect(() => {
+        const formId = document.getElementById('id') as HTMLInputElement;
+        const formPw = document.getElementById('pw') as HTMLInputElement;
+
+        if (formId.value !== '') { setIdVal(formId.value); }
+        if (formPw.value !== '') { setPwVal(formPw.value); }
+    }, []);
+
+    // 아이디 입력 시 state에 저장
+    const handleIdChange = (e: React.ChangeEvent<HTMLInputElement>) => { setIdVal(e.target.value); }
+
+    // 비밀번호 입력 시 state에 저장
+    const handlePwChange = (e: React.ChangeEvent<HTMLInputElement>) => { setPwVal(e.target.value); }
+
+    // 로그인 버튼 클릭
+    const handleLogin = async () => {
+        await axios.get('/api/user/login', {
+            params: {
+                id: idVal,
+                pw: pwVal,
+            }
+        })
+        .then(res => {
+            if (res.data.status === 'wrong-id') { console.log('아이디가 존재하지 않습니다.'); }
+            else if (res.data.status === 'wrong-pw') { console.log('잘못된 비밀번호 입니다.'); }
+            else if (res.data.status === 'success') {
+                setCookie('session', res.data.session, {path:'/', secure:true, sameSite:'none'});
+                location.href = '/';
+            }
+        })
+    }
 
     return (
         <>
@@ -24,6 +71,7 @@ const Login = ({params}: any) => {
             <Header
                 isMac={isMac}
                 theme={params.theme}
+                user={null}
                 page={"login"}
                 lang={""}
                 type={""}
@@ -40,16 +88,16 @@ const Login = ({params}: any) => {
             <div className='w-[100%] flex flex-col justify-center items-center'>
                 <div className='w-[360px] flex flex-col justify-center items-start mt-[100px] tlg:mt-[40px]'>
                     <h2 className='text-[20px] tlg:text-[18px] text-theme-4 dark:text-theme-9 font-medium mb-[12px] tlg:mb-[8px]'>로그인</h2>
-                    <form className='w-[100%] p-[20px] rounded-[8px] text-theme-10 dark:text-theme-9 bg-theme-5 dark:bg-theme-3 drop-shadow-default dark:drop-shadow-dark'>
+                    <form onSubmit={e => e.preventDefault()} className='w-[100%] p-[20px] rounded-[8px] text-theme-10 dark:text-theme-9 bg-theme-5 dark:bg-theme-3 drop-shadow-default dark:drop-shadow-dark'>
                         <label htmlFor='id' className='block text-[14px] ml-px'>아이디</label>
-                        <input type='text' id='id' tabIndex={1} autoComplete='on' placeholder='이메일을 입력해 주세요.' className='w-[100%] text-[14px] mt-[6px] px-[14px] py-[8px] rounded-[8px] border-[2px] border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1 placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2'/>
+                        <input onChange={handleIdChange} type='text' id='id' tabIndex={1} autoComplete='on' placeholder='이메일을 입력해 주세요.' className='w-[100%] text-[14px] mt-[6px] px-[14px] py-[8px] rounded-[8px] border-[2px] border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1 placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2'/>
                         <label htmlFor='pw' className='w-[100%] flex flex-row justify-between items-center text-[14px] ml-px mt-[18px]'>
                             <span>비밀번호</span>
                             {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
                             <a href="/user/findpw" className='text-[12px] text-theme-yellow dark:text-theme-blue-1 hover:underline tlg:hover:no-underline'>비밀번호를 잊으셨나요?</a>
                         </label>
-                        <input type='password' id='pw' tabIndex={2} autoComplete='on' placeholder='비밀번호를 입력해 주세요.' className='w-[100%] text-[14px] mt-[6px] px-[14px] py-[8px] rounded-[8px] border-[2px] border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1 placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2'/>
-                        <button className='w-[100%] h-[40px] rounded-[8px] mt-[14px] text-[14px] font-medium text-theme-4 dark:text-theme-blue-2 bg-theme-yellow/80 hover:bg-theme-yellow tlg:hover:bg-theme-yellow/80 dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1/80'>로그인</button>
+                        <input onChange={handlePwChange} type='password' id='pw' tabIndex={2} autoComplete='on' placeholder='비밀번호를 입력해 주세요.' className='w-[100%] text-[14px] mt-[6px] px-[14px] py-[8px] rounded-[8px] border-[2px] border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1 placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2'/>
+                        <button onClick={handleLogin} className='w-[100%] h-[40px] rounded-[8px] mt-[14px] text-[14px] font-medium text-theme-4 dark:text-theme-blue-2 bg-theme-yellow/80 hover:bg-theme-yellow tlg:hover:bg-theme-yellow/80 dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1/80'>로그인</button>
                     </form>
                     <div className='w-[100%] h-[52px] flex flex-row justify-center items-center mt-[16px] text-[14px] rounded-[8px] border border-theme-7 dark:border-theme-4'>
                         <span className='text-theme-4 dark:text-theme-9 mr-[12px]'>처음 방문하셨나요?</span>
@@ -74,6 +122,9 @@ export async function getServerSideProps(ctx: any) {
 
         // 디바이스 체크
         const userAgent = ctx.req ? ctx.req.headers['user-agent'] : navigator.userAgent;
+
+        // 세션ID 쿠키 제거
+        ctx.res.setHeader('Set-Cookie', [`session=deleted; max-Age=0; path=/`]);
 
         return {
             props: {

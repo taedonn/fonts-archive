@@ -7,6 +7,8 @@ import React, { useEffect, useState } from "react";
 
 // api
 import { FetchFontDetail } from "../api/detailpage/fetchfontdetail";
+import { CheckIfSessionExists } from "../api/user/checkifsessionexists";
+import { FetchUserInfo } from "../api/user/fetchuserinfo";
 
 // material-ui hooks
 import { Slider } from "@mui/material";
@@ -131,6 +133,7 @@ function DetailPage({params}: any) {
             <Header
                 isMac={isMac}
                 theme={params.theme}
+                user={params.user}
                 page={"DetailPage"}
                 lang={""}
                 type={""}
@@ -627,6 +630,13 @@ export async function getServerSideProps(ctx: any) {
         // 디바이스 체크
         const userAgent = ctx.req ? ctx.req.headers['user-agent'] : navigator.userAgent;
 
+        // 쿠키에 저장된 세션ID가 유효하면, 유저 정보 가져오기
+        const user = ctx.req.cookies.session === undefined ? null : (
+            await CheckIfSessionExists(ctx.req.cookies.session) === true 
+            ? await FetchUserInfo(ctx.req.cookies.session)
+            : null
+        )
+
         return {
             props: {
                 params: {
@@ -634,6 +644,7 @@ export async function getServerSideProps(ctx: any) {
                     randomNum: randomNum,
                     theme: cookieTheme,
                     userAgent: userAgent,
+                    user: user,
                 }
             }
         }

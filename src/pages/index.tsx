@@ -68,6 +68,7 @@ const Index = ({params}: any) => {
             <Header
                 isMac={isMac}
                 theme={params.theme}
+                user={params.user}
                 page={"index"}
                 lang={lang}
                 type={type}
@@ -118,10 +119,10 @@ export async function getServerSideProps(ctx: any) {
         );
 
         // 쿠키에 저장된 세션ID가 유효하면, 유저 정보 가져오기
-        const user = ctx.req.cookies.session === undefined ? {} : (
+        const user = ctx.req.cookies.session === undefined ? null : (
             await CheckIfSessionExists(ctx.req.cookies.session) === true 
             ? await FetchUserInfo(ctx.req.cookies.session)
-            : {}
+            : null
         )
 
         return {

@@ -30,6 +30,7 @@ const SendEmail = ({params}: any) => {
             <Header
                 isMac={isMac}
                 theme={params.theme}
+                user={null}
                 page={"login"}
                 lang={""}
                 type={""}
@@ -71,6 +72,9 @@ export async function getServerSideProps(ctx: any) {
         // 토큰 파라미터를 통해 이메일 받아오기
         const token = ctx.query.token === undefined ? '' : ctx.query.token;
         const id = await FetchEmailFromToken(token);
+
+        // 세션ID 쿠키 제거
+        ctx.res.setHeader('Set-Cookie', [`session=deleted; max-Age=0; path=/`]);
 
         return {
             props: {
