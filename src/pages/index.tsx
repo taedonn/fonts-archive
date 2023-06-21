@@ -6,6 +6,7 @@ import { debounce } from "lodash";
 // api
 import { CheckIfSessionExists } from "./api/user/checkifsessionexists";
 import { UpdateEmailConfirm } from "./api/user/updateemailconfirm";
+import { FetchUserInfo } from "./api/user/fetchuserinfo";
 
 // components
 import Header from "@/components/header";
@@ -116,12 +117,12 @@ export async function getServerSideProps(ctx: any) {
             : null
         );
 
-        // 쿠키에 저장된 세션ID가 유효한지 체크
-        const sessionExists: boolean = ctx.req.cookies.session === undefined ? false : (
-            await CheckIfSessionExists(ctx.req.cookies.session) === true
-            ? true
-            : false
-        );
+        // 쿠키에 저장된 세션ID가 유효하면, 유저 정보 가져오기
+        const user = ctx.req.cookies.session === undefined ? {} : (
+            await CheckIfSessionExists(ctx.req.cookies.session) === true 
+            ? await FetchUserInfo(ctx.req.cookies.session)
+            : {}
+        )
 
         return {
             props: {
@@ -132,6 +133,7 @@ export async function getServerSideProps(ctx: any) {
                     theme: cookieTheme,
                     source: source,
                     userAgent: userAgent,
+                    user: user,
                 }
             }
         }
