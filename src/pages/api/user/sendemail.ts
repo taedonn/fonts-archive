@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { FetchSessionFromEmail } from './fetchsessionfromemail';
+import client from '@/libs/client';
 const nodemailer = require('nodemailer');
   
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -7,7 +7,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         // 쿼리에서 뽑은 이메일
         const name = req.query.name === undefined ? '' : req.query.name as string;
         const email = req.query.email === undefined ? '' : req.query.email as string;
-        const session = await FetchSessionFromEmail(email);
+        const user: any = await client.fontsUser.findFirst({
+            select: {
+                user_id: true,
+                user_session_id: true
+            },
+            where: {
+                user_id: email
+            }
+        });
 
         const transporter = nodemailer.createTransport({
             host: 'smtp.daum.net',
@@ -36,13 +44,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                                 안녕하세요 ${name}님, <br/>
                                 아래 버튼을 클릭해서 <span style="font-weight:500; color:#000;">회원가입을 완료</span>해 주세요.
                             </p>
-                            <a style="width:200px; padding:16px 20px; margin-top:28px; box-sizing:border-box; background-color:#000; font-size:12px; font-weight:500; color:#FFF; text-decoration:none; border-radius:6px; display:flex; flex-direction:row; justify-content:center; align-items:center;" href="https://fonts.taedonn.com?session=${session}">
+                            <a style="width:200px; padding:16px 20px; margin-top:28px; box-sizing:border-box; background-color:#000; font-size:12px; font-weight:500; color:#FFF; text-decoration:none; border-radius:6px; display:flex; flex-direction:row; justify-content:center; align-items:center;" href="https://fonts.taedonn.com?session=${user.user_session_id}">
                                 회원가입 완료하기
                             </a>
                             <p style="width:100%; font-size:14px; font-weight:400; line-height:2; color:#3A3A3A; margin:0; margin-top:28px;">
                                 버튼이 클릭되지 않을 시, <br/>
                                 아래 링크를 복사해서 <span style="font-weight:500; color:#000;">주소창에 입력</span>해 주세요. <br/>
-                                <a style="text-decoration:none; color:#067DF7;" href="https://fonts.taedonn.com?session=${session}"">https://fonts.taedonn.com?session=${session}</a>
+                                <a style="text-decoration:none; color:#067DF7;" href="https://fonts.taedonn.com?session=${user.user_session_id}"">https://fonts.taedonn.com?session=${user.user_session_id}</a>
                             </p>
                             <div style="width:100%; height:1px; background-color:#EEE; margin-top:48px;"></div>
                             <p style="width:100%; font-size:12px; font-weight:400; line-height:2.5; color:#97989C; margin:0; margin-top:24px;">
