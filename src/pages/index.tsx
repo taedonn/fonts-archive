@@ -118,6 +118,13 @@ export async function getServerSideProps(ctx: any) {
             : null
         );
 
+        // 파라미터에 세션ID가 있을 경우, 유저 정보 가져오기
+        const sessionUser = ctx.query.session === undefined ? null : (
+            await CheckIfSessionExists(ctx.req.cookies.session) === true 
+            ? await FetchUserInfo(ctx.req.cookies.session)
+            : null
+        )
+
         // 쿠키에 저장된 세션ID가 유효하면, 유저 정보 가져오기
         const user = ctx.req.cookies.session === undefined ? null : (
             await CheckIfSessionExists(ctx.req.cookies.session) === true 
@@ -134,7 +141,7 @@ export async function getServerSideProps(ctx: any) {
                     theme: cookieTheme,
                     source: source,
                     userAgent: userAgent,
-                    user: user,
+                    user: sessionUser ? sessionUser : user,
                 }
             }
         }

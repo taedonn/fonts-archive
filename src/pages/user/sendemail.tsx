@@ -2,10 +2,11 @@
 import { NextSeo } from 'next-seo';
 
 // react hooks
-import React from 'react';
+import React, { useState } from 'react';
 
 // api
 import { FetchEmailFromToken } from '../api/user/fetchemailfromtoken';
+import axios from 'axios';
 
 // components
 import Header from "@/components/header";
@@ -17,6 +18,18 @@ const SendEmail = ({params}: any) => {
 
     // 빈 함수
     const emptyFn = () => { return; }
+
+    // 토큰 state에 저장
+    const [token, setToken] = useState<string>(params.token);
+
+    // 이메일 다시 보내기
+    const resendEmail = async () => {
+        await axios.post('/api/user/resendemail', null, { params: {
+            token: token
+        }})
+        .then(() => location.reload())
+        .catch(err => console.log(err));
+    }
 
     return (
         <>
@@ -53,7 +66,7 @@ const SendEmail = ({params}: any) => {
                     </h2>
                     <h3 className='mt-[28px] tlg:mt-[20px] flex flex-row justify-center items-center'>
                         이메일을 확인할 수 없나요?
-                        <div className='text-theme-yellow dark:text-theme-blue-1 hover:underline tlg:hover:no-underline ml-[8px] cursor-pointer'>인증 메일 다시 보내기</div>
+                        <div onClick={resendEmail} className='text-theme-yellow dark:text-theme-blue-1 hover:underline tlg:hover:no-underline ml-[8px] cursor-pointer'>인증 메일 다시 보내기</div>
                     </h3>
                 </div>
             </div>
@@ -81,6 +94,7 @@ export async function getServerSideProps(ctx: any) {
                 params: {
                     theme: cookieTheme,
                     userAgent: userAgent,
+                    token: token,
                     id: id,
                 }
             }

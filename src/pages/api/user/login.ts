@@ -32,9 +32,23 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
             }
         });
 
+        const emailConfirm: any = id && pw ? await client.fontsUser.findFirst({
+            select: {
+                user_id: true,
+                user_email_confirm: true,
+            },
+            where: {
+                user_id: userId,
+            }
+        }) : null
+
         const login: string = !id && !pw ? 'wrong-id' : (
             !id && pw ? 'wrong-id' : (
-                id && !pw ? 'wrong-pw' : 'success'
+                id && !pw ? 'wrong-pw' : (
+                    emailConfirm.user_email_confirm === false
+                    ? 'not-confirmed'
+                    : 'success'
+                )
             )
         );
 
@@ -50,6 +64,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
             }
         }) : null;
 
-        return res.status(200).send({ status: login, session: user.user_session_id}, );
+        return res.status(200).send({ status: login, session: user === null ? null : user.user_session_id}, );
     }
 }

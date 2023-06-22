@@ -24,7 +24,10 @@ const Login = ({params}: any) => {
 
     // 폼 state
     const [idVal, setIdVal] = useState<string>('');
+    const [idChk, setIdChk] = useState<string>('');
     const [pwVal, setPwVal] = useState<string>('');
+    const [pwChk, setPwChk] = useState<string>('');
+    const [emailConfirmChk, setEmailConfirmChk] = useState<boolean>(true);
 
     // 뒤로가기 시 history가 남아있으면 state 변경
     useEffect(() => {
@@ -36,28 +39,53 @@ const Login = ({params}: any) => {
     }, []);
 
     // 아이디 입력 시 state에 저장
-    const handleIdChange = (e: React.ChangeEvent<HTMLInputElement>) => { setIdVal(e.target.value); }
+    const handleIdChange = (e: React.ChangeEvent<HTMLInputElement>) => { setIdChk(''); setIdVal(e.target.value); }
 
     // 비밀번호 입력 시 state에 저장
-    const handlePwChange = (e: React.ChangeEvent<HTMLInputElement>) => { setPwVal(e.target.value); }
+    const handlePwChange = (e: React.ChangeEvent<HTMLInputElement>) => { setPwChk(''); setPwVal(e.target.value); }
 
     // 로그인 버튼 클릭
     const handleLogin = async () => {
-        await axios.get('/api/user/login', {
-            params: {
-                id: idVal,
-                pw: pwVal,
-            }
-        })
-        .then(res => {
-            if (res.data.status === 'wrong-id') { console.log('아이디가 존재하지 않습니다.'); }
-            else if (res.data.status === 'wrong-pw') { console.log('잘못된 비밀번호 입니다.'); }
-            else if (res.data.status === 'success') {
-                setCookie('session', res.data.session, {path:'/', secure:true, sameSite:'none'});
-                location.href = '/';
-            }
-        })
+        // 폼 유효성 검사
+        if (idVal === '') { setIdChk('empty'); }
+        else if (pwVal === '') { setPwChk('empty'); }
+        else {
+            // 유효성 검사 성공 시, 로그인 API 실행
+            await axios.get('/api/user/login', {
+                params: {
+                    id: idVal,
+                    pw: pwVal,
+                }
+            })
+            .then(res => {
+                if (res.data.status === 'wrong-id') { setIdChk('wrong-id'); }
+                else if (res.data.status === 'wrong-pw') { setPwChk('wrong-pw'); }
+                else if (res.data.status === 'not-confirmed') { setEmailConfirmChk(false); }
+                else if (res.data.status === 'success') {
+                    setCookie('session', res.data.session, {path:'/', secure:true, sameSite:'none'});
+                    location.href = '/';
+                }
+            });
+        }
     }
+
+    // 엔터키 입력 시 가입하기 버튼 클릭
+    useEffect(() => {
+        const keys: any = [];
+        const handleKeydown = (e: KeyboardEvent) => { keys[e.key] = true; if (keys["Enter"]) { handleLogin(); } }
+        const handleKeyup = (e: KeyboardEvent) => {keys[e.key] = false;}
+
+        window.addEventListener("keydown", handleKeydown, false);
+        window.addEventListener("keyup", handleKeyup, false);
+
+        return () => {
+            window.removeEventListener("keydown", handleKeydown);
+            window.removeEventListener("keyup", handleKeyup);
+        }
+    });
+
+    /** 알럿창 닫기 */
+    const handleAlertClose = () => { setEmailConfirmChk(true); }
 
     return (
         <>
@@ -90,13 +118,44 @@ const Login = ({params}: any) => {
                     <h2 className='text-[20px] tlg:text-[18px] text-theme-4 dark:text-theme-9 font-medium mb-[12px] tlg:mb-[8px]'>로그인</h2>
                     <form onSubmit={e => e.preventDefault()} className='w-[100%] p-[20px] rounded-[8px] text-theme-10 dark:text-theme-9 bg-theme-5 dark:bg-theme-3 drop-shadow-default dark:drop-shadow-dark'>
                         <label htmlFor='id' className='block text-[14px] ml-px'>아이디</label>
-                        <input onChange={handleIdChange} type='text' id='id' tabIndex={1} autoComplete='on' placeholder='이메일을 입력해 주세요.' className='w-[100%] text-[14px] mt-[6px] px-[14px] py-[8px] rounded-[8px] border-[2px] border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1 placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2'/>
+                        <input onChange={handleIdChange} type='text' id='id' tabIndex={1} autoComplete='on' placeholder='이메일을 입력해 주세요.' className={`${idChk === '' ? 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' : 'border-theme-red focus:border-theme-red dark:border-theme-red focus:dark:border-theme-red'} w-[100%] text-[14px] mt-[6px] px-[14px] py-[8px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
+                        {
+                            idChk === ''
+                            ? <></>
+                            : ( idChk === 'empty'
+                                ? <span className='block text-[12px] text-theme-red mt-[4px] ml-[16px]'>아이디를 입력해 주세요.</span>
+                                : <span className='block text-[12px] text-theme-red mt-[4px] ml-[16px]'>아이디가 존재하지 않습니다.</span>
+                            )
+                        }
                         <label htmlFor='pw' className='w-[100%] flex flex-row justify-between items-center text-[14px] ml-px mt-[18px]'>
                             <span>비밀번호</span>
                             {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
                             <a href="/user/findpw" className='text-[12px] text-theme-yellow dark:text-theme-blue-1 hover:underline tlg:hover:no-underline'>비밀번호를 잊으셨나요?</a>
                         </label>
-                        <input onChange={handlePwChange} type='password' id='pw' tabIndex={2} autoComplete='on' placeholder='비밀번호를 입력해 주세요.' className='w-[100%] text-[14px] mt-[6px] px-[14px] py-[8px] rounded-[8px] border-[2px] border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1 placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2'/>
+                        <input onChange={handlePwChange} type='password' id='pw' tabIndex={2} autoComplete='on' placeholder='비밀번호를 입력해 주세요.' className={`${pwChk === '' ? 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' : 'border-theme-red focus:border-theme-red dark:border-theme-red focus:dark:border-theme-red'} w-[100%] text-[14px] mt-[6px] px-[14px] py-[8px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2`}/>
+                        {
+                            pwChk === ''
+                            ? <></>
+                            : ( pwChk === 'empty'
+                                ? <span className='block text-[12px] text-theme-red mt-[4px] ml-[16px]'>비밀번호를 입력해 주세요.</span>
+                                : <span className='block text-[12px] text-theme-red mt-[4px] ml-[16px]'>비밀번호가 올바르지 않습니다.</span>
+                            )
+                        }
+                        {
+                            emailConfirmChk === false
+                            ? <>
+                                <div className='w-[100%] h-[40px] px-[10px] mt-[8px] flex flex-row justify-between items-center rounded-[6px] border-[2px] border-theme-red/80 dark:border-theme-red/60 text-[12px] text-theme-10 dark:text-theme-9 bg-theme-red/20'>
+                                    <div className='flex flex-row justify-start items-center'>
+                                        <svg className='w-[14px] fill-theme-red/80 dark:fill-theme-red/60' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg>
+                                        <div className='ml-[6px]'>이메일 인증을 완료해 주세요.</div>
+                                    </div>
+                                    <div onClick={handleAlertClose} className='flex flex-row justify-center items-center cursor-pointer'>
+                                        <svg className='w-[18px] fill-theme-10 dark:fill-theme-9' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg>
+                                    </div>
+                                </div>
+                            </>
+                            : <></>
+                        }
                         <button onClick={handleLogin} className='w-[100%] h-[40px] rounded-[8px] mt-[14px] text-[14px] font-medium text-theme-4 dark:text-theme-blue-2 bg-theme-yellow/80 hover:bg-theme-yellow tlg:hover:bg-theme-yellow/80 dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1/80'>로그인</button>
                     </form>
                     <div className='w-[100%] h-[52px] flex flex-row justify-center items-center mt-[16px] text-[14px] rounded-[8px] border border-theme-7 dark:border-theme-4'>
