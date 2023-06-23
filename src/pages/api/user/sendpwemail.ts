@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import client from '@/libs/client';
+import { random } from 'lodash';
 const nodemailer = require('nodemailer');
   
 interface data {
@@ -11,6 +12,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
         // 쿼리에서 뽑은 아이디
         const name = req.query.name === undefined ? '' : req.query.name as string;
         const id = req.query.id === undefined ? '' : req.query.id as string;
+        
+        // 임시 비밀번호
+        const randomPw = Math.random().toString(36).slice(2);
 
         // 이름 조회
         const nameExists: boolean = !!await client.fontsUser.findFirst({
@@ -55,6 +59,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
             }
         }) : null;
 
+        // 임시 비밀번호 업데이트
+        exists ? await client.fontsUser.updateMany({
+            where: {
+                user_id: id
+            },
+            data: {
+                user_pw: randomPw
+            }
+        }) : null
+
         // 아이디 조회 성공 시 메일 보내기
         const transporter = exists ? nodemailer.createTransport({
             host: 'smtp.daum.net',
@@ -71,26 +85,26 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
             : await transporter.sendMail({
                 from: '"폰트 아카이브" <taedonn@taedonn.com>',
                 to: user.user_id,
-                subject: '[폰트 아카이브] 회원가입 인증 메일입니다.',
+                subject: '[폰트 아카이브] 임시 비밀번호가 발급되었습니다.',
                 html: `
                     <div style="width:100%; display:flex; flex-direction:column; justify-content:flex-start; align-items:center;">
                         <div style="width:100%; max-width:600px; padding:40px 20px; border:1px solid #EEE; font-family:'Roboto', 'Noto Sans KR'; font-size:16px; font-weight:400; line-height:1.25; color:#000; display:flex; flex-direction:column; justify-content:flex-start; align-items:center;">
                             <div style="width:100%; max-width:400px; display:flex; flex-direction:column; justify-content:flex-start; align-items:center;">
                                 <div style="width:32px; height:32px; background-color:#000; color:#FFF; font-size:12px; font-weight:400; line-height:1; border-radius:6px; display:flex; flex-direction:row; justify-content:center; align-items:center;">Aa</div>
                                 <h2 style="font-size:20px; font-weight:500; margin:0; margin-top:20px;">
-                                    회원가입 인증 메일입니다.
+                                    임시 비밀번호가 발급되었습니다.
                                 </h2>
                                 <p style="width:100%; font-size:14px; font-weight:400; line-height:2; color:#3A3A3A; margin:0; margin-top:48px;">
                                     안녕하세요 ${user.user_name}님, <br/>
-                                    아래 버튼을 클릭해서 <span style="font-weight:500; color:#000;">회원가입을 완료</span>해 주세요.
+                                    이제 아래 <span style="font-weight:500; color:#000;">임시 비밀번호를 통해</span> 로그인 하실 수 있습니다.
                                 </p>
-                                <a style="width:200px; padding:16px 20px; margin-top:28px; box-sizing:border-box; background-color:#000; font-size:12px; font-weight:500; color:#FFF; text-decoration:none; border-radius:6px; display:flex; flex-direction:row; justify-content:center; align-items:center;" href="https://fonts.taedonn.com?session=${user.user_session_id}">
-                                    회원가입 완료하기
-                                </a>
+                                <div style="width:100%; padding:16px 20px; margin-top:28px; box-sizing:border-box; background-color:#EEE; font-size:12px; font-weight:500; color:#3A3A3A; text-decoration:none; border-radius:6px; display:flex; flex-direction:row; justify-content:flex-start; align-items:center;">
+                                    ${randomPw}
+                                </div>
                                 <p style="width:100%; font-size:14px; font-weight:400; line-height:2; color:#3A3A3A; margin:0; margin-top:28px;">
-                                    버튼이 클릭되지 않을 시, <br/>
-                                    아래 링크를 복사해서 <span style="font-weight:500; color:#000;">주소창에 입력</span>해 주세요. <br/>
-                                    <a style="text-decoration:none; color:#067DF7;" href="https://fonts.taedonn.com?session=${user.user_session_id}"">https://fonts.taedonn.com?session=${user.user_session_id}</a>
+                                    로그인이 되지 않을 경우, <br/>
+                                    아래 링크에 접속하여 <span style="font-weight:500; color:#000;">임시 비밀번호를 다시 발급</span>받아 주세요. <br/>
+                                    <a style="text-decoration:none; color:#067DF7;" href="https://fonts.taedonn.com/user/findpw">https://fonts.taedonn.com/user/findpw</a>
                                 </p>
                                 <div style="width:100%; height:1px; background-color:#EEE; margin-top:48px;"></div>
                                 <p style="width:100%; font-size:12px; font-weight:400; line-height:2.5; color:#97989C; margin:0; margin-top:24px;">
