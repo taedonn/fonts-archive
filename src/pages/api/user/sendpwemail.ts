@@ -1,6 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import client from '@/libs/client';
-import { random } from 'lodash';
 const nodemailer = require('nodemailer');
   
 interface data {
@@ -48,7 +47,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
             )
 
         // 아이디 조회 성공 시 유저 정보 가져오기
-        const user: any = exists ? await client.fontsUser.findFirst({
+        const user: any = exists ? await client.fontsUser.findUnique({
             select: {
                 user_name: true,
                 user_id: true,
@@ -60,7 +59,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
         }) : null;
 
         // 임시 비밀번호 업데이트
-        exists ? await client.fontsUser.updateMany({
+        exists ? await client.fontsUser.update({
             where: {
                 user_id: id
             },

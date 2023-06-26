@@ -13,7 +13,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     if (req.method === 'GET') {
         const userId = req.query.id === undefined ? '' : req.query.id as string;
 
-        const exists: any = !!await client.fontsUser.findFirst({
+        const exists: any = !!await client.fontsUser.findUnique({
             select: {
                 user_id: true,
             },

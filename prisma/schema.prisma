@@ -40,7 +40,7 @@ model fonts {
 model fontsUser {
   user_no            Int    @id @default(autoincrement())
   user_name          String
-  user_id            String
+  user_id            String @unique
   user_pw            String
   user_session_id    String
   user_email_token   String

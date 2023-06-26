@@ -12,7 +12,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
         const userPw = req.query.pw === undefined ? '' : req.query.pw as string;
 
 
-        const id: boolean = !!await client.fontsUser.findFirst({
+        const id: boolean = !!await client.fontsUser.findUnique({
             select: {
                 user_id: true,
             },
@@ -32,7 +32,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
             }
         });
 
-        const emailConfirm: any = id && pw ? await client.fontsUser.findFirst({
+        const emailConfirm: any = id && pw ? await client.fontsUser.findUnique({
             select: {
                 user_id: true,
                 user_email_confirm: true,

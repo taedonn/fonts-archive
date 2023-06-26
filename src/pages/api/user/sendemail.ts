@@ -7,7 +7,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         // 쿼리에서 뽑은 이메일
         const name = req.query.name === undefined ? '' : req.query.name as string;
         const email = req.query.email === undefined ? '' : req.query.email as string;
-        const user: any = await client.fontsUser.findFirst({
+        const user: any = await client.fontsUser.findUnique({
             select: {
                 user_id: true,
                 user_session_id: true
