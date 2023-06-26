@@ -87,9 +87,15 @@ export default function ChangePwModal(
 
     /** 비밀번호 변경 버튼 클릭 */
     const handlePwChangeClick = async () => {
-        if (currentPwVal === '') { setCurrentPwChk('empty'); }
-        if (newPwVal === '') { setNewPwChk('empty'); }
-        if (newPwConfirmVal === '') { setNewPwConfirmChk('empty'); }
+
+    }
+
+    /** 비밀번호 유효성 검사 */
+    const handlePwValidChk = () => {
+        // 비밀번호 패턴
+        const pwPattern = /^(?=.*?[a-zA-Z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,20}$/;
+
+        
     }
 
     /** 비밀번호 변경 인풋 유효성 체크 */
@@ -107,10 +113,34 @@ export default function ChangePwModal(
                         <div className="w-[100%] p-[20px] bg-theme-8 dark:bg-theme-blue-2">
                             <div className="text-[14px] text-theme-4 dark:text-theme-9">현재 비밀번호</div>
                             <input onChange={handleCurrentPwChange} id="current-pw" type="text" placeholder="현재 비밀번호를 입력해 주세요." className={`${currentPwChk === '' ? 'border-theme-4 focus:border-theme-yellow dark:border-theme-5 focus:dark:border-theme-blue-1' : 'border-theme-red focus:border-theme-red dark:border-theme-red focus:dark:border-theme-red'} w-[100%] text-[14px] text-theme-10 dark:text-theme-9 px-[14px] py-[8px] mt-[6px] rounded-[8px] border placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
+                            {
+                                currentPwChk === ''
+                                ? <></>
+                                : ( currentPwChk === 'empty'
+                                    ? <span className='block text-[12px] text-theme-red mt-[4px] ml-[16px]'>비밀번호를 입력해 주세요.</span>
+                                    : <span className='block text-[12px] text-theme-red mt-[4px] ml-[16px]'>비밀번호가 일치하지 않습니다.</span>
+                                )
+                            }
                             <div className="text-[14px] text-theme-4 dark:text-theme-9 mt-[20px]">새 비밀번호 입력</div>
                             <input onChange={handleNewPwChange} id="new-pw" type="text" placeholder='새 비밀번호를 입력해 주세요.' className={`${newPwChk === '' ? 'border-theme-4 focus:border-theme-yellow dark:border-theme-5 focus:dark:border-theme-blue-1' : 'border-theme-red focus:border-theme-red dark:border-theme-red focus:dark:border-theme-red'} w-[100%] text-[14px] text-theme-10 dark:text-theme-9 px-[14px] py-[8px] mt-[6px] rounded-[8px] border placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
+                            {
+                                newPwChk === ''
+                                ? <></>
+                                : ( newPwChk === 'empty'
+                                    ? <span className='block text-[12px] text-theme-red mt-[4px] ml-[16px]'>새 비밀번호를 입력해 주세요.</span>
+                                    : <span className='block text-[12px] text-theme-red mt-[4px] ml-[16px]'>비밀번호 형식이 올바르지 않습니다.</span>
+                                )
+                            }
                             <div className="text-[14px] text-theme-4 dark:text-theme-9 mt-[20px]">새 비밀번호 확인</div>
                             <input onChange={handleNewPwConfirmChange} id="new-pw-confirm" type="text" placeholder="새 비밀번호를 재입력해 주세요." className={`${newPwConfirmChk === '' ? 'border-theme-4 focus:border-theme-yellow dark:border-theme-5 focus:dark:border-theme-blue-1' : 'border-theme-red focus:border-theme-red dark:border-theme-red focus:dark:border-theme-red'} w-[100%] text-[14px] text-theme-10 dark:text-theme-9 px-[14px] py-[8px] mt-[6px] rounded-[8px] border placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
+                            {
+                                newPwConfirmChk === ''
+                                ? <></>
+                                : ( newPwConfirmChk === 'empty'
+                                    ? <span className='block text-[12px] text-theme-red mt-[4px] ml-[16px]'>새 비밀번호를 재입력해 주세요.</span>
+                                    : <span className='block text-[12px] text-theme-red mt-[4px] ml-[16px]'>새 비밀번호와 일치하지 않습니다.</span>
+                                )
+                            }
                             <div className="w-[100%] h-px bg-theme-6 dark:bg-theme-5 mt-[16px]"></div>
                             <h2 className="font-bold text-[16px] text-theme-4 dark:text-theme-9 mt-[32px]">비밀번호 변경 시 유의사항</h2>
                             <div className='w-[100%] flex flex-row justify-start items-start text-[12px] text-theme-5 dark:text-theme-7 mt-[4px]'>
