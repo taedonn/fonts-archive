@@ -23,6 +23,7 @@ const Login = ({params}: any) => {
     const emptyFn = () => { return; }
 
     // 폼 state
+    const [isLoading, setIsLoading] = useState<boolean>(false);
     const [idVal, setIdVal] = useState<string>('');
     const [idChk, setIdChk] = useState<string>('');
     const [pwVal, setPwVal] = useState<string>('');
@@ -46,6 +47,9 @@ const Login = ({params}: any) => {
 
     // 로그인 버튼 클릭
     const handleLogin = async () => {
+        // 로딩 스피너 실행
+        setIsLoading(true);
+
         // 폼 유효성 검사
         if (idVal === '') { setIdChk('empty'); }
         else if (pwVal === '') { setPwChk('empty'); }
@@ -67,6 +71,9 @@ const Login = ({params}: any) => {
                 }
             });
         }
+
+        // 로딩 스피너 정지
+        setIsLoading(false);
     }
 
     // 엔터키 입력 시 가입하기 버튼 클릭
@@ -156,7 +163,13 @@ const Login = ({params}: any) => {
                             </>
                             : <></>
                         }
-                        <button onClick={handleLogin} className='w-[100%] h-[40px] rounded-[8px] mt-[14px] text-[14px] font-medium text-theme-4 dark:text-theme-blue-2 bg-theme-yellow/80 hover:bg-theme-yellow tlg:hover:bg-theme-yellow/80 dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1/80'>로그인</button>
+                        <button onClick={handleLogin} className='w-[100%] h-[40px] flex flex-row justify-center items-center rounded-[8px] mt-[14px] text-[14px] font-medium text-theme-4 dark:text-theme-blue-2 bg-theme-yellow/80 hover:bg-theme-yellow tlg:hover:bg-theme-yellow/80 dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1/80'>
+                            {
+                                isLoading === true
+                                ? <span className='loader loader-register w-[18px] h-[18px]'></span>
+                                : '로그인'
+                            }
+                        </button>
                     </form>
                     <div className='w-[100%] h-[52px] flex flex-row justify-center items-center mt-[16px] text-[14px] rounded-[8px] border border-theme-7 dark:border-theme-4'>
                         <span className='text-theme-4 dark:text-theme-9 mr-[12px]'>처음 방문하셨나요?</span>

@@ -60,6 +60,7 @@ export default function DeleteUserModal(
     });
 
     // 회원 탈퇴 인풋 state
+    const [isLoading, setIsLoading] = useState<boolean>(false);
     const [inputVal, setInputVal] = useState<string>('');
     const [inputChk, setInputChk] = useState<string>('');
 
@@ -71,6 +72,9 @@ export default function DeleteUserModal(
 
     /** 회원 탈퇴 버튼 클릭 */
     const handleDeleteBtnClick = async () => {
+        // 로딩 스피너 실행
+        setIsLoading(true);
+        
         if (inputVal === '') { setInputChk('empty'); }
         else if (inputVal !== id + '/탈퇴한다') { setInputChk('wrong-val'); }
         else {
@@ -81,6 +85,9 @@ export default function DeleteUserModal(
             })
             .catch(err => console.log(err));
         }
+
+        // 로딩 스피너 정지
+        setIsLoading(false);
     }
 
     return (
@@ -117,7 +124,13 @@ export default function DeleteUserModal(
                                     : <></>
                                 )
                             }
-                            <button onClick={handleDeleteBtnClick} className='w-[100%] h-[40px] mt-[10px] rounded-[8px] flex flex-row justify-center items-center text-[14px] font-medium text-theme-10 dark:text-theme-9 bg-theme-red/80 hover:bg-theme-red tlg:hover:bg-theme-red/80'>회원 탈퇴하기</button>
+                            <button onClick={handleDeleteBtnClick} className='w-[100%] h-[40px] mt-[10px] rounded-[8px] flex flex-row justify-center items-center text-[14px] font-medium text-theme-10 dark:text-theme-9 bg-theme-red/80 hover:bg-theme-red tlg:hover:bg-theme-red/80'>
+                                {
+                                    isLoading === true
+                                    ? <span className='loader loader-red w-[18px] h-[18px]'></span>
+                                    : '회원 탈퇴하기'
+                                }
+                            </button>
                         </div>
                     </div>
                 </div> : <></>

@@ -179,6 +179,16 @@ html.dark .loader.loader-register {
     border-bottom-color: #B1C9E8;
 }
 
+/* 로딩 스피너 - 빨간색 */
+.loader.loader-red {
+    border: 2px solid #FF625C;
+    border-bottom-color: #EF4444;
+}
+html.dark .loader.loader-red {
+    border: 2px solid #FF625C;
+    border-bottom-color: #EF4444;
+}
+
 /* 검색 기능 */
 .search-list .search-link:first-of-type { margin-top: 0; }
 .search-list .search-link:last-of-type { margin-bottom: 28px; }

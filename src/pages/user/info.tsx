@@ -24,6 +24,7 @@ const SendEmail = ({params}: any) => {
     const emptyFn = () => { return; }
 
     // 폼 state
+    const [isLoading, setIsLoading] = useState<boolean>(false);
     const [nameVal, setNameVal] = useState<string>('');
     const [nameChk, setNameChk] = useState<string>('');
     const [alert, setAlert] = useState<string>('');
@@ -45,6 +46,9 @@ const SendEmail = ({params}: any) => {
 
     /** 이름 변경하기 클릭 이벤트 */
     const handleNameClick = async () => {
+        // 로딩 스피너 실행
+        setIsLoading(true);
+
         if (nameVal === '') { setNameChk('empty'); }
         else {
             // 이름 변경하기 API 호출
@@ -59,6 +63,9 @@ const SendEmail = ({params}: any) => {
                     setAlert('name');
                     setAlertDisplay(true);
                 }
+
+                // 로딩 스피너 정지
+                setIsLoading(false);
             })
             .catch(err => console.log(err));
         }
@@ -78,6 +85,12 @@ const SendEmail = ({params}: any) => {
 
     /** 알럿창 닫기 */
     const handleAlertClose = () => { setAlertDisplay(false); }
+
+    /** 비밀번호 변경 완료 시 알럿창 띄우기 */
+    const handlePwChangeOnSuccess = () => {
+        setAlertDisplay(true);
+        setAlert('pw');
+    }
 
     return (
         <>
@@ -122,14 +135,31 @@ const SendEmail = ({params}: any) => {
                                     </div>
                                 </div>
                             </>
-                            : <></>
+                            : alert === 'pw'
+                                ? <>
+                                    <div className='w-[100%] h-[40px] px-[10px] mb-[10px] flex flex-row justify-between items-center rounded-[6px] border-[2px] border-theme-yellow dark:border-theme-blue-1/80 text-[12px] text-theme-5 dark:text-theme-9 bg-theme-yellow/40 dark:bg-theme-blue-1/20'>
+                                        <div className='flex flex-row justify-start items-center'>
+                                            <svg className='w-[14px] fill-theme-yellow dark:fill-theme-blue-1/80' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg>
+                                            <div className='ml-[6px]'>비밀번호가 변경되었습니다.</div>
+                                        </div>
+                                        <div onClick={handleAlertClose} className='flex flex-row justify-center items-center cursor-pointer'>
+                                            <svg className='w-[18px] fill-theme-5 dark:fill-theme-9' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg>
+                                        </div>
+                                    </div>
+                                </> : <></>
                         : <></>
                     }
                     <div className='w-[100%] p-[20px] rounded-[8px] text-theme-10 dark:text-theme-9 bg-theme-5 dark:bg-theme-3 drop-shadow-default dark:drop-shadow-dark'>
                         <label htmlFor='name' className='block text-[14px] ml-px'>이름</label>
                         <div className='w-[100%] flex flex-row justify-between items-center mt-[6px]'>
                             <input onChange={handleNameChange} type='text' id='name' tabIndex={1} autoComplete='on' defaultValue={params.user.user_name} placeholder='홍길동' className={`${nameChk === '' ? 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' : 'border-theme-red focus:border-theme-red dark:border-theme-red focus:dark:border-theme-red'} w-[calc(100%-84px)] text-[14px] px-[14px] py-[8px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
-                            <button onClick={handleNameClick} className='w-[76px] h-[39px] pt-px rounded-[8px] font-medium text-[14px] text-theme-5 dark:text-theme-blue-2 bg-theme-yellow/80 hover:bg-theme-yellow tlg:hover:bg-theme-yellow/80 dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1/80'>변경하기</button>
+                            <button onClick={handleNameClick} className='w-[76px] h-[39px] flex flex-row justify-center items-center rounded-[8px] font-medium text-[14px] text-theme-5 dark:text-theme-blue-2 bg-theme-yellow/80 hover:bg-theme-yellow tlg:hover:bg-theme-yellow/80 dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1/80'>
+                                {
+                                    isLoading === true
+                                    ? <span className='loader loader-register w-[18px] h-[18px]'></span>
+                                    : <span className='pt-px'>변경하기</span>
+                                }
+                            </button>
                         </div>
                         {
                             nameChk === 'empty'
@@ -174,6 +204,8 @@ const SendEmail = ({params}: any) => {
             <ChangePwModal
                 display={changePwModalDisplay}
                 close={handleChangePwModalClose}
+                success={handlePwChangeOnSuccess}
+                id={params.user.user_id}
             />
 
             {/* 회원 탈퇴 모달창 */}
