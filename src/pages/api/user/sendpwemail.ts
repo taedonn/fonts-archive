@@ -17,12 +17,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 
         // 이름 조회
         const nameExists: boolean = !!await client.fontsUser.findFirst({
-            select: {
-                user_name: true,
-            },
-            where: {
-                user_name: name
-            }
+            select: { user_name: true },
+            where: { user_name: name }
         });
         
         // 이름 조회 성공 시, 아이디 조회
@@ -53,19 +49,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
                 user_id: true,
                 user_session_id: true
             },
-            where: {
-                user_id: id
-            }
+            where: { user_id: id }
         }) : null;
 
         // 임시 비밀번호 업데이트
         exists ? await client.fontsUser.update({
-            where: {
-                user_id: id
-            },
-            data: {
-                user_pw: randomPw
-            }
+            where: { user_id: id },
+            data: { user_pw: randomPw }
         }) : null
 
         // 아이디 조회 성공 시 메일 보내기

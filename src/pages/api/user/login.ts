@@ -13,12 +13,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 
 
         const id: boolean = !!await client.fontsUser.findUnique({
-            select: {
-                user_id: true,
-            },
-            where: {
-                user_id: userId
-            }
+            select: { user_id: true },
+            where: { user_id: userId }
         });
 
         const pw: boolean = !id ? false : !!await client.fontsUser.findFirst({
@@ -37,9 +33,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
                 user_id: true,
                 user_email_confirm: true,
             },
-            where: {
-                user_id: userId,
-            }
+            where: { user_id: userId }
         }) : null
 
         const login: string = !id && !pw ? 'wrong-id' : (

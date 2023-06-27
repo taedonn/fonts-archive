@@ -7,9 +7,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const id = req.query.id === undefined ? '' : req.query.id as string;
 
         await client.fontsUser.delete({
-            where: {
-                user_id: id
-            }
+            where: { user_id: id }
         });
 
         return res.status(200).send(true);

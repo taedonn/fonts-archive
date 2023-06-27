@@ -6,9 +6,7 @@ export async function FetchEmailFromToken(token: string) {
             user_id: true,
             user_email_token: true
         },
-        where: {
-            user_email_token: token
-        }
+        where: { user_email_token: token }
     });
 
     return user.user_id;

@@ -12,9 +12,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 user_id: true,
                 user_session_id: true
             },
-            where: {
-                user_id: email
-            }
+            where: { user_id: email }
         });
 
         const transporter = nodemailer.createTransport({

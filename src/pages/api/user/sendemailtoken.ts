@@ -19,9 +19,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
                 user_id: true,
                 user_email_token: true
             },
-            where: {
-                user_id: userId
-            }
+            where: { user_id: userId }
         });
 
         return res.send(sendToken.user_email_token);

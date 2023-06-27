@@ -15,9 +15,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 user_session_id: true,
                 user_email_token: true
             },
-            where: {
-                user_email_token: token
-            }
+            where: { user_email_token: token }
         });
 
         const transporter = nodemailer.createTransport({
