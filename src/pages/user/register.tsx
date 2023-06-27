@@ -51,13 +51,13 @@ const Register = ({params}: any) => {
 
     /** 폼 서밋 전 유효성 검사 */
     const handleOnSubmit = async () => {
+        // 로딩 스피너 실행
+        setIsLoading(true);
+
         // 유효성 검사
         if (await handleValidateChk()) {
             // 약관 동의 체크
             if (handleTermsAndPrivacyChk()) {
-                // 로딩 스피너 실행
-                setIsLoading(true);
-
                 // 약관 동의 시 Form 서밋
                 await axios
                 .post('/api/user/sendregisterform', null, { params: {
@@ -137,7 +137,10 @@ const Register = ({params}: any) => {
 
         // 유효성 검사 결과 return
         if (nameVal !== '' && idVal !== '' && emailPattern.test(idVal) && !isIdExists && pwVal !== '' && pwPattern.test(pwVal) && pwConfirmVal !== '' && pwConfirmVal === pwVal) { return true; } 
-        else { return false; }
+        else {
+            setIsLoading(false);
+            return false;
+        }
     }
 
     /** 약관 동의 체크 */
@@ -148,6 +151,7 @@ const Register = ({params}: any) => {
         }
         else {
             setAlertDisplay(true);
+            setIsLoading(false);
             return false;
         }
     }
