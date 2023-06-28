@@ -143,6 +143,49 @@ html.dark .select:checked + label {
     .main-menu > a:nth-of-type(2) { margin-top: 10px; }
 }
 
+/* 스켈레톤 박스 맨 앞 3개 마진 0으로 설정 */
+@media screen and (min-width: 1024px) {
+    .main-menu .skeleton-box:nth-of-type(1), 
+    .main-menu .skeleton-box:nth-of-type(2), 
+    .main-menu .skeleton-box:nth-of-type(3),
+    .main-menu .skeleton-box:nth-of-type(4) { 
+        margin-top: 0; 
+    }
+}
+@media screen and (max-width: 1024px) {
+    .main-menu .skeleton-box:nth-of-type(1), 
+    .main-menu .skeleton-box:nth-of-type(2), 
+    .main-menu .skeleton-box:nth-of-type(3) { 
+        margin-top: 0; 
+    }
+}
+@media screen and (max-width: 768px) {
+    .main-menu .skeleton-box:nth-of-type(1), 
+    .main-menu .skeleton-box:nth-of-type(2) { 
+        margin-top: 0; 
+    }
+    .main-menu .skeleton-box:nth-of-type(3) { margin-top: 10px; }
+}
+@media screen and (max-width: 480px) {
+    .main-menu .skeleton-box:nth-of-type(1) { margin-top: 0; }
+    .main-menu .skeleton-box:nth-of-type(2) { margin-top: 10px; }
+}
+
+/* 스켈레톤 그라디언트 애니메이션 */
+.skeleton-gradient {
+    background: linear-gradient(90deg, #CDCED2, #B1B2B6, #CDCED2);
+	background-size: 200% 100%;
+	animation: skeleton-gradient 2s infinite;
+}
+html.dark .skeleton-gradient {
+    background: linear-gradient(90deg, #35363A, #4C4D50, #35363A);
+    background-size: 200% 100%;
+}
+@keyframes skeleton-gradient {
+	0% { background-position: 200% center; }
+	100% { background-position: 0% center; }
+}
+
 /* text ellipse */
 .ellipsed-text {
     text-overflow: ellipsis;

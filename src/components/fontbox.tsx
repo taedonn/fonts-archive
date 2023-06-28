@@ -8,6 +8,7 @@ import axios from 'axios';
 
 // 컴포넌트
 import DummyText from "./dummytext";
+import SkeletonBox from './skeletonbox';
 
 export default function FontBox ({lang, type, sort, searchword, text, num}:{lang: string, type: string, sort: string, searchword: string, text: string, num: number}) {
     // react-intersection-observer 훅
@@ -48,7 +49,32 @@ export default function FontBox ({lang, type, sort, searchword, text, num}:{lang
                     {/* 로딩 스켈레톤 */}
                     {
                         isLoading 
-                        ? <div className="w-[100%] pt-[20px] pb-0 flex flex-row justify-center items-center"><span className="loader w-[40px] tlg:w-[36px] h-[40px] tlg:h-[36px]"></span></div> 
+                        ? <div className='w-[100%] flex flex-wrap flex-row justify-between items-start'>
+                            <SkeletonBox/>
+                            <SkeletonBox/>
+                            <SkeletonBox/>
+                            <SkeletonBox/>
+                            <SkeletonBox/>
+                            <SkeletonBox/>
+                            <SkeletonBox/>
+                            <SkeletonBox/>
+                            <SkeletonBox/>
+                            <SkeletonBox/>
+                            <SkeletonBox/>
+                            <SkeletonBox/>
+                            <SkeletonBox/>
+                            <SkeletonBox/>
+                            <SkeletonBox/>
+                            <SkeletonBox/>
+                            <SkeletonBox/>
+                            <SkeletonBox/>
+                            <SkeletonBox/>
+                            <SkeletonBox/>
+                            <SkeletonBox/>
+                            <SkeletonBox/>
+                            <SkeletonBox/>
+                            <SkeletonBox/>
+                        </div>
                         : null
                     }
 
@@ -66,7 +92,7 @@ export default function FontBox ({lang, type, sort, searchword, text, num}:{lang
                                     font_type: string
                                     cdn_url: string
                                 }) => (
-                                    <a aria-label="font-link" href={`/detailpage/${font.code}`} key={font.code} className="block w-[calc(25%-8px)] tlg:w-[calc(33.3%-6px)] tmd:w-[calc(50%-4px)] txs:w-[100%] h-[22vw] tlg:h-[30vw] tmd:h-[46vw] txs:h-[82vw] p-[1.04vw] tlg:p-[1.95vw] tmd:p-[2.6vw] txs:p-[4.17vw] mt-[12px] txl:mt-[10px] rounded-[8px] border border-theme-7 dark:border-theme-4 hover:bg-theme-8/60 tlg:hover:bg-transparent hover:dark:bg-theme-3/40 tlg:hover:dark:bg-transparent animate-fontbox-fade-in cursor-pointer">
+                                    <a aria-label="font-link" href={`/detailpage/${font.code}`} key={font.code} className="block w-[calc(25%-8px)] tlg:w-[calc(33.3%-6px)] tmd:w-[calc(50%-4px)] txs:w-[100%] h-[22vw] tlg:h-[30vw] tmd:h-[46vw] txs:h-[82vw] p-[1.04vw] tlg:p-[1.95vw] tmd:p-[2.6vw] txs:p-[4.17vw] mt-[12px] tlg:mt-[10px] rounded-[8px] border border-theme-7 dark:border-theme-4 hover:bg-theme-8/60 tlg:hover:bg-transparent hover:dark:bg-theme-3/40 tlg:hover:dark:bg-transparent animate-fontbox-fade-in cursor-pointer">
                                         <link href={font.cdn_url} rel="stylesheet" type="text/css" itemProp="url"></link>
                                         <div style={{fontFamily:"'"+font.font_family+"'"}} className="text-[1.04vw] tlg:text-[1.95vw] tmd:text-[2.6vw] txs:text-[4.17vw] mb-[0.42vw] tlg:mb-[0.78vw] tmd:mb-[1.04vw] txs:mb-[1.67vw] text-normal leading-tight text-theme-3 dark:text-theme-8">{font.name}</div>
                                         <div className="flex flex-row justify-start items-center">
