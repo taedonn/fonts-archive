@@ -86,11 +86,12 @@ const Index = ({params}: any) => {
             
             {/* 메인 */}
             <FontBox 
-                lang={lang} 
-                type={type} 
-                sort={sort} 
-                searchword={searchword} 
-                text={text} 
+                lang={lang}
+                type={type}
+                sort={sort}
+                user={params.user}
+                searchword={searchword}
+                text={text}
                 num={999}
             />
         </>
