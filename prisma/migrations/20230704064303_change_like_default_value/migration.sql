@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE `fonts` MODIFY `like` INTEGER NOT NULL DEFAULT 0;
