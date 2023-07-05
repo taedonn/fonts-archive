@@ -21,6 +21,11 @@ export default function FontBox ({lang, type, sort, user, like, searchword, text
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [inView]);
 
+    // 좋아요한 폰트가 있으면 array => string으로 변환 후 api에 전달
+    let likedArr: string[] = [];
+    like === null ? null : like.forEach((obj: any) => likedArr.push(obj.font_id));
+    let liked = likedArr.join();
+
     // useInfiniteQuery 사용해 다음에 불러올 데이터 업데이트
     const {
         isLoading,
@@ -31,7 +36,7 @@ export default function FontBox ({lang, type, sort, user, like, searchword, text
         hasNextPage
     } = useInfiniteQuery('fonts', async ({ pageParam = '' }) => {
         await new Promise((res) => setTimeout(res, 100));
-        const res = await axios.get('/api/fontlist', {params: { id: pageParam, lang: lang, type: type, sort: sort, searchword: searchword }});
+        const res = await axios.get('/api/fontlist', {params: { id: pageParam, lang: lang, type: type, sort: sort, searchword: searchword, filter: liked }});
         return res.data;
     },{
         getNextPageParam: (lastPage) => lastPage.nextId ?? false,
