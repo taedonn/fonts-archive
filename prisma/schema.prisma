@@ -10,12 +10,13 @@ datasource db {
 }
 
 model fonts {
-  code            Int    @id @default(autoincrement())
+  code            Int        @id @default(autoincrement())
   name            String
   lang            String
   date            String
   view            Int
-  like            Int    @default(0)
+  like            Int        @default(0)
+  liked_user      fontsLiked[]
   font_family     String
   font_type       String
   font_weight     String
@@ -25,7 +26,7 @@ model fonts {
   cdn_css         String
   cdn_link        String
   cdn_import      String
-  cdn_font_face   String @db.Text
+  cdn_font_face   String     @db.Text
   cdn_url         String
   license_print   String
   license_web     String
@@ -36,15 +37,27 @@ model fonts {
   license_ofl     String
   license_purpose String
   license_source  String
-  license         String @db.Text
+  license         String     @db.Text
 }
 
 model fontsUser {
-  user_no            Int     @id @default(autoincrement())
+  user_no            Int    @id @default(autoincrement())
   user_name          String
-  user_id            String  @unique
+  user_id            String @unique
   user_pw            String
   user_session_id    String
   user_email_token   String
   user_email_confirm Boolean
+  liked_fonts        fontsLiked[]
+}
+
+model fontsLiked {
+  font fonts @relation(fields: [font_id], references: [code])
+  font_id Int
+  user fontsUser @relation(fields: [user_id], references: [user_no])
+  user_id Int
+
+  @@id([font_id, user_id])
+  @@index([font_id])
+  @@index([user_id])
 }

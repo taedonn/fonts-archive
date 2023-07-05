@@ -7,6 +7,7 @@ import { debounce } from "lodash";
 import { CheckIfSessionExists } from "./api/user/checkifsessionexists";
 import { UpdateEmailConfirm } from "./api/user/updateemailconfirm";
 import { FetchUserInfo } from "./api/user/fetchuserinfo";
+import { FetchUserLike } from "./api/user/fetchuserlike";
 
 // components
 import Header from "@/components/header";
@@ -90,6 +91,7 @@ const Index = ({params}: any) => {
                 type={type}
                 sort={sort}
                 user={params.user}
+                like={params.like}
                 searchword={searchword}
                 text={text}
                 num={999}
@@ -124,14 +126,20 @@ export async function getServerSideProps(ctx: any) {
             await CheckIfSessionExists(ctx.req.cookies.session) === true 
             ? await FetchUserInfo(ctx.req.cookies.session)
             : null
-        )
+        );
 
         // 쿠키에 저장된 세션ID가 유효하면, 유저 정보 가져오기
         const user = ctx.req.cookies.session === undefined ? null : (
             await CheckIfSessionExists(ctx.req.cookies.session) === true 
             ? await FetchUserInfo(ctx.req.cookies.session)
             : null
-        )
+        );
+
+        const like = ctx.req.cookies.session === undefined ? null : (
+            await CheckIfSessionExists(ctx.req.cookies.session) === true 
+            ? await FetchUserLike(ctx.req.cookies.session)
+            : null
+        );
 
         return {
             props: {
@@ -143,6 +151,7 @@ export async function getServerSideProps(ctx: any) {
                     source: source,
                     userAgent: userAgent,
                     user: sessionUser ? sessionUser : user,
+                    like: like,
                 }
             }
         }
