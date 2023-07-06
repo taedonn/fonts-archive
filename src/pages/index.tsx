@@ -16,7 +16,7 @@ import FontBox from "@/components/fontbox";
 
 const Index = ({params}: any) => {
     // 쿠키 훅
-    const [cookies, setCookie] = useCookies<string>([]);
+    const [, setCookie] = useCookies<string>([]);
 
     // 디바이스 체크
     const isMac: boolean = params.userAgent.includes("Mac OS") ? true : false
@@ -92,6 +92,7 @@ const Index = ({params}: any) => {
                 sort={sort}
                 user={params.user}
                 like={params.like}
+                filter={params.filter}
                 searchword={searchword}
                 text={text}
                 num={999}
@@ -105,11 +106,14 @@ export async function getServerSideProps(ctx: any) {
         // 필터링 쿠키 체크
         const cookieLang = ctx.req.cookies.lang === undefined ? "all" : ctx.req.cookies.lang;
         const cookieType = ctx.req.cookies.type === undefined ? "all" : ctx.req.cookies.type;
-        const cookieSort = ctx.req.cookies.sort === undefined ? "view" : ctx.req.cookies.sort;
+        const cookieSort = ctx.req.cookies.sort === undefined ? "like" : ctx.req.cookies.sort;
         const cookieTheme = ctx.req.cookies.theme === undefined ? "dark" : ctx.req.cookies.theme;
 
-        // 필터링 파라미터 체크
+        // 검색어 파라미터 체크
         const source = ctx.query.search === undefined ? "" : ctx.query.search;
+
+        // 필터링 파라미터 체크
+        const filter = ctx.query.filter === undefined ? '' : ctx.query.filter;
 
         // 디바이스 체크
         const userAgent = ctx.req ? ctx.req.headers['user-agent'] : navigator.userAgent;
@@ -152,6 +156,7 @@ export async function getServerSideProps(ctx: any) {
                     userAgent: userAgent,
                     user: sessionUser ? sessionUser : user,
                     like: like,
+                    filter: filter,
                 }
             }
         }

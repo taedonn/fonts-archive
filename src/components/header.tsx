@@ -368,11 +368,19 @@ export default function Header (
                                         <label ref={refSortSelect} htmlFor='select-sort' className="h-[32px] tlg:h-[30px] tmd:h-[28px] relative flex flex-row justify-center items-center text-[14px] text-theme-5 dark:text-theme-8 leading-none px-[20px] tlg:px-[16px] border border-theme-7 dark:border-theme-5 rounded-full cursor-pointer fill-theme-5 dark:fill-theme-8 hover:bg-theme-4 hover:dark:bg-theme-blue-2 hover:border-theme-yellow hover:dark:border-theme-blue-1 hover:text-theme-10/80 hover:dark:text-theme-9 hover:fill-theme-10/80 hover:dark:fill-theme-9 hover:drop-shadow-default hover:dark:drop-shadow-dark">
                                             <div className='w-[100%] h-[100%] absolute z-10'></div>
                                             <button className="w-[100%] h-[100%] flex flex-row justify-center items-center text-inherit leading-none text-[14px] tlg:text-[12px] tmd:text-[10px] pt-px">
-                                                {sort === "view" ? "조회순" : (sort === "date" ? "최신순" : "이름순")}
+                                                {sort === "like" ? "인기순" : sort === "view" ? "조회순" : sort === "date" ? "최신순" : "이름순"}
                                                 <svg className="w-[8px] tlg:w-[6px] rotate-180 ml-[12px] tlg:ml-[8px] fill-inherit" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M7.022 1.566a1.13 1.13 0 0 1 1.96 0l6.857 11.667c.457.778-.092 1.767-.98 1.767H1.144c-.889 0-1.437-.99-.98-1.767L7.022 1.566z"/></svg>
                                             </button>
                                         </label>
                                         <div ref={refSortOption} id="option-sort" className='option w-[114px] tlg:w-[96px] tmd:w-[88px] absolute z-2 left-[50%] top-[40px] tlg:top-[36px] tmd:top-[34px] translate-x-[-50%] border border-theme-yellow dark:border-theme-blue-1 rounded-[12px] flex flex-col justify-start items-start px-[16px] tlg:px-[14px] tmd:px-[12px] py-[22px] tlg:py-[16px] tmd:py-[14px] bg-theme-4 dark:bg-theme-blue-2 drop-shadow-default dark:drop-shadow-dark'>
+                                            <input onChange={handleSortOptionChange} type='radio' id="option-sort-like" name="option-sort" value="like" className="option-input hidden" defaultChecked={sort === "like" ? true : false}/>
+                                            <div className='flex flex-row justify-start items-center mb-[16px] tlg:mb-[10px]'>
+                                                <label htmlFor='option-sort-like'>
+                                                    <svg className='w-[18px] tlg:w-[14px] mr-[10px] tlg:mr-[8px] cursor-pointer fill-theme-yellow dark:fill-theme-blue-1' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.235.235 0 0 1 .02-.022z"/></svg>
+                                                    <svg className='w-[18px] tlg:w-[14px] mr-[10px] tlg:mr-[8px] cursor-pointer fill-theme-yellow dark:fill-theme-blue-1' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm10.03 4.97a.75.75 0 0 1 .011 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.75.75 0 0 1 1.08-.022z"/></svg>
+                                                </label>
+                                                <span className="text-[14px] tlg:text-[12px] tlg:pb-px text-theme-10/80 dark:text-theme-9 leading-tight">인기순</span>
+                                            </div>
                                             <input onChange={handleSortOptionChange} type='radio' id="option-sort-view" name="option-sort" value="view" className="option-input hidden" defaultChecked={sort === "view" ? true : false}/>
                                             <div className='flex flex-row justify-start items-center mb-[16px] tlg:mb-[10px]'>
                                                 <label htmlFor='option-sort-view'>
@@ -476,7 +484,7 @@ export default function Header (
                                         </a>
                                         {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
                                         <button onClick={handleLogout} className="w-[100%] h-[28px] flex flex-row justify-center items-center rounded-[8px] mt-[12px] bg-theme-yellow/90 hover:bg-theme-yellow tlg:hover:bg-theme-yellow/90 dark:bg-theme-blue-1/90 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1/90">
-                                            <span className="text-theme-5 dark:text-theme-blue-2 font-medium mt-px">로그아웃</span>
+                                            <span className="text-theme-4 dark:text-theme-blue-2 font-medium mt-px">로그아웃</span>
                                         </button>
                                     </div>
                                 }
