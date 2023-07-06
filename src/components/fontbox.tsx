@@ -37,7 +37,6 @@ export default function FontBox ({lang, type, sort, user, like, filter, searchwo
     } = useInfiniteQuery('fonts', async ({ pageParam = '' }) => {
         await new Promise((res) => setTimeout(res, 100));
         const res = await axios.get('/api/fontlist', {params: { id: pageParam, lang: lang, type: type, sort: sort, searchword: searchword, filter: filter === 'liked' ? liked : '' }});
-        console.log(res);
         return res.data;
     },{
         getNextPageParam: (lastPage) => lastPage.nextId ?? false,
