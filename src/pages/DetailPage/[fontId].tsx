@@ -153,18 +153,18 @@ function DetailPage({params}: any) {
             <div className="w-[100%] py-[24px] tlg:py-[20px] tmd:py-[16px]">
                 <link href={font.cdn_url} rel="stylesheet" type="text/css" itemProp="url"></link>
                 <div className="w-[100%] flex flex-col justify-start items-start">
-                    <div style={{fontFamily:font.font_family}} className="text-[32px] tlg:text-[28px] tmd:text-[24px] text-theme-3 dark:text-theme-9 font-medium leading-tight mb-[12px] tlg:mb-[8px]">{font.name}</div>
+                    <div style={{fontFamily:'"'+font.font_family+'"'}} className="text-[32px] tlg:text-[28px] tmd:text-[24px] text-theme-3 dark:text-theme-9 font-medium leading-tight mb-[12px] tlg:mb-[8px]">{font.name}</div>
                     <div className="flex flex-row justify-start items-center">
-                        <div style={{fontFamily:font.font_family}} className="text-[16px] tlg:text-[14px] tmd:text-[12px] leading-tight text-theme-3 dark:text-theme-9 ml-[2px] mr-[16px] tlg:mr-[14px] tmd:mr-[12px]">
+                        <div style={{fontFamily:'"'+font.font_family+'"'}} className="text-[16px] tlg:text-[14px] tmd:text-[12px] leading-tight text-theme-3 dark:text-theme-9 ml-[2px] mr-[16px] tlg:mr-[14px] tmd:mr-[12px]">
                             제작
                             <Link href={{pathname: "/", query: {search: font.source}}} className="relative group text-theme-yellow dark:text-theme-blue-1 border-b border-theme-yellow dark:border-theme-blue-1 ml-[8px] tlg:ml-[6px]">
                                 {font.source}
                                 <div className="same-source w-content absolute z-10 left-[50%] top-[-38px] text-[13px] font-medium leading-none px-[14px] py-[8px] rounded-[4px] hidden group-hover:block tlg:group-hover:hidden group-hover:animate-fontbox-zoom-in bg-theme-yellow dark:bg-theme-blue-1 text-theme-3 dark:text-theme-blue-2">제작사의 다른 폰트 보기</div>
                             </Link>
                         </div>
-                        <div style={{fontFamily:font.font_family}} className="text-[16px] tlg:text-[14px] tmd:text-[12px] leading-tight text-theme-3 dark:text-theme-9 mr-[16px] tlg:mr-[14px] tmd:mr-[12px]">형태<span className="text-theme-5 dark:text-theme-7 ml-[8px] tlg:ml-[6px]">{font.font_type === "Sans Serif" ? "고딕" : (font.font_type === "Serif" ? "명조" : (font.font_type === "Hand Writing" ? "손글씨" : (font.font_type === "Display" ? "장식체" : "픽셀체")))}</span></div>
-                        <div style={{fontFamily:font.font_family}} className="text-[16px] tlg:text-[14px] tmd:text-[12px] leading-tight text-theme-3 dark:text-theme-9 mr-[16px] tlg:mr-[14px] tmd:mr-[12px]">조회수<span className="text-theme-5 dark:text-theme-7 ml-[8px] tlg:ml-[6px]">{formatNumber(font.view)}</span></div>
-                        <div style={{fontFamily:font.font_family}} className="text-[16px] tlg:text-[14px] tmd:text-[12px] leading-tight text-theme-3 dark:text-theme-9">좋아요 수<span className="text-theme-5 dark:text-theme-7 ml-[8px] tlg:ml-[6px]">{formatNumber(font.like)}</span></div>
+                        <div style={{fontFamily:'"'+font.font_family+'"'}} className="text-[16px] tlg:text-[14px] tmd:text-[12px] leading-tight text-theme-3 dark:text-theme-9 mr-[16px] tlg:mr-[14px] tmd:mr-[12px]">형태<span className="text-theme-5 dark:text-theme-7 ml-[8px] tlg:ml-[6px]">{font.font_type === "Sans Serif" ? "고딕" : (font.font_type === "Serif" ? "명조" : (font.font_type === "Hand Writing" ? "손글씨" : (font.font_type === "Display" ? "장식체" : "픽셀체")))}</span></div>
+                        <div style={{fontFamily:'"'+font.font_family+'"'}} className="text-[16px] tlg:text-[14px] tmd:text-[12px] leading-tight text-theme-3 dark:text-theme-9 mr-[16px] tlg:mr-[14px] tmd:mr-[12px]">조회수<span className="text-theme-5 dark:text-theme-7 ml-[8px] tlg:ml-[6px]">{formatNumber(font.view)}</span></div>
+                        <div style={{fontFamily:'"'+font.font_family+'"'}} className="text-[16px] tlg:text-[14px] tmd:text-[12px] leading-tight text-theme-3 dark:text-theme-9">좋아요 수<span className="text-theme-5 dark:text-theme-7 ml-[8px] tlg:ml-[6px]">{formatNumber(font.like)}</span></div>
                     </div>
                     <div className="w-[100%] h-px my-[20px] tlg:my-[16px] bg-theme-7 dark:bg-theme-4"></div>
                 </div>
@@ -303,7 +303,7 @@ function DetailPage({params}: any) {
                             font.font_weight[0] === "Y"
                             ? <>
                                 <div className="text-[14px] tlg:text-[11px] text-theme-7 leading-none mb-[12px]">Thin 100</div>
-                                <pre style={{fontFamily:font.font_family, fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"100"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
+                                <pre style={{fontFamily:'"'+font.font_family+'"', fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"100"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
                             </>
                             : <></>
                         }
@@ -311,7 +311,7 @@ function DetailPage({params}: any) {
                             font.font_weight[1] === "Y"
                             ? <>
                                 <div className="text-[14px] tlg:text-[11px] text-theme-7 leading-none mb-[12px]">ExtraLight 200</div>
-                                <pre style={{fontFamily:font.font_family, fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"200"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
+                                <pre style={{fontFamily:'"'+font.font_family+'"', fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"200"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
                             </>
                             : <></>
                         }
@@ -319,7 +319,7 @@ function DetailPage({params}: any) {
                             font.font_weight[2] === "Y"
                             ? <>
                                 <div className="text-[14px] tlg:text-[11px] text-theme-7 leading-none mb-[12px]">Light 300</div>
-                                <pre style={{fontFamily:font.font_family, fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"300"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
+                                <pre style={{fontFamily:'"'+font.font_family+'"', fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"300"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
                             </>
                             : <></>
                         }
@@ -327,7 +327,7 @@ function DetailPage({params}: any) {
                             font.font_weight[3] === "Y"
                             ? <>
                                 <div className="text-[14px] tlg:text-[11px] text-theme-7 leading-none mb-[12px]">Regular 400</div>
-                                <pre style={{fontFamily:font.font_family, fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"400"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
+                                <pre style={{fontFamily:'"'+font.font_family+'"', fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"400"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
                             </>
                             : <></>
                         }
@@ -335,7 +335,7 @@ function DetailPage({params}: any) {
                             font.font_weight[4] === "Y"
                             ? <>
                                 <div className="text-[14px] tlg:text-[11px] text-theme-7 leading-none mb-[12px]">Medium 500</div>
-                                <pre style={{fontFamily:font.font_family, fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"500"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
+                                <pre style={{fontFamily:'"'+font.font_family+'"', fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"500"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
                             </>
                             : <></>
                         }
@@ -343,7 +343,7 @@ function DetailPage({params}: any) {
                             font.font_weight[5] === "Y"
                             ? <>
                                 <div className="text-[14px] tlg:text-[11px] text-theme-7 leading-none mb-[12px]">SemiBold 600</div>
-                                <pre style={{fontFamily:font.font_family, fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"600"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
+                                <pre style={{fontFamily:'"'+font.font_family+'"', fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"600"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
                             </>
                             : <></>
                         }
@@ -351,7 +351,7 @@ function DetailPage({params}: any) {
                             font.font_weight[6] === "Y"
                             ? <>
                                 <div className="text-[14px] tlg:text-[11px] text-theme-7 leading-none mb-[12px]">Bold 700</div>
-                                <pre style={{fontFamily:font.font_family, fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"700"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
+                                <pre style={{fontFamily:'"'+font.font_family+'"', fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"700"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
                             </>
                             : <></>
                         }
@@ -359,7 +359,7 @@ function DetailPage({params}: any) {
                             font.font_weight[7] === "Y"
                             ? <>
                                 <div className="text-[14px] tlg:text-[11px] text-theme-7 leading-none mb-[12px]">Heavy 800</div>
-                                <pre style={{fontFamily:font.font_family, fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"800"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
+                                <pre style={{fontFamily:'"'+font.font_family+'"', fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"800"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
                             </>
                             : <></>
                         }
@@ -367,7 +367,7 @@ function DetailPage({params}: any) {
                             font.font_weight[8] === "Y"
                             ? <>
                                 <div className="text-[14px] tmd:text-[12px] text-theme-7 leading-none mb-[12px]">Black 900</div>
-                                <pre style={{fontFamily:font.font_family, fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"900"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
+                                <pre style={{fontFamily:'"'+font.font_family+'"', fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"900"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
                             </>
                             : <></>
                         }
