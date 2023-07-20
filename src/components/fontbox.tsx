@@ -11,7 +11,7 @@ import { throttle } from 'lodash';
 import DummyText from "./dummytext";
 import SkeletonBox from './skeletonbox';
 
-export default function FontBox ({lang, type, sort, user, like, filter, searchword, text, num}:{lang: string, type: string, sort: string, user: any, like: any, filter: string, searchword: string, text: string, num: number}) {
+export default function FontBox ({lang, type, sort, user, like, filter, searchword, text, num}:{lang: string, type: string, sort: string, user: any, like: any, filter: string, searchword: string, text: string, num: number}) {        
     // react-intersection-observer 훅
     const { ref, inView } = useInView();
 
@@ -29,12 +29,14 @@ export default function FontBox ({lang, type, sort, user, like, filter, searchwo
     // useInfiniteQuery 사용해 다음에 불러올 데이터 업데이트
     const {
         isLoading,
+        isSuccess,
+        isPreviousData,
         data,
         remove,
         refetch,
         fetchNextPage,
         hasNextPage
-    } = useInfiniteQuery('fonts', async ({ pageParam = '' }) => {
+    } = useInfiniteQuery(['fonts', {keepPreviousData: true}], async ({ pageParam = '' }) => {
         await new Promise((res) => setTimeout(res, 100));
         const res = await axios.get('/api/fontlist', {params: { id: pageParam, lang: lang, type: type, sort: sort, searchword: searchword, filter: filter === 'liked' ? liked : '' }});
         return res.data;
@@ -85,6 +87,22 @@ export default function FontBox ({lang, type, sort, user, like, filter, searchwo
     const handleDefaultLike = (fontCode: number) => {
         return like === null ? false : like.some((font: any) => font.font_id === fontCode);
     }
+
+    // 폰트 로딩 콜백 - hook
+    const FontFaceObserver = require('fontfaceobserver');
+
+    // 폰트 로딩 콜백 - 투명도 변경
+    useEffect(() => {
+        if (data) {
+            for (let i = 0; i < data.pages[data.pages.length-1].fonts.length; i++) {
+                let font = new FontFaceObserver(data.pages[data.pages.length-1].fonts[i].font_family)
+                font.load(null, 5000).then(function() {
+                    document.getElementsByClassName(data.pages[data.pages.length-1].fonts[i].code + '-text')[0].classList.add('text-theme-3', 'dark:text-theme-8');
+                    document.getElementsByClassName(data.pages[data.pages.length-1].fonts[i].code + '-text')[0].classList.remove('text-theme-3/60', 'dark:text-theme-8/60');
+                });
+            }
+        }
+    }, [data, FontFaceObserver]);
 
     return (
         <>
@@ -138,7 +156,7 @@ export default function FontBox ({lang, type, sort, user, like, filter, searchwo
                                         </div>
                                         <div className="w-[100%] h-px my-[0.83vw] tlg:my-[1.56vw] tmd:my-[2.08vw] txs:my-[3.33vw] bg-theme-7 dark:bg-theme-5"></div>
                                         <div style={{fontFamily:"'"+font.font_family+"'"}} className="text-[1.88vw] tlg:text-[3.52vw] tmd:text-[4.69vw] txs:text-[7.5vw] text-normal leading-normal overflow-hidden">
-                                            <p className='ellipsed-text text-theme-3 dark:text-theme-8'><DummyText lang={font.lang} text={text} num={num}/></p>
+                                            <p className={`${font.code + '-text'} textbox ellipsed-text text-theme-3/60 dark:text-theme-8/60`}><DummyText lang={font.lang} text={text} num={num}/></p>
                                         </div>
                                     </a>
                                 ))}
