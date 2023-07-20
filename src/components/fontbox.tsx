@@ -29,8 +29,6 @@ export default function FontBox ({lang, type, sort, user, like, filter, searchwo
     // useInfiniteQuery 사용해 다음에 불러올 데이터 업데이트
     const {
         isLoading,
-        isSuccess,
-        isPreviousData,
         data,
         remove,
         refetch,
