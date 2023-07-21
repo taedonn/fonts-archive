@@ -94,14 +94,12 @@ export default function FontBox ({lang, type, sort, user, like, filter, searchwo
         if (data) {
             for (let i = 0; i < data.pages[data.pages.length-1].fonts.length; i++) {
                 let font = new FontFaceObserver(data.pages[data.pages.length-1].fonts[i].font_family)
-                font.load(null, 5000).then(function() { // 폰트 로딩 시 텍스트 투명도 제거
+                font.load(null, 5000).then(function() { // 폰트 로딩 시 텍스트 투명도 제거 (timeout 5초)
                     document.getElementsByClassName(data.pages[data.pages.length-1].fonts[i].code + '-text')[0].classList.add('text-theme-3', 'dark:text-theme-8');
                     document.getElementsByClassName(data.pages[data.pages.length-1].fonts[i].code + '-text')[0].classList.remove('text-theme-3/60', 'dark:text-theme-8/60');
-                }, function() { // 폰트 로딩 실패 시 다시 로딩
-                    font.load(null, 5000).then(function() {
-                        document.getElementsByClassName(data.pages[data.pages.length-1].fonts[i].code + '-text')[0].classList.add('text-theme-3', 'dark:text-theme-8');
-                        document.getElementsByClassName(data.pages[data.pages.length-1].fonts[i].code + '-text')[0].classList.remove('text-theme-3/60', 'dark:text-theme-8/60');
-                    });
+                }, function() { // 폰트 로딩 실패 시에도 투명도 제거
+                    document.getElementsByClassName(data.pages[data.pages.length-1].fonts[i].code + '-text')[0].classList.add('text-theme-3', 'dark:text-theme-8');
+                    document.getElementsByClassName(data.pages[data.pages.length-1].fonts[i].code + '-text')[0].classList.remove('text-theme-3/60', 'dark:text-theme-8/60');
                 });
             }
         }
