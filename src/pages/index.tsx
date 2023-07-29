@@ -106,7 +106,7 @@ export async function getServerSideProps(ctx: any) {
         // 필터링 쿠키 체크
         const cookieLang = ctx.req.cookies.lang === undefined ? "all" : ctx.req.cookies.lang;
         const cookieType = ctx.req.cookies.type === undefined ? "all" : ctx.req.cookies.type;
-        const cookieSort = ctx.req.cookies.sort === undefined ? "like" : ctx.req.cookies.sort;
+        const cookieSort = ctx.req.cookies.sort === undefined ? "view" : ctx.req.cookies.sort;
         const cookieTheme = ctx.req.cookies.theme === undefined ? "dark" : ctx.req.cookies.theme;
 
         // 검색어 파라미터 체크

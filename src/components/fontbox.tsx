@@ -15,12 +15,6 @@ export default function FontBox ({lang, type, sort, user, like, filter, searchwo
     // react-intersection-observer 훅
     const { ref, inView } = useInView();
 
-    // react-intersection-observer 사용해 ref를 지정한 요소가 viewport에 있을 때 fetchNextPage 함수 실행
-    useEffect(() => {
-        if (inView && hasNextPage) { fetchNextPage(); }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [inView]);
-
     // 좋아요한 폰트가 있으면 array => string으로 변환 후 api에 전달
     let likedArr: string[] = [];
     like === null ? null : like.forEach((obj: any) => likedArr.push(obj.font_id));
@@ -42,10 +36,17 @@ export default function FontBox ({lang, type, sort, user, like, filter, searchwo
         getNextPageParam: (lastPage) => lastPage.nextId ?? false,
     });
 
+    // react-intersection-observer 사용해 ref를 지정한 요소가 viewport에 있을 때 fetchNextPage 함수 실행
+    useEffect(() => {
+        if (inView && hasNextPage) { fetchNextPage(); }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [inView, data]);
+
     // 폰트 검색 필터링 값 변경 시 기존 데이터 지우고 useInfiniteQuery 재실행
     useEffect(() => {
         remove();
         refetch();
+        window.scrollTo(0, 0);
     }, [lang, type, sort, searchword, remove, refetch]);
 
     // 즐겨찾기 state
@@ -95,11 +96,17 @@ export default function FontBox ({lang, type, sort, user, like, filter, searchwo
             for (let i = 0; i < data.pages[data.pages.length-1].fonts.length; i++) {
                 let font = new FontFaceObserver(data.pages[data.pages.length-1].fonts[i].font_family)
                 font.load(null, 5000).then(function() { // 폰트 로딩 시 텍스트 투명도 제거 (timeout 5초)
-                    document.getElementsByClassName(data.pages[data.pages.length-1].fonts[i].code + '-text')[0].classList.add('text-theme-3', 'dark:text-theme-8');
-                    document.getElementsByClassName(data.pages[data.pages.length-1].fonts[i].code + '-text')[0].classList.remove('text-theme-3/60', 'dark:text-theme-8/60');
+                    let thisFont = document.getElementsByClassName(data.pages[data.pages.length-1].fonts[i].code + '-text');
+                    if (thisFont.length !== 0) {
+                        thisFont[0].classList.add('text-theme-3', 'dark:text-theme-8');
+                        thisFont[0].classList.remove('text-theme-3/60', 'dark:text-theme-8/60');   
+                    }
                 }, function() { // 폰트 로딩 실패 시에도 투명도 제거
-                    document.getElementsByClassName(data.pages[data.pages.length-1].fonts[i].code + '-text')[0].classList.add('text-theme-3', 'dark:text-theme-8');
-                    document.getElementsByClassName(data.pages[data.pages.length-1].fonts[i].code + '-text')[0].classList.remove('text-theme-3/60', 'dark:text-theme-8/60');
+                    let thisFont = document.getElementsByClassName(data.pages[data.pages.length-1].fonts[i].code + '-text');
+                    if (thisFont.length !== 0) {
+                        thisFont[0].classList.add('text-theme-3', 'dark:text-theme-8');
+                        thisFont[0].classList.remove('text-theme-3/60', 'dark:text-theme-8/60');   
+                    }
                 });
             }
         }
