@@ -37,7 +37,7 @@ class MyDocument extends Document {
                     {/* <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7819549426971576" crossOrigin="anonymous"></script> */}
                 </Head>
                 <script dangerouslySetInnerHTML={{ __html: themeInitializerScript }}/>
-                <body style={{fontFamily: "Spoqa Han Sans Neo, Noto Sans KR"}} className="px-[20px] tlg:px-[16px]">
+                <body style={{fontFamily: "Spoqa Han Sans Neo, Noto Sans KR"}} className="px-[32px] tlg:px-[16px]">
                     <Main/>
                     <NextScript/>
                 </body>

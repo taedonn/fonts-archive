@@ -246,7 +246,7 @@ export default function Header (
     return (
         <>
             <div className="w-[100%] mt-[60px] tlg:mt-[52px]">
-                <div className='interface w-[100%] h-[60px] tlg:h-[52px] px-[20px] tlg:px-[16px] fixed right-0 top-0 z-20 flex flex-row justify-between items-center backdrop-blur bg-theme-9/80 dark:bg-theme-2/80 border-b border-theme-7 dark:border-theme-4'>
+                <div className='interface w-[100%] h-[60px] tlg:h-[52px] px-[32px] tlg:px-[16px] fixed right-0 top-0 z-20 flex flex-row justify-between items-center backdrop-blur bg-theme-9/80 dark:bg-theme-2/80 border-b border-theme-7 dark:border-theme-4'>
                     <div className="tlg:w-[100%] flex flex-row justify-start items-center">
                         {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
                         <a href="/" aria-label="logo" className="w-[36px] tlg:w-[32px] h-[36px] tlg:h-[32px] flex flex-row justify-center items-center rounded-[8px] tlg:rounded-[6px] mr-[12px] bg-theme-4 dark:bg-theme-1/80 hover:dark:bg-theme-1/60 tlg:hover:dark:bg-theme-1/80 hover:drop-shadow-default tlg:hover:drop-shadow-none hover:dark:drop-shadow-dark tlg:hover:dark:drop-shadow-none">
@@ -458,7 +458,7 @@ export default function Header (
                                 <svg className="w-[22px] fill-theme-4/80 hover:fill-theme-4 tlg:hover:fill-theme-4/80 dark:fill-theme-9/80 hover:dark:fill-theme-9 tlg:hover:dark:fill-theme-9/80" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/><path fillRule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/></svg>
                             </label>
                             <div ref={refAccountDiv} id="account-select" className="account-select w-[128px] absolute right-[0] top-[40px] rounded-[8px] px-[16px] py-[12px] bg-theme-4 dark:bg-theme-blue-2 drop-shadow-default dark:drop-shadow-dark cursor-default">
-                                <Link href="https://github.com/taedonn/fonts-archive" target="_blank" className="group flex flex-row justify-start items-center">
+                                <Link href="https://github.com/fonts-archive" target="_blank" className="group flex flex-row justify-start items-center">
                                     <svg className="w-[16px] fill-theme-10/80 group-hover:fill-theme-10 tlg:group-hover:fill-theme-10/80 dark:fill-theme-9/80 group-hover:dark:fill-theme-9 tlg:group-hover:dark:fill-theme-9/80" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
                                     <span className="text-[14px] ml-[8px] text-theme-10/80 group-hover:text-theme-10 tlg:group-hover:text-theme-10/80 dark:text-theme-9/80 group-hover:dark:text-theme-9 tlg:group-hover:dark:text-theme-9/80">깃허브</span>
                                 </Link>
