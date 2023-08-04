@@ -34,6 +34,10 @@ html.dark body {
     background-color: #202124;
 }
 
+tr, th, td {
+    font-weight: 400;
+}
+
 /* 스크롤바 */
 body::-webkit-scrollbar {
     width: 16px;

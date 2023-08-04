@@ -155,16 +155,16 @@ function DetailPage({params}: any) {
                 <div className="w-[100%] flex flex-col justify-start items-start">
                     <div style={{fontFamily:'"'+font.font_family+'"'}} className="text-[32px] tlg:text-[28px] tmd:text-[24px] text-theme-3 dark:text-theme-9 font-medium leading-tight mb-[12px] tlg:mb-[8px]">{font.name}</div>
                     <div className="flex flex-row justify-start items-center">
-                        <div style={{fontFamily:'"'+font.font_family+'"'}} className="text-[14px] tmd:text-[12px] leading-tight text-theme-3 dark:text-theme-9 ml-[2px] mr-[14px] tmd:mr-[12px]">
+                        <div style={{fontFamily:'"'+font.font_family+'"'}} className="text-[16px] tmd:text-[12px] leading-tight text-theme-3 dark:text-theme-9 ml-[2px] mr-[16px] tmd:mr-[12px]">
                             제작
                             <Link href={{pathname: "/", query: {search: font.source}}} className="relative group text-theme-yellow dark:text-theme-blue-1 border-b border-theme-yellow dark:border-theme-blue-1 ml-[8px] tlg:ml-[6px]">
                                 {font.source}
                                 <div className="same-source w-content absolute z-10 left-[50%] top-[-38px] text-[13px] font-medium leading-none px-[14px] py-[8px] rounded-[4px] hidden group-hover:block tlg:group-hover:hidden group-hover:animate-fontbox-zoom-in bg-theme-yellow dark:bg-theme-blue-1 text-theme-3 dark:text-theme-blue-2">제작사의 다른 폰트 보기</div>
                             </Link>
                         </div>
-                        <div style={{fontFamily:'"'+font.font_family+'"'}} className="text-[14px] tmd:text-[12px] leading-tight text-theme-3 dark:text-theme-9 mr-[14px] tmd:mr-[12px]">형태<span className="text-theme-5 dark:text-theme-7 ml-[6px]">{font.font_type === "Sans Serif" ? "고딕" : (font.font_type === "Serif" ? "명조" : (font.font_type === "Hand Writing" ? "손글씨" : (font.font_type === "Display" ? "장식체" : "픽셀체")))}</span></div>
-                        <div style={{fontFamily:'"'+font.font_family+'"'}} className="text-[14px] tmd:text-[12px] leading-tight text-theme-3 dark:text-theme-9 mr-[14px] tmd:mr-[12px]">조회수<span className="text-theme-5 dark:text-theme-7 ml-[6px]">{formatNumber(font.view)}</span></div>
-                        <div style={{fontFamily:'"'+font.font_family+'"'}} className="text-[14px] tmd:text-[12px] leading-tight text-theme-3 dark:text-theme-9">좋아요 수<span className="text-theme-5 dark:text-theme-7 ml-[6px]">{formatNumber(font.like)}</span></div>
+                        <div style={{fontFamily:'"'+font.font_family+'"'}} className="text-[16px] tmd:text-[12px] leading-tight text-theme-3 dark:text-theme-9 mr-[14px] tmd:mr-[12px]">형태<span className="text-theme-5 dark:text-theme-7 ml-[6px]">{font.font_type === "Sans Serif" ? "고딕" : (font.font_type === "Serif" ? "명조" : (font.font_type === "Hand Writing" ? "손글씨" : (font.font_type === "Display" ? "장식체" : "픽셀체")))}</span></div>
+                        <div style={{fontFamily:'"'+font.font_family+'"'}} className="text-[16px] tmd:text-[12px] leading-tight text-theme-3 dark:text-theme-9 mr-[14px] tmd:mr-[12px]">조회수<span className="text-theme-5 dark:text-theme-7 ml-[6px]">{formatNumber(font.view)}</span></div>
+                        <div style={{fontFamily:'"'+font.font_family+'"'}} className="text-[16px] tmd:text-[12px] leading-tight text-theme-3 dark:text-theme-9">좋아요 수<span className="text-theme-5 dark:text-theme-7 ml-[6px]">{formatNumber(font.like)}</span></div>
                     </div>
                     <div className="w-[100%] h-px my-[16px] tmd:my-[12px] bg-theme-7 dark:bg-theme-4"></div>
                 </div>
@@ -377,16 +377,16 @@ function DetailPage({params}: any) {
                     <h2 className="text-[20px] tmd:text-[18px] text-theme-3 dark:text-theme-9 font-medium mb-[16px] tmd:mb-[14px]">라이센스 사용 범위</h2>
                     <div className="w-[100%] flex flex-row tlg:flex-col justify-between items-start">
                         <table className="tlg:w-[100%] tlg:mb-[16px] tmd:mb-[12px] text-left rounded-[12px] border border-theme-7 dark:border-theme-5">
-                            <thead className="h-[44px] border-b border-theme-7 dark:border-theme-5">
-                                <tr className="text-[14px] tmd:text-[12px] text-theme-3 dark:text-theme-9 font-medium">
-                                    <th className="w-[120px] tlg:w-[100px] tmd:w-[80px] pl-[16px] tmd:pl-[12px]">카테고리</th>
+                            <thead className="h-[46px] border-b border-theme-7 dark:border-theme-5">
+                                <tr className="text-[16px] tlg:text-[14px] tmd:text-[12px] text-theme-3 dark:text-theme-9 font-medium">
+                                    <th className="w-[120px] tlg:w-[100px] tmd:w-[80px] pl-[20px] tlg:pl-[16px] tmd:pl-[12px]">카테고리</th>
                                     <th className="w-[450px] tlg:w-[auto]">사용 범위</th>
-                                    <th className="w-[100px] tmd:w-[80px] pr-[16px] tmd:pr-[12px] text-right">허용 여부</th>
+                                    <th className="w-[100px] tmd:w-[80px] pr-[20px] tlg:pr-[16px] tmd:pr-[12px] text-right">허용 여부</th>
                                 </tr>
                             </thead>
-                            <tbody className="text-[14px] tmd:text-[12px] leading-tight text-theme-5 dark:text-theme-8 fill-theme-5 dark:fill-theme-7 text-left font-normal">
-                                <tr className="h-[44px] border-b border-theme-7 dark:border-theme-5">
-                                    <td className="pl-[16px] tmd:pl-[12px]">인쇄</td>
+                            <tbody className="text-[16px] tlg:text-[14px] tmd:text-[12px] leading-tight text-theme-5 dark:text-theme-8 fill-theme-5 dark:fill-theme-7 text-left font-normal">
+                                <tr className="h-[42px] border-b border-theme-7 dark:border-theme-5">
+                                    <td className="pl-[20px] tlg:pl-[16px] tmd:pl-[12px]">인쇄</td>
                                     <td>
                                         {
                                             font.license_print === "Y"
@@ -394,7 +394,7 @@ function DetailPage({params}: any) {
                                             : <span className="text-theme-red/80 line-through">브로슈어, 포스터, 책, 잡지 및 출판용 인쇄물 등</span>
                                         }
                                     </td>
-                                    <td className="h-[44px] pr-[16px] tmd:pr-[12px] flex flex-row justify-end items-center">
+                                    <td className="h-[42px] pr-[20px] tlg:pr-[16px] tmd:pr-[12px] flex flex-row justify-end items-center">
                                         {
                                             font.license_print === "Y"
                                             ? <svg className="w-[12px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
@@ -408,8 +408,8 @@ function DetailPage({params}: any) {
                                         }
                                     </td>
                                 </tr>
-                                <tr className="h-[44px] border-b border-theme-7 dark:border-theme-5">
-                                    <td className="pl-[16px] tmd:pl-[12px]">웹사이트</td>
+                                <tr className="h-[42px] border-b border-theme-7 dark:border-theme-5">
+                                    <td className="pl-[20px] tlg:pl-[16px] tmd:pl-[12px]">웹사이트</td>
                                     <td>
                                         {
                                             font.license_web === "Y"
@@ -417,7 +417,7 @@ function DetailPage({params}: any) {
                                             : <span className="text-theme-red/80 line-through">웹페이지, 광고 배너, 메일, E-브로슈어 등</span>
                                         }
                                     </td>
-                                    <td className="h-[44px] pr-[16px] tmd:pr-[12px] flex flex-row justify-end items-center">
+                                    <td className="h-[42px] pr-[20px] tlg:pr-[16px] tmd:pr-[12px] flex flex-row justify-end items-center">
                                         {
                                             font.license_web === "Y"
                                             ? <svg className="w-[12px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
@@ -431,8 +431,8 @@ function DetailPage({params}: any) {
                                         }
                                     </td>
                                 </tr>
-                                <tr className="h-[44px] border-b border-theme-7 dark:border-theme-5">
-                                    <td className="pl-[16px] tmd:pl-[12px]">영상</td>
+                                <tr className="h-[42px] border-b border-theme-7 dark:border-theme-5">
+                                    <td className="pl-[20px] tlg:pl-[16px] tmd:pl-[12px]">영상</td>
                                     <td>
                                         {
                                             font.license_video === "Y"
@@ -440,7 +440,7 @@ function DetailPage({params}: any) {
                                             : <span className="text-theme-red/80 line-through">영상물 자막, 영화 오프닝/엔딩 크레딧, UCC 등</span>
                                         }
                                     </td>
-                                    <td className="h-[44px] pr-[16px] tmd:pr-[12px] flex flex-row justify-end items-center">
+                                    <td className="h-[42px] pr-[20px] tlg:pr-[16px] tmd:pr-[12px] flex flex-row justify-end items-center">
                                         {
                                             font.license_video === "Y"
                                             ? <svg className="w-[12px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
@@ -454,8 +454,8 @@ function DetailPage({params}: any) {
                                         }
                                     </td>
                                 </tr>
-                                <tr className="h-[44px] border-b border-theme-7 dark:border-theme-5">
-                                    <td className="pl-[16px] tmd:pl-[12px]">포장지</td>
+                                <tr className="h-[42px] border-b border-theme-7 dark:border-theme-5">
+                                    <td className="pl-[20px] tlg:pl-[16px] tmd:pl-[12px]">포장지</td>
                                     <td>
                                         {
                                             font.license_package === "Y"
@@ -463,7 +463,7 @@ function DetailPage({params}: any) {
                                             : <span className="text-theme-red/80 line-through">판매용 상품의 패키지</span>
                                         }
                                     </td>
-                                    <td className="h-[44px] pr-[16px] tmd:pr-[12px] flex flex-row justify-end items-center">
+                                    <td className="h-[42px] pr-[20px] tlg:pr-[16px] tmd:pr-[12px] flex flex-row justify-end items-center">
                                         {
                                             font.license_package === "Y"
                                             ? <svg className="w-[12px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
@@ -477,8 +477,8 @@ function DetailPage({params}: any) {
                                         }
                                     </td>
                                 </tr>
-                                <tr className="h-[44px] border-b border-theme-7 dark:border-theme-5">
-                                    <td className="pl-[16px] tmd:pl-[12px]">임베딩</td>
+                                <tr className="h-[42px] border-b border-theme-7 dark:border-theme-5">
+                                    <td className="pl-[20px] tlg:pl-[16px] tmd:pl-[12px]">임베딩</td>
                                     <td>
                                         {
                                             font.license_embed === "Y"
@@ -486,7 +486,7 @@ function DetailPage({params}: any) {
                                             : <span className="text-theme-red/80 line-through">웹사이트 및 프로그램 서버 내 폰트 탑재, E-book 제작</span>
                                         }
                                     </td>
-                                    <td className="h-[44px] pr-[16px] tmd:pr-[12px] flex flex-row justify-end items-center">
+                                    <td className="h-[42px] pr-[20px] tlg:pr-[16px] tmd:pr-[12px] flex flex-row justify-end items-center">
                                         {
                                             font.license_embed === "Y"
                                             ? <svg className="w-[12px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
@@ -500,8 +500,8 @@ function DetailPage({params}: any) {
                                         }
                                     </td>
                                 </tr>
-                                <tr className="h-[44px] border-b border-theme-7 dark:border-theme-5">
-                                    <td className="pl-[16px] tmd:pl-[12px]">BI/CI</td>
+                                <tr className="h-[42px] border-b border-theme-7 dark:border-theme-5">
+                                    <td className="pl-[20px] tlg:pl-[16px] tmd:pl-[12px]">BI/CI</td>
                                     <td>
                                         {
                                             font.license_bici === "Y"
@@ -509,7 +509,7 @@ function DetailPage({params}: any) {
                                             : <span className="text-theme-red/80 line-through">회사명, 브랜드명, 상품명, 로고, 마크, 슬로건, 캐치프레이즈</span>
                                         }
                                     </td>
-                                    <td className="h-[44px] pr-[16px] tmd:pr-[12px] flex flex-row justify-end items-center">
+                                    <td className="h-[42px] pr-[20px] tlg:pr-[16px] tmd:pr-[12px] flex flex-row justify-end items-center">
                                         {
                                             font.license_bici === "Y"
                                             ? <svg className="w-[12px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
@@ -523,8 +523,8 @@ function DetailPage({params}: any) {
                                         }
                                     </td>
                                 </tr>
-                                <tr className="h-[44px] border-b border-theme-7 dark:border-theme-5">
-                                    <td className="pl-[16px] tmd:pl-[12px]">OFL</td>
+                                <tr className="h-[42px] border-b border-theme-7 dark:border-theme-5">
+                                    <td className="pl-[20px] tlg:pl-[16px] tmd:pl-[12px]">OFL</td>
                                     <td>
                                         {
                                             font.license_ofl === "Y"
@@ -532,7 +532,7 @@ function DetailPage({params}: any) {
                                             : <span className="text-theme-red/80 line-through">폰트 파일의 수정/ 복제/ 배포/ 유료 판매 금지</span>
                                         }
                                     </td>
-                                    <td className="h-[44px] pr-[16px] tmd:pr-[12px] flex flex-row justify-end items-center">
+                                    <td className="h-[42px] pr-[20px] tlg:pr-[16px] tmd:pr-[12px] flex flex-row justify-end items-center">
                                         {
                                             font.license_ofl === "Y"
                                             ? <svg className="w-[12px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
@@ -540,8 +540,8 @@ function DetailPage({params}: any) {
                                         }
                                     </td>
                                 </tr>
-                                <tr className="h-[44px] border-b border-theme-7 dark:border-theme-5">
-                                    <td className="pl-[16px] tmd:pl-[12px]">용도</td>
+                                <tr className="h-[42px] border-b border-theme-7 dark:border-theme-5">
+                                    <td className="pl-[20px] tlg:pl-[16px] tmd:pl-[12px]">용도</td>
                                     <td>
                                         {
                                             font.license_purpose === "Y"
@@ -549,7 +549,7 @@ function DetailPage({params}: any) {
                                             : <span className="text-theme-red/80 line-through">개인적 용도 사용 가능, 상업적 용도 사용 금지</span>
                                         }
                                     </td>
-                                    <td className="h-[44px] pr-[16px] tmd:pr-[12px] flex flex-row justify-end items-center">
+                                    <td className="h-[42px] pr-[20px] tlg:pr-[16px] tmd:pr-[12px] flex flex-row justify-end items-center">
                                         {
                                             font.license_purpose === "Y"
                                             ? <svg className="w-[12px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
@@ -557,10 +557,10 @@ function DetailPage({params}: any) {
                                         }
                                     </td>
                                 </tr>
-                                <tr className="h-[44px]">
-                                    <td className="pl-[16px] tmd:pl-[12px]">출처</td>
+                                <tr className="h-[42px]">
+                                    <td className="pl-[20px] tlg:pl-[16px] tmd:pl-[12px]">출처</td>
                                     <td>출처 표시</td>
-                                    <td className="h-[44px] pr-[16px] tmd:pr-[12px] flex flex-row justify-end items-center">
+                                    <td className="h-[42px] pr-[20px] tlg:pr-[16px] tmd:pr-[12px] flex flex-row justify-end items-center">
                                         {
                                             font.license_source === "Y"
                                             ? <svg className="w-[12px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
@@ -570,10 +570,10 @@ function DetailPage({params}: any) {
                                 </tr>
                             </tbody>
                         </table>
-                        <div className="w-[calc(100%-690px)] tlg:w-[100%] h-[450px] tlg:h-[auto] border border-theme-7 dark:border-theme-5">
-                            <h2 className="h-[44px] flex flex-row justify-start items-center text-[14px] tlg:text-[14px] tmd:text-[12px] text-theme-3 dark:text-theme-9 border-b border-theme-7 dark:border-theme-5 font-bold leading-none pl-[16px] tmd:pl-[12px]">라이센스 본문</h2>
+                        <div className="w-[calc(100%-690px)] tlg:w-[100%] h-[434px] tlg:h-[auto] border border-theme-7 dark:border-theme-5">
+                            <h2 className="h-[46px] flex flex-row justify-start items-center text-[16px] tlg:text-[14px] tmd:text-[12px] text-theme-3 dark:text-theme-9 border-b border-theme-7 dark:border-theme-5 font-medium leading-none pl-[20px] tlg:pl-[16px] tmd:pl-[12px]">라이센스 본문</h2>
                             <div className="license-wrap w-[100%] h-[404px] tlg:h-[auto] overflow-y-auto px-[16px] tmd:px-[12px] py-[12px]">
-                                <div id="license" className="text-[14px] tlg:text-[14px] tmd:text-[12px] text-theme-5 dark:text-theme-8 leading-loose"></div>
+                                <div id="license" className="text-[16px] tlg:text-[14px] tmd:text-[12px] text-theme-5 dark:text-theme-8 leading-loose"></div>
                             </div>
                         </div>
                     </div>
