@@ -1,5 +1,5 @@
 // react hooks
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useCookies } from 'react-cookie';
 import { debounce } from "lodash";
 
@@ -63,6 +63,14 @@ const Index = ({params}: any) => {
     const debouncedSearch = debounce((e) => { setSearchword(e.target.value); }, 500);
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => { debouncedSearch(e); }
 
+    // 로딩 시 body 패딩 제거 & 풋터 제거
+    useEffect(() => {
+        const body = document.body as HTMLBodyElement;
+        const footer = document.getElementsByTagName("footer")[0] as HTMLElement;
+        body.style.paddingBottom = "0";
+        footer.style.display = "none";
+    }, []);
+
     return (
         <>
             {/* 헤더 */}
@@ -81,9 +89,6 @@ const Index = ({params}: any) => {
                 handleSortOptionChange={handleSortOptionChange}
                 handleSearch={handleSearch}
             />
-
-            {/* 고정 메뉴 */}
-            <Tooltip/>
             
             {/* 메인 */}
             <FontBox 
@@ -97,6 +102,9 @@ const Index = ({params}: any) => {
                 text={text}
                 num={999}
             />
+
+            {/* 고정 메뉴 */}
+            <Tooltip/>
         </>
     );
 }

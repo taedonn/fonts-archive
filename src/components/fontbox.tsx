@@ -65,7 +65,7 @@ export default function FontBox ({lang, type, sort, user, like, filter, searchwo
 
     /** 스크롤 시 알럿창 닫기 */
     const handleScroll = () => { setAlertDisplay(false); }
-    const throttledScroll = throttle(handleScroll,500);
+    const throttledScroll = throttle(handleScroll, 500);
 
     // lodash/throttle을 이용해 스크롤 제어
     useEffect(() => {
@@ -213,7 +213,7 @@ export default function FontBox ({lang, type, sort, user, like, filter, searchwo
                     <span className="w-[100%]" ref={ref}></span>
 
                     {/* 로딩 바 */}
-                    {hasNextPage ? <div className="w-[100%] pt-[28px] flex flex-row justify-center items-center"><span className="loader w-[40px] tlg:w-[36px] h-[40px] tlg:h-[36px]"></span></div> : null}
+                    {hasNextPage ? <div className="w-[100%] pt-[20px] flex flex-row justify-center items-center"><span className="loader w-[36px] h-[36px]"></span></div> : null}
                 </div>
             </div>
         </>

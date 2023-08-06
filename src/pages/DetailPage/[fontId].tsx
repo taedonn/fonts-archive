@@ -150,7 +150,7 @@ function DetailPage({params}: any) {
             <Tooltip/>
 
             {/* 메인 */}
-            <div className="w-[100%] py-[20px] tmd:pt-[16px] pb-[32px]">
+            <div className="w-[100%] py-[20px] tmd:pt-[16px] pb-[32px] tlg:pb-[16px]">
                 <link href={font.cdn_url} rel="stylesheet" type="text/css" itemProp="url"></link>
                 <div className="w-[100%] flex flex-col justify-start items-start">
                     <div style={{fontFamily:'"'+font.font_family+'"'}} className="text-[32px] tlg:text-[28px] tmd:text-[24px] text-theme-3 dark:text-theme-9 font-medium leading-tight mb-[12px] tlg:mb-[8px]">{font.name}</div>

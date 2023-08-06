@@ -245,7 +245,7 @@ export default function Header (
 
     return (
         <>
-            <div className="w-[100%] mt-[60px] tlg:mt-[52px]">
+            <header className="w-[100%] mt-[60px] tlg:mt-[52px]">
                 <div className='interface w-[100%] h-[60px] tlg:h-[52px] px-[32px] tlg:px-[16px] fixed right-0 top-0 z-20 flex flex-row justify-between items-center backdrop-blur bg-theme-9/80 dark:bg-theme-2/80 border-b border-theme-7 dark:border-theme-4'>
                     <div className="tlg:w-[100%] flex flex-row justify-start items-center">
                         {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
@@ -492,7 +492,7 @@ export default function Header (
                         </div>
                     </div>
                 </div>
-            </div>
+            </header>
 
             {/* 폰트 검색 */}
             <FontSearch 
