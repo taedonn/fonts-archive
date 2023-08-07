@@ -9,6 +9,9 @@ import React, { useEffect, useState } from "react";
 import { FetchFontDetail } from "../api/detailpage/fetchfontdetail";
 import { CheckIfSessionExists } from "../api/user/checkifsessionexists";
 import { FetchUserInfo } from "../api/user/fetchuserinfo";
+import { FetchUserLike } from "../api/user/fetchuserlike";
+import axios from "axios";
+import { throttle } from "lodash";
 
 // material-ui hooks
 import { Slider } from "@mui/material";
@@ -34,6 +37,56 @@ function DetailPage({params}: any) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => { viewUpdate(); }, [font]);
+
+    // 좋아요 state
+    const [alertDisplay, setAlertDisplay] = useState<boolean>(false);
+    const [hoverDisplay, setHoverDisplay] = useState<boolean>(true);
+    const [liked, setLiked] = useState<boolean>(params.like === null ? false : params.like.some((font: any) => font.font_id === params.fonts[0].code));
+
+    /** 로그인 중이 아닐 때 좋아요 클릭 방지 */
+    const handleLikeClick = (e: React.MouseEvent<HTMLInputElement>) => {
+        if (params.user === null) {
+            setAlertDisplay(true);
+            e.preventDefault();
+        }
+    }
+
+    /** 좋아요 버튼 체인지 이벤트 */
+    const handleLikeChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (params.user !== null) {
+            // 좋아요 버튼 눌렀을 때 호버창 지우기
+            setHoverDisplay(false);
+
+            await axios.post('/api/updatelike', null, { params: { code: e.target.id ,checked: e.target.checked, user_no: params.user.user_no } })
+            .then(res => {
+                // 좋아요 여부 확인 후 문장 변경
+                if (res.data === 'liked') { setLiked(true); }
+                else { setLiked(false); }
+
+                // 좋아요 버튼 눌렀을 때 호버창 다시 띄우기
+                setHoverDisplay(true);
+            })
+            .catch(err => console.log(err));
+        }
+    }
+
+    /** 렌더링 시 좋아요 되어있는 폰트들은 체크된 상태로 변경 */
+    const handleDefaultLike = (fontCode: number) => {
+        return params.like === null ? false : params.like.some((font: any) => font.font_id === fontCode);
+    }
+
+    /** 알럿창 닫기 */
+    const handleAlertClose = () => { setAlertDisplay(false); }
+
+    /** 스크롤 시 알럿창 닫기 */
+    const handleScroll = () => { setAlertDisplay(false); }
+    const throttledScroll = throttle(handleScroll, 500);
+
+    // lodash/throttle을 이용해 스크롤 제어
+    useEffect(() => {
+        window.addEventListener('scroll', throttledScroll);
+        return () => { window.removeEventListener('scroll', throttledScroll); }
+    });
 
     /** 조회수 단위 변경 : 1000 => 1K */
     const ranges = [
@@ -149,11 +202,39 @@ function DetailPage({params}: any) {
             {/* 고정 메뉴 */}
             <Tooltip/>
 
+            {/* 로그인 중이 아닐 때 좋아요 alert창 팝업 */}
+            {
+                alertDisplay === true
+                ? <div className='fixed z-20 top-[24px] tlg:top-[20px] right-[32px] tlg:right-[28px] w-content h-[60px] tlg:h-[56px] px-[12px] flex flex-row justify-between items-center rounded-[8px] border border-theme-yellow dark:border-theme-blue-1 text-[13px] tlg:text-[12px] text-theme-10/80 dark:text-theme-9/80 bg-theme-4 dark:bg-theme-blue-2'>
+                    <div className='flex flex-row justify-start items-center'>
+                        <svg className='w-[24px] tlg:w-[20px] fill-theme-8 dark:fill-theme-9/80' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M7.657 6.247c.11-.33.576-.33.686 0l.645 1.937a2.89 2.89 0 0 0 1.829 1.828l1.936.645c.33.11.33.576 0 .686l-1.937.645a2.89 2.89 0 0 0-1.828 1.829l-.645 1.936a.361.361 0 0 1-.686 0l-.645-1.937a2.89 2.89 0 0 0-1.828-1.828l-1.937-.645a.361.361 0 0 1 0-.686l1.937-.645a2.89 2.89 0 0 0 1.828-1.828l.645-1.937zM3.794 1.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387A1.734 1.734 0 0 0 4.593 5.69l-.387 1.162a.217.217 0 0 1-.412 0L3.407 5.69A1.734 1.734 0 0 0 2.31 4.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387A1.734 1.734 0 0 0 3.407 2.31l.387-1.162zM10.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732L9.1 2.137a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L10.863.1z"/></svg>
+                        <div className='ml-[8px]'>
+                            좋아요 기능은 로그인 시 이용 가능합니다. <br/>
+                            {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+                            <a href="/user/login" className='text-theme-yellow dark:text-theme-blue-1 hover:underline tlg:hover:no-underline'>로그인 하러 가기</a>
+                        </div>
+                    </div>
+                    <div onClick={handleAlertClose} className='flex flex-row justify-center items-center ml-[8px] cursor-pointer'>
+                        <svg className='w-[20px] fill-theme-10/80 dark:fill-theme-9' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg>
+                    </div>
+                </div> : <></>
+            }
+
             {/* 메인 */}
             <div className="w-[100%] pt-[20px] tmd:pt-[16px]">
                 <link href={font.cdn_url} rel="stylesheet" type="text/css" itemProp="url"></link>
                 <div className="w-[100%] flex flex-col justify-start items-start">
-                    <div style={{fontFamily:'"'+font.font_family+'"'}} className="text-[32px] tlg:text-[28px] tmd:text-[24px] text-theme-3 dark:text-theme-9 font-medium leading-tight mb-[12px] tlg:mb-[8px]">{font.name}</div>
+                    <div className="mb-[12px] tlg:mb-[8px] flex items-center">
+                        <div style={{fontFamily:'"'+font.font_family+'"'}} className="text-[32px] tlg:text-[28px] tmd:text-[24px] text-theme-3 dark:text-theme-9 font-medium leading-tight">{font.name}</div>
+                        <div className='group relative ml-[14px]'>
+                            <input onClick={handleLikeClick} onChange={handleLikeChange} type="checkbox" id={font.code.toString()} className='like hidden' defaultChecked={handleDefaultLike(font.code)}/>
+                            <label htmlFor={font.code.toString()} className='cursor-pointer'>
+                                <svg className='w-[22px] fill-theme-7 dark:fill-theme-4' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/></svg>
+                                <svg className='w-[22px] fill-theme-yellow dark:fill-theme-blue-1' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/></svg>
+                            </label>
+                            <div className={`${hoverDisplay === true ? 'group-hover:block' : 'group-hover:hidden'} same-source w-content absolute z-20 left-[50%] top-[-42px] text-[13px] font-medium leading-none px-[14px] py-[8px] rounded-[4px] hidden tlg:group-hover:hidden group-hover:animate-fontbox-zoom-in bg-theme-yellow dark:bg-theme-blue-1 text-theme-3 dark:text-theme-blue-2`}>{liked === true ? "좋아요 해제" : "좋아요 누르기"}</div>
+                        </div>
+                    </div>
                     <div className="flex flex-row justify-start items-center">
                         <div style={{fontFamily:'"'+font.font_family+'"'}} className="text-[16px] tmd:text-[12px] leading-tight text-theme-3 dark:text-theme-9 ml-[2px] mr-[16px] tmd:mr-[12px]">
                             제작
@@ -638,6 +719,13 @@ export async function getServerSideProps(ctx: any) {
             : null
         )
 
+        // 좋아요한 폰트 체크
+        const like = ctx.req.cookies.session === undefined ? null : (
+            await CheckIfSessionExists(ctx.req.cookies.session) === true 
+            ? await FetchUserLike(ctx.req.cookies.session)
+            : null
+        );
+
         return {
             props: {
                 params: {
@@ -646,6 +734,7 @@ export async function getServerSideProps(ctx: any) {
                     theme: cookieTheme,
                     userAgent: userAgent,
                     user: user,
+                    like: like
                 }
             }
         }

@@ -147,6 +147,7 @@ export async function getServerSideProps(ctx: any) {
             : null
         );
 
+        // 좋아요한 폰트 체크
         const like = ctx.req.cookies.session === undefined ? null : (
             await CheckIfSessionExists(ctx.req.cookies.session) === true 
             ? await FetchUserLike(ctx.req.cookies.session)
