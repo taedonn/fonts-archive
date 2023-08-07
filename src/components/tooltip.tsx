@@ -1,9 +1,6 @@
 // react hooks
 import { useEffect, useRef } from "react";
 
-// hooks
-import { throttle } from "lodash";
-
 export default function Tooltip() {
     // refs
     const tooltip = useRef<HTMLDivElement>(null);
@@ -28,12 +25,11 @@ export default function Tooltip() {
             }
         }
     }
-    const throttledScroll = throttle(handleScroll, 100);
 
     // lodash/throttle을 이용해 스크롤
     useEffect(() => {
-        window.addEventListener('scroll', throttledScroll);
-        return () => { window.removeEventListener('scroll', throttledScroll); }
+        window.addEventListener('scroll', handleScroll);
+        return () => { window.removeEventListener('scroll', handleScroll); }
     });
 
     return (

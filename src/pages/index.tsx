@@ -11,7 +11,7 @@ import { FetchUserLike } from "./api/user/fetchuserlike";
 
 // components
 import Header from "@/components/header";
-import Tooltip from "@/components/tooltip";
+import TooltipIndex from "@/components/tooltipIndex";
 import FontBox from "@/components/fontbox";
 
 const Index = ({params}: any) => {
@@ -104,7 +104,7 @@ const Index = ({params}: any) => {
             />
 
             {/* 고정 메뉴 */}
-            <Tooltip/>
+            <TooltipIndex/>
         </>
     );
 }

@@ -150,7 +150,7 @@ function DetailPage({params}: any) {
             <Tooltip/>
 
             {/* 메인 */}
-            <div className="w-[100%] py-[20px] tmd:pt-[16px] pb-[32px] tlg:pb-[16px]">
+            <div className="w-[100%] pt-[20px] tmd:pt-[16px]">
                 <link href={font.cdn_url} rel="stylesheet" type="text/css" itemProp="url"></link>
                 <div className="w-[100%] flex flex-col justify-start items-start">
                     <div style={{fontFamily:'"'+font.font_family+'"'}} className="text-[32px] tlg:text-[28px] tmd:text-[24px] text-theme-3 dark:text-theme-9 font-medium leading-tight mb-[12px] tlg:mb-[8px]">{font.name}</div>
@@ -570,7 +570,7 @@ function DetailPage({params}: any) {
                                 </tr>
                             </tbody>
                         </table>
-                        <div className="w-[calc(100%-690px)] tlg:w-[100%] h-[434px] tlg:h-[auto] border border-theme-7 dark:border-theme-5">
+                        <div className="w-[calc(100%-690px)] tlg:w-[100%] h-[434px] tlg:h-[auto] mb-[60px] tmd:mb-[40px] border border-theme-7 dark:border-theme-5">
                             <h2 className="h-[46px] flex flex-row justify-start items-center text-[16px] tlg:text-[14px] tmd:text-[12px] text-theme-3 dark:text-theme-9 border-b border-theme-7 dark:border-theme-5 font-medium leading-none pl-[20px] tlg:pl-[16px] tmd:pl-[12px]">라이센스 본문</h2>
                             <div className="license-wrap w-[100%] h-[386px] tlg:h-[auto] overflow-y-auto px-[16px] tmd:px-[12px] py-[12px]">
                                 <div id="license" className="text-[16px] tlg:text-[14px] tmd:text-[12px] text-theme-5 dark:text-theme-8 leading-loose"></div>

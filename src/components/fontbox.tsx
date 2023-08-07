@@ -115,7 +115,7 @@ export default function FontBox ({lang, type, sort, user, like, filter, searchwo
     return (
         <>
             <div className='w-[100%] flex flex-col justify-start items-end'>
-                <div className="main-menu w-[100%] relative flex flex-wrap flex-row justify-between items-stretch pt-[10px] pb-[20px]">
+                <div className="main-menu w-[100%] relative flex flex-wrap flex-row justify-between items-stretch pt-[16px] pb-[20px]">
                     
                     {/* 로그인 중이 아닐 때 즐겨찾기 alert창 팝업 */}
                     {
