@@ -47,13 +47,13 @@ const Login = ({params}: any) => {
 
     // 로그인 버튼 클릭
     const handleLogin = async () => {
-        // 로딩 스피너 실행
-        setIsLoading(true);
-
         // 폼 유효성 검사
         if (idVal === '') { setIdChk('empty'); }
         else if (pwVal === '') { setPwChk('empty'); }
         else {
+            // 로딩 스피너 실행
+            setIsLoading(true);
+
             // 유효성 검사 성공 시, 로그인 API 실행
             await axios.get('/api/user/login', {
                 params: {
@@ -88,7 +88,12 @@ const Login = ({params}: any) => {
                     location.href = '/';
                 }
             })
-            .catch(err => console.log(err));
+            .catch(err => {
+                console.log(err);
+
+                // 로딩 스피너 실행
+                setIsLoading(false);
+            });
         }
     }
 

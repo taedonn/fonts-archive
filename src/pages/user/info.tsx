@@ -63,12 +63,12 @@ const SendEmail = ({params}: any) => {
                     setAlert('name');
                     setAlertDisplay(true);
                 }
-
-                // 로딩 스피너 정지
-                setIsLoading(false);
             })
             .catch(err => console.log(err));
         }
+
+        // 로딩 스피너 정지
+        setIsLoading(false);
     }
 
     /** 비밀번호 변경하기 클릭 이벤트 */

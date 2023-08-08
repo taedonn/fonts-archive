@@ -77,9 +77,13 @@ const Register = ({params}: any) => {
                         })
                         .then(res => { 
                             location.href = '/user/sendemail?token=' + res.data;
-                            // setIsLoading(false);
                         }))
-                        .catch(err => console.log(err));
+                        .catch(err => {
+                            console.log(err);
+
+                            // 로딩 스피너 실행
+                            setIsLoading(false);
+                        });
                 });
             } else {
                 // 약관 미동의 시 알럿 표시

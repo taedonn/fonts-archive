@@ -92,8 +92,8 @@ export default function DeleteUserModal(
         else {
             await axios.post('/api/user/deleteuser', null, { params: { id: id } })
             .then((res) => {
-                // removeCookies('session', { path: '/' });
-                // location.href = '/';
+                removeCookies('session', { path: '/' });
+                location.href = '/';
                 console.log(res.data);
             })
             .catch(err => {

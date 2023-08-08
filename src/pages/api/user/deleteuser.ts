@@ -22,19 +22,22 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             arr.push({code: Number(fontInfo[i].font_id)});
         }
 
-        // 유저 정보 삭제 전에, 좋아요한 폰트의 좋아요 수 감소
-        const likeDeleted = !!await client.fonts.updateMany({
+        // 좋아요한 폰트의 좋아요 수 감소
+        await client.fonts.updateMany({
             where: { OR: arr },
             data: { like: {decrement: 1} }
         });
 
-        // 유저 정보 삭제
-        const userInfoDeleted = !!await client.fontsUser.delete({
-            where: { user_id: id }
+        // 좋아요한 폰트 삭제
+        await client.fontsLiked.deleteMany({
+            where: { user_id: userInfo.user_no }
         });
 
-        return res.status(200).send(
-            userInfoDeleted ? 'User info delete completed.' : 'User info delete failed.'
-        );
+        // 유저 정보 삭제
+        const userInfoDeleted = !!await client.fontsUser.delete({
+            where: { user_id: userInfo.user_id }
+        });
+
+        return res.status(200).send(userInfoDeleted ? 'User info delete completed.' : 'User info delete failed.');
     }
 }
