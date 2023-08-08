@@ -34,18 +34,18 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             to: user.user_id,
             subject: '[폰트 아카이브] 회원가입 인증 메일입니다.',
             html: `
-                <div style="width:100%; display:flex; flex-direction:column; justify-content:flex-start; align-items:center;">
-                    <div style="width:100%; max-width:600px; padding:40px 20px; border:1px solid #EEE; font-family:'Roboto', 'Noto Sans KR'; font-size:16px; font-weight:400; line-height:1.25; color:#000; display:flex; flex-direction:column; justify-content:flex-start; align-items:center;">
-                        <div style="width:100%; max-width:400px; display:flex; flex-direction:column; justify-content:flex-start; align-items:center;">
-                            <div style="width:32px; height:32px; background-color:#000; color:#FFF; font-size:12px; font-weight:400; line-height:1; border-radius:6px; display:flex; flex-direction:row; justify-content:center; align-items:center;">Aa</div>
-                            <h2 style="font-size:20px; font-weight:500; margin:0; margin-top:20px;">
+                <div style="width:100%;">
+                    <div style="width:100%; max-width:600px; padding:40px 20px; border:1px solid #EEE; font-family:'Roboto', 'Noto Sans KR'; font-size:16px; font-weight:400; line-height:1.25; color:#000;">
+                        <div style="width:100%; max-width:400px; margin:0 auto;">
+                            <div style="width:32px; height:32px; background-color:#000; color:#FFF; font-size:12px; font-weight:400; text-align:center; line-height:32px; border-radius:6px; margin:0 auto;">Aa</div>
+                            <h2 style="font-size:20px; font-weight:500; text-align:center; margin-top:20px;">
                                 회원가입 인증 메일입니다.
                             </h2>
                             <p style="width:100%; font-size:14px; font-weight:400; line-height:2; color:#3A3A3A; margin:0; margin-top:48px;">
                                 안녕하세요 ${user.user_name}님, <br/>
                                 아래 버튼을 클릭해서 <span style="font-weight:500; color:#000;">회원가입을 완료</span>해 주세요.
                             </p>
-                            <a style="width:200px; padding:16px 20px; margin-top:28px; box-sizing:border-box; background-color:#000; font-size:12px; font-weight:500; color:#FFF; text-decoration:none; border-radius:6px; display:flex; flex-direction:row; justify-content:center; align-items:center;" href="https://fonts.taedonn.com?session=${user.user_session_id}">
+                            <a style="width:200px; display:block; padding:16px 20px; margin:0 auto; margin-top:28px; box-sizing:border-box; background-color:#000; font-size:12px; font-weight:500; text-align:center; color:#FFF; text-decoration:none; border-radius:6px;" href="https://fonts.taedonn.com?session=${user.user_session_id}">
                                 회원가입 완료하기
                             </a>
                             <p style="width:100%; font-size:14px; font-weight:400; line-height:2; color:#3A3A3A; margin:0; margin-top:28px;">
