@@ -23,15 +23,18 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         }
 
         // 유저 정보 삭제 전에, 좋아요한 폰트의 좋아요 수 감소
-        await client.fonts.updateMany({
+        const likeDeleted = !!await client.fonts.updateMany({
             where: { OR: arr },
             data: { like: {decrement: 1} }
         });
 
-        await client.fontsUser.delete({
+        // 유저 정보 삭제
+        const userInfoDeleted = !!await client.fontsUser.delete({
             where: { user_id: id }
         });
 
-        return res.status(200).send(true);
+        return res.status(200).send(
+            userInfoDeleted ? 'User info delete completed.' : 'User info delete failed.'
+        );
     }
 }
