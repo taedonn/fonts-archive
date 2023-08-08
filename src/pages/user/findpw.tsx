@@ -24,6 +24,7 @@ const SendEmail = ({params}: any) => {
     const [idVal, setIdVal] = useState<string>('');
     const [idChk, setIdChk] = useState<string>('');
     const [alertDisplay, setAlertDisplay] = useState<boolean>(false);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
     // 뒤로가기 시 history가 남아있으면 state 변경
     useEffect(() => {
@@ -41,6 +42,9 @@ const SendEmail = ({params}: any) => {
 
     /** 폼 서밋 */
     const handleOnSubmit = async () => {
+        // 로딩 스피너 실행 
+        setIsLoading(true);
+
         if (nameVal === '') {
             setNameChk('empty');
         } else if (idVal === '') {
@@ -56,7 +60,11 @@ const SendEmail = ({params}: any) => {
                 else if (res.data.exists === 'wrong-id') { setIdChk('wrong-id'); }
                 else { setAlertDisplay(true); }
             })
+            .catch(err => console.log(err));
         }
+
+        // 로딩 스피너 정지 
+        setIsLoading(false);
     }
 
     // 엔터키 입력 시 가입하기 버튼 클릭
@@ -104,7 +112,7 @@ const SendEmail = ({params}: any) => {
 
             {/* 메인 */}
             <div className='w-[100%] flex flex-col justify-center items-center'>
-                <div className='w-[360px] flex flex-col justify-center items-start mt-[100px] tlg:mt-[40px]'>
+                <div className='w-[360px] flex flex-col justify-center items-start my-[100px] tlg:my-[40px]'>
                     <h2 className='text-[20px] tlg:text-[18px] text-theme-4 dark:text-theme-9 font-medium mb-[12px] tlg:mb-[8px]'>비밀번호 찾기</h2>
                     {
                         alertDisplay === true
@@ -112,7 +120,7 @@ const SendEmail = ({params}: any) => {
                             <div className='w-[100%] h-[40px] px-[10px] mb-[10px] flex flex-row justify-between items-center rounded-[6px] border-[2px] border-theme-yellow dark:border-theme-blue-1/80 text-[12px] text-theme-5 dark:text-theme-9 bg-theme-yellow/40 dark:bg-theme-blue-1/20'>
                                 <div className='flex flex-row justify-start items-center'>
                                     <svg className='w-[14px] fill-theme-yellow dark:fill-theme-blue-1/80' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg>
-                                    <div className='ml-[6px]'>이메일로 임시 비밀번호가 발급되었습니다.</div>
+                                    <div className='ml-[6px]'>이메일로 임시 비밀번호가 발급되었습니다. <Link href="/user/login" className='ml-[8px] text-theme-yellow dark:text-theme-blue-1 hover:underline tlg:hover:no-underline'>로그인 하기</Link></div>
                                 </div>
                                 <div onClick={handleAlertClose} className='flex flex-row justify-center items-center cursor-pointer'>
                                     <svg className='w-[18px] fill-theme-5 dark:fill-theme-9' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg>
@@ -142,7 +150,13 @@ const SendEmail = ({params}: any) => {
                                 : <></>
                             )
                         }
-                        <button onClick={handleOnSubmit} className='w-[100%] h-[40px] rounded-[8px] mt-[14px] text-[14px] font-medium text-theme-4 dark:text-theme-blue-2 bg-theme-yellow/80 hover:bg-theme-yellow tlg:hover:bg-theme-yellow/80 dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1/80'>다음</button>
+                        <button onClick={handleOnSubmit} className='w-[100%] h-[40px] rounded-[8px] mt-[14px] text-[14px] font-medium text-theme-4 dark:text-theme-blue-2 bg-theme-yellow/80 hover:bg-theme-yellow tlg:hover:bg-theme-yellow/80 dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1/80'>
+                            {
+                                isLoading === true
+                                ? <span className='loader loader-register w-[18px] h-[18px] mt-[4px]'></span>
+                                : '다음'
+                            }
+                        </button>
                     </form>
                     <div className='w-[100%] flex flex-row justify-center items-center text-[12px] mt-[12px]'>
                         <Link href="/user/terms" target="_blank" className='text-theme-5 dark:text-theme-6 hover:underline tlg:hover:underline'>서비스 이용약관</Link>

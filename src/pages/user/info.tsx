@@ -119,8 +119,8 @@ const SendEmail = ({params}: any) => {
 
             {/* 메인 */}
             <div className='w-[100%] flex flex-col justify-center items-center'>
-                <form onSubmit={e => e.preventDefault()} className='w-[360px] flex flex-col justify-center items-start mt-[100px] tlg:mt-[40px]'>
-                    <h2 className='text-[20px] tlg:text-[18px] text-theme-4 dark:text-theme-9 font-medium mb-[12px] tlg:mb-[8px]'>회원정보</h2>
+                <div className='w-[360px] flex flex-col justify-center items-start my-[100px] tlg:my-[40px]'>
+                    <h2 className='text-[20px] tlg:text-[18px] text-theme-4 dark:text-theme-9 font-medium mb-[12px] tlg:mb-[8px]'>프로필 정보</h2>
                     {
                         alertDisplay === true
                         ? alert === 'name'
@@ -197,7 +197,7 @@ const SendEmail = ({params}: any) => {
                         </div>
                         <button onClick={handleDeleteUserModalClick} className='w-[100%] h-[40px] rounded-[8px] flex flex-row justify-center items-center text-[14px] font-medium text-theme-10 dark:text-theme-9 bg-theme-red/80 hover:bg-theme-red tlg:hover:bg-theme-red/80'>회원 탈퇴하기</button>
                     </div>
-                </form>
+                </div>
             </div>
 
             {/* 비밀번호 변경 모달창 */}

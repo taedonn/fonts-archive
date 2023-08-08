@@ -62,18 +62,34 @@ const Login = ({params}: any) => {
                 }
             })
             .then(res => {
-                if (res.data.status === 'wrong-id') { setIdChk('wrong-id'); }
-                else if (res.data.status === 'wrong-pw') { setPwChk('wrong-pw'); }
-                else if (res.data.status === 'not-confirmed') { setEmailConfirmChk(false); }
+                if (res.data.status === 'wrong-id') {
+                    // "아이디가 존재하지 않습니다." 표시
+                    setIdChk('wrong-id');
+
+                    // 로딩 스피너 정지
+                    setIsLoading(false);
+                }
+                else if (res.data.status === 'wrong-pw') {
+                    // "비밀번호가 올바르지 않습니다." 표시
+                    setPwChk('wrong-pw');
+
+                    // 로딩 스피너 정지
+                    setIsLoading(false);
+                }
+                else if (res.data.status === 'not-confirmed') {
+                    // "이메일 인증을 완료해 주세요." 표시
+                    setEmailConfirmChk(false);
+
+                    // 로딩 스피너 정지
+                    setIsLoading(false);
+                }
                 else if (res.data.status === 'success') {
                     setCookie('session', res.data.session, {path:'/', secure:true, sameSite:'none'});
                     location.href = '/';
                 }
-            });
+            })
+            .catch(err => console.log(err));
         }
-
-        // 로딩 스피너 정지
-        setIsLoading(false);
     }
 
     // 엔터키 입력 시 가입하기 버튼 클릭
@@ -121,7 +137,7 @@ const Login = ({params}: any) => {
 
             {/* 메인 */}
             <div className='w-[100%] flex flex-col justify-center items-center'>
-                <div className='w-[360px] flex flex-col justify-center items-start mt-[100px] tlg:mt-[40px]'>
+                <div className='w-[360px] flex flex-col justify-center items-start my-[100px] tlg:my-[40px]'>
                     <h2 className='text-[20px] tlg:text-[18px] text-theme-4 dark:text-theme-9 font-medium mb-[12px] tlg:mb-[8px]'>로그인</h2>
                     <form onSubmit={e => e.preventDefault()} className='w-[100%] p-[20px] rounded-[8px] text-theme-10 dark:text-theme-9 bg-theme-5 dark:bg-theme-3 drop-shadow-default dark:drop-shadow-dark'>
                         <label htmlFor='id' className='block text-[14px] ml-px'>아이디</label>

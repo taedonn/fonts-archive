@@ -8,6 +8,7 @@ type fontsUser = {
     user_session_id: string
     user_email_token: string
     user_email_confirm: boolean
+    profile_img: string
 }
   
 interface data {
@@ -30,6 +31,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
                 user_session_id: userSessionId,
                 user_email_token: userEmailToken,
                 user_email_confirm: false,
+                profile_img: "character-" + Math.floor(Math.random() * 7) + ".svg"
             }
         });
 

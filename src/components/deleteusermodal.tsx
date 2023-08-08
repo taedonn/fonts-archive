@@ -75,19 +75,34 @@ export default function DeleteUserModal(
         // 로딩 스피너 실행
         setIsLoading(true);
         
-        if (inputVal === '') { setInputChk('empty'); }
-        else if (inputVal !== id + '/탈퇴한다') { setInputChk('wrong-val'); }
+        if (inputVal === '') {
+            // "입력칸이 비어있습니다." 표시
+            setInputChk('empty');
+
+            // 로딩 스피너 정지
+            setIsLoading(false);
+        }
+        else if (inputVal !== id + '/탈퇴한다') {
+            // "입력값이 일치하지 않습니다." 표시
+            setInputChk('wrong-val');
+
+            // 로딩 스피너 정지
+            setIsLoading(false);
+        }
         else {
             await axios.post('/api/user/deleteuser', null, { params: { id: id } })
-            .then(() => {
-                removeCookies('session', { path: '/' });
-                location.href = '/';
+            .then((res) => {
+                // removeCookies('session', { path: '/' });
+                // location.href = '/';
+                console.log(res.data);
             })
-            .catch(err => console.log(err));
-        }
+            .catch(err => {
+                console.log(err);
 
-        // 로딩 스피너 정지
-        setIsLoading(false);
+                // 로딩 스피너 정지
+                setIsLoading(false);
+            });
+        }
     }
 
     return (
