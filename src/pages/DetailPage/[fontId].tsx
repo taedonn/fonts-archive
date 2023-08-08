@@ -651,7 +651,7 @@ function DetailPage({params}: any) {
                                 </tr>
                             </tbody>
                         </table>
-                        <div className="w-[calc(100%-690px)] tlg:w-[100%] h-[434px] tlg:h-[auto] mb-[60px] tmd:mb-[40px] border border-theme-7 dark:border-theme-5">
+                        <div className="w-[calc(100%-690px)] tlg:w-[100%] h-[434px] tlg:h-[auto] mb-[32px] tlg:mb-[16px] border border-theme-7 dark:border-theme-5">
                             <h2 className="h-[46px] flex flex-row justify-start items-center text-[16px] tlg:text-[14px] tmd:text-[12px] text-theme-3 dark:text-theme-9 border-b border-theme-7 dark:border-theme-5 font-medium leading-none pl-[20px] tlg:pl-[16px] tmd:pl-[12px]">라이센스 본문</h2>
                             <div className="license-wrap w-[100%] h-[386px] tlg:h-[auto] overflow-y-auto px-[16px] tmd:px-[12px] py-[12px]">
                                 <div id="license" className="text-[16px] tlg:text-[14px] tmd:text-[12px] text-theme-5 dark:text-theme-8 leading-loose"></div>
