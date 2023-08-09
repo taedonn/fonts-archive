@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { NextSeo } from 'next-seo';
 
 // react hooks
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, ChangeEvent } from 'react';
 
 // hooks
 import axios from 'axios';
@@ -142,6 +142,16 @@ const SendEmail = ({params}: any) => {
         }
     }
 
+    // 프로필 사진 변경
+    const changeImg = async (e: ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files !== null && e.target.files[0] !== undefined) {
+            const file = e.target.files[0];
+            const fileType = file.name.substring(file.name.lastIndexOf('.') + 1);
+            const newFile = new File([file], `test.${fileType}`, {type: file.type});
+            console.log(newFile);
+        }
+    }
+
     return (
         <>
             {/* Head 부분*/}
@@ -211,13 +221,19 @@ const SendEmail = ({params}: any) => {
                                 </label>
                                 <div ref={refImgPopup} className='w-content hidden peer-checked:block absolute left-[50%] bottom-[-8px] translate-x-[-50%] translate-y-[100%] rounded-[8px] bg-theme-4 dark:bg-theme-blue-2 drop-shadow-dark dark:drop-shadow-dark after:content-[""] after:w-[8px] after:h-[8px] after:absolute after:left-[25%] after:top-[-4px] after:translate-x-[-50%] after:rotate-45 after:bg-theme-4 after:dark:bg-theme-blue-2'>
                                     <div className='flex'>
-                                        <input className='hidden' type='file' id='profile-img-upload'/>
+                                        <input onChange={changeImg} className='hidden' type='file' accept='image/*' id='profile-img-upload'/>
                                         <label className='w-[100%] relative z-[2] text-[12px] leading-none dark:text-theme-7 rounded-t-[8px] pl-[12px] pr-[14px] pt-[10px] pb-[8px] hover:bg-theme-yellow hover:dark:bg-theme-blue-1 hover:text-theme-2 hover:dark:text-theme-blue-2 cursor-pointer' htmlFor='profile-img-upload'>사진 변경</label>
                                     </div>
                                     <button onClick={deleteImg} className='w-[100%] text-[12px] leading-none dark:text-theme-7 rounded-b-[8px] pl-[12px] pr-[14px] pb-[10px] pt-[8px] hover:bg-theme-yellow hover:dark:bg-theme-blue-1 hover:text-theme-2 hover:dark:text-theme-blue-2'>사진 제거</button>
                                 </div>
                             </div>
-                            <div className='text-[14px] text-theme-8 dark:text-theme-7 ml-[16px]'><span className='mr-[1px] text-[15px] tracking-wider text-theme-10 dark:text-theme-9 font-bold'>{userName}</span>님의 프로필 정보입니다.</div>
+                            <div className='ml-[16px]'>
+                                <h2 className='mr-[1px] text-[14px] text-theme-10 dark:text-theme-9 font-bold'>프로필 이미지</h2>
+                                <div className='text-[11px] font-normal leading-none text-theme-8 dark:text-theme-7 mt-[6px]'>
+                                    <h3 className='flex items-center mb-[6px]'><div className='w-[4px] h-[4px] mr-[6px] mt-px rounded-full bg-theme-8 dark:bg-theme-7'></div>이미지가 변경되면, 이전 이미지는 즉시 삭제됩니다.</h3>
+                                    <h3 className='flex items-center'><div className='w-[4px] h-[4px] mr-[6px] mt-px rounded-full bg-theme-8 dark:bg-theme-7'></div>500px보다 큰 이미지는 축소되어 업로드 됩니다.</h3>
+                                </div>
+                            </div>
                         </div>
                         <div className='w-[100%] h-px bg-theme-6 dark:bg-theme-5 mt-[16px] mb-[32px]'></div>
                         <label htmlFor='name' className='block text-[14px] ml-px'>이름</label>
