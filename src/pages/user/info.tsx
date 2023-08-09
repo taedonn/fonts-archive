@@ -1,8 +1,9 @@
 // next hooks
+import Image from 'next/image';
 import { NextSeo } from 'next-seo';
 
 // react hooks
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 // hooks
 import axios from 'axios';
@@ -25,6 +26,8 @@ const SendEmail = ({params}: any) => {
 
     // 폼 state
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [userName, setUserName] = useState<string>(params.user.user_name);
+    const [userImg, setUserImg] = useState<string>(params.user.profile_img);
     const [nameVal, setNameVal] = useState<string>('');
     const [nameChk, setNameChk] = useState<string>('');
     const [alert, setAlert] = useState<string>('');
@@ -62,6 +65,7 @@ const SendEmail = ({params}: any) => {
                 } else {
                     setAlert('name');
                     setAlertDisplay(true);
+                    setUserName(nameVal);
                 }
             })
             .catch(err => console.log(err));
@@ -70,6 +74,13 @@ const SendEmail = ({params}: any) => {
         // 로딩 스피너 정지
         setIsLoading(false);
     }
+
+    /** 이름 변경하기 포커스 시 엔터키 입력 이벤트 */
+    const handleNameEnter = async (e: any) => {
+        const keys: any = [];
+        keys[e.key] = true;
+        if (keys["Enter"]) { handleNameClick(); }
+     }
 
     /** 비밀번호 변경하기 클릭 이벤트 */
     const handleChangePwModalClick = async () => { setChangePwModalDisplay(true); }
@@ -90,6 +101,45 @@ const SendEmail = ({params}: any) => {
     const handlePwChangeOnSuccess = () => {
         setAlertDisplay(true);
         setAlert('pw');
+    }
+
+    // 프로필 이미지 영역
+    const refImg = useRef<HTMLDivElement>(null);
+    const refImgPopup = useRef<HTMLDivElement>(null);
+
+    // 프로필 이미지 영역 외 클릭
+    useEffect(() => {
+        function handleImgOutside(e: Event) {
+            const imgInput = document.getElementById("profile-img") as HTMLInputElement;
+            if (refImg?.current && !refImg.current.contains(e.target as Node) && refImgPopup.current && !refImgPopup.current.contains(e.target as Node)) {
+                imgInput.checked = false;
+            }
+        }
+        document.addEventListener("mouseup", handleImgOutside);
+        return () => document.removeEventListener("mouseup", handleImgOutside);
+    }, [refImg, refImgPopup]);
+
+    // 사진 삭제 버튼 클릭
+    const deleteImg = async () => {
+        const imgInput = document.getElementById("profile-img") as HTMLInputElement;
+
+        if (!userImg.startsWith('/fonts-archive-base-img-')) {
+            // 프로필 이미지 제거 후 state에 저장된 프로필 이미지 변경
+            await axios.get('/api/user/changeprofileimg', {
+                params: {
+                    action: 'delete',
+                    userNo: params.user.user_no
+                }
+            })
+            .then(res => {
+                // 프로필 이미지 변경
+                setUserImg(res.data);
+
+                // 사진 변경창 닫기
+                imgInput.checked = false;
+            })
+            .catch(err => console.log(err));
+        }
     }
 
     return (
@@ -150,9 +200,29 @@ const SendEmail = ({params}: any) => {
                         : <></>
                     }
                     <div className='w-[100%] p-[20px] rounded-[8px] text-theme-10 dark:text-theme-9 bg-theme-5 dark:bg-theme-3 drop-shadow-default dark:drop-shadow-dark'>
+                        <div className='flex items-center'>
+                            <div ref={refImg} className='relative'>
+                                <input className='peer hidden' id='profile-img' type='checkbox'/>
+                                <label className='relative cursor-pointer' htmlFor='profile-img'>
+                                    <Image className='rounded-full' src={userImg} width={60} height={60} alt='유저 프로필 사진'/>
+                                    <div className='w-[20px] h-[18px] flex justify-center items-center bg-theme-4 dark:bg-theme-blue-2 border border-theme-yellow dark:border-theme-blue-1 absolute left-[2px] bottom-[2px] rounded-[6px]'>
+                                        <svg className='w-[10px] fill-theme-yellow dark:fill-theme-blue-1' xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16"><path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/></svg>
+                                    </div>
+                                </label>
+                                <div ref={refImgPopup} className='w-content hidden peer-checked:block absolute left-[50%] bottom-[-8px] translate-x-[-50%] translate-y-[100%] rounded-[8px] bg-theme-4 dark:bg-theme-blue-2 drop-shadow-dark dark:drop-shadow-dark after:content-[""] after:w-[8px] after:h-[8px] after:absolute after:left-[25%] after:top-[-4px] after:translate-x-[-50%] after:rotate-45 after:bg-theme-4 after:dark:bg-theme-blue-2'>
+                                    <div className='flex'>
+                                        <input className='hidden' type='file' id='profile-img-upload'/>
+                                        <label className='w-[100%] relative z-[2] text-[12px] leading-none dark:text-theme-7 rounded-t-[8px] pl-[12px] pr-[14px] pt-[10px] pb-[8px] hover:bg-theme-yellow hover:dark:bg-theme-blue-1 hover:text-theme-2 hover:dark:text-theme-blue-2 cursor-pointer' htmlFor='profile-img-upload'>사진 변경</label>
+                                    </div>
+                                    <button onClick={deleteImg} className='w-[100%] text-[12px] leading-none dark:text-theme-7 rounded-b-[8px] pl-[12px] pr-[14px] pb-[10px] pt-[8px] hover:bg-theme-yellow hover:dark:bg-theme-blue-1 hover:text-theme-2 hover:dark:text-theme-blue-2'>사진 제거</button>
+                                </div>
+                            </div>
+                            <div className='text-[14px] text-theme-8 dark:text-theme-7 ml-[16px]'><span className='mr-[1px] text-[15px] tracking-wider text-theme-10 dark:text-theme-9 font-bold'>{userName}</span>님의 프로필 정보입니다.</div>
+                        </div>
+                        <div className='w-[100%] h-px bg-theme-6 dark:bg-theme-5 mt-[16px] mb-[32px]'></div>
                         <label htmlFor='name' className='block text-[14px] ml-px'>이름</label>
                         <div className='w-[100%] flex flex-row justify-between items-center mt-[6px]'>
-                            <input onChange={handleNameChange} type='text' id='name' tabIndex={1} autoComplete='on' defaultValue={params.user.user_name} placeholder='홍길동' className={`${nameChk === '' ? 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' : 'border-theme-red focus:border-theme-red dark:border-theme-red focus:dark:border-theme-red'} w-[calc(100%-84px)] text-[14px] px-[14px] py-[8px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
+                            <input onChange={handleNameChange} onKeyDown={handleNameEnter} type='text' id='name' tabIndex={1} autoComplete='on' defaultValue={params.user.user_name} placeholder='홍길동' className={`${nameChk === '' ? 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' : 'border-theme-red focus:border-theme-red dark:border-theme-red focus:dark:border-theme-red'} w-[calc(100%-84px)] text-[14px] px-[14px] py-[8px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
                             <button onClick={handleNameClick} className='w-[76px] h-[39px] flex flex-row justify-center items-center rounded-[8px] font-medium text-[14px] text-theme-5 dark:text-theme-blue-2 bg-theme-yellow/80 hover:bg-theme-yellow tlg:hover:bg-theme-yellow/80 dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1/80'>
                                 {
                                     isLoading === true
