@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import client from '@/libs/client';
+import { getSignedFileUrl } from '@/libs/aws-sdk';
   
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method === 'GET') {
@@ -23,5 +24,19 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             action === 'change' ? null :
             action === 'delete' && userInfo !== undefined ? randomProfileImg : null
         );
+    } else if (req.method === "POST") {
+        try {
+            let { name, type } = JSON.parse(req.body);
+
+            const fileParams = {
+                name: name,
+                type: type,
+            }
+            const signedUrl = await getSignedFileUrl(fileParams);
+
+            return res.status(200).send(signedUrl);
+        } catch (err) {
+            return res.status(500).send('file upload failed.');
+        }
     }
 }

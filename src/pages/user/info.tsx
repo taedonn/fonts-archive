@@ -144,11 +144,21 @@ const SendEmail = ({params}: any) => {
 
     // 프로필 사진 변경
     const changeImg = async (e: ChangeEvent<HTMLInputElement>) => {
-        if (e.target.files !== null && e.target.files[0] !== undefined) {
+        if (e.target.files && e.target.files[0]) {
             const file = e.target.files[0];
             const fileType = file.name.substring(file.name.lastIndexOf('.') + 1);
-            const newFile = new File([file], `test.${fileType}`, {type: file.type});
-            console.log(newFile);
+            // const newFile = new File([file], `test.${fileType}`, {type: file.type});
+            // console.log(newFile);
+
+            const body = {
+                name: 'fonts-archive/fonts-archive-user-' + params.user.user_no + '-profile-img',
+                type: fileType
+            }
+
+            await axios
+            .post('/api/user/sendregisterform', null, { params: {
+                name: nameVal,
+            }})
         }
     }
 
