@@ -21,11 +21,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         }
     } else if (req.method === "POST") {
         try {
-            let { name, type } = JSON.parse(req.body);
-
             const fileParams = {
-                name: name,
-                type: type,
+                name: req.query.name,
+                type: req.query.type,
             }
             const signedUrl = await getSignedFileUrl(fileParams);
 

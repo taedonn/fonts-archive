@@ -142,29 +142,41 @@ const SendEmail = ({params}: any) => {
         if (e.target.files && e.target.files[0]) {
             const file = e.target.files[0];
 
-            const body = {
+            const thisFile = {
                 name: 'fonts-archive/fonts-archive-user-' + params.user.user_no + '-profile-img',
                 type: file.type
             }
 
             try {
                 // signed url 가져오기
-                const urlRes = await fetch('/api/user/changeprofileimg', {
-                    method: "POST",
-                    body: JSON.stringify(body)
-                });
-                const data = await urlRes.json();
-                const signedUrl = data.url;
-                console.log(signedUrl);
+                // const urlRes = await fetch('/api/user/changeprofileimg', {
+                //     method: "POST",
+                //     body: JSON.stringify(body)
+                // });
+                // const data = await urlRes.json();
+                // const signedUrl = data.url;
+                // console.log(signedUrl);
+
+                await axios.post('/api/user/changeprofileimg', null, {
+                    params: {
+                        name: thisFile.name,
+                        type: thisFile.type
+                    }
+                })
+                .then(res => {
+                    console.log(res.data.url);
+                })
+                .catch(err => console.log(err));
 
                 // 가져온 url로 put 요청 보내기
-                const uploadFile = await fetch(signedUrl, {
-                    method: "PUT",
-                    body: file,
-                    headers: {
-                        "Content-Type": file.type
-                    }
-                });
+                // const uploadRes = await fetch(signedUrl, {
+                //     method: "PUT",
+                //     body: file,
+                //     headers: {
+                //         "Content-Type": file.type
+                //     }
+                // });
+                // console.log(uploadRes);
             } catch (err) { console.log(err); }
         }
     }
@@ -247,8 +259,8 @@ const SendEmail = ({params}: any) => {
                             <div className='ml-[16px]'>
                                 <h2 className='mr-[1px] text-[14px] text-theme-10 dark:text-theme-9 font-bold'>프로필 이미지</h2>
                                 <div className='text-[11px] font-normal leading-none text-theme-8 dark:text-theme-7 mt-[6px]'>
-                                    <h3 className='flex items-center mb-[6px]'><div className='w-[4px] h-[4px] mr-[6px] mt-px rounded-full bg-theme-8 dark:bg-theme-7'></div>이미지가 변경되면, 이전 이미지는 즉시 삭제됩니다.</h3>
-                                    <h3 className='flex items-center'><div className='w-[4px] h-[4px] mr-[6px] mt-px rounded-full bg-theme-8 dark:bg-theme-7'></div>500px보다 큰 이미지는 축소되어 업로드 됩니다.</h3>
+                                    <h3 className='flex items-center mb-[6px]'><div className='w-[3px] h-[3px] mr-[5px] mt-px rounded-full bg-theme-8 dark:bg-theme-7'></div>이미지가 변경되면, 이전 이미지는 즉시 삭제됩니다.</h3>
+                                    <h3 className='flex items-center'><div className='w-[3px] h-[3px] mr-[5px] mt-px rounded-full bg-theme-8 dark:bg-theme-7'></div>500px보다 큰 이미지는 축소되어 업로드 됩니다.</h3>
                                 </div>
                             </div>
                         </div>
