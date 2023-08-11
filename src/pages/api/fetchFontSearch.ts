@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import client from "@/libs/client";
+import client from "@/libs/client-prisma";
 
 type fonts = {
     code: number

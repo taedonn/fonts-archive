@@ -1,4 +1,4 @@
-import client from '@/libs/client';
+import client from '@/libs/client-prisma';
   
 export async function CheckIfSessionExists(session: string) {
     const exists: any = !!await client.fontsUser.findFirst({

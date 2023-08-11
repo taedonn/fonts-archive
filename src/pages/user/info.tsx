@@ -26,7 +26,6 @@ const SendEmail = ({params}: any) => {
 
     // 폼 state
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [userName, setUserName] = useState<string>(params.user.user_name);
     const [userImg, setUserImg] = useState<string>(params.user.profile_img);
     const [nameVal, setNameVal] = useState<string>('');
     const [nameChk, setNameChk] = useState<string>('');
@@ -65,7 +64,6 @@ const SendEmail = ({params}: any) => {
                 } else {
                     setAlert('name');
                     setAlertDisplay(true);
-                    setUserName(nameVal);
                 }
             })
             .catch(err => console.log(err));
@@ -123,13 +121,10 @@ const SendEmail = ({params}: any) => {
     const deleteImg = async () => {
         const imgInput = document.getElementById("profile-img") as HTMLInputElement;
 
-        if (!userImg.startsWith('/fonts-archive-base-img-')) {
+        if (!userImg.startsWith('/fonts-archive-base-profile-img-')) {
             // 프로필 이미지 제거 후 state에 저장된 프로필 이미지 변경
             await axios.get('/api/user/changeprofileimg', {
-                params: {
-                    action: 'delete',
-                    userNo: params.user.user_no
-                }
+                params: { userNo: params.user.user_no }
             })
             .then(res => {
                 // 프로필 이미지 변경
@@ -146,19 +141,31 @@ const SendEmail = ({params}: any) => {
     const changeImg = async (e: ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files[0]) {
             const file = e.target.files[0];
-            const fileType = file.name.substring(file.name.lastIndexOf('.') + 1);
-            // const newFile = new File([file], `test.${fileType}`, {type: file.type});
-            // console.log(newFile);
 
             const body = {
                 name: 'fonts-archive/fonts-archive-user-' + params.user.user_no + '-profile-img',
-                type: fileType
+                type: file.type
             }
 
-            await axios
-            .post('/api/user/sendregisterform', null, { params: {
-                name: nameVal,
-            }})
+            try {
+                // signed url 가져오기
+                const urlRes = await fetch('/api/user/changeprofileimg', {
+                    method: "POST",
+                    body: JSON.stringify(body)
+                });
+                const data = await urlRes.json();
+                const signedUrl = data.url;
+                console.log(signedUrl);
+
+                // 가져온 url로 put 요청 보내기
+                const uploadFile = await fetch(signedUrl, {
+                    method: "PUT",
+                    body: file,
+                    headers: {
+                        "Content-Type": file.type
+                    }
+                });
+            } catch (err) { console.log(err); }
         }
     }
 
@@ -188,7 +195,7 @@ const SendEmail = ({params}: any) => {
             />
 
             {/* 메인 */}
-            <div className='w-[100%] flex flex-col justify-center items-center'>
+            <form onSubmit={e => e.preventDefault()} className='w-[100%] flex flex-col justify-center items-center'>
                 <div className='w-[360px] flex flex-col justify-center items-start my-[100px] tlg:my-[40px]'>
                     <h2 className='text-[20px] tlg:text-[18px] text-theme-4 dark:text-theme-9 font-medium mb-[12px] tlg:mb-[8px]'>프로필 정보</h2>
                     {
@@ -294,7 +301,7 @@ const SendEmail = ({params}: any) => {
                         <button onClick={handleDeleteUserModalClick} className='w-[100%] h-[40px] rounded-[8px] flex flex-row justify-center items-center text-[14px] font-medium text-theme-10 dark:text-theme-9 bg-theme-red/80 hover:bg-theme-red tlg:hover:bg-theme-red/80'>회원 탈퇴하기</button>
                     </div>
                 </div>
-            </div>
+            </form>
 
             {/* 비밀번호 변경 모달창 */}
             <ChangePwModal

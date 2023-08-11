@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import client from '@/libs/client';
+import client from '@/libs/client-prisma';
 const nodemailer = require('nodemailer');
   
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {

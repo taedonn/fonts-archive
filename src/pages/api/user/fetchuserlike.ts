@@ -1,4 +1,4 @@
-import client from '@/libs/client';
+import client from '@/libs/client-prisma';
   
 export async function FetchUserLike(session: string) {
     const user: any = await client.fontsUser.findFirst({

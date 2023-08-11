@@ -1,4 +1,4 @@
-import client from "@/libs/client";
+import client from "@/libs/client-prisma";
 
 export async function FetchFontDetail(id: string) {
     const fonts = await client.fonts.findMany({

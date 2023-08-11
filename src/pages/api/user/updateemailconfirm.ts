@@ -1,4 +1,4 @@
-import client from '@/libs/client';
+import client from '@/libs/client-prisma';
   
 export async function UpdateEmailConfirm(session: string) {
     const exists: any = await client.fontsUser.updateMany({

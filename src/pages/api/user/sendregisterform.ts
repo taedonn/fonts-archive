@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import client from '@/libs/client';
+import client from '@/libs/client-prisma';
 
 type fontsUser = {
     user_name: string
@@ -31,7 +31,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
                 user_session_id: userSessionId,
                 user_email_token: userEmailToken,
                 user_email_confirm: false,
-                profile_img: "/fonts-archive-base-img-" + (Math.floor(Math.random() * 6) + 1) + ".svg"
+                profile_img: "/fonts-archive-base-profile-img-" + (Math.floor(Math.random() * 6) + 1) + ".svg"
             }
         });
 

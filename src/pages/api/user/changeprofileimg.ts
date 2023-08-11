@@ -1,29 +1,24 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import client from '@/libs/client';
-import { getSignedFileUrl } from '@/libs/aws-sdk';
+import client from '@/libs/client-prisma';
+import { getSignedFileUrl } from '@/libs/client-s3';
   
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method === 'GET') {
-        // 쿼리 가져오기
-        const action = req.query.action === undefined ? '' : req.query.action as string;
-        const userNo = req.query.userNo === undefined ? '' : req.query.userNo as string;
+        try {
+            // 쿼리 가져오기
+            const userNo = req.query.userNo === undefined ? '' : req.query.userNo as string;
 
-        var userInfo;
-        var randomProfileImg = "/fonts-archive-base-img-" + (Math.floor(Math.random() * 6) + 1) + ".svg";
+            var randomProfileImg = "/fonts-archive-base-profile-img-" + (Math.floor(Math.random() * 6) + 1) + ".svg";
 
-        if (action === 'change') { // action이 프로필 이미지 변경일 경우
-
-        } else { // action이 프로필 이미지 삭제일 경우
-            userInfo = await client.fontsUser.update({
+            const userInfo = !!await client.fontsUser.updateMany({
                 where: { user_no: Number(userNo) },
                 data: { profile_img: randomProfileImg }
             });
-        }
 
-        return res.status(200).send(
-            action === 'change' ? null :
-            action === 'delete' && userInfo !== undefined ? randomProfileImg : null
-        );
+            return res.status(200).send(userInfo ? 'Profile image deleted successfully.' : 'Profile image did not get deleted due to an error.');
+        } catch (err) {
+            return res.status(500).send(err);
+        }
     } else if (req.method === "POST") {
         try {
             let { name, type } = JSON.parse(req.body);
@@ -34,9 +29,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             }
             const signedUrl = await getSignedFileUrl(fileParams);
 
-            return res.status(200).send(signedUrl);
+            return res.status(200).json({
+                message: "file upload success.",
+                url: signedUrl
+            });
         } catch (err) {
-            return res.status(500).send('file upload failed.');
+            return res.status(500).json({
+                message: "file upload failed."
+            });
         }
     }
 }
