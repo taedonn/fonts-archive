@@ -49,7 +49,7 @@ model fontsUser {
   user_email_token   String
   user_email_confirm Boolean
   liked_fonts        fontsLiked[]
-  profile_img        String
+  profile_img        String @db.Text
 }
 
 model fontsLiked {
