@@ -113,20 +113,6 @@ export default function DeleteUserModal(
                         await axios.delete(res.data.url, { headers: { 'Content-Type': 'image/' + res.data.url.split('.').pop() === 'jpg' ? 'jpeg' : res.data.url.split('.').pop() }})
                         .then(async () => {
                             console.log('file deleted from s3 succeeded.');
-
-                            // 유저 정보 삭제
-                            await axios.post('/api/user/deleteuser', null, { params: { id: id } })
-                            .then((res) => {
-                                removeCookies('session', { path: '/' });
-                                location.href = '/';
-                                console.log(res.data);
-                            })
-                            .catch(err => {
-                                console.log(err);
-
-                                // 로딩 스피너 정지
-                                setIsLoading(false);
-                            });
                         })
                         .catch(() => {
                             console.log('file deleted from s3 failed.');
@@ -142,23 +128,23 @@ export default function DeleteUserModal(
                         setIsLoading(false);
                     });
                 }
-                // 프로필 사진이 기본 프로필 사진인 경우
-                else {
-                    // 유저 정보 삭제
-                    await axios.post('/api/user/deleteuser', null, { params: { id: id } })
-                    .then((res) => {
-                        removeCookies('session', { path: '/' });
-                        location.href = '/';
-                        console.log(res.data);
-                    })
-                    .catch(err => {
-                        console.log(err);
-
-                        // 로딩 스피너 정지
-                        setIsLoading(false);
-                    });
-                }
             })
+            .then(async () => {
+                // 유저 정보 삭제
+                await axios.post('/api/user/deleteuser', null, { params: { id: id } })
+                .then((res) => {
+                    // removeCookies('session', { path: '/' });
+                    // location.href = '/';
+                    console.log(res.data);
+                })
+                .catch(err => {
+                    console.log(err);
+
+                    // 로딩 스피너 정지
+                    setIsLoading(false);
+                });
+            })
+            .catch(err => console.log(err));
         }
     }
 

@@ -2,6 +2,12 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import client from '@/libs/client-prisma';
 import aws from 'aws-sdk';
 
+export const config = {
+    api: {
+        externalResolver: true,
+    },
+};
+
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method === 'GET') {
         // 쿼리 가져오기
