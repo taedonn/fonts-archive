@@ -6,6 +6,7 @@ import React, { useState, useEffect, useRef, ChangeEvent } from 'react';
 
 // hooks
 import axios from 'axios';
+import imageCompression from 'browser-image-compression';
 
 // api
 import { CheckIfSessionExists } from "../api/user/checkifsessionexists";
@@ -25,6 +26,7 @@ const SendEmail = ({params}: any) => {
 
     // 폼 state
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [isImgLoading, setIsImgLoading] = useState<boolean>(false);
     const [nameVal, setNameVal] = useState<string>('');
     const [nameChk, setNameChk] = useState<string>('');
     const [alert, setAlert] = useState<string>('');
@@ -122,6 +124,9 @@ const SendEmail = ({params}: any) => {
         // 사진 변경창 닫기
         imgInput.checked = false;
 
+        // 이미지 로딩 스피너 실행
+        setIsImgLoading(true);
+
         if (!params.user.profile_img.startsWith('/fonts-archive-base-profile-img-')) {
             // 프로필 이미지 제거 후 state에 저장된 프로필 이미지 변경
             await axios.get('/api/user/changeprofileimg', {
@@ -136,7 +141,12 @@ const SendEmail = ({params}: any) => {
                 // 새로고침
                 location.reload();
             })
-            .catch(err => console.log(err));
+            .catch(err => {
+                console.log(err);
+
+                // 이미지 로딩 스피너 제거
+                setIsImgLoading(false);
+            });
         }
     }
 
@@ -144,105 +154,166 @@ const SendEmail = ({params}: any) => {
     const changeImg = async (e: ChangeEvent<HTMLInputElement>) => {
         const imgInput = document.getElementById("profile-img") as HTMLInputElement;
 
+        // 이미지 로딩 스피너 실행
+        setIsImgLoading(true);
+
+        // 사진 변경창 닫기
+        imgInput.checked = false;
+
         if (e.target.files && e.target.files[0]) {
-            const file = e.target.files[0];
-            const fileType = file.name.split('.').pop();
+            const thisFile = e.target.files[0];
+            let file: File;
+            let fileType: string;
 
-            // 사진 변경창 닫기
-            imgInput.checked = false;
-
-            // 기존 프로필 사진 정보 가져오기
-            await axios.get('/api/user/changeprofileimg', {
-                params: {
-                    userNo: params.user.user_no,
-                    action: 'Get Original',
+            // 이미지 리사이징
+            const img = document.createElement('img');
+            const selectedImg = e.target.files[0];
+            const objectURL = URL.createObjectURL(selectedImg);
+            img.onload = async function() {
+                // 파일이 jpeg나 png일 경우만 리사이징 함수 적용
+                if (thisFile.type === 'image/jpeg' || thisFile.type === 'image/png') {
+                    // 파일의 넓이나 높이가 500 초과일 때 리사이징
+                    if (img.width > 500 || img.height > 500) {
+                        // 리사이징 옵션
+                        const resizeOption = { maxWidthOrHeight: 500 }
+    
+                        // 리사이징 함수
+                        imageCompression(thisFile, resizeOption)
+                        .then(function(compressedFile) {
+                            file = compressedFile;
+                            fileType = file.name.split('.').pop() as string;
+                        })
+                        .catch(err => console.log(err));
+                    } else {
+                        file = thisFile;
+                        fileType = file.name.split('.').pop() as string;
+                    }
+                } else {
+                    file = thisFile;
+                    fileType = file.name.split('.').pop() as string;
                 }
-            })
-            .then(async (res) => {
-                // 프로필 사진이 기본 프로필 사진이 아닌 경우
-                if (!res.data.url.startsWith('/fonts-archive-base-profile-img-')) {
-                    // 기존 프로필 삭제를 위한 Presigned URL 가져오기
-                    await axios.post('/api/user/changeprofileimg', {
-                        action: 'Delete Signed URL',
-                        fileName: `fonts-archive-user-${params.user.user_no}-profile-img.` + res.data.url.split('.').pop(),
-                        fileType: 'image/' + res.data.url.split('.').pop() === 'jpg' ? 'jpeg' : res.data.url.split('.').pop(),
-                    })
-                    .then(async (res) => {
-                        // 기존 프로필 삭제
-                        await axios.delete(res.data.url, { headers: { 'Content-Type': 'image/' + res.data.url.split('.').pop() === 'jpg' ? 'jpeg' : res.data.url.split('.').pop() }})
-                        .then(async () => {
-                            console.log('file deleted from s3 succeeded.');
 
-                            // 프로필 이미지 업로드를 위한 Presigned URL 가져오기
-                            await axios.post('/api/user/changeprofileimg', {
-                                action: 'Put Signed URL',
-                                fileName: `fonts-archive-user-${params.user.user_no}-profile-img.` + fileType,
-                                fileType: file.type,
-                            })
-                            .then(async (res) => {
-                                // 프로필 이미지 s3에 업로드
-                                await axios.put(res.data.url, file, { headers: { 'Content-Type': file.type }})
-                                .then(async () => {
-                                    console.log('file upload to s3 succeeded.');
+                // 기존 프로필 사진 정보 가져오기
+                await axios.get('/api/user/changeprofileimg', {
+                    params: {
+                        userNo: params.user.user_no,
+                        action: 'Get Original',
+                    }
+                })
+                .then(async (res) => {
+                    // 프로필 사진이 기본 프로필 사진이 아닌 경우
+                    if (!res.data.url.startsWith('/fonts-archive-base-profile-img-')) {
+                        // 기존 프로필 삭제를 위한 Presigned URL 가져오기
+                        await axios.post('/api/user/changeprofileimg', {
+                            action: 'Delete Signed URL',
+                            fileName: `fonts-archive-user-${params.user.user_no}-profile-img.` + res.data.url.split('.').pop(),
+                            fileType: 'image/' + res.data.url.split('.').pop() === 'jpg' ? 'jpeg' : res.data.url.split('.').pop(),
+                        })
+                        .then(async (res) => {
+                            // 기존 프로필 삭제
+                            await axios.delete(res.data.url, { headers: { 'Content-Type': 'image/' + res.data.url.split('.').pop() === 'jpg' ? 'jpeg' : res.data.url.split('.').pop() }})
+                            .then(async () => {
+                                console.log('file deleted from s3 succeeded.');
 
-                                    // 프로필 이미지 Prisma에 저장
-                                    await axios.post('/api/user/changeprofileimg', {
-                                        action: 'Update Prisma',
-                                        user_no: params.user.user_no,
-                                        img_type: fileType,
-                                    })
-                                    .then((res) => {
-                                        console.log(res.data.message);
-
-                                        // 새로고침
-                                        location.reload();
-                                    })
-                                    .catch(err => console.log(err));
+                                // 프로필 이미지 업로드를 위한 Presigned URL 가져오기
+                                await axios.post('/api/user/changeprofileimg', {
+                                    action: 'Put Signed URL',
+                                    fileName: `fonts-archive-user-${params.user.user_no}-profile-img.` + fileType,
+                                    fileType: file.type,
                                 })
-                                .catch(() => { console.log('file upload to s3 failed.') });
+                                .then(async (res) => {
+                                    // 프로필 이미지 s3에 업로드
+                                    await axios.put(res.data.url, file, { headers: { 'Content-Type': file.type }})
+                                    .then(async () => {
+                                        console.log('file upload to s3 succeeded.');
+
+                                        // 프로필 이미지 Prisma에 저장
+                                        await axios.post('/api/user/changeprofileimg', {
+                                            action: 'Update Prisma',
+                                            user_no: params.user.user_no,
+                                            img_type: fileType,
+                                        })
+                                        .then((res) => {
+                                            console.log(res.data.message);
+
+                                            // 새로고침
+                                            location.reload();
+                                        })
+                                        .catch(err => {
+                                            console.log(err);
+
+                                            // 이미지 로딩 스피너 제거
+                                            setIsImgLoading(false);
+                                        });
+                                    })
+                                    .catch(() => {
+                                        console.log('file upload to s3 failed.');
+
+                                        // 이미지 로딩 스피너 제거
+                                        setIsImgLoading(false);
+                                    });
+                                })
+                                .catch(err => {
+                                    console.log(err);
+
+                                    // 이미지 로딩 스피너 제거
+                                    setIsImgLoading(false);
+                                });
                             })
-                            .catch(err => console.log(err));
+                            .catch(() => {
+                                console.log('file deleted from s3 failed.');
+
+                                // 이미지 로딩 스피너 제거
+                                setIsImgLoading(false);
+                            });
                         })
-                        .catch(() => { console.log('file deleted from s3 failed.') });
-                    })
-                    .catch(err => console.log(err));
-                }
-                // 프로필 사진이 기본 프로필 사진인 경우
-                else {
-                    // 프로필 이미지 업로드를 위한 Presigned URL 가져오기
-                    await axios.post('/api/user/changeprofileimg', {
-                        action: 'Put Signed URL',
-                        fileName: `fonts-archive-user-${params.user.user_no}-profile-img.` + fileType,
-                        fileType: file.type,
-                    })
-                    .then(async (res) => {
-                        console.log(res.data.url);
+                        .catch(err => {
+                            console.log(err);
 
-                        // 프로필 이미지 s3에 업로드
-                        await axios.put(res.data.url, file, { headers: { 'Content-Type': file.type }})
-                        .then(async () => {
-                            console.log('file upload to s3 succeeded.');
-
-                            // 프로필 이미지 Prisma에 저장
-                            await axios.post('/api/user/changeprofileimg', {
-                                action: 'Update Prisma',
-                                user_no: params.user.user_no,
-                                img_type: fileType,
-                            })
-                            .then((res) => {
-                                console.log(res.data.message);
-
-                                // 새로고침
-                                location.reload();
-                            })
-                            .catch(err => console.log(err));
+                            // 이미지 로딩 스피너 제거
+                            setIsImgLoading(false);
+                        });
+                    }
+                    // 프로필 사진이 기본 프로필 사진인 경우
+                    else {
+                        // 프로필 이미지 업로드를 위한 Presigned URL 가져오기
+                        await axios.post('/api/user/changeprofileimg', {
+                            action: 'Put Signed URL',
+                            fileName: `fonts-archive-user-${params.user.user_no}-profile-img.` + fileType,
+                            fileType: file.type,
                         })
-                        .catch(() => { console.log('file upload to s3 failed.') });
-                    })
-                    .catch(err => console.log(err));
-                }
-            })
-            .catch(err => console.log(err));
+                        .then(async (res) => {
+                            console.log(res.data.url);
+
+                            // 프로필 이미지 s3에 업로드
+                            await axios.put(res.data.url, file, { headers: { 'Content-Type': file.type }})
+                            .then(async () => {
+                                console.log('file upload to s3 succeeded.');
+
+                                // 프로필 이미지 Prisma에 저장
+                                await axios.post('/api/user/changeprofileimg', {
+                                    action: 'Update Prisma',
+                                    user_no: params.user.user_no,
+                                    img_type: fileType,
+                                })
+                                .then((res) => {
+                                    console.log(res.data.message);
+
+                                    // 새로고침
+                                    location.reload();
+                                })
+                                .catch(err => console.log(err));
+                            })
+                            .catch(() => { console.log('file upload to s3 failed.') });
+                        })
+                        .catch(err => console.log(err));
+                    }
+                })
+                .catch(err => console.log(err));
+
+                URL.revokeObjectURL(objectURL);
+            }
+            img.src = objectURL;
         }
     }
 
@@ -307,10 +378,16 @@ const SendEmail = ({params}: any) => {
                         <div className='flex items-center'>
                             <div ref={refImg} className='relative'>
                                 <input className='peer hidden' id='profile-img' type='checkbox'/>
-                                <label className='w-[60px] h-[60px] block relative cursor-pointer' htmlFor='profile-img'>
-                                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                                    <img className='w-[100%] h-[100%] object-cover rounded-full' src={params.user.profile_img} width={60} height={60} alt='유저 프로필 사진'/>
-                                    <div className='w-[20px] h-[18px] flex justify-center items-center bg-theme-4 dark:bg-theme-blue-2 border border-theme-yellow dark:border-theme-blue-1 absolute left-[2px] bottom-[2px] rounded-[6px]'>
+                                <label className='w-[60px] h-[60px] block relative cursor-pointer overflow-hidden' htmlFor='profile-img'>
+                                    {
+                                        !isImgLoading
+                                        ? <>
+                                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                                            <img className='w-[100%] h-[100%] object-cover rounded-full' src={params.user.profile_img} width={60} height={60} alt='유저 프로필 사진'/>
+                                        </>
+                                        : <div className='w-[100%] h-[100%] rounded-full flex items-center dark:bg-theme-blue-2/60'><div className='img-loader'></div></div>
+                                    }
+                                    <div className='w-[20px] h-[18px] flex justify-center items-center bg-theme-4 dark:bg-theme-blue-2 border border-theme-yellow dark:border-theme-blue-1 absolute z-10 left-[2px] bottom-[2px] rounded-[6px]'>
                                         <svg className='w-[10px] fill-theme-yellow dark:fill-theme-blue-1' xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16"><path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/></svg>
                                     </div>
                                 </label>
