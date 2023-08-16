@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import client from '@/libs/client-prisma';
+import prisma from '@/libs/client-prisma';
 
 type fontsUser = {
     user_name: string
@@ -23,7 +23,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
         const userSessionId: string = crypto.randomUUID();
         const userEmailToken: string = crypto.randomUUID();
 
-        const sendForm: any = await client.fontsUser.create({
+        const sendForm: any = await prisma.fontsUser.create({
             data: {
                 user_name: userName,
                 user_id: userId,

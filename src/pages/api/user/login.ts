@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import client from '@/libs/client-prisma';
+import prisma from '@/libs/client-prisma';
   
 interface data {
     status: string,
@@ -12,12 +12,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
         const userPw = req.query.pw === undefined ? '' : req.query.pw as string;
 
 
-        const id: boolean = !!await client.fontsUser.findUnique({
+        const id: boolean = !!await prisma.fontsUser.findUnique({
             select: { user_id: true },
             where: { user_id: userId }
         });
 
-        const pw: boolean = !id ? false : !!await client.fontsUser.findFirst({
+        const pw: boolean = !id ? false : !!await prisma.fontsUser.findFirst({
             select: {
                 user_id: true,
                 user_pw: true,
@@ -28,7 +28,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
             }
         });
 
-        const emailConfirm: any = id && pw ? await client.fontsUser.findUnique({
+        const emailConfirm: any = id && pw ? await prisma.fontsUser.findUnique({
             select: {
                 user_id: true,
                 user_email_confirm: true,
@@ -46,7 +46,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
             )
         );
 
-        const user: any = id && pw ? await client.fontsUser.findFirst({
+        const user: any = id && pw ? await prisma.fontsUser.findFirst({
             select: {
                 user_id: true,
                 user_pw: true,

@@ -1,7 +1,7 @@
-import client from '@/libs/client-prisma';
+import prisma from '@/libs/client-prisma';
   
 export async function FetchUserInfo(session: string) {
-    const user: any = await client.fontsUser.findFirst({
+    const user: any = await prisma.fontsUser.findFirst({
         where: { user_session_id: session }
     });
 

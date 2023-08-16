@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import client from '@/libs/client-prisma';
+import prisma from '@/libs/client-prisma';
 
 type fonts = {
     code: number
@@ -18,7 +18,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
         const thisQuery = req.query;
         const thisKeyword = thisQuery.keyword === undefined || thisQuery.keyword === '' ? 'no-data' : thisQuery.keyword as string;
 
-        const fonts = await client.fonts.findMany({
+        const fonts = await prisma.fonts.findMany({
             select: { // 특정 column 선택
                 code: true,
                 name: true,

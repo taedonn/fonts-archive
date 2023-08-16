@@ -1,12 +1,12 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import client from '@/libs/client-prisma';
+import prisma from '@/libs/client-prisma';
   
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method === 'POST') {
         const { body } = req;
         const { code } = JSON.parse(body);
 
-        await client.fonts.update({
+        await prisma.fonts.update({
             where: { code },
             data: { view: { increment: 1 } }
         });

@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import client from '@/libs/client-prisma';
+import prisma from '@/libs/client-prisma';
 
 type fontsUser = {
     user_id: string
@@ -14,7 +14,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     if (req.method === 'GET') {
         const userId = req.query.id === undefined ? '' : req.query.id as string;
 
-        const sendToken: any = await client.fontsUser.findUnique({
+        const sendToken: any = await prisma.fontsUser.findUnique({
             select: {
                 user_id: true,
                 user_email_token: true

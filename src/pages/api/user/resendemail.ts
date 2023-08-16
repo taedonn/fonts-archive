@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import client from '@/libs/client-prisma';
+import prisma from '@/libs/client-prisma';
 const nodemailer = require('nodemailer');
   
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -8,7 +8,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const token = req.query.token === undefined ? '' : req.query.token as string;
 
         // DB에서 토큰으로 유저 정보 검색
-        const user: any = await client.fontsUser.findFirst({
+        const user: any = await prisma.fontsUser.findFirst({
             select: {
                 user_name: true,
                 user_id: true,

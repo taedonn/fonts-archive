@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import client from '@/libs/client-prisma';
+import prisma from '@/libs/client-prisma';
   
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method === 'GET') {
@@ -24,7 +24,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const filteredArr = filter === null ? null : filter.split(','); // [A,B,C]
         filteredArr === null ? null : filteredArr.forEach((arr: string) => objArr.push({ code: Number(arr) }));
 
-        const fonts = await client.fonts.findMany({
+        const fonts = await prisma.fonts.findMany({
             where: {
                 OR: req.query.searchword !== '' ? searchword : req.query.filter !== '' ? objArr : [{ name: { not: '' } }],
                 lang: lang,

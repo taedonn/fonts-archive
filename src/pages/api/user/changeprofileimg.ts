@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import client from '@/libs/client-prisma';
+import prisma from '@/libs/client-prisma';
 import aws from 'aws-sdk';
 
 export const config = {
@@ -18,7 +18,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
         if (req.query.action === 'Delete Original') { // 사진 삭제 버튼 클릭 시
             try {
-                const userInfo = !!await client.fontsUser.updateMany({
+                const userInfo = !!await prisma.fontsUser.updateMany({
                     where: { user_no: Number(userNo) },
                     data: { profile_img: randomProfileImg }
                 });
@@ -32,7 +32,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             }
         } else if (req.query.action === 'Get Original') { // 프로필 사진 변경 클릭 시 기존 프로필 사진 정보 가져오기
             try {
-                const userInfo: any = await client.fontsUser.findUnique({
+                const userInfo: any = await prisma.fontsUser.findUnique({
                     where: { user_no: Number(userNo) },
                 });
     
@@ -110,7 +110,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             }
         } else if (req.body.action === 'Update Prisma') {
             try {
-                await client.fontsUser.updateMany({
+                await prisma.fontsUser.updateMany({
                     where: { user_no: Number(req.body.user_no) },
                     data: { profile_img: `https://fonts-archive.s3.ap-northeast-2.amazonaws.com/fonts-archive-user-${req.body.user_no}-profile-img.${req.body.img_type}` }
                 });

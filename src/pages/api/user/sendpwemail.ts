@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import client from '@/libs/client-prisma';
+import prisma from '@/libs/client-prisma';
 const nodemailer = require('nodemailer');
   
 interface data {
@@ -16,13 +16,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
         const randomPw = Math.random().toString(36).slice(2);
 
         // 이름 조회
-        const nameExists: boolean = !!await client.fontsUser.findFirst({
+        const nameExists: boolean = !!await prisma.fontsUser.findFirst({
             select: { user_name: true },
             where: { user_name: name }
         });
         
         // 이름 조회 성공 시, 아이디 조회
-        const idExists: boolean = !nameExists ? false : !!await client.fontsUser.findFirst({
+        const idExists: boolean = !nameExists ? false : !!await prisma.fontsUser.findFirst({
             select: {
                 user_name: true,
                 user_id: true,
@@ -43,7 +43,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
             )
 
         // 아이디 조회 성공 시 유저 정보 가져오기
-        const user: any = exists ? await client.fontsUser.findUnique({
+        const user: any = exists ? await prisma.fontsUser.findUnique({
             select: {
                 user_name: true,
                 user_id: true,
@@ -53,7 +53,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
         }) : null;
 
         // 임시 비밀번호 업데이트
-        exists ? await client.fontsUser.update({
+        exists ? await prisma.fontsUser.update({
             where: { user_id: id },
             data: { user_pw: randomPw }
         }) : null

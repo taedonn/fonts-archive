@@ -133,8 +133,8 @@ export default function DeleteUserModal(
                 // 유저 정보 삭제
                 await axios.post('/api/user/deleteuser', null, { params: { id: id } })
                 .then((res) => {
-                    // removeCookies('session', { path: '/' });
-                    // location.href = '/';
+                    removeCookies('session', { path: '/' });
+                    location.href = '/';
                     console.log(res.data);
                 })
                 .catch(err => {
