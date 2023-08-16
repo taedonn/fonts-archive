@@ -10,11 +10,13 @@ export default function DeleteUserModal(
         display,
         close,
         id,
+        user_no
     }:
     {
         display: boolean, 
         close: any,
         id: string,
+        user_no: string,
     }
 ) {
     // 쿠키 훅
@@ -90,18 +92,73 @@ export default function DeleteUserModal(
             setIsLoading(false);
         }
         else {
-            await axios.post('/api/user/deleteuser', null, { params: { id: id } })
-            .then((res) => {
-                removeCookies('session', { path: '/' });
-                location.href = '/';
-                console.log(res.data);
+            // 기존 프로필 사진 정보 가져오기
+            await axios.get('/api/user/changeprofileimg', {
+                params: {
+                    userNo: user_no,
+                    action: 'Get Original',
+                }
             })
-            .catch(err => {
-                console.log(err);
+            .then(async (res) => {
+                // 프로필 사진이 기본 프로필 사진이 아닌 경우
+                if (!res.data.url.startsWith('/fonts-archive-base-profile-img-')) {
+                    // 기존 프로필 삭제를 위한 Presigned URL 가져오기
+                    await axios.post('/api/user/changeprofileimg', {
+                        action: 'Delete Signed URL',
+                        fileName: `fonts-archive-user-${user_no}-profile-img.` + res.data.url.split('.').pop(),
+                        fileType: 'image/' + res.data.url.split('.').pop() === 'jpg' ? 'jpeg' : res.data.url.split('.').pop(),
+                    })
+                    .then(async (res) => {
+                        // 기존 프로필 삭제
+                        await axios.delete(res.data.url, { headers: { 'Content-Type': 'image/' + res.data.url.split('.').pop() === 'jpg' ? 'jpeg' : res.data.url.split('.').pop() }})
+                        .then(async () => {
+                            console.log('file deleted from s3 succeeded.');
 
-                // 로딩 스피너 정지
-                setIsLoading(false);
-            });
+                            // 유저 정보 삭제
+                            await axios.post('/api/user/deleteuser', null, { params: { id: id } })
+                            .then((res) => {
+                                removeCookies('session', { path: '/' });
+                                location.href = '/';
+                                console.log(res.data);
+                            })
+                            .catch(err => {
+                                console.log(err);
+
+                                // 로딩 스피너 정지
+                                setIsLoading(false);
+                            });
+                        })
+                        .catch(() => {
+                            console.log('file deleted from s3 failed.');
+
+                            // 로딩 스피너 정지
+                            setIsLoading(false);
+                        });
+                    })
+                    .catch(err => {
+                        console.log(err);
+
+                        // 로딩 스피너 정지
+                        setIsLoading(false);
+                    });
+                }
+                // 프로필 사진이 기본 프로필 사진인 경우
+                else {
+                    // 유저 정보 삭제
+                    await axios.post('/api/user/deleteuser', null, { params: { id: id } })
+                    .then((res) => {
+                        removeCookies('session', { path: '/' });
+                        location.href = '/';
+                        console.log(res.data);
+                    })
+                    .catch(err => {
+                        console.log(err);
+
+                        // 로딩 스피너 정지
+                        setIsLoading(false);
+                    });
+                }
+            })
         }
     }
 

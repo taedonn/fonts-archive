@@ -17,17 +17,22 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     data: { profile_img: randomProfileImg }
                 });
     
-                return res.status(200).send(userInfo ? 'Profile image deleted successfully.' : 'Profile image did not get deleted due to an error.');
+                return res.status(200).json({
+                    message: userInfo ? 'Profile image deleted successfully.' : 'Profile image did not get deleted due to an error.',
+                    url: randomProfileImg,
+                });
             } catch (err) {
                 return res.status(500).send(err);
             }
         } else if (req.query.action === 'Get Original') { // 프로필 사진 변경 클릭 시 기존 프로필 사진 정보 가져오기
             try {
-                const userInfo = await client.fontsUser.findUnique({
+                const userInfo: any = await client.fontsUser.findUnique({
                     where: { user_no: Number(userNo) },
                 });
     
-                return res.status(200).send(userInfo);
+                return res.status(200).json({
+                    url: userInfo.profile_img
+                });
             } catch (err) {
                 return res.status(500).send(err);
             }
@@ -59,13 +64,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                             message: "PutObject presigned URL generation failed with a status of 200."
                         });
                     }
-                    
-                    const returnedData = {
+    
+                    return res.status(200).json({
                         url: url,
                         message: 'PutObject presigned URL generation succeeded.'
-                    }
-    
-                    return res.status(200).json(returnedData);
+                    });
                 });
             } catch (err) {
                 return res.status(500).json({
@@ -87,13 +90,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                             message: "DeleteObject presigned URL generation failed with a status of 200."
                         });
                     }
-                    
-                    const returnedData = {
+    
+                    return res.status(200).json({
                         url: url,
                         message: 'DeleteObject presigned URL generation succeeded.'
-                    }
-    
-                    return res.status(200).json(returnedData);
+                    });
                 });
             } catch (err) {
                 return res.status(500).json({
@@ -101,32 +102,21 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     message: "DeleteObject presigned URL generation failed with a status of 500."
                 });
             }
-        } else if (req.body.action === 'Get Signed URL') {
-            const getParams = {
-                Bucket: s3Bucket,
-                Key: fileName,
-            }
-
+        } else if (req.body.action === 'Update Prisma') {
             try {
-                s3.getSignedUrl("getObject", getParams, async(err, url) => {
-                    if (err) {
-                        return res.json({
-                            error: err,
-                            message: "GetObject presigned URL generation failed with a status of 200."
-                        });
-                    }
-                    
-                    const returnedData = {
-                        url: url,
-                        message: 'GetObject presigned URL generation succeeded.'
-                    }
-    
-                    return res.status(200).json(returnedData);
+                await client.fontsUser.updateMany({
+                    where: { user_no: Number(req.body.user_no) },
+                    data: { profile_img: `https://fonts-archive.s3.ap-northeast-2.amazonaws.com/fonts-archive-user-${req.body.user_no}-profile-img.${req.body.img_type}` }
+                });
+
+                return res.status(200).json({
+                    url: `https://fonts-archive.s3.ap-northeast-2.amazonaws.com/fonts-archive-user-${req.body.user_no}-profile-img.${req.body.img_type}`,
+                    message: 'Update prisma profile image succeeded.'
                 });
             } catch (err) {
-                return res.status(500).json({
+                res.status(500).json({
                     error: err,
-                    message: "GetObject presigned URL generation failed with a status of 500."
+                    message: 'Update prisma profile image failed.'
                 });
             }
         }
