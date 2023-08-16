@@ -254,6 +254,9 @@ html.dark .loader.loader-red {
     box-sizing: border-box;
     animation: animImgloader 0.8s linear infinite;
 }
+html.dark .img-loader {
+    color: #B1B2B6;
+}
 @keyframes animImgloader {
     0% {
         box-shadow: 8px -4px, 16px 4px, 24px 0px;
