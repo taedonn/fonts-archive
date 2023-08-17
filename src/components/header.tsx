@@ -45,7 +45,7 @@ export default function Header (
     }
 ) {
     // 쿠키 훅
-    const [cookies, setCookie] = useCookies<string>([]);
+    const [, setCookie] = useCookies<string>([]);
 
     // 셀렉트 박스 - "언어 선택" 영역
     const refLangSelect = useRef<HTMLLabelElement>(null);
@@ -467,11 +467,11 @@ export default function Header (
                                     <svg className="w-[14px] fill-theme-10/80 group-hover:fill-theme-10 tlg:group-hover:fill-theme-10/80 dark:fill-theme-9/80 group-hover:dark:fill-theme-9 tlg:group-hover:dark:fill-theme-9/80" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
                                     <span className="text-[13px] ml-[6px] text-theme-10/80 group-hover:text-theme-10 tlg:group-hover:text-theme-10/80 dark:text-theme-9/80 group-hover:dark:text-theme-9 tlg:group-hover:dark:text-theme-9/80">깃헙 프로젝트</span>
                                 </Link>
-                                <Link href="https://github.com/orgs/fonts-archive/discussions/categories/%ED%8F%B0%ED%8A%B8-%EC%A0%9C%EB%B3%B4%ED%95%98%EA%B8%B0" target="_blank" className="group flex flex-row justify-start items-center mt-[5px]">
+                                <Link href="https://github.com/orgs/fonts-archive/discussions/1" target="_blank" className="group flex flex-row justify-start items-center mt-[5px]">
                                     <svg className="w-[14px] fill-theme-10/80 group-hover:fill-theme-10 tlg:group-hover:fill-theme-10/80 dark:fill-theme-9/80 group-hover:dark:fill-theme-9 tlg:group-hover:dark:fill-theme-9/80" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M5 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/><path d="m2.165 15.803.02-.004c1.83-.363 2.948-.842 3.468-1.105A9.06 9.06 0 0 0 8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6a10.437 10.437 0 0 1-.524 2.318l-.003.011a10.722 10.722 0 0 1-.244.637c-.079.186.074.394.273.362a21.673 21.673 0 0 0 .693-.125zm.8-3.108a1 1 0 0 0-.287-.801C1.618 10.83 1 9.468 1 8c0-3.192 3.004-6 7-6s7 2.808 7 6c0 3.193-3.004 6-7 6a8.06 8.06 0 0 1-2.088-.272 1 1 0 0 0-.711.074c-.387.196-1.24.57-2.634.893a10.97 10.97 0 0 0 .398-2z"/></svg>
                                     <span className="text-[13px] ml-[6px] text-theme-10/80 group-hover:text-theme-10 tlg:group-hover:text-theme-10/80 dark:text-theme-9/80 group-hover:dark:text-theme-9 tlg:group-hover:dark:text-theme-9/80">폰트 제보하기</span>
                                 </Link>
-                                <Link href="https://github.com/orgs/fonts-archive/discussions/categories/%EB%B2%84%EA%B7%B8-%EB%A6%AC%ED%8F%AC%ED%8A%B8" target="_blank" className="group flex flex-row justify-start items-center mt-[5px]">
+                                <Link href="https://github.com/orgs/fonts-archive/discussions/2" target="_blank" className="group flex flex-row justify-start items-center mt-[5px]">
                                     <svg className="w-[14px] fill-theme-red dark:fill-theme-red" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4.978.855a.5.5 0 1 0-.956.29l.41 1.352A4.985 4.985 0 0 0 3 6h10a4.985 4.985 0 0 0-1.432-3.503l.41-1.352a.5.5 0 1 0-.956-.29l-.291.956A4.978 4.978 0 0 0 8 1a4.979 4.979 0 0 0-2.731.811l-.29-.956z"/><path d="M13 6v1H8.5v8.975A5 5 0 0 0 13 11h.5a.5.5 0 0 1 .5.5v.5a.5.5 0 1 0 1 0v-.5a1.5 1.5 0 0 0-1.5-1.5H13V9h1.5a.5.5 0 0 0 0-1H13V7h.5A1.5 1.5 0 0 0 15 5.5V5a.5.5 0 0 0-1 0v.5a.5.5 0 0 1-.5.5H13zm-5.5 9.975V7H3V6h-.5a.5.5 0 0 1-.5-.5V5a.5.5 0 0 0-1 0v.5A1.5 1.5 0 0 0 2.5 7H3v1H1.5a.5.5 0 0 0 0 1H3v1h-.5A1.5 1.5 0 0 0 1 11.5v.5a.5.5 0 1 0 1 0v-.5a.5.5 0 0 1 .5-.5H3a5 5 0 0 0 4.5 4.975z"/></svg>
                                     <span className="text-[13px] ml-[6px] text-theme-10/80 group-hover:text-theme-10 tlg:group-hover:text-theme-10/80 dark:text-theme-9/80 group-hover:dark:text-theme-9 tlg:group-hover:dark:text-theme-9/80">버그 리포트</span>
                                 </Link>

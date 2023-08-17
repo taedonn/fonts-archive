@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import prisma from '@/libs/client-prisma';
-import aws from 'aws-sdk';
+import { S3Client, PutObjectCommand, DeleteObjectCommand } from '@aws-sdk/client-s3';
+import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 
 export const config = {
     api: {
@@ -44,13 +45,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             }
         }
     } else if (req.method === "POST") {
-        aws.config.update({
-            accessKeyId: process.env.MY_AWS_ACCESS_KEY,
-            secretAccessKey: process.env.MY_AWS_SECRET_KEY,
-            region: process.env.MY_AWS_S3_REGION,
+        const s3 = new S3Client({
+            credentials: {
+                accessKeyId: process.env.MY_AWS_ACCESS_KEY as string,
+                secretAccessKey: process.env.MY_AWS_SECRET_KEY as string,
+            },
+            region: process.env.MY_AWS_S3_REGION as string,
         });
-
-        const s3 = new aws.S3();
         const s3Bucket = process.env.MY_AWS_S3_BUCKET;
         const fileName = req.body.fileName;
         const fileType = req.body.fileType;
@@ -63,18 +64,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             }
 
             try {
-                s3.getSignedUrl("putObject", putParams, async(err, url) => {
-                    if (err) {
-                        return res.json({
-                            error: err,
-                            message: "PutObject presigned URL generation failed with a status of 200."
-                        });
-                    }
-    
-                    return res.status(200).json({
-                        url: url,
-                        message: 'PutObject presigned URL generation succeeded.'
-                    });
+                const url = await getSignedUrl(s3, new PutObjectCommand(putParams), { expiresIn: 3600 });
+                return res.status(200).json({
+                    url: url,
+                    message: "PutObject presigned URL generation succeeded."
                 });
             } catch (err) {
                 return res.status(500).json({
@@ -89,18 +82,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             }
 
             try {
-                s3.getSignedUrl("deleteObject", deleteParams, async(err, url) => {
-                    if (err) {
-                        return res.json({
-                            error: err,
-                            message: "DeleteObject presigned URL generation failed with a status of 200."
-                        });
-                    }
-    
-                    return res.status(200).json({
-                        url: url,
-                        message: 'DeleteObject presigned URL generation succeeded.'
-                    });
+                const url = await getSignedUrl(s3, new DeleteObjectCommand(deleteParams), { expiresIn: 3600 });
+                return res.status(200).json({
+                    url: url,
+                    message: "DeleteObject presigned URL generation succeeded."
                 });
             } catch (err) {
                 return res.status(500).json({

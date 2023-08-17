@@ -281,9 +281,7 @@ const SendEmail = ({params}: any) => {
                     user_no: params.user.user_no,
                     img_type: fileType,
                 })
-                .then((res) => {
-                    console.log(res.data.message);
-
+                .then(() => {
                     // 새로고침
                     location.reload();
                 })
