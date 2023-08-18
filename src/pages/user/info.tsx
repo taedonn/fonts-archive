@@ -400,9 +400,9 @@ const SendEmail = ({params}: any) => {
                             </div>
                             <div className='ml-[16px]'>
                                 <h2 className='mr-[1px] text-[14px] text-theme-10 dark:text-theme-9 font-bold'>프로필 이미지</h2>
-                                <div className='text-[11px] font-normal leading-none text-theme-8 dark:text-theme-7 mt-[6px]'>
-                                    <h3 className='flex items-center mb-[6px]'><div className='w-[3px] h-[3px] mr-[5px] mt-px rounded-full bg-theme-8 dark:bg-theme-7'></div>500px보다 큰 이미지는 축소되어 업로드 됩니다.</h3>
-                                    <h3 className='flex items-center'><div className='w-[3px] h-[3px] mr-[5px] mt-px rounded-full bg-theme-8 dark:bg-theme-7'></div>사진 변경이 안되면, 사진 제거 후 업로드 해주세요.</h3>
+                                <div className='text-[11px] font-normal leading-none break-keep text-theme-8 dark:text-theme-7 mt-[6px]'>
+                                    <h3 className='flex items-center mb-[4px]'><div className='w-[3px] h-[3px] mr-[5px] mt-px rounded-full bg-theme-8 dark:bg-theme-7'></div>500px보다 큰 이미지는 축소되어 업로드 됩니다.</h3>
+                                    <h3 className='flex items-start leading-normal'><div className='w-[3px] h-[3px] mr-[5px] mt-[7px] shrink-0 rounded-full bg-theme-8 dark:bg-theme-7'></div>사진 변경이 안되면, 캐시를 지우거나 강력 새로고침 (Ctrl/Cmd + Shift + R)을 해주세요.</h3>
                                 </div>
                             </div>
                         </div>
