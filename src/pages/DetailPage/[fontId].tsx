@@ -42,6 +42,7 @@ function DetailPage({params}: any) {
     const [alertDisplay, setAlertDisplay] = useState<boolean>(false);
     const [hoverDisplay, setHoverDisplay] = useState<boolean>(true);
     const [liked, setLiked] = useState<boolean>(params.like === null ? false : params.like.some((font: any) => font.font_id === params.fonts[0].code));
+    const [likedInput, setLikedInput] = useState<boolean>(params.like === null ? false : params.like.some((font: any) => font.font_id === params.fonts[0].code));
 
     /** 로그인 중이 아닐 때 좋아요 클릭 방지 */
     const handleLikeClick = (e: React.MouseEvent<HTMLInputElement>) => {
@@ -57,7 +58,14 @@ function DetailPage({params}: any) {
             // 좋아요 버튼 눌렀을 때 호버창 지우기
             setHoverDisplay(false);
 
-            await axios.post('/api/updatelike', null, { params: { code: e.target.id ,checked: e.target.checked, user_no: params.user.user_no } })
+            // 좋아요/좋아요 해제 여부 체크
+            if (e.target.checked) { setLikedInput(true); }
+            else { setLikedInput(false); }
+
+            // 댓글창 위 좋아요 버튼의 아이디 규칙에 맞게 변경
+            const thisId = e.target.id.includes('like-bottom-') ? e.target.id.replace('like-bottom-','') : e.target.id;
+
+            await axios.post('/api/updatelike', null, { params: { code: thisId ,checked: e.target.checked, user_no: params.user.user_no } })
             .then(res => {
                 // 좋아요 여부 확인 후 문장 변경
                 if (res.data === 'liked') { setLiked(true); }
@@ -72,7 +80,7 @@ function DetailPage({params}: any) {
 
     /** 렌더링 시 좋아요 되어있는 폰트들은 체크된 상태로 변경 */
     const handleDefaultLike = (fontCode: number) => {
-        return params.like === null ? false : params.like.some((font: any) => font.font_id === fontCode);
+        return params.like === null ? false : params.like.some((font: any) => font.font_id === fontCode || font.font_id === 'like-bottom-' + fontCode);
     }
 
     /** 알럿창 닫기 */
@@ -696,7 +704,7 @@ function DetailPage({params}: any) {
                                 </tr>
                             </tbody>
                         </table>
-                        <div className="w-[calc(100%-690px)] tlg:w-[100%] h-[669px] tlg:h-[auto] mb-[60px] tmd:mb-[40px] border border-theme-7 dark:border-theme-5">
+                        <div className="w-[calc(100%-690px)] tlg:w-[100%] h-[669px] tlg:h-[auto] mb-[80px] tlg:mb-[60px] tmd:mb-[40px] border border-theme-7 dark:border-theme-5">
                             <h2 className="relative h-[56px] flex flex-row justify-start items-center text-[15px] text-theme-3 dark:text-theme-9 font-normal leading-none pl-[28px] tlg:pl-[24px] tmd:pl-[20px]">
                                 라이센스 본문
                                 <div className="absolute bottom-0 left-[50%] translate-x-[-50%] w-[calc(100%-40px)] tlg:w-[calc(100%-32px)] tmd:w-[calc(100%-24px)] h-px bg-theme-7 dark:bg-theme-5"></div>
@@ -706,18 +714,41 @@ function DetailPage({params}: any) {
                             </div>
                         </div>
                     </div>
+                    <div className='w-content mb-[12px]'>
+                        <label htmlFor={font.code.toString()} className='cursor-pointer'>
+                            {
+                                !likedInput
+                                ? <div className="w-[76px] h-[32px] flex justify-center items-center rounded-[6px] bg-theme-8 hover:bg-theme-7/80 dark:bg-theme-4/60 hover:dark:bg-theme-4 tlg:dark:hover:bg-theme-4/60">
+                                    <svg className='w-[13px] fill-theme-5 dark:fill-theme-9' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/></svg>
+                                    <div className="ml-[5px] mr-[2px] mt-[2px] text-[13px] font-medium leading-none text-theme-5 dark:text-theme-9">좋아요</div>
+                                </div>
+                                : <div className="w-[76px] h-[32px] flex justify-center items-center rounded-[6px] bg-theme-yellow dark:bg-theme-blue-1">
+                                    <svg className='w-[13px] fill-theme-4 dark:fill-theme-2' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/></svg>
+                                    <div className="ml-[5px] mr-[2px] mt-[2px] text-[13px] font-medium leading-none text-theme-4 dark:text-theme-2">좋아요</div>
+                                </div>
+                            }
+                        </label>
+                    </div>
                     <div className="w-[100%] h-px bg-theme-7 dark:bg-theme-5 mb-[20px]"></div>
                     <h2 className="text-[16px] text-theme-3 dark:text-theme-9 font-medium mb-[16px] tlg:mb-[12px]">댓글 0개</h2>
-                    <div className="w-[100%] mb-[320px]">
+                    <div className="w-[100%] mb-[300px]">
                         <div className="w-[100%] flex">
                             {
                                 params.user === null
-                                ? <svg className="w-[36px] fill-theme-4/80 hover:fill-theme-4 tlg:hover:fill-theme-4/80 dark:fill-theme-9/80 hover:dark:fill-theme-9 tlg:hover:dark:fill-theme-9/80" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/><path fillRule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/></svg>
+                                ? <svg className="w-[36px] fill-theme-4/80 dark:fill-theme-9/80" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/><path fillRule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/></svg>
                                 // eslint-disable-next-line @next/next/no-img-element
                                 : <img className="w-[40px] h-[40px] object-cover rounded-full" src={params.user.profile_img} width={28} height={28} alt="유저 프로필 사진"/>
                             }
-                            <div className={`w-[100%] flex items-center pb-[4px] ml-[16px] border-b ${commentFocus ? 'border-theme-5 dark:border-theme-7' : 'border-theme-7 dark:border-theme-5'}`}>
-                                <textarea onInput={handleHeightChange} onFocus={commentsOnFocus} onBlur={commentsOnBlur} placeholder="댓글 달기..." className="peer w-[100%] h-[21px] resize-none text-[14px]  tracking-wide text-theme-5 dark:text-theme-8 placeholder-theme-5 dark:placeholder-theme-6 leading-normal bg-transparent"/>
+                            <div className={`relative w-[100%] flex items-center pb-[4px] ml-[16px] border-b ${commentFocus ? 'border-theme-5 dark:border-theme-7' : 'border-theme-7 dark:border-theme-5'}`}>
+                                <textarea onInput={handleHeightChange} onFocus={commentsOnFocus} onBlur={commentsOnBlur} placeholder="댓글 달기..." className="peer w-[100%] h-[21px] resize-none text-[14px] tracking-wide text-theme-5 dark:text-theme-8 placeholder-theme-5 dark:placeholder-theme-6 leading-normal bg-transparent"/>
+                                {
+                                    commentFocus
+                                    ? <div className="w-[100%] absolute right-0 bottom-[-12px] translate-y-[100%] flex justify-start text-[14px] dark:text-theme-8">
+                                        <button className="w-[56px] h-[32px] rounded-full dark:bg-theme-3 dark:text-theme-5 cursor-default">댓글</button>
+                                        <button className="w-[56px] h-[32px] ml-[8px] rounded-full hover:dark:bg-theme-4 tlg:hover:dark:bg-transparent">취소</button>
+                                    </div>
+                                    : <></>
+                                }
                             </div>
                         </div>
                     </div>
