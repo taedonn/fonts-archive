@@ -17,6 +17,7 @@ model fonts {
   view            Int
   like            Int        @default(0)
   liked_user      fontsLiked[]
+  comments        fontsComment[]
   font_family     String
   font_type       String
   font_weight     String
@@ -50,6 +51,7 @@ model fontsUser {
   user_email_confirm Boolean
   liked_fonts        fontsLiked[]
   profile_img        String @db.Text
+  comments           fontsComment[]
 }
 
 model fontsLiked {
@@ -61,4 +63,23 @@ model fontsLiked {
   @@id([font_id, user_id])
   @@index([font_id])
   @@index([user_id])
+}
+
+model fontsComment {
+  font fonts @relation(fields: [font_id], references: [code])
+  font_id Int
+  user fontsUser @relation(fields: [user_id], references: [user_no])
+  user_id Int
+  comment String @db.Text
+  depth Int
+  bundle_id Int @default(autoincrement())
+  bundle_order Int
+  is_deleted Boolean @default(false)
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@id([font_id, user_id])
+  @@index([font_id])
+  @@index([user_id])
+  @@index([bundle_id])
 }

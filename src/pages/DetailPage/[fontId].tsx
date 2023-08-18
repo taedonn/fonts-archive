@@ -36,7 +36,7 @@ function DetailPage({params}: any) {
         await fetch("/api/detailpage/updateview", { method: "POST", body: JSON.stringify(font) });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    useEffect(() => { viewUpdate(); }, [font]);
+    // useEffect(() => { viewUpdate(); }, [font]);
 
     // 좋아요 state
     const [alertDisplay, setAlertDisplay] = useState<boolean>(false);
@@ -173,6 +173,15 @@ function DetailPage({params}: any) {
 
     /** MUI 자간 값 */
     const fnLetterSpacingValue = (value: number) => { return value / 10; }
+
+    // 댓글 state
+    const [commentFocus, setCommentFocus] = useState<boolean>(false);
+
+    /** 댓글 포커스 시 */
+    const commentsOnFocus = () => { setCommentFocus(true); }
+
+    /** 댓글 포커스 아웃 시 */
+    const commentsOnBlur = () => { setCommentFocus(false); }
 
     return (
         <>
@@ -687,13 +696,28 @@ function DetailPage({params}: any) {
                                 </tr>
                             </tbody>
                         </table>
-                        <div className="w-[calc(100%-690px)] tlg:w-[100%] h-[669px] tlg:h-[auto] mb-[32px] tlg:mb-[16px] border border-theme-7 dark:border-theme-5">
+                        <div className="w-[calc(100%-690px)] tlg:w-[100%] h-[669px] tlg:h-[auto] mb-[60px] tmd:mb-[40px] border border-theme-7 dark:border-theme-5">
                             <h2 className="relative h-[56px] flex flex-row justify-start items-center text-[15px] text-theme-3 dark:text-theme-9 font-normal leading-none pl-[28px] tlg:pl-[24px] tmd:pl-[20px]">
                                 라이센스 본문
                                 <div className="absolute bottom-0 left-[50%] translate-x-[-50%] w-[calc(100%-40px)] tlg:w-[calc(100%-32px)] tmd:w-[calc(100%-24px)] h-px bg-theme-7 dark:bg-theme-5"></div>
                             </h2>
                             <div className="license-wrap w-[100%] h-[612px] tlg:h-[auto] overflow-hidden overflow-y-auto px-[28px] tlg:px-[24px] tmd:px-[20px] py-[12px] tlg:py-[16px]">
                                 <div id="license" className="text-[15px] tlg:text-[13px] text-theme-5 dark:text-theme-8 leading-loose"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="w-[100%] h-px bg-theme-7 dark:bg-theme-5 mb-[20px]"></div>
+                    <h2 className="text-[16px] text-theme-3 dark:text-theme-9 font-medium mb-[16px] tlg:mb-[12px]">댓글 0개</h2>
+                    <div className="w-[100%] mb-[320px]">
+                        <div className="w-[100%] flex">
+                            {
+                                params.user === null
+                                ? <svg className="w-[36px] fill-theme-4/80 hover:fill-theme-4 tlg:hover:fill-theme-4/80 dark:fill-theme-9/80 hover:dark:fill-theme-9 tlg:hover:dark:fill-theme-9/80" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/><path fillRule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/></svg>
+                                // eslint-disable-next-line @next/next/no-img-element
+                                : <img className="w-[40px] h-[40px] object-cover rounded-full" src={params.user.profile_img} width={28} height={28} alt="유저 프로필 사진"/>
+                            }
+                            <div className={`w-[100%] flex items-center pb-[4px] ml-[16px] border-b ${commentFocus ? 'border-theme-5 dark:border-theme-7' : 'border-theme-7 dark:border-theme-5'}`}>
+                                <textarea onInput={handleHeightChange} onFocus={commentsOnFocus} onBlur={commentsOnBlur} placeholder="댓글 달기..." className="peer w-[100%] h-[21px] resize-none text-[14px]  tracking-wide text-theme-5 dark:text-theme-8 placeholder-theme-5 dark:placeholder-theme-6 leading-normal bg-transparent"/>
                             </div>
                         </div>
                     </div>
