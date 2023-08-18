@@ -3,7 +3,7 @@ import Link from "next/link";
 import { NextSeo } from 'next-seo';
 
 // react hooks
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 
 // api
 import { FetchFontDetail } from "../api/detailpage/fetchfontdetail";
@@ -185,11 +185,24 @@ function DetailPage({params}: any) {
     // 댓글 state
     const [commentFocus, setCommentFocus] = useState<boolean>(false);
 
+    // 댓글 ref
+    const commentRef = useRef<HTMLTextAreaElement>(null);
+
     /** 댓글 포커스 시 */
-    const commentsOnFocus = () => { setCommentFocus(true); }
+    const commentOnFocus = () => { setCommentFocus(true); }
 
     /** 댓글 포커스 아웃 시 */
-    const commentsOnBlur = () => { setCommentFocus(false); }
+    const commentOnBlur = () => { setCommentFocus(false); }
+
+    /** 댓글 취소 클릭 시 */
+    const commentCancel = () => {
+        console.log(true);
+        const textArea = document.getElementById('comment-area') as HTMLTextAreaElement;
+
+        textArea.value = '';
+        textArea.blur();
+        console.log(true);
+    }
 
     return (
         <>
@@ -719,12 +732,12 @@ function DetailPage({params}: any) {
                             {
                                 !likedInput
                                 ? <div className="w-[76px] h-[32px] flex justify-center items-center rounded-[6px] bg-theme-8 hover:bg-theme-7/80 dark:bg-theme-4/60 hover:dark:bg-theme-4 tlg:dark:hover:bg-theme-4/60">
-                                    <svg className='w-[13px] fill-theme-5 dark:fill-theme-9' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/></svg>
-                                    <div className="ml-[5px] mr-[2px] mt-[2px] text-[13px] font-medium leading-none text-theme-5 dark:text-theme-9">좋아요</div>
+                                    <svg className='w-[13px] mb-px fill-theme-5 dark:fill-theme-9' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/></svg>
+                                    <div className="ml-[5px] mr-[2px] mt-px text-[13px] font-medium leading-none text-theme-5 dark:text-theme-9">좋아요</div>
                                 </div>
                                 : <div className="w-[76px] h-[32px] flex justify-center items-center rounded-[6px] bg-theme-yellow dark:bg-theme-blue-1">
-                                    <svg className='w-[13px] fill-theme-4 dark:fill-theme-2' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/></svg>
-                                    <div className="ml-[5px] mr-[2px] mt-[2px] text-[13px] font-medium leading-none text-theme-4 dark:text-theme-2">좋아요</div>
+                                    <svg className='w-[13px] mb-px fill-theme-4 dark:fill-theme-2' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/></svg>
+                                    <div className="ml-[5px] mr-[2px] mt-px text-[13px] font-medium leading-none text-theme-4 dark:text-theme-2">좋아요</div>
                                 </div>
                             }
                         </label>
@@ -740,15 +753,11 @@ function DetailPage({params}: any) {
                                 : <img className="w-[40px] h-[40px] object-cover rounded-full" src={params.user.profile_img} width={28} height={28} alt="유저 프로필 사진"/>
                             }
                             <div className={`relative w-[100%] flex items-center pb-[4px] ml-[16px] border-b ${commentFocus ? 'border-theme-5 dark:border-theme-7' : 'border-theme-7 dark:border-theme-5'}`}>
-                                <textarea onInput={handleHeightChange} onFocus={commentsOnFocus} onBlur={commentsOnBlur} placeholder="댓글 달기..." className="peer w-[100%] h-[21px] resize-none text-[14px] tracking-wide text-theme-5 dark:text-theme-8 placeholder-theme-5 dark:placeholder-theme-6 leading-normal bg-transparent"/>
-                                {
-                                    commentFocus
-                                    ? <div className="w-[100%] absolute right-0 bottom-[-12px] translate-y-[100%] flex justify-start text-[14px] dark:text-theme-8">
-                                        <button className="w-[56px] h-[32px] rounded-full dark:bg-theme-3 dark:text-theme-5 cursor-default">댓글</button>
-                                        <button className="w-[56px] h-[32px] ml-[8px] rounded-full hover:dark:bg-theme-4 tlg:hover:dark:bg-transparent">취소</button>
-                                    </div>
-                                    : <></>
-                                }
+                                <textarea id="comment-area" ref={commentRef} onInput={handleHeightChange} onFocus={commentOnFocus} onBlur={commentOnBlur} placeholder="댓글 달기..." className="peer w-[100%] h-[21px] resize-none text-[14px] tracking-wide text-theme-5 dark:text-theme-8 placeholder-theme-5 dark:placeholder-theme-6 leading-normal bg-transparent"/>
+                                <div className="hidden peer-focus:flex w-[100%] absolute right-0 bottom-[-12px] translate-y-[100%] justify-start text-[14px] dark:text-theme-8">
+                                    <button className="w-[56px] h-[32px] pb-px rounded-full dark:bg-theme-3 dark:text-theme-5 cursor-default">댓글</button>
+                                    <button onClick={commentCancel} className="w-[56px] h-[32px] ml-[8px] pb-px rounded-full hover:dark:bg-theme-4 tlg:hover:dark:bg-transparent">취소</button>
+                                </div>
                             </div>
                         </div>
                     </div>
