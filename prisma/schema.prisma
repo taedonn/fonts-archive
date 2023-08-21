@@ -10,14 +10,11 @@ datasource db {
 }
 
 model fonts {
-  code            Int        @id @default(autoincrement())
+  code            Int            @id @default(autoincrement())
   name            String
   lang            String
   date            String
   view            Int
-  like            Int        @default(0)
-  liked_user      fontsLiked[]
-  comments        fontsComment[]
   font_family     String
   font_type       String
   font_weight     String
@@ -27,7 +24,7 @@ model fonts {
   cdn_css         String
   cdn_link        String
   cdn_import      String
-  cdn_font_face   String     @db.Text
+  cdn_font_face   String         @db.Text
   cdn_url         String
   license_print   String
   license_web     String
@@ -38,27 +35,30 @@ model fonts {
   license_ofl     String
   license_purpose String
   license_source  String
-  license         String     @db.Text
+  license         String         @db.Text
+  like            Int            @default(0)
+  liked_user      fontsLiked[]
+  comments        fontsComment[]
 }
 
 model fontsUser {
-  user_no            Int    @id @default(autoincrement())
+  user_no            Int            @id @default(autoincrement())
   user_name          String
-  user_id            String @unique
+  user_id            String         @unique
   user_pw            String
   user_session_id    String
   user_email_token   String
   user_email_confirm Boolean
+  profile_img        String         @db.Text
   liked_fonts        fontsLiked[]
-  profile_img        String @db.Text
   comments           fontsComment[]
 }
 
 model fontsLiked {
-  font fonts @relation(fields: [font_id], references: [code])
   font_id Int
-  user fontsUser @relation(fields: [user_id], references: [user_no])
   user_id Int
+  font    fonts     @relation(fields: [font_id], references: [code])
+  user    fontsUser @relation(fields: [user_id], references: [user_no])
 
   @@id([font_id, user_id])
   @@index([font_id])
@@ -66,17 +66,17 @@ model fontsLiked {
 }
 
 model fontsComment {
-  font fonts @relation(fields: [font_id], references: [code])
-  font_id Int
-  user fontsUser @relation(fields: [user_id], references: [user_no])
-  user_id Int
-  comment String @db.Text
-  depth Int
-  bundle_id Int @default(autoincrement())
+  font_id      Int
+  user_id      Int
+  comment      String    @db.Text
+  depth        Int
+  bundle_id    Int       @default(autoincrement())
   bundle_order Int
-  is_deleted Boolean @default(false)
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  is_deleted   Boolean   @default(false)
+  created_at   DateTime  @default(now())
+  updated_at   DateTime  @updatedAt
+  font         fonts     @relation(fields: [font_id], references: [code])
+  user         fontsUser @relation(fields: [user_id], references: [user_no])
 
   @@id([font_id, user_id])
   @@index([font_id])

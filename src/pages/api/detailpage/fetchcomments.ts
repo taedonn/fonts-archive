@@ -1,8 +1,9 @@
-import type { NextApiRequest, NextApiResponse } from 'next';
 import prisma from '@/libs/client-prisma';
   
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-    if (req.method === 'POST') {
-        
-    }
+export async function FetchComments(id: string) {
+    const comments = await prisma.fontsComment.findMany({
+        where: { font_id: Number(id) },
+    });
+
+    return comments;
 }
