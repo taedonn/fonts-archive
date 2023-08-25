@@ -220,6 +220,18 @@ function DetailPage({params}: any) {
         }
     }
 
+    /** 댓글 시간 포맷 */
+    const commentsTimeFormat = (time: string) => {
+        const splitTime = time.split(':');
+        return splitTime[0] + ':' + splitTime[1];
+    }
+
+    /** 댓글 날짜 포맷 */
+    const commentsDateFormat = (date: string) => {
+        const splitDate = date.split('-');
+        return splitDate[0] + '.' + splitDate[1] + '.' + commentsTimeFormat(splitDate[2].replace('T', ' ').replace('Z', ''));
+    }
+
     return (
         <>
             {/* Head 부분*/}
@@ -760,7 +772,7 @@ function DetailPage({params}: any) {
                     </div>
                     <div className="w-[100%] h-px bg-theme-7 dark:bg-theme-5 mb-[20px]"></div>
                     <h2 className="text-[16px] text-theme-3 dark:text-theme-9 font-medium mb-[16px] tlg:mb-[12px]">댓글 {params.comments.length}개</h2>
-                    <div className="w-[100%] mb-[20px]">
+                    <div className="w-[100%] mb-[40px]">
                         <div className="w-[100%] flex">
                             {
                                 params.user === null
@@ -768,20 +780,46 @@ function DetailPage({params}: any) {
                                 // eslint-disable-next-line @next/next/no-img-element
                                 : <img className="w-[40px] h-[40px] object-cover rounded-full" src={params.user.profile_img} width={28} height={28} alt="유저 프로필 사진"/>
                             }
-                            <div className={`relative w-[100%] flex items-center pb-[4px] ml-[16px] border-b ${commentFocus ? 'border-theme-5 dark:border-theme-7' : 'border-theme-7 dark:border-theme-5'}`}>
-                                <textarea ref={commentRef} onChange={commentOnChange} onInput={handleHeightChange} onFocus={commentOnFocus} onBlur={commentOnBlur} placeholder="댓글 달기..." className="peer w-[100%] h-[21px] resize-none text-[14px] tracking-wide text-theme-5 dark:text-theme-8 placeholder-theme-5 dark:placeholder-theme-6 leading-normal bg-transparent"/>
-                                <div className="peer-focus:flex hidden w-[100%] absolute right-0 bottom-[-12px] translate-y-[100%] justify-start text-[14px] text-theme-5 dark:text-theme-8">
-                                    <button ref={commentBtnRef} className="comment-disabled w-[56px] h-[32px] rounded-full">댓글</button>
-                                    <button onMouseDown={commentCancelBtnOnMouseDown} className="w-[56px] h-[32px] ml-[8px] rounded-full hover:bg-theme-8 hover:dark:bg-theme-4 tlg:hover:bg-transparent tlg:hover:dark:bg-transparent">취소</button>
+                            <div className="w-[100%] flex flex-col mt-[6px] ml-[16px]">
+                                <div className={`relative w-[100%] flex items-center pb-[4px] border-b ${commentFocus ? 'border-theme-5 dark:border-theme-7' : 'border-theme-7 dark:border-theme-5'}`}>
+                                    <textarea ref={commentRef} onChange={commentOnChange} onInput={handleHeightChange} onFocus={commentOnFocus} onBlur={commentOnBlur} placeholder="댓글 달기..." className="w-[100%] h-[21px] resize-none text-[14px] tracking-wide text-theme-5 dark:text-theme-8 placeholder-theme-5 dark:placeholder-theme-6 leading-normal bg-transparent"/>
                                 </div>
+                                {
+                                    commentFocus
+                                    ? <div className="flex w-[100%] text-[14px] text-theme-5 dark:text-theme-8 mt-[12px]">
+                                        <button ref={commentBtnRef} className="comment-disabled w-[56px] h-[32px] rounded-full">댓글</button>
+                                        <button onMouseDown={commentCancelBtnOnMouseDown} className="w-[56px] h-[32px] ml-[8px] rounded-full hover:bg-theme-8 hover:dark:bg-theme-4 tlg:hover:bg-transparent tlg:hover:dark:bg-transparent">취소</button>
+                                    </div> : <></>
+                                }
                             </div>
                         </div>
                     </div>
-                    <div className="w-[100%] min-h-[240px] mb-[40px]">
+                    <div className="w-[100%] min-h-[200px] mb-[120px] px-[32px]">
                         {
                             params.comments.length === 0
-                            ? <div className="w-[100%] text-[14px] text-center dark:text-theme-8 pt-[20px]">아직 댓글이 없습니다.</div>
-                            : <></>
+                            ? <div className="w-[100%] text-[14px] text-center dark:text-theme-8">아직 댓글이 없습니다.</div>
+                            : <>
+                                {
+                                    params.comments.map((comment: any) => {
+                                        return (
+                                            <div key={comment.bundle_id} className="w-[100%] dark:text-theme-8">
+                                                <div className="flex items-start mt-[28px]">
+                                                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                                                    <img src={comment.profile_img} alt="유저 프로필 이미지" className="w-[40px] h-[40px] object-cover rounded-full mt-[4px]"/>
+                                                    <div className="ml-[16px]">
+                                                        <div className="flex items-end">
+                                                            <div className="text-[15px] font-medium">{comment.user_name}</div>
+                                                            <div className="text-[13px] ml-[6px] dark:text-theme-6">{commentsDateFormat(comment.created_at)}</div>
+                                                        </div>
+                                                        <div className="text-[13px] mt-[4px]">{comment.comment}</div>
+                                                    </div>
+                                                </div>
+                                                <div className="w-[100%] h-px mt-[28px] dark:bg-theme-5"></div>
+                                            </div>
+                                        )
+                                    })
+                                }
+                            </>
                         }
                     </div>
                 </div>
