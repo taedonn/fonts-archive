@@ -286,7 +286,7 @@ function DetailPage({params}: any) {
             }
 
             {/* 메인 */}
-            <div className="w-[100%] pt-[20px] tmd:pt-[16px]">
+            <div className="w-[100%] pt-[32px] tmd:pt-[16px]">
                 <link href={font.cdn_url} rel="stylesheet" type="text/css" itemProp="url"></link>
                 <div className="w-[100%] flex flex-col justify-start items-start">
                     <div className="mb-[12px] tlg:mb-[8px] flex items-center">
@@ -801,7 +801,7 @@ function DetailPage({params}: any) {
                             </div>
                         </div>
                     </div>
-                    <div className="w-[100%] min-h-[200px] mb-[120px] px-[40px]">
+                    <div className="w-[100%] mb-[240px] px-[40px]">
                         {
                             params.comments.length === 0
                             ? <div className="w-[100%] text-[14px] text-center dark:text-theme-8">아직 댓글이 없습니다.</div>
@@ -818,12 +818,35 @@ function DetailPage({params}: any) {
                                                             <div className="text-[15px] font-medium">{comment.user_name}</div>
                                                             {
                                                                 comment.user_no === 1
-                                                                ? <div className="text-[10px] leading-none px-[6px] pt-[4px] pb-[3px] ml-[6px] mb-[2px] border rounded-full dark:border-theme-pink dark:text-theme-pink">운영자</div>
-                                                                : <div className="text-[10px] leading-none px-[6px] pt-[4px] pb-[3px] ml-[6px] mb-[2px] border rounded-full dark:border-theme-lightgreen dark:text-theme-lightgreen">사용자</div>
+                                                                ? <div className="text-[10px] leading-none px-[6px] pt-[4px] pb-[3px] ml-[6px] mb-[2px] border rounded-full dark:border-theme-pink dark:text-theme-pink">Manager</div>
+                                                                : <div className="text-[10px] leading-none px-[6px] pt-[4px] pb-[3px] ml-[6px] mb-[2px] border rounded-full dark:border-theme-lightgreen dark:text-theme-lightgreen">User</div>
                                                             }
                                                             <div className="text-[13px] ml-[10px] dark:text-theme-6">{commentsDateFormat(comment.created_at)}</div>
+                                                            {
+                                                                comment.user_no !== params.user.user_no
+                                                                ? <>
+                                                                    <input type="checkbox" id="comment-report" className="hidden"/>
+                                                                    <label htmlFor="comment-report" className="group flex items-center ml-[12px] mb-[2px] cursor-pointer">
+                                                                        <svg className="w-[12px] mb-px dark:fill-theme-9/60 group-hover:dark:fill-theme-9" viewBox="0 0 18 21" xmlns="http://www.w3.org/2000/svg"><path d="M17.7002 14.4906C17.147 13.5344 16.4814 11.7156 16.4814 8.5V7.83438C16.4814 3.68125 13.1533 0.278125 9.05642 0.25H9.00017C8.01649 0.25123 7.04268 0.4462 6.13435 0.823776C5.22601 1.20135 4.40094 1.75414 3.70624 2.45058C3.01154 3.14702 2.46082 3.97347 2.08552 4.88275C1.71022 5.79202 1.51769 6.76632 1.51892 7.75V8.5C1.51892 11.7156 0.853295 13.5344 0.30017 14.4906C0.166399 14.7185 0.0951976 14.9777 0.0937718 15.2419C0.0923461 15.5061 0.160747 15.7661 0.292051 15.9954C0.423355 16.2247 0.612903 16.4152 0.841513 16.5477C1.07012 16.6803 1.32968 16.75 1.59392 16.75H5.25017C5.25017 17.7446 5.64526 18.6984 6.34852 19.4016C7.05178 20.1049 8.00561 20.5 9.00017 20.5C9.99473 20.5 10.9486 20.1049 11.6518 19.4016C12.3551 18.6984 12.7502 17.7446 12.7502 16.75H16.4064C16.6706 16.7517 16.9305 16.6831 17.1595 16.5513C17.3884 16.4196 17.5783 16.2293 17.7095 16C17.8397 15.7694 17.9073 15.5088 17.9056 15.2441C17.904 14.9793 17.8332 14.7196 17.7002 14.4906ZM9.00017 19C8.40419 18.9975 7.83333 18.7597 7.41191 18.3383C6.99048 17.9168 6.75264 17.346 6.75017 16.75H11.2502C11.2477 17.346 11.0099 17.9168 10.5884 18.3383C10.167 18.7597 9.59615 18.9975 9.00017 19ZM1.59392 15.25C2.2408 14.125 3.01892 12.0531 3.01892 8.5V7.75C3.01645 6.96295 3.16934 6.18316 3.46882 5.45532C3.7683 4.72747 4.20849 4.06589 4.76414 3.50849C5.3198 2.95109 5.98 2.50884 6.70691 2.20708C7.43381 1.90533 8.21312 1.75 9.00017 1.75H9.04705C12.3189 1.76875 14.9814 4.50625 14.9814 7.83438V8.5C14.9814 12.0531 15.7595 14.125 16.4064 15.25H1.59392Z"/></svg>
+                                                                        <div className="text-[12px] leading-none dark:text-theme-9/60 group-hover:dark:text-theme-9 ml-[4px]">신고</div>
+                                                                    </label>
+                                                                </> 
+                                                                : <div className="flex items-start mb-[2px]">
+                                                                    <input type="checkbox" id="comment-modify" className="hidden"/>
+                                                                    <label htmlFor="comment-modify" className="group flex items-center ml-[12px] mb-[2px] cursor-pointer">
+                                                                        <svg className="w-[11px] mb-px dark:fill-theme-9/60 group-hover:dark:fill-theme-9" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/></svg>
+                                                                        <div className="text-[12px] leading-none dark:text-theme-9/60 group-hover:dark:text-theme-9 ml-[3px]">수정</div>
+                                                                    </label>
+                                                                    <div className="w-px h-[11px] mx-[6px] dark:bg-theme-5"></div>
+                                                                    <button className="group flex">
+                                                                        <svg className="w-[12px] mb-px dark:fill-theme-9/60 group-hover:dark:fill-theme-9" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/><path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/></svg>
+                                                                        <div className="text-[12px] leading-none dark:text-theme-9/60 group-hover:dark:text-theme-9 ml-[3px]">삭제</div>
+                                                                    </button>
+                                                                </div>
+                                                            }
                                                         </div>
                                                         <div className="text-[14px] mt-[8px] dark:text-theme-8">{comment.comment}</div>
+                                                        <button className="text-[14px] mt-[12px] dark:text-theme-6 hover:underline hover:dark:text-theme-blue-1">답글</button>
                                                     </div>
                                                 </div>
                                                 <div className="w-[100%] h-px mt-[24px] dark:bg-theme-5"></div>
