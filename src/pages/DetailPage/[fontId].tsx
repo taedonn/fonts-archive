@@ -32,8 +32,6 @@ function DetailPage({params}: any) {
     // 폰트 데이터 props
     const font = params.fonts[0];
 
-    console.log(params.comments);
-
     /** 조회수 업데이트 */
     const viewUpdate = async () => {
         await fetch("/api/detailpage/updateview", { method: "POST", body: JSON.stringify(font) });
@@ -217,6 +215,15 @@ function DetailPage({params}: any) {
         if (commentRef.current) {
             commentRef.current.blur();
             commentRef.current.value = '';
+            handleHeightChangeOnClick();
+        }
+    }
+
+    /** 댓글 취소 버튼 눌렀을 때 TextArea 높이 변경 */
+    const handleHeightChangeOnClick = () => {
+        if (commentRef.current) {
+            commentRef.current.style.height = "0";
+            commentRef.current.style.height = (commentRef.current.scrollHeight)+"px";
         }
     }
 
@@ -794,7 +801,7 @@ function DetailPage({params}: any) {
                             </div>
                         </div>
                     </div>
-                    <div className="w-[100%] min-h-[200px] mb-[120px] px-[32px]">
+                    <div className="w-[100%] min-h-[200px] mb-[120px] px-[40px]">
                         {
                             params.comments.length === 0
                             ? <div className="w-[100%] text-[14px] text-center dark:text-theme-8">아직 댓글이 없습니다.</div>
@@ -802,19 +809,24 @@ function DetailPage({params}: any) {
                                 {
                                     params.comments.map((comment: any) => {
                                         return (
-                                            <div key={comment.bundle_id} className="w-[100%] dark:text-theme-8">
-                                                <div className="flex items-start mt-[28px]">
+                                            <div key={comment.bundle_id} className="w-[100%] dark:text-theme-10">
+                                                <div className="flex items-start mt-[24px]">
                                                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                                                    <img src={comment.profile_img} alt="유저 프로필 이미지" className="w-[40px] h-[40px] object-cover rounded-full mt-[4px]"/>
+                                                    <img src={comment.profile_img} alt="유저 프로필 이미지" className="w-[40px] h-[40px] object-cover rounded-full"/>
                                                     <div className="ml-[16px]">
                                                         <div className="flex items-end">
                                                             <div className="text-[15px] font-medium">{comment.user_name}</div>
-                                                            <div className="text-[13px] ml-[6px] dark:text-theme-6">{commentsDateFormat(comment.created_at)}</div>
+                                                            {
+                                                                comment.user_no === 1
+                                                                ? <div className="text-[10px] leading-none px-[6px] pt-[4px] pb-[3px] ml-[6px] mb-[2px] border rounded-full dark:border-theme-pink dark:text-theme-pink">운영자</div>
+                                                                : <div className="text-[10px] leading-none px-[6px] pt-[4px] pb-[3px] ml-[6px] mb-[2px] border rounded-full dark:border-theme-lightgreen dark:text-theme-lightgreen">사용자</div>
+                                                            }
+                                                            <div className="text-[13px] ml-[10px] dark:text-theme-6">{commentsDateFormat(comment.created_at)}</div>
                                                         </div>
-                                                        <div className="text-[13px] mt-[4px]">{comment.comment}</div>
+                                                        <div className="text-[14px] mt-[8px] dark:text-theme-8">{comment.comment}</div>
                                                     </div>
                                                 </div>
-                                                <div className="w-[100%] h-px mt-[28px] dark:bg-theme-5"></div>
+                                                <div className="w-[100%] h-px mt-[24px] dark:bg-theme-5"></div>
                                             </div>
                                         )
                                     })

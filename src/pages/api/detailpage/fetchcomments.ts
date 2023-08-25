@@ -4,6 +4,7 @@ export async function FetchComments(id: string) {
     // 댓글 가져오기
     const comments = await prisma.fontsComment.findMany({
         where: { font_id: Number(id) },
+        orderBy: [{ created_at: 'desc' }]
     });
 
     // 프로필 이미지 가져오기 위해 중복된 ID 필터링
