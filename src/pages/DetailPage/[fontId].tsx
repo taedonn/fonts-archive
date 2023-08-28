@@ -752,7 +752,8 @@ function DetailPage({params}: any) {
                                 </tr>
                             </tbody>
                         </table>
-                        <div className="w-[calc(100%-690px)] tlg:w-[100%] h-[669px] tlg:h-[auto] mb-[80px] tlg:mb-[60px] tmd:mb-[40px] border border-theme-7 dark:border-theme-5">
+                        {/* <div className="w-[calc(100%-690px)] tlg:w-[100%] h-[669px] tlg:h-[auto] mb-[80px] tlg:mb-[60px] tmd:mb-[40px] border border-theme-7 dark:border-theme-5"> */}
+                        <div className="w-[calc(100%-690px)] tlg:w-[100%] h-[669px] tlg:h-[auto] mb-[32px] tlg:mb-[16px] border border-theme-7 dark:border-theme-5">
                             <h2 className="relative h-[56px] flex flex-row justify-start items-center text-[15px] text-theme-3 dark:text-theme-9 font-normal leading-none pl-[28px] tlg:pl-[24px] tmd:pl-[20px]">
                                 라이센스 본문
                                 <div className="absolute bottom-0 left-[50%] translate-x-[-50%] w-[calc(100%-40px)] tlg:w-[calc(100%-32px)] tmd:w-[calc(100%-24px)] h-px bg-theme-7 dark:bg-theme-5"></div>
@@ -762,7 +763,7 @@ function DetailPage({params}: any) {
                             </div>
                         </div>
                     </div>
-                    <div className='w-content mb-[12px]'>
+                    {/* <div className='w-content mb-[12px]'>
                         <label htmlFor={font.code.toString()} className='cursor-pointer'>
                             {
                                 !likedInput
@@ -811,7 +812,7 @@ function DetailPage({params}: any) {
                                         return (
                                             <div key={comment.bundle_id} className="w-[100%] dark:text-theme-10">
                                                 <div className="flex items-start mt-[24px]">
-                                                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                                                    {/* eslint-disable-next-line @next/next/no-img-element
                                                     <img src={comment.profile_img} alt="유저 프로필 이미지" className="w-[40px] h-[40px] object-cover rounded-full"/>
                                                     <div className="ml-[16px]">
                                                         <div className="flex items-end">
@@ -823,7 +824,7 @@ function DetailPage({params}: any) {
                                                             }
                                                             <div className="text-[13px] ml-[10px] dark:text-theme-6">{commentsDateFormat(comment.created_at)}</div>
                                                             {
-                                                                comment.user_no !== params.user.user_no
+                                                                params.user && comment.user_no !== params.user.user_no
                                                                 ? <>
                                                                     <input type="checkbox" id="comment-report" className="hidden"/>
                                                                     <label htmlFor="comment-report" className="group flex items-center ml-[12px] mb-[2px] cursor-pointer">
@@ -856,7 +857,7 @@ function DetailPage({params}: any) {
                                 }
                             </>
                         }
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </>
