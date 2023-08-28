@@ -37,7 +37,7 @@ function DetailPage({params}: any) {
         await fetch("/api/detailpage/updateview", { method: "POST", body: JSON.stringify(font) });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    // useEffect(() => { viewUpdate(); }, [font]);
+    useEffect(() => { viewUpdate(); }, [font]);
 
     // 좋아요 state
     const [alertDisplay, setAlertDisplay] = useState<boolean>(false);
