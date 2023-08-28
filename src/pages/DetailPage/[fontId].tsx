@@ -531,9 +531,9 @@ function DetailPage({params}: any) {
                                     <th className="absolute bottom-0 left-[50%] translate-x-[-50%] w-[calc(100%-40px)] tlg:w-[calc(100%-32px)] tmd:w-[calc(100%-24px)] h-px bg-theme-7 dark:bg-theme-5"></th>
                                 </tr>
                             </thead>
-                            <tbody className="text-[13px] leading-tight text-theme-5 dark:text-theme-8 fill-theme-5 dark:fill-theme-7 text-left font-normal">
+                            <tbody className="text-[13px] leading-tight text-theme-5 dark:text-theme-8 fill-theme-5 dark:fill-theme-8 text-left font-normal">
                                 <tr className="relative">
-                                    <td className="h-[68px] flex flex-col justify-center items-center">
+                                    <td className="h-[68px] flex flex-col justify-center items-center text-theme-3 dark:text-theme-9 fill-theme-3 dark:fill-theme-9">
                                         <svg className="w-[20px] mb-[8px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M2.5 8a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z"/><path d="M5 1a2 2 0 0 0-2 2v2H2a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h1v1a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1h1a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1V3a2 2 0 0 0-2-2H5zM4 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2H4V3zm1 5a2 2 0 0 0-2 2v1H2a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v-1a2 2 0 0 0-2-2H5zm7 2v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1z"/></svg>
                                         <div>인쇄물</div>
                                     </td>
@@ -560,7 +560,7 @@ function DetailPage({params}: any) {
                                     <td className="absolute bottom-0 left-[50%] translate-x-[-50%] w-[calc(100%-40px)] tlg:w-[calc(100%-32px)] tmd:w-[calc(100%-24px)] h-px bg-theme-7 dark:bg-theme-5"></td>
                                 </tr>
                                 <tr className="relative">
-                                    <td className="h-[68px] flex flex-col justify-center items-center">
+                                    <td className="h-[68px] flex flex-col justify-center items-center text-theme-3 dark:text-theme-9 fill-theme-3 dark:fill-theme-9">
                                         <svg className="w-[20px] mb-[8px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 1a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V1Zm1 13.5a.5.5 0 1 0 1 0 .5.5 0 0 0-1 0Zm2 0a.5.5 0 1 0 1 0 .5.5 0 0 0-1 0ZM9.5 1a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5ZM9 3.5a.5.5 0 0 0 .5.5h5a.5.5 0 0 0 0-1h-5a.5.5 0 0 0-.5.5ZM1.5 2A1.5 1.5 0 0 0 0 3.5v7A1.5 1.5 0 0 0 1.5 12H6v2h-.5a.5.5 0 0 0 0 1H7v-4H1.5a.5.5 0 0 1-.5-.5v-7a.5.5 0 0 1 .5-.5H7V2H1.5Z"/></svg>
                                         <div>웹 서비스</div>
                                     </td>
@@ -587,7 +587,7 @@ function DetailPage({params}: any) {
                                     <td className="absolute bottom-0 left-[50%] translate-x-[-50%] w-[calc(100%-40px)] tlg:w-[calc(100%-32px)] tmd:w-[calc(100%-24px)] h-px bg-theme-7 dark:bg-theme-5"></td>
                                 </tr>
                                 <tr className="relative">
-                                    <td className="h-[68px] flex flex-col justify-center items-center">
+                                    <td className="h-[68px] flex flex-col justify-center items-center text-theme-3 dark:text-theme-9 fill-theme-3 dark:fill-theme-9">
                                         <svg className="w-[20px] mb-[8px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M6 3a3 3 0 1 1-6 0 3 3 0 0 1 6 0zM1 3a2 2 0 1 0 4 0 2 2 0 0 0-4 0z"/><path d="M9 6h.5a2 2 0 0 1 1.983 1.738l3.11-1.382A1 1 0 0 1 16 7.269v7.462a1 1 0 0 1-1.406.913l-3.111-1.382A2 2 0 0 1 9.5 16H2a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h7zm6 8.73V7.27l-3.5 1.555v4.35l3.5 1.556zM1 8v6a1 1 0 0 0 1 1h7.5a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1z"/><path d="M9 6a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM7 3a2 2 0 1 1 4 0 2 2 0 0 1-4 0z"/></svg>
                                         <div>영상물</div>
                                     </td>
@@ -614,7 +614,7 @@ function DetailPage({params}: any) {
                                     <td className="absolute bottom-0 left-[50%] translate-x-[-50%] w-[calc(100%-40px)] tlg:w-[calc(100%-32px)] tmd:w-[calc(100%-24px)] h-px bg-theme-7 dark:bg-theme-5"></td>
                                 </tr>
                                 <tr className="relative">
-                                    <td className="h-[68px] flex flex-col justify-center items-center">
+                                    <td className="h-[68px] flex flex-col justify-center items-center text-theme-3 dark:text-theme-9 fill-theme-3 dark:fill-theme-9">
                                         <svg className="w-[20px] mb-[8px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8.186 1.113a.5.5 0 0 0-.372 0L1.846 3.5l2.404.961L10.404 2l-2.218-.887zm3.564 1.426L5.596 5 8 5.961 14.154 3.5l-2.404-.961zm3.25 1.7-6.5 2.6v7.922l6.5-2.6V4.24zM7.5 14.762V6.838L1 4.239v7.923l6.5 2.6zM7.443.184a1.5 1.5 0 0 1 1.114 0l7.129 2.852A.5.5 0 0 1 16 3.5v8.662a1 1 0 0 1-.629.928l-7.185 2.874a.5.5 0 0 1-.372 0L.63 13.09a1 1 0 0 1-.63-.928V3.5a.5.5 0 0 1 .314-.464L7.443.184z"/></svg>
                                         <div>포장지</div>
                                     </td>
@@ -641,7 +641,7 @@ function DetailPage({params}: any) {
                                     <td className="absolute bottom-0 left-[50%] translate-x-[-50%] w-[calc(100%-40px)] tlg:w-[calc(100%-32px)] tmd:w-[calc(100%-24px)] h-px bg-theme-7 dark:bg-theme-5"></td>
                                 </tr>
                                 <tr className="relative">
-                                    <td className="h-[68px] flex flex-col justify-center items-center">
+                                    <td className="h-[68px] flex flex-col justify-center items-center text-theme-3 dark:text-theme-9 fill-theme-3 dark:fill-theme-9">
                                         <svg className="w-[20px] mb-[8px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M10.478 1.647a.5.5 0 1 0-.956-.294l-4 13a.5.5 0 0 0 .956.294l4-13zM4.854 4.146a.5.5 0 0 1 0 .708L1.707 8l3.147 3.146a.5.5 0 0 1-.708.708l-3.5-3.5a.5.5 0 0 1 0-.708l3.5-3.5a.5.5 0 0 1 .708 0zm6.292 0a.5.5 0 0 0 0 .708L14.293 8l-3.147 3.146a.5.5 0 0 0 .708.708l3.5-3.5a.5.5 0 0 0 0-.708l-3.5-3.5a.5.5 0 0 0-.708 0z"/></svg>
                                         <div>임베딩</div>
                                     </td>
@@ -668,7 +668,7 @@ function DetailPage({params}: any) {
                                     <td className="absolute bottom-0 left-[50%] translate-x-[-50%] w-[calc(100%-40px)] tlg:w-[calc(100%-32px)] tmd:w-[calc(100%-24px)] h-px bg-theme-7 dark:bg-theme-5"></td>
                                 </tr>
                                 <tr className="relative">
-                                    <td className="h-[68px] flex flex-col justify-center items-center">
+                                    <td className="h-[68px] flex flex-col justify-center items-center text-theme-3 dark:text-theme-9 fill-theme-3 dark:fill-theme-9">
                                         <svg className="w-[20px] mb-[8px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4 2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1Zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1Zm3.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1ZM4 5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1ZM7.5 5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Zm2.5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1ZM4.5 8a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Zm2.5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1Zm3.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Z"/><path d="M2 1a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V1Zm11 0H3v14h3v-2.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5V15h3V1Z"/></svg>
                                         <div>BI/CI</div>
                                     </td>
@@ -695,7 +695,7 @@ function DetailPage({params}: any) {
                                     <td className="absolute bottom-0 left-[50%] translate-x-[-50%] w-[calc(100%-40px)] tlg:w-[calc(100%-32px)] tmd:w-[calc(100%-24px)] h-px bg-theme-7 dark:bg-theme-5"></td>
                                 </tr>
                                 <tr className="relative">
-                                    <td className="h-[68px] flex flex-col justify-center items-center">
+                                    <td className="h-[68px] flex flex-col justify-center items-center text-theme-3 dark:text-theme-9 fill-theme-3 dark:fill-theme-9">
                                         <svg className="w-[20px] mb-[8px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M9.669.864 8 0 6.331.864l-1.858.282-.842 1.68-1.337 1.32L2.6 6l-.306 1.854 1.337 1.32.842 1.68 1.858.282L8 12l1.669-.864 1.858-.282.842-1.68 1.337-1.32L13.4 6l.306-1.854-1.337-1.32-.842-1.68L9.669.864zm1.196 1.193.684 1.365 1.086 1.072L12.387 6l.248 1.506-1.086 1.072-.684 1.365-1.51.229L8 10.874l-1.355-.702-1.51-.229-.684-1.365-1.086-1.072L3.614 6l-.25-1.506 1.087-1.072.684-1.365 1.51-.229L8 1.126l1.356.702 1.509.229z"/><path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z"/></svg>
                                         <div>OFL</div>
                                     </td>
@@ -716,7 +716,7 @@ function DetailPage({params}: any) {
                                     <td className="absolute bottom-0 left-[50%] translate-x-[-50%] w-[calc(100%-40px)] tlg:w-[calc(100%-32px)] tmd:w-[calc(100%-24px)] h-px bg-theme-7 dark:bg-theme-5"></td>
                                 </tr>
                                 <tr className="relative">
-                                    <td className="h-[68px] flex flex-col justify-center items-center">
+                                    <td className="h-[68px] flex flex-col justify-center items-center text-theme-3 dark:text-theme-9 fill-theme-3 dark:fill-theme-9">
                                         <svg className="w-[20px] mb-[8px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1h8Zm-7.978-1A.261.261 0 0 1 7 12.996c.001-.264.167-1.03.76-1.72C8.312 10.629 9.282 10 11 10c1.717 0 2.687.63 3.24 1.276.593.69.758 1.457.76 1.72l-.008.002a.274.274 0 0 1-.014.002H7.022ZM11 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0ZM6.936 9.28a5.88 5.88 0 0 0-1.23-.247A7.35 7.35 0 0 0 5 9c-4 0-5 3-5 4 0 .667.333 1 1 1h4.216A2.238 2.238 0 0 1 5 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816ZM4.92 10A5.493 5.493 0 0 0 4 13H1c0-.26.164-1.03.76-1.724.545-.636 1.492-1.256 3.16-1.275ZM1.5 5.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0Zm3-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4Z"/></svg>
                                         <div>용도</div>
                                     </td>
@@ -737,7 +737,7 @@ function DetailPage({params}: any) {
                                     <td className="absolute bottom-0 left-[50%] translate-x-[-50%] w-[calc(100%-40px)] tlg:w-[calc(100%-32px)] tmd:w-[calc(100%-24px)] h-px bg-theme-7 dark:bg-theme-5"></td>
                                 </tr>
                                 <tr className="relative">
-                                    <td className="h-[68px] flex flex-col justify-center items-center">
+                                    <td className="h-[68px] flex flex-col justify-center items-center text-theme-3 dark:text-theme-9 fill-theme-3 dark:fill-theme-9">
                                         <svg className="w-[16px] mb-[8px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M13.5 1a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.499 2.499 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5zm-8.5 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm11 5.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z"/></svg>
                                         <div>출처</div>
                                     </td>
@@ -801,7 +801,7 @@ function DetailPage({params}: any) {
                             </div>
                         </div>
                     </div>
-                    <div className="w-[100%] mb-[220px] tlg:mb-[200px] px-[40px] tlg:px-0">
+                    <div className="w-[100%] mb-[220px] tlg:mb-[200px] tmd:mb-[180px] px-[40px] tlg:px-0">
                         {
                             params.comments.length === 0
                             ? <div className="w-[100%] text-[14px] text-center dark:text-theme-8">아직 댓글이 없습니다.</div>
@@ -810,7 +810,7 @@ function DetailPage({params}: any) {
                                     params.comments.map((comment: any) => {
                                         return (
                                             <div key={comment.bundle_id} className="w-[100%] dark:text-theme-10">
-                                                <div className="flex items-start mt-[20px]">
+                                                <div className="flex items-start mt-[20px] tlg:mt-[16px]">
                                                     {/* eslint-disable-next-line @next/next/no-img-element */}
                                                     <img src={comment.profile_img} alt="유저 프로필 이미지" className="w-[40px] tlg:w-[32px] h-[40px] tlg:h-[32px] object-cover rounded-full"/>
                                                     <div className="ml-[16px] tlg:ml-[14px]">
@@ -847,11 +847,11 @@ function DetailPage({params}: any) {
                                                                 : <></>
                                                             }
                                                         </div>
-                                                        <div className="text-[14px] tlg:text-[12px] mt-[8px] dark:text-theme-8">{comment.comment}</div>
-                                                        <button className="text-[14px] tlg:text-[12px] mt-[12px] dark:text-theme-blue-1 hover:underline tlg:underline hover:dark:text-theme-blue-1">답글</button>
+                                                        <div className="text-[14px] tlg:text-[12px] mt-[8px] dark:text-theme-9">{comment.comment}</div>
+                                                        <button className="text-[14px] tlg:text-[12px] mt-[12px] tlg:mt-[8px] dark:text-theme-blue-1 hover:underline tlg:underline hover:dark:text-theme-blue-1">답글</button>
                                                     </div>
                                                 </div>
-                                                <div className="w-[100%] h-px mt-[20px] dark:bg-theme-5"></div>
+                                                <div className="w-[100%] h-px mt-[20px] tlg:mt-[16px] dark:bg-theme-5"></div>
                                             </div>
                                         )
                                     })
