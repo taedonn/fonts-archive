@@ -31,8 +31,7 @@ module.exports = {
                 "theme-blue-2": "#17181B",
                 "theme-yellow": "#FCBE11",
                 "theme-red": "#EF4444",
-                "theme-pink": "#FFD6E9",
-                "theme-lightgreen": "#90EE90"
+                "theme-green": "#40E0D0",
             },
             width: {
                 "content": "max-content"

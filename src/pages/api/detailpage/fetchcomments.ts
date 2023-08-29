@@ -3,7 +3,10 @@ import prisma from '@/libs/client-prisma';
 export async function FetchComments(id: string) {
     // 댓글 가져오기
     const comments = await prisma.fontsComment.findMany({
-        where: { font_id: Number(id) },
+        where: {
+            font_id: Number(id),
+            is_deleted: false
+        },
         orderBy: [{ created_at: 'desc' }]
     });
 
