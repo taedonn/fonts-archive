@@ -76,6 +76,7 @@ model fontsComment {
   is_deleted   Boolean   @default(false)
   created_at   DateTime  @default(now())
   updated_at   DateTime  @updatedAt
+  deleted_at   DateTime  @default(now())
   font         fonts     @relation(fields: [font_id], references: [code])
   user         fontsUser @relation(fields: [user_id], references: [user_no])
 
