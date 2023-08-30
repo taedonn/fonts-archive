@@ -38,7 +38,7 @@ function DetailPage({params}: any) {
         await fetch("/api/detailpage/updateview", { method: "POST", body: JSON.stringify(font) });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    // useEffect(() => { viewUpdate(); }, [font]);
+    useEffect(() => { viewUpdate(); }, [font]);
 
     // 좋아요 state
     const [alertDisplay, setAlertDisplay] = useState<boolean>(false);
@@ -422,7 +422,7 @@ function DetailPage({params}: any) {
                                                 </div>
                                             </div>
                                             : <div className="w-[100%] relative pl-[24px] tmd:pl-[16px] pr-[60px] overflow-hidden">
-                                                <div className="cdn_pre w-[100%] h-[auto] py-[20px] tmd:py-[15px] flex flex-row justify-start items-center overflow-auto whitespace-nowrap"><pre id="cdn-font-face" style={{fontFamily:"Spoqa Han Sans Neo", tabSize:8}} className="font-face text-[14px] tmd:text-[12px] text-theme-9">{font.cdn_font_face}</pre></div>
+                                                <div className="cdn_pre w-[100%] h-[auto] py-[20px] tmd:py-[15px] flex flex-row justify-start items-center overflow-auto whitespace-nowrap"><pre id="cdn-font-face" style={{fontFamily:"Spoqa Han Sans Neo", tabSize:4}} className="font-face text-[14px] tmd:text-[12px] text-theme-9">{font.cdn_font_face}</pre></div>
                                                 <div className="absolute z-10 right-[16px] tmd:right-[12px] top-[30px] tmd:top-[24px] translate-y-[-50%] cursor-pointer">
                                                     <svg onClick={copyOnClick} className="copy_btn w-[32px] tmd:w-[28px] p-[8px] rounded-[6px] hover:bg-theme-yellow/10 tlg:hover:bg-transparent hover:dark:bg-theme-blue-1/10 tlg:hover:dark:bg-transparent fill-theme-9 hover:fill-theme-yellow tlg:hover:fill-theme-9 dark:fill-theme-7 hover:dark:fill-theme-blue-1 tlg:hover:dark:fill-theme-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/><path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/></svg>
                                                     <svg className="copy_chk_btn w-[32px] tmd:w-[28px] p-[8px] rounded-[6px] bg-theme-yellow/10 dark:bg-theme-blue-1/10 fill-theme-yellow dark:fill-theme-blue-1 hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/></svg>
@@ -809,7 +809,8 @@ function DetailPage({params}: any) {
                                 </tr>
                             </tbody>
                         </table>
-                        <div className="w-[calc(100%-690px)] tlg:w-[100%] h-[669px] tlg:h-[auto] mb-[80px] tlg:mb-[60px] tmd:mb-[48px] border border-theme-7 dark:border-theme-5">
+                        {/* <div className="w-[calc(100%-690px)] tlg:w-[100%] h-[669px] tlg:h-[auto] mb-[80px] tlg:mb-[60px] tmd:mb-[48px] border border-theme-7 dark:border-theme-5"> */}
+                        <div className="w-[calc(100%-690px)] tlg:w-[100%] h-[669px] tlg:h-[auto] mb-[32px] tlg:mb-[16px] border border-theme-7 dark:border-theme-5">
                             <h2 className="relative h-[56px] flex flex-row justify-start items-center text-[15px] text-theme-3 dark:text-theme-9 font-normal leading-none pl-[28px] tlg:pl-[24px] tmd:pl-[20px]">
                                 라이센스 본문
                                 <div className="absolute bottom-0 left-[50%] translate-x-[-50%] w-[calc(100%-40px)] tlg:w-[calc(100%-32px)] tmd:w-[calc(100%-24px)] h-px bg-theme-7 dark:bg-theme-5"></div>
@@ -819,6 +820,7 @@ function DetailPage({params}: any) {
                             </div>
                         </div>
                     </div>
+                    {/*
                     <div className='w-content mb-[12px]'>
                         <label htmlFor={font.code.toString()} className='cursor-pointer'>
                             {
@@ -868,7 +870,7 @@ function DetailPage({params}: any) {
                                         return (
                                             <div key={comment.comment_id} id={comment.comment_id} className="w-[100%] text-theme-3 dark:text-theme-10">
                                                 <div className="flex items-start mt-[20px] tlg:mt-[16px]">
-                                                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                                                    {/* eslint-disable-next-line @next/next/no-img-element 
                                                     <img src={comment.profile_img} alt="유저 프로필 이미지" className="w-[40px] tlg:w-[32px] h-[40px] tlg:h-[32px] object-cover rounded-full"/>
                                                     <div className="ml-[16px] tlg:ml-[14px]">
                                                         <div className="flex items-end">
@@ -915,7 +917,7 @@ function DetailPage({params}: any) {
                                 }
                             </>
                         }
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </>
