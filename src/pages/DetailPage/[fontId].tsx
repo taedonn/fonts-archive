@@ -38,7 +38,7 @@ function DetailPage({params}: any) {
         await fetch("/api/detailpage/updateview", { method: "POST", body: JSON.stringify(font) });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    useEffect(() => { viewUpdate(); }, [font]);
+    // useEffect(() => { viewUpdate(); }, [font]);
 
     // 좋아요 state
     const [alertDisplay, setAlertDisplay] = useState<boolean>(false);
@@ -809,8 +809,7 @@ function DetailPage({params}: any) {
                                 </tr>
                             </tbody>
                         </table>
-                        {/* <div className="w-[calc(100%-690px)] tlg:w-[100%] h-[669px] tlg:h-[auto] mb-[80px] tlg:mb-[60px] tmd:mb-[48px] border border-theme-7 dark:border-theme-5"> */}
-                        <div className="w-[calc(100%-690px)] tlg:w-[100%] h-[669px] tlg:h-[auto] mb-[32px] tlg:mb-[16px] border border-theme-7 dark:border-theme-5">
+                        <div className="w-[calc(100%-690px)] tlg:w-[100%] h-[669px] tlg:h-[auto] mb-[80px] tlg:mb-[60px] tmd:mb-[48px] border border-theme-7 dark:border-theme-5">
                             <h2 className="relative h-[56px] flex flex-row justify-start items-center text-[15px] text-theme-3 dark:text-theme-9 font-normal leading-none pl-[28px] tlg:pl-[24px] tmd:pl-[20px]">
                                 라이센스 본문
                                 <div className="absolute bottom-0 left-[50%] translate-x-[-50%] w-[calc(100%-40px)] tlg:w-[calc(100%-32px)] tmd:w-[calc(100%-24px)] h-px bg-theme-7 dark:bg-theme-5"></div>
@@ -820,7 +819,6 @@ function DetailPage({params}: any) {
                             </div>
                         </div>
                     </div>
-                    {/*
                     <div className='w-content mb-[12px]'>
                         <label htmlFor={font.code.toString()} className='cursor-pointer'>
                             {
@@ -870,7 +868,7 @@ function DetailPage({params}: any) {
                                         return (
                                             <div key={comment.comment_id} id={comment.comment_id} className="w-[100%] text-theme-3 dark:text-theme-10">
                                                 <div className="flex items-start mt-[20px] tlg:mt-[16px]">
-                                                    {/* eslint-disable-next-line @next/next/no-img-element 
+                                                    {/* eslint-disable-next-line @next/next/no-img-element */}
                                                     <img src={comment.profile_img} alt="유저 프로필 이미지" className="w-[40px] tlg:w-[32px] h-[40px] tlg:h-[32px] object-cover rounded-full"/>
                                                     <div className="ml-[16px] tlg:ml-[14px]">
                                                         <div className="flex items-end">
@@ -917,7 +915,7 @@ function DetailPage({params}: any) {
                                 }
                             </>
                         }
-                    </div> */}
+                    </div>
                 </div>
             </div>
         </>
