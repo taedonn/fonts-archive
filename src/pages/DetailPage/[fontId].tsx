@@ -3,7 +3,7 @@ import Link from "next/link";
 import { NextSeo } from 'next-seo';
 
 // react hooks
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, MouseEventHandler } from "react";
 
 // api
 import { FetchFontDetail } from "../api/detailpage/fetchfontdetail";
@@ -21,6 +21,7 @@ import { Slider } from "@mui/material";
 import Header from "@/components/header";
 import Tooltip from "@/components/tooltip";
 import DummyText from "@/components/dummytext";
+import DeleteCommentModal from "@/components/deletecommentmodal";
 
 function DetailPage({params}: any) {
     // 디바이스 체크
@@ -186,6 +187,8 @@ function DetailPage({params}: any) {
     // 댓글 state
     const [comments, setComments] = useState(params.comments);
     const [commentFocus, setCommentFocus] = useState<boolean>(false);
+    const [deleteModalDisplay, setDeleteModalDisplay] = useState<boolean>(false);
+    const [commentId, setCommentId] = useState<number>(0);
 
     // 댓글 ref
     const commentRef = useRef<HTMLTextAreaElement>(null);
@@ -261,6 +264,29 @@ function DetailPage({params}: any) {
         }
     }
 
+    /** 댓글 삭제 모달창 열기 */
+    const deleteCommentModalOpen = (e: React.MouseEvent<HTMLButtonElement>) => {
+        setDeleteModalDisplay(true);
+        setCommentId(getIntFromString(e.currentTarget.id));
+    }
+
+    /** 댓글 삭제 모달창 닫기 */
+    const deleteCommentModalClose = () => {
+        setDeleteModalDisplay(false);
+    }
+
+    /** 댓글 삭제 시 댓글 업데이트 */
+    const updateComments = (comments: any) => {
+        setComments(comments);
+    }
+
+    /** 문자열에서 숫자 추출 */
+    const getIntFromString = (string: string) => {
+        const regex = /[^0-9]/g;
+        const result = string.replace(regex, '');
+        return parseInt(result);
+    }
+
     return (
         <>
             {/* Head 부분*/}
@@ -288,6 +314,15 @@ function DetailPage({params}: any) {
 
             {/* 고정 메뉴 */}
             <Tooltip/>
+
+            {/* 댓글 삭제 모달 */}
+            <DeleteCommentModal
+                display={deleteModalDisplay}
+                close={deleteCommentModalClose}
+                font_id={font.code}
+                comment_id={commentId}
+                update={updateComments}
+            />
 
             {/* 로그인 중이 아닐 때 좋아요 alert창 팝업 */}
             {
@@ -364,7 +399,7 @@ function DetailPage({params}: any) {
                                 {
                                     webFont === "CSS"
                                     ? <div className="w-[100%] relative pl-[24px] tmd:pl-[16px] pr-[60px] overflow-hidden">
-                                        <div className="cdn_pre w-[100%] h-[60px] tmd:h-[48px] flex flex-row justify-start items-center overflow-x-auto"><pre style={{fontFamily:"Noto Sans KR"}} className="text-[14px] tmd:text-[12px] text-theme-9">{font.cdn_css}</pre></div>
+                                        <div className="cdn_pre w-[100%] h-[60px] tmd:h-[48px] flex flex-row justify-start items-center overflow-x-auto"><pre style={{fontFamily:"Spoqa Han Sans Neo"}} className="text-[14px] tmd:text-[12px] text-theme-9">{font.cdn_css}</pre></div>
                                         <div className="absolute z-10 right-[16px] tmd:right-[12px] top-[50%] translate-y-[-50%] rounded-[6px] cursor-pointer">
                                             <svg onClick={copyOnClick} className="copy_btn w-[32px] tmd:w-[28px] p-[8px] rounded-[6px] hover:bg-theme-yellow/10 tlg:hover:bg-transparent hover:dark:bg-theme-blue-1/10 tlg:hover:dark:bg-transparent fill-theme-9 hover:fill-theme-yellow tlg:hover:fill-theme-9 dark:fill-theme-7 hover:dark:fill-theme-blue-1 tlg:hover:dark:fill-theme-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/><path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/></svg>
                                             <svg className="copy_chk_btn w-[32px] tmd:w-[28px] p-[8px] rounded-[6px] bg-theme-yellow/10 dark:bg-theme-blue-1/10 fill-theme-yellow dark:fill-theme-blue-1 hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/></svg>
@@ -372,7 +407,7 @@ function DetailPage({params}: any) {
                                     </div>
                                     : ( webFont === "link"
                                         ? <div className="w-[100%] relative pl-[24px] tmd:pl-[16px] pr-[60px] overflow-hidden">
-                                            <div className="cdn_pre w-[100%] h-[60px] tmd:h-[48px] flex flex-row justify-start items-center overflow-x-auto"><pre style={{fontFamily:"Noto Sans KR"}} className="text-[14px] tmd:text-[12px] text-theme-9">{font.cdn_link}</pre></div>
+                                            <div className="cdn_pre w-[100%] h-[60px] tmd:h-[48px] flex flex-row justify-start items-center overflow-x-auto"><pre style={{fontFamily:"Spoqa Han Sans Neo"}} className="text-[14px] tmd:text-[12px] text-theme-9">{font.cdn_link}</pre></div>
                                             <div className="absolute z-10 right-[16px] tmd:right-[12px] top-[50%] translate-y-[-50%] cursor-pointer">
                                                 <svg onClick={copyOnClick} className="copy_btn w-[32px] tmd:w-[28px] p-[8px] rounded-[6px] hover:bg-theme-yellow/10 tlg:hover:bg-transparent hover:dark:bg-theme-blue-1/10 tlg:hover:dark:bg-transparent fill-theme-9 hover:fill-theme-yellow tlg:hover:fill-theme-9 dark:fill-theme-7 hover:dark:fill-theme-blue-1 tlg:hover:dark:fill-theme-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/><path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/></svg>
                                                 <svg className="copy_chk_btn w-[32px] tmd:w-[28px] p-[8px] rounded-[6px] bg-theme-yellow/10 dark:bg-theme-blue-1/10 fill-theme-yellow dark:fill-theme-blue-1 hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/></svg>
@@ -380,14 +415,14 @@ function DetailPage({params}: any) {
                                         </div>
                                         : ( webFont === "import"
                                             ? <div className="w-[100%] relative pl-[24px] tmd:pl-[16px] pr-[60px] overflow-hidden">
-                                                <div className="cdn_pre w-[100%] h-[60px] tmd:h-[48px] flex flex-row justify-start items-center overflow-x-auto"><pre style={{fontFamily:"Noto Sans KR"}} className="text-[14px] tmd:text-[12px] text-theme-9">{font.cdn_import}</pre></div>
+                                                <div className="cdn_pre w-[100%] h-[60px] tmd:h-[48px] flex flex-row justify-start items-center overflow-x-auto"><pre style={{fontFamily:"Spoqa Han Sans Neo"}} className="text-[14px] tmd:text-[12px] text-theme-9">{font.cdn_import}</pre></div>
                                                 <div className="absolute z-10 right-[16px] tmd:right-[12px] top-[50%] translate-y-[-50%] cursor-pointer">
                                                     <svg onClick={copyOnClick} className="copy_btn w-[32px] tmd:w-[28px] p-[8px] rounded-[6px] hover:bg-theme-yellow/10 tlg:hover:bg-transparent hover:dark:bg-theme-blue-1/10 tlg:hover:dark:bg-transparent fill-theme-9 hover:fill-theme-yellow tlg:hover:fill-theme-9 dark:fill-theme-7 hover:dark:fill-theme-blue-1 tlg:hover:dark:fill-theme-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/><path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/></svg>
                                                     <svg className="copy_chk_btn w-[32px] tmd:w-[28px] p-[8px] rounded-[6px] bg-theme-yellow/10 dark:bg-theme-blue-1/10 fill-theme-yellow dark:fill-theme-blue-1 hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/></svg>
                                                 </div>
                                             </div>
                                             : <div className="w-[100%] relative pl-[24px] tmd:pl-[16px] pr-[60px] overflow-hidden">
-                                                <div className="cdn_pre w-[100%] h-[auto] py-[20px] tmd:py-[15px] flex flex-row justify-start items-center overflow-auto whitespace-nowrap"><pre id="cdn-font-face" style={{fontFamily:"Noto Sans KR", tabSize:8}} className="font-face text-[14px] tmd:text-[12px] text-theme-9">{font.cdn_font_face}</pre></div>
+                                                <div className="cdn_pre w-[100%] h-[auto] py-[20px] tmd:py-[15px] flex flex-row justify-start items-center overflow-auto whitespace-nowrap"><pre id="cdn-font-face" style={{fontFamily:"Spoqa Han Sans Neo", tabSize:8}} className="font-face text-[14px] tmd:text-[12px] text-theme-9">{font.cdn_font_face}</pre></div>
                                                 <div className="absolute z-10 right-[16px] tmd:right-[12px] top-[30px] tmd:top-[24px] translate-y-[-50%] cursor-pointer">
                                                     <svg onClick={copyOnClick} className="copy_btn w-[32px] tmd:w-[28px] p-[8px] rounded-[6px] hover:bg-theme-yellow/10 tlg:hover:bg-transparent hover:dark:bg-theme-blue-1/10 tlg:hover:dark:bg-transparent fill-theme-9 hover:fill-theme-yellow tlg:hover:fill-theme-9 dark:fill-theme-7 hover:dark:fill-theme-blue-1 tlg:hover:dark:fill-theme-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/><path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/></svg>
                                                     <svg className="copy_chk_btn w-[32px] tmd:w-[28px] p-[8px] rounded-[6px] bg-theme-yellow/10 dark:bg-theme-blue-1/10 fill-theme-yellow dark:fill-theme-blue-1 hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/></svg>
@@ -853,7 +888,7 @@ function DetailPage({params}: any) {
                                                                             <svg className="w-[11px] tlg:w-[9px] mb-px fill-theme-4 group-hover:fill-theme-yellow tlg:group-hover:fill-theme-4 dark:fill-theme-9 group-hover:dark:fill-theme-blue-1 tlg:group-hover:dark:fill-theme-9" viewBox="0 0 18 21" xmlns="http://www.w3.org/2000/svg"><path d="M17.7002 14.4906C17.147 13.5344 16.4814 11.7156 16.4814 8.5V7.83438C16.4814 3.68125 13.1533 0.278125 9.05642 0.25H9.00017C8.01649 0.25123 7.04268 0.4462 6.13435 0.823776C5.22601 1.20135 4.40094 1.75414 3.70624 2.45058C3.01154 3.14702 2.46082 3.97347 2.08552 4.88275C1.71022 5.79202 1.51769 6.76632 1.51892 7.75V8.5C1.51892 11.7156 0.853295 13.5344 0.30017 14.4906C0.166399 14.7185 0.0951976 14.9777 0.0937718 15.2419C0.0923461 15.5061 0.160747 15.7661 0.292051 15.9954C0.423355 16.2247 0.612903 16.4152 0.841513 16.5477C1.07012 16.6803 1.32968 16.75 1.59392 16.75H5.25017C5.25017 17.7446 5.64526 18.6984 6.34852 19.4016C7.05178 20.1049 8.00561 20.5 9.00017 20.5C9.99473 20.5 10.9486 20.1049 11.6518 19.4016C12.3551 18.6984 12.7502 17.7446 12.7502 16.75H16.4064C16.6706 16.7517 16.9305 16.6831 17.1595 16.5513C17.3884 16.4196 17.5783 16.2293 17.7095 16C17.8397 15.7694 17.9073 15.5088 17.9056 15.2441C17.904 14.9793 17.8332 14.7196 17.7002 14.4906ZM9.00017 19C8.40419 18.9975 7.83333 18.7597 7.41191 18.3383C6.99048 17.9168 6.75264 17.346 6.75017 16.75H11.2502C11.2477 17.346 11.0099 17.9168 10.5884 18.3383C10.167 18.7597 9.59615 18.9975 9.00017 19ZM1.59392 15.25C2.2408 14.125 3.01892 12.0531 3.01892 8.5V7.75C3.01645 6.96295 3.16934 6.18316 3.46882 5.45532C3.7683 4.72747 4.20849 4.06589 4.76414 3.50849C5.3198 2.95109 5.98 2.50884 6.70691 2.20708C7.43381 1.90533 8.21312 1.75 9.00017 1.75H9.04705C12.3189 1.76875 14.9814 4.50625 14.9814 7.83438V8.5C14.9814 12.0531 15.7595 14.125 16.4064 15.25H1.59392Z"/></svg>
                                                                             <div className="text-[12px] tlg:text-[10px] leading-none text-theme-4 group-hover:text-theme-yellow tlg:group-hover:text-theme-4 dark:text-theme-9 group-hover:dark:text-theme-blue-1 tlg:group-hover:dark:text-theme-9 ml-[4px] tlg:mt-px">신고</div>
                                                                         </label>
-                                                                    </> 
+                                                                    </>
                                                                     : <div className="flex items-start mb-[2px] tlg:mb-0">
                                                                         <input type="checkbox" id="comment-modify" className="hidden"/>
                                                                         <label htmlFor="comment-modify" className="group flex items-center ml-[12px] mb-[2px] tlg:mb-px cursor-pointer">
@@ -861,7 +896,7 @@ function DetailPage({params}: any) {
                                                                             <div className="text-[12px] tlg:text-[10px] leading-none text-theme-4 group-hover:text-theme-yellow tlg:group-hover:text-theme-4 dark:text-theme-9 group-hover:dark:text-theme-blue-1 tlg:group-hover:dark:text-theme-9 ml-[3px]">수정</div>
                                                                         </label>
                                                                         <div className="w-px h-[11px] mx-[6px] bg-theme-6"></div>
-                                                                        <button className="group flex">
+                                                                        <button id={`delete-comment-${comment.comment_id}`} onClick={deleteCommentModalOpen} className="group flex">
                                                                             <svg className="w-[12px] tlg:w-[11px] mb-px tlg:mb-0 fill-theme-4 group-hover:fill-theme-yellow tlg:group-hover:fill-theme-4 dark:fill-theme-9 group-hover:dark:fill-theme-blue-1 tlg:group-hover:dark:fill-theme-9" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/><path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/></svg>
                                                                             <div className="text-[12px] tlg:text-[10px] leading-none text-theme-4 group-hover:text-theme-yellow tlg:group-hover:text-theme-4 dark:text-theme-9 group-hover:dark:text-theme-blue-1 tlg:group-hover:dark:text-theme-9 ml-[3px] tlg:mt-px">삭제</div>
                                                                         </button>
@@ -869,7 +904,7 @@ function DetailPage({params}: any) {
                                                                 : <></>
                                                             }
                                                         </div>
-                                                        <div className="text-[14px] tlg:text-[12px] mt-[8px] text-theme-4 dark:text-theme-9">{comment.comment}</div>
+                                                        <pre style={{fontFamily: "Spoqa Han Sans Neo"}} className="text-[14px] tlg:text-[12px] mt-[8px] text-theme-4 dark:text-theme-9">{comment.comment}</pre>
                                                         <button className="text-[14px] tlg:text-[12px] mt-[12px] tlg:mt-[8px] text-theme-yellow dark:text-theme-blue-1 hover:underline tlg:underline hover:dark:text-theme-blue-1">답글</button>
                                                     </div>
                                                 </div>

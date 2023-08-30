@@ -27,5 +27,27 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 comments: comments
             });
         }
+        else if (req.body.action === 'delete-comment') {
+            // 댓글 삭제하기(고도화)
+            // await prisma.fontsComment.update({
+            //     where: { comment_id: Number(req.body.comment_id) },
+            //     data: {
+            //         is_deleted: true,
+            //     }
+            // });
+
+            // 댓글 삭제하기
+            await prisma.fontsComment.delete({
+                where: { comment_id: Number(req.body.comment_id) }
+            });
+
+            // 업데이트된 댓글 가져오기
+            const comments = await FetchComments(req.body.font_id);
+
+            return res.status(200).json({
+                message: 'Message deleted successfully.',
+                comments: comments
+            });
+        }
     }
 }
