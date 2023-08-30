@@ -824,12 +824,12 @@ function DetailPage({params}: any) {
                             {
                                 !likedInput
                                 ? <div className="w-[76px] h-[32px] flex justify-center items-center rounded-[6px] bg-theme-8 hover:bg-theme-7/80 dark:bg-theme-4/60 hover:dark:bg-theme-4 tlg:dark:hover:bg-theme-4/60">
-                                    <svg className='w-[13px] fill-theme-5 dark:fill-theme-9' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/></svg>
-                                    <div className="ml-[5px] mr-[2px] mt-[2px] text-[13px] font-medium leading-none text-theme-5 dark:text-theme-9">좋아요</div>
+                                    <svg className='w-[13px] fill-theme-5 dark:fill-theme-9 mb-px' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/></svg>
+                                    <div className="ml-[5px] mr-[2px] mt-px text-[13px] font-medium leading-none text-theme-5 dark:text-theme-9">좋아요</div>
                                 </div>
                                 : <div className="w-[76px] h-[32px] flex justify-center items-center rounded-[6px] bg-theme-yellow dark:bg-theme-blue-1">
-                                    <svg className='w-[13px] fill-theme-4 dark:fill-theme-2' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/></svg>
-                                    <div className="ml-[5px] mr-[2px] mt-[2px] text-[13px] font-medium leading-none text-theme-4 dark:text-theme-2">좋아요</div>
+                                    <svg className='w-[13px] fill-theme-4 dark:fill-theme-2 mb-px' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/></svg>
+                                    <div className="ml-[5px] mr-[2px] mt-px text-[13px] font-medium leading-none text-theme-4 dark:text-theme-2">좋아요</div>
                                 </div>
                             }
                         </label>
@@ -866,7 +866,7 @@ function DetailPage({params}: any) {
                                 {
                                     comments.map((comment: any) => {
                                         return (
-                                            <div key={comment.comment_id} id={comment.comment_id} className="w-[100%] text-theme-3 dark:text-theme-10">
+                                            <div key={comment.comment_id} id={comment.comment_id} className="w-[100%] text-theme-3 dark:text-theme-10 animate-fontbox-fade-in">
                                                 <div className="flex items-start mt-[20px] tlg:mt-[16px]">
                                                     {/* eslint-disable-next-line @next/next/no-img-element */}
                                                     <img src={comment.profile_img} alt="유저 프로필 이미지" className="w-[40px] tlg:w-[32px] h-[40px] tlg:h-[32px] object-cover rounded-full"/>
@@ -905,7 +905,7 @@ function DetailPage({params}: any) {
                                                             }
                                                         </div>
                                                         <pre style={{fontFamily: "Spoqa Han Sans Neo"}} className="text-[14px] tlg:text-[12px] mt-[8px] text-theme-4 dark:text-theme-9">{comment.comment}</pre>
-                                                        <button className="text-[14px] tlg:text-[12px] mt-[12px] tlg:mt-[8px] text-theme-yellow dark:text-theme-blue-1 hover:underline tlg:underline hover:dark:text-theme-blue-1">답글</button>
+                                                        <button className={`${params.user ? 'block' : 'hidden'} text-[14px] tlg:text-[12px] mt-[12px] tlg:mt-[8px] text-theme-yellow dark:text-theme-blue-1 hover:underline tlg:underline hover:dark:text-theme-blue-1`}>답글</button>
                                                     </div>
                                                 </div>
                                                 <div className="w-[100%] h-px mt-[20px] tlg:mt-[16px] dark:bg-theme-5"></div>

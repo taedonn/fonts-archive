@@ -19,7 +19,7 @@ const Index = ({params}: any) => {
 
     // 마스터가 아니면 인덱스로 이동
     useEffect(() => {
-        if (params.user.user_no !== 0) {
+        if (!params.user || params.user.user_no !== 1) {
             alert("접근 권한이 없습니다.");
             location.href = '/';
         }
@@ -43,6 +43,17 @@ const Index = ({params}: any) => {
                 handleSortOptionChange={emptyFn}
                 handleSearch={emptyFn}
             />
+
+            {/* 메인 */}
+            <div className='w-[100%] flex flex-col justify-center items-center'>
+                <div className='max-w-[720px] w-[100%] flex flex-col justify-center items-start my-[100px] tlg:my-[40px]'>
+                    <h2 className='text-[20px] tlg:text-[18px] text-theme-4 dark:text-theme-9 font-medium mb-[12px] tlg:mb-[8px]'>폰트 수정</h2>
+                    <div className='w-[100%] p-[20px] rounded-[8px] text-theme-10 dark:text-theme-9 bg-theme-5 dark:bg-theme-3 drop-shadow-default dark:drop-shadow-dark'>
+                        <label htmlFor='id' className='block text-[14px] ml-px'>폰트 검색</label>
+                        <input type='text' id='id' tabIndex={1} autoComplete='on' placeholder='이메일을 입력해 주세요.' className={`border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' w-[100%] text-[14px] mt-[6px] px-[14px] py-[8px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
+                    </div>
+                </div>
+            </div>
         </>
     );
 }

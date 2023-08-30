@@ -29,16 +29,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         }
         else if (req.body.action === 'delete-comment') {
             // 댓글 삭제하기(고도화)
-            // await prisma.fontsComment.update({
-            //     where: { comment_id: Number(req.body.comment_id) },
-            //     data: {
-            //         is_deleted: true,
-            //     }
-            // });
-
-            // 댓글 삭제하기
-            await prisma.fontsComment.delete({
-                where: { comment_id: Number(req.body.comment_id) }
+            await prisma.fontsComment.update({
+                where: { comment_id: Number(req.body.comment_id) },
+                data: {
+                    is_deleted: true,
+                    deleted_at: new Date(),
+                }
             });
 
             // 업데이트된 댓글 가져오기
