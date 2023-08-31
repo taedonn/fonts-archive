@@ -45,5 +45,23 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 comments: comments
             });
         }
+        else if (req.body.action === 'edit-comment') {
+            // 댓글 수정하기
+            await prisma.fontsComment.update({
+                where: { comment_id: Number(req.body.comment_id) },
+                data: {
+                    comment: req.body.comment,
+                    updated_at: new Date(),
+                }
+            });
+
+            // 업데이트된 댓글 가져오기
+            const comments = await FetchComments(req.body.font_id);
+
+            return res.status(200).json({
+                message: 'Message edited successfully.',
+                comments: comments
+            });
+        }
     }
 }

@@ -459,3 +459,47 @@ html.dark #account:checked + label svg { fill: #E9EAEE; }
 #privacy-check ~ label .check { display: none; }
 #privacy-check:checked ~ label .uncheck { display: none; }
 #privacy-check:checked ~ label .check { display: block; }
+
+/* 댓글 활성화 */
+.edit-btn-enabled {
+    background-color: #FCBE11CC;
+    color: #4C4D50;
+    cursor: pointer
+}
+.edit-btn-enabled:hover {
+    background-color: #FCBE11;
+}
+@media screen and (max-width: 1024px) {
+    .edit-btn-enabled {
+        background-color: #FCBE11;
+    }
+    .edit-btn-enabled:hover {
+        background-color: #FCBE11;
+    }
+}
+html.dark .edit-btn-enabled {
+    background-color: #8AB4F8;
+    color: #202124;
+}
+html.dark .edit-btn-enabled:hover {
+    background-color: #8AB4F8E6;
+}
+@media screen and (max-width: 1024px) {
+    html.dark .edit-btn-enabled {
+        background-color: #8AB4F8;
+    }
+    html.dark .edit-btn-enabled:hover {
+        background-color: #8AB4F8;
+    }
+}
+
+/* 댓글 비활성화 */
+.edit-btn-disabled {
+    background-color: #CDCED2;
+    color: #97989C;
+    cursor: default;
+}
+html.dark .edit-btn-disabled {
+    background-color: #35363A;
+    color: #646568;
+}
