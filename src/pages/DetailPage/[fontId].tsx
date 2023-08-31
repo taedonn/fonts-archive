@@ -187,6 +187,7 @@ function DetailPage({params}: any) {
     // 댓글 state
     const [comments, setComments] = useState(params.comments);
     const [commentFocus, setCommentFocus] = useState<boolean>(false);
+    const [commentBtn, setCommentBtn] = useState<boolean>(false);
     const [deleteModalDisplay, setDeleteModalDisplay] = useState<boolean>(false);
     const [commentId, setCommentId] = useState<number>(0);
 
@@ -195,23 +196,20 @@ function DetailPage({params}: any) {
     const commentBtnRef = useRef<HTMLButtonElement>(null);
 
     /** 댓글 포커스 시 */
-    const commentOnFocus = () => { setCommentFocus(true); commentOnChange(); }
+    const commentOnFocus = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        setCommentFocus(true);
+        if (e.target.value !== '') { setCommentBtn(true); }
+        else { setCommentBtn(false); }
+    }
 
     /** 댓글 포커스 아웃 시 */
     const commentOnBlur = () => { setCommentFocus(false); }
 
     /** 댓글 적었을 때 댓글 버튼 활성화 */
-    const commentOnChange = () => {
-        if (commentRef.current && commentBtnRef.current) {
+    const commentOnChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
             // 댓글 value값 판단
-            if (commentRef.current.value !== '') {
-                commentBtnRef.current.classList.add('comment-enabled');
-                commentBtnRef.current.classList.remove('comment-disabled');
-            } else {
-                commentBtnRef.current.classList.add('comment-disabled');
-                commentBtnRef.current.classList.remove('comment-enabled');
-            }
-        }
+            if (e.target.value !== '') { setCommentBtn(true); }
+            else { setCommentBtn(false); }
     }
 
     /** 댓글 취소 버튼 눌렀을 때 댓글 지우고 포커스 아웃 (click 이벤트는 적용이 안돼서 mousedown으로 대체) */
@@ -285,6 +283,29 @@ function DetailPage({params}: any) {
         const regex = /[^0-9]/g;
         const result = string.replace(regex, '');
         return parseInt(result);
+    }
+
+    /** 댓글 수정하기 버튼 클릭 */
+    const editComment = (e: React.ChangeEvent<HTMLInputElement>) => {
+        // 아이디 추출
+        const id = getIntFromString(e.target.id);
+        const comment = document.getElementById('comment-' + id) as HTMLDivElement;
+        const editor = document.getElementById('comment-editor-' + id) as HTMLDivElement;
+
+        if (e.target.checked) {
+            comment.style.display = 'none';
+            editor.style.display = 'block';
+            editor.getElementsByTagName('textarea')[0].focus();
+        } else {
+            comment.style.display = 'block';
+            editor.style.display = 'none';
+            editor.getElementsByTagName('textarea')[0].value = comment.getElementsByTagName('pre')[0].innerHTML;
+        }
+    }
+
+    /** 댓글 수정 포커스 시 */
+    const commentEditOnFocus = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        handleHeightChange(e);
     }
 
     return (
@@ -851,8 +872,8 @@ function DetailPage({params}: any) {
                                 {
                                     commentFocus
                                     ? <div className="flex w-[100%] text-[14px] tlg:text-[12px] text-theme-5 dark:text-theme-9 mt-[12px]">
-                                        <button ref={commentBtnRef} onMouseDown={newComment} className="comment-disabled w-[56px] h-[32px] rounded-full">댓글</button>
-                                        <button onMouseDown={commentCancelBtnOnMouseDown} className="w-[56px] h-[32px] ml-[8px] rounded-full hover:bg-theme-8 hover:dark:bg-theme-4 tlg:hover:bg-transparent tlg:hover:dark:bg-transparent">취소</button>
+                                        <button ref={commentBtnRef} onMouseDown={newComment} className={`${commentBtn ? 'comment-enabled text-theme-4 dark:text-theme-blue-2 bg-theme-yellow/80 tlg:bg-theme-yellow hover:bg-theme-yellow dark:bg-theme-blue-1 hover:dark:bg-theme-blue-1/90 tlg:hover:dark:bg-theme-blue-1 cursor-pointer' : 'comment-disabled text-theme-6 bg-theme-8 dark:text-theme-5 dark:bg-theme-3 cursor-default'} w-[56px] tlg:w-[48px] h-[32px] tlg:h-[28px] rounded-full`}>댓글</button>
+                                        <button onMouseDown={commentCancelBtnOnMouseDown} className="w-[56px] tlg:w-[48px] h-[32px] tlg:h-[28px] ml-[8px] rounded-full hover:bg-theme-8 hover:dark:bg-theme-4 tlg:hover:bg-transparent tlg:hover:dark:bg-transparent">취소</button>
                                     </div> : <></>
                                 }
                             </div>
@@ -866,7 +887,7 @@ function DetailPage({params}: any) {
                                 {
                                     comments.map((comment: any) => {
                                         return (
-                                            <div key={comment.comment_id} id={comment.comment_id} className="w-[100%] text-theme-3 dark:text-theme-10 animate-fontbox-fade-in">
+                                            <div key={comment.comment_id} className="w-[100%] text-theme-3 dark:text-theme-10 animate-fontbox-fade-in">
                                                 <div className="flex items-start mt-[20px] tlg:mt-[16px]">
                                                     {/* eslint-disable-next-line @next/next/no-img-element */}
                                                     <img src={comment.profile_img} alt="유저 프로필 이미지" className="w-[40px] tlg:w-[32px] h-[40px] tlg:h-[32px] object-cover rounded-full"/>
@@ -890,8 +911,8 @@ function DetailPage({params}: any) {
                                                                         </label>
                                                                     </>
                                                                     : <div className="flex items-start mb-[2px] tlg:mb-0">
-                                                                        <input type="checkbox" id="comment-modify" className="hidden"/>
-                                                                        <label htmlFor="comment-modify" className="group flex items-center ml-[12px] mb-[2px] tlg:mb-px cursor-pointer">
+                                                                        <input onChange={editComment} type="checkbox" id={`comment-edit-${comment.comment_id}`} className="hidden"/>
+                                                                        <label htmlFor={`comment-edit-${comment.comment_id}`} className="group flex items-center ml-[12px] mb-[2px] tlg:mb-px cursor-pointer">
                                                                             <svg className="w-[11px] mb-px fill-theme-4 group-hover:fill-theme-yellow tlg:group-hover:fill-theme-4 dark:fill-theme-9 group-hover:dark:fill-theme-blue-1 tlg:group-hover:dark:fill-theme-9" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/></svg>
                                                                             <div className="text-[12px] leading-none text-theme-4 group-hover:text-theme-yellow tlg:group-hover:text-theme-4 dark:text-theme-9 group-hover:dark:text-theme-blue-1 tlg:group-hover:dark:text-theme-9 ml-[3px]">수정</div>
                                                                         </label>
@@ -904,8 +925,15 @@ function DetailPage({params}: any) {
                                                                 : <></>
                                                             }
                                                         </div>
-                                                        <pre style={{fontFamily: "Spoqa Han Sans Neo"}} className="text-[14px] tlg:text-[12px] mt-[8px] text-theme-4 dark:text-theme-9">{comment.comment}</pre>
-                                                        <button className={`${params.user ? 'block' : 'hidden'} text-[14px] tlg:text-[12px] mt-[12px] tlg:mt-[8px] text-theme-yellow dark:text-theme-blue-1 hover:underline tlg:underline hover:dark:text-theme-blue-1`}>답글</button>
+                                                        <div id={`comment-${comment.comment_id}`} className="mt-[8px]">
+                                                            <pre style={{fontFamily: "Spoqa Han Sans Neo"}} className="text-[14px] tlg:text-[12px] text-theme-4 dark:text-theme-9">{comment.comment}</pre>
+                                                            <button className={`${params.user ? 'block' : 'hidden'} text-[14px] tlg:text-[12px] mt-[12px] tlg:mt-[8px] text-theme-yellow dark:text-theme-blue-1 hover:underline tlg:underline hover:dark:text-theme-blue-1`}>답글</button>
+                                                        </div>
+                                                        <div id={`comment-editor-${comment.comment_id}`} className="hidden">
+                                                            <div className="w-[100%] items-center mt-[8px] px-[14px] pt-[10px] pb-[4px] rounded-[8px] bg-theme-8 dark:bg-theme-3">
+                                                                <textarea onInput={handleHeightChange} onFocus={commentEditOnFocus} placeholder="댓글 수정하기..." defaultValue={comment.comment} className="w-[100%] h-[21px] resize-none text-[14px] tlg:text-[12px] tracking-wide text-theme-4 dark:text-theme-9 placeholder-theme-5 dark:placeholder-theme-6 leading-normal bg-transparent"/>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div className="w-[100%] h-px mt-[20px] tlg:mt-[16px] dark:bg-theme-5"></div>

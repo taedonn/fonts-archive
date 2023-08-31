@@ -28,7 +28,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             });
         }
         else if (req.body.action === 'delete-comment') {
-            // 댓글 삭제하기(고도화)
+            // 댓글 삭제하기
             await prisma.fontsComment.update({
                 where: { comment_id: Number(req.body.comment_id) },
                 data: {
