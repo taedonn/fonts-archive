@@ -395,6 +395,19 @@ function DetailPage({params}: any) {
         }
     }
 
+    /** 답글 취소 버튼 클릭 시 */
+    const commentReplyCancelBtnOnClick = (e: any) => {
+        // 아이디 추출
+        const id = getIntFromString(e.target.id);
+        const edit = document.getElementById('comment-reply-' + id) as HTMLInputElement;
+        
+        // 수정 체크 해제
+        edit.checked = false;
+
+        // 답글 보임/숨김
+        commentReplyShow(e);
+    }
+
     return (
         <>
             {/* Head 부분*/}
@@ -1014,9 +1027,8 @@ function DetailPage({params}: any) {
                                                         </div>
                                                         <div id={`comment-${comment.comment_id}`} className="mt-[8px]">
                                                             <pre style={{fontFamily: "Spoqa Han Sans Neo"}} className="text-[14px] tlg:text-[12px] text-theme-4 dark:text-theme-9">{comment.comment}</pre>
-                                                            {/* <button className={`${params.user ? 'block' : 'hidden'} text-[14px] tlg:text-[12px] mt-[12px] tlg:mt-[8px] text-theme-yellow dark:text-theme-blue-1 hover:underline tlg:underline hover:dark:text-theme-blue-1`}>답글</button> */}
-                                                            <input onChange={commentReplyShow} id={`comment-reply-${comment.comment_id}`} type="checkbox" className="hidden"/>
-                                                            <label htmlFor={`comment-reply-${comment.comment_id}`} className={`${params.user ? 'block' : 'hidden'} text-[14px] tlg:text-[12px] mt-[12px] tlg:mt-[8px] text-theme-yellow dark:text-theme-blue-1 hover:underline tlg:underline hover:dark:text-theme-blue-1 cursor-pointer`}>답글</label>
+                                                            <input onChange={commentReplyShow} id={`comment-reply-${comment.comment_id}`} type="checkbox" className="hidden peer"/>
+                                                            <label htmlFor={`comment-reply-${comment.comment_id}`} className={`${params.user ? 'block' : 'hidden'} peer-checked:hidden text-[14px] tlg:text-[12px] mt-[12px] tlg:mt-[8px] text-theme-yellow dark:text-theme-blue-1 hover:underline tlg:underline hover:dark:text-theme-blue-1 cursor-pointer`}>답글</label>
                                                         </div>
                                                         {/* 댓글 수정 */}
                                                         <div id={`comment-editor-${comment.comment_id}`} className="hidden mt-[8px]">
@@ -1029,10 +1041,19 @@ function DetailPage({params}: any) {
                                                             </div>
                                                         </div>
                                                         {/* 댓글 삭제 */}
-                                                        <div id={`comment-reply-content-${comment.comment_id}`} className="hidden mt-[8px]">
-                                                            <div className="flex text-[14px] mt-[12px]">
-                                                                <button onClick={editCommentAPIInit} id={`comment-edit-btn-${comment.comment_id}`} className="w-[56px] tlg:w-[48px] h-[32px] tlg:h-[28px] pb-px rounded-full">수정</button>
-                                                                <button onClick={commentEditCancelBtnOnClick} id={`comment-edit-cancel-${comment.comment_id}`} className="w-[56px] tlg:w-[48px] h-[32px] tlg:h-[28px] pb-px rounded-full text-theme-5 dark:text-theme-9 hover:bg-theme-8 hover:dark:bg-theme-4 tlg:hover:dark:bg-transparent ml-[6px]">취소</button>
+                                                        <div id={`comment-reply-content-${comment.comment_id}`} className="hidden mt-[20px]">
+                                                            <div className="w-[100%] flex">
+                                                                {/* eslint-disable-next-line @next/next/no-img-element */}
+                                                                <img src={comment.profile_img} alt="유저 프로필 이미지" className="w-[40px] tlg:w-[32px] h-[40px] tlg:h-[32px] object-cover rounded-full"/>
+                                                                <div className="w-[100%] ml-[16px] tlg:ml-[14px]">
+                                                                    <div className="relative w-[100%] min-w-[320px] flex items-center pb-[4px] border-b border-theme-5 dark:border-theme-7">
+                                                                        <textarea onInput={handleHeightChange} placeholder="답글 달기..." className="w-[100%] h-[21px] resize-none text-[14px] tlg:text-[12px] tracking-wide mt-[6px] text-theme-5 dark:text-theme-8 placeholder-theme-5 dark:placeholder-theme-6 leading-normal bg-transparent"/>
+                                                                    </div>
+                                                                    <div className="flex text-[14px] mt-[12px]">
+                                                                        <button onClick={editCommentAPIInit} id={`comment-edit-btn-${comment.comment_id}`} className="w-[56px] tlg:w-[48px] h-[32px] tlg:h-[28px] pb-px rounded-full bg-theme-yellow hover:bg-theme-yellow/80 tlg:hover:bg-theme-yellow dark:bg-theme-blue-1 hover:dark:bg-theme-blue-1/90 tlg:hover:dark:bg-theme-blue-1 dark:text-theme-blue-2">수정</button>
+                                                                        <button onClick={commentReplyCancelBtnOnClick} id={`comment-reply-cancel-${comment.comment_id}`} className="w-[56px] tlg:w-[48px] h-[32px] tlg:h-[28px] pb-px rounded-full text-theme-5 dark:text-theme-9 hover:bg-theme-8 hover:dark:bg-theme-4 tlg:hover:dark:bg-transparent ml-[6px]">취소</button>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
