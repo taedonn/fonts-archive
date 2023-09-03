@@ -3,7 +3,7 @@ import Link from "next/link";
 import { NextSeo } from 'next-seo';
 
 // react hooks
-import React, { useEffect, useState, useRef, MouseEventHandler } from "react";
+import React, { useEffect, useState, useRef } from "react";
 
 // api
 import { FetchFontDetail } from "../api/detailpage/fetchfontdetail";
@@ -341,6 +341,7 @@ function DetailPage({params}: any) {
             comment.style.display = 'none';
             commentWrap.style.visibility = 'hidden';
             editor.style.display = 'block';
+            editor.getElementsByTagName('textarea')[0].value = comment.getElementsByTagName('pre')[0].innerHTML;
             editor.getElementsByTagName('textarea')[0].focus();
             editBtn.classList.add('edit-btn-enabled');
             editBtn.classList.remove('edit-btn-disabled');
@@ -348,7 +349,6 @@ function DetailPage({params}: any) {
             comment.style.display = 'block';
             commentWrap.style.visibility = 'visible';
             editor.style.display = 'none';
-            editor.getElementsByTagName('textarea')[0].value = comment.getElementsByTagName('pre')[0].innerHTML;
         }
     }
 
@@ -378,6 +378,20 @@ function DetailPage({params}: any) {
                 input.checked = false;
             })
             .catch(err => console.log(err));
+        }
+    }
+
+    /** 답글 보임/숨김 */
+    const commentReplyShow = (e: any) => {
+        // 아이디 추출
+        const id = getIntFromString(e.target.id);
+        const reply = document.getElementById('comment-reply-content-' + id) as HTMLDivElement;
+        
+        // 보임/숨김 처리
+        if (e.target.checked) {
+            reply.style.display = 'block';
+        } else {
+            reply.style.display = 'none';
         }
     }
 
@@ -945,8 +959,8 @@ function DetailPage({params}: any) {
                                 {
                                     commentFocus
                                     ? <div className="flex w-[100%] text-[14px] tlg:text-[12px] text-theme-5 dark:text-theme-9 mt-[12px]">
-                                        <button ref={commentBtnRef} onMouseDown={newComment} className={`${commentBtn ? 'comment-enabled text-theme-4 dark:text-theme-blue-2 bg-theme-yellow/80 tlg:bg-theme-yellow hover:bg-theme-yellow dark:bg-theme-blue-1 hover:dark:bg-theme-blue-1/90 tlg:hover:dark:bg-theme-blue-1 cursor-pointer' : 'comment-disabled text-theme-6 bg-theme-8 dark:text-theme-5 dark:bg-theme-3 cursor-default'} w-[56px] tlg:w-[48px] h-[32px] tlg:h-[28px] rounded-full`}>댓글</button>
-                                        <button onMouseDown={commentCancelBtnOnMouseDown} className="w-[56px] tlg:w-[48px] h-[32px] tlg:h-[28px] ml-[8px] rounded-full hover:bg-theme-8 hover:dark:bg-theme-4 tlg:hover:bg-transparent tlg:hover:dark:bg-transparent">취소</button>
+                                        <button ref={commentBtnRef} onMouseDown={newComment} className={`${commentBtn ? 'comment-enabled text-theme-4 dark:text-theme-blue-2 bg-theme-yellow/80 tlg:bg-theme-yellow hover:bg-theme-yellow dark:bg-theme-blue-1 hover:dark:bg-theme-blue-1/90 tlg:hover:dark:bg-theme-blue-1 cursor-pointer' : 'comment-disabled text-theme-6 bg-theme-8 dark:text-theme-5 dark:bg-theme-3 cursor-default'} w-[56px] tlg:w-[48px] h-[32px] tlg:h-[28px] pb-px rounded-full`}>댓글</button>
+                                        <button onMouseDown={commentCancelBtnOnMouseDown} className="w-[56px] tlg:w-[48px] h-[32px] tlg:h-[28px] ml-[8px] rounded-full hover:bg-theme-8 hover:dark:bg-theme-4 tlg:hover:bg-transparent tlg:hover:dark:bg-transparent pb-px">취소</button>
                                     </div> : <></>
                                 }
                             </div>
@@ -1000,15 +1014,25 @@ function DetailPage({params}: any) {
                                                         </div>
                                                         <div id={`comment-${comment.comment_id}`} className="mt-[8px]">
                                                             <pre style={{fontFamily: "Spoqa Han Sans Neo"}} className="text-[14px] tlg:text-[12px] text-theme-4 dark:text-theme-9">{comment.comment}</pre>
-                                                            <button className={`${params.user ? 'block' : 'hidden'} text-[14px] tlg:text-[12px] mt-[12px] tlg:mt-[8px] text-theme-yellow dark:text-theme-blue-1 hover:underline tlg:underline hover:dark:text-theme-blue-1`}>답글</button>
+                                                            {/* <button className={`${params.user ? 'block' : 'hidden'} text-[14px] tlg:text-[12px] mt-[12px] tlg:mt-[8px] text-theme-yellow dark:text-theme-blue-1 hover:underline tlg:underline hover:dark:text-theme-blue-1`}>답글</button> */}
+                                                            <input onChange={commentReplyShow} id={`comment-reply-${comment.comment_id}`} type="checkbox" className="hidden"/>
+                                                            <label htmlFor={`comment-reply-${comment.comment_id}`} className={`${params.user ? 'block' : 'hidden'} text-[14px] tlg:text-[12px] mt-[12px] tlg:mt-[8px] text-theme-yellow dark:text-theme-blue-1 hover:underline tlg:underline hover:dark:text-theme-blue-1 cursor-pointer`}>답글</label>
                                                         </div>
+                                                        {/* 댓글 수정 */}
                                                         <div id={`comment-editor-${comment.comment_id}`} className="hidden mt-[8px]">
                                                             <div className="w-[100%] items-center px-[14px] pt-[10px] pb-[4px] rounded-[8px] bg-theme-8 dark:bg-theme-3">
                                                                 <textarea id={`comment-edit-textarea-${comment.comment_id}`} onChange={commentEditOnChange} onInput={handleHeightChange} onFocus={commentEditOnFocus} placeholder="댓글 수정하기..." defaultValue={comment.comment} className="w-[100%] h-[21px] resize-none text-[14px] tlg:text-[12px] tracking-wide text-theme-4 dark:text-theme-9 placeholder-theme-5 dark:placeholder-theme-6 leading-normal bg-transparent"/>
                                                             </div>
                                                             <div className="flex text-[14px] mt-[12px]">
-                                                                <button onClick={editCommentAPIInit} id={`comment-edit-btn-${comment.comment_id}`} className="w-[56px] tlg:w-[48px] h-[32px] tlg:h-[28px] rounded-full">수정</button>
-                                                                <button onClick={commentEditCancelBtnOnClick} id={`comment-edit-cancel-${comment.comment_id}`} className="w-[56px] tlg:w-[48px] h-[32px] tlg:h-[28px] rounded-full text-theme-5 dark:text-theme-9 hover:bg-theme-8 hover:dark:bg-theme-4 tlg:hover:dark:bg-transparent ml-[6px]">취소</button>
+                                                                <button onClick={editCommentAPIInit} id={`comment-edit-btn-${comment.comment_id}`} className="w-[56px] tlg:w-[48px] h-[32px] tlg:h-[28px] pb-px rounded-full">수정</button>
+                                                                <button onClick={commentEditCancelBtnOnClick} id={`comment-edit-cancel-${comment.comment_id}`} className="w-[56px] tlg:w-[48px] h-[32px] tlg:h-[28px] pb-px rounded-full text-theme-5 dark:text-theme-9 hover:bg-theme-8 hover:dark:bg-theme-4 tlg:hover:dark:bg-transparent ml-[6px]">취소</button>
+                                                            </div>
+                                                        </div>
+                                                        {/* 댓글 삭제 */}
+                                                        <div id={`comment-reply-content-${comment.comment_id}`} className="hidden mt-[8px]">
+                                                            <div className="flex text-[14px] mt-[12px]">
+                                                                <button onClick={editCommentAPIInit} id={`comment-edit-btn-${comment.comment_id}`} className="w-[56px] tlg:w-[48px] h-[32px] tlg:h-[28px] pb-px rounded-full">수정</button>
+                                                                <button onClick={commentEditCancelBtnOnClick} id={`comment-edit-cancel-${comment.comment_id}`} className="w-[56px] tlg:w-[48px] h-[32px] tlg:h-[28px] pb-px rounded-full text-theme-5 dark:text-theme-9 hover:bg-theme-8 hover:dark:bg-theme-4 tlg:hover:dark:bg-transparent ml-[6px]">취소</button>
                                                             </div>
                                                         </div>
                                                     </div>
