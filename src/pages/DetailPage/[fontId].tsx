@@ -1063,7 +1063,7 @@ function DetailPage({params}: any) {
                                                             <div className="text-[13px] tlg:text-[11px] ml-[10px] text-theme-6">{commentsDateFormat(comment.created_at)}</div>
                                                             {
                                                                 params.user
-                                                                ? comment.user_no !== params.user.user_no
+                                                                ? comment.user_no !== params.user.user_no && !comment.is_deleted_with_reply
                                                                     ? <>
                                                                         <input type="checkbox" id="comment-report" className="hidden"/>
                                                                         <label htmlFor="comment-report" className="group flex items-center ml-[12px] mb-[2px] cursor-pointer">
@@ -1071,23 +1071,29 @@ function DetailPage({params}: any) {
                                                                             <div className="text-[12px] leading-none text-theme-4 group-hover:text-theme-yellow tlg:group-hover:text-theme-4 dark:text-theme-9 group-hover:dark:text-theme-blue-1 tlg:group-hover:dark:text-theme-9 ml-[4px] tlg:mt-px">신고</div>
                                                                         </label>
                                                                     </>
-                                                                    : <div id={`comment-btn-wrap-${comment.comment_id}`} className="flex items-start mb-[2px] tlg:mb-0">
-                                                                        <input onChange={editComment} type="checkbox" id={`comment-edit-${comment.comment_id}`} className="hidden"/>
-                                                                        <label htmlFor={`comment-edit-${comment.comment_id}`} className="group flex items-center ml-[12px] mb-[2px] tlg:mb-px cursor-pointer">
-                                                                            <svg className="w-[11px] mb-px fill-theme-4 group-hover:fill-theme-yellow tlg:group-hover:fill-theme-4 dark:fill-theme-9 group-hover:dark:fill-theme-blue-1 tlg:group-hover:dark:fill-theme-9" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/></svg>
-                                                                            <div className="text-[12px] leading-none text-theme-4 group-hover:text-theme-yellow tlg:group-hover:text-theme-4 dark:text-theme-9 group-hover:dark:text-theme-blue-1 tlg:group-hover:dark:text-theme-9 ml-[3px]">수정</div>
-                                                                        </label>
-                                                                        <div className="w-px h-[11px] mx-[6px] bg-theme-6"></div>
-                                                                        <button id={`delete-comment-${comment.comment_id}`} onClick={deleteCommentModalOpen} className="group flex">
-                                                                            <svg className="w-[12px] mb-px fill-theme-4 group-hover:fill-theme-yellow tlg:group-hover:fill-theme-4 dark:fill-theme-9 group-hover:dark:fill-theme-blue-1 tlg:group-hover:dark:fill-theme-9" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/><path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/></svg>
-                                                                            <div className="text-[12px] leading-none text-theme-4 group-hover:text-theme-yellow tlg:group-hover:text-theme-4 dark:text-theme-9 group-hover:dark:text-theme-blue-1 tlg:group-hover:dark:text-theme-9 ml-[3px] tlg:mt-px">삭제</div>
-                                                                        </button>
-                                                                    </div>
+                                                                    : comment.user_no === params.user.user_no && !comment.is_deleted_with_reply
+                                                                        ? <div id={`comment-btn-wrap-${comment.comment_id}`} className="flex items-start mb-[2px] tlg:mb-0">
+                                                                            <input onChange={editComment} type="checkbox" id={`comment-edit-${comment.comment_id}`} className="hidden"/>
+                                                                            <label htmlFor={`comment-edit-${comment.comment_id}`} className="group flex items-center ml-[12px] mb-[2px] tlg:mb-px cursor-pointer">
+                                                                                <svg className="w-[11px] mb-px fill-theme-4 group-hover:fill-theme-yellow tlg:group-hover:fill-theme-4 dark:fill-theme-9 group-hover:dark:fill-theme-blue-1 tlg:group-hover:dark:fill-theme-9" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/></svg>
+                                                                                <div className="text-[12px] leading-none text-theme-4 group-hover:text-theme-yellow tlg:group-hover:text-theme-4 dark:text-theme-9 group-hover:dark:text-theme-blue-1 tlg:group-hover:dark:text-theme-9 ml-[3px]">수정</div>
+                                                                            </label>
+                                                                            <div className="w-px h-[11px] mx-[6px] bg-theme-6"></div>
+                                                                            <button id={`delete-comment-${comment.comment_id}`} onClick={deleteCommentModalOpen} className="group flex">
+                                                                                <svg className="w-[12px] mb-px fill-theme-4 group-hover:fill-theme-yellow tlg:group-hover:fill-theme-4 dark:fill-theme-9 group-hover:dark:fill-theme-blue-1 tlg:group-hover:dark:fill-theme-9" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/><path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/></svg>
+                                                                                <div className="text-[12px] leading-none text-theme-4 group-hover:text-theme-yellow tlg:group-hover:text-theme-4 dark:text-theme-9 group-hover:dark:text-theme-blue-1 tlg:group-hover:dark:text-theme-9 ml-[3px] tlg:mt-px">삭제</div>
+                                                                            </button>
+                                                                        </div>
+                                                                        : <></>
                                                                 : <></>
                                                             }
                                                         </div>
                                                         <div id={`comment-${comment.comment_id}`} className="mt-[8px]">
-                                                            <pre style={{fontFamily: "Spoqa Han Sans Neo"}} className="text-[14px] tlg:text-[12px] text-theme-4 dark:text-theme-9">{comment.comment}</pre>
+                                                            {
+                                                                !comment.is_deleted_with_reply
+                                                                ? <pre style={{fontFamily: "Spoqa Han Sans Neo"}} className="text-[14px] tlg:text-[12px] text-theme-4 dark:text-theme-9">{comment.comment}</pre>
+                                                                : <div className="text-[14px] tlg:text-[12px] text-theme-6">[삭제된 댓글입니다]</div>
+                                                            }
                                                             <input onChange={commentReplyShow} id={`comment-reply-${comment.comment_id}`} type="checkbox" className="hidden peer"/>
                                                             <label htmlFor={`comment-reply-${comment.comment_id}`} className={`${params.user ? 'block' : 'hidden'} peer-checked:hidden text-[14px] tlg:text-[12px] mt-[12px] tlg:mt-[8px] text-theme-yellow dark:text-theme-blue-1 hover:underline tlg:underline hover:dark:text-theme-blue-1 cursor-pointer`}>답글</label>
                                                         </div>

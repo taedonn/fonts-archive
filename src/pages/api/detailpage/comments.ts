@@ -8,23 +8,28 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         if (req.body.action === 'new-comment') {
             // 이전 댓글 가져오기
             const allComments = await prisma.fontsComment.findMany({
-                where: { font_id: Number(req.body.font_id) }
+                where: { font_id: Number(req.body.font_id) },
+                orderBy: [
+                    { bundle_id: 'asc' },
+                    { comment_id: 'asc' }
+                ]
             });
 
-            if (allComments) { // 댓글이 있는 경우
-                await prisma.fontsComment.create({
+            allComments.length !== 0 
+                // 댓글이 있는 경우
+                ? await prisma.fontsComment.create({
                     data: {
                         font_id: Number(req.body.font_id),
                         user_id: Number(req.body.user_id),
                         comment: req.body.comment,
                         depth: 0,
-                        bundle_id: allComments.length,
+                        bundle_id: allComments[allComments.length-1].bundle_id + 1,
                         bundle_order: 0,
                         is_deleted: false
                     }
-                });
-            } else { // 처음 댓글일 때
-                await prisma.fontsComment.create({
+                })
+                // 댓글이 없는 경우
+                : await prisma.fontsComment.create({
                     data: {
                         font_id: Number(req.body.font_id),
                         user_id: Number(req.body.user_id),
@@ -35,7 +40,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                         is_deleted: false
                     }
                 });
-            }
 
             // 댓글 가져오기
             const comments = await FetchComments(req.body.font_id);
@@ -130,7 +134,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 const comments = await FetchComments(req.body.font_id);
 
                 return res.status(200).json({
-                    message: 'Message deleted successfully.',
+                    message: 'New reply added successfully.',
                     comments: comments
                 });
             }
