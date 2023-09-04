@@ -66,21 +66,21 @@ model fontsLiked {
 }
 
 model fontsComment {
-  font_id      Int
-  user_id      Int
-  comment_id   Int       @default(autoincrement())
-  comment      String    @db.Text
-  depth        Int
-  bundle_id    Int
-  bundle_order Int
-  is_deleted   Boolean   @default(false)
-  created_at   DateTime  @default(now())
-  updated_at   DateTime  @updatedAt
-  deleted_at   DateTime  @default(now())
-  font         fonts     @relation(fields: [font_id], references: [code])
-  user         fontsUser @relation(fields: [user_id], references: [user_no])
+  font_id               Int
+  user_id               Int
+  comment               String    @db.Text
+  depth                 Int
+  bundle_id             Int
+  bundle_order          Int
+  is_deleted            Boolean   @default(false)
+  created_at            DateTime  @default(now())
+  updated_at            DateTime  @updatedAt
+  comment_id            Int       @id @default(autoincrement())
+  deleted_at            DateTime  @default(now())
+  is_deleted_with_reply Boolean   @default(false)
+  font                  fonts     @relation(fields: [font_id], references: [code])
+  user                  fontsUser @relation(fields: [user_id], references: [user_no])
 
-  @@id([comment_id])
   @@index([font_id])
   @@index([user_id])
   @@index([comment_id])

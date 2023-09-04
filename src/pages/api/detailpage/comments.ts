@@ -6,18 +6,36 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (req.method === 'POST') {
         // 새 댓글 쓰기
         if (req.body.action === 'new-comment') {
-            // 댓글 저장하기
-            await prisma.fontsComment.create({
-                data: {
-                    font_id: Number(req.body.font_id),
-                    user_id: Number(req.body.user_id),
-                    comment: req.body.comment,
-                    depth: 0,
-                    bundle_id: Number(req.body.bundle_id),
-                    bundle_order: 0,
-                    is_deleted: false
-                }
+            // 이전 댓글 가져오기
+            const allComments = await prisma.fontsComment.findMany({
+                where: { font_id: Number(req.body.font_id) }
             });
+
+            if (allComments) { // 댓글이 있는 경우
+                await prisma.fontsComment.create({
+                    data: {
+                        font_id: Number(req.body.font_id),
+                        user_id: Number(req.body.user_id),
+                        comment: req.body.comment,
+                        depth: 0,
+                        bundle_id: allComments.length,
+                        bundle_order: 0,
+                        is_deleted: false
+                    }
+                });
+            } else { // 처음 댓글일 때
+                await prisma.fontsComment.create({
+                    data: {
+                        font_id: Number(req.body.font_id),
+                        user_id: Number(req.body.user_id),
+                        comment: req.body.comment,
+                        depth: 0,
+                        bundle_id: 0,
+                        bundle_order: 0,
+                        is_deleted: false
+                    }
+                });
+            }
 
             // 댓글 가져오기
             const comments = await FetchComments(req.body.font_id);
@@ -28,12 +46,32 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             });
         }
         else if (req.body.action === 'delete-comment') {
+            // 답글이 있는지 검색
+            const thisComment = await prisma.fontsComment.findUnique({
+                where: { comment_id: Number(req.body.comment_id) }
+            });
+
+            const thisBundle = await prisma.fontsComment.findMany({
+                where: {
+                    is_deleted: false,
+                    depth: 1,
+                    bundle_id: thisComment?.bundle_id
+                }
+            });
+
             // 댓글 삭제하기
-            await prisma.fontsComment.update({
+            thisBundle.length === 0
+            ? await prisma.fontsComment.update({
                 where: { comment_id: Number(req.body.comment_id) },
                 data: {
                     is_deleted: true,
                     deleted_at: new Date(),
+                }
+            })
+            : await prisma.fontsComment.update({
+                where: { comment_id: Number(req.body.comment_id) },
+                data: {
+                    is_deleted_with_reply: true,
                 }
             });
 
@@ -62,6 +100,40 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 message: 'Message edited successfully.',
                 comments: comments
             });
+        }
+        else if (req.body.action === 'reply-comment') {
+            // 답글을 단 댓글 정보 가져오기
+            const thisComment = await prisma.fontsComment.findUnique({
+                where: { comment_id: Number(req.body.comment_id) }
+            });
+
+            if (thisComment) {
+                // 답글을 단 댓글의 bundle_id 가져오기
+                const thisBundle = await prisma.fontsComment.findMany({
+                    where: { bundle_id: thisComment.bundle_id }
+                });
+
+                // 답글 저장하기
+                await prisma.fontsComment.create({
+                    data: {
+                        font_id: Number(req.body.font_id),
+                        user_id: Number(req.body.user_id),
+                        comment: req.body.comment,
+                        depth: 1,
+                        bundle_id: Number(thisComment.bundle_id),
+                        bundle_order: thisBundle.length,
+                        is_deleted: false
+                    }
+                });
+
+                // 댓글 가져오기
+                const comments = await FetchComments(req.body.font_id);
+
+                return res.status(200).json({
+                    message: 'Message deleted successfully.',
+                    comments: comments
+                });
+            }
         }
     }
 }

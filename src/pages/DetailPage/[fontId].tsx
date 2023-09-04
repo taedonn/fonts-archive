@@ -249,7 +249,6 @@ function DetailPage({params}: any) {
                 font_id: font.code,
                 user_id: params.user.user_no,
                 comment: commentRef.current.value,
-                bundle_id: comments.length + 1
             })
             .then(async (res) => {
                 console.log(res.data.message);
@@ -386,12 +385,34 @@ function DetailPage({params}: any) {
         // 아이디 추출
         const id = getIntFromString(e.target.id);
         const reply = document.getElementById('comment-reply-content-' + id) as HTMLDivElement;
+        const replyTextArea = document.getElementById('comment-reply-textarea-' + id) as HTMLTextAreaElement;
         
         // 보임/숨김 처리
         if (e.target.checked) {
             reply.style.display = 'block';
+            replyTextArea.focus();
         } else {
             reply.style.display = 'none';
+        }
+    }
+
+    const commentReplyOnChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        // 아이디 추출
+        const id = getIntFromString(e.target.id);
+        const button = document.getElementById('comment-reply-btn-' + id) as HTMLButtonElement;
+
+        // Textarea 높이 변경
+        handleHeightChange(e);
+
+        // 버튼 활성화/비활성화
+        if (button) {
+            if (e.target.value === '') {
+                button.classList.add('edit-btn-disabled');
+                button.classList.remove('edit-btn-enabled');
+            } else {
+                button.classList.add('edit-btn-enabled');
+                button.classList.remove('edit-btn-disabled');
+            }
         }
     }
 
@@ -399,13 +420,47 @@ function DetailPage({params}: any) {
     const commentReplyCancelBtnOnClick = (e: any) => {
         // 아이디 추출
         const id = getIntFromString(e.target.id);
-        const edit = document.getElementById('comment-reply-' + id) as HTMLInputElement;
+        const replyBtn = document.getElementById('comment-reply-' + id) as HTMLInputElement;
+        const reply = document.getElementById('comment-reply-textarea-' + id) as HTMLTextAreaElement;
         
         // 수정 체크 해제
-        edit.checked = false;
+        replyBtn.checked = false;
+
+        // 답글 지우기
+        reply.value = '';
 
         // 답글 보임/숨김
         commentReplyShow(e);
+    }
+
+    /** 댓글 수정 API 실행 */
+    const replyCommentAPIInit = async (e: any) => {
+        if(e.target.classList.contains('edit-btn-enabled')) {
+            // 아이디 추출
+            const id = getIntFromString(e.target.id);
+            const textarea = document.getElementById('comment-reply-textarea-' + id) as HTMLTextAreaElement;
+            const input = document.getElementById('comment-reply-' + id) as HTMLInputElement;
+
+            await axios.post('/api/detailpage/comments', {
+                action: 'reply-comment',
+                font_id: font.code,
+                user_id: params.user.user_no,
+                comment_id: id,
+                comment: textarea.value
+            })
+            .then(async (res) => {
+                // 업데이트된 댓글 가져오기
+                console.log(res.data.message);
+                setComments(res.data.comments);
+
+                // 댓글 수정 보임/숨김
+                commentReplyShow(e);
+
+                // 댓글 수정 Input 체크 해제
+                input.checked = false;
+            })
+            .catch(err => console.log(err));
+        }
     }
 
     return (
@@ -987,11 +1042,17 @@ function DetailPage({params}: any) {
                                 {
                                     comments.map((comment: any) => {
                                         return (
-                                            <div key={comment.comment_id} className="w-[100%] text-theme-3 dark:text-theme-10 animate-fontbox-fade-in">
-                                                <div className="flex items-start mt-[20px] tlg:mt-[16px]">
+                                            <div key={comment.comment_id} className='w-[100%] text-theme-3 dark:text-theme-10 animate-fontbox-fade-in'>
+                                                <div className='flex items-start mt-[20px] tlg:mt-[16px]'>
+                                                    {
+                                                        comment.depth === 1
+                                                        ? <svg className="w-[20px] fill-theme-4 dark:fill-theme-9 rotate-180 mt-[10px] mx-[14px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+                                                            <path d="M5.921 11.9 1.353 8.62a.719.719 0 0 1 0-1.238L5.921 4.1A.716.716 0 0 1 7 4.719V6c1.5 0 6 0 7 8-2.5-4.5-7-4-7-4v1.281c0 .56-.606.898-1.079.62z"/>
+                                                        </svg> : <></>
+                                                    }
                                                     {/* eslint-disable-next-line @next/next/no-img-element */}
                                                     <img src={comment.profile_img} alt="유저 프로필 이미지" className="w-[40px] tlg:w-[32px] h-[40px] tlg:h-[32px] object-cover rounded-full"/>
-                                                    <div className="ml-[16px] tlg:ml-[14px]">
+                                                    <div className="w-[100%] ml-[16px] tlg:ml-[14px]">
                                                         <div className="flex items-end">
                                                             <div className="text-[15px] tlg:text-[14px] font-medium">{comment.user_name}</div>
                                                             {
@@ -1046,11 +1107,11 @@ function DetailPage({params}: any) {
                                                                 {/* eslint-disable-next-line @next/next/no-img-element */}
                                                                 <img src={comment.profile_img} alt="유저 프로필 이미지" className="w-[40px] tlg:w-[32px] h-[40px] tlg:h-[32px] object-cover rounded-full"/>
                                                                 <div className="w-[100%] ml-[16px] tlg:ml-[14px]">
-                                                                    <div className="relative w-[100%] min-w-[320px] flex items-center pb-[4px] border-b border-theme-5 dark:border-theme-7">
-                                                                        <textarea onInput={handleHeightChange} placeholder="답글 달기..." className="w-[100%] h-[21px] resize-none text-[14px] tlg:text-[12px] tracking-wide mt-[6px] text-theme-5 dark:text-theme-8 placeholder-theme-5 dark:placeholder-theme-6 leading-normal bg-transparent"/>
+                                                                    <div className="relative w-[100%] flex items-center pb-[4px] border-b border-theme-5 dark:border-theme-7">
+                                                                        <textarea onInput={handleHeightChange} onChange={commentReplyOnChange} onFocus={commentReplyOnChange} id={`comment-reply-textarea-${comment.comment_id}`} placeholder="답글 달기..." className="w-[100%] h-[21px] resize-none text-[14px] tlg:text-[12px] tracking-wide mt-[6px] text-theme-5 dark:text-theme-8 placeholder-theme-5 dark:placeholder-theme-6 leading-normal bg-transparent"/>
                                                                     </div>
                                                                     <div className="flex text-[14px] mt-[12px]">
-                                                                        <button onClick={editCommentAPIInit} id={`comment-edit-btn-${comment.comment_id}`} className="w-[56px] tlg:w-[48px] h-[32px] tlg:h-[28px] pb-px rounded-full bg-theme-yellow hover:bg-theme-yellow/80 tlg:hover:bg-theme-yellow dark:bg-theme-blue-1 hover:dark:bg-theme-blue-1/90 tlg:hover:dark:bg-theme-blue-1 dark:text-theme-blue-2">수정</button>
+                                                                        <button onClick={replyCommentAPIInit} id={`comment-reply-btn-${comment.comment_id}`} className="edit-btn-disabled w-[56px] tlg:w-[48px] h-[32px] tlg:h-[28px] pb-px rounded-full">답글</button>
                                                                         <button onClick={commentReplyCancelBtnOnClick} id={`comment-reply-cancel-${comment.comment_id}`} className="w-[56px] tlg:w-[48px] h-[32px] tlg:h-[28px] pb-px rounded-full text-theme-5 dark:text-theme-9 hover:bg-theme-8 hover:dark:bg-theme-4 tlg:hover:dark:bg-transparent ml-[6px]">취소</button>
                                                                     </div>
                                                                 </div>

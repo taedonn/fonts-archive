@@ -7,7 +7,11 @@ export async function FetchComments(id: string) {
             font_id: Number(id),
             is_deleted: false
         },
-        orderBy: [{ created_at: 'desc' }]
+        orderBy: [
+            { bundle_id: 'desc' },
+            { bundle_order: 'asc' },
+            { comment_id: 'desc' }
+        ]
     });
 
     // 프로필 이미지 가져오기 위해 중복된 ID 필터링
@@ -20,7 +24,7 @@ export async function FetchComments(id: string) {
     // ID 필터링된 객체를 Prisma에서 사용할 수 있게 변환
     let userIdArr: any[] = [];
     userArr.forEach((user: any) => {
-        userIdArr.push({user_no: user.user_id})
+        userIdArr.push({user_no: user.user_id});
     });
 
     // 변환된 객체로 유저 정보 가져오기
