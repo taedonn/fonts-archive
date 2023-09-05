@@ -72,12 +72,21 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     deleted_at: new Date(),
                 }
             })
-            : await prisma.fontsComment.update({
-                where: { comment_id: Number(req.body.comment_id) },
-                data: {
-                    is_deleted_with_reply: true,
-                }
-            });
+            : thisComment && thisComment.depth === 1
+                ? await prisma.fontsComment.update({
+                    where: { comment_id: Number(req.body.comment_id) },
+                    data: {
+                        is_deleted: true,
+                        deleted_at: new Date(),
+                    }
+                })
+                : await prisma.fontsComment.update({
+                    where: { comment_id: Number(req.body.comment_id) },
+                    data: {
+                        is_deleted_with_reply: true,
+                        deleted_at: new Date(),
+                    }
+                });
 
             // 업데이트된 댓글 가져오기
             const comments = await FetchComments(req.body.font_id);

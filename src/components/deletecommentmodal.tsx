@@ -1,5 +1,5 @@
 // react hooks
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 
 // hooks
 import axios from "axios";
@@ -20,8 +20,6 @@ export default function DeleteCommentModal(
         update: any
     }
 ) {
-    // 댓글 삭제 state
-
     // 댓글 삭제 Ref
     const thisModal = useRef<HTMLDivElement>(null);
 
@@ -36,13 +34,13 @@ export default function DeleteCommentModal(
         return () => document.removeEventListener("mouseup", handleSearchOutside);
     },[close, thisModal]);
 
-    // ESC키 입력 시 모달창 닫기
+    // ESC키 입력 시 모달창 닫기 & Enter키 입력 시 댓글 삭제
     useEffect(() => {
         const keys: any = [];
         const handleKeydown = (e: KeyboardEvent) => {
             keys[e.key] = true;
             if (display === true && keys["Escape"]) { close(); }
-            if (display === true && keys["Enter"]) {  }
+            if (display === true && keys["Enter"]) { deleteComment();  }
         }
         const handleKeyup = (e: KeyboardEvent) => {keys[e.key] = false;}
 
