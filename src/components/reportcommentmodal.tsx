@@ -81,7 +81,7 @@ export default function ReportCommentModal(
                             <button onClick={close} className="w-[36px] h-[24px] rounded-[6px] absolute right-[16px] tmd:right-[12px] top-[50%] translate-y-[-50%] text-[10px] leading-none text-theme-5 dark:text-theme-8 bg-theme-8 dark:bg-theme-3/80 hover:dark:bg-theme-4/60 tlg:hover:dark:bg-theme-3/80 hover:drop-shadow-default hover:dark:drop-shadow-dark tlg:hover:drop-shadow-none tlg:hover:dark:drop-shadow-none">ESC</button>
                         </div>
                         <div className="w-[100%] p-[20px] bg-theme-4 dark:bg-theme-blue-2">
-                            <h2 className="font-bold text-[16px] text-theme-9 mb-[8px]">어떤 사유로 신고하시는지 알려주세요.</h2>
+                            <h2 className="font-bold text-[16px] text-theme-9 mb-[12px]">어떤 사유로 신고하시는지 알려주세요.</h2>
                             <div>
                                 <label htmlFor="report-nickname" className="flex items-start fill-theme-yellow dark:fill-theme-blue-1 text-theme-8 dark:text-theme-7 cursor-pointer">
                                     <input type="checkbox" id="report-nickname" className="peer hidden"/>
