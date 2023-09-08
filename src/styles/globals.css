@@ -63,6 +63,18 @@ html.dark body::-webkit-scrollbar-track {
     background-color: #35363A;
 }
 
+/* 텍스트 에리어 스크롤바 */
+#report-textarea::-webkit-scrollbar {
+    width: 4px;
+}
+#report-textarea::-webkit-scrollbar-thumb {
+    border-radius: 8px;
+    background-color: #CDCED2;
+}
+html.dark #report-textarea::-webkit-scrollbar-thumb {
+    background-color: #B1B2B6;
+}
+
 /* 라이센스 스크롤바 */
 .license-wrap::-webkit-scrollbar {
     width: 12px;
