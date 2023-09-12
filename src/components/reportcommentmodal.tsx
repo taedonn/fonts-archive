@@ -139,7 +139,7 @@ export default function ReportCommentModal(
                                     </div>
                                 </label>
                                 <div className="text-[14px] ml-[22px] text-theme-6 dark:text-theme-5">자세한 사유는 상세 입력칸에 적어주세요.</div>
-                                <textarea id="report-textarea" placeholder="사유는 최대한 자세하게 기입해주세요..." className="w-[100%] h-[80px] resize-none mt-[12px] px-[12px] py-[8px] text-[14px] border rounded-[6px] border-theme-6 focus:border-theme-8 hover:border-theme-8 tlg:hover:border-theme-6 dark:border-theme-5 focus:dark:border-theme-7 hover:dark:border-theme-7 tlg:hover:dark:border-theme-5 bg-transparent text-theme-8 dark:text-theme-7 placeholder-theme-6 dark:placeholder-theme-5"></textarea>
+                                <textarea id="report-textarea" placeholder="사유는 최대한 자세하게 기입해주세요..." className="w-[100%] h-[80px] resize-none mt-[12px] px-[12px] py-[8px] text-[14px] border rounded-[6px] border-theme-6 focus:border-theme-8 hover:border-theme-8 tlg:hover:border-theme-6 dark:border-theme-4 focus:dark:border-theme-6 hover:dark:border-theme-6 tlg:hover:dark:border-theme-4 bg-transparent dark:bg-theme-2 text-theme-8 dark:text-theme-7 placeholder-theme-6 dark:placeholder-theme-5"></textarea>
                             </div>
                             <div className="w-[100%] h-px bg-theme-5 my-[16px]"></div>
                             <div className="flex justify-between mt-[12px]">

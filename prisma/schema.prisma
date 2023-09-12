@@ -39,6 +39,8 @@ model fonts {
   like            Int            @default(0)
   liked_user      fontsLiked[]
   comments        fontsComment[]
+
+  @@index([code])
 }
 
 model fontsUser {
@@ -52,6 +54,9 @@ model fontsUser {
   profile_img        String         @db.Text
   liked_fonts        fontsLiked[]
   comments           fontsComment[]
+  reports            fontsUserReport[]
+
+  @@index([user_no])
 }
 
 model fontsLiked {
@@ -72,6 +77,7 @@ model fontsComment {
   depth                 Int
   bundle_id             Int
   bundle_order          Int
+  nickname_reported     Int
   is_deleted            Boolean   @default(false)
   created_at            DateTime  @default(now())
   updated_at            DateTime  @updatedAt
@@ -80,8 +86,26 @@ model fontsComment {
   is_deleted_with_reply Boolean   @default(false)
   font                  fonts     @relation(fields: [font_id], references: [code])
   user                  fontsUser @relation(fields: [user_id], references: [user_no])
+  reports               fontsUserReport[]
 
   @@index([font_id])
   @@index([user_id])
+  @@index([comment_id])
+}
+
+model fontsUserReport {
+  report_id       Int          @id @default(autoincrement())
+  report_user_id  Int
+  comment_id      Int
+  report_nickname Boolean      @default(false)
+  report_politics Boolean      @default(false)
+  report_swearing Boolean      @default(false)
+  report_etc      Boolean      @default(false)
+  report_text     String       @db.Text
+  user            fontsUser    @relation(fields: [report_user_id], references: [user_no])
+  comment         fontsComment @relation(fields: [comment_id], references: [comment_id])
+
+  @@index([report_id])
+  @@index([report_user_id])
   @@index([comment_id])
 }
