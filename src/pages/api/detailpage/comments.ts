@@ -25,6 +25,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                         depth: 0,
                         bundle_id: allComments[allComments.length-1].bundle_id + 1,
                         bundle_order: 0,
+                        nickname_reported: 0,
                         is_deleted: false
                     }
                 })
@@ -37,6 +38,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                         depth: 0,
                         bundle_id: 0,
                         bundle_order: 0,
+                        nickname_reported: 0,
                         is_deleted: false
                     }
                 });
@@ -135,6 +137,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                         depth: 1,
                         bundle_id: Number(thisComment.bundle_id),
                         bundle_order: thisBundle.length,
+                        nickname_reported: 0,
                         is_deleted: false
                     }
                 });

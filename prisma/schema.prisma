@@ -77,7 +77,7 @@ model fontsComment {
   depth                 Int
   bundle_id             Int
   bundle_order          Int
-  nickname_reported     Int
+  nickname_reported     Int       @default(0)
   is_deleted            Boolean   @default(false)
   created_at            DateTime  @default(now())
   updated_at            DateTime  @updatedAt
