@@ -13,7 +13,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         
         // refetching 시 새로 추가될 데이터에서 기준이 될 마지막 폰트
         const cursor = req.query.id ?? '';
-        const cursorObj: object | undefined = cursor === '' ? undefined : { code: parseInt(cursor as string, 10) };
+        const cursorObj: any = cursor === '' ? undefined : { code: parseInt(cursor as string, 10) };
 
         // 검색 조건에 맞는 폰트 필터링
         const searchword: object[] = req.query.searchword === '' ? [{ name: { not: '' } }] : [{ name: { contains: req.query.searchword } },{ source: { contains: req.query.searchword } },{ font_family: { contains: req.query.searchword } }];
