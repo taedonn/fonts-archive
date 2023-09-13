@@ -19,7 +19,7 @@ export default function Footer () {
                         <Link href="/user/terms" target="_blank" className="text-[13px] hover:underline">서비스 이용약관</Link>
                         <Link href="/user/privacy" target="_blank" className="text-[13px] hover:underline ml-[20px]">개인정보 처리방침</Link>
                         <Link href="https://taedonn.com" target="_blank" className="text-[13px] hover:underline ml-[20px]">사이트</Link>
-                        <Link href="https://github.com/fonts-archive" target="_blank" className="text-[13px] hover:underline ml-[20px]">깃허브 프로젝트</Link>
+                        <Link href="https://github.com/fonts-archive" target="_blank" className="text-[13px] hover:underline ml-[20px]">깃허브</Link>
                     </div>
                 </div>
             </footer>
