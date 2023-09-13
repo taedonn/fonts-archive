@@ -342,6 +342,7 @@ export default function Comments (
                 display={reportModalDisplay}
                 close={reportCommentModalClose}
                 font_id={font.code}
+                user_id={user.user_no}
                 comment_id={commentId}
                 update={updateComments}
             />

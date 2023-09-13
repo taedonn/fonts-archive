@@ -151,5 +151,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 });
             }
         }
+        else if (req.body.action === 'report-comment') {
+            // await prisma.fontsUserReport.create({
+            //     data: {
+            //         report_user_id: 
+            //     }
+            // });
+        }
     }
 }

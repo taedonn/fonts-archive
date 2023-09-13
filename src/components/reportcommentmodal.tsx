@@ -1,5 +1,5 @@
 // react hooks
-import React, { useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 // hooks
 import axios from "axios";
@@ -9,6 +9,7 @@ export default function ReportCommentModal(
         display,
         close,
         font_id,
+        user_id,
         comment_id,
         update,
     }:
@@ -16,10 +17,31 @@ export default function ReportCommentModal(
         display: boolean, 
         close: any,
         font_id: number,
+        user_id: number,
         comment_id: number,
         update: any
     }
 ) {
+    // 신고 모달창 state
+    const [reportNickname, setReportNickname] = useState<boolean>(false);
+    const [reportPolitics, setReportPolitics] = useState<boolean>(false);
+    const [reportSwearing, setReportSwearing] = useState<boolean>(false);
+    const [reportEtc, setReportEtc] = useState<boolean>(false);
+    const [reportText, setReportText] = useState<string>('');
+
+    /** 신고 모달창 닫기 */
+    const reportClose = () => {
+        // state 초기화
+        setReportNickname(false);
+        setReportPolitics(false);
+        setReportSwearing(false);
+        setReportEtc(false);
+        setReportText('');
+
+        // 모달창 닫기
+        close();
+    }
+
     // 댓글 삭제 Ref
     const thisModal = useRef<HTMLDivElement>(null);
 
@@ -27,7 +49,7 @@ export default function ReportCommentModal(
     useEffect(() => {
         function handleSearchOutside(e:Event) {
             if (thisModal?.current && !thisModal.current.contains(e.target as Node)) {
-                close();
+                reportClose();
             }
         }
         document.addEventListener("mouseup", handleSearchOutside);
@@ -39,7 +61,7 @@ export default function ReportCommentModal(
         const keys: any = [];
         const handleKeydown = (e: KeyboardEvent) => {
             keys[e.key] = true;
-            if (display === true && keys["Escape"]) { close(); }
+            if (display === true && keys["Escape"]) { reportClose(); }
             if (display === true && keys["Enter"]) { reportComment();  }
         }
         const handleKeyup = (e: KeyboardEvent) => {keys[e.key] = false;}
@@ -53,21 +75,28 @@ export default function ReportCommentModal(
         }
     });
 
+    /** 부적절한 닉네임 신고 state */
+    const reportNicknameChk = (e:React.ChangeEvent<HTMLInputElement>) => { setReportNickname(e.target.checked); }
+
+    /** 선동적인 발언 신고 state  */
+    const reportPoliticsChk = (e:React.ChangeEvent<HTMLInputElement>) => { setReportPolitics(e.target.checked); }
+
     /** 댓글 신고 */
     const reportComment = async () => {
-        // await axios.post('/api/detailpage/comments', {
-        //     action: 'delete-comment',
-        //     font_id: font_id,
-        //     comment_id: comment_id
-        // })
-        // .then(async (res) => {
-        //     console.log(res.data.message);
-        //     update(res.data.comments);
-        // })
-        // .catch(err => console.log(err));
+        await axios.post('/api/detailpage/comments', {
+            action: 'report-comment',
+            font_id: font_id,
+            user_id: user_id,
+            comment_id: comment_id
+        })
+        .then(async (res) => {
+            console.log(res.data.message);
+            update(res.data.comments);
+        })
+        .catch(err => console.log(err));
 
         // 모달창 닫기
-        // close();
+        reportClose();
     }
 
     return (
@@ -84,7 +113,7 @@ export default function ReportCommentModal(
                             <h2 className="font-bold text-[16px] text-theme-9 mb-[16px]">어떤 사유로 신고하시는지 알려주세요.</h2>
                             <div>
                                 <label htmlFor="report-nickname" className="flex items-start fill-theme-yellow dark:fill-theme-blue-1 text-theme-8 dark:text-theme-7 cursor-pointer">
-                                    <input type="checkbox" id="report-nickname" className="peer hidden"/>
+                                    <input onChange={reportNicknameChk} type="checkbox" id="report-nickname" className="peer hidden"/>
                                     <svg className="block peer-checked:hidden w-[16px] mt-[2px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
                                         <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
                                         <path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.235.235 0 0 1 .02-.022z"/>
@@ -98,7 +127,7 @@ export default function ReportCommentModal(
                                 </label>
                                 <div className="text-[14px] ml-[22px] text-theme-6 dark:text-theme-5">선정적이거나, 폭력적인 뜻이 내포된 닉네임 사용</div>
                                 <label htmlFor="report-propaganda" className="flex items-center mt-[10px] fill-theme-yellow dark:fill-theme-blue-1 text-theme-8 dark:text-theme-7 cursor-pointer">
-                                    <input type="checkbox" id="report-propaganda" className="peer hidden"/>
+                                    <input onChange={reportPoliticsChk} type="checkbox" id="report-propaganda" className="peer hidden"/>
                                     <svg className="block peer-checked:hidden w-[16px] mt-[2px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
                                         <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
                                         <path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.235.235 0 0 1 .02-.022z"/>
