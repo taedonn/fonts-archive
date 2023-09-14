@@ -25,8 +25,6 @@ import DummyText from "@/components/dummytext";
 import Comments from "@/components/comments";
 
 function DetailPage({params}: any) {
-    console.log(params.report);
-
     // 디바이스 체크
     const isMac: boolean = params.userAgent.includes("Mac OS") ? true : false;
 
@@ -715,6 +713,7 @@ function DetailPage({params}: any) {
                     <Comments
                         font={font}
                         user={params.user}
+                        report={params.report}
                         comment={params.comments}
                         likedInput={likedInput}
                     />

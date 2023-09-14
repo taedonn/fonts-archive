@@ -12,6 +12,7 @@ export default function ReportCommentModal(
         user,
         comment_id,
         update,
+        update_reports
     }:
     {
         display: boolean, 
@@ -19,7 +20,8 @@ export default function ReportCommentModal(
         font_id: number,
         user: any,
         comment_id: number,
-        update: any
+        update: any,
+        update_reports: any
     }
 ) {
     // 신고 모달창 state
@@ -107,6 +109,7 @@ export default function ReportCommentModal(
         .then(async (res) => {
             console.log(res.data.message);
             update(res.data.comments);
+            update_reports(res.data.reports);
         })
         .catch(err => console.log(err));
 

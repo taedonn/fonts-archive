@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import prisma from '@/libs/client-prisma';
 import { FetchComments } from './fetchcomments';
+import { FetchReports } from './fetchReports';
   
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method === 'POST') {
@@ -168,9 +169,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             // 댓글 가져오기
             const comments = await FetchComments(req.body.font_id);
 
+            // 리포트 가져오기
+            const reports = await FetchReports(req.body.font_id, req.body.user_id);
+
             return res.status(200).json({
                 message: 'New report added successfully.',
-                comments: comments
+                comments: comments,
+                reports: reports
             });
         }
     }
