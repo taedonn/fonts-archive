@@ -30,6 +30,7 @@ export default function ReportCommentModal(
     const [reportSwearing, setReportSwearing] = useState<boolean>(false);
     const [reportEtc, setReportEtc] = useState<boolean>(false);
     const [reportText, setReportText] = useState<string>('');
+    const [reportWarning, setReportWarning] = useState<boolean>(false);
 
     /** 신고 모달창 닫기 */
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -40,6 +41,7 @@ export default function ReportCommentModal(
         setReportSwearing(false);
         setReportEtc(false);
         setReportText('');
+        setReportWarning(false);
 
         // 모달창 닫기
         close();
@@ -95,26 +97,36 @@ export default function ReportCommentModal(
 
     /** 댓글 신고 */
     const reportComment = async () => {
-        await axios.post('/api/detailpage/comments', {
-            action: 'report-comment',
-            font_id: font_id,
-            user_id: user.user_no,
-            comment_id: comment_id,
-            report_nickname: reportNickname,
-            report_politics: reportPolitics,
-            report_swearing: reportSwearing,
-            report_etc: reportEtc,
-            report_text: reportText
-        })
-        .then(async (res) => {
-            console.log(res.data.message);
-            update(res.data.comments);
-            update_reports(res.data.reports);
-        })
-        .catch(err => console.log(err));
+        // 최소 한개 이상 체크되어있는지 유효성 검사
+        if (
+            !reportNickname && 
+            !reportPolitics && 
+            !reportSwearing &&
+            !reportEtc
+        ) {
+            setReportWarning(true);
+        } else {
+            await axios.post('/api/detailpage/comments', {
+                action: 'report-comment',
+                font_id: font_id,
+                user_id: user.user_no,
+                comment_id: comment_id,
+                report_nickname: reportNickname,
+                report_politics: reportPolitics,
+                report_swearing: reportSwearing,
+                report_etc: reportEtc,
+                report_text: reportText
+            })
+            .then(async (res) => {
+                console.log(res.data.message);
+                update(res.data.comments);
+                update_reports(res.data.reports);
+            })
+            .catch(err => console.log(err));
 
-        // 모달창 닫기
-        reportClose();
+            // 모달창 닫기
+            reportClose();
+        }
     }
 
     return (
@@ -188,9 +200,17 @@ export default function ReportCommentModal(
                                 <div className="text-[14px] ml-[22px] text-theme-6 dark:text-theme-5">자세한 사유는 상세 입력칸에 적어주세요.</div>
                                 <textarea onChange={reportTextChk} id="report-textarea" placeholder="사유는 최대한 자세하게 기입해주세요..." className="w-[100%] h-[80px] resize-none mt-[12px] px-[12px] py-[8px] text-[14px] border rounded-[6px] border-theme-6 focus:border-theme-8 hover:border-theme-8 tlg:hover:border-theme-6 dark:border-theme-4 focus:dark:border-theme-6 hover:dark:border-theme-6 tlg:hover:dark:border-theme-4 bg-transparent dark:bg-theme-2 text-theme-8 dark:text-theme-7 placeholder-theme-6 dark:placeholder-theme-5"></textarea>
                             </div>
-                            <div className="w-[100%] h-px bg-theme-5 my-[16px]"></div>
+                            {
+                                reportWarning
+                                ? <div className="mt-[10px] flex">
+                                    <svg className='w-[14px] mb-px mr-[6px] fill-theme-red' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg>
+                                    <div className="text-[12px] text-theme-red">신고 사유를 하나 이상 선택해주세요.</div>
+                                </div>
+                                : <div className="mt-[10px]"></div>
+                            }
+                            <div className="w-[100%] h-px bg-theme-5 mt-[6px] mb-[16px]"></div>
                             <div className="flex justify-between mt-[12px]">
-                                <button onClick={close} className='w-[calc(50%-5px)] h-[40px] pt-px rounded-[8px] flex flex-row justify-center items-center text-[14px] font-medium text-theme-10 dark:text-theme-8 bg-theme-5/80 hover:bg-theme-5 tlg:hover:bg-theme-5/80 dark:bg-theme-3/80 hover:dark:bg-theme-3 tlg:hover:dark:bg-theme-3/80'>취소</button>
+                                <button onClick={reportClose} className='w-[calc(50%-5px)] h-[40px] pt-px rounded-[8px] flex flex-row justify-center items-center text-[14px] font-medium text-theme-10 dark:text-theme-8 bg-theme-5/80 hover:bg-theme-5 tlg:hover:bg-theme-5/80 dark:bg-theme-3/80 hover:dark:bg-theme-3 tlg:hover:dark:bg-theme-3/80'>취소</button>
                                 <button onClick={reportComment} className='w-[calc(50%-5px)] h-[40px] pt-px rounded-[8px] flex flex-row justify-center items-center text-[14px] font-medium text-theme-4 dark:text-theme-blue-2 bg-theme-yellow/80 hover:bg-theme-yellow tlg:hover:bg-theme-yellow/80 dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1/80'>확인</button>
                             </div>
                         </div>
