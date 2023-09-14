@@ -19,10 +19,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             }
         }
 
+        // 삭제할 댓글이 한개 이상일 때 댓글에 대한 신고 데이터 삭제
+        arr.length > 0 ? await prisma.fontsUserReport.deleteMany({
+            where: { OR: arr }
+        }) : null;
+
         // 삭제할 댓글이 한개 이상일 때 댓글 삭제
         arr.length > 0 ? await prisma.fontsComment.deleteMany({
             where: { OR: arr }
-        }) : null
+        }) : null;
 
         return res.status(200).json({
             message: "Comments deleted successfully.",

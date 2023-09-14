@@ -11,6 +11,7 @@ import { CheckIfSessionExists } from "../api/user/checkifsessionexists";
 import { FetchUserInfo } from "../api/user/fetchuserinfo";
 import { FetchUserLike } from "../api/user/fetchuserlike";
 import { FetchComments } from "../api/detailpage/fetchcomments";
+import { FetchReports } from "../api/detailpage/fetchReports";
 import axios from "axios";
 import { throttle } from "lodash";
 
@@ -24,6 +25,8 @@ import DummyText from "@/components/dummytext";
 import Comments from "@/components/comments";
 
 function DetailPage({params}: any) {
+    console.log(params.report);
+
     // 디바이스 체크
     const isMac: boolean = params.userAgent.includes("Mac OS") ? true : false;
 
@@ -777,6 +780,14 @@ export async function getServerSideProps(ctx: any) {
             : null
         );
 
+        // 유저 정보에 신고 리포트 합치기
+        const report = user !== null
+        ? await FetchReports(ctx.params.fontId, user.user_no)
+        : null;
+
+        // typescript에서 createdAt은 JSON.parse를 통해 serialized object로 변환 후 params로 보낼 수 있다.
+        const reportJSON = JSON.parse(JSON.stringify(report));
+
         // 좋아요한 폰트 체크
         const like = ctx.req.cookies.session === undefined ? null : (
             await CheckIfSessionExists(ctx.req.cookies.session) === true 
@@ -798,6 +809,7 @@ export async function getServerSideProps(ctx: any) {
                     theme: cookieTheme,
                     userAgent: userAgent,
                     user: user,
+                    report: reportJSON,
                     like: like,
                     comments: commentsJSON,
                 }

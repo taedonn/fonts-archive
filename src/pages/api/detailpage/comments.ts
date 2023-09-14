@@ -152,11 +152,26 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             }
         }
         else if (req.body.action === 'report-comment') {
-            // await prisma.fontsUserReport.create({
-            //     data: {
-            //         report_user_id: 
-            //     }
-            // });
+            // 리포트 생성
+            await prisma.fontsUserReport.create({
+                data: {
+                    report_user_id: Number(req.body.user_id),
+                    comment_id: Number(req.body.comment_id),
+                    report_nickname: req.body.report_nickname,
+                    report_politics: req.body.report_politics,
+                    report_swearing: req.body.report_swearing,
+                    report_etc: req.body.report_etc,
+                    report_text: req.body.report_text
+                }
+            });
+
+            // 댓글 가져오기
+            const comments = await FetchComments(req.body.font_id);
+
+            return res.status(200).json({
+                message: 'New report added successfully.',
+                comments: comments
+            });
         }
     }
 }

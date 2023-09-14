@@ -9,7 +9,7 @@ export default function ReportCommentModal(
         display,
         close,
         font_id,
-        user_id,
+        user,
         comment_id,
         update,
     }:
@@ -17,7 +17,7 @@ export default function ReportCommentModal(
         display: boolean, 
         close: any,
         font_id: number,
-        user_id: number,
+        user: any,
         comment_id: number,
         update: any
     }
@@ -30,6 +30,7 @@ export default function ReportCommentModal(
     const [reportText, setReportText] = useState<string>('');
 
     /** 신고 모달창 닫기 */
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     const reportClose = () => {
         // state 초기화
         setReportNickname(false);
@@ -54,7 +55,7 @@ export default function ReportCommentModal(
         }
         document.addEventListener("mouseup", handleSearchOutside);
         return () => document.removeEventListener("mouseup", handleSearchOutside);
-    },[close, thisModal]);
+    },[reportClose, thisModal]);
 
     // ESC키 입력 시 모달창 닫기 & Enter키 입력 시 댓글 삭제
     useEffect(() => {
@@ -62,7 +63,7 @@ export default function ReportCommentModal(
         const handleKeydown = (e: KeyboardEvent) => {
             keys[e.key] = true;
             if (display === true && keys["Escape"]) { reportClose(); }
-            if (display === true && keys["Enter"]) { reportComment();  }
+            // if (display === true && keys["Enter"]) { reportComment();  }
         }
         const handleKeyup = (e: KeyboardEvent) => {keys[e.key] = false;}
 
@@ -81,13 +82,27 @@ export default function ReportCommentModal(
     /** 선동적인 발언 신고 state  */
     const reportPoliticsChk = (e:React.ChangeEvent<HTMLInputElement>) => { setReportPolitics(e.target.checked); }
 
+    /** 욕설 신고 state  */
+    const reportSwearingChk = (e:React.ChangeEvent<HTMLInputElement>) => { setReportSwearing(e.target.checked); }
+
+    /** 기타 신고 state  */
+    const reportEtcChk = (e:React.ChangeEvent<HTMLInputElement>) => { setReportEtc(e.target.checked); }
+
+    /** 사유 state */
+    const reportTextChk = (e:React.ChangeEvent<HTMLTextAreaElement>) => { setReportText(e.target.value); }
+
     /** 댓글 신고 */
     const reportComment = async () => {
         await axios.post('/api/detailpage/comments', {
             action: 'report-comment',
             font_id: font_id,
-            user_id: user_id,
-            comment_id: comment_id
+            user_id: user.user_no,
+            comment_id: comment_id,
+            report_nickname: reportNickname,
+            report_politics: reportPolitics,
+            report_swearing: reportSwearing,
+            report_etc: reportEtc,
+            report_text: reportText
         })
         .then(async (res) => {
             console.log(res.data.message);
@@ -141,7 +156,7 @@ export default function ReportCommentModal(
                                 </label>
                                 <div className="text-[14px] ml-[22px] text-theme-6 dark:text-theme-5">정치적, 문화적으로 편향된 발언</div>
                                 <label htmlFor="report-lang" className="flex items-start mt-[10px] fill-theme-yellow dark:fill-theme-blue-1 text-theme-8 dark:text-theme-7 cursor-pointer">
-                                    <input type="checkbox" id="report-lang" className="peer hidden"/>
+                                    <input onChange={reportSwearingChk} type="checkbox" id="report-lang" className="peer hidden"/>
                                     <svg className="block peer-checked:hidden w-[16px] mt-[2px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
                                         <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
                                         <path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.235.235 0 0 1 .02-.022z"/>
@@ -155,7 +170,7 @@ export default function ReportCommentModal(
                                 </label>
                                 <div className="text-[14px] ml-[22px] text-theme-6 dark:text-theme-5">공격적, 폭력적인 언어 사용</div>
                                 <label htmlFor="report-etc" className="flex items-start mt-[10px] fill-theme-yellow dark:fill-theme-blue-1 text-theme-8 dark:text-theme-7 cursor-pointer">
-                                    <input type="checkbox" id="report-etc" className="peer hidden"/>
+                                    <input onChange={reportEtcChk} type="checkbox" id="report-etc" className="peer hidden"/>
                                     <svg className="block peer-checked:hidden w-[16px] mt-[2px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
                                         <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
                                         <path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.235.235 0 0 1 .02-.022z"/>
@@ -168,7 +183,7 @@ export default function ReportCommentModal(
                                     </div>
                                 </label>
                                 <div className="text-[14px] ml-[22px] text-theme-6 dark:text-theme-5">자세한 사유는 상세 입력칸에 적어주세요.</div>
-                                <textarea id="report-textarea" placeholder="사유는 최대한 자세하게 기입해주세요..." className="w-[100%] h-[80px] resize-none mt-[12px] px-[12px] py-[8px] text-[14px] border rounded-[6px] border-theme-6 focus:border-theme-8 hover:border-theme-8 tlg:hover:border-theme-6 dark:border-theme-4 focus:dark:border-theme-6 hover:dark:border-theme-6 tlg:hover:dark:border-theme-4 bg-transparent dark:bg-theme-2 text-theme-8 dark:text-theme-7 placeholder-theme-6 dark:placeholder-theme-5"></textarea>
+                                <textarea onChange={reportTextChk} id="report-textarea" placeholder="사유는 최대한 자세하게 기입해주세요..." className="w-[100%] h-[80px] resize-none mt-[12px] px-[12px] py-[8px] text-[14px] border rounded-[6px] border-theme-6 focus:border-theme-8 hover:border-theme-8 tlg:hover:border-theme-6 dark:border-theme-4 focus:dark:border-theme-6 hover:dark:border-theme-6 tlg:hover:dark:border-theme-4 bg-transparent dark:bg-theme-2 text-theme-8 dark:text-theme-7 placeholder-theme-6 dark:placeholder-theme-5"></textarea>
                             </div>
                             <div className="w-[100%] h-px bg-theme-5 my-[16px]"></div>
                             <div className="flex justify-between mt-[12px]">
