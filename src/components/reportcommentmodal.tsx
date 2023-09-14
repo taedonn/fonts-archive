@@ -81,16 +81,28 @@ export default function ReportCommentModal(
     });
 
     /** 부적절한 닉네임 신고 state */
-    const reportNicknameChk = (e:React.ChangeEvent<HTMLInputElement>) => { setReportNickname(e.target.checked); }
+    const reportNicknameChk = (e:React.ChangeEvent<HTMLInputElement>) => {
+        setReportNickname(e.target.checked);
+        if (e.target.checked) { setReportWarning(false); }
+    }
 
     /** 선동적인 발언 신고 state  */
-    const reportPoliticsChk = (e:React.ChangeEvent<HTMLInputElement>) => { setReportPolitics(e.target.checked); }
+    const reportPoliticsChk = (e:React.ChangeEvent<HTMLInputElement>) => {
+        setReportPolitics(e.target.checked);
+        if (e.target.checked) { setReportWarning(false); }
+    }
 
     /** 욕설 신고 state  */
-    const reportSwearingChk = (e:React.ChangeEvent<HTMLInputElement>) => { setReportSwearing(e.target.checked); }
+    const reportSwearingChk = (e:React.ChangeEvent<HTMLInputElement>) => {
+        setReportSwearing(e.target.checked);
+        if (e.target.checked) { setReportWarning(false); }
+    }
 
     /** 기타 신고 state  */
-    const reportEtcChk = (e:React.ChangeEvent<HTMLInputElement>) => { setReportEtc(e.target.checked); }
+    const reportEtcChk = (e:React.ChangeEvent<HTMLInputElement>) => {
+        setReportEtc(e.target.checked);
+        if (e.target.checked) { setReportWarning(false); }
+    }
 
     /** 사유 state */
     const reportTextChk = (e:React.ChangeEvent<HTMLTextAreaElement>) => { setReportText(e.target.value); }
