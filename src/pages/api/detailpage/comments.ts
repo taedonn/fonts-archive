@@ -26,7 +26,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                         depth: 0,
                         bundle_id: allComments[allComments.length-1].bundle_id + 1,
                         bundle_order: 0,
-                        nickname_reported: 0,
                         is_deleted: false
                     }
                 })
@@ -39,7 +38,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                         depth: 0,
                         bundle_id: 0,
                         bundle_order: 0,
-                        nickname_reported: 0,
                         is_deleted: false
                     }
                 });
@@ -138,7 +136,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                         depth: 1,
                         bundle_id: Number(thisComment.bundle_id),
                         bundle_order: thisBundle.length,
-                        nickname_reported: 0,
                         is_deleted: false
                     }
                 });
@@ -166,6 +163,45 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 }
             });
 
+            // 부적절한 닉네임인 경우 유저 정보 불러와서 nickname_reported에 1 추가 (10되면 자동으로 닉네임 변경)
+            if (req.body.report_nickname) {
+                const comment = await prisma.fontsComment.findUnique({
+                    where: { comment_id: Number(req.body.comment_id) }
+                });
+
+                // 유저 정보 불러온 후 nickname_reported 업데이트
+                comment
+                ? await prisma.fontsUser.update({
+                    where: { user_no: comment.user_id },
+                    data: { nickname_reported: { increment: 1 } }
+                })
+                : null;
+            }
+
+            // 선동적인 발언인 경우 reported_politics에 1 추가
+            if (req.body.report_politics) {
+                await prisma.fontsComment.update({
+                    where: { comment_id: Number(req.body.comment_id) },
+                    data: { reported_politics: { increment: 1 } }
+                });
+            }
+
+            // 욕설일 경우 reported_swearing에 1 추가
+            if (req.body.report_swearing) {
+                await prisma.fontsComment.update({
+                    where: { comment_id: Number(req.body.comment_id) },
+                    data: { reported_swearing: { increment: 1 } }
+                });
+            }
+
+            // 기타인 경우 reported_swearing에 1 추가
+            if (req.body.report_swearing) {
+                await prisma.fontsComment.update({
+                    where: { comment_id: Number(req.body.comment_id) },
+                    data: { reported_etc: { increment: 1 } }
+                });
+            }
+
             // 댓글 가져오기
             const comments = await FetchComments(req.body.font_id);
 
@@ -174,6 +210,24 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
             return res.status(200).json({
                 message: 'New report added successfully.',
+                comments: comments,
+                reports: reports
+            });
+        }
+        else if (req.body.action === 'reset-reports') {
+            // 리포트 전부 삭제하기
+            await prisma.fontsUserReport.deleteMany({
+                where: { NOT: [{ report_id: 0 }] }
+            });
+
+            // 댓글 가져오기
+            const comments = await FetchComments(req.body.font_id);
+
+            // 리포트 가져오기
+            const reports = await FetchReports(req.body.font_id, req.body.user_id);
+
+            return res.status(200).json({
+                message: 'Reports reset completed.',
                 comments: comments,
                 reports: reports
             });

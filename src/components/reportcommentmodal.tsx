@@ -31,6 +31,7 @@ export default function ReportCommentModal(
     const [reportEtc, setReportEtc] = useState<boolean>(false);
     const [reportText, setReportText] = useState<string>('');
     const [reportWarning, setReportWarning] = useState<boolean>(false);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
     /** 신고 모달창 닫기 */
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -118,6 +119,10 @@ export default function ReportCommentModal(
         ) {
             setReportWarning(true);
         } else {
+            // 로딩 바 실행
+            setIsLoading(true);
+
+            // 신고 axios 실행
             await axios.post('/api/detailpage/comments', {
                 action: 'report-comment',
                 font_id: font_id,
@@ -133,6 +138,9 @@ export default function ReportCommentModal(
                 console.log(res.data.message);
                 update(res.data.comments);
                 update_reports(res.data.reports);
+
+                // 로딩 바 정지
+                setIsLoading(false);
             })
             .catch(err => console.log(err));
 
@@ -223,7 +231,13 @@ export default function ReportCommentModal(
                             <div className="w-[100%] h-px bg-theme-5 mt-[6px] mb-[16px]"></div>
                             <div className="flex justify-between mt-[12px]">
                                 <button onClick={reportClose} className='w-[calc(50%-5px)] h-[40px] pt-px rounded-[8px] flex flex-row justify-center items-center text-[14px] font-medium text-theme-10 dark:text-theme-8 bg-theme-5/80 hover:bg-theme-5 tlg:hover:bg-theme-5/80 dark:bg-theme-3/80 hover:dark:bg-theme-3 tlg:hover:dark:bg-theme-3/80'>취소</button>
-                                <button onClick={reportComment} className='w-[calc(50%-5px)] h-[40px] pt-px rounded-[8px] flex flex-row justify-center items-center text-[14px] font-medium text-theme-4 dark:text-theme-blue-2 bg-theme-yellow/80 hover:bg-theme-yellow tlg:hover:bg-theme-yellow/80 dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1/80'>확인</button>
+                                <button onClick={reportComment} className='w-[calc(50%-5px)] h-[40px] pt-px rounded-[8px] flex flex-row justify-center items-center text-[14px] font-medium text-theme-4 dark:text-theme-blue-2 bg-theme-yellow/80 hover:bg-theme-yellow tlg:hover:bg-theme-yellow/80 dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1/80'>
+                                    {
+                                        isLoading
+                                        ? <span className='loader loader-register w-[18px] h-[18px] mb-px'></span>
+                                        : <>확인</>
+                                    }
+                                </button>
                             </div>
                         </div>
                     </div>

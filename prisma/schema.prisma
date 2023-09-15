@@ -52,6 +52,7 @@ model fontsUser {
   user_email_token   String
   user_email_confirm Boolean
   profile_img        String         @db.Text
+  nickname_reported  Int            @default(0)
   liked_fonts        fontsLiked[]
   comments           fontsComment[]
   reports            fontsUserReport[]
@@ -77,13 +78,16 @@ model fontsComment {
   depth                 Int
   bundle_id             Int
   bundle_order          Int
-  nickname_reported     Int       @default(0)
+  reported_politics     Int       @default(0)
+  reported_swearing     Int       @default(0)
+  reported_etc          Int       @default(0)
   is_deleted            Boolean   @default(false)
   created_at            DateTime  @default(now())
   updated_at            DateTime  @updatedAt
   comment_id            Int       @id @default(autoincrement())
   deleted_at            DateTime  @default(now())
   is_deleted_with_reply Boolean   @default(false)
+  is_deleted_by_reports Boolean   @default(false)
   font                  fonts     @relation(fields: [font_id], references: [code])
   user                  fontsUser @relation(fields: [user_id], references: [user_no])
   reports               fontsUserReport[]

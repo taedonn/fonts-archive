@@ -460,9 +460,11 @@ export default function Comments (
                                                 </div>
                                                 <div id={`comment-${comment.comment_id}`} className="mt-[8px]">
                                                     {
-                                                        !comment.is_deleted_with_reply
-                                                        ? <pre style={{fontFamily: "Spoqa Han Sans Neo"}} className="text-[14px] tlg:text-[12px] text-theme-4 dark:text-theme-9">{comment.comment}</pre>
-                                                        : <div className="text-[14px] tlg:text-[12px] text-theme-6">[삭제된 댓글입니다]</div>
+                                                        comment.is_deleted_with_reply
+                                                        ? <div className="text-[14px] tlg:text-[12px] text-theme-6">[삭제된 댓글입니다]</div>
+                                                            : comment.is_deleted_by_reports
+                                                                ? <div className="text-[14px] tlg:text-[12px] text-theme-6">[신고로 삭제된 댓글입니다]</div>
+                                                                : <pre style={{fontFamily: "Spoqa Han Sans Neo"}} className="text-[14px] tlg:text-[12px] text-theme-4 dark:text-theme-9">{comment.comment}</pre>
                                                     }
                                                     <input onChange={commentReplyShow} id={`comment-reply-${comment.comment_id}`} type="checkbox" className="hidden peer"/>
                                                     <label htmlFor={`comment-reply-${comment.comment_id}`} className={`${user ? 'block' : 'hidden'} peer-checked:hidden text-[14px] tlg:text-[12px] mt-[12px] tlg:mt-[8px] text-theme-3 dark:text-theme-blue-1 hover:underline tlg:underline hover:dark:text-theme-blue-1 cursor-pointer`}>답글</label>
