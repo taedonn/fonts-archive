@@ -65,12 +65,12 @@ const SendEmail = ({params}: any) => {
                 <div className='w-[720px] tmd:w-[100%] flex flex-col justify-center items-start my-[100px] tlg:my-[40px]'>
                     <h2 className='text-[20px] tlg:text-[18px] text-theme-4 dark:text-theme-9 font-medium mb-[12px] tlg:mb-[8px]'>내 댓글 목록</h2>
                     <div className='w-[100%] p-[20px] rounded-[8px] text-theme-10 dark:text-theme-9 bg-theme-5 dark:bg-theme-3 drop-shadow-default dark:drop-shadow-dark'>
-                        <div className='flex items-center p-[6px] rounded-[8px] dark:bg-theme-4'>
+                        <div className='flex items-center p-[6px] rounded-[8px] dark:bg-theme-4/60'>
                             <div className='w-content relative flex shrink-0 flex-row justify-start items-center'>
                                 <input type='checkbox' id='select-lang' className="select hidden"/>
                                 <label htmlFor='select-lang' className="h-[36px] tlg:h-[30px] tmd:h-[28px] relative flex flex-row justify-center items-center text-[14px] text-theme-5 dark:text-theme-8 leading-none tracking-normal px-[20px] tlg:px-[16px] tmd:px-[12px] border border-theme-7 dark:border-theme-5 rounded-[8px] cursor-pointer fill-theme-5 dark:fill-theme-8 hover:bg-theme-4 hover:dark:bg-theme-blue-2 hover:border-theme-yellow hover:dark:border-theme-blue-1 hover:text-theme-10/80 hover:dark:text-theme-9 hover:fill-theme-10/80 hover:dark:fill-theme-9 hover:drop-shadow-default hover:dark:drop-shadow-dark">
                                     <div className='w-[100%] h-[100%] absolute z-10'></div>
-                                    <button className="w-[100%] flex flex-row justify-center items-center text-inherit leading-[32px] text-[14px] tlg:text-[12px] tmd:text-[10px] pt-px">
+                                    <button className="w-[100%] flex flex-row justify-center items-center text-inherit leading-[32px] text-[14px] tlg:text-[12px] tmd:text-[10px]">
                                         검색 필터
                                         <svg className="w-[8px] tlg:w-[6px] rotate-180 ml-[12px] tlg:ml-[8px] fill-inherit" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M7.022 1.566a1.13 1.13 0 0 1 1.96 0l6.857 11.667c.457.778-.092 1.767-.98 1.767H1.144c-.889 0-1.437-.99-.98-1.767L7.022 1.566z"/></svg>
                                     </button>
@@ -102,8 +102,8 @@ const SendEmail = ({params}: any) => {
                                     </div>
                                 </div>
                             </div>
-                            <input type='textbox' className='w-[100%] h-[36px] ml-[8px] px-[10px] text-[14px] bg-transparent border rounded-[8px] border-theme-7 dark:border-theme-5'/>
-                            <button className='w-[80px] h-[36px] ml-[8px] shrink-0 text-[14px] border rounded-[8px] dark:bg-theme-5'>검색</button>
+                            <input type='textbox' className='w-[100%] h-[36px] ml-[8px] px-[12px] text-[14px] bg-transparent border rounded-[8px] border-theme-7 dark:border-theme-5'/>
+                            <button className='w-[80px] h-[36px] ml-[8px] shrink-0 text-[14px] border rounded-[8px] dark:bg-theme-5/60 pb-px'>검색</button>
                         </div>
                     </div>
                 </div>
