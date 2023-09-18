@@ -35,6 +35,28 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             });
         }
 
+        // 댓글 신고 값 조회
+        const reports = await prisma.fontsUserReport.findMany({
+            where: { report_user_id: Number(req.query.user_no) }
+        });
+
+        // 댓글 신고 값 있는 경우 삭제
+        reports && reports.length > 0
+        ? await prisma.fontsUserReport.deleteMany({
+            where: { report_user_id: Number(req.query.user_no) }
+        }) : null;
+
+        // 댓글 조회
+        const comments = await prisma.fontsComment.findMany({
+            where: { user_id: Number(req.query.user_no) }
+        });
+
+        // 댓글 있는 경우 삭제
+        comments && comments.length > 0
+        ? await prisma.fontsComment.deleteMany({
+            where: { user_id: Number(req.query.user_no) }
+        }) : null;
+
         // 유저 정보 삭제
         const userInfoDeleted = !!await prisma.fontsUser.delete({
             where: { user_id: userInfo.user_id }

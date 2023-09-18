@@ -479,22 +479,26 @@ export default function Comments (
                                                         <button onClick={commentEditCancelBtnOnClick} id={`comment-edit-cancel-${comment.comment_id}`} className="w-[56px] tlg:w-[48px] h-[32px] tlg:h-[28px] pb-px rounded-full text-theme-5 dark:text-theme-9 hover:bg-theme-8 hover:dark:bg-theme-4 tlg:hover:dark:bg-transparent ml-[6px]">취소</button>
                                                     </div>
                                                 </div>
-                                                {/* 댓글 삭제 */}
-                                                <div id={`comment-reply-content-${comment.comment_id}`} className="hidden mt-[20px]">
-                                                    <div className="w-[100%] flex">
-                                                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                                                        <img src={comment.profile_img} alt="유저 프로필 이미지" className="w-[40px] tlg:w-[32px] h-[40px] tlg:h-[32px] object-cover rounded-full"/>
-                                                        <div className="w-[100%] ml-[16px] tlg:ml-[14px]">
-                                                            <div className="relative w-[100%] flex items-center pb-[4px] border-b border-theme-5 dark:border-theme-7">
-                                                                <textarea onInput={handleHeightChange} onChange={commentReplyOnChange} onFocus={commentReplyOnChange} id={`comment-reply-textarea-${comment.comment_id}`} placeholder="답글 달기..." className="w-[100%] h-[21px] resize-none text-[14px] tlg:text-[12px] tracking-wide mt-[6px] text-theme-5 dark:text-theme-8 placeholder-theme-5 dark:placeholder-theme-6 leading-normal bg-transparent"/>
-                                                            </div>
-                                                            <div className="flex text-[14px] mt-[12px]">
-                                                                <button onClick={replyCommentAPIInit} id={`comment-reply-btn-${comment.comment_id}`} className="edit-btn-disabled w-[56px] tlg:w-[48px] h-[32px] tlg:h-[28px] pb-px rounded-full">답글</button>
-                                                                <button onClick={commentReplyCancelBtnOnClick} id={`comment-reply-cancel-${comment.comment_id}`} className="w-[56px] tlg:w-[48px] h-[32px] tlg:h-[28px] pb-px rounded-full text-theme-5 dark:text-theme-9 hover:bg-theme-8 hover:dark:bg-theme-4 tlg:hover:dark:bg-transparent ml-[6px]">취소</button>
+                                                {/* 답글 */}
+                                                {
+                                                    user
+                                                    ? <div id={`comment-reply-content-${comment.comment_id}`} className="hidden mt-[20px]">
+                                                        <div className="w-[100%] flex">
+                                                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                                                            <img src={user.profile_img} alt="유저 프로필 이미지" className="w-[40px] tlg:w-[32px] h-[40px] tlg:h-[32px] object-cover rounded-full"/>
+                                                            <div className="w-[100%] ml-[16px] tlg:ml-[14px]">
+                                                                <div className="relative w-[100%] flex items-center pb-[4px] border-b border-theme-5 dark:border-theme-7">
+                                                                    <textarea onInput={handleHeightChange} onChange={commentReplyOnChange} onFocus={commentReplyOnChange} id={`comment-reply-textarea-${comment.comment_id}`} placeholder="답글 달기..." className="w-[100%] h-[21px] resize-none text-[14px] tlg:text-[12px] tracking-wide mt-[6px] text-theme-5 dark:text-theme-8 placeholder-theme-5 dark:placeholder-theme-6 leading-normal bg-transparent"/>
+                                                                </div>
+                                                                <div className="flex text-[14px] mt-[12px]">
+                                                                    <button onClick={replyCommentAPIInit} id={`comment-reply-btn-${comment.comment_id}`} className="edit-btn-disabled w-[56px] tlg:w-[48px] h-[32px] tlg:h-[28px] pb-px rounded-full">답글</button>
+                                                                    <button onClick={commentReplyCancelBtnOnClick} id={`comment-reply-cancel-${comment.comment_id}`} className="w-[56px] tlg:w-[48px] h-[32px] tlg:h-[28px] pb-px rounded-full text-theme-5 dark:text-theme-9 hover:bg-theme-8 hover:dark:bg-theme-4 tlg:hover:dark:bg-transparent ml-[6px]">취소</button>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                    : <></>
+                                                }
                                             </div>
                                         </div>
                                         <div className="w-[100%] h-px mt-[20px] tlg:mt-[16px] bg-theme-7 dark:bg-theme-5"></div>
