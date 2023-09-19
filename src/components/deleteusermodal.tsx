@@ -131,7 +131,10 @@ export default function DeleteUserModal(
             })
             .then(async () => {
                 // 유저 정보 삭제
-                await axios.post('/api/user/deleteuser', null, { params: { id: id, user_no: user_no } })
+                await axios.post('/api/user/deleteuser', {
+                    id: id,
+                    user_no: user_no
+                })
                 .then((res) => {
                     removeCookies('session', { path: '/' });
                     location.href = '/';

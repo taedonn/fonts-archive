@@ -3,12 +3,9 @@ import prisma from '@/libs/client-prisma';
   
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method === 'POST') {
-        // 쿼리에서 뽑은 아이디
-        const id = req.query.id === undefined ? '' : req.query.id as string;
-
         // 아이디로 유저 정보 조회
         const userInfo: any = await prisma.fontsUser.findUnique({
-            where: { user_id: id }
+            where: { user_id: req.body.id as string }
         });
 
         // 유저 정보 조회 후, 좋아요한 폰트 조회
@@ -27,41 +24,48 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             await prisma.fontsLiked.deleteMany({
                 where: { user_id: userInfo.user_no }
             });
-
-            // 좋아요한 폰트의 좋아요 수 감소
-            await prisma.fonts.updateMany({
-                where: { OR: arr, NOT: [ { like: { lte: 0 } } ] },
-                data: { like: {decrement: 1} }
-            });
         }
 
         // 댓글 신고 값 조회
         const reports = await prisma.fontsUserReport.findMany({
-            where: { report_user_id: Number(req.query.user_no) }
+            where: { report_user_id: Number(req.body.user_no) }
         });
 
         // 댓글 신고 값 있는 경우 삭제
         reports && reports.length > 0
         ? await prisma.fontsUserReport.deleteMany({
-            where: { report_user_id: Number(req.query.user_no) }
+            where: { report_user_id: Number(req.body.user_no) }
         }) : null;
 
         // 댓글 조회
         const comments = await prisma.fontsComment.findMany({
-            where: { user_id: Number(req.query.user_no) }
+            where: { user_id: Number(req.body.user_no) }
         });
 
-        // 댓글 있는 경우 삭제
+        // 댓글의 bundle_id 조회
+        let commentsArr: any = [];
+        if (comments && comments.length > 0) {
+            for (let i = 0; i < comments.length; i++) {
+                commentsArr.push({
+                    font_id: Number(comments[i].font_id),
+                    bundle_id: Number(comments[i].bundle_id)
+                });
+            }
+        }
+
+        // 댓글, 답글, 다른 유저의 답글까지 모두 삭제
         comments && comments.length > 0
         ? await prisma.fontsComment.deleteMany({
-            where: { user_id: Number(req.query.user_no) }
+            where: { OR: commentsArr }
         }) : null;
 
         // 유저 정보 삭제
-        const userInfoDeleted = !!await prisma.fontsUser.delete({
+        await prisma.fontsUser.delete({
             where: { user_id: userInfo.user_id }
         });
 
-        return res.status(200).send(userInfoDeleted ? 'User info delete completed.' : 'User info delete failed.');
+        return res.status(200).json({
+            message: "Account deleted successfully."
+        });
     }
 }

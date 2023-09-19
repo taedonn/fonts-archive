@@ -15,12 +15,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             } }
         });
 
-        // 사용자 좋아요 체크 후, 좋아요 수 증가/감소
+        // 사용자 좋아요 체크 후
         checked && !isLiked ? (
-            await prisma.fonts.update({ // 폰트 좋아요 수 증가
-                where: { code: Number(code) },
-                data: { like: { increment: 1 } }
-            }),
             await prisma.fontsLiked.create({ // 유저가 좋아요한 폰트 유저 정보에 저장
                 data: {
                     font_id: Number(code),
@@ -28,10 +24,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 }
             })
         ) : !checked && isLiked ? (
-            await prisma.fonts.update({ // 폰트 좋아요 감소
-                where: { code: Number(code) },
-                data: { like: { decrement: 1 } }
-            }),
             await prisma.fontsLiked.deleteMany({ // 유저가 좋아요 해제한 폰트 유저 정보에서 제거
                 where: {
                     font_id: Number(code),

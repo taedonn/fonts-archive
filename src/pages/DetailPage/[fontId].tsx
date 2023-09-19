@@ -10,6 +10,7 @@ import { FetchFontDetail } from "../api/detailpage/fetchfontdetail";
 import { CheckIfSessionExists } from "../api/user/checkifsessionexists";
 import { FetchUserInfo } from "../api/user/fetchuserinfo";
 import { FetchUserLike } from "../api/user/fetchuserlike";
+import { FetchNumberOfLikes } from "../api/user/fetchnumberoflikes";
 import { FetchComments } from "../api/detailpage/fetchcomments";
 import { FetchReports } from "../api/detailpage/fetchReports";
 import axios from "axios";
@@ -256,7 +257,7 @@ function DetailPage({params}: any) {
                         </div>
                         <div style={{fontFamily:'"'+font.font_family+'"'}} className="text-[16px] tmd:text-[12px] leading-tight text-theme-3 dark:text-theme-9 mr-[14px] tmd:mr-[12px]">형태<span className="text-theme-5 dark:text-theme-7 ml-[6px]">{font.font_type === "Sans Serif" ? "고딕" : (font.font_type === "Serif" ? "명조" : (font.font_type === "Hand Writing" ? "손글씨" : (font.font_type === "Display" ? "장식체" : "픽셀체")))}</span></div>
                         <div style={{fontFamily:'"'+font.font_family+'"'}} className="text-[16px] tmd:text-[12px] leading-tight text-theme-3 dark:text-theme-9 mr-[14px] tmd:mr-[12px]">조회수<span className="text-theme-5 dark:text-theme-7 ml-[6px]">{formatNumber(font.view)}</span></div>
-                        <div style={{fontFamily:'"'+font.font_family+'"'}} className="text-[16px] tmd:text-[12px] leading-tight text-theme-3 dark:text-theme-9">좋아요 수<span className="text-theme-5 dark:text-theme-7 ml-[6px]">{formatNumber(font.like)}</span></div>
+                        <div style={{fontFamily:'"'+font.font_family+'"'}} className="text-[16px] tmd:text-[12px] leading-tight text-theme-3 dark:text-theme-9">좋아요 수<span className="text-theme-5 dark:text-theme-7 ml-[6px]">{formatNumber(params.likedNum)}</span></div>
                     </div>
                     <div className="w-[100%] h-px my-[16px] tmd:my-[12px] bg-theme-7 dark:bg-theme-4"></div>
                 </div>
@@ -794,6 +795,8 @@ export async function getServerSideProps(ctx: any) {
             : null
         );
 
+        const likedNum = await FetchNumberOfLikes(ctx.params.fontId);
+
         // 댓글 체크
         const comments = await FetchComments(ctx.params.fontId);
 
@@ -810,6 +813,7 @@ export async function getServerSideProps(ctx: any) {
                     user: user,
                     report: reportJSON,
                     like: like,
+                    likedNum: likedNum.length,
                     comments: commentsJSON,
                 }
             }

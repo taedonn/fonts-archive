@@ -47,16 +47,15 @@ const SendEmail = ({params}: any) => {
             <form onSubmit={e => e.preventDefault()} className='w-[100%] flex flex-col justify-center items-center'>
                 <div className='w-[720px] tmd:w-[100%] flex flex-col justify-center items-start my-[100px] tlg:my-[40px]'>
                     <h2 className='text-[20px] tlg:text-[18px] text-theme-4 dark:text-theme-9 font-medium mb-[12px] tlg:mb-[8px]'>내 댓글 목록</h2>
+                    <div className='w-content flex items-center p-[6px] mb-[12px] rounded-[6px] text-theme-10 dark:text-theme-9 bg-theme-5 dark:bg-theme-3'>
+                        <select className='w-[80px] h-[32px] text-[12px] pt-px px-[14px] bg-transparent rounded-[6px] outline-none border border-theme-6 dark:border-theme-5 cursor-pointer'>
+                            <option defaultChecked>최신순</option>
+                            <option>답글수</option>
+                        </select>
+                        <input type='textbox' className='w-[200px] h-[32px] ml-[8px] px-[12px] text-[12px] bg-transparent border rounded-[6px] border-theme-6 dark:border-theme-5'/>
+                        <button className='w-[68px] h-[32px] ml-[8px] text-[12px] border rounded-[6px] bg-theme-6/60 hover:bg-theme-6 tlg:hover:bg-theme-6/60 dark:bg-theme-4 hover:dark:bg-theme-5 tlg:hover:dark:bg-theme-4'>검색</button>
+                    </div>
                     <div className='w-[100%] p-[20px] rounded-[8px] text-theme-10 dark:text-theme-9 bg-theme-5 dark:bg-theme-3'>
-                        <div className='w-content flex items-center p-[6px] rounded-[6px] bg-theme-6/30 dark:bg-theme-4/60'>
-                            <select className='w-[80px] h-[32px] text-[12px] pt-px px-[14px] bg-transparent rounded-[6px] outline-none border border-theme-6 dark:border-theme-5 cursor-pointer'>
-                                <option defaultChecked>최신순</option>
-                                <option>답글수</option>
-                            </select>
-                            <input type='textbox' className='w-[200px] h-[32px] ml-[8px] px-[12px] text-[12px] bg-transparent border rounded-[6px] border-theme-6 dark:border-theme-5'/>
-                            <button className='w-[68px] h-[32px] ml-[8px] text-[12px] border rounded-[6px] bg-theme-6/50 hover:bg-theme-6/80 dark:bg-theme-5/60 hover:dark:bg-theme-5 tlg:hover:dark:bg-theme-5/60 pb-px'>검색</button>
-                        </div>
-                        <div className='w-[100%] h-px bg-theme-6 dark:bg-theme-5 my-[12px]'></div>
                     </div>
                 </div>
             </form>
