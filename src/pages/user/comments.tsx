@@ -49,13 +49,14 @@ const SendEmail = ({params}: any) => {
                     <h2 className='text-[20px] tlg:text-[18px] text-theme-4 dark:text-theme-9 font-medium mb-[12px] tlg:mb-[8px]'>내 댓글 목록</h2>
                     <div className='w-content flex items-center p-[6px] mb-[12px] rounded-[6px] text-theme-10 dark:text-theme-9 bg-theme-5 dark:bg-theme-3'>
                         <select className='w-[80px] h-[32px] text-[12px] pt-px px-[14px] bg-transparent rounded-[6px] outline-none border border-theme-6 dark:border-theme-5 cursor-pointer'>
-                            <option defaultChecked>최신순</option>
-                            <option>답글수</option>
+                            <option defaultChecked>댓글</option>
+                            <option>답글</option>
                         </select>
                         <input type='textbox' className='w-[200px] h-[32px] ml-[8px] px-[12px] text-[12px] bg-transparent border rounded-[6px] border-theme-6 dark:border-theme-5'/>
                         <button className='w-[68px] h-[32px] ml-[8px] text-[12px] border rounded-[6px] bg-theme-6/60 hover:bg-theme-6 tlg:hover:bg-theme-6/60 dark:bg-theme-4 hover:dark:bg-theme-5 tlg:hover:dark:bg-theme-4'>검색</button>
                     </div>
                     <div className='w-[100%] p-[20px] rounded-[8px] text-theme-10 dark:text-theme-9 bg-theme-5 dark:bg-theme-3'>
+
                     </div>
                 </div>
             </form>
