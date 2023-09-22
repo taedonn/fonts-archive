@@ -46,6 +46,16 @@ select {
     background-size: 1em;
 }
 
+option {
+    color: #E9EAEE;
+    background-color: #35363A;
+}
+
+html.dark option {
+    color: #E9EAEE;
+    background-color: #202124;
+}
+
 /* 스크롤바 */
 body::-webkit-scrollbar {
     width: 16px;
@@ -522,4 +532,12 @@ html.dark .edit-btn-enabled:hover {
 html.dark .edit-btn-disabled {
     background-color: #35363A;
     color: #646568;
+}
+
+/* 페이지네이션 */
+#__next .MuiPagination-ul button {
+    color: #CDCED2;
+}
+#__next .MuiPagination-ul .Mui-selected {
+    background-color: #35363A;
 }
