@@ -325,14 +325,14 @@ html.dark .search-list::-webkit-scrollbar-track { background-color: #35363A; }
 
 /* 검색 결과 active 상태일 때 스타일 정의 */
 @media (hover: hover) and (pointer: fine) {
-    #active { background-color: #B1B2B6; }
+    #active { background-color: #B1B2B6CC; }
     #active .when-active-1 { background-color: #97989C; border-color: #97989C; }
-    #active .when-active-2, { fill: #646568; }
+    #active .when-active-2, { fill: #E9EAEE; }
     #active .when-active-3 { color: #4C4D50; }
     #active .when-active-4 { color: #646568; }
     #active .when-active-5 { color: #646568; }
     #active .when-active-6 { fill: #646568; }
-    html.dark #active { background-color: #4C4D50; }
+    html.dark #active { background-color: #4C4D50CC; }
     html.dark #active .when-active-1 { background-color: #646568; border-color: #646568; }
     html.dark #active .when-active-2, { fill: #B1B2B6; }
     html.dark #active .when-active-3 { color: #E9EAEE; }
@@ -536,8 +536,16 @@ html.dark .edit-btn-disabled {
 
 /* 페이지네이션 */
 #__next .MuiPagination-ul button {
-    color: #CDCED2;
+    color: #646568;
 }
 #__next .MuiPagination-ul .Mui-selected {
-    background-color: #35363A;
+    color: #E9EAEE;
+    background-color: #646568CC;
+}
+html.dark #__next .MuiPagination-ul button {
+    color: #CDCED2;
+}
+html.dark #__next .MuiPagination-ul .Mui-selected {
+    color: #E9EAEE;
+    background-color: #4C4D50CC;
 }

@@ -2,18 +2,18 @@
 import { NextSeo } from 'next-seo';
 
 // react hooks
-import React, { useEffect, useState } from 'react';
-import { useQuery, useQueryClient, QueryClient, QueryClientProvider } from "react-query";
+import React, { useEffect, useState, useRef } from 'react';
 
 // api
 import axios from 'axios';
 import { CheckIfSessionExists } from "../api/user/checkifsessionexists";
 import { FetchUserInfo } from "../api/user/fetchuserinfo";
-import { FetchComments } from '../api/user/fetchcomments'
+import { FetchCommentsLength } from '../api/user/fetchcomments'
+import { FetchComments } from '../api/user/fetchcomments';
 
 // components
 import Header from "@/components/header";
-import { Pagination } from '@mui/material';;
+import { Pagination } from '@mui/material';
 
 const SendEmail = ({params}: any) => {
     // 디바이스 체크
@@ -22,44 +22,63 @@ const SendEmail = ({params}: any) => {
     // 빈 함수
     const emptyFn = () => { return; }
 
-    // Pagination
-    async function fetchProjects(page: number) {
-        const { data } = await axios.get("/api/user/fetchcomments", {
-            params: {
-                page: page,
-                user_id: params.user.user_no 
-            }
-        });
-        return data;
-    }
+    // 댓글 목록 state
+    const [comments, setComments] = useState(JSON.parse(params.comments));
+    const [count, setCount] = useState<number>(params.count);
+    const [filter, setFilter] = useState<string>('all');
+    const [text, setText] = useState<string>('');
 
-    const queryClient = useQueryClient();
-    const [page, setPage] = useState<number>(0);
-    // const [isLoading] = useState<boolean>(true);
-    const {
-        data,
-        isLoading,
-        isPreviousData
-    } = useQuery(
-        ["comments", page],
-        () => fetchProjects(page),
-        {
-            staleTime: 5000,
-            keepPreviousData: true,
-            select: (data) => {
-                return {
-                    comments: data.comments,
-                    hasMore: data.totalPages > page
-                };
-            }
-        }
-    )
+    // 댓글 목록 ref
+    const selectRef = useRef<HTMLSelectElement>(null);
+    const textRef = useRef<HTMLInputElement>(null);
 
+    // 댓글 목록 페이지 변경
+    const [page, setPage] = useState<number>(1);
+    const handleChange = (e: React.ChangeEvent<unknown>, value: number) => {
+        setPage(value);
+    };
+
+    // 페이지 변경 시 데이터 다시 불러오기
     useEffect(() => {
-        if (data?.hasMore) {
-            queryClient.prefetchQuery(["projects", page + 1], () => fetchProjects(page + 1) );
+        const fetchNewComments = async () => {
+            await axios.get('/api/user/fetchcomments', {
+                params: {
+                    user_id: params.user.user_no,
+                    page: page,
+                    filter: filter,
+                    text: text
+                }
+            })
+            .then((res) => { setComments(res.data.comments); })
+            .catch(err => console.log(err));
         }
-    }, [data, page, queryClient]);
+        fetchNewComments();
+    }, [page]);
+
+    // 댓글 필터 버튼 클릭 시 값 state에 저장 후, API 호출
+    const handleClick = async () => {
+        if (selectRef &&selectRef.current && textRef && textRef.current) {
+            // state 저장
+            setPage(1);
+            setFilter(selectRef.current.value);
+            setText(textRef.current.value);
+            
+            // API 호출
+            await axios.get('/api/user/fetchcomments', {
+                params: {
+                    user_id: params.user.user_no,
+                    page: 1,
+                    filter: selectRef.current.value,
+                    text: textRef.current.value
+                }
+            })
+            .then((res) => {
+                setComments(res.data.comments);
+                setCount(res.data.count);
+            })
+            .catch(err => console.log(err));
+        }
+    }
 
     /** 댓글 시간 포맷 */
     const commentsTimeFormat = (time: string) => {
@@ -101,62 +120,50 @@ const SendEmail = ({params}: any) => {
             {/* 메인 */}
             <form onSubmit={e => e.preventDefault()} className='w-[100%] flex flex-col justify-center items-center'>
                 <div className='w-[720px] tmd:w-[100%] flex flex-col justify-center items-start my-[100px] tlg:my-[40px]'>
-                    <h2 className='text-[20px] tlg:text-[18px] text-theme-4 dark:text-theme-9 font-medium mb-[12px]'>내 댓글 목록</h2>
-                    <div className='w-content flex items-center p-[6px] mb-[8px] rounded-[6px] text-theme-10 dark:text-theme-9 bg-theme-5 dark:bg-theme-3'>
-                        <select className='w-[80px] h-[32px] text-[12px] pt-px px-[14px] bg-transparent rounded-[6px] outline-none border border-theme-6 dark:border-theme-5 cursor-pointer'>
-                            <option defaultChecked>댓글</option>
-                            <option>답글</option>
+                    <h2 className='text-[20px] tlg:text-[18px] text-theme-4 dark:text-theme-9 font-medium mb-[16px] tlg:mb-[12px]'>내 댓글 목록</h2>
+                    <div className='w-content flex items-center p-[6px] mb-[12px] tlg:mb-[8px] rounded-[6px] text-theme-10 dark:text-theme-9 bg-theme-5 dark:bg-theme-3'>
+                        <select ref={selectRef} className='w-[80px] h-[32px] tlg:h-[28px] text-[12px] pt-px px-[14px] bg-transparent rounded-[6px] outline-none border border-theme-6 dark:border-theme-5 cursor-pointer'>
+                            <option value='all' defaultChecked>전체</option>
+                            <option value='comment'>댓글</option>
+                            <option value='reply'>답글</option>
                         </select>
-                        <input type='textbox' className='w-[200px] h-[32px] ml-[8px] px-[12px] text-[12px] bg-transparent border rounded-[6px] border-theme-6 dark:border-theme-5'/>
-                        <button className='w-[68px] h-[32px] ml-[8px] text-[12px] border rounded-[6px] bg-theme-6/40 hover:bg-theme-6/60 tlg:hover:bg-theme-6/40 dark:bg-theme-4 hover:dark:bg-theme-5 tlg:hover:dark:bg-theme-4'>검색</button>
+                        <input ref={textRef} type='textbox' className='w-[200px] tlg:w-[160px] h-[32px] tlg:h-[28px] ml-[8px] px-[12px] text-[12px] bg-transparent border rounded-[6px] border-theme-6 dark:border-theme-5'/>
+                        <button onClick={handleClick} className='w-[68px] h-[32px] tlg:h-[28px] ml-[8px] text-[12px] border rounded-[6px] bg-theme-6/40 hover:bg-theme-6/60 tlg:hover:bg-theme-6/40 dark:bg-theme-4 hover:dark:bg-theme-5 tlg:hover:dark:bg-theme-4'>검색</button>
                     </div>
-                    <div className='w-[100%] rounded-[8px] border border-theme-5 dark:border-theme-3 overflow-hidden'>
-                        <table className='w-[100%] text-[12px] text-theme-10 dark:text-theme-9'>
-                            <thead className='h-[40px] text-left bg-theme-5 dark:bg-theme-3'>
+                    <div className='w-[100%] rounded-[8px] overflow-hidden'>
+                        <table className='w-[100%] text-[12px] text-theme-10 dark:text-theme-9 bg-theme-5/80 dark:bg-theme-4/80'>
+                            <thead className='h-[40px] tlg:h-[34px] text-left bg-theme-5 dark:bg-theme-3'>
                                 <tr>
-                                    <th className='w-[128px] pl-[20px]'>폰트</th>
-                                    <th className='pl-[20px]'>댓글</th>
-                                    <th className='w-[128px] pl-[20px]'>작성 날짜</th>
+                                    <th className='w-[120px] pl-[20px] tlg:pl-[16px]'>폰트</th>
+                                    <th className='pl-[20px] tlg:pl-[16px]'>댓글</th>
+                                    <th className='w-[120px] pl-[20px] tlg:pl-[16px]'>작성 날짜</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {
-                                    isLoading
+                                    comments && comments.length > 0
                                     ? <>
-                                        <tr className='h-[40px]'><td className='pl-[20px] py-[10px]'><div className='w-[80%] h-[16px] rounded-[4px] skeleton-gradient'></div></td><td className='pl-[20px] py-[10px]'><div className='w-[80%] h-[16px] rounded-[4px] skeleton-gradient'></div></td><td className='pl-[20px] py-[10px]'><div className='w-[80%] h-[16px] rounded-[4px] skeleton-gradient'></div></td></tr>
-                                        <tr className='h-[40px]'><td className='pl-[20px] py-[10px]'><div className='w-[80%] h-[16px] rounded-[4px] skeleton-gradient'></div></td><td className='pl-[20px] py-[10px]'><div className='w-[80%] h-[16px] rounded-[4px] skeleton-gradient'></div></td><td className='pl-[20px] py-[10px]'><div className='w-[80%] h-[16px] rounded-[4px] skeleton-gradient'></div></td></tr>
-                                        <tr className='h-[40px]'><td className='pl-[20px] py-[10px]'><div className='w-[80%] h-[16px] rounded-[4px] skeleton-gradient'></div></td><td className='pl-[20px] py-[10px]'><div className='w-[80%] h-[16px] rounded-[4px] skeleton-gradient'></div></td><td className='pl-[20px] py-[10px]'><div className='w-[80%] h-[16px] rounded-[4px] skeleton-gradient'></div></td></tr>
-                                        <tr className='h-[40px]'><td className='pl-[20px] py-[10px]'><div className='w-[80%] h-[16px] rounded-[4px] skeleton-gradient'></div></td><td className='pl-[20px] py-[10px]'><div className='w-[80%] h-[16px] rounded-[4px] skeleton-gradient'></div></td><td className='pl-[20px] py-[10px]'><div className='w-[80%] h-[16px] rounded-[4px] skeleton-gradient'></div></td></tr>
-                                        <tr className='h-[40px]'><td className='pl-[20px] py-[10px]'><div className='w-[80%] h-[16px] rounded-[4px] skeleton-gradient'></div></td><td className='pl-[20px] py-[10px]'><div className='w-[80%] h-[16px] rounded-[4px] skeleton-gradient'></div></td><td className='pl-[20px] py-[10px]'><div className='w-[80%] h-[16px] rounded-[4px] skeleton-gradient'></div></td></tr>
-                                        <tr className='h-[40px]'><td className='pl-[20px] py-[10px]'><div className='w-[80%] h-[16px] rounded-[4px] skeleton-gradient'></div></td><td className='pl-[20px] py-[10px]'><div className='w-[80%] h-[16px] rounded-[4px] skeleton-gradient'></div></td><td className='pl-[20px] py-[10px]'><div className='w-[80%] h-[16px] rounded-[4px] skeleton-gradient'></div></td></tr>
-                                        <tr className='h-[40px]'><td className='pl-[20px] py-[10px]'><div className='w-[80%] h-[16px] rounded-[4px] skeleton-gradient'></div></td><td className='pl-[20px] py-[10px]'><div className='w-[80%] h-[16px] rounded-[4px] skeleton-gradient'></div></td><td className='pl-[20px] py-[10px]'><div className='w-[80%] h-[16px] rounded-[4px] skeleton-gradient'></div></td></tr>
-                                        <tr className='h-[40px]'><td className='pl-[20px] py-[10px]'><div className='w-[80%] h-[16px] rounded-[4px] skeleton-gradient'></div></td><td className='pl-[20px] py-[10px]'><div className='w-[80%] h-[16px] rounded-[4px] skeleton-gradient'></div></td><td className='pl-[20px] py-[10px]'><div className='w-[80%] h-[16px] rounded-[4px] skeleton-gradient'></div></td></tr>
-                                        <tr className='h-[40px]'><td className='pl-[20px] py-[10px]'><div className='w-[80%] h-[16px] rounded-[4px] skeleton-gradient'></div></td><td className='pl-[20px] py-[10px]'><div className='w-[80%] h-[16px] rounded-[4px] skeleton-gradient'></div></td><td className='pl-[20px] py-[10px]'><div className='w-[80%] h-[16px] rounded-[4px] skeleton-gradient'></div></td></tr>
-                                        <tr className='h-[40px]'><td className='pl-[20px] py-[10px]'><div className='w-[80%] h-[16px] rounded-[4px] skeleton-gradient'></div></td><td className='pl-[20px] py-[10px]'><div className='w-[80%] h-[16px] rounded-[4px] skeleton-gradient'></div></td><td className='pl-[20px] py-[10px]'><div className='w-[80%] h-[16px] rounded-[4px] skeleton-gradient'></div></td></tr>
+                                        {
+                                            comments.map((comment: any) => {
+                                                return (
+                                                    <tr key={comment.comment_id} className='h-[40px] tlg:h-[34px] border-t border-theme-5 dark:border-theme-3'>
+                                                        <td className='pl-[20px] tlg:pl-[16px] py-[10px] break-keep'><a href={`/detailpage/${comment.code}`} className='hover:underline tlg:hover:no-underline'>{comment.name}</a></td>
+                                                        <td className='pl-[20px] tlg:pl-[16px] py-[10px] break-keep'><a href={`/detailpage/${comment.code}#c${comment.comment_id}`} className='hover:underline tlg:hover:no-underline'>{comment.comment}</a></td>
+                                                        <td className='pl-[20px] tlg:pl-[16px] py-[10px] break-keep'>{commentsDateFormat(comment.created_at)}</td>
+                                                    </tr> 
+                                                )
+                                            })
+                                        }
                                     </>
-                                    : data && data.comments.length > 0
-                                        ? <>
-                                            {
-                                                data.comments.map((comment: any) => {
-                                                    return (
-                                                        <tr key={comment.comment_id} className='h-[40px] border-t border-theme-5 dark:border-theme-3'>
-                                                            <td className='pl-[20px] py-[10px]'>{comment.name}</td>
-                                                            <td className='pl-[20px] py-[10px]'><a href={`/detailpage/${comment.code}#c${comment.comment_id}`} target="_blank" className='hover:underline tlg:hover:no-underline'>{comment.comment}</a></td>
-                                                            <td className='pl-[20px] py-[10px]'>{commentsDateFormat(comment.created_at)}</td>
-                                                        </tr> 
-                                                    )
-                                                })
-                                            }
-                                        </>
-                                        : <tr className='h-[60px]'>
-                                            <td colSpan={3} className='text-center'>아직 댓글이 없습니다.</td>
-                                        </tr>
+                                    : <tr className='h-[60px]'>
+                                        <td colSpan={3} className='text-center'>댓글이 없습니다.</td>
+                                    </tr>
                                 }
                             </tbody>
                         </table>
                     </div>
                     <div className='w-[100%] flex justify-center mt-[12px]'>
-                        <Pagination count={params.count} shape='rounded'/>
+                        <Pagination count={count} page={page} onChange={handleChange} shape='rounded' showFirstButton showLastButton/>
                     </div>
                 </div>
             </form>
@@ -179,10 +186,6 @@ export async function getServerSideProps(ctx: any) {
             : null
         )
 
-        // 댓글 length 가져오기
-        const length = await FetchComments(user.user_no);
-        const count = Number(length) % 10 > 0 ? Math.floor(Number(length)/10) + 1 : Math.floor(Number(length)/10);
-
         // 쿠키에 저장된 세션ID가 유효하지 않다면, 메인페이지로 이동, 유효하면 클리이언트로 유저 정보 return
         if (user === null) {
             return {
@@ -192,6 +195,13 @@ export async function getServerSideProps(ctx: any) {
                 }
             }
         } else {
+            // 댓글 페이지 수
+            const length = await FetchCommentsLength(user.user_no);
+            const count = Number(length) % 10 > 0 ? Math.floor(Number(length)/10) + 1 : Math.floor(Number(length)/10);
+
+            // 첫 댓글 목록 가져오기
+            const comments: any = await FetchComments(user.user_no, undefined);
+
             return {
                 props: {
                     params: {
@@ -199,6 +209,7 @@ export async function getServerSideProps(ctx: any) {
                         userAgent: userAgent,
                         user: user,
                         count: count,
+                        comments: JSON.stringify(comments)
                     }
                 }
             }
