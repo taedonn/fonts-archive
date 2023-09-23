@@ -22,8 +22,6 @@ const SendEmail = ({params}: any) => {
     // 빈 함수
     const emptyFn = () => { return; }
 
-    console.log(params.count);
-
     // Pagination
     async function fetchProjects(page: number) {
         const { data } = await axios.get("/api/user/fetchcomments", {
@@ -37,6 +35,7 @@ const SendEmail = ({params}: any) => {
 
     const queryClient = useQueryClient();
     const [page, setPage] = useState<number>(0);
+    // const [isLoading] = useState<boolean>(true);
     const {
         data,
         isLoading,
@@ -115,7 +114,7 @@ const SendEmail = ({params}: any) => {
                         <table className='w-[100%] text-[12px] text-theme-10 dark:text-theme-9'>
                             <thead className='h-[40px] text-left bg-theme-5 dark:bg-theme-3'>
                                 <tr>
-                                    <th className='w-[100px] pl-[20px]'>폰트</th>
+                                    <th className='w-[128px] pl-[20px]'>폰트</th>
                                     <th className='pl-[20px]'>댓글</th>
                                     <th className='w-[128px] pl-[20px]'>작성 날짜</th>
                                 </tr>
@@ -123,11 +122,18 @@ const SendEmail = ({params}: any) => {
                             <tbody>
                                 {
                                     isLoading
-                                    ? <tr className='h-[60px]'>
-                                        <td colSpan={3}>
-                                            <div className='flex justify-center'><span className="loader w-[24px] h-[24px]"></span></div>
-                                        </td>
-                                    </tr>
+                                    ? <>
+                                        <tr className='h-[40px]'><td className='pl-[20px] py-[10px]'><div className='w-[80%] h-[16px] rounded-[4px] skeleton-gradient'></div></td><td className='pl-[20px] py-[10px]'><div className='w-[80%] h-[16px] rounded-[4px] skeleton-gradient'></div></td><td className='pl-[20px] py-[10px]'><div className='w-[80%] h-[16px] rounded-[4px] skeleton-gradient'></div></td></tr>
+                                        <tr className='h-[40px]'><td className='pl-[20px] py-[10px]'><div className='w-[80%] h-[16px] rounded-[4px] skeleton-gradient'></div></td><td className='pl-[20px] py-[10px]'><div className='w-[80%] h-[16px] rounded-[4px] skeleton-gradient'></div></td><td className='pl-[20px] py-[10px]'><div className='w-[80%] h-[16px] rounded-[4px] skeleton-gradient'></div></td></tr>
+                                        <tr className='h-[40px]'><td className='pl-[20px] py-[10px]'><div className='w-[80%] h-[16px] rounded-[4px] skeleton-gradient'></div></td><td className='pl-[20px] py-[10px]'><div className='w-[80%] h-[16px] rounded-[4px] skeleton-gradient'></div></td><td className='pl-[20px] py-[10px]'><div className='w-[80%] h-[16px] rounded-[4px] skeleton-gradient'></div></td></tr>
+                                        <tr className='h-[40px]'><td className='pl-[20px] py-[10px]'><div className='w-[80%] h-[16px] rounded-[4px] skeleton-gradient'></div></td><td className='pl-[20px] py-[10px]'><div className='w-[80%] h-[16px] rounded-[4px] skeleton-gradient'></div></td><td className='pl-[20px] py-[10px]'><div className='w-[80%] h-[16px] rounded-[4px] skeleton-gradient'></div></td></tr>
+                                        <tr className='h-[40px]'><td className='pl-[20px] py-[10px]'><div className='w-[80%] h-[16px] rounded-[4px] skeleton-gradient'></div></td><td className='pl-[20px] py-[10px]'><div className='w-[80%] h-[16px] rounded-[4px] skeleton-gradient'></div></td><td className='pl-[20px] py-[10px]'><div className='w-[80%] h-[16px] rounded-[4px] skeleton-gradient'></div></td></tr>
+                                        <tr className='h-[40px]'><td className='pl-[20px] py-[10px]'><div className='w-[80%] h-[16px] rounded-[4px] skeleton-gradient'></div></td><td className='pl-[20px] py-[10px]'><div className='w-[80%] h-[16px] rounded-[4px] skeleton-gradient'></div></td><td className='pl-[20px] py-[10px]'><div className='w-[80%] h-[16px] rounded-[4px] skeleton-gradient'></div></td></tr>
+                                        <tr className='h-[40px]'><td className='pl-[20px] py-[10px]'><div className='w-[80%] h-[16px] rounded-[4px] skeleton-gradient'></div></td><td className='pl-[20px] py-[10px]'><div className='w-[80%] h-[16px] rounded-[4px] skeleton-gradient'></div></td><td className='pl-[20px] py-[10px]'><div className='w-[80%] h-[16px] rounded-[4px] skeleton-gradient'></div></td></tr>
+                                        <tr className='h-[40px]'><td className='pl-[20px] py-[10px]'><div className='w-[80%] h-[16px] rounded-[4px] skeleton-gradient'></div></td><td className='pl-[20px] py-[10px]'><div className='w-[80%] h-[16px] rounded-[4px] skeleton-gradient'></div></td><td className='pl-[20px] py-[10px]'><div className='w-[80%] h-[16px] rounded-[4px] skeleton-gradient'></div></td></tr>
+                                        <tr className='h-[40px]'><td className='pl-[20px] py-[10px]'><div className='w-[80%] h-[16px] rounded-[4px] skeleton-gradient'></div></td><td className='pl-[20px] py-[10px]'><div className='w-[80%] h-[16px] rounded-[4px] skeleton-gradient'></div></td><td className='pl-[20px] py-[10px]'><div className='w-[80%] h-[16px] rounded-[4px] skeleton-gradient'></div></td></tr>
+                                        <tr className='h-[40px]'><td className='pl-[20px] py-[10px]'><div className='w-[80%] h-[16px] rounded-[4px] skeleton-gradient'></div></td><td className='pl-[20px] py-[10px]'><div className='w-[80%] h-[16px] rounded-[4px] skeleton-gradient'></div></td><td className='pl-[20px] py-[10px]'><div className='w-[80%] h-[16px] rounded-[4px] skeleton-gradient'></div></td></tr>
+                                    </>
                                     : data && data.comments.length > 0
                                         ? <>
                                             {
@@ -135,7 +141,7 @@ const SendEmail = ({params}: any) => {
                                                     return (
                                                         <tr key={comment.comment_id} className='h-[40px] border-t border-theme-5 dark:border-theme-3'>
                                                             <td className='pl-[20px] py-[10px]'>{comment.name}</td>
-                                                            <td className='pl-[20px] py-[10px]'>{comment.comment}</td>
+                                                            <td className='pl-[20px] py-[10px]'><a href={`/detailpage/${comment.code}#c${comment.comment_id}`} target="_blank" className='hover:underline tlg:hover:no-underline'>{comment.comment}</a></td>
                                                             <td className='pl-[20px] py-[10px]'>{commentsDateFormat(comment.created_at)}</td>
                                                         </tr> 
                                                     )
