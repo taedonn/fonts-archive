@@ -5,7 +5,12 @@ import prisma from '@/libs/client-prisma';
 export async function FetchCommentsLength(user_id: number) {
     const comments = await prisma.fontsComment.findMany({
         select: { user_id: true },
-        where: { user_id: user_id }
+        where: {
+            user_id: user_id,
+            is_deleted: false,
+            is_deleted_with_reply: false,
+            is_deleted_by_reports: false
+        }
     });
 
     return comments.length;
@@ -14,7 +19,12 @@ export async function FetchCommentsLength(user_id: number) {
 // SSR 첫 댓글 목록 가져오기
 export async function FetchComments(user_id: number, lastId: number | undefined) {
     const comments = await prisma.fontsComment.findMany({
-        where: { user_id: user_id },
+        where: {
+            user_id: user_id,
+            is_deleted: false,
+            is_deleted_with_reply: false,
+            is_deleted_by_reports: false
+        },
         orderBy: [{created_at: 'desc'}, {comment_id: 'desc'}], // 정렬순
         take: 10, // 가져오는 데이터 수
         skip: lastId ? 1 : 0,
@@ -66,6 +76,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const length = await prisma.fontsComment.findMany({
             where: {
                 user_id: Number(req.query.user_id),
+                is_deleted: false,
+                is_deleted_with_reply: false,
+                is_deleted_by_reports: false,
                 comment: {contains: req.query.text as string},
                 OR: filter
             }
@@ -76,6 +89,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const comments = await prisma.fontsComment.findMany({
             where: {
                 user_id: Number(req.query.user_id),
+                is_deleted: false,
+                is_deleted_with_reply: false,
+                is_deleted_by_reports: false,
                 comment: {contains: req.query.text as string},
                 OR: filter
             },
