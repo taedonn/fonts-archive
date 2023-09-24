@@ -29,6 +29,7 @@ const Login = ({params}: any) => {
     const [pwVal, setPwVal] = useState<string>('');
     const [pwChk, setPwChk] = useState<string>('');
     const [emailConfirmChk, setEmailConfirmChk] = useState<boolean>(true);
+    const [history, setHistory] = useState<string>('/');
 
     // 뒤로가기 시 history가 남아있으면 state 변경
     useEffect(() => {
@@ -37,6 +38,9 @@ const Login = ({params}: any) => {
 
         if (formId.value !== '') { setIdVal(formId.value); }
         if (formPw.value !== '') { setPwVal(formPw.value); }
+
+        // 세션 스토리지의 history 불러오기
+        setHistory(sessionStorage.getItem("login_history") ? sessionStorage.getItem("login_history") as string : '/');
     }, []);
 
     // 아이디 입력 시 state에 저장
@@ -85,7 +89,10 @@ const Login = ({params}: any) => {
                 }
                 else if (res.data.status === 'success') {
                     setCookie('session', res.data.session, {path:'/', secure:true, sameSite:'none'});
-                    location.href = '/';
+
+                    // 세션 스토리지가 저장되어 있으면, 해당 페이지로 이동
+                    sessionStorage.removeItem("login_history");
+                    location.href = history as string; // 이전 페이지로 이동
                 }
             })
             .catch(err => {
@@ -218,7 +225,7 @@ export async function getServerSideProps(ctx: any) {
 
         // 세션ID 쿠키 제거
         ctx.res.setHeader('Set-Cookie', [`session=deleted; max-Age=0; path=/`]);
-
+        
         return {
             props: {
                 params: {

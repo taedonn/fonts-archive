@@ -243,6 +243,11 @@ export default function Header (
         });
     }
 
+    /** 로그인 버튼 클릭 */
+    const handleLoginClick = () => {
+        sessionStorage.setItem('login_history', location.href);
+    }
+
     return (
         <>
             <header className="w-[100%] mt-[60px] tlg:mt-[52px]">
@@ -481,7 +486,7 @@ export default function Header (
                                     user === null
                                     ? <>
                                         {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-                                        <a href="/user/login" className="w-[100%] h-[28px] flex flex-row justify-center items-center rounded-[8px] mt-[10px] bg-theme-yellow/90 hover:bg-theme-yellow tlg:hover:bg-theme-yellow/90 dark:bg-theme-blue-1/90 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1/90">
+                                        <a href="/user/login" onClick={handleLoginClick} className="w-[100%] h-[28px] flex flex-row justify-center items-center rounded-[8px] mt-[10px] bg-theme-yellow/90 hover:bg-theme-yellow tlg:hover:bg-theme-yellow/90 dark:bg-theme-blue-1/90 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1/90">
                                             <span className="text-[14px] text-theme-4 dark:text-theme-blue-2 font-medium mt-px">로그인</span>
                                         </a>
                                     </> : <div className="text-[14px] text-theme-10/80 dark:text-theme-9/80">
