@@ -14,7 +14,7 @@ import Header from "@/components/header";
 
 const Login = ({params}: any) => {
     // 쿠키 훅
-    const [cookies, setCookie] = useCookies<string>([]);
+    const [, setCookie] = useCookies<string>([]);
 
     // 디바이스 체크
     const isMac: boolean = params.userAgent.includes("Mac OS") ? true : false;
@@ -35,9 +35,11 @@ const Login = ({params}: any) => {
     useEffect(() => {
         const formId = document.getElementById('id') as HTMLInputElement;
         const formPw = document.getElementById('pw') as HTMLInputElement;
+        const formStayLoggedIn = document.getElementById('stay-logged-in') as HTMLInputElement;
 
         if (formId.value !== '') { setIdVal(formId.value); }
         if (formPw.value !== '') { setPwVal(formPw.value); }
+        setStayLoggedIn(formStayLoggedIn.checked);
 
         // 세션 스토리지의 history 불러오기
         setHistory(sessionStorage.getItem("login_history") ? sessionStorage.getItem("login_history") as string : '/');
@@ -48,6 +50,14 @@ const Login = ({params}: any) => {
 
     // 비밀번호 입력 시 state에 저장
     const handlePwChange = (e: React.ChangeEvent<HTMLInputElement>) => { setPwChk(''); setPwVal(e.target.value); }
+
+    // 로그인 상태 유지하기 state
+    const [stayLoggedIn, setStayLoggedIn] = useState<boolean>(false);
+
+    /** 로그인 상태 유지하기 */
+    const handleStayLoggedIn = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setStayLoggedIn(e.target.checked);
+    }
 
     // 로그인 버튼 클릭
     const handleLogin = async () => {
@@ -88,7 +98,14 @@ const Login = ({params}: any) => {
                     setIsLoading(false);
                 }
                 else if (res.data.status === 'success') {
-                    setCookie('session', res.data.session, {path:'/', secure:true, sameSite:'none'});
+                    // 쿠키 유효 기간 설정
+                    if (stayLoggedIn) {
+                        const expires = new Date();
+                        expires.setFullYear(expires.getFullYear() + 1);
+                        setCookie('session', res.data.session, {path:'/', expires: expires, secure:true, sameSite:'none'});
+                    } else {
+                        setCookie('session', res.data.session, {path:'/', secure:true, sameSite:'none'});
+                    }
 
                     // 세션 스토리지가 저장되어 있으면, 해당 페이지로 이동
                     sessionStorage.removeItem("login_history");
@@ -191,7 +208,18 @@ const Login = ({params}: any) => {
                             </>
                             : <></>
                         }
-                        <button onClick={handleLogin} className='w-[100%] h-[40px] flex flex-row justify-center items-center rounded-[8px] mt-[14px] text-[14px] font-medium text-theme-4 dark:text-theme-blue-2 bg-theme-yellow/80 hover:bg-theme-yellow tlg:hover:bg-theme-yellow/80 dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1/80'>
+                        <label htmlFor='stay-logged-in' className="flex items-center mt-[8px] ml-[2px] fill-theme-yellow dark:fill-theme-blue-1 text-theme-8 dark:text-theme-7 cursor-pointer">
+                            <input onChange={handleStayLoggedIn} type='checkbox' id='stay-logged-in' className='hidden peer'/>
+                            <svg className="block peer-checked:hidden w-[15px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+                                <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                                <path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.235.235 0 0 1 .02-.022z"/>
+                            </svg>
+                            <svg className="hidden peer-checked:block w-[15px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+                                <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm10.03 4.97a.75.75 0 0 1 .011 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.75.75 0 0 1 1.08-.022z"/>
+                            </svg>
+                            <div className="text-[13px] ml-[6px] mt-[2px]">로그인 상태 유지하기</div>
+                        </label>
+                        <button onClick={handleLogin} className='w-[100%] h-[40px] flex flex-row justify-center items-center rounded-[8px] mt-[16px] text-[14px] font-medium text-theme-4 dark:text-theme-blue-2 bg-theme-yellow/80 hover:bg-theme-yellow tlg:hover:bg-theme-yellow/80 dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1/80'>
                             {
                                 isLoading === true
                                 ? <span className='loader loader-register w-[18px] h-[18px]'></span>

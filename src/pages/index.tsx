@@ -26,8 +26,12 @@ const Index = ({params}: any) => {
 
     /** 옵션 - "언어 선택" 클릭 */
     const handleLangOptionChange = (e:React.ChangeEvent<HTMLInputElement>) => {
+        // 쿠키 유효 기간 1년으로 설정
+        const expires = new Date();
+        expires.setFullYear(expires.getFullYear() + 1);
+
         if (e.target.checked) {
-            setCookie('lang', e.target.value, {path:'/', secure:true, sameSite:'none'});
+            setCookie('lang', e.target.value, {path:'/', expires: expires, secure:true, sameSite:'none'});
             setLang(e.target.value);
         }
     }
@@ -37,8 +41,12 @@ const Index = ({params}: any) => {
 
     /** 옵션 - "폰트 형태" 클릭 */
     const handleTypeOptionChange = (e:React.ChangeEvent<HTMLInputElement>) => {
+        // 쿠키 유효 기간 1년으로 설정
+        const expires = new Date();
+        expires.setFullYear(expires.getFullYear() + 1);
+
         if (e.target.checked) {
-            setCookie('type', e.target.value, {path:'/', secure:true, sameSite:'none'});
+            setCookie('type', e.target.value, {path:'/', expires: expires, secure:true, sameSite:'none'});
             setType(e.target.value);
         }
     }
@@ -48,8 +56,12 @@ const Index = ({params}: any) => {
 
     /** 옵션 - "정렬순" 클릭 */
     const handleSortOptionChange = (e:React.ChangeEvent<HTMLInputElement>) => {
+        // 쿠키 유효 기간 1년으로 설정
+        const expires = new Date();
+        expires.setFullYear(expires.getFullYear() + 1);
+
         if (e.target.checked) {
-            setCookie('sort', e.target.value, {path:'/', secure:true, sameSite:'none'});
+            setCookie('sort', e.target.value, {path:'/', expires: expires, secure:true, sameSite:'none'});
             setSort(e.target.value);
         }
     }

@@ -53,7 +53,7 @@ const SendEmail = ({params}: any) => {
             .catch(err => console.log(err));
         }
         fetchNewComments();
-    }, [page]);
+    }, [filter, page, params.user.user_no, text]);
 
     // 댓글 필터 버튼 클릭 시 값 state에 저장 후, API 호출
     const handleClick = async () => {
