@@ -17,12 +17,6 @@ export default async function FetchFontSearch (req: NextApiRequest, res: NextApi
         const keyword: string = req.query.keyword === undefined || req.query.keyword === "" ? "" : req.query.keyword as string;
     
         const fonts: any = await prisma.fonts.findMany({
-            select: { // 특정 column 선택
-                code: true,
-                name: true,
-                source: true,
-                font_family: true,
-            },
             where: {
                 OR: [
                     { name: { contains: keyword } },
