@@ -145,6 +145,18 @@ html.dark .edit-font-search::-webkit-scrollbar-track {
     background-color: transparent;
 }
 
+/* 폰트 수정 텍스트 에리어 스크롤바 */
+.font-edit-textarea::-webkit-scrollbar {
+    width: 4px;
+}
+.font-edit-textarea::-webkit-scrollbar-thumb {
+    border-radius: 8px;
+    background-color: #CDCED2;
+}
+html.dark .font-edit-textarea::-webkit-scrollbar-thumb {
+    background-color: #B1B2B6;
+}
+
 /* 셀렉트 박스 클릭 */
 .select ~ .option { display: none; }
 .select:checked ~ .option { display: flex; }
