@@ -51,12 +51,25 @@ const Index = ({params}: any) => {
     // // 검색바가 포커스 되면 검색창 숨기기
     const handleBlur = () => { setFocus(false); }
 
+    /** 웹 폰트 적용하기 복사 버튼 클릭 이벤트 */
+    const copyOnClick = (e: any) => {
+        const btn = document.getElementById(e.target.id) as HTMLButtonElement;
+        const copyBtn = btn.getElementsByClassName("copy_btn")[0] as SVGSVGElement;
+
+        window.navigator.clipboard.writeText(btn.value);
+
+        copyBtn.style.display = 'block';
+        setTimeout(function() {
+            copyBtn.style.display = 'none';
+        },1000);
+    }
+
     return (
         <>
             {/* Head 부분*/}
             <NextSeo 
-                title={"로그인 · 폰트 아카이브"}
-                description={"로그인 - 상업용 무료 한글 폰트 아카이브"}
+                title={"폰트 수정 · 폰트 아카이브"}
+                description={"폰트 수정 - 상업용 무료 한글 폰트 아카이브"}
             />
 
             {/* 헤더 */}
@@ -103,6 +116,57 @@ const Index = ({params}: any) => {
                                     : <></>
                                 }
                             </div>
+                        </div>
+                        <div className="w-[100%] h-px my-[16px] bg-theme-8/80 dark:bg-theme-7/80"></div>
+                        <div className="text-[14px] flex flex-col">
+                            <label htmlFor="font-code">폰트 번호</label>
+                            <input type="text" id="font-code" placeholder="폰트 번호" className="w-[100%] border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1 text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2"/>
+                            <label htmlFor="font-name" className="mt-[20px]">폰트 이름</label>
+                            <input type="text" id="font-name" placeholder="나눔 바른 고딕" className="w-[100%] border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1 text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2"/>
+                            <label htmlFor="font-lang" className="mt-[20px]">
+                                폰트 언어
+                                <div className="inline-block leading-loose text-[12px] dark:text-theme-blue-1 ml-[6px] cursor-text">[KR, EN]</div>
+                            </label>
+                            <input type="text" id="font-lang" placeholder="KR" maxLength={2} className="w-[100%] border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1 text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2"/>
+                            <label htmlFor="font-date" className="mt-[20px]">폰트 생성 날짜</label>
+                            <input type="text" id="font-date" placeholder="99.01.01" className="w-[100%] border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1 text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2"/>
+                            <label htmlFor="font-family" className="mt-[20px]">폰트체</label>
+                            <input type="text" id="font-family" placeholder="Nanum Square" className="w-[100%] border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1 text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2"/>
+                            <label htmlFor="font-type" className="mt-[20px]">
+                                폰트 형태
+                                <div className="inline-block leading-loose text-[12px] dark:text-theme-blue-1 ml-[6px] cursor-text">[Sans Serif, Serif, Hand Writing, Display, Pixel]</div>
+                            </label>
+                            <input type="text" id="font-type" placeholder="Sans Serif" className="w-[100%] border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1 text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2"/>
+                            <label htmlFor="font-weight" className="mt-[20px]">폰트 두께</label>
+                            <input type="text" id="font-weight" placeholder="NNNYNNNNN" className="w-[100%] border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1 text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2"/>
+                            <label htmlFor="font-source" className="mt-[20px]">폰트 출처</label>
+                            <input type="text" id="font-source" placeholder="네이버" className="w-[100%] border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1 text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2"/>
+                            <label htmlFor="font-source-link" className="mt-[20px]">폰트 출처 링크</label>
+                            <input type="text" id="font-source-link" placeholder="https://hangeul.naver.com/font" className="w-[100%] border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1 text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2"/>
+                            <label htmlFor="font-download-link" className="mt-[20px]">
+                                다운로드 링크
+                                <button id="font-download-link-copy" onClick={copyOnClick} value="https://github.com/fonts-archive/NanumSquare/archive/refs/heads/main.zip" className="inline-flex items-center leading-loose text-[12px] dark:text-theme-blue-1 ml-[6px] hover:underline tlg:hover:no-underline">
+                                    예시 복사하기
+                                    <svg className="copy_btn hidden w-[18px] ml-[2px] dark:fill-theme-blue-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/></svg>
+                                </button>
+                            </label>
+                            <input type="text" id="font-download-link" placeholder="https://github.com/fonts-archive/NanumSquare/archive/refs/heads/main.zip" className="w-[100%] border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1 text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2"/>
+                            <label htmlFor="font-cdn-css" className="mt-[20px]">
+                                CSS 설정하기
+                                <button id="font-cdn-css-copy" onClick={copyOnClick} value="font-family: 'Nanum Square';" className="inline-flex items-center leading-loose text-[12px] dark:text-theme-blue-1 ml-[6px] hover:underline tlg:hover:no-underline">
+                                    예시 복사하기
+                                    <svg className="copy_btn hidden w-[18px] ml-[2px] dark:fill-theme-blue-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/></svg>
+                                </button>
+                            </label>
+                            <input type="text" id="font-cdn-css" placeholder="font-family: 'Nanum Square';" className="w-[100%] border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1 text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2"/>
+                            <label htmlFor="font-cdn-link" className="mt-[20px]">
+                                LINK 방식
+                                <button id="font-cdn-link-copy" onClick={copyOnClick} value='<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fonts-archive/NanumSquare/NanumSquare.css" type="text/css"/>' className="inline-flex items-center leading-loose text-[12px] dark:text-theme-blue-1 ml-[6px] hover:underline tlg:hover:no-underline">
+                                    예시 복사하기
+                                    <svg className="copy_btn hidden w-[18px] ml-[2px] dark:fill-theme-blue-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/></svg>
+                                </button>
+                            </label>
+                            <input type="text" id="font-cdn-link" placeholder='<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fonts-archive/NanumSquare/NanumSquare.css" type="text/css"/>' className="w-[100%] border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1 text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2"/>
                         </div>
                     </div>
                 </div>
