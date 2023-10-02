@@ -705,7 +705,7 @@ function DetailPage({params}: any) {
                                 <div className="absolute bottom-0 left-[50%] translate-x-[-50%] w-[calc(100%-40px)] tlg:w-[calc(100%-32px)] tmd:w-[calc(100%-24px)] h-px bg-theme-7 dark:bg-theme-5"></div>
                             </h2>
                             <div className="license-wrap w-[100%] h-[612px] tlg:h-[auto] overflow-hidden overflow-y-auto px-[28px] tlg:px-[24px] tmd:px-[20px] py-[12px] tlg:py-[16px]">
-                                <div id="license" className="text-[15px] tlg:text-[13px] text-theme-5 dark:text-theme-8 leading-loose"></div>
+                                <pre style={{fontFamily: "Spoqa Han Sans Neo"}} id="license" className="text-[15px] tlg:text-[13px] text-theme-5 dark:text-theme-8 leading-loose"></pre>
                             </div>
                         </div>
                     </div>
