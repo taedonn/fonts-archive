@@ -347,7 +347,8 @@ const Index = ({params}: any) => {
                                     ? data.fonts.length !== 0
                                         ? data.fonts.map((font: any) => {
                                             return (
-                                                <div onClick={onFontClick} key={font.code} id={font.code} className="group w-[100%] h-[36px] px-[12px] flex items-center bg-transparent hover:bg-theme-yellow hover:dark:bg-theme-blue-1 text-[12px] cursor-pointer">
+                                                <div key={font.code} className="group relative w-[100%] h-[36px] px-[12px] flex items-center bg-transparent hover:bg-theme-yellow hover:dark:bg-theme-blue-1 text-[12px] cursor-pointer">
+                                                    <div onClick={onFontClick} id={font.code} className="w-[100%] h-[100%] absolute z-10 left-0 top-0"></div>
                                                     <div className="text-theme-7 group-hover:text-theme-4 group-hover:dark:text-theme-blue-2">{font.code}</div>
                                                     <div className="text-theme-9 group-hover:text-theme-2 group-hover:dark:text-theme-blue-2 font-bold shrink-0 ml-[12px]">{font.name}</div>
                                                     <div className="ellipsed-text-1 text-theme-7 group-hover:text-theme-4 group-hover:dark:text-theme-blue-2 ml-[12px] text-ellipsis overflow-hidden">{font.source}</div>
