@@ -78,8 +78,11 @@ const SendEmail = ({params}: any) => {
     const handleNameEnter = async (e: any) => {
         const keys: any = [];
         keys[e.key] = true;
-        if (keys["Enter"]) { handleNameClick(); }
-     }
+        if (keys["Enter"]) {
+            e.preventDefault();
+            handleNameClick();
+        }
+    }
 
     /** 비밀번호 변경하기 클릭 이벤트 */
     const handleChangePwModalClick = async () => { setChangePwModalDisplay(true); }
@@ -415,7 +418,7 @@ const SendEmail = ({params}: any) => {
                         <label htmlFor='name' className='block text-[14px] ml-px'>이름</label>
                         <div className='w-[100%] flex flex-row justify-between items-center mt-[6px]'>
                             <input onChange={handleNameChange} onKeyDown={handleNameEnter} type='text' id='name' tabIndex={1} autoComplete='on' defaultValue={params.user.user_name} placeholder='홍길동' className={`${nameChk === '' ? 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' : 'border-theme-red focus:border-theme-red dark:border-theme-red focus:dark:border-theme-red'} w-[calc(100%-84px)] text-[14px] px-[14px] py-[8px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
-                            <button onClick={handleNameClick} className='w-[76px] h-[39px] flex flex-row justify-center items-center rounded-[8px] font-medium text-[14px] text-theme-5 dark:text-theme-blue-2 bg-theme-yellow/80 hover:bg-theme-yellow tlg:hover:bg-theme-yellow/80 dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1/80'>
+                            <button onClick={handleNameClick} className='w-[76px] h-[39px] flex flex-row justify-center items-center rounded-[8px] font-medium text-[14px] text-theme-4 dark:text-theme-blue-2 bg-theme-yellow/80 hover:bg-theme-yellow tlg:hover:bg-theme-yellow/80 dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1/80'>
                                 {
                                     isLoading === true
                                     ? <span className='loader loader-register w-[18px] h-[18px]'></span>
@@ -445,7 +448,7 @@ const SendEmail = ({params}: any) => {
                         </div>
                         <div className='w-[100%] flex flex-row justify-between items-center mt-[6px]'>
                             <input type='password' id='pw' tabIndex={2} autoComplete='on' defaultValue={params.user.user_pw} disabled className='text-theme-8 dark:text-theme-7 border-theme-6 dark:border-theme-4 w-[calc(100%-84px)] text-[14px] px-[14px] py-[8px] rounded-[8px] border-[2px] bg-theme-4 dark:bg-theme-blue-2/60'/>
-                            <button onClick={handleChangePwModalClick} className='w-[76px] h-[39px] pt-px rounded-[8px] font-medium text-[14px] text-theme-5 dark:text-theme-blue-2 bg-theme-yellow/80 hover:bg-theme-yellow tlg:hover:bg-theme-yellow/80 dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1/80'>변경하기</button>
+                            <button onClick={handleChangePwModalClick} className='w-[76px] h-[39px] pt-px rounded-[8px] font-medium text-[14px] text-theme-4 dark:text-theme-blue-2 bg-theme-yellow/80 hover:bg-theme-yellow tlg:hover:bg-theme-yellow/80 dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1/80'>변경하기</button>
                         </div>
                         <div className='w-[100%] h-px bg-theme-6 dark:bg-theme-5 mt-[16px] mb-[32px]'></div>
                         <h2 className="font-bold text-[16px] text-theme-10 dark:text-theme-9 mb-[8px]">회원 탈퇴</h2>

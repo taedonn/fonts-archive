@@ -103,20 +103,23 @@ const SendEmail = ({params}: any) => {
                 <div className='w-[720px] tmd:w-[100%] flex flex-col justify-center items-start my-[100px] tlg:my-[40px]'>
                     <h2 className='text-[20px] tlg:text-[18px] text-theme-4 dark:text-theme-9 font-medium mb-[16px] tlg:mb-[12px]'>유저 목록</h2>
                     <div className='w-content flex items-center p-[6px] mb-[12px] tlg:mb-[8px] rounded-[6px] text-theme-10 dark:text-theme-9 bg-theme-5 dark:bg-theme-3'>
-                        <select ref={selectRef} className='w-[80px] h-[32px] tlg:h-[28px] text-[12px] pt-px px-[14px] bg-transparent rounded-[6px] outline-none border border-theme-6 dark:border-theme-5 cursor-pointer'>
+                        <select ref={selectRef} className='w-[108px] h-[32px] tlg:h-[28px] text-[12px] pt-px px-[10px] bg-transparent rounded-[6px] outline-none border border-theme-6 dark:border-theme-5 cursor-pointer'>
                             <option value='all' defaultChecked>전체</option>
+                            <option value='nickname-reported'>닉네임 신고 수</option>
+                            <option value='email-confirmed'>확인된 이메일</option>
                         </select>
-                        <input ref={textRef} type='textbox' className='w-[200px] tlg:w-[160px] h-[32px] tlg:h-[28px] ml-[8px] px-[12px] text-[12px] bg-transparent border rounded-[6px] border-theme-6 dark:border-theme-5'/>
-                        <button onClick={handleClick} className='w-[68px] h-[32px] tlg:h-[28px] ml-[8px] text-[12px] border rounded-[6px] bg-theme-6/40 hover:bg-theme-6/60 tlg:hover:bg-theme-6/40 dark:bg-theme-4 hover:dark:bg-theme-5 tlg:hover:dark:bg-theme-4'>검색</button>
+                        <input ref={textRef} type='textbox' className='w-[200px] tlg:w-[140px] h-[32px] tlg:h-[28px] ml-[8px] px-[12px] text-[12px] bg-transparent border rounded-[6px] border-theme-6 dark:border-theme-5'/>
+                        <button onClick={handleClick} className='w-[68px] tlg:w-[48px] h-[32px] tlg:h-[28px] ml-[8px] text-[12px] border rounded-[6px] bg-theme-6/40 hover:bg-theme-6/60 tlg:hover:bg-theme-6/40 dark:bg-theme-4 hover:dark:bg-theme-5 tlg:hover:dark:bg-theme-4'>검색</button>
                     </div>
                     <div className='w-[100%] rounded-[8px] overflow-hidden'>
                         <table className='w-[100%] text-[12px] text-theme-10 dark:text-theme-9 bg-theme-4 dark:bg-theme-4'>
                             <thead className='h-[40px] tlg:h-[34px] text-left bg-theme-5 dark:bg-theme-3'>
                                 <tr>
-                                    <th className='w-[60px] pl-[20px] tlg:pl-[16px]'>번호</th>
-                                    <th className='w-[100px] pl-[20px] tlg:pl-[16px]'>유저명</th>
-                                    <th className='pl-[20px] tlg:pl-[16px]'>유저 아이디</th>
-                                    <th className='w-[100px] pl-[20px] tlg:pl-[16px]'>이메일 확인</th>
+                                    <th className='w-[48px] pl-[16px]'>번호</th>
+                                    <th className='w-[80px] pl-[16px]'>유저명</th>
+                                    <th className='pl-[16px]'>유저 아이디</th>
+                                    <th className='w-[72px] text-center'>닉네임 신고</th>
+                                    <th className='w-[80px] text-center'>이메일 확인</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -127,10 +130,11 @@ const SendEmail = ({params}: any) => {
                                             list.map((user: any) => {
                                                 return (
                                                     <tr key={user.user_no} className='h-[40px] tlg:h-[34px] border-t border-theme-5 dark:border-theme-3'>
-                                                        <td className='pl-[20px] tlg:pl-[16px] py-[10px] break-keep'>{user.user_no}</td>
-                                                        <td className='pl-[20px] tlg:pl-[16px] py-[10px] break-keep'><a href={`/admin/user/${user.user_no}`} className='text-theme-yellow dark:text-theme-blue-1 underline'>{user.user_name}</a></td>
-                                                        <td className='pl-[20px] tlg:pl-[16px] py-[10px] break-keep'>{user.user_id}</td>
-                                                        <td className='pl-[20px] tlg:pl-[16px] break-keep'>
+                                                        <td className='pl-[16px] py-[10px] break-keep'>{user.user_no}</td>
+                                                        <td className='pl-[16px] py-[10px] break-all'><a href={`/admin/user/${user.user_no}`} className='text-theme-yellow dark:text-theme-blue-1 underline'>{user.user_name}</a></td>
+                                                        <td className='pl-[16px] py-[10px] break-all'>{user.user_id}</td>
+                                                        <td className='py-[10px] break-keep text-center'>{user.nickname_reported}</td>
+                                                        <td className='py-[10px] break-keep text-center'>
                                                             {
                                                                 user.user_email_confirm
                                                                 ? <>

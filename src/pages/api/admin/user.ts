@@ -28,9 +28,9 @@ export async function FetchUsers(lastId: number | undefined) {
 // API
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method === 'POST') {
-        const filter = req.query.filter === 'all' 
-                       ? [{user_id: {contains: "@"}}]
-                       : [{user_id: {contains: "@"}}]
+        const filter = req.body.filter === 'email-confirmed'
+                        ? [{user_email_confirm: true}]
+                        : [{user_id: {contains: "@"}}];
 
         // 유저 목록 페이지 수
         const length = await prisma.fontsUser.findMany({
@@ -48,7 +48,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 user_name: {contains: req.body.text as string},
                 OR: filter
             },
-            orderBy: [{user_no: 'desc'}], // 정렬순
+            orderBy: req.body.filter === 'nickname-reported' ? [{nickname_reported: 'desc'}, {user_no: 'desc'}] : [{user_no: 'desc'}], // 정렬순
             take: limit, // 가져오는 데이터 수
             skip: Number(req.body.page) === 1 ? 0 : (Number(req.body.page) - 1) * limit
         });
