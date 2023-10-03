@@ -599,13 +599,13 @@ html.dark .edit-btn-disabled {
     color: #646568;
 }
 #__next .MuiPagination-ul .Mui-selected {
-    color: #E9EAEE;
-    background-color: #646568CC;
+    color: #FFF;
+    background-color: #646568;
 }
 html.dark #__next .MuiPagination-ul button {
     color: #CDCED2;
 }
 html.dark #__next .MuiPagination-ul .Mui-selected {
     color: #E9EAEE;
-    background-color: #4C4D50CC;
+    background-color: #35363A;
 }
