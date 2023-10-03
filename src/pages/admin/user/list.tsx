@@ -132,7 +132,7 @@ const SendEmail = ({params}: any) => {
                         <button className='w-[68px] h-[32px] tlg:h-[28px] ml-[8px] text-[12px] border rounded-[6px] bg-theme-6/40 hover:bg-theme-6/60 tlg:hover:bg-theme-6/40 dark:bg-theme-4 hover:dark:bg-theme-5 tlg:hover:dark:bg-theme-4'>검색</button>
                     </div>
                     <div className='w-[100%] rounded-[8px] overflow-hidden'>
-                        <table className='w-[100%] text-[12px] text-theme-10 dark:text-theme-9 bg-theme-4 dark:bg-theme-blue-2'>
+                        <table className='w-[100%] text-[12px] text-theme-10 dark:text-theme-9 bg-theme-4 dark:bg-theme-4'>
                             <thead className='h-[40px] tlg:h-[34px] text-left bg-theme-5 dark:bg-theme-3'>
                                 <tr>
                                     <th className='w-[80px] pl-[20px] tlg:pl-[16px]'>유저 번호</th>
@@ -149,9 +149,10 @@ const SendEmail = ({params}: any) => {
                                             list.map((user: any) => {
                                                 return (
                                                     <tr key={user.user_no} className='h-[40px] tlg:h-[34px] border-t border-theme-5 dark:border-theme-3'>
-                                                        <td className='pl-[20px] tlg:pl-[16px] py-[10px] break-keep'><a href={`/detailpage/${user.user_no}`} className='hover:underline tlg:hover:no-underline'>{user.user_name}</a></td>
-                                                        <td className='pl-[20px] tlg:pl-[16px] py-[10px] break-keep'><a href={`/detailpage/${user.user_no}#c${user.comment_id}`} className='hover:underline tlg:hover:no-underline'>{user.user_name}</a></td>
-                                                        <td className='pl-[20px] tlg:pl-[16px] py-[10px] break-keep'>{user.user_email_confirm}</td>
+                                                        <td className='pl-[20px] tlg:pl-[16px] py-[10px] break-keep'>{user.user_no}</td>
+                                                        <td className='pl-[20px] tlg:pl-[16px] py-[10px] break-keep'><a href={`/admin/user/${user.user_no}`} className='text-theme-blue-1 underline'>{user.user_name}</a></td>
+                                                        <td className='pl-[20px] tlg:pl-[16px] py-[10px] break-keep'>{user.user_id}</td>
+                                                        <td className='text-right px-[20px] tlg:px-[16px] py-[10px] break-keep'>{user.user_email_confirm ? "확인됨" : "확인안됨"}</td>
                                                     </tr> 
                                                 )
                                             })
