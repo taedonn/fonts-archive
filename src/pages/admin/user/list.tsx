@@ -2,7 +2,7 @@
 import { NextSeo } from 'next-seo';
 
 // react hooks
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 
 // api
 import axios from 'axios';
@@ -14,7 +14,7 @@ import { FetchUsersLength } from '@/pages/api/admin/user';
 
 // components
 import Header from "@/components/header";
-import { Pagination } from '@mui/material';
+import { Pagination, Switch } from '@mui/material';
 
 const SendEmail = ({params}: any) => {
     // 디바이스 체크
@@ -135,7 +135,7 @@ const SendEmail = ({params}: any) => {
                         <table className='w-[100%] text-[12px] text-theme-10 dark:text-theme-9 bg-theme-4 dark:bg-theme-4'>
                             <thead className='h-[40px] tlg:h-[34px] text-left bg-theme-5 dark:bg-theme-3'>
                                 <tr>
-                                    <th className='w-[80px] pl-[20px] tlg:pl-[16px]'>유저 번호</th>
+                                    <th className='w-[60px] pl-[20px] tlg:pl-[16px]'>번호</th>
                                     <th className='w-[100px] pl-[20px] tlg:pl-[16px]'>유저명</th>
                                     <th className='pl-[20px] tlg:pl-[16px]'>유저 아이디</th>
                                     <th className='w-[100px] pl-[20px] tlg:pl-[16px]'>이메일 확인</th>
@@ -150,9 +150,14 @@ const SendEmail = ({params}: any) => {
                                                 return (
                                                     <tr key={user.user_no} className='h-[40px] tlg:h-[34px] border-t border-theme-5 dark:border-theme-3'>
                                                         <td className='pl-[20px] tlg:pl-[16px] py-[10px] break-keep'>{user.user_no}</td>
-                                                        <td className='pl-[20px] tlg:pl-[16px] py-[10px] break-keep'><a href={`/admin/user/${user.user_no}`} className='text-theme-blue-1 underline'>{user.user_name}</a></td>
+                                                        <td className='pl-[20px] tlg:pl-[16px] py-[10px] break-keep'><a href={`/admin/user/${user.user_no}`} className='text-theme-yellow dark:text-theme-blue-1 underline'>{user.user_name}</a></td>
                                                         <td className='pl-[20px] tlg:pl-[16px] py-[10px] break-keep'>{user.user_id}</td>
-                                                        <td className='text-right px-[20px] tlg:px-[16px] py-[10px] break-keep'>{user.user_email_confirm ? "확인됨" : "확인안됨"}</td>
+                                                        <td className='text-right px-[20px] tlg:px-[16px] py-[10px] break-keep'>
+                                                            <Switch
+                                                                defaultChecked={user.user_email_confirm}
+                                                                size='small'
+                                                            />
+                                                        </td>
                                                     </tr> 
                                                 )
                                             })

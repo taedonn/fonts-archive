@@ -131,7 +131,7 @@ const SendEmail = ({params}: any) => {
                         <button onClick={handleClick} className='w-[68px] h-[32px] tlg:h-[28px] ml-[8px] text-[12px] border rounded-[6px] bg-theme-6/40 hover:bg-theme-6/60 tlg:hover:bg-theme-6/40 dark:bg-theme-4 hover:dark:bg-theme-5 tlg:hover:dark:bg-theme-4'>검색</button>
                     </div>
                     <div className='w-[100%] rounded-[8px] overflow-hidden'>
-                        <table className='w-[100%] text-[12px] text-theme-10 dark:text-theme-9 bg-theme-4 dark:bg-theme-blue-2'>
+                        <table className='w-[100%] text-[12px] text-theme-10 dark:text-theme-9 bg-theme-4 dark:bg-theme-4'>
                             <thead className='h-[40px] tlg:h-[34px] text-left bg-theme-5 dark:bg-theme-3'>
                                 <tr>
                                     <th className='w-[120px] pl-[20px] tlg:pl-[16px]'>폰트</th>
@@ -147,7 +147,7 @@ const SendEmail = ({params}: any) => {
                                             comments.map((comment: any) => {
                                                 return (
                                                     <tr key={comment.comment_id} className='h-[40px] tlg:h-[34px] border-t border-theme-5 dark:border-theme-3'>
-                                                        <td className='pl-[20px] tlg:pl-[16px] py-[10px] break-keep'><a href={`/detailpage/${comment.code}`} className='hover:underline tlg:hover:no-underline'>{comment.name}</a></td>
+                                                        <td className='pl-[20px] tlg:pl-[16px] py-[10px] break-keep'><a href={`/detailpage/${comment.code}`} className='text-theme-yellow dark:text-theme-blue-1 underline'>{comment.name}</a></td>
                                                         <td className='pl-[20px] tlg:pl-[16px] py-[10px] break-keep'><a href={`/detailpage/${comment.code}#c${comment.comment_id}`} className='hover:underline tlg:hover:no-underline'>{comment.comment}</a></td>
                                                         <td className='pl-[20px] tlg:pl-[16px] py-[10px] break-keep'>{commentsDateFormat(comment.created_at)}</td>
                                                     </tr> 
