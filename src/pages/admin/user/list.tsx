@@ -2,7 +2,7 @@
 import { NextSeo } from 'next-seo';
 
 // react hooks
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 // api
 import axios from 'axios';
@@ -14,7 +14,7 @@ import { FetchUsersLength } from '@/pages/api/admin/user';
 
 // components
 import Header from "@/components/header";
-import { Pagination, Switch } from '@mui/material';
+import { Pagination } from '@mui/material';
 
 const SendEmail = ({params}: any) => {
     // 디바이스 체크
@@ -29,68 +29,48 @@ const SendEmail = ({params}: any) => {
     const [filter, setFilter] = useState<string>('all');
     const [text, setText] = useState<string>('');
 
-    // 댓글 목록 ref
+    // 유저 목록 ref
     const selectRef = useRef<HTMLSelectElement>(null);
     const textRef = useRef<HTMLInputElement>(null);
 
-    // 댓글 목록 페이지 변경
+    // 유저 목록 페이지 변경
     const [page, setPage] = useState<number>(1);
-    const handleChange = (e: React.ChangeEvent<unknown>, value: number) => {
-        setPage(value);
-    };
+    const handleChange = (e: React.ChangeEvent<unknown>, value: number) => { setPage(value); };
 
     // 페이지 변경 시 데이터 다시 불러오기
-    // useEffect(() => {
-    //     const fetchNewComments = async () => {
-    //         await axios.get('/api/user/fetchcomments', {
-    //             params: {
-    //                 user_id: params.user.user_no,
-    //                 page: page,
-    //                 filter: filter,
-    //                 text: text
-    //             }
-    //         })
-    //         .then((res) => { setComments(res.data.comments); })
-    //         .catch(err => console.log(err));
-    //     }
-    //     fetchNewComments();
-    // }, [filter, page, params.user.user_no, text]);
+    useEffect(() => {
+        const fetchNewComments = async () => {
+            await axios.post('/api/admin/user', {
+                page: page,
+                filter: filter,
+                text: text
+            })
+            .then((res) => { setList(res.data.list); })
+            .catch(err => console.log(err));
+        }
+        fetchNewComments();
+    }, [filter, text, page]);
 
-    // 댓글 필터 버튼 클릭 시 값 state에 저장 후, API 호출
-    // const handleClick = async () => {
-    //     if (selectRef &&selectRef.current && textRef && textRef.current) {
-    //         // state 저장
-    //         setPage(1);
-    //         setFilter(selectRef.current.value);
-    //         setText(textRef.current.value);
+    // 검색 버튼 클릭 시 값 state에 저장 후, API 호출
+    const handleClick = async () => {
+        if (selectRef &&selectRef.current && textRef && textRef.current) {
+            // state 저장
+            setPage(1);
+            setFilter(selectRef.current.value);
+            setText(textRef.current.value);
             
-    //         // API 호출
-    //         await axios.get('/api/user/fetchcomments', {
-    //             params: {
-    //                 user_id: params.user.user_no,
-    //                 page: 1,
-    //                 filter: selectRef.current.value,
-    //                 text: textRef.current.value
-    //             }
-    //         })
-    //         .then((res) => {
-    //             setComments(res.data.comments);
-    //             setCount(res.data.count);
-    //         })
-    //         .catch(err => console.log(err));
-    //     }
-    // }
-
-    /** 댓글 시간 포맷 */
-    const commentsTimeFormat = (time: string) => {
-        const splitTime = time.split(':');
-        return splitTime[0] + ':' + splitTime[1];
-    }
-
-    /** 댓글 날짜 포맷 */
-    const commentsDateFormat = (date: string) => {
-        const splitDate = date.split('-');
-        return splitDate[0].replace("20", "") + '.' + splitDate[1] + '.' + commentsTimeFormat(splitDate[2].replace('T', ' ').replace('Z', ''));
+            // API 호출
+            await axios.post('/api/admin/user', {
+                page: 1,
+                filter: selectRef.current.value,
+                text: textRef.current.value
+            })
+            .then((res) => {
+                setList(res.data.list);
+                setCount(res.data.count);
+            })
+            .catch(err => console.log(err));
+        }
     }
 
     return (
@@ -125,11 +105,9 @@ const SendEmail = ({params}: any) => {
                     <div className='w-content flex items-center p-[6px] mb-[12px] tlg:mb-[8px] rounded-[6px] text-theme-10 dark:text-theme-9 bg-theme-5 dark:bg-theme-3'>
                         <select ref={selectRef} className='w-[80px] h-[32px] tlg:h-[28px] text-[12px] pt-px px-[14px] bg-transparent rounded-[6px] outline-none border border-theme-6 dark:border-theme-5 cursor-pointer'>
                             <option value='all' defaultChecked>전체</option>
-                            <option value='comment'>댓글</option>
-                            <option value='reply'>답글</option>
                         </select>
                         <input ref={textRef} type='textbox' className='w-[200px] tlg:w-[160px] h-[32px] tlg:h-[28px] ml-[8px] px-[12px] text-[12px] bg-transparent border rounded-[6px] border-theme-6 dark:border-theme-5'/>
-                        <button className='w-[68px] h-[32px] tlg:h-[28px] ml-[8px] text-[12px] border rounded-[6px] bg-theme-6/40 hover:bg-theme-6/60 tlg:hover:bg-theme-6/40 dark:bg-theme-4 hover:dark:bg-theme-5 tlg:hover:dark:bg-theme-4'>검색</button>
+                        <button onClick={handleClick} className='w-[68px] h-[32px] tlg:h-[28px] ml-[8px] text-[12px] border rounded-[6px] bg-theme-6/40 hover:bg-theme-6/60 tlg:hover:bg-theme-6/40 dark:bg-theme-4 hover:dark:bg-theme-5 tlg:hover:dark:bg-theme-4'>검색</button>
                     </div>
                     <div className='w-[100%] rounded-[8px] overflow-hidden'>
                         <table className='w-[100%] text-[12px] text-theme-10 dark:text-theme-9 bg-theme-4 dark:bg-theme-4'>
@@ -152,11 +130,17 @@ const SendEmail = ({params}: any) => {
                                                         <td className='pl-[20px] tlg:pl-[16px] py-[10px] break-keep'>{user.user_no}</td>
                                                         <td className='pl-[20px] tlg:pl-[16px] py-[10px] break-keep'><a href={`/admin/user/${user.user_no}`} className='text-theme-yellow dark:text-theme-blue-1 underline'>{user.user_name}</a></td>
                                                         <td className='pl-[20px] tlg:pl-[16px] py-[10px] break-keep'>{user.user_id}</td>
-                                                        <td className='text-right px-[20px] tlg:px-[16px] py-[10px] break-keep'>
-                                                            <Switch
-                                                                defaultChecked={user.user_email_confirm}
-                                                                size='small'
-                                                            />
+                                                        <td className='pl-[20px] tlg:pl-[16px] break-keep'>
+                                                            {
+                                                                user.user_email_confirm
+                                                                ? <>
+                                                                    <span className='text-theme-green'>확인 됨</span>
+                                                                    <svg className='inline-block w-[8px] ml-[4px] mb-px fill-theme-green' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></svg>
+                                                                </> : <>
+                                                                    <span className='text-theme-red'>확인 안 됨</span>
+                                                                    <svg className='inline-block w-[8px] ml-[4px] mb-px fill-theme-red' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>
+                                                                </>
+                                                            }
                                                         </td>
                                                     </tr> 
                                                 )
@@ -164,7 +148,7 @@ const SendEmail = ({params}: any) => {
                                         }
                                     </>
                                     : <tr className='h-[60px]'>
-                                        <td colSpan={3} className='text-center'>댓글이 없습니다.</td>
+                                        <td colSpan={4} className='text-center'>유저가 없습니다.</td>
                                     </tr>
                                 }
                             </tbody>
@@ -204,8 +188,7 @@ export async function getServerSideProps(ctx: any) {
             }
         } else {
             // 유저 목록 페이지 수
-            const length = await FetchUsersLength();
-            const count = Number(length) % 10 > 0 ? Math.floor(Number(length)/10) + 1 : Math.floor(Number(length)/10);
+            const count = await FetchUsersLength();
 
             // 첫 유저 목록 가져오기
             const list: any = await FetchUsers(undefined);

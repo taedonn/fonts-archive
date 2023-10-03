@@ -1,23 +1,62 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import prisma from '@/libs/client-prisma';
 
+const limit = 10;
+
 // SSR 유저 목록 페이지 수
 export async function FetchUsersLength() {
     const users = await prisma.fontsUser.findMany({
         select: { user_no: true },
     });
+    const count = Number(users.length) % limit > 0 ? Math.floor(Number(users.length)/limit) + 1 : Math.floor(Number(users.length)/limit);
 
-    return users.length;
+    return count;
 }
 
-// SSR 첫 유저 목록 가져오기
+// SSR 첫 유저 목록 불러오기
 export async function FetchUsers(lastId: number | undefined) {
     const users = await prisma.fontsUser.findMany({
         orderBy: [{user_no: 'desc'}], // 정렬순
-        take: 10, // 가져오는 데이터 수
+        take: limit, // 가져오는 데이터 수
         skip: lastId ? 1 : 0,
         ...(lastId && { cursor: {user_no: lastId} })
     });
 
     return users;
+}
+
+// API
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+    if (req.method === 'POST') {
+        const filter = req.query.filter === 'all' 
+                       ? [{user_id: {contains: "@"}}]
+                       : [{user_id: {contains: "@"}}]
+
+        // 유저 목록 페이지 수
+        const length = await prisma.fontsUser.findMany({
+            select: { user_no: true },
+            where: {
+                user_name: {contains: req.body.text as string},
+                OR: filter
+            }
+        });
+        const count = Number(length.length) % limit > 0 ? Math.floor(Number(length.length)/limit) + 1 : Math.floor(Number(length.length)/limit);
+
+        // 유저 목록 불러오기
+        const list = await prisma.fontsUser.findMany({
+            where: {
+                user_name: {contains: req.body.text as string},
+                OR: filter
+            },
+            orderBy: [{user_no: 'desc'}], // 정렬순
+            take: limit, // 가져오는 데이터 수
+            skip: Number(req.body.page) === 1 ? 0 : (Number(req.body.page) - 1) * limit
+        });
+
+        return res.json({
+            message: "유저 목록 불러오기 성공",
+            list: list,
+            count: count
+        });
+    }
 }
