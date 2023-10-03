@@ -105,7 +105,7 @@ const SendEmail = ({params}: any) => {
                     <div className='w-content flex items-center p-[6px] mb-[12px] tlg:mb-[8px] rounded-[6px] text-theme-10 dark:text-theme-9 bg-theme-5 dark:bg-theme-3'>
                         <select ref={selectRef} className='w-[108px] h-[32px] tlg:h-[28px] text-[12px] pt-px px-[10px] bg-transparent rounded-[6px] outline-none border border-theme-6 dark:border-theme-5 cursor-pointer'>
                             <option value='all' defaultChecked>전체</option>
-                            <option value='nickname-reported'>닉네임 신고 수</option>
+                            <option value='nickname-reported'>닉네임 신고순</option>
                             <option value='email-confirmed'>확인된 이메일</option>
                         </select>
                         <input ref={textRef} type='textbox' className='w-[200px] tlg:w-[140px] h-[32px] tlg:h-[28px] ml-[8px] px-[12px] text-[12px] bg-transparent border rounded-[6px] border-theme-6 dark:border-theme-5'/>
@@ -116,7 +116,7 @@ const SendEmail = ({params}: any) => {
                             <thead className='h-[40px] tlg:h-[34px] text-left bg-theme-5 dark:bg-theme-3'>
                                 <tr>
                                     <th className='w-[48px] pl-[16px]'>번호</th>
-                                    <th className='w-[80px] pl-[16px]'>유저명</th>
+                                    <th className='w-[88px] pl-[16px]'>유저명</th>
                                     <th className='pl-[16px]'>유저 아이디</th>
                                     <th className='w-[72px] text-center'>닉네임 신고</th>
                                     <th className='w-[80px] text-center'>이메일 확인</th>
