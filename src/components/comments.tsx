@@ -14,14 +14,16 @@ export default function Comments (
         user,
         report,
         comment,
-        likedInput
+        likedInput,
+        likedNum
     } : 
     {
         font: any,
         user: any,
         report: any,
         comment: any,
-        likedInput: boolean
+        likedInput: boolean,
+        likedNum: number
     }
 ) {
     // 댓글 state
@@ -360,13 +362,13 @@ export default function Comments (
                 <label htmlFor={font.code.toString()} className='cursor-pointer'>
                     {
                         !likedInput
-                        ? <div className="w-[76px] h-[32px] flex justify-center items-center rounded-[6px] bg-theme-8 hover:bg-theme-7/80 dark:bg-theme-4/60 hover:dark:bg-theme-4 tlg:dark:hover:bg-theme-4/60">
-                            <svg className='w-[13px] fill-theme-5 dark:fill-theme-9 mb-px' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/></svg>
-                            <div className="ml-[5px] mr-[2px] mt-px text-[13px] font-medium leading-none text-theme-5 dark:text-theme-9">좋아요</div>
+                        ? <div className="w-[52px] h-[32px] flex justify-center items-center rounded-[6px] bg-theme-8 hover:bg-theme-7/80 dark:bg-theme-4/60 hover:dark:bg-theme-4 tlg:dark:hover:bg-theme-4/60">
+                            <svg className='w-[12px] fill-theme-3 dark:fill-theme-9 mb-px' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9L464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96 244 84c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z"/></svg>
+                            <div className="ml-[6px] text-[13px] font-medium leading-none text-theme-3 dark:text-theme-9">{likedNum}</div>
                         </div>
-                        : <div className="w-[76px] h-[32px] flex justify-center items-center rounded-[6px] bg-theme-yellow dark:bg-theme-blue-1">
-                            <svg className='w-[13px] fill-theme-4 dark:fill-theme-2 mb-px' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/></svg>
-                            <div className="ml-[5px] mr-[2px] mt-px text-[13px] font-medium leading-none text-theme-4 dark:text-theme-2">좋아요</div>
+                        : <div className="w-[52px] h-[32px] flex justify-center items-center rounded-[6px] bg-theme-pink">
+                            <svg className='w-[12px] fill-theme-3 mb-px' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9L464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96 244 84c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z"/></svg>
+                            <div className="ml-[6px] text-[13px] font-medium leading-none text-theme-3">{likedNum}</div>
                         </div>
                     }
                 </label>
@@ -393,7 +395,7 @@ export default function Comments (
                                 </div>
                                 {
                                     commentFocus
-                                    ? <div className="flex w-[100%] text-[14px] tlg:text-[12px] text-theme-5 dark:text-theme-9 mt-[12px]">
+                                    ? <div className="flex w-[100%] text-[14px] tlg:text-[12px] text-theme-3 dark:text-theme-9 mt-[12px]">
                                         <button ref={commentBtnRef} onMouseDown={newComment} className={`${commentBtn ? 'comment-enabled text-theme-4 dark:text-theme-blue-2 bg-theme-yellow/80 tlg:bg-theme-yellow hover:bg-theme-yellow dark:bg-theme-blue-1 hover:dark:bg-theme-blue-1/90 tlg:hover:dark:bg-theme-blue-1 cursor-pointer' : 'comment-disabled text-theme-6 bg-theme-8 dark:text-theme-5 dark:bg-theme-3 cursor-default'} w-[56px] tlg:w-[48px] h-[32px] tlg:h-[28px] pb-px rounded-full`}>댓글</button>
                                         <button onMouseDown={commentCancelBtnOnMouseDown} className="w-[56px] tlg:w-[48px] h-[32px] tlg:h-[28px] ml-[8px] rounded-full hover:bg-theme-8 hover:dark:bg-theme-4 tlg:hover:bg-transparent tlg:hover:dark:bg-transparent pb-px">취소</button>
                                     </div> : <></>
@@ -406,7 +408,7 @@ export default function Comments (
             <div className="w-[100%] min-h-[120px] mb-[180px] pl-[40px] tlg:pl-0">
                 {
                     comments.length === 0
-                    ? <div className="w-[100%] text-[14px] text-center text-theme-5 dark:text-theme-8">아직 댓글이 없습니다.</div>
+                    ? <div className="w-[100%] text-[14px] text-center text-theme-3 dark:text-theme-8">아직 댓글이 없습니다.</div>
                     : <>
                         {
                             comments.map((comment: any) => {
@@ -418,7 +420,7 @@ export default function Comments (
                                         <div className='flex items-start mt-[20px] tlg:mt-[16px]'>
                                             {
                                                 comment.depth === 1
-                                                ? <svg className="w-[20px] fill-theme-4 dark:fill-theme-9 rotate-180 mt-[10px] mx-[14px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+                                                ? <svg className="w-[20px] fill-theme-3 dark:fill-theme-9 rotate-180 mt-[10px] mx-[14px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
                                                     <path d="M5.921 11.9 1.353 8.62a.719.719 0 0 1 0-1.238L5.921 4.1A.716.716 0 0 1 7 4.719V6c1.5 0 6 0 7 8-2.5-4.5-7-4-7-4v1.281c0 .56-.606.898-1.079.62z"/>
                                                 </svg> : <></>
                                             }
@@ -479,7 +481,7 @@ export default function Comments (
                                                     </div>
                                                     <div className="flex text-[14px] mt-[12px]">
                                                         <button onClick={editCommentAPIInit} id={`comment-edit-btn-${comment.comment_id}`} className="w-[56px] tlg:w-[48px] h-[32px] tlg:h-[28px] pb-px rounded-full">수정</button>
-                                                        <button onClick={commentEditCancelBtnOnClick} id={`comment-edit-cancel-${comment.comment_id}`} className="w-[56px] tlg:w-[48px] h-[32px] tlg:h-[28px] pb-px rounded-full text-theme-5 dark:text-theme-9 hover:bg-theme-8 hover:dark:bg-theme-4 tlg:hover:dark:bg-transparent ml-[6px]">취소</button>
+                                                        <button onClick={commentEditCancelBtnOnClick} id={`comment-edit-cancel-${comment.comment_id}`} className="w-[56px] tlg:w-[48px] h-[32px] tlg:h-[28px] pb-px rounded-full text-theme-3 dark:text-theme-9 hover:bg-theme-8 hover:dark:bg-theme-4 tlg:hover:dark:bg-transparent ml-[6px]">취소</button>
                                                     </div>
                                                 </div>
                                                 {/* 답글 */}
@@ -495,7 +497,7 @@ export default function Comments (
                                                                 </div>
                                                                 <div className="flex text-[14px] mt-[12px]">
                                                                     <button onClick={replyCommentAPIInit} id={`comment-reply-btn-${comment.comment_id}`} className="edit-btn-disabled w-[56px] tlg:w-[48px] h-[32px] tlg:h-[28px] pb-px rounded-full">답글</button>
-                                                                    <button onClick={commentReplyCancelBtnOnClick} id={`comment-reply-cancel-${comment.comment_id}`} className="w-[56px] tlg:w-[48px] h-[32px] tlg:h-[28px] pb-px rounded-full text-theme-5 dark:text-theme-9 hover:bg-theme-8 hover:dark:bg-theme-4 tlg:hover:dark:bg-transparent ml-[6px]">취소</button>
+                                                                    <button onClick={commentReplyCancelBtnOnClick} id={`comment-reply-cancel-${comment.comment_id}`} className="w-[56px] tlg:w-[48px] h-[32px] tlg:h-[28px] pb-px rounded-full text-theme-3 dark:text-theme-9 hover:bg-theme-8 hover:dark:bg-theme-4 tlg:hover:dark:bg-transparent ml-[6px]">취소</button>
                                                                 </div>
                                                             </div>
                                                         </div>

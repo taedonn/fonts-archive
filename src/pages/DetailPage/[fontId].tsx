@@ -47,6 +47,7 @@ function DetailPage({params}: any) {
     const [hoverDisplay, setHoverDisplay] = useState<boolean>(true);
     const [liked, setLiked] = useState<boolean>(params.like === null ? false : params.like.some((font: any) => font.font_id === params.fonts[0].code));
     const [likedInput, setLikedInput] = useState<boolean>(params.like === null ? false : params.like.some((font: any) => font.font_id === params.fonts[0].code));
+    const [likedNum, setLikedNum] = useState<number>(params.likedNum);
 
     /** 로그인 중이 아닐 때 좋아요 클릭 방지 */
     const handleLikeClick = (e: React.MouseEvent<HTMLInputElement>) => {
@@ -72,8 +73,11 @@ function DetailPage({params}: any) {
             await axios.post('/api/updatelike', null, { params: { code: thisId ,checked: e.target.checked, user_no: params.user.user_no } })
             .then(res => {
                 // 좋아요 여부 확인 후 문장 변경
-                if (res.data === 'liked') { setLiked(true); }
+                if (res.data.msg === 'liked') { setLiked(true); }
                 else { setLiked(false); }
+
+                // 좋아요 시 좋아요 수 변경
+                setLikedNum(res.data.num);
 
                 // 좋아요 버튼 눌렀을 때 호버창 다시 띄우기
                 setHoverDisplay(true);
@@ -241,10 +245,10 @@ function DetailPage({params}: any) {
                         <div className='group relative ml-[14px] tmd:ml-[10px] mb-[2px]'>
                             <input onClick={handleLikeClick} onChange={handleLikeChange} type="checkbox" id={font.code.toString()} className='like hidden' defaultChecked={handleDefaultLike(font.code)}/>
                             <label htmlFor={font.code.toString()} className='cursor-pointer'>
-                                <svg className='w-[26px] tmd:w-[22px] fill-theme-7 dark:fill-theme-4' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/></svg>
-                                <svg className='w-[26px] tmd:w-[22px] fill-theme-yellow dark:fill-theme-blue-1' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/></svg>
+                                <svg className='w-[26px] tmd:w-[22px] fill-theme-4 dark:fill-theme-6' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M225.8 468.2l-2.5-2.3L48.1 303.2C17.4 274.7 0 234.7 0 192.8v-3.3c0-70.4 50-130.8 119.2-144C158.6 37.9 198.9 47 231 69.6c9 6.4 17.4 13.8 25 22.3c4.2-4.8 8.7-9.2 13.5-13.3c3.7-3.2 7.5-6.2 11.5-9c0 0 0 0 0 0C313.1 47 353.4 37.9 392.8 45.4C462 58.6 512 119.1 512 189.5v3.3c0 41.9-17.4 81.9-48.1 110.4L288.7 465.9l-2.5 2.3c-8.2 7.6-19 11.9-30.2 11.9s-22-4.2-30.2-11.9zM239.1 145c-.4-.3-.7-.7-1-1.1l-17.8-20c0 0-.1-.1-.1-.1c0 0 0 0 0 0c-23.1-25.9-58-37.7-92-31.2C81.6 101.5 48 142.1 48 189.5v3.3c0 28.5 11.9 55.8 32.8 75.2L256 430.7 431.2 268c20.9-19.4 32.8-46.7 32.8-75.2v-3.3c0-47.3-33.6-88-80.1-96.9c-34-6.5-69 5.4-92 31.2c0 0 0 0-.1 .1s0 0-.1 .1l-17.8 20c-.3 .4-.7 .7-1 1.1c-4.5 4.5-10.6 7-16.9 7s-12.4-2.5-16.9-7z"/></svg>
+                                <svg className='w-[26px] tmd:w-[22px] fill-theme-pink' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9L464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96 244 84c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z"/></svg>
                             </label>
-                            <div className={`${hoverDisplay === true ? 'group-hover:block' : 'group-hover:hidden'} same-source w-content absolute z-20 left-[50%] top-[-42px] text-[13px] font-medium leading-none px-[14px] py-[8px] rounded-[4px] hidden tlg:group-hover:hidden group-hover:animate-fontbox-zoom-in bg-theme-yellow dark:bg-theme-blue-1 text-theme-3 dark:text-theme-blue-2`}>{liked === true ? "좋아요 해제" : "좋아요"}</div>
+                            <div className={`${hoverDisplay === true ? 'group-hover:block' : 'group-hover:hidden'} like-btn w-content absolute z-20 left-[50%] top-[-42px] text-[13px] font-medium leading-none px-[14px] py-[8px] rounded-[4px] hidden tlg:group-hover:hidden group-hover:animate-fontbox-zoom-in bg-theme-pink text-theme-3`}>{liked === true ? "좋아요 해제" : "좋아요"}</div>
                         </div>
                     </div>
                     <div className="flex flex-row justify-start items-center">
@@ -257,7 +261,7 @@ function DetailPage({params}: any) {
                         </div>
                         <div style={{fontFamily:'"'+font.font_family+'"'}} className="text-[16px] tmd:text-[12px] leading-tight text-theme-3 dark:text-theme-9 mr-[14px] tmd:mr-[12px]">형태<span className="text-theme-5 dark:text-theme-7 ml-[6px]">{font.font_type === "Sans Serif" ? "고딕" : (font.font_type === "Serif" ? "명조" : (font.font_type === "Hand Writing" ? "손글씨" : (font.font_type === "Display" ? "장식체" : "픽셀체")))}</span></div>
                         <div style={{fontFamily:'"'+font.font_family+'"'}} className="text-[16px] tmd:text-[12px] leading-tight text-theme-3 dark:text-theme-9 mr-[14px] tmd:mr-[12px]">조회수<span className="text-theme-5 dark:text-theme-7 ml-[6px]">{formatNumber(font.view)}</span></div>
-                        <div style={{fontFamily:'"'+font.font_family+'"'}} className="text-[16px] tmd:text-[12px] leading-tight text-theme-3 dark:text-theme-9">좋아요 수<span className="text-theme-5 dark:text-theme-7 ml-[6px]">{formatNumber(params.likedNum)}</span></div>
+                        <div style={{fontFamily:'"'+font.font_family+'"'}} className="text-[16px] tmd:text-[12px] leading-tight text-theme-3 dark:text-theme-9">좋아요 수<span className="text-theme-5 dark:text-theme-7 ml-[6px]">{formatNumber(likedNum)}</span></div>
                     </div>
                     <div className="w-[100%] h-px my-[16px] tmd:my-[12px] bg-theme-7 dark:bg-theme-4"></div>
                 </div>
@@ -717,6 +721,7 @@ function DetailPage({params}: any) {
                         report={params.report}
                         comment={params.comments}
                         likedInput={likedInput}
+                        likedNum={likedNum}
                     />
 
                 </div>

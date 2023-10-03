@@ -432,7 +432,7 @@ const SendEmail = ({params}: any) => {
                             )
                         }
                         <div className='block text-[14px] mt-[18px] ml-px'>아이디</div>
-                        <div className='w-[100%] text-[14px] mt-[6px] px-[14px] py-[8px] rounded-[8px] border-[2px] border-transparent dark:border-transparent bg-theme-4/60 dark:bg-theme-blue-2/60 cursor-default'>{params.user.user_id}</div>
+                        <div className='w-[100%] text-[14px] mt-[6px] px-[14px] py-[8px] rounded-[8px] border-[2px] text-theme-8 dark:text-theme-7 border-theme-6 dark:border-theme-4 bg-theme-4 dark:bg-theme-blue-2/60 cursor-default'>{params.user.user_id}</div>
                         <div className='w-[100%] h-px bg-theme-6 dark:bg-theme-5 mt-[16px] mb-[32px]'></div>
                         <h2 className="font-bold text-[16px] text-theme-10 dark:text-theme-9 mb-[8px]">비밀번호 변경</h2>
                         <div className='w-[100%] flex flex-row justify-start items-start mb-[4px] text-[12px] text-theme-8 dark:text-theme-7'>
@@ -444,7 +444,7 @@ const SendEmail = ({params}: any) => {
                             <div>비밀번호 변경 완료 시, 비밀번호는 즉시 변경됩니다.</div>
                         </div>
                         <div className='w-[100%] flex flex-row justify-between items-center mt-[6px]'>
-                            <input type='password' id='pw' tabIndex={2} autoComplete='on' defaultValue={params.user.user_pw} disabled className='border-transparent dark:border-theme-transparent w-[calc(100%-84px)] text-[14px] px-[14px] py-[8px] rounded-[8px] border-[2px] bg-theme-4/60 dark:bg-theme-blue-2/60'/>
+                            <input type='password' id='pw' tabIndex={2} autoComplete='on' defaultValue={params.user.user_pw} disabled className='text-theme-8 dark:text-theme-7 border-theme-6 dark:border-theme-4 w-[calc(100%-84px)] text-[14px] px-[14px] py-[8px] rounded-[8px] border-[2px] bg-theme-4 dark:bg-theme-blue-2/60'/>
                             <button onClick={handleChangePwModalClick} className='w-[76px] h-[39px] pt-px rounded-[8px] font-medium text-[14px] text-theme-5 dark:text-theme-blue-2 bg-theme-yellow/80 hover:bg-theme-yellow tlg:hover:bg-theme-yellow/80 dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1/80'>변경하기</button>
                         </div>
                         <div className='w-[100%] h-px bg-theme-6 dark:bg-theme-5 mt-[16px] mb-[32px]'></div>

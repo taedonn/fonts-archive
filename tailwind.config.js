@@ -30,7 +30,9 @@ module.exports = {
                 "theme-blue-1": "#8AB4F8",
                 "theme-blue-2": "#17181B",
                 "theme-yellow": "#FCBE11",
-                "theme-red": "#EF4444",
+                // "theme-red": "#EF4444",
+                "theme-red": "#FF084A",
+                "theme-pink": "#FF084A",
                 "theme-green": "#40E0D0",
             },
             width: {

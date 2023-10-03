@@ -32,6 +32,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             })
         ) : 'do-nothing';
 
-        return res.status(200).send(checked && !isLiked ? 'liked' : 'unliked');
+        const like: any = await prisma.fontsLiked.findMany({
+            where: { font_id: Number(code) }
+        });
+
+        return res.status(200).json({
+            msg: checked && !isLiked ? 'liked' : 'unliked',
+            num: like.length
+        });
     }
 }

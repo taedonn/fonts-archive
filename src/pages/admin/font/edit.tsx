@@ -7,8 +7,8 @@ import { debounce } from "lodash";
 import { NextSeo } from "next-seo";
 
 // api
-import { CheckIfSessionExists } from "../api/user/checkifsessionexists";
-import { FetchUserInfo } from "../api/user/fetchuserinfo";
+import { CheckIfSessionExists } from "@/pages/api/user/checkifsessionexists";
+import { FetchUserInfo } from "@/pages/api/user/fetchuserinfo";
 
 // components
 import Header from "@/components/header";
@@ -34,7 +34,7 @@ const Index = ({params}: any) => {
         refetch
     } = useQuery(['font-search'], async () => {
         await axios.get("/api/fontsearch", { params: {keyword: keyword}})
-        .then((res) => { setData(res.data) })
+        .then((res) => { setData(res.data); })
         .catch(err => console.log(err));
     });
 
@@ -83,6 +83,7 @@ const Index = ({params}: any) => {
                 const fontCdnLink = document.getElementById("font-cdn-link") as HTMLInputElement;
                 const fontCdnImport = document.getElementById("font-cdn-import") as HTMLInputElement;
                 const fontCdnFontFace = document.getElementById("font-cdn-font-face") as HTMLTextAreaElement;
+                const fontCdnUrl = document.getElementById("font-cdn-url") as HTMLInputElement;
                 const fontLicense = document.getElementById("font-license") as HTMLInputElement;
                 const fontLicenseText = document.getElementById("font-license-text") as HTMLTextAreaElement;
 
@@ -100,6 +101,7 @@ const Index = ({params}: any) => {
                 fontCdnLink.value = font.cdn_link;
                 fontCdnImport.value = font.cdn_import;
                 fontCdnFontFace.value = font.cdn_font_face;
+                fontCdnUrl.value = font.cdn_url;
                 fontLicense.value = font.license_print + font.license_web + font.license_video + font.license_package + font.license_embed + font.license_bici + font.license_ofl + font.license_purpose + font.license_source;
                 fontLicenseText.value = font.license;
             })
@@ -118,6 +120,7 @@ const Index = ({params}: any) => {
                 setFontCdnLinkAlert(false);
                 setFontCdnImportAlert(false);
                 setFontCdnFontFaceAlert(false);
+                setFontCdnUrlAlert(false);
                 setFontLicenseAlert(false);
                 setFontLicenseTextAlert(false);
             })
@@ -125,7 +128,7 @@ const Index = ({params}: any) => {
         }
     }
 
-    /** 웹 폰트 적용하기 복사 버튼 클릭 이벤트 */
+    /** 예시 복사하기 버튼 클릭 이벤트 */
     const copyOnClick = (e: any) => {
         const btn = document.getElementById(e.target.id) as HTMLButtonElement;
         const copyBtn = btn.getElementsByClassName("copy_btn")[0] as SVGSVGElement;
@@ -154,6 +157,7 @@ const Index = ({params}: any) => {
     const [fontCdnLinkAlert, setFontCdnLinkAlert] = useState<boolean>(false);
     const [fontCdnImportAlert, setFontCdnImportAlert] = useState<boolean>(false);
     const [fontCdnFontFaceAlert, setFontCdnFontFaceAlert] = useState<boolean>(false);
+    const [fontCdnUrlAlert, setFontCdnUrlAlert] = useState<boolean>(false);
     const [fontLicenseAlert, setFontLicenseAlert] = useState<boolean>(false);
     const [fontLicenseTextAlert, setFontLicenseTextAlert] = useState<boolean>(false);
 
@@ -174,6 +178,7 @@ const Index = ({params}: any) => {
         const fontCdnLink = document.getElementById("font-cdn-link") as HTMLInputElement;
         const fontCdnImport = document.getElementById("font-cdn-import") as HTMLInputElement;
         const fontCdnFontFace = document.getElementById("font-cdn-font-face") as HTMLTextAreaElement;
+        const fontCdnUrl = document.getElementById("font-cdn-url") as HTMLInputElement;
         const fontLicense = document.getElementById("font-license") as HTMLInputElement;
         const fontLicenseText = document.getElementById("font-license-text") as HTMLTextAreaElement;
 
@@ -217,6 +222,9 @@ const Index = ({params}: any) => {
         } else if (fontCdnFontFace.value === "") {
             setFontCdnFontFaceAlert(true);
             window.scrollTo({top: fontCdnFontFace.offsetTop});
+        } else if (fontCdnUrl.value === "") {
+            setFontCdnUrlAlert(true);
+            window.scrollTo({top: fontCdnUrl.offsetTop});
         } else if (fontLicense.value === "") {
             setFontLicenseAlert(true);
             window.scrollTo({top: fontLicense.offsetTop});
@@ -226,7 +234,7 @@ const Index = ({params}: any) => {
         } else {
             setEditBtnLoading(true);
 
-            await axios.post("/api/font/edit", {
+            await axios.post("/api/admin/font", {
                 action: "edit",
                 id: fontCode.value,
                 name: fontName.value,
@@ -242,6 +250,7 @@ const Index = ({params}: any) => {
                 cdn_link: fontCdnLink.value,
                 cdn_import: fontCdnImport.value,
                 cdn_font_face: fontCdnFontFace.value,
+                cdn_url: fontCdnUrl.value,
                 license: fontLicense.value,
                 license_text: fontLicenseText.value,
             })
@@ -274,6 +283,7 @@ const Index = ({params}: any) => {
     const handleFontCdnLinkChange = () => { setFontCdnLinkAlert(false); }
     const handleFontCdnImportChange = () => { setFontCdnImportAlert(false); }
     const handleFontCdnFontFaceChange = () => { setFontCdnFontFaceAlert(false); }
+    const handleFontCdnUrlChange = () => { setFontCdnUrlAlert(false); }
     const handleFontLicenseChange = () => { setFontLicenseAlert(false); }
     const handleFontLicenseTextChange = () => { setFontLicenseTextAlert(false); }
 
@@ -293,7 +303,7 @@ const Index = ({params}: any) => {
                 isMac={isMac}
                 theme={params.theme}
                 user={params.user}
-                page={"login"}
+                page={"admin"}
                 lang={""}
                 type={""}
                 sort={""}
@@ -523,8 +533,21 @@ const Index = ({params}: any) => {
                                 ? <div className="text-[10px] ml-[16px] mt-[6px] text-theme-red">폰트 font-face 설정을 올바르게 입력해 주세요.</div>
                                 : <></>
                             }
+                            <label htmlFor="font-cdn-url" className="mt-[20px]">
+                                <div className="inline-block mr-[6px]">CDN 주소</div>
+                                <button id="font-cdn-url-copy" onClick={copyOnClick} value="https://cdn.jsdelivr.net/gh/fonts-archive/NanumSquare/NanumSquare.css" className="inline-flex items-center leading-loose text-[12px] text-theme-yellow dark:text-theme-blue-1 hover:underline tlg:hover:no-underline">
+                                    예시 복사하기
+                                    <svg className="copy_btn hidden w-[18px] ml-[2px] fill-theme-yellow dark:fill-theme-blue-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/></svg>
+                                </button>
+                            </label>
+                            <input onChange={handleFontCdnUrlChange} tabIndex={15} type="text" id="font-cdn-url" placeholder="https://cdn.jsdelivr.net/gh/fonts-archive/NanumSquare/NanumSquare.css" className={`w-[100%] ${fontCdnUrlAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
+                            {
+                                fontCdnUrlAlert
+                                ? <div className="text-[10px] ml-[16px] mt-[6px] text-theme-red">CDN 주소를 올바르게 입력해 주세요.</div>
+                                : <></>
+                            }
                             <label htmlFor="font-license" className="mt-[20px]">라이센스 사용 범위</label>
-                            <input onChange={handleFontLicenseChange} tabIndex={15} type="text" id="font-license" placeholder="HHHHHHNNN" className={`w-[100%] ${fontLicenseAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
+                            <input onChange={handleFontLicenseChange} tabIndex={16} type="text" id="font-license" placeholder="HHHHHHNNN" className={`w-[100%] ${fontLicenseAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
                             {
                                 fontLicenseAlert
                                 ? <div className="text-[10px] ml-[16px] mt-[6px] text-theme-red">폰트 라이센스 사용 범위를 올바르게 입력해 주세요.</div>
@@ -534,16 +557,13 @@ const Index = ({params}: any) => {
                             <textarea 
                                 onChange={handleFontLicenseTextChange}
                                 id="font-license-text" 
-                                tabIndex={16}
+                                tabIndex={17}
                                 placeholder={
-`네이버 나눔글꼴의 지적 재산권은 네이버와 네이버문화재단에 있습니다.
-네이버 나눔글꼴은 개인 및 기업 사용자를 포함한 모든 사용자에게 무료로 제공되며 자유롭게 수정하고 재배포하실 수 있습니다.
-단, 글꼴 자체를 유료로 판매하는 것은 금지하며 네이버 나눔글꼴은 본 저작권 안내와 라이선스 전문을 포함해서 다른 소프트웨어와 번들하거나 재배포 또는 판매가 가능합니다.
-네이버 나눔글꼴 라이선스 전문을 포함하기 어려울 경우, 나눔글꼴의 출처 표기를 권장합니다.
-예) 이 페이지에는 네이버에서 제공한 나눔글꼴이 적용되어 있습니다.
-네이버 나눔글꼴을 사용한 인쇄물, 광고물(온라인 포함)의 이미지는 나눔글꼴 프로모션을 위해 활용될 수 있습니다.
-이를 원치 않는 사용자는 언제든지 당사에 요청하실 수 있습니다.
-<a href="https://help.naver.com/support/contents/contents.nhn?serviceNo=1074&categoryNo=3497" target="_blank">라이선스 전문보기</a>`} 
+`네이버에서 제작한 나눔 글꼴과 마루 부리 글꼴, 클로바 나눔손글씨(이하 네이버 글꼴)의 지적 재산권은 네이버와 네이버 문화재단에 있습니다.
+네이버 글꼴은 개인 및 기업 사용자를 포함한 모든 사용자에게 무료로 제공되며 글꼴 자체를 유료로 판매하는 것을 제외한 상업적인 사용이 가능합니다.
+
+네이버 글꼴은 본 저작권 안내와 라이선스 전문을 포함해서 다른 소프트웨어와 번들하거나 재배포 또는 판매가 가능하고 자유롭게 수정, 재배포하실 수 있습니다.
+네이버 글꼴 라이선스 전문을 포함하기 어려울 경우 출처 표기를 권장합니다. 예) 이 페이지에는 네이버에서 제공한 나눔 고딕 글꼴이 적용되어 있습니다.`} 
                                 className={`font-edit-textarea w-[100%] h-[196px] resize-none ${fontLicenseTextAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}>
                             </textarea>
                             {
