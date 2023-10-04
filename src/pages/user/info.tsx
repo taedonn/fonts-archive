@@ -17,7 +17,7 @@ import Header from "@/components/header";
 import ChangePwModal from '@/components/changepwmodal';
 import DeleteUserModal from '@/components/deleteusermodal';
 
-const SendEmail = ({params}: any) => {
+const Info = ({params}: any) => {
     // 디바이스 체크
     const isMac: boolean = params.userAgent.includes("Mac OS") ? true : false;
 
@@ -524,4 +524,4 @@ export async function getServerSideProps(ctx: any) {
     }
 }
 
-export default SendEmail;
+export default Info;

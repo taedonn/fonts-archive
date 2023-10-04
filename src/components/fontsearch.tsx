@@ -1,5 +1,5 @@
 // react hooks
-import React, { ChangeEvent, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useQuery } from "react-query";
 import { debounce } from "lodash";
 
@@ -40,6 +40,9 @@ export default function FontSearch(
     useEffect(() => {
         const keys: any = [];
         const handleKeydown = (e: KeyboardEvent) => {
+            // 한글로 쓸 때 keydown이 두번 실행되는 현상 방지
+            if (e.isComposing) return;
+
             keys[e.key] = true;
             // PC 환경 체크
             if (isMac) {
@@ -109,10 +112,10 @@ export default function FontSearch(
     const {isLoading, isRefetching, isSuccess, data, remove, refetch} = useQuery(['font-search'], async () => await axios.get("/api/fontsearch", {params: {keyword: keyword}}).then((res) => { return res.data }));
     
     // display가 show 상태가 아닐 시 useQuery 실행 중지
-    useEffect(() => { if (display !== "show") { remove(); } }, [display])
+    useEffect(() => { if (display !== "show") { remove(); } }, [display, remove])
 
     // lodash/debounce가 적용된 검색 기능
-    const handleSearch = (e: ChangeEvent<HTMLInputElement>) => { debouncedSearch(e); }
+    const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => { debouncedSearch(e); }
     const debouncedSearch = debounce((e) => { setKeyword(e.target.value); }, 500);
 
     // 검색 키워드가 변경되면 refetch
@@ -153,9 +156,9 @@ export default function FontSearch(
                 ? <div className="w-[100%] h-[100vh] fixed left-0 top-0 z-40 flex flex-col justify-start items-center pt-[12vh] tlg:pt-[10vh] tmd:pt-[60px] backdrop-blur bg-blur-theme dark:border-theme-4">
                     <div ref={refSearchOutside} className="w-[720px] tmd:w-[calc(100%-24px)] rounded-[12px] border border-theme-7 dark:border-theme-3 bg-theme-9 dark:bg-theme-2 animate-zoom-in">
                         <div className="w-[100%] h-[56px] tmd:h-[44px] relative flex flex-row justify-center items-center border-b border-theme-7 dark:border-theme-3">
-                        <svg className="w-[16px] tmd:w-[12px] absolute left-[24px] tmd:left-[16px] top-[50%] translate-y-[-50%] fill-theme-5 dark:fill-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/></svg>
-                            <input onChange={handleSearch} type="text" placeholder="폰트 검색하기..." autoFocus className="w-[calc(100%-108px)] tmd:w-[calc(100%-84px)] h-[100%] text-[14px] tmd:text-[12px] leading-none text-theme-5 dark:text-theme-8 placeholder-theme-5 dark:placeholder-theme-8 bg-transparent"/>
-                            <button onClick={handleCloseBtn} className="w-[36px] h-[24px] rounded-[6px] absolute right-[16px] tmd:right-[12px] top-[50%] translate-y-[-50%] text-[10px] leading-none text-theme-3 dark:text-theme-9 bg-theme-8 dark:bg-theme-3 hover:dark:bg-theme-4 tlg:hover:dark:bg-theme-3 hover:drop-shadow-default hover:dark:drop-shadow-dark tlg:hover:drop-shadow-none tlg:hover:dark:drop-shadow-none">ESC</button>
+                        <svg className="w-[16px] tmd:w-[12px] absolute left-[24px] tmd:left-[16px] top-[50%] translate-y-[-50%] fill-theme-4 dark:fill-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/></svg>
+                            <input onChange={handleSearch} type="text" placeholder="폰트 검색하기..." autoFocus className="w-[calc(100%-108px)] tmd:w-[calc(100%-84px)] h-[100%] text-[14px] tmd:text-[12px] leading-none text-theme-4 dark:text-theme-9 placeholder-theme-5 dark:placeholder-theme-8 bg-transparent"/>
+                            <button onClick={handleCloseBtn} className="w-[36px] h-[24px] rounded-[6px] absolute right-[16px] tmd:right-[12px] top-[50%] translate-y-[-50%] text-[10px] leading-none text-theme-4 dark:text-theme-9 bg-theme-8 dark:bg-theme-3 hover:dark:bg-theme-4 tlg:hover:dark:bg-theme-3 hover:drop-shadow-default hover:dark:drop-shadow-dark tlg:hover:drop-shadow-none tlg:hover:dark:drop-shadow-none">ESC</button>
                         </div>
                         <div ref={parentRef} className="search-list w-[100%] min-h-[150px] tmd:min-h-[120px] max-h-[500px] relative overflow-auto">
                             {/* 로딩 바 */}

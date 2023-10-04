@@ -14,7 +14,7 @@ import { FetchUserInfo } from "@/pages/api/user/fetchuserinfo";
 import Header from "@/components/header";
 import axios from "axios";
 
-const Index = ({params}: any) => {
+const Edit = ({params}: any) => {
     // 디바이스 체크
     const isMac: boolean = params.userAgent.includes("Mac OS") ? true : false
 
@@ -626,4 +626,4 @@ export async function getServerSideProps(ctx: any) {
     }
 }
 
-export default Index;
+export default Edit;

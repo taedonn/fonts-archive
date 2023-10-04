@@ -609,14 +609,3 @@ html.dark #__next .MuiPagination-ul .Mui-selected {
     color: #E9EAEE;
     background-color: #35363A;
 }
-
-/* 토글 */
-#__next .MuiTouchRipple-root { display: none; }
-#__next .MuiSwitch-thumb { color: #FFFFFF; }
-#__next .Mui-checked .MuiSwitch-thumb { color: #FCBE11; }
-#__next .MuiSwitch-track { background-color: #FFFFFF80; }
-#__next .Mui-checked + .MuiSwitch-track { background-color: #FCBE1180; }
-html.dark #__next .MuiSwitch-thumb { color: #FFFFFF; }
-html.dark #__next .Mui-checked .MuiSwitch-thumb { color: #8AB4F8; }
-html.dark #__next .MuiSwitch-track { background-color: #FFFFFF80; }
-html.dark #__next .Mui-checked + .MuiSwitch-track { background-color: #8AB4F880; }

@@ -164,12 +164,12 @@ export default function ChangePwModal(
                     <div ref={refSearchOutside} className="overflow-hidden w-[400px] tmd:w-[calc(100%-24px)] rounded-[12px] border border-theme-7 dark:border-theme-3 bg-theme-9 dark:bg-theme-2 animate-zoom-in">
                         <div className="relative w-[100%] h-[52px] flex flex-row justify-between items-center px-[20px]">
                             <div className="text-[14px] text-theme-5 dark:text-theme-7 mt-px">비밀번호 변경 안내</div>
-                            <button onClick={close} className="w-[36px] h-[24px] rounded-[6px] absolute right-[16px] tmd:right-[12px] top-[50%] translate-y-[-50%] text-[10px] leading-none text-theme-5 dark:text-theme-8 bg-theme-8 dark:bg-theme-3/80 hover:dark:bg-theme-4/60 tlg:hover:dark:bg-theme-3/80 hover:drop-shadow-default hover:dark:drop-shadow-dark tlg:hover:drop-shadow-none tlg:hover:dark:drop-shadow-none">ESC</button>
+                            <button onClick={close} className="w-[36px] h-[24px] rounded-[6px] absolute right-[16px] tmd:right-[12px] top-[50%] translate-y-[-50%] text-[10px] leading-none text-theme-4 dark:text-theme-8 bg-theme-8 dark:bg-theme-3/80 hover:dark:bg-theme-4/60 tlg:hover:dark:bg-theme-3/80 hover:drop-shadow-default hover:dark:drop-shadow-dark tlg:hover:drop-shadow-none tlg:hover:dark:drop-shadow-none">ESC</button>
                         </div>
                         <form onSubmit={e => e.preventDefault()} className="w-[100%] p-[20px] bg-theme-8 dark:bg-theme-blue-2">
                             <input id="userName" name="username" autoComplete="username" className="hidden"/>
                             <div className="text-[14px] text-theme-4 dark:text-theme-9">현재 비밀번호</div>
-                            <input onChange={handleCurrentPwChange} id="current-pw" type="password" placeholder="현재 비밀번호를 입력해 주세요." autoFocus autoComplete="current-password" className={`${currentPwChk === '' || currentPwChk === 'success' ? 'border-theme-4 focus:border-theme-yellow dark:border-theme-5 focus:dark:border-theme-blue-1' : 'border-theme-red focus:border-theme-red dark:border-theme-red focus:dark:border-theme-red'} w-[100%] text-[14px] text-theme-10 dark:text-theme-9 px-[14px] py-[8px] mt-[6px] rounded-[8px] border placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
+                            <input onChange={handleCurrentPwChange} id="current-pw" type="password" placeholder="현재 비밀번호를 입력해 주세요." autoFocus autoComplete="current-password" className={`${currentPwChk === '' || currentPwChk === 'success' ? 'border-theme-4 focus:border-theme-yellow dark:border-theme-5 focus:dark:border-theme-blue-1' : 'border-theme-red focus:border-theme-red dark:border-theme-red focus:dark:border-theme-red'} w-[100%] text-[14px] text-theme-10 dark:text-theme-9 px-[14px] py-[8px] mt-[6px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
                             {
                                 currentPwChk === ''
                                 ? <></>
@@ -180,7 +180,7 @@ export default function ChangePwModal(
                                         : <></>
                             }
                             <div className="text-[14px] text-theme-4 dark:text-theme-9 mt-[20px]">새 비밀번호 입력</div>
-                            <input onChange={handleNewPwChange} id="new-pw" type="password" placeholder='새 비밀번호를 입력해 주세요.' autoComplete="new-pw" className={`${newPwChk === '' || newPwChk === 'success' ? 'border-theme-4 focus:border-theme-yellow dark:border-theme-5 focus:dark:border-theme-blue-1' : 'border-theme-red focus:border-theme-red dark:border-theme-red focus:dark:border-theme-red'} w-[100%] text-[14px] text-theme-10 dark:text-theme-9 px-[14px] py-[8px] mt-[6px] rounded-[8px] border placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
+                            <input onChange={handleNewPwChange} id="new-pw" type="password" placeholder='새 비밀번호를 입력해 주세요.' autoComplete="new-pw" className={`${newPwChk === '' || newPwChk === 'success' ? 'border-theme-4 focus:border-theme-yellow dark:border-theme-5 focus:dark:border-theme-blue-1' : 'border-theme-red focus:border-theme-red dark:border-theme-red focus:dark:border-theme-red'} w-[100%] text-[14px] text-theme-10 dark:text-theme-9 px-[14px] py-[8px] mt-[6px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
                             {
                                 newPwChk === ''
                                 ? <></>
@@ -193,7 +193,7 @@ export default function ChangePwModal(
                                             : <></>
                             }
                             <div className="text-[14px] text-theme-4 dark:text-theme-9 mt-[20px]">새 비밀번호 확인</div>
-                            <input onChange={handleNewPwConfirmChange} id="new-pw-confirm" type="password" placeholder="새 비밀번호를 재입력해 주세요." autoComplete="new-pw" className={`${newPwConfirmChk === '' || newPwConfirmChk === 'success' ? 'border-theme-4 focus:border-theme-yellow dark:border-theme-5 focus:dark:border-theme-blue-1' : 'border-theme-red focus:border-theme-red dark:border-theme-red focus:dark:border-theme-red'} w-[100%] text-[14px] text-theme-10 dark:text-theme-9 px-[14px] py-[8px] mt-[6px] rounded-[8px] border placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
+                            <input onChange={handleNewPwConfirmChange} id="new-pw-confirm" type="password" placeholder="새 비밀번호를 재입력해 주세요." autoComplete="new-pw" className={`${newPwConfirmChk === '' || newPwConfirmChk === 'success' ? 'border-theme-4 focus:border-theme-yellow dark:border-theme-5 focus:dark:border-theme-blue-1' : 'border-theme-red focus:border-theme-red dark:border-theme-red focus:dark:border-theme-red'} w-[100%] text-[14px] text-theme-10 dark:text-theme-9 px-[14px] py-[8px] mt-[6px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
                             {
                                 newPwConfirmChk === ''
                                 ? <></>

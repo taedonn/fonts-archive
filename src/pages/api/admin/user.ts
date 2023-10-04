@@ -25,19 +25,33 @@ export async function FetchUsers(lastId: number | undefined) {
     return users;
 }
 
+// 특정 유저 정보 불러오기
+export async function FetchUser(userNo: number) {
+    const user = await prisma.fontsUser.findUnique({
+        where: { user_no: Number(userNo) }
+    });
+
+    return user;
+}
+
 // API
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method === 'POST') {
-        const filter = req.body.filter === 'email-confirmed'
-                        ? [{user_email_confirm: true}]
-                        : [{user_id: {contains: "@"}}];
+        const filter: any = req.body.filter === 'email-confirmed'
+        ? [{user_email_confirm: true}]
+        : [];
+
+        const text = [
+            {user_name: {contains: req.body.text as string}},
+            {user_id: {contains: req.body.text as string}},
+        ]
 
         // 유저 목록 페이지 수
         const length = await prisma.fontsUser.findMany({
             select: { user_no: true },
             where: {
-                user_name: {contains: req.body.text as string},
-                OR: filter
+                OR: text,
+                AND: filter,
             }
         });
         const count = Number(length.length) % limit > 0 ? Math.floor(Number(length.length)/limit) + 1 : Math.floor(Number(length.length)/limit);
@@ -45,8 +59,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         // 유저 목록 불러오기
         const list = await prisma.fontsUser.findMany({
             where: {
-                user_name: {contains: req.body.text as string},
-                OR: filter
+                OR: text,
+                AND: filter,
             },
             orderBy: req.body.filter === 'nickname-reported' ? [{nickname_reported: 'desc'}, {user_no: 'desc'}] : [{user_no: 'desc'}], // 정렬순
             take: limit, // 가져오는 데이터 수
