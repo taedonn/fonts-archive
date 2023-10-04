@@ -6,7 +6,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         // 부적절한 닉네임 신고가 10개 이상일 경우
         const reportedNickname = await prisma.fontsUser.updateMany({
             where: { nickname_reported: { gte: 10 } },
-            data: { user_name: '부적절한 닉네임 ' + (Math.floor(Math.random() * 100) + 1) }
+            data: {
+                user_name: '부적절한 닉네임 ' + (Math.floor(Math.random() * 100) + 1),
+                nickname_reported: 0
+            }
         });
 
         // 선동적인 발언 신고가 10개 이상일 경우 댓글 삭제

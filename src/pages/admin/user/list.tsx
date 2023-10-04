@@ -41,6 +41,7 @@ const List = ({params}: any) => {
     useEffect(() => {
         const fetchNewComments = async () => {
             await axios.post('/api/admin/user', {
+                action: "list",
                 page: page,
                 filter: filter,
                 text: text
@@ -61,6 +62,7 @@ const List = ({params}: any) => {
             
             // API 호출
             await axios.post('/api/admin/user', {
+                action: "list",
                 page: 1,
                 filter: selectRef.current.value,
                 text: textRef.current.value
