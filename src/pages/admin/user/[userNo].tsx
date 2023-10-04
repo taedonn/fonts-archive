@@ -12,7 +12,7 @@ import { FetchUser } from "@/pages/api/admin/user";
 // components
 import Header from "@/components/header";
 
-const userDetailPage = ({params}: any) => {
+const UserDetailPage = ({params}: any) => {
     // 디바이스 체크
     const isMac: boolean = params.userAgent.includes("Mac OS") ? true : false;
 
@@ -158,4 +158,4 @@ export async function getServerSideProps(ctx: any) {
     }
 }
 
-export default userDetailPage;
+export default UserDetailPage;
