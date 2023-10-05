@@ -42,15 +42,18 @@ const CommentList = ({params}: any) => {
     // 페이지 변경 시 데이터 다시 불러오기
     useEffect(() => {
         const fetchNewComments = async () => {
-            await axios.get('/api/user/fetchcomments', {
+            await axios.get('/api/admin/comment', {
                 params: {
-                    user_id: params.user.user_no,
+                    action: 'list',
                     page: page,
-                    filter: filter,
+                    // filter: filter,
                     text: text
                 }
             })
-            .then((res) => { setComments(res.data.comments); })
+            .then((res) => {
+                console.log(res.data.comments);
+                setComments(res.data.comments);
+            })
             .catch(err => console.log(err));
         }
         fetchNewComments();
@@ -61,19 +64,20 @@ const CommentList = ({params}: any) => {
         if (selectRef &&selectRef.current && textRef && textRef.current) {
             // state 저장
             setPage(1);
-            setFilter(selectRef.current.value);
+            // setFilter(selectRef.current.value);
             setText(textRef.current.value);
             
             // API 호출
-            await axios.get('/api/user/fetchcomments', {
+            await axios.get('/api/admin/comment', {
                 params: {
-                    user_id: params.user.user_no,
+                    action: 'list',
                     page: 1,
-                    filter: selectRef.current.value,
+                    // filter: selectRef.current.value,
                     text: textRef.current.value
                 }
             })
             .then((res) => {
+                console.log(res.data.comments);
                 setComments(res.data.comments);
                 setCount(res.data.count);
             })
