@@ -609,3 +609,10 @@ html.dark #__next .MuiPagination-ul .Mui-selected {
     color: #E9EAEE;
     background-color: #35363A;
 }
+
+/* 토글 */
+#__next .MuiTouchRipple-root { display: none; }
+#__next .MuiSwitch-thumb { color: #FFFFFF; }
+#__next .Mui-checked .MuiSwitch-thumb { color: #40E0D0; }
+#__next .MuiSwitch-track { background-color: #FFFFFF80; }
+#__next .Mui-checked + .MuiSwitch-track { background-color: #40E0D080; }

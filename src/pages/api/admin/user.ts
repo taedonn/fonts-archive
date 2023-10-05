@@ -69,14 +69,39 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     skip: Number(req.body.page) === 1 ? 0 : (Number(req.body.page) - 1) * limit
                 });
 
-                return res.json({
+                return res.status(200).json({
                     message: "유저 목록 불러오기 성공",
                     list: list,
                     count: count
                 });
             } catch (err) {
-                return res.json({
+                return res.status(500).json({
                     message: "유저 목록 불러오기 실패",
+                    err: err
+                });
+            }
+        }
+        else if (req.body.action === "save-user-info") {
+            try {
+                await prisma.fontsUser.update({
+                    where: { user_no: Number(req.body.user_no) },
+                    data: {
+                        profile_img: req.body.profile_img,
+                        user_name: req.body.user_name,
+                        nickname_reported: Number(req.body.nickname_reported),
+                        user_pw: req.body.user_pw,
+                        user_email_confirm: req.body.user_email_confirm,
+                        user_email_token: req.body.user_email_token,
+                        user_session_id: req.body.user_session_id
+                    }
+                })
+
+                return res.status(200).json({
+                    message: "유저 정보 수정 성공"
+                });
+            } catch (err) {
+                return res.status(500).json({
+                    message: "유저 정보 수정 실패",
                     err: err
                 });
             }
