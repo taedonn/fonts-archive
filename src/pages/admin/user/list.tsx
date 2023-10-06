@@ -110,7 +110,7 @@ const UserList = ({params}: any) => {
                             <option value='email-confirmed'>확인된 이메일만</option>
                             <option value='nickname-reported'>닉네임 신고 많은 순</option>
                         </select>
-                        <input ref={textRef} type='textbox' placeholder='유저명/유저아이디' className='w-[200px] tlg:w-[160px] h-[32px] tlg:h-[28px] ml-[8px] px-[12px] text-[12px] bg-transparent border rounded-[6px] border-theme-6 dark:border-theme-5'/>
+                        <input ref={textRef} type='textbox' placeholder='유저명/유저 아이디' className='w-[200px] tlg:w-[160px] h-[32px] tlg:h-[28px] ml-[8px] px-[12px] text-[12px] bg-transparent border rounded-[6px] border-theme-6 dark:border-theme-5'/>
                         <button onClick={handleClick} className='w-[68px] h-[32px] tlg:h-[28px] ml-[8px] text-[12px] border rounded-[6px] bg-theme-6/40 hover:bg-theme-6/60 tlg:hover:bg-theme-6/40 dark:bg-theme-4 hover:dark:bg-theme-5 tlg:hover:dark:bg-theme-4'>검색</button>
                     </div>
                     <div className='w-[100%] rounded-[8px] overflow-hidden overflow-x-auto'>
