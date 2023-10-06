@@ -143,22 +143,12 @@ export async function getServerSideProps(ctx: any) {
             : null
         );
 
-        // 쿠키에 저장된 세션ID가 유효하지 않다면, 메인페이지로 이동, 유효하면 클리이언트로 유저 정보 return
-        if (user === null || user.user_no !== 1) {
-            return {
-                redirect: {
-                    destination: '/',
-                    permanent: false,
-                }
-            }
-        } else {
-            return {
-                props: {
-                    params: {
-                        theme: cookieTheme,
-                        userAgent: userAgent,
-                        user: user,
-                    }
+        return {
+            props: {
+                params: {
+                    theme: cookieTheme,
+                    userAgent: userAgent,
+                    user: user,
                 }
             }
         }
