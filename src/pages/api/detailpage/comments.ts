@@ -97,6 +97,53 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 comments: comments
             });
         }
+        else if (req.body.action === 'delete-comment-by-admin') {
+            // 답글이 있는지 검색
+            const thisComment = await prisma.fontsComment.findUnique({
+                where: { comment_id: Number(req.body.comment_id) }
+            });
+
+            const thisBundle = await prisma.fontsComment.findMany({
+                where: {
+                    is_deleted: false,
+                    depth: 1,
+                    bundle_id: thisComment?.bundle_id
+                }
+            });
+
+            // 댓글 삭제하기
+            thisBundle.length === 0
+            ? await prisma.fontsComment.update({
+                where: { comment_id: Number(req.body.comment_id) },
+                data: {
+                    is_deleted: true,
+                    deleted_at: new Date(),
+                }
+            })
+            : thisComment && thisComment.depth === 1
+                ? await prisma.fontsComment.update({
+                    where: { comment_id: Number(req.body.comment_id) },
+                    data: {
+                        is_deleted: true,
+                        deleted_at: new Date(),
+                    }
+                })
+                : await prisma.fontsComment.update({
+                    where: { comment_id: Number(req.body.comment_id) },
+                    data: {
+                        is_deleted_by_reports: true,
+                        deleted_at: new Date(),
+                    }
+                });
+
+            // 업데이트된 댓글 가져오기
+            const comments = await FetchComments(req.body.font_id);
+
+            return res.status(200).json({
+                message: 'Message deleted successfully.',
+                comments: comments
+            });
+        }
         else if (req.body.action === 'edit-comment') {
             // 댓글 수정하기
             await prisma.fontsComment.update({

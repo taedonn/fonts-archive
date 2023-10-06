@@ -13,6 +13,7 @@ import { FetchComments } from '../api/user/fetchcomments';
 
 // components
 import Header from "@/components/header";
+import AdminDeleteCommentModal from '@/components/admindeletecommentmodal';
 import { Pagination } from '@mui/material';
 
 const Comments = ({params}: any) => {
@@ -92,6 +93,28 @@ const Comments = ({params}: any) => {
         return splitDate[0].replace("20", "") + '.' + splitDate[1] + '.' + commentsTimeFormat(splitDate[2].replace('T', ' ').replace('Z', ''));
     }
 
+    // 댓글 삭제
+    const [fontId, setFontId] = useState<number>(0);
+    const [commentId, setCommentId] = useState<number>(0);
+    const [deleteModalDisplay, setDeleteModalDisplay] = useState<boolean>(false);
+
+     /** 댓글 삭제 모달창 열기 */
+     const deleteCommentModalOpen = (e: React.MouseEvent<HTMLButtonElement>) => {
+        setDeleteModalDisplay(true);
+        setFontId(Number(e.currentTarget.dataset.font));
+        setCommentId(Number(e.currentTarget.dataset.comment));
+    }
+
+    /** 댓글 삭제 모달창 닫기 */
+    const deleteCommentModalClose = () => {
+        setDeleteModalDisplay(false);
+    }
+
+    /** 댓글 삭제 시 댓글 업데이트 */
+    const updateComments = (comments: any) => {
+        setComments(comments);
+    }
+
     return (
         <>
             {/* Head 부분*/}
@@ -117,6 +140,19 @@ const Comments = ({params}: any) => {
                 handleSearch={emptyFn}
             />
 
+            {/* 댓글 삭제 모달 */}
+            <AdminDeleteCommentModal
+                display={deleteModalDisplay}
+                close={deleteCommentModalClose}
+                font_id={fontId}
+                comment_id={commentId}
+                user_id={params.user.user_no}
+                update={updateComments}
+                page={page}
+                text={text}
+                filter={filter}
+            />
+
             {/* 메인 */}
             <form onSubmit={e => e.preventDefault()} className='w-[100%] flex flex-col justify-center items-center'>
                 <div className='w-[720px] tmd:w-[100%] flex flex-col justify-center items-start my-[100px] tlg:my-[40px]'>
@@ -130,13 +166,15 @@ const Comments = ({params}: any) => {
                         <input ref={textRef} type='textbox' className='w-[200px] tlg:w-[160px] h-[32px] tlg:h-[28px] ml-[8px] px-[12px] text-[12px] bg-transparent border rounded-[6px] border-theme-6 dark:border-theme-5'/>
                         <button onClick={handleClick} className='w-[68px] h-[32px] tlg:h-[28px] ml-[8px] text-[12px] border rounded-[6px] bg-theme-6/40 hover:bg-theme-6/60 tlg:hover:bg-theme-6/40 dark:bg-theme-4 hover:dark:bg-theme-5 tlg:hover:dark:bg-theme-4'>검색</button>
                     </div>
-                    <div className='w-[100%] rounded-[8px] overflow-hidden'>
-                        <table className='w-[100%] text-[12px] text-theme-10 dark:text-theme-9 bg-theme-4 dark:bg-theme-4'>
+                    <div className='w-[100%] rounded-[8px] overflow-hidden overflow-x-auto'>
+                        <table className='w-[720px] text-[12px] text-theme-10 dark:text-theme-9 bg-theme-4 dark:bg-theme-4'>
                             <thead className='h-[40px] tlg:h-[34px] text-left bg-theme-5 dark:bg-theme-3'>
                                 <tr>
-                                    <th className='w-[120px] pl-[20px] tlg:pl-[16px]'>폰트</th>
-                                    <th className='pl-[20px] tlg:pl-[16px]'>댓글</th>
-                                    <th className='w-[120px] pl-[20px] tlg:pl-[16px]'>작성 날짜</th>
+                                    <th className='w-[120px] pl-[16px]'>폰트</th>
+                                    <th className='pl-[16px]'>댓글</th>
+                                    <th className='w-[108px] pl-[16px]'>수정 날짜</th>
+                                    <th className='w-[120px] pl-[16px]'>작성 날짜</th>
+                                    <th className='w-[68px]'>댓글 삭제</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -147,16 +185,24 @@ const Comments = ({params}: any) => {
                                             comments.map((comment: any) => {
                                                 return (
                                                     <tr key={comment.comment_id} className='h-[40px] tlg:h-[34px] border-t border-theme-5 dark:border-theme-3'>
-                                                        <td className='pl-[20px] tlg:pl-[16px] py-[10px] break-keep'><a href={`/detailpage/${comment.code}`} className='text-theme-yellow dark:text-theme-blue-1 underline'>{comment.name}</a></td>
-                                                        <td className='pl-[20px] tlg:pl-[16px] py-[10px] break-keep'><a href={`/detailpage/${comment.code}#c${comment.comment_id}`} className='hover:underline tlg:hover:no-underline'>{comment.comment}</a></td>
-                                                        <td className='pl-[20px] tlg:pl-[16px] py-[10px] break-keep'>{commentsDateFormat(comment.created_at)}</td>
-                                                    </tr> 
+                                                        <td className='pl-[16px] py-[10px] break-keep'><a href={`/detailpage/${comment.code}`} className='text-theme-yellow dark:text-theme-blue-1 focus:underline hover:underline tlg:hover:no-underline'>{comment.name}</a></td>
+                                                        <td className='pl-[16px] py-[10px] break-keep'><a href={`/detailpage/${comment.code}#c${comment.comment_id}`} className='focus:underline hover:underline tlg:hover:no-underline'>{comment.comment}</a></td>
+                                                        <td className='pl-[16px] py-[10px] break-keep'>{commentsDateFormat(comment.updated_at)}</td>
+                                                        <td className='pl-[16px] py-[10px] break-keep'>{commentsDateFormat(comment.created_at)}</td>
+                                                        <td className='py-[10px] relative'>
+                                                            <div className='absolute w-[100%] h-[100%] left-0 top-0 flex items-center'>
+                                                                <button onClick={deleteCommentModalOpen} data-font={comment.font_id} data-comment={comment.comment_id} className='group w-[20px] h-[20px] ml-[16px] flex justify-center items-center'>
+                                                                    <svg className='w-[14px] fill-theme-10 group-hover:fill-theme-yellow tlg:group-hover:fill-theme-10 dark:fill-theme-9 group-hover:dark:fill-theme-blue-1 tlg:group-hover:dark:fill-theme-9' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/><path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/></svg>
+                                                                </button>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
                                                 )
                                             })
                                         }
                                     </>
                                     : <tr className='h-[60px]'>
-                                        <td colSpan={3} className='text-center'>댓글이 없습니다.</td>
+                                        <td colSpan={5} className='text-center'>댓글이 없습니다.</td>
                                     </tr>
                                 }
                             </tbody>
