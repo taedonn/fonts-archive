@@ -1,5 +1,5 @@
 // react hooks
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 // next hooks
 import { NextSeo } from "next-seo";
@@ -63,7 +63,6 @@ const IssueFont = ({params}: any) => {
     // 이미지 URL을 저장할 state
     const [imgs, setImgs] = useState<any>([]);
     const [imgAlert, setImgAlert] = useState<boolean>(false);
-    const [isImgUploaded, setIsImgUploaded] = useState<boolean>(false);
 
     // 이미지 알럿 닫기
     const imgAlertClose = () => { setImgAlert(false); }
@@ -72,57 +71,23 @@ const IssueFont = ({params}: any) => {
     const uploadImg = async (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files) {
             // 파일 5개 이상일 때 알럿 팝업
-            if (e.target.files.length > 5) {
+            if (e.target.files.length > 5 || imgs.length + e.target.files.length > 5) {
                 setImgAlert(true);
             } else {
-                setIsImgUploaded(true);
                 for (let i = 0; i < e.target.files.length; i++) {
-                    fnUploadImg(e.target.files[i], e.target.files[i].name.split('.').pop() as string, i)
+                    let file = e.target.files[i];
+                    let reader = new FileReader();
+                    reader.readAsDataURL(file);
+                    reader.onloadend = () => {
+                        setImgs((prevList: any) => [...prevList, {src: reader.result, index: imgs.length + i, file: file}]);
+                    }
                 }
             }
         }
     }
 
-    const fnUploadImg = async (file: File, fileType: string, index: number) => {
-        // API 호출
-        await axios.post('/api/issue/font', {
-            file_name: `issue-test-${index}.` + fileType,
-            file_type: file.type,
-        })
-        .then(async (res) => {
-            // getSignedUrl의 PutObjectCommand로 받아온 url에 파일 업로드
-            await axios.put(res.data.url, file, {
-                headers: { 'Content-Type': file.type }
-            })
-            .then(async () => {
-                // getSignedUrl의 GetObjectCommand로 받아온 url을 state에 저장
-                await axios.get('/api/issue/font', {
-                    params: {
-                        fileName: `issue-test-${index}.` + fileType
-                    }
-                })
-                .then(res => {
-                    setImgs(imgs.push({src: res.data.url}));
-                    
-                    let imgWrap = document.getElementById("img-wrap") as HTMLDivElement;
-                    imgWrap.innerHTML += `
-                        <div class="relative">
-                            <img src="${res.data.url}" alt="preview-img" class="w-[72px] h-[88px] rounded-[8px] object-cover"/> 
-                            <button onclick="deleteImg" class="w-[24px] h-[24px] rounded-full absolute right-[-6px] top-[-6px] flex items-center bg-theme-3 dark:bg-theme-blue-2">
-                                <svg class="w-[12px] mx-auto fill-theme-yellow dark:fill-theme-blue-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>
-                            </button>
-                        </div>
-                    `
-                })
-                .catch(() => console.log("GetObjectCommand 실패"));
-            })
-            .catch(() => console.log("PutObjectCommand 실패"));
-        })
-        .catch(() => console.log("API 호출 실패"));
-    }
-
-    const deleteImg = () => {
-        
+    const deleteImg = (index: number) => {
+        setImgs(imgs.filter((img: any) => img.index !== index));
     }
 
     return (
@@ -179,16 +144,27 @@ const IssueFont = ({params}: any) => {
                                 ? <div className="text-[10px] ml-[16px] mt-[6px] text-theme-red">내용을 입력해 주세요.</div>
                                 : <></>
                             }
-                            <div id="img-wrap" className="w-[100%] h-[132px] mt-[16px] rounded-[8px] border-theme-7 dark:border-theme-5 flex justify-center items-center gap-x-[10px] border">
+                            <div className="w-[100%] mt-[16px] p-[24px] rounded-[8px] border-theme-7 dark:border-theme-5 flex flex-col justify-center items-center gap-x-[10px] border">
+                                <svg className="w-[28px] fill-theme-9 dark:fill-theme-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M6.502 7a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/><path d="M14 14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h5.5L14 4.5V14zM4 1a1 1 0 0 0-1 1v10l2.224-2.224a.5.5 0 0 1 .61-.075L8 11l2.157-3.02a.5.5 0 0 1 .76-.063L13 10V4.5h-2A1.5 1.5 0 0 1 9.5 3V1H4z"/></svg>
+                                <label htmlFor="file" className="text-[14px] mt-[12px] text-theme-yellow dark:text-theme-blue-1 font-medium hover:underline tlg:hover:no-underline cursor-pointer">파일 추가</label>
+                                <input onChange={uploadImg} accept='image/*' id="file" type="file" multiple className="hidden"/>
+                                <div className="text-[12px] mt-[4px] text-theme-9 dark:text-theme-7">또는 첨부할 파일을 드래그해서 추가할 수 있습니다.</div>
                                 {
-                                    !isImgUploaded
-                                    ? <div className="flex flex-col justify-center items-center">
-                                        <svg className="w-[28px] fill-theme-9 dark:fill-theme-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M6.502 7a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/><path d="M14 14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h5.5L14 4.5V14zM4 1a1 1 0 0 0-1 1v10l2.224-2.224a.5.5 0 0 1 .61-.075L8 11l2.157-3.02a.5.5 0 0 1 .76-.063L13 10V4.5h-2A1.5 1.5 0 0 1 9.5 3V1H4z"/></svg>
-                                        <label htmlFor="file" className="text-[14px] mt-[12px] text-theme-yellow dark:text-theme-blue-1 font-medium hover:underline tlg:hover:no-underline cursor-pointer">파일 추가</label>
-                                        <input onChange={uploadImg} accept='image/*' id="file" type="file" multiple className="hidden"/>
-                                        <div className="text-[12px] mt-[4px] text-theme-9 dark:text-theme-7">또는 첨부할 파일을 드래그해서 추가할 수 있습니다.</div>
-                                    </div>
-                                    : <></>
+                                    imgs.length > 0
+                                    ? <div className="w-[100%] mt-[20px] p-[12px] border border-theme-7 dark:border-theme-5 rounded-[8px] flex justify-center gap-x-[10px]">
+                                        {
+                                            imgs.map((img: any) => {
+                                                return (
+                                                    <div className="w-content relative" key={img.index}>
+                                                        <img src={img.src} alt="preview-img" className="w-[72px] h-[88px] rounded-[8px] object-cover"/> 
+                                                        <button onClick={() => deleteImg(img.index)} className="w-[24px] h-[24px] rounded-full absolute right-[-6px] top-[-6px] flex items-center bg-theme-3 dark:bg-theme-blue-2">
+                                                            <svg className="w-[12px] mx-auto fill-theme-yellow dark:fill-theme-blue-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>
+                                                        </button>
+                                                    </div>   
+                                                )
+                                            })
+                                        }
+                                    </div> : <></>
                                 }
                             </div>
                             {
