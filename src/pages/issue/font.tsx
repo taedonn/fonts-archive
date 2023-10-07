@@ -108,7 +108,7 @@ const IssueFont = ({params}: any) => {
                     imgWrap.innerHTML += `
                         <div class="relative">
                             <img src="${res.data.url}" alt="preview-img" class="w-[72px] h-[88px] rounded-[8px] object-cover"/> 
-                            <button class="w-[24px] h-[24px] rounded-full absolute right-[-6px] top-[-6px] flex items-center bg-theme-3 dark:bg-theme-blue-2">
+                            <button onclick="deleteImg" class="w-[24px] h-[24px] rounded-full absolute right-[-6px] top-[-6px] flex items-center bg-theme-3 dark:bg-theme-blue-2">
                                 <svg class="w-[12px] mx-auto fill-theme-yellow dark:fill-theme-blue-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>
                             </button>
                         </div>
@@ -119,6 +119,10 @@ const IssueFont = ({params}: any) => {
             .catch(() => console.log("PutObjectCommand 실패"));
         })
         .catch(() => console.log("API 호출 실패"));
+    }
+
+    const deleteImg = () => {
+        
     }
 
     return (
