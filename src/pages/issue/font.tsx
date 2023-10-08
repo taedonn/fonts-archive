@@ -78,7 +78,7 @@ const IssueFont = ({params}: any) => {
                     let file = e.target.files[i];
                     let reader = new FileReader();
                     reader.readAsDataURL(file);
-                    reader.onloadend = () => {
+                    reader.onload = () => {
                         setImgs((prevList: any) => [...prevList, {src: reader.result, index: imgs.length + i, file: file}]);
                     }
                 }
