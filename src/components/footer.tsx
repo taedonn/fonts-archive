@@ -12,14 +12,14 @@ export default function Footer () {
                         </Link>
                         <div className="flex items-end">
                             <h2 className="text-[14px] tlg:text-[13px]">폰트 아카이브,</h2>
-                            <h3 className="text-[13px] tlg:text-[12px] font-light tracking-wide ml-[8px]">© 2023 <Link href="https://taedonn.com" target="_blank" className="hover:underline tlg:hover:no-underline">taedonn.com</Link></h3>
+                            <h3 className="text-[13px] tlg:text-[12px] font-light tracking-wide ml-[8px]">© 2023 <Link href="https://taedonn.com" target="_blank" rel="noopener noreferrer" className="hover:underline tlg:hover:no-underline">taedonn.com</Link></h3>
                         </div>
                     </div>
                     <div className="text-[13px] text-theme-2 dark:text-theme-blue-1 ml-[36px] tlg:hidden">
-                        <Link href="/user/terms" target="_blank" className="text-[13px] hover:underline">서비스 이용약관</Link>
-                        <Link href="/user/privacy" target="_blank" className="text-[13px] hover:underline ml-[20px]">개인정보 처리방침</Link>
+                        <Link href="/user/terms" target="_blank" rel="noopener noreferrer" className="text-[13px] hover:underline">서비스 이용약관</Link>
+                        <Link href="/user/privacy" target="_blank" rel="noopener noreferrer" className="text-[13px] hover:underline ml-[20px]">개인정보 처리방침</Link>
                         {/* <Link href="https://taedonn.com" target="_blank" className="text-[13px] hover:underline ml-[20px]">사이트</Link> */}
-                        <Link href="https://github.com/fonts-archive" target="_blank" className="text-[13px] hover:underline ml-[20px]">깃허브 프로젝트</Link>
+                        <Link href="https://github.com/fonts-archive" target="_blank" rel="noopener noreferrer" className="text-[13px] hover:underline ml-[20px]">깃허브 프로젝트</Link>
                     </div>
                 </div>
             </footer>
