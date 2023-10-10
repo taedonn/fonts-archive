@@ -116,8 +116,39 @@ model fontsUserReport {
 }
 
 model fontsIssue {
-  issue_id Int @id @default(autoincrement())
-  issue_title String
-  issue_email String
-  issue_content String @db.Text
+  issue_id          Int      @id @default(autoincrement())
+  issue_title       String
+  issue_email       String
+  issue_content     String   @db.Text
+  issue_img_length  Int      @default(0)
+  issue_img_1       String
+  issue_img_2       String
+  issue_img_3       String
+  issue_img_4       String
+  issue_img_5       String
+  issue_closed      Boolean  @default(false)
+  issue_closed_type String
+  issue_closed_at   DateTime @default(now())
+  issue_created_at  DateTime @default(now())
+
+  @@index([issue_id])
+}
+
+model fontsBugReport {
+  issue_id          Int      @id @default(autoincrement())
+  issue_title       String
+  issue_email       String
+  issue_content     String   @db.Text
+  issue_img_length  Int      @default(0)
+  issue_img_1       String
+  issue_img_2       String
+  issue_img_3       String
+  issue_img_4       String
+  issue_img_5       String
+  issue_closed      Boolean  @default(false)
+  issue_closed_type String
+  issue_closed_at   DateTime @default(now())
+  issue_created_at  DateTime @default(now())
+
+  @@index([issue_id])
 }

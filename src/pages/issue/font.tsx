@@ -62,15 +62,15 @@ const IssueFont = ({params}: any) => {
             for (let i = 0; i < imgs.length; i++) {
                 await axios.post('/api/issue/font', {
                     action: 'upload-img',
-                    file_name: `test-${i}.` + imgs[i].file.name.split('.').pop(),
+                    file_name: `test-${i+1}.` + imgs[i].file.name.split('.').pop(),
                     file_type: imgs[i].file.type
                 })
                 .then(async (res) => {
                     await axios.put(res.data.url, imgs[i].file, { headers: { 'Content-Type': imgs[i].file.type }})
-                    .then(() => console.log(`이미지 ${i} AWS 업로드 성공`))
-                    .catch(() => console.log(`이미지 ${i} AWS 업로드 실패`));
+                    .then(() => console.log(`이미지 ${i+1} AWS 업로드 성공`))
+                    .catch(() => console.log(`이미지 ${i+1} AWS 업로드 실패`));
                 })
-                .catch(() => console.log(`이미지 ${i} POST 요청 실패`));
+                .catch(() => console.log(`이미지 ${i+1} POST 요청 실패`));
             }
 
             setIsLoading(false);
