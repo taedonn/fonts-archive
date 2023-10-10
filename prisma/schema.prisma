@@ -14,7 +14,7 @@ model fonts {
   name            String
   lang            String
   date            String
-  view            Int
+  view            Int            @default(0)
   font_family     String
   font_type       String
   font_weight     String
@@ -58,6 +58,7 @@ model fontsUser {
   reports            fontsUserReport[]
 
   @@index([user_no])
+  @@index([user_id])
 }
 
 model fontsLiked {
@@ -112,4 +113,11 @@ model fontsUserReport {
   @@index([report_id])
   @@index([report_user_id])
   @@index([comment_id])
+}
+
+model fontsIssue {
+  issue_id Int @id @default(autoincrement())
+  issue_title String
+  issue_email String
+  issue_content String @db.Text
 }

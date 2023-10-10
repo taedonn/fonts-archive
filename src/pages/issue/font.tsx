@@ -10,10 +10,10 @@ import imageCompression from 'browser-image-compression';
 // api
 import { CheckIfSessionExists } from "@/pages/api/user/checkifsessionexists";
 import { FetchUserInfo } from "@/pages/api/user/fetchuserinfo";
+import axios from "axios";
 
 // components
 import Header from "@/components/header";
-import axios from "axios";
 
 const IssueFont = ({params}: any) => {
     // 디바이스 체크
@@ -27,6 +27,7 @@ const IssueFont = ({params}: any) => {
     const [emailAlert, setEmailAlert] = useState<boolean>(false);
     const [emailValid, setEmailValid] = useState<boolean>(false);
     const [contentAlert, setContentAlert] = useState<boolean>(false);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
     // onChange
     const handleTitleChange = () => { setTitleAlert(false); }
@@ -34,7 +35,7 @@ const IssueFont = ({params}: any) => {
     const handleContentChange = () => { setContentAlert(false); }
 
     // submit
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         // 변수
         const title = document.getElementById("title") as HTMLInputElement;
         const email = document.getElementById("email") as HTMLInputElement;
@@ -56,12 +57,29 @@ const IssueFont = ({params}: any) => {
             setContentAlert(true);
             window.scrollTo({top: content.offsetTop});
         } else {
-            
+            setIsLoading(true);
+
+            for (let i = 0; i < imgs.length; i++) {
+                await axios.post('/api/issue/font', {
+                    action: 'upload-img',
+                    file_name: `test-${i}.` + imgs[i].file.name.split('.').pop(),
+                    file_type: imgs[i].file.type
+                })
+                .then(async (res) => {
+                    await axios.put(res.data.url, imgs[i].file, { headers: { 'Content-Type': imgs[i].file.type }})
+                    .then(() => console.log(`이미지 ${i} AWS 업로드 성공`))
+                    .catch(() => console.log(`이미지 ${i} AWS 업로드 실패`));
+                })
+                .catch(() => console.log(`이미지 ${i} POST 요청 실패`));
+            }
+
+            setIsLoading(false);
         }
     }
 
     // 이미지 URL을 저장할 state
     const [imgs, setImgs] = useState<any>([]);
+    const [imgNo, setImgNo] = useState<number>(0);
     const [imgAlert, setImgAlert] = useState<boolean>(false);
 
     // 이미지 알럿 닫기
@@ -75,14 +93,46 @@ const IssueFont = ({params}: any) => {
                 setImgAlert(true);
             } else {
                 for (let i = 0; i < e.target.files.length; i++) {
+                    // 이미지 리사이징 후 미리보기
                     let file = e.target.files[i];
-                    let reader = new FileReader();
-                    reader.readAsDataURL(file);
-                    reader.onload = () => {
-                        setImgs((prevList: any) => [...prevList, {src: reader.result, index: imgs.length + i, file: file}]);
+                    let img = document.createElement('img');
+                    let objectURL = URL.createObjectURL(file);
+                    img.onload = async function() {
+                        // 파일이 jpeg나 png일 경우만 리사이징 함수 적용
+                        if (file.type === 'image/jpeg' || file.type === 'image/png') {
+                            // 파일의 넓이나 높이가 1000 초과일 때 리사이징
+                            if (img.width > 1000 || img.height > 1000) {
+                                // 리사이징 옵션
+                                const resizeOption = { maxWidthOrHeight: 1000 }
+            
+                                // 리사이징 함수
+                                imageCompression(file, resizeOption)
+                                .then(function(compressedFile) {
+                                    loadPreview(compressedFile, imgNo + i);
+                                    console.log(`이미지 ${imgs.length + i} 리사이징 성공`);
+                                })
+                                .catch(() => console.log(`이미지 ${imgNo + i} 리사이징 실패`));
+                            } else {
+                                loadPreview(file, imgNo + i);
+                            }
+                        } else {
+                            loadPreview(file, imgNo + i);
+                        }
+                        URL.revokeObjectURL(objectURL);
                     }
+                    img.src = objectURL;
                 }
+                setImgNo(imgNo + imgs.length + e.target.files.length);
             }
+        }
+    }
+
+    /** 미리보기 실행 */
+    const loadPreview = (file: File, index: number) => {
+        let reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+            setImgs((prevList: any) => [...prevList, {src: reader.result, index: index, file: file}]);
         }
     }
 
@@ -156,11 +206,12 @@ const IssueFont = ({params}: any) => {
                                             imgs.map((img: any) => {
                                                 return (
                                                     <div className="w-content relative" key={img.index}>
+                                                        {/* eslint-disable-next-line @next/next/no-img-element */}
                                                         <img src={img.src} alt="preview-img" className="w-[72px] h-[88px] rounded-[8px] object-cover"/> 
                                                         <button onClick={() => deleteImg(img.index)} className="w-[24px] h-[24px] rounded-full absolute right-[-6px] top-[-6px] flex items-center bg-theme-3 dark:bg-theme-blue-2">
                                                             <svg className="w-[12px] mx-auto fill-theme-yellow dark:fill-theme-blue-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>
                                                         </button>
-                                                    </div>   
+                                                    </div>
                                                 )
                                             })
                                         }
@@ -172,7 +223,7 @@ const IssueFont = ({params}: any) => {
                                 ? <div className='w-[100%] h-[40px] px-[10px] mt-[10px] flex flex-row justify-between items-center rounded-[6px] border-[2px] border-theme-red text-[12px] text-theme-9 bg-theme-red/20'>
                                     <div className='flex flex-row justify-start items-center'>
                                         <svg className='w-[14px] fill-theme-red' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg>
-                                        <div className='ml-[6px]'>이미지는 최대 5개까지만 올릴 수 있습니다.</div>
+                                        <div className='ml-[6px]'>파일은 최대 5개까지만 올릴 수 있습니다.</div>
                                     </div>
                                     <div onClick={imgAlertClose} className='flex flex-row justify-center items-center cursor-pointer'>
                                         <svg className='w-[18px] fill-theme-9' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg>
@@ -180,9 +231,21 @@ const IssueFont = ({params}: any) => {
                                 </div>
                                 : <></>
                             }
+                            <div className='w-[100%] flex justify-start items-center mt-[12px] text-[12px] text-theme-8 dark:text-theme-7'>
+                                <svg className='w-[12px] mr-[6px] fill-theme-yellow dark:fill-theme-blue-1' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg>
+                                <div>파일은 최대 다섯개까지만 올릴 수 있습니다.</div>
+                            </div>
+                            <div className='w-[100%] flex justify-start items-center mt-[4px] text-[12px] text-theme-8 dark:text-theme-7'>
+                                <svg className='w-[12px] mr-[6px] fill-theme-yellow dark:fill-theme-blue-1' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg>
+                                <div>이미지 파일만 첨부 가능합니다.</div>
+                            </div>
                         </div>
                         <button onClick={handleSubmit} className="w-[100%] h-[34px] rounded-[8px] mt-[20px] font-medium text-[12px] text-theme-4 dark:text-theme-3 bg-theme-yellow/80 hover:bg-theme-yellow dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1">
-                            제출하기
+                            {
+                                isLoading === true
+                                ? <span className='loader loader-register w-[16px] h-[16px]'></span>
+                                : '제출하기'
+                            }
                         </button>
                     </div>
                 </div>
