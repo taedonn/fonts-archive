@@ -477,14 +477,14 @@ export default function Header (
                                     <span className="text-[13px] ml-[6px] text-theme-10/80 group-hover:text-theme-10 tlg:group-hover:text-theme-10/80 dark:text-theme-9/80 group-hover:dark:text-theme-9 tlg:group-hover:dark:text-theme-9/80">깃허브</span>
                                 </Link>
                                 {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-                                <a href="/issue/font" className="group flex flex-row justify-start items-center mt-[5px]">
+                                {/* <a href="/issue/font" className="group flex flex-row justify-start items-center mt-[5px]">
                                     <svg className="w-[12px] ml-px mb-px fill-theme-yellow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M480 32c0-12.9-7.8-24.6-19.8-29.6s-25.7-2.2-34.9 6.9L381.7 53c-48 48-113.1 75-181 75H192 160 64c-35.3 0-64 28.7-64 64v96c0 35.3 28.7 64 64 64l0 128c0 17.7 14.3 32 32 32h64c17.7 0 32-14.3 32-32V352l8.7 0c67.9 0 133 27 181 75l43.6 43.6c9.2 9.2 22.9 11.9 34.9 6.9s19.8-16.6 19.8-29.6V300.4c18.6-8.8 32-32.5 32-60.4s-13.4-51.6-32-60.4V32zm-64 76.7V240 371.3C357.2 317.8 280.5 288 200.7 288H192V192h8.7c79.8 0 156.5-29.8 215.3-83.3z"/></svg>
                                     <span className="text-[13px] ml-[7px] text-theme-10/80 group-hover:text-theme-10 tlg:group-hover:text-theme-10/80 dark:text-theme-9/80 group-hover:dark:text-theme-9 tlg:group-hover:dark:text-theme-9/80">폰트 제보하기</span>
                                 </a>
                                 <Link href="https://github.com/orgs/fonts-archive/discussions/2" target="_blank" rel="noopener noreferrer" className="group flex flex-row justify-start items-center mt-[5px]">
                                     <svg className="w-[13px] ml-px mb-px fill-theme-red dark:fill-theme-red" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 0c53 0 96 43 96 96v3.6c0 15.7-12.7 28.4-28.4 28.4H188.4c-15.7 0-28.4-12.7-28.4-28.4V96c0-53 43-96 96-96zM41.4 105.4c12.5-12.5 32.8-12.5 45.3 0l64 64c.7 .7 1.3 1.4 1.9 2.1c14.2-7.3 30.4-11.4 47.5-11.4H312c17.1 0 33.2 4.1 47.5 11.4c.6-.7 1.2-1.4 1.9-2.1l64-64c12.5-12.5 32.8-12.5 45.3 0s12.5 32.8 0 45.3l-64 64c-.7 .7-1.4 1.3-2.1 1.9c6.2 12 10.1 25.3 11.1 39.5H480c17.7 0 32 14.3 32 32s-14.3 32-32 32H416c0 24.6-5.5 47.8-15.4 68.6c2.2 1.3 4.2 2.9 6 4.8l64 64c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0l-63.1-63.1c-24.5 21.8-55.8 36.2-90.3 39.6V240c0-8.8-7.2-16-16-16s-16 7.2-16 16V479.2c-34.5-3.4-65.8-17.8-90.3-39.6L86.6 502.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l64-64c1.9-1.9 3.9-3.4 6-4.8C101.5 367.8 96 344.6 96 320H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H96.3c1.1-14.1 5-27.5 11.1-39.5c-.7-.6-1.4-1.2-2.1-1.9l-64-64c-12.5-12.5-12.5-32.8 0-45.3z"/></svg>
                                     <span className="text-[13px] ml-[6px] text-theme-10/80 group-hover:text-theme-10 tlg:group-hover:text-theme-10/80 dark:text-theme-9/80 group-hover:dark:text-theme-9 tlg:group-hover:dark:text-theme-9/80">버그 리포트</span>
-                                </Link>
+                                </Link> */}
                                 {
                                     user === null
                                     ? <>
