@@ -28,6 +28,7 @@ const IssueFont = ({params}: any) => {
     const [emailValid, setEmailValid] = useState<boolean>(false);
     const [contentAlert, setContentAlert] = useState<boolean>(false);
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [isIssued, setIsIssued] = useState<string>("");
 
     // onChange
     const handleTitleChange = () => { setTitleAlert(false); }
@@ -59,22 +60,161 @@ const IssueFont = ({params}: any) => {
         } else {
             setIsLoading(true);
 
-            for (let i = 0; i < imgs.length; i++) {
-                await axios.post('/api/issue/font', {
-                    action: 'upload-img',
-                    file_name: `test-${i+1}.` + imgs[i].file.name.split('.').pop(),
-                    file_type: imgs[i].file.type
-                })
-                .then(async (res) => {
-                    await axios.put(res.data.url, imgs[i].file, { headers: { 'Content-Type': imgs[i].file.type }})
-                    .then(() => console.log(`이미지 ${i+1} AWS 업로드 성공`))
-                    .catch(() => console.log(`이미지 ${i+1} AWS 업로드 실패`));
-                })
-                .catch(() => console.log(`이미지 ${i+1} POST 요청 실패`));
-            }
+            // ID 가져오기
+            await axios.get('/api/issue/font', {
+                params: {
+                    action: "get-issue-id"
+                }
+            })
+            .then(async (res) => {
+                // 변수
+                let issueId = res.data.issue.issue_id + 1;
+                let imgType: string[] = [];
+
+                if (imgs.length !== 0) {
+                    for (let i = 0; i < imgs.length; i++) {
+                        // 확장자명 배열에 저장
+                        let fileType = imgs[i].file.name.split('.').pop();
+                        imgType.push(fileType);
+
+                        // 마지막 이미지가 아닌 경우
+                        if (i < imgs.length - 1) {
+                            // AWS에 이미지 업로드
+                            await axios.post('/api/issue/font', {
+                                action: 'upload-img',
+                                file_name: `issue-font-${issueId}-${i+1}.` + fileType,
+                                file_type: imgs[i].file.type
+                            })
+                            .then(async (res) => {
+                                // AWS에 업로드 후 함수 종료
+                                await axios.put(res.data.url, imgs[i].file, { headers: { 'Content-Type': imgs[i].file.type }})
+                                .catch(() => {
+                                    console.log(`이미지 ${i+1} AWS 업로드 실패`);
+                                    uploadOnFail();
+                                });
+                            })
+                            .catch(() => {
+                                console.log(`이미지 ${i+1} POST 요청 실패`);
+                                uploadOnFail();
+                            });
+                        } 
+                        // 마지막 이미지인 경우
+                        else {
+                            // AWS에 이미지 업로드
+                            await axios.post('/api/issue/font', {
+                                action: 'upload-img',
+                                file_name: `issue-font-${issueId}-${i+1}.` + fileType,
+                                file_type: imgs[i].file.type
+                            })
+                            .then(async (res) => {
+                                // Prisma에 저장
+                                await axios.put(res.data.url, imgs[i].file, { headers: { 'Content-Type': imgs[i].file.type }})
+                                .then(async () => {
+                                    await axios.post("/api/issue/font", {
+                                        action: "upload-to-prisma",
+                                        issue_id: issueId,
+                                        title: title.value,
+                                        email: email.value,
+                                        content: content.value,
+                                        img_length: imgs.length,
+                                        img_1: imgType[0] !== undefined ? `https://fonts-archive-issue-font.s3.ap-northeast-2.amazonaws.com/issue-font-${issueId}-1.` + imgType[0] : "null",
+                                        img_2: imgType[1] !== undefined ? `https://fonts-archive-issue-font.s3.ap-northeast-2.amazonaws.com/issue-font-${issueId}-2.` + imgType[1] : "null",
+                                        img_3: imgType[2] !== undefined ? `https://fonts-archive-issue-font.s3.ap-northeast-2.amazonaws.com/issue-font-${issueId}-3.` + imgType[2] : "null",
+                                        img_4: imgType[3] !== undefined ? `https://fonts-archive-issue-font.s3.ap-northeast-2.amazonaws.com/issue-font-${issueId}-4.` + imgType[3] : "null",
+                                        img_5: imgType[4] !== undefined ? `https://fonts-archive-issue-font.s3.ap-northeast-2.amazonaws.com/issue-font-${issueId}-5.` + imgType[4] : "null",
+                                        issue_closed_type: "Open",
+
+                                    })
+                                    .then(() => {
+                                        console.log("Prisma에 저장 성공");
+                                        uploadOnSuccess();
+                                    })
+                                    .catch((err) => {
+                                        console.log("Prisma에 저장 실패");
+                                        console.log(err);
+                                        uploadOnFail();
+                                    });
+                                })
+                                .catch(() => {
+                                    console.log(`이미지 ${i+1} AWS 업로드 실패`);
+                                    uploadOnFail();
+                                });
+                            })
+                            .catch(() => {
+                                console.log(`이미지 ${i+1} POST 요청 실패`);
+                                uploadOnFail();
+                            }); 
+                        }
+                    }   
+                } else {
+                    // 이미지 없으면 바로 Prisma에 저장
+                    await axios.post("/api/issue/font", {
+                        action: "upload-to-prisma",
+                        issue_id: issueId,
+                        title: title.value,
+                        email: email.value,
+                        content: content.value,
+                        img_length: imgs.length,
+                        img_1: "null",
+                        img_2: "null",
+                        img_3: "null",
+                        img_4: "null",
+                        img_5: "null",
+                        issue_closed_type: "Open"
+                    })
+                    .then(() => {
+                        console.log("Prisma에 저장 성공");
+                        uploadOnSuccess();
+                    })
+                    .catch((err) => {
+                        console.log("Prisma에 저장 실패");
+                        console.log(err);
+                        uploadOnFail();
+                    });
+                }
+            })
+            .catch(() => {
+                console.log("폰트 제보 실패");
+                uploadOnFail();
+            });
 
             setIsLoading(false);
         }
+    }
+
+    /** 업로드 실패 시 */
+    const uploadOnFail = () => {
+        // 변수
+        const alert = document.getElementById("is-issued") as HTMLDivElement;
+
+        // 초기화
+        setIsIssued("fail");
+        window.scrollTo({top: alert.offsetTop});
+    }
+
+    /** 업로드 성공 시 */
+    const uploadOnSuccess = () => {
+        // 변수
+        const alert = document.getElementById("is-issued") as HTMLDivElement;
+
+        // 초기화
+        setIsIssued("success");
+        resetForm();
+        window.scrollTo({top: alert.offsetTop});
+    }
+
+    /** 업로드 성공 시 폼 초기화 */
+    const resetForm = () => {
+        // 변수
+        const title = document.getElementById("title") as HTMLInputElement;
+        const email = document.getElementById("email") as HTMLInputElement;
+        const content = document.getElementById("content") as HTMLTextAreaElement;
+
+        // 초기화
+        title.value = "";
+        email.value = "";
+        content.value = "";
+        setImgs([]);
     }
 
     // 이미지 URL을 저장할 state
@@ -109,9 +249,11 @@ const IssueFont = ({params}: any) => {
                                 imageCompression(file, resizeOption)
                                 .then(function(compressedFile) {
                                     loadPreview(compressedFile, imgNo + i);
-                                    console.log(`이미지 ${imgs.length + i} 리사이징 성공`);
                                 })
-                                .catch(() => console.log(`이미지 ${imgNo + i} 리사이징 실패`));
+                                .catch(() => {
+                                    console.log(`이미지 ${imgNo + i} 리사이징 실패`);
+                                    uploadOnFail();
+                                });
                             } else {
                                 loadPreview(file, imgNo + i);
                             }
@@ -136,9 +278,18 @@ const IssueFont = ({params}: any) => {
         }
     }
 
+    /** 미리보기 삭제 */
     const deleteImg = (index: number) => {
         setImgs(imgs.filter((img: any) => img.index !== index));
     }
+
+    /** 알럿 닫기 */
+    const handleIssueClose = () => {
+        setIsIssued("");
+    }
+
+    // Progress Bar
+    const [progress, setProgress] = useState<number>(0);
 
     return (
         <>
@@ -165,10 +316,41 @@ const IssueFont = ({params}: any) => {
                 handleSearch={emptyFn}
             />
 
+            {/* Progress Bar */}
+            <div style={{width: `${progress}%`}} className="h-[4px] bg-theme-green fixed z-30 left-0 top-0"></div>
+
             {/* 메인 */}
             <div className='w-[100%] flex flex-col justify-center items-center'>
                 <div className='max-w-[720px] w-[100%] flex flex-col justify-center items-start my-[100px] tlg:my-[40px]'>
                     <h2 className='text-[20px] tlg:text-[18px] text-theme-4 dark:text-theme-9 font-medium mb-[12px] tlg:mb-[8px]'>폰트 제보하기</h2>
+                    <div id="is-issued" className="w-[100%]">
+                        {
+                            isIssued === "success"
+                            ? <>
+                                <div className='w-[100%] h-[40px] px-[10px] mb-[10px] flex flex-row justify-between items-center rounded-[6px] border-[2px] border-theme-yellow dark:border-theme-blue-1/80 text-[12px] text-theme-3 dark:text-theme-9 bg-theme-yellow/40 dark:bg-theme-blue-1/20'>
+                                    <div className='flex flex-row justify-start items-center'>
+                                        <svg className='w-[14px] fill-theme-yellow dark:fill-theme-blue-1/80' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg>
+                                        <div className='ml-[6px]'>폰트를 제보해주셔서 감사합니다. 빠른 시일내에 답변 드리겠습니다.</div>
+                                    </div>
+                                    <div onClick={handleIssueClose} className='flex flex-row justify-center items-center cursor-pointer'>
+                                        <svg className='w-[18px] fill-theme-3 dark:fill-theme-9' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg>
+                                    </div>
+                                </div>
+                            </>
+                            : isIssued === "fail"
+                                ? <>
+                                    <div className='w-[100%] h-[40px] px-[10px] mb-[10px] flex flex-row justify-between items-center rounded-[6px] border-[2px] border-theme-red/80 text-[12px] text-theme-3 dark:text-theme-9 bg-theme-red/20'>
+                                        <div className='flex flex-row justify-start items-center'>
+                                            <svg className='w-[14px] fill-theme-red/80' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg>
+                                            <div className='ml-[6px]'>폰트 제보에 실패했습니다. 다시 시도해 주세요.</div>
+                                        </div>
+                                        <div onClick={handleIssueClose} className='flex flex-row justify-center items-center cursor-pointer'>
+                                            <svg className='w-[18px] fill-theme-3 dark:fill-theme-9' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg>
+                                        </div>
+                                    </div>
+                                </> : <></>
+                        }
+                    </div>
                     <div className='w-[100%] p-[20px] rounded-[8px] text-theme-10 dark:text-theme-9 bg-theme-5 dark:bg-theme-3 drop-shadow-default dark:drop-shadow-dark'>
                         <div className="text-[14px] flex flex-col">
                             <label htmlFor="title">제목</label>

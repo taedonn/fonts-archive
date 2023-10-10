@@ -52,7 +52,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                         name: req.body.name,
                         lang: req.body.lang,
                         date: req.body.date,
-                        view: 0,
                         font_family: req.body.font_family,
                         font_type: req.body.font_type,
                         font_weight: req.body.font_weight,
