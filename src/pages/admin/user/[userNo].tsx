@@ -105,7 +105,6 @@ const UserDetailPage = ({params}: any) => {
 
     // 저장하기
     const saveUserInfo = async () => {
-        const successBtn = document.getElementById("success-btn") as HTMLDivElement;
         const userNo = document.getElementById("user-no") as HTMLInputElement;
         const userName = document.getElementById("user-name") as HTMLInputElement;
         const userNameReported = document.getElementById("user-name-reported") as HTMLInputElement;
@@ -150,7 +149,7 @@ const UserDetailPage = ({params}: any) => {
 
                 // 알럿 표시
                 setIsSuccess("success");
-                window.scrollTo({top: successBtn.offsetTop});
+                window.scrollTo({top: 0});
 
                 // 로딩 스피너 정지
                 setIsLoading(false);
@@ -160,7 +159,7 @@ const UserDetailPage = ({params}: any) => {
 
                 // 알럿 표시
                 setIsSuccess("fail");
-                window.scrollTo({top: successBtn.offsetTop});
+                window.scrollTo({top: 0});
 
                 // 로딩 스피너 정지
                 setIsLoading(false);

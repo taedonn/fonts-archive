@@ -163,7 +163,6 @@ const Edit = ({params}: any) => {
 
     /** 수정하기 버튼 클릭 */
     const editBtnClick = async () => {
-        const editBtnAlert = document.getElementById("edit-btn-success") as HTMLDivElement;
         const fontCode = document.getElementById("font-code") as HTMLInputElement;
         const fontName = document.getElementById("font-name") as HTMLInputElement;
         const fontLang = document.getElementById("font-lang") as HTMLInputElement;
@@ -258,13 +257,13 @@ const Edit = ({params}: any) => {
                 console.log(res.data.msg);
                 setEditBtnLoading(false);
                 setEditBtnSuccess("success");
-                window.scrollTo({top: editBtnAlert.offsetTop});
+                window.scrollTo({top: 0});
             })
             .catch(err => {
                 console.log(err);
                 setEditBtnLoading(false);
                 setEditBtnSuccess("fail");
-                window.scrollTo({top: editBtnAlert.offsetTop});
+                window.scrollTo({top: 0});
             });
         }
     }

@@ -54,7 +54,6 @@ const Add = ({params}: any) => {
 
     /** 추가하기 버튼 클릭 */
     const addBtnClick = async () => {
-        const addBtnAlert = document.getElementById("add-btn-success") as HTMLDivElement;
         const fontName = document.getElementById("font-name") as HTMLInputElement;
         const fontLang = document.getElementById("font-lang") as HTMLInputElement;
         const fontDate = document.getElementById("font-date") as HTMLInputElement;
@@ -147,13 +146,13 @@ const Add = ({params}: any) => {
                 console.log(res.data.msg);
                 setAddBtnLoading(false);
                 setAddBtnSuccess("success");
-                window.scrollTo({top: addBtnAlert.offsetTop});
+                window.scrollTo({top: 0});
             })
             .catch(err => {
                 console.log(err);
                 setAddBtnLoading(false);
                 setAddBtnSuccess("fail");
-                window.scrollTo({top: addBtnAlert.offsetTop});
+                window.scrollTo({top: 0});
             });
         }
     }

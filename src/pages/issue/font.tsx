@@ -110,21 +110,27 @@ const IssueFont = ({params}: any) => {
                                 // Prisma에 저장
                                 await axios.put(res.data.url, imgs[i].file, { headers: { 'Content-Type': imgs[i].file.type }})
                                 .then(async () => {
-                                    await axios.post("/api/issue/font", {
-                                        action: "upload-to-prisma",
-                                        issue_id: issueId,
-                                        title: title.value,
-                                        email: email.value,
-                                        content: content.value,
-                                        img_length: imgs.length,
-                                        img_1: imgType[0] !== undefined ? `https://fonts-archive-issue-font.s3.ap-northeast-2.amazonaws.com/issue-font-${issueId}-1.` + imgType[0] : "null",
-                                        img_2: imgType[1] !== undefined ? `https://fonts-archive-issue-font.s3.ap-northeast-2.amazonaws.com/issue-font-${issueId}-2.` + imgType[1] : "null",
-                                        img_3: imgType[2] !== undefined ? `https://fonts-archive-issue-font.s3.ap-northeast-2.amazonaws.com/issue-font-${issueId}-3.` + imgType[2] : "null",
-                                        img_4: imgType[3] !== undefined ? `https://fonts-archive-issue-font.s3.ap-northeast-2.amazonaws.com/issue-font-${issueId}-4.` + imgType[3] : "null",
-                                        img_5: imgType[4] !== undefined ? `https://fonts-archive-issue-font.s3.ap-northeast-2.amazonaws.com/issue-font-${issueId}-5.` + imgType[4] : "null",
-                                        issue_closed_type: "Open",
-
-                                    })
+                                    await axios.post("/api/issue/font", 
+                                        {
+                                            action: "upload-to-prisma",
+                                            issue_id: issueId,
+                                            title: title.value,
+                                            email: email.value,
+                                            content: content.value,
+                                            img_length: imgs.length,
+                                            img_1: imgType[0] !== undefined ? `https://fonts-archive-issue-font.s3.ap-northeast-2.amazonaws.com/issue-font-${issueId}-1.` + imgType[0] : "null",
+                                            img_2: imgType[1] !== undefined ? `https://fonts-archive-issue-font.s3.ap-northeast-2.amazonaws.com/issue-font-${issueId}-2.` + imgType[1] : "null",
+                                            img_3: imgType[2] !== undefined ? `https://fonts-archive-issue-font.s3.ap-northeast-2.amazonaws.com/issue-font-${issueId}-3.` + imgType[2] : "null",
+                                            img_4: imgType[3] !== undefined ? `https://fonts-archive-issue-font.s3.ap-northeast-2.amazonaws.com/issue-font-${issueId}-4.` + imgType[3] : "null",
+                                            img_5: imgType[4] !== undefined ? `https://fonts-archive-issue-font.s3.ap-northeast-2.amazonaws.com/issue-font-${issueId}-5.` + imgType[4] : "null",
+                                            issue_closed_type: "Open",
+                                        },
+                                        {
+                                            onUploadProgress: (progressEvent: any) => {
+                                                setProgress((progressEvent.loaded * 100) / progressEvent.total);
+                                            }
+                                        }
+                                    )
                                     .then(() => {
                                         console.log("Prisma에 저장 성공");
                                         uploadOnSuccess();
@@ -143,7 +149,7 @@ const IssueFont = ({params}: any) => {
                             .catch(() => {
                                 console.log(`이미지 ${i+1} POST 요청 실패`);
                                 uploadOnFail();
-                            }); 
+                            });
                         }
                     }   
                 } else {
@@ -184,23 +190,19 @@ const IssueFont = ({params}: any) => {
 
     /** 업로드 실패 시 */
     const uploadOnFail = () => {
-        // 변수
-        const alert = document.getElementById("is-issued") as HTMLDivElement;
-
         // 초기화
         setIsIssued("fail");
-        window.scrollTo({top: alert.offsetTop});
+        window.scrollTo({top: 0});
+        setProgress(0);
     }
 
     /** 업로드 성공 시 */
     const uploadOnSuccess = () => {
-        // 변수
-        const alert = document.getElementById("is-issued") as HTMLDivElement;
-
         // 초기화
         setIsIssued("success");
         resetForm();
-        window.scrollTo({top: alert.offsetTop});
+        setProgress(0);
+        window.scrollTo({top: 0});
     }
 
     /** 업로드 성공 시 폼 초기화 */
