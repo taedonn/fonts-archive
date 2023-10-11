@@ -10,7 +10,7 @@ import imageCompression from 'browser-image-compression';
 // api
 import { CheckIfSessionExists } from "@/pages/api/user/checkifsessionexists";
 import { FetchUserInfo } from "@/pages/api/user/fetchuserinfo";
-import axios from "axios";
+import axios, { AxiosProgressEvent } from "axios";
 
 // components
 import Header from "@/components/header";
@@ -45,19 +45,19 @@ const IssueFont = ({params}: any) => {
         // 이메일 유효성 검사
         const emailPattern = /^[A-Za-z0-9_.-]+@[A-Za-z0-9-]+\.[A-Za-z0-9-]+/;
 
-        if (title.value === "") {
-            setTitleAlert(true);
-            window.scrollTo({top: title.offsetTop});
-        } else if (email.value === "") {
-            setEmailAlert(true);
-            window.scrollTo({top: email.offsetTop});
-        } else if (email.value !== "" && !emailPattern.test(email.value)) {
-            setEmailValid(true);
-            window.scrollTo({top: email.offsetTop});
-        } else if (content.value === "") {
-            setContentAlert(true);
-            window.scrollTo({top: content.offsetTop});
-        } else {
+        // if (title.value === "") {
+        //     setTitleAlert(true);
+        //     window.scrollTo({top: title.offsetTop});
+        // } else if (email.value === "") {
+        //     setEmailAlert(true);
+        //     window.scrollTo({top: email.offsetTop});
+        // } else if (email.value !== "" && !emailPattern.test(email.value)) {
+        //     setEmailValid(true);
+        //     window.scrollTo({top: email.offsetTop});
+        // } else if (content.value === "") {
+        //     setContentAlert(true);
+        //     window.scrollTo({top: content.offsetTop});
+        // } else {
             setIsLoading(true);
 
             // ID 가져오기
@@ -69,89 +69,81 @@ const IssueFont = ({params}: any) => {
             .then(async (res) => {
                 // 변수
                 let issueId = res.data.issue.issue_id + 1;
-                let imgType: string[] = [];
 
                 if (imgs.length !== 0) {
+                    let allPromise = [];
+                    let totalSize = 0;
                     for (let i = 0; i < imgs.length; i++) {
-                        // 확장자명 배열에 저장
-                        let fileType = imgs[i].file.name.split('.').pop();
-                        imgType.push(fileType);
+                        totalSize += imgs[i].file.size;
+                    }
+                    console.log(imgs[0].file.size);
+                    
+                    // 이미지 여러개 업로드
+                    for (let i = 0; i < imgs.length; i++) {
+                        let promise = await axios.post('/api/issue/font', 
+                            {
+                                action: 'upload-img',
+                                file_name: `issue-font-${issueId}-${i+1}.` + imgs[i].file.name.split('.').pop(),
+                                file_type: imgs[i].file.type
+                            }, {
+                                onUploadProgress: (progressEvent: AxiosProgressEvent) => {
+                                    if (progressEvent && progressEvent.total) {
+                                        setProgress(imgs[i].file.size/totalSize);
+                                    }
+                                },
+                                headers: {
+                                    "Context-Type": "multiplart/form-data"
+                                }
+                            }
+                        )
+                        .then(async (res) => {
+                            // AWS에 이미지 업로드
+                            await axios.put(res.data.url, imgs[i].file, { headers: { 'Content-Type': imgs[i].file.type }})
+                        })
+                        allPromise.push(promise);
+                    }
 
-                        // 마지막 이미지가 아닌 경우
-                        if (i < imgs.length - 1) {
-                            // AWS에 이미지 업로드
-                            await axios.post('/api/issue/font', {
-                                action: 'upload-img',
-                                file_name: `issue-font-${issueId}-${i+1}.` + fileType,
-                                file_type: imgs[i].file.type
-                            })
-                            .then(async (res) => {
-                                // AWS에 업로드 후 함수 종료
-                                await axios.put(res.data.url, imgs[i].file, { headers: { 'Content-Type': imgs[i].file.type }})
-                                .catch(() => {
-                                    console.log(`이미지 ${i+1} AWS 업로드 실패`);
-                                    uploadOnFail();
-                                });
-                            })
-                            .catch(() => {
-                                console.log(`이미지 ${i+1} POST 요청 실패`);
-                                uploadOnFail();
-                            });
-                        } 
-                        // 마지막 이미지인 경우
-                        else {
-                            // AWS에 이미지 업로드
-                            await axios.post('/api/issue/font', {
-                                action: 'upload-img',
-                                file_name: `issue-font-${issueId}-${i+1}.` + fileType,
-                                file_type: imgs[i].file.type
-                            })
-                            .then(async (res) => {
-                                // Prisma에 저장
-                                await axios.put(res.data.url, imgs[i].file, { headers: { 'Content-Type': imgs[i].file.type }})
-                                .then(async () => {
-                                    await axios.post("/api/issue/font", 
-                                        {
-                                            action: "upload-to-prisma",
-                                            issue_id: issueId,
-                                            title: title.value,
-                                            email: email.value,
-                                            content: content.value,
-                                            img_length: imgs.length,
-                                            img_1: imgType[0] !== undefined ? `https://fonts-archive-issue-font.s3.ap-northeast-2.amazonaws.com/issue-font-${issueId}-1.` + imgType[0] : "null",
-                                            img_2: imgType[1] !== undefined ? `https://fonts-archive-issue-font.s3.ap-northeast-2.amazonaws.com/issue-font-${issueId}-2.` + imgType[1] : "null",
-                                            img_3: imgType[2] !== undefined ? `https://fonts-archive-issue-font.s3.ap-northeast-2.amazonaws.com/issue-font-${issueId}-3.` + imgType[2] : "null",
-                                            img_4: imgType[3] !== undefined ? `https://fonts-archive-issue-font.s3.ap-northeast-2.amazonaws.com/issue-font-${issueId}-4.` + imgType[3] : "null",
-                                            img_5: imgType[4] !== undefined ? `https://fonts-archive-issue-font.s3.ap-northeast-2.amazonaws.com/issue-font-${issueId}-5.` + imgType[4] : "null",
-                                            issue_closed_type: "Open",
-                                        },
-                                        {
-                                            onUploadProgress: (progressEvent: any) => {
-                                                setProgress((progressEvent.loaded * 100) / progressEvent.total);
-                                            }
-                                        }
-                                    )
-                                    .then(() => {
-                                        console.log("Prisma에 저장 성공");
-                                        uploadOnSuccess();
-                                    })
-                                    .catch((err) => {
-                                        console.log("Prisma에 저장 실패");
-                                        console.log(err);
-                                        uploadOnFail();
-                                    });
-                                })
-                                .catch(() => {
-                                    console.log(`이미지 ${i+1} AWS 업로드 실패`);
-                                    uploadOnFail();
-                                });
-                            })
-                            .catch(() => {
-                                console.log(`이미지 ${i+1} POST 요청 실패`);
-                                uploadOnFail();
-                            });
-                        }
-                    }   
+                    // 모든 이미지가 업로드되면 Prisma에 저장
+                    await axios.all(allPromise)
+                    .then(async () => {
+                        // Prisma에 저장
+                        // await axios.post("/api/issue/font", 
+                        //     {
+                        //         action: "upload-to-prisma",
+                        //         issue_id: issueId,
+                        //         title: title.value,
+                        //         email: email.value,
+                        //         content: content.value,
+                        //         img_length: imgs.length,
+                        //         img_1: imgs[0] !== undefined ? `https://fonts-archive-issue-font.s3.ap-northeast-2.amazonaws.com/issue-font-${issueId}-1.` + imgs[0] : "null",
+                        //         img_2: imgs[1] !== undefined ? `https://fonts-archive-issue-font.s3.ap-northeast-2.amazonaws.com/issue-font-${issueId}-2.` + imgs[1] : "null",
+                        //         img_3: imgs[2] !== undefined ? `https://fonts-archive-issue-font.s3.ap-northeast-2.amazonaws.com/issue-font-${issueId}-3.` + imgs[2] : "null",
+                        //         img_4: imgs[3] !== undefined ? `https://fonts-archive-issue-font.s3.ap-northeast-2.amazonaws.com/issue-font-${issueId}-4.` + imgs[3] : "null",
+                        //         img_5: imgs[4] !== undefined ? `https://fonts-archive-issue-font.s3.ap-northeast-2.amazonaws.com/issue-font-${issueId}-5.` + imgs[4] : "null",
+                        //         issue_closed_type: "Open",
+                        //     },
+                        //     {
+                        //         onUploadProgress: (progressEvent: any) => {
+                        //             setProgress((progressEvent.loaded * 100) / progressEvent.total);
+                        //         }
+                        //     }
+                        // )
+                        // .then(() => {
+                        //     console.log("Prisma에 저장 성공");
+                        //     uploadOnSuccess();
+                        // })
+                        // .catch(() => {
+                        //     console.log("Prisma에 저장 실패");
+                        //     uploadOnFail();
+                        // });
+
+                        console.log("Prisma에 저장 성공")
+                        uploadOnSuccess();
+                    })
+                    .catch(() => {
+                        console.log(`AWS에 이미지 업로드 실패`);
+                        uploadOnFail();
+                    });
                 } else {
                     // 이미지 없으면 바로 Prisma에 저장
                     await axios.post("/api/issue/font", {
@@ -185,7 +177,7 @@ const IssueFont = ({params}: any) => {
             });
 
             setIsLoading(false);
-        }
+        // }
     }
 
     /** 업로드 실패 시 */
@@ -319,7 +311,7 @@ const IssueFont = ({params}: any) => {
             />
 
             {/* Progress Bar */}
-            <div style={{width: `${progress}%`}} className="h-[4px] bg-theme-green fixed z-30 left-0 top-0"></div>
+            <div style={{width: `${progress}%`}} className="h-[4px] bg-theme-green fixed z-30 left-0 top-0 duration-200"></div>
 
             {/* 메인 */}
             <div className='w-[100%] flex flex-col justify-center items-center'>
