@@ -45,19 +45,19 @@ const IssueFont = ({params}: any) => {
         // 이메일 유효성 검사
         const emailPattern = /^[A-Za-z0-9_.-]+@[A-Za-z0-9-]+\.[A-Za-z0-9-]+/;
 
-        // if (title.value === "") {
-        //     setTitleAlert(true);
-        //     window.scrollTo({top: title.offsetTop});
-        // } else if (email.value === "") {
-        //     setEmailAlert(true);
-        //     window.scrollTo({top: email.offsetTop});
-        // } else if (email.value !== "" && !emailPattern.test(email.value)) {
-        //     setEmailValid(true);
-        //     window.scrollTo({top: email.offsetTop});
-        // } else if (content.value === "") {
-        //     setContentAlert(true);
-        //     window.scrollTo({top: content.offsetTop});
-        // } else {
+        if (title.value === "") {
+            setTitleAlert(true);
+            window.scrollTo({top: title.offsetTop});
+        } else if (email.value === "") {
+            setEmailAlert(true);
+            window.scrollTo({top: email.offsetTop});
+        } else if (email.value !== "" && !emailPattern.test(email.value)) {
+            setEmailValid(true);
+            window.scrollTo({top: email.offsetTop});
+        } else if (content.value === "") {
+            setContentAlert(true);
+            window.scrollTo({top: content.offsetTop});
+        } else {
             setIsLoading(true);
 
             // ID 가져오기
@@ -72,11 +72,11 @@ const IssueFont = ({params}: any) => {
 
                 if (imgs.length !== 0) {
                     let allPromise = [];
+                    let percentage = 0;
                     let totalSize = 0;
                     for (let i = 0; i < imgs.length; i++) {
-                        totalSize += imgs[i].file.size;
+                        totalSize += Number(imgs[i].file.size);
                     }
-                    console.log(imgs[0].file.size);
                     
                     // 이미지 여러개 업로드
                     for (let i = 0; i < imgs.length; i++) {
@@ -88,7 +88,9 @@ const IssueFont = ({params}: any) => {
                             }, {
                                 onUploadProgress: (progressEvent: AxiosProgressEvent) => {
                                     if (progressEvent && progressEvent.total) {
-                                        setProgress(imgs[i].file.size/totalSize);
+                                        percentage = percentage + Number(Math.round(imgs[i].file.size) / totalSize * 90);
+                                        setProgress(percentage);
+                                        console.log(percentage);
                                     }
                                 },
                                 headers: {
@@ -107,38 +109,38 @@ const IssueFont = ({params}: any) => {
                     await axios.all(allPromise)
                     .then(async () => {
                         // Prisma에 저장
-                        // await axios.post("/api/issue/font", 
-                        //     {
-                        //         action: "upload-to-prisma",
-                        //         issue_id: issueId,
-                        //         title: title.value,
-                        //         email: email.value,
-                        //         content: content.value,
-                        //         img_length: imgs.length,
-                        //         img_1: imgs[0] !== undefined ? `https://fonts-archive-issue-font.s3.ap-northeast-2.amazonaws.com/issue-font-${issueId}-1.` + imgs[0] : "null",
-                        //         img_2: imgs[1] !== undefined ? `https://fonts-archive-issue-font.s3.ap-northeast-2.amazonaws.com/issue-font-${issueId}-2.` + imgs[1] : "null",
-                        //         img_3: imgs[2] !== undefined ? `https://fonts-archive-issue-font.s3.ap-northeast-2.amazonaws.com/issue-font-${issueId}-3.` + imgs[2] : "null",
-                        //         img_4: imgs[3] !== undefined ? `https://fonts-archive-issue-font.s3.ap-northeast-2.amazonaws.com/issue-font-${issueId}-4.` + imgs[3] : "null",
-                        //         img_5: imgs[4] !== undefined ? `https://fonts-archive-issue-font.s3.ap-northeast-2.amazonaws.com/issue-font-${issueId}-5.` + imgs[4] : "null",
-                        //         issue_closed_type: "Open",
-                        //     },
-                        //     {
-                        //         onUploadProgress: (progressEvent: any) => {
-                        //             setProgress((progressEvent.loaded * 100) / progressEvent.total);
-                        //         }
-                        //     }
-                        // )
-                        // .then(() => {
-                        //     console.log("Prisma에 저장 성공");
-                        //     uploadOnSuccess();
-                        // })
-                        // .catch(() => {
-                        //     console.log("Prisma에 저장 실패");
-                        //     uploadOnFail();
-                        // });
-
-                        console.log("Prisma에 저장 성공")
-                        uploadOnSuccess();
+                        await axios.post("/api/issue/font", 
+                            {
+                                action: "upload-to-prisma",
+                                issue_id: issueId,
+                                title: title.value,
+                                email: email.value,
+                                content: content.value,
+                                img_length: imgs.length,
+                                img_1: imgs[0] !== undefined ? `https://fonts-archive-issue-font.s3.ap-northeast-2.amazonaws.com/issue-font-${issueId}-1.` + imgs[0] : "null",
+                                img_2: imgs[1] !== undefined ? `https://fonts-archive-issue-font.s3.ap-northeast-2.amazonaws.com/issue-font-${issueId}-2.` + imgs[1] : "null",
+                                img_3: imgs[2] !== undefined ? `https://fonts-archive-issue-font.s3.ap-northeast-2.amazonaws.com/issue-font-${issueId}-3.` + imgs[2] : "null",
+                                img_4: imgs[3] !== undefined ? `https://fonts-archive-issue-font.s3.ap-northeast-2.amazonaws.com/issue-font-${issueId}-4.` + imgs[3] : "null",
+                                img_5: imgs[4] !== undefined ? `https://fonts-archive-issue-font.s3.ap-northeast-2.amazonaws.com/issue-font-${issueId}-5.` + imgs[4] : "null",
+                                issue_closed_type: "Open",
+                            },
+                            {
+                                onUploadProgress: () => {
+                                    setProgress(100);
+                                },
+                                headers: {
+                                    "Context-Type": "multiplart/form-data"
+                                }
+                            }
+                        )
+                        .then(() => {
+                            console.log("Prisma에 저장 성공");
+                            uploadOnSuccess();
+                        })
+                        .catch(() => {
+                            console.log("Prisma에 저장 실패");
+                            uploadOnFail();
+                        });
                     })
                     .catch(() => {
                         console.log(`AWS에 이미지 업로드 실패`);
@@ -177,7 +179,7 @@ const IssueFont = ({params}: any) => {
             });
 
             setIsLoading(false);
-        // }
+        }
     }
 
     /** 업로드 실패 시 */
@@ -203,11 +205,13 @@ const IssueFont = ({params}: any) => {
         const title = document.getElementById("title") as HTMLInputElement;
         const email = document.getElementById("email") as HTMLInputElement;
         const content = document.getElementById("content") as HTMLTextAreaElement;
+        const file = document.getElementById("file") as HTMLInputElement;
 
         // 초기화
         title.value = "";
         email.value = "";
         content.value = "";
+        file.value = "";
         setImgs([]);
     }
 
@@ -311,7 +315,7 @@ const IssueFont = ({params}: any) => {
             />
 
             {/* Progress Bar */}
-            <div style={{width: `${progress}%`}} className="h-[4px] bg-theme-green fixed z-30 left-0 top-0 duration-200"></div>
+            <div style={{width: `${progress}%`}} className="h-[4px] bg-theme-green fixed z-30 left-0 top-0 duration-300 ease-out"></div>
 
             {/* 메인 */}
             <div className='w-[100%] flex flex-col justify-center items-center'>
