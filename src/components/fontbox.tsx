@@ -176,7 +176,7 @@ export default function FontBox ({lang, type, sort, user, like, filter, searchwo
                                         </div>
                                         <div className="w-[100%] h-px my-[0.83vw] tlg:my-[1.56vw] tmd:my-[2.08vw] txs:my-[3.33vw] bg-theme-7 dark:bg-theme-5"></div>
                                         <div style={{fontFamily:"'"+font.font_family+"'"}} className="text-[1.88vw] tlg:text-[3.52vw] tmd:text-[4.69vw] txs:text-[7.5vw] text-normal leading-normal overflow-hidden">
-                                            <p className={`${font.code + '-text'} textbox ellipsed-text text-theme-3 dark:text-theme-8`}><DummyText lang={font.lang} text={text} num={num}/></p>
+                                            <p className={`${font.code + '-text'} textbox ellipsed-text text-theme-3/60 dark:text-theme-8/60`}><DummyText lang={font.lang} text={text} num={num}/></p>
                                         </div>
                                     </a>
                                 ))}
