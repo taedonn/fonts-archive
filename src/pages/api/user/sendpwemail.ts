@@ -76,18 +76,18 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
                 to: user.user_id,
                 subject: '[폰트 아카이브] 임시 비밀번호가 발급되었습니다.',
                 html: `
-                    <div style="width:100%; display:flex; flex-direction:column; justify-content:flex-start; align-items:center;">
-                        <div style="width:100%; max-width:600px; padding:40px 20px; border:1px solid #EEE; font-family:'Roboto', 'Noto Sans KR'; font-size:16px; font-weight:400; line-height:1.25; color:#000; display:flex; flex-direction:column; justify-content:flex-start; align-items:center;">
-                            <div style="width:100%; max-width:400px; display:flex; flex-direction:column; justify-content:flex-start; align-items:center;">
-                                <div style="width:32px; height:32px; background-color:#000; color:#FFF; font-size:12px; font-weight:400; line-height:1; border-radius:6px; display:flex; flex-direction:row; justify-content:center; align-items:center;">Aa</div>
-                                <h2 style="font-size:20px; font-weight:500; margin:0; margin-top:20px;">
+                    <div style="width:100%; font-family:'Roboto', 'Noto Sans KR'; font-size:16px; font-weight:400; line-height:1.25; color:#000;">
+                        <div style="width:100%; max-width:600px; background-color:#FFF; margin:0 auto; padding:40px 20px; border:1px solid #EEE; font-size:16px; font-weight:400; line-height:1.25; color:#000;">
+                            <div style="width:100%; max-width:400px; margin:0 auto;">
+                                <div style="width:32px; height:32px; background-color:#000; color:#FFF; font-size:12px; font-weight:400; line-height:1; border-radius:6px; margin:0 auto; text-align:center; line-height:30px;">Aa</div>
+                                <h2 style="font-size:20px; font-weight:500; margin:0; margin-top:20px; text-align:center;">
                                     임시 비밀번호가 발급되었습니다.
                                 </h2>
                                 <p style="width:100%; font-size:14px; font-weight:400; line-height:2; color:#3A3A3A; margin:0; margin-top:48px;">
                                     안녕하세요 ${user.user_name}님, <br/>
                                     이제 아래 <span style="font-weight:500; color:#000;">임시 비밀번호를 통해</span> 로그인 하실 수 있습니다.
                                 </p>
-                                <div style="width:100%; padding:16px 20px; margin-top:28px; box-sizing:border-box; background-color:#EEE; font-size:12px; font-weight:500; color:#3A3A3A; text-decoration:none; border-radius:6px; display:flex; flex-direction:row; justify-content:flex-start; align-items:center;">
+                                <div style="width:100%; padding:16px 20px; margin-top:28px; box-sizing:border-box; background-color:#EEE; font-size:12px; font-weight:500; color:#3A3A3A; text-decoration:none; border-radius:6px;">
                                     ${randomPw}
                                 </div>
                                 <p style="width:100%; font-size:14px; font-weight:400; line-height:2; color:#3A3A3A; margin:0; margin-top:28px;">
