@@ -31,10 +31,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             to: email,
             subject: '[폰트 아카이브] 회원가입 인증 메일입니다.',
             html: `
-                <div style="width:100%;">
+                <div style="width:100%; padding:60px 0; background-color:#F3F5F7;">
                     <div style="width:100%; max-width:600px; padding:40px 20px; border:1px solid #EEE; font-family:'Roboto', 'Noto Sans KR'; font-size:16px; font-weight:400; line-height:1.25; color:#000;">
                         <div style="width:100%; max-width:400px; margin:0 auto;">
-                            <div style="width: 100%; height: 1px; background-color: #EEE; margin-bottom: 48px;"></div>
+                            <div style="width: 100%; height: 1px; margin-bottom: 48px;"></div>
                             <div style="width: 100%; margin: 0 auto;">
                                 <div style="margin: 0 auto; width:24px; height:24px; background-color:#000; color:#FFF; font-size:10px; font-weight:400; text-align:center; line-height:22px; border-radius:4px;">Aa</div>
                                 <div style="margin: 0 auto; margin-top: 12px; font-size: 14px; text-align: center; color: #3A3A3A;">폰트 아카이브</div>

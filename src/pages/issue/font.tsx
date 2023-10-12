@@ -133,9 +133,20 @@ const IssueFont = ({params}: any) => {
                                 }
                             }
                         )
-                        .then(() => {
-                            console.log("Prisma에 저장 성공");
-                            uploadOnSuccess();
+                        .then(async () => {
+                            // 이메일 발송
+                            await axios.post("/api/issue/font", {
+                                action: "send-email",
+                                title: title.value,
+                                email: email.value,
+                                content: content.value,
+                            })
+                            .then(() => {
+                                // 폼 초기화
+                                uploadOnSuccess();
+                                console.log("이메일 발송 성공");
+                            })
+                            .catch(() => console.log("이메일 발송 실패"));
                         })
                         .catch(() => {
                             console.log("Prisma에 저장 실패");
@@ -162,9 +173,20 @@ const IssueFont = ({params}: any) => {
                         img_5: "null",
                         issue_closed_type: "Open"
                     })
-                    .then(() => {
-                        console.log("Prisma에 저장 성공");
-                        uploadOnSuccess();
+                    .then(async () => {
+                        // 이메일 발송
+                        await axios.post("/api/issue/font", {
+                            action: "send-email",
+                            title: title.value,
+                            email: email.value,
+                            content: content.value,
+                        })
+                        .then(() => {
+                            // 폼 초기화
+                            uploadOnSuccess();
+                            console.log("이메일 발송 성공");
+                        })
+                        .catch(() => console.log("이메일 발송 실패"));
                     })
                     .catch((err) => {
                         console.log("Prisma에 저장 실패");
