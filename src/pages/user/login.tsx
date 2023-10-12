@@ -109,7 +109,18 @@ const Login = ({params}: any) => {
 
                     // 세션 스토리지가 저장되어 있으면, 해당 페이지로 이동
                     sessionStorage.removeItem("login_history");
-                    location.href = history as string; // 이전 페이지로 이동
+
+                    console.log(history);
+                    if (history.includes("user")) {
+                        console.log("history가 user일 때");
+                        if (history.includes("privacy") || history.includes("terms")) {
+                            location.href = history as string; // 이전 페이지로 이동
+                        } else {
+                            location.href = "/";
+                        }
+                    } else {
+                        location.href = history as string; // 이전 페이지로 이동
+                    }
                 }
             })
             .catch(err => {

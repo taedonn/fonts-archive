@@ -24,7 +24,9 @@ const SendEmail = ({params}: any) => {
 
     // 이메일 다시 보내기
     const resendEmail = async () => {
-        await axios.post('/api/user/resendemail', null, { params: {
+        await axios.post('/api/user/sendemail', null, { params: {
+            name: "",
+            email: "",
             token: token
         }})
         .then(() => location.reload())
@@ -82,20 +84,49 @@ export async function getServerSideProps(ctx: any) {
         // 디바이스 체크
         const userAgent = ctx.req ? ctx.req.headers['user-agent'] : navigator.userAgent;
 
-        // 토큰 파라미터를 통해 이메일 받아오기
-        const token = ctx.query.token === undefined ? '' : ctx.query.token;
-        const id = await FetchEmailFromToken(token);
-
         // 세션ID 쿠키 제거
         ctx.res.setHeader('Set-Cookie', [`session=deleted; max-Age=0; path=/`]);
 
-        return {
-            props: {
-                params: {
-                    theme: cookieTheme,
-                    userAgent: userAgent,
-                    token: token,
-                    id: id,
+        // 토큰 유효성 검사
+        const token: string = ctx.query.token === undefined ? "" : ctx.query.token;
+        const user = await FetchEmailFromToken(token);
+
+        // 파라미터에 토큰이 없는 경우
+        if (token === "") {
+            return {
+                redirect: {
+                    destination: '/',
+                    permanent: false,
+                }
+            }
+        } else {
+            if (user === null) {
+                return {
+                    redirect: {
+                        destination: '/',
+                        permanent: false,
+                    }
+                }
+            } else {
+                // user가 이메일 인증을 한 경우
+                if (user.user_email_confirm) {
+                    return {
+                        redirect: {
+                            destination: '/',
+                            permanent: false,
+                        }
+                    }
+                } else {
+                    return {
+                        props: {
+                            params: {
+                                theme: cookieTheme,
+                                userAgent: userAgent,
+                                token: token,
+                                id: user.user_id,
+                            }
+                        }
+                    }
                 }
             }
         }

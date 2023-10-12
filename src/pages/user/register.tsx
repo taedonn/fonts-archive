@@ -69,7 +69,8 @@ const Register = ({params}: any) => {
                     // 이메일 보내기
                     await axios.post('/api/user/sendemail', null, { params: {
                         name: nameVal,
-                        email: idVal
+                        email: idVal,
+                        token: "",
                     }})
                     // 이메일 토큰을 가져와 회원가입 완료 랜딩페이지로 이동
                     .then(async () => await axios.get('/api/user/sendemailtoken', {

@@ -90,7 +90,6 @@ const IssueFont = ({params}: any) => {
                                     if (progressEvent && progressEvent.total) {
                                         percentage = percentage + Number(Math.round(imgs[i].file.size) / totalSize * 90);
                                         setProgress(percentage);
-                                        console.log(percentage);
                                     }
                                 },
                                 headers: {

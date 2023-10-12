@@ -88,29 +88,28 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     to: email,
                     subject: '[폰트 아카이브] 폰트를 제보해주셔서 감사합니다.',
                     html: `
-                        <div style="width:100%; font-family:'Roboto', 'Noto Sans KR'; font-size:16px; font-weight:400; line-height:1.25; color:#000; padding:60px 0; background-color:#F3F5F7;">
-                            <div style="width:100%; max-width:600px; background-color:#FFF; margin:0 auto; padding:40px 20px; border:1px solid #EEE; font-size:16px; font-weight:400; line-height:1.25; color:#000;">
+                        <div style="width:100%; font-size:16px; font-weight:400; line-height:1.25; color:#000; background-color:#F3F5F7; font-family:'Roboto', 'Noto Sans KR', '맑은고딕', Malgun Gothic, '돋움', Dotum, Helvetica, 'Apple SD Gothic Neo', Sans-serif;">
+                                <div style="width:100%; max-width:520px; background-color:#FFF; margin:0 auto; padding:80px 20px; box-sizing:border-box; font-size:16px; font-weight:400; line-height:1.25; color:#000;">
                                 <div style="width:100%; max-width:400px; margin:0 auto;">
-                                    <div style="width: 100%; height: 1px; margin-bottom: 48px;"></div>
                                     <div style="width: 100%; margin: 0 auto;">
                                         <div style="margin: 0 auto; width:24px; height:24px; background-color:#000; color:#FFF; font-size:10px; font-weight:400; text-align:center; line-height:22px; border-radius:4px;">Aa</div>
-                                        <div style="margin: 0 auto; margin-top: 12px; font-size: 14px; text-align: center; color: #3A3A3A;">폰트 아카이브</div>
+                                        <div style="margin: 0 auto; margin-top: 16px; font-size: 14px; text-align: center; color: #3A3A3A;">폰트 아카이브</div>
                                     </div>
-                                    <h2 style="font-size:20px; font-weight:500; text-align: center; color: #3A3A3A; margin-top:4px;">
+                                    <h2 style="font-size:20px; font-weight:500; text-align: center; color: #3A3A3A; margin-top:8px;">
                                         폰트를 제보해주셔서 <span style="color: #000; font-weight: 700;">감사합니다.</span>
                                     </h2>
                                     <p style="text-align: center; margin-top: 40px;">
                                         <img src="https://fonts-archive.s3.ap-northeast-2.amazonaws.com/mail.png" alt="메일 아이콘" style="width: 160px;"/>
                                     </p>
-                                    <p style="width:100%; font-size:14px; font-weight:400; line-height:2; color:#3A3A3A; margin:0; margin-top:28px;">
+                                    <p style="width:100%; font-size:14px; font-weight:400; line-height:2; color:#3A3A3A; margin:0; margin-top:40px;">
                                         제보해주신 내용 관련해서 최대한 빠른 시일 내에 <span style="font-weight:500; color:#000;">답변</span>드리겠습니다. <br/>
                                         폰트를 찾을 수 없거나, 저작권 등의 문제로 폰트를 올릴 수 없는 경우, 관련 내용 첨부해 답변 드리겠습니다.
                                     </p>
-                                    <div style="width:100%; padding:16px 20px; margin-top:28px; box-sizing:border-box; background-color:#EEE; font-size:12px; font-weight:500; color:#3A3A3A; text-decoration:none; border-radius:6px;">
+                                    <div style="width:100%; padding:16px 20px; box-sizing:border-box; margin-top:28px; box-sizing:border-box; background-color:#EEE; font-size:12px; font-weight:500; color:#3A3A3A; text-decoration:none; border-radius:6px;">
                                         <div style="text-decoration:underline; font-weight:bold;">제목</div><br/>
                                         ${title}
                                     </div>
-                                    <div style="width:100%; padding:16px 20px; margin-top:14px; box-sizing:border-box; background-color:#EEE; font-size:12px; font-weight:500; color:#3A3A3A; text-decoration:none; border-radius:6px;">
+                                    <div style="width:100%; padding:16px 20px; box-sizing:border-box; margin-top:14px; box-sizing:border-box; background-color:#EEE; font-size:12px; font-weight:500; color:#3A3A3A; text-decoration:none; border-radius:6px;">
                                         <div style="text-decoration:underline; font-weight:bold;">내용</div><br/>
                                         ${content}
                                     </div>

@@ -51,13 +51,13 @@ const FindPw = ({params}: any) => {
             setIdChk('empty');
         } else {
             await axios
-            .post('/api/user/sendpwemail', null, { params: {
+            .post('/api/user/sendpwemail', {
                 name: nameVal,
                 id: idVal
-            }})
+            })
             .then(res => {
-                if (res.data.exists === 'wrong-name') { setNameChk('wrong-name'); }
-                else if (res.data.exists === 'wrong-id') { setIdChk('wrong-id'); }
+                if (res.data.valid === 'wrong-name') { setNameChk('wrong-name'); }
+                else if (res.data.valid === 'wrong-id') { setIdChk('wrong-id'); }
                 else { setAlertDisplay(true); }
             })
             .catch(err => console.log(err));
