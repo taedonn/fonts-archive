@@ -310,6 +310,77 @@ const IssueFont = ({params}: any) => {
     // Progress Bar
     const [progress, setProgress] = useState<number>(0);
 
+    // 드래그 이벤트
+    const [isDragging, setIsDragging] = useState<boolean>(false);
+
+    const onDragEnter = (e: React.DragEvent<HTMLDivElement>) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setIsDragging(true);
+    };
+    const onDragLeave = (e: React.DragEvent<HTMLDivElement>) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setIsDragging(false);
+    };
+    const onDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (e.dataTransfer.files) {
+            setIsDragging(true);
+        }
+    };
+    const onDrop = (e: React.DragEvent<HTMLDivElement>) => {
+        e.preventDefault();
+        e.stopPropagation();
+        uploadImgOnDrag(e.dataTransfer.files);
+        setIsDragging(false);
+    };
+
+    // Input에 파일 업로드 시 실행할 함수
+    const uploadImgOnDrag = async (files: FileList) => {
+        if (files) {
+            // 파일 5개 이상일 때 알럿 팝업
+            if (files.length > 5 || imgs.length + files.length > 5) {
+                setImgAlert(true);
+            } else {
+                for (let i = 0; i < files.length; i++) {
+                    // 이미지 리사이징 후 미리보기
+                    let file = files[i];
+                    let img = document.createElement('img');
+                    let objectURL = URL.createObjectURL(file);
+                    img.onload = async function() {
+                        // 파일이 jpeg나 png일 경우만 리사이징 함수 적용
+                        if (file.type === 'image/jpeg' || file.type === 'image/png') {
+                            // 파일의 넓이나 높이가 1000 초과일 때 리사이징
+                            if (img.width > 1000 || img.height > 1000) {
+                                // 리사이징 옵션
+                                const resizeOption = { maxWidthOrHeight: 1000 }
+            
+                                // 리사이징 함수
+                                imageCompression(file, resizeOption)
+                                .then(function(compressedFile) {
+                                    loadPreview(compressedFile, imgNo + i);
+                                })
+                                .catch(() => {
+                                    console.log(`이미지 ${imgNo + i} 리사이징 실패`);
+                                    uploadOnFail();
+                                });
+                            } else {
+                                loadPreview(file, imgNo + i);
+                            }
+                        } else {
+                            loadPreview(file, imgNo + i);
+                        }
+                        URL.revokeObjectURL(objectURL);
+                    }
+                    img.src = objectURL;
+                }
+                setImgNo(imgNo + imgs.length + files.length);
+            }
+        }
+    }
+
     return (
         <>
             {/* Head 부분*/}
@@ -395,7 +466,13 @@ const IssueFont = ({params}: any) => {
                                 ? <div className="text-[10px] ml-[16px] mt-[6px] text-theme-red">내용을 입력해 주세요.</div>
                                 : <></>
                             }
-                            <div className="w-[100%] mt-[16px] p-[24px] rounded-[8px] border-theme-7 dark:border-theme-5 flex flex-col justify-center items-center gap-x-[10px] border">
+                            <div 
+                                className={`${isDragging ? "border-theme-yellow dark:border-theme-blue-1 bg-theme-yellow/20 dark:bg-theme-blue-1/20 duration-100" : "border-theme-7 dark:border-theme-5 bg-transparent dark:bg-transparent duration-0"} w-[100%] mt-[16px] p-[24px] rounded-[8px] flex flex-col justify-center items-center gap-x-[10px] border`}
+                                onDragEnter={onDragEnter}
+                                onDragLeave={onDragLeave}
+                                onDragOver={onDragOver}
+                                onDrop={onDrop}
+                            >
                                 <svg className="w-[28px] fill-theme-9 dark:fill-theme-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M6.502 7a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/><path d="M14 14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h5.5L14 4.5V14zM4 1a1 1 0 0 0-1 1v10l2.224-2.224a.5.5 0 0 1 .61-.075L8 11l2.157-3.02a.5.5 0 0 1 .76-.063L13 10V4.5h-2A1.5 1.5 0 0 1 9.5 3V1H4z"/></svg>
                                 <label htmlFor="file" className="text-[14px] mt-[12px] text-theme-yellow dark:text-theme-blue-1 font-medium hover:underline tlg:hover:no-underline cursor-pointer">파일 추가</label>
                                 <input onChange={uploadImg} accept='image/*' id="file" type="file" multiple className="hidden"/>
