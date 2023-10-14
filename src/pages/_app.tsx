@@ -2,7 +2,7 @@
 
 // next hooks
 import type { AppProps } from "next/app";
-import { NextSeo } from 'next-seo';
+import { DefaultSeo } from 'next-seo';
 
 // react-query hooks
 import { QueryClientProvider, QueryClient } from "react-query";
@@ -16,9 +16,10 @@ export default function App({ Component, pageProps }: AppProps) {
     return (
         <>
             <QueryClientProvider client={queryClient}>
-                <NextSeo
+                <DefaultSeo
                     title="폰트 아카이브 · 상업용 무료 한글 폰트 아카이브"
                     description="상업용 무료 한글 폰트 아카이브"
+                    canonical="https://fonts.taedonn.com"
                     additionalLinkTags={[
                         {
                             rel:"icon",
