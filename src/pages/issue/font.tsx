@@ -128,7 +128,7 @@ const IssueFont = ({params}: any) => {
                                     setProgress(100);
                                 },
                                 headers: {
-                                    "Context-Type": "multiplart/form-data"
+                                    "Context-Type": "multipart/form-data"
                                 }
                             }
                         )
