@@ -200,7 +200,7 @@ const UserDetailPage = ({params}: any) => {
                 <div className='relative max-w-[720px] w-[100%] flex flex-col justify-center items-start my-[100px] tlg:my-[40px]'>
                     {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
                     <a href="/admin/user/list" className="absolute left-0 top-[-80px] tlg:top-[-28px] text-[12px] text-theme-5 hover:text-theme-3 tlg:hover:text-theme-5 dark:text-theme-7 hover:dark:text-theme-9 tlg:hover:dark:text-theme-7 block border-b border-transparent hover:border-theme-3 tlg:border-theme-5 tlg:hover:border-theme-5 hover:dark:border-theme-9 tlg:dark:border-theme-7 tlg:hover:dark:border-theme-7"><div className="inline-block mr-[4px]">&#60;</div> 유저 관리 페이지로 돌아가기</a>
-                    <h2 className='text-[20px] tlg:text-[18px] text-theme-4 dark:text-theme-9 font-medium mb-[12px] tlg:mb-[8px]'>유저 정보</h2>
+                    <h2 className='text-[20px] tlg:text-[18px] text-theme-3 dark:text-theme-9 font-medium mb-[12px] tlg:mb-[8px]'>유저 정보</h2>
                     <div id="success-btn" className="w-[100%]">
                         {
                             isSuccess === "success"
@@ -241,9 +241,9 @@ const UserDetailPage = ({params}: any) => {
                             </div>
                             <div className="w-[calc(100%-100px)]">
                                 <label htmlFor="user-no">유저 번호</label>
-                                <input id="user-no" defaultValue={user.user_no} type="text" disabled className='w-[100%] border-theme-6 dark:border-theme-4 text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] bg-theme-4 dark:bg-theme-2'/>
+                                <input id="user-no" defaultValue={user.user_no} type="text" disabled className='w-[100%] border-theme-6 dark:border-theme-4 text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] bg-theme-4 dark:bg-theme-2 text-theme-8 dark:text-theme-7'/>
                                 <label htmlFor="user-id" className="block mt-[20px]">유저 ID</label>
-                                <input id="user-id" defaultValue={user.user_id} type="text" disabled className='w-[100%] border-theme-6 dark:border-theme-4 text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] bg-theme-4 dark:bg-theme-2'/>
+                                <input id="user-id" defaultValue={user.user_id} type="text" disabled className='w-[100%] border-theme-6 dark:border-theme-4 text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] bg-theme-4 dark:bg-theme-2 text-theme-8 dark:text-theme-7'/>
                             </div>
                         </div>
                         <div className="w-[100%] h-px my-[20px] bg-theme-8/80 dark:bg-theme-7/80"></div>

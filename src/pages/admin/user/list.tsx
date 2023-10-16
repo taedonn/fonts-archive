@@ -75,6 +75,18 @@ const UserList = ({params}: any) => {
         }
     }
 
+    /** 댓글 시간 포맷 */
+    const commentsTimeFormat = (time: string) => {
+        const splitTime = time.split(':');
+        return splitTime[0] + ':' + splitTime[1];
+    }
+
+    /** 댓글 날짜 포맷 */
+    const commentsDateFormat = (date: string) => {
+        const splitDate = date.split('-');
+        return splitDate[0].replace("20", "") + '.' + splitDate[1] + '.' + commentsTimeFormat(splitDate[2].replace('T', ' ').replace('Z', ''));
+    }
+
     return (
         <>
             {/* Head 부분*/}
@@ -103,7 +115,7 @@ const UserList = ({params}: any) => {
             {/* 메인 */}
             <form onSubmit={e => e.preventDefault()} className='w-[100%] flex flex-col justify-center items-center'>
                 <div className='w-[720px] tmd:w-[100%] flex flex-col justify-center items-start my-[100px] tlg:my-[40px]'>
-                    <h2 className='text-[20px] tlg:text-[18px] text-theme-4 dark:text-theme-9 font-medium mb-[16px] tlg:mb-[12px]'>유저 목록</h2>
+                    <h2 className='text-[20px] tlg:text-[18px] text-theme-3 dark:text-theme-9 font-medium mb-[16px] tlg:mb-[12px]'>유저 목록</h2>
                     <div className='w-content flex items-center p-[6px] mb-[12px] tlg:mb-[8px] rounded-[6px] text-theme-10 dark:text-theme-9 bg-theme-5 dark:bg-theme-3'>
                         <select ref={selectRef} className='w-[80px] h-[32px] tlg:h-[28px] text-[12px] pt-px px-[10px] bg-transparent rounded-[6px] outline-none border border-theme-6 dark:border-theme-5 cursor-pointer'>
                             <option value='all' defaultChecked>전체</option>
@@ -120,6 +132,8 @@ const UserList = ({params}: any) => {
                                     <th className='w-[52px] pl-[16px]'>번호</th>
                                     <th className='w-[80px] pl-[16px]'>유저명</th>
                                     <th className='pl-[16px]'>유저 아이디</th>
+                                    <th className='w-[108px] pl-[16px]'>수정 날짜</th>
+                                    <th className='w-[100px] pl-[16px]'>생성 날짜</th>
                                     <th className='w-[80px] pl-[16px]'>닉네임 신고</th>
                                     <th className='w-[92px] pl-[16px]'>이메일 확인</th>
                                 </tr>
@@ -135,6 +149,8 @@ const UserList = ({params}: any) => {
                                                         <td className='pl-[16px] py-[10px] break-keep'>{user.user_no}</td>
                                                         <td className='pl-[16px] py-[10px] break-all'><a href={`/admin/user/${user.user_no}`} className='text-theme-yellow dark:text-theme-blue-1 focus:underline hover:underline tlg:hover:no-underline'>{user.user_name}</a></td>
                                                         <td className='pl-[16px] py-[10px] break-all'>{user.user_id}</td>
+                                                        <td className='pl-[16px] py-[10px]'>{commentsDateFormat(user.updated_at)}</td>
+                                                        <td className='pl-[16px] py-[10px]'>{commentsDateFormat(user.created_at)}</td>
                                                         <td className='pl-[16px] py-[10px] break-keep text-center'>{user.nickname_reported}</td>
                                                         <td className='pl-[16px] py-[10px] break-keep'>
                                                             {
@@ -154,7 +170,7 @@ const UserList = ({params}: any) => {
                                         }
                                     </>
                                     : <tr className='h-[60px]'>
-                                        <td colSpan={5} className='text-center'>유저가 없습니다.</td>
+                                        <td colSpan={7} className='text-center'>유저가 없습니다.</td>
                                     </tr>
                                 }
                             </tbody>

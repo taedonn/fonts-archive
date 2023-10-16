@@ -317,7 +317,7 @@ const Edit = ({params}: any) => {
             {/* 메인 */}
             <div className='w-[100%] flex flex-col justify-center items-center'>
                 <div className='max-w-[720px] w-[100%] flex flex-col justify-center items-start my-[100px] tlg:my-[40px]'>
-                    <h2 className='text-[20px] tlg:text-[18px] text-theme-4 dark:text-theme-9 font-medium mb-[12px] tlg:mb-[8px]'>폰트 수정</h2>
+                    <h2 className='text-[20px] tlg:text-[18px] text-theme-3 dark:text-theme-9 font-medium mb-[12px] tlg:mb-[8px]'>폰트 수정</h2>
                     <div id="edit-btn-success" className="w-[100%]">
                         {
                             editBtnSuccess === "success"

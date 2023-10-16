@@ -47,7 +47,7 @@ const Terms = ({params}: any) => {
             {/* 메인 */}
             <div className='w-[100%] flex flex-col justify-center items-center'>
                 <div className='w-[720px] tmd:w-[100%] flex flex-col justify-center items-start my-[32px] tmd:my-[24px]'>
-                    <h2 className='text-[28px] tmd:text-[20px] text-theme-4 dark:text-theme-9 font-medium'>서비스 이용약관</h2>
+                    <h2 className='text-[28px] tmd:text-[20px] text-theme-3 dark:text-theme-9 font-medium'>서비스 이용약관</h2>
                     <div className='w-[100%] h-px bg-theme-7 dark:bg-theme-5 my-[16px] tmd:my-[12px]'></div>
 <pre style={{fontFamily: "Spoqa Han Sans Neo, Noto Sans KR"}} className='whitespace-pre-wrap text-[14px] text-theme-5 dark:text-theme-9/80 leading-loose'>{
 `제1조(목적) 이 약관은 "태돈" 회사(전자상거래 사업자)가 운영하는 "폰트 아카이브" 사이버 몰(이하 “폰트 아카이브”가라 한다)에서 제공하는 인터넷 관련 서비스(이하 “서비스”라 한다)를 이용함에 있어 사이버 몰과 이용자의 권리․의무 및 책임사항을 규정함을 목적으로 합니다.

@@ -427,7 +427,7 @@ const IssueFont = ({params}: any) => {
             {/* 메인 */}
             <div className='w-[100%] flex flex-col justify-center items-center'>
                 <div className='max-w-[720px] w-[100%] flex flex-col justify-center items-start my-[100px] tlg:my-[40px]'>
-                    <h2 className='text-[20px] tlg:text-[18px] text-theme-4 dark:text-theme-9 font-medium mb-[12px] tlg:mb-[8px]'>폰트 제보하기</h2>
+                    <h2 className='text-[20px] tlg:text-[18px] text-theme-3 dark:text-theme-9 font-medium mb-[12px] tlg:mb-[8px]'>폰트 제보하기</h2>
                     <div id="is-issued" className="w-[100%]">
                         {
                             isIssued === "success"
