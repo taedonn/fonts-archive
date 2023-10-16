@@ -267,17 +267,17 @@ const IssueFont = ({params}: any) => {
                                 // 리사이징 함수
                                 imageCompression(file, resizeOption)
                                 .then(function(compressedFile) {
-                                    loadPreview(compressedFile, imgNo + i);
+                                    loadPreview(compressedFile, imgNo + imgs.length + i);
                                 })
                                 .catch(() => {
-                                    console.log(`이미지 ${imgNo + i} 리사이징 실패`);
+                                    console.log(`이미지 ${imgNo + imgs.length + i} 리사이징 실패`);
                                     uploadOnFail();
                                 });
                             } else {
-                                loadPreview(file, imgNo + i);
+                                loadPreview(file, imgNo + imgs.length + i);
                             }
                         } else {
-                            loadPreview(file, imgNo + i);
+                            loadPreview(file, imgNo + imgs.length + i);
                         }
                         URL.revokeObjectURL(objectURL);
                     }
@@ -298,8 +298,23 @@ const IssueFont = ({params}: any) => {
     }
 
     /** 미리보기 삭제 */
-    const deleteImg = (index: number) => {
-        setImgs(imgs.filter((img: any) => img.index !== index));
+    const deleteImg = (imgIndex: number, index: number) => {
+        setImgs(imgs.filter((img: any) => img.index !== imgIndex));
+        removeFileFromFileList(index);
+    }
+
+    const removeFileFromFileList = (index: number) => {
+        const dt = new DataTransfer();
+        const input = document.getElementById('file') as HTMLInputElement;
+        const { files } = input;
+        
+        if (files) {
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                if (index !== i) dt.items.add(file); // here you exclude the file. thus removing it.
+            }
+        }
+        input.files = dt.files // Assign the updates list
     }
 
     /** 알럿 닫기 */
@@ -360,17 +375,17 @@ const IssueFont = ({params}: any) => {
                                 // 리사이징 함수
                                 imageCompression(file, resizeOption)
                                 .then(function(compressedFile) {
-                                    loadPreview(compressedFile, imgNo + i);
+                                    loadPreview(compressedFile, imgNo + imgs.length + i);
                                 })
                                 .catch(() => {
-                                    console.log(`이미지 ${imgNo + i} 리사이징 실패`);
+                                    console.log(`이미지 ${imgNo + imgs.length + i} 리사이징 실패`);
                                     uploadOnFail();
                                 });
                             } else {
-                                loadPreview(file, imgNo + i);
+                                loadPreview(file, imgNo + imgs.length + i);
                             }
                         } else {
-                            loadPreview(file, imgNo + i);
+                            loadPreview(file, imgNo + imgs.length + i);
                         }
                         URL.revokeObjectURL(objectURL);
                     }
@@ -481,12 +496,12 @@ const IssueFont = ({params}: any) => {
                                     imgs.length > 0
                                     ? <div className="w-[100%] mt-[20px] p-[12px] border border-theme-7 dark:border-theme-5 rounded-[8px] flex justify-center gap-x-[10px]">
                                         {
-                                            imgs.map((img: any) => {
+                                            imgs.map((img: any, index: number) => {
                                                 return (
                                                     <div className="w-content relative" key={img.index}>
                                                         {/* eslint-disable-next-line @next/next/no-img-element */}
                                                         <img src={img.src} alt="preview-img" className="w-[72px] h-[88px] rounded-[8px] object-cover"/> 
-                                                        <button onClick={() => deleteImg(img.index)} className="w-[24px] h-[24px] rounded-full absolute right-[-6px] top-[-6px] flex items-center bg-theme-3 dark:bg-theme-blue-2">
+                                                        <button onClick={() => deleteImg(img.index, index)} className="w-[24px] h-[24px] rounded-full absolute right-[-6px] top-[-6px] flex items-center bg-theme-3 dark:bg-theme-blue-2">
                                                             <svg className="w-[12px] mx-auto fill-theme-yellow dark:fill-theme-blue-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>
                                                         </button>
                                                     </div>
