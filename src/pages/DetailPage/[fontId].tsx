@@ -274,7 +274,7 @@ function DetailPage({params}: any) {
                     }
                 </div>
                 {
-                    font.license_embed === "N" || font.license_ofl === "N"
+                    font.license_embed !== "Y" || font.license_ofl === "N"
                     ? <></>
                     : <>
                         <div className="flex flex-col justify-start items-start mb-[60px] tmd:mb-[48px]">
