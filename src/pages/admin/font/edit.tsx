@@ -614,7 +614,7 @@ export async function getServerSideProps(ctx: any) {
                     params: {
                         theme: cookieTheme,
                         userAgent: userAgent,
-                        user: user,
+                        user: JSON.parse(JSON.stringify(user)),
                     }
                 }
             }

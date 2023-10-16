@@ -790,9 +790,6 @@ export async function getServerSideProps(ctx: any) {
         ? await FetchReports(ctx.params.fontId, user.user_no)
         : null;
 
-        // typescript에서 createdAt은 JSON.parse를 통해 serialized object로 변환 후 params로 보낼 수 있다.
-        const reportJSON = JSON.parse(JSON.stringify(report));
-
         // 좋아요한 폰트 체크
         const like = ctx.req.cookies.session === undefined ? null : (
             await CheckIfSessionExists(ctx.req.cookies.session) === true 
@@ -805,21 +802,18 @@ export async function getServerSideProps(ctx: any) {
         // 댓글 체크
         const comments = await FetchComments(ctx.params.fontId);
 
-        // typescript에서 createdAt은 JSON.parse를 통해 serialized object로 변환 후 params로 보낼 수 있다.
-        const commentsJSON = JSON.parse(JSON.stringify(comments));
-
         return {
             props: {
                 params: {
-                    fonts: fonts,
+                    fonts: JSON.parse(JSON.stringify(fonts)), // typescript에서 createdAt은 JSON.parse를 통해 serialized object로 변환 후 params로 보낼 수 있다.
                     randomNum: randomNum,
                     theme: cookieTheme,
                     userAgent: userAgent,
-                    user: user,
-                    report: reportJSON,
+                    user: JSON.parse(JSON.stringify(user)),
+                    report: JSON.parse(JSON.stringify(report)),
                     like: like,
                     likedNum: likedNum.length,
-                    comments: commentsJSON,
+                    comments: JSON.parse(JSON.stringify(comments)),
                 }
             }
         }

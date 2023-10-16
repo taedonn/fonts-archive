@@ -90,6 +90,7 @@ export async function getServerSideProps(ctx: any) {
         // 토큰 유효성 검사
         const token: string = ctx.query.token === undefined ? "" : ctx.query.token;
         const user = await FetchEmailFromToken(token);
+        const userJSON = JSON.parse(JSON.stringify(user))
 
         // 파라미터에 토큰이 없는 경우
         if (token === "") {
@@ -123,7 +124,7 @@ export async function getServerSideProps(ctx: any) {
                                 theme: cookieTheme,
                                 userAgent: userAgent,
                                 token: token,
-                                id: user.user_id,
+                                id: userJSON.user_id,
                             }
                         }
                     }

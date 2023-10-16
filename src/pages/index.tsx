@@ -175,7 +175,7 @@ export async function getServerSideProps(ctx: any) {
                     theme: cookieTheme,
                     source: source,
                     userAgent: userAgent,
-                    user: sessionUser ? sessionUser : user,
+                    user: sessionUser ? JSON.parse(JSON.stringify(sessionUser)) : JSON.parse(JSON.stringify(user)),
                     like: like,
                     filter: filter,
                 }

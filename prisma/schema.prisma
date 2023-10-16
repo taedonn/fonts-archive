@@ -36,7 +36,8 @@ model fonts {
   license_purpose String
   license_source  String
   license         String         @db.Text
-  like            Int            @default(0)
+  created_at      DateTime       @default(now())
+  updated_at      DateTime       @default(now()) @updatedAt
   liked_user      fontsLiked[]
   comments        fontsComment[]
 
@@ -53,6 +54,8 @@ model fontsUser {
   user_email_confirm Boolean
   profile_img        String         @db.Text
   nickname_reported  Int            @default(0)
+  created_at         DateTime       @default(now())
+  updated_at         DateTime       @default(now()) @updatedAt
   liked_fonts        fontsLiked[]
   comments           fontsComment[]
   reports            fontsUserReport[]
@@ -107,6 +110,8 @@ model fontsUserReport {
   report_swearing Boolean      @default(false)
   report_etc      Boolean      @default(false)
   report_text     String       @db.Text
+  created_at      DateTime     @default(now())
+  updated_at      DateTime     @default(now()) @updatedAt
   user            fontsUser    @relation(fields: [report_user_id], references: [user_no])
   comment         fontsComment @relation(fields: [comment_id], references: [comment_id])
 
