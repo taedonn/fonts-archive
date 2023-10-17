@@ -268,13 +268,13 @@ function DetailPage({params}: any) {
                 <div className="flex flex-row justify-start items-center mb-[60px] tmd:mb-[48px]">
                     <Link aria-label="source-link" href={font.source_link} target="_blank" rel="noopener noreferrer" className="h-[36px] tmd:h-[32px] flex flex-row justify-center items-center text-[14px] tmd:text-[12px] leading-none text-theme-3 dark:text-theme-blue-1 font-medium dark:border-2 tmd:dark:border dark:border-theme-blue-1 rounded-full px-[20px] mr-[12px] tmd:mr-[8px] cursor-pointer bg-theme-yellow hover:bg-theme-yellow/90 tlg:hover:bg-theme-yellow dark:bg-transparent hover:dark:bg-theme-blue-1/10 tlg:hover:dark:bg-transparent">다운로드 페이지로 이동</Link>
                     {
-                        font.license_ofl === "N"
+                        font.license_ofl !== "Y"
                         ? <></>
                         : <Link aria-label="github-source-link" href={font.github_link} className="w-[160px] tmd:w-[128px] h-[36px] tmd:h-[32px] flex flex-row justify-center items-center text-[14px] tmd:text-[12px] leading-none text-theme-9 dark:text-theme-9 font-medium dark:border-2 tmd:dark:border border-theme-4 dark:border-theme-9 rounded-full px-[20px] cursor-pointer bg-theme-4 hover:bg-theme-4/90 tlg:hover:bg-theme-4 dark:bg-transparent hover:dark:bg-theme-9/10 tlg:hover:dark:bg-transparent">폰트 다운로드</Link>
                     }
                 </div>
                 {
-                    font.license_embed !== "Y" || font.license_ofl === "N"
+                    font.license_embed !== "Y" || font.license_ofl !== "Y"
                     ? <></>
                     : <>
                         <div className="flex flex-col justify-start items-start mb-[60px] tmd:mb-[48px]">
