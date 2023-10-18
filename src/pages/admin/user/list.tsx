@@ -92,7 +92,7 @@ const UserList = ({params}: any) => {
             {/* Head 부분*/}
             <NextSeo 
                 title={"유저 관리 · 폰트 아카이브"}
-                description={"유저 관리 - 상업용 무료 한글 폰트 아카이브"}
+                description={"유저 관리 - 상업용 무료 한글 폰트 저장소"}
             />
 
             {/* 헤더 */}

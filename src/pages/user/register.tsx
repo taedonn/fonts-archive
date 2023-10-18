@@ -207,7 +207,7 @@ const Register = ({params}: any) => {
             {/* Head 부분*/}
             <NextSeo 
                 title={"회원가입 · 폰트 아카이브"}
-                description={"회원가입 - 상업용 무료 한글 폰트 아카이브"}
+                description={"회원가입 - 상업용 무료 한글 폰트 저장소"}
             />
 
             {/* 헤더 */}

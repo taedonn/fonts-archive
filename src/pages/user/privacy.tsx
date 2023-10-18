@@ -21,7 +21,7 @@ const Privacy = ({params}: any) => {
             {/* Head 부분*/}
             <NextSeo 
                 title={"개인정보처리방침 · 폰트 아카이브"}
-                description={"개인정보처리방침 - 상업용 무료 한글 폰트 아카이브"}
+                description={"개인정보처리방침 - 상업용 무료 한글 폰트 저장소"}
             />
 
             {/* 헤더 */}
