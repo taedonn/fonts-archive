@@ -36,6 +36,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             where: { font_id: Number(code) }
         });
 
+        await prisma.fonts.update({
+            where: { code: Number(code) },
+            data: { like: like.length }
+        })
+
         return res.status(200).json({
             msg: checked && !isLiked ? 'liked' : 'unliked',
             num: like.length
