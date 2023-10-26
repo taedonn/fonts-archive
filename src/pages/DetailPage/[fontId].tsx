@@ -270,7 +270,7 @@ function DetailPage({params}: any) {
                     {
                         font.license_ofl !== "Y"
                         ? <></>
-                        : <Link aria-label="github-source-link" href={font.github_link} className="w-[160px] tmd:w-[128px] h-[36px] tmd:h-[32px] flex flex-row justify-center items-center text-[14px] tmd:text-[12px] leading-none text-theme-9 dark:text-theme-9 font-medium dark:border-2 tmd:dark:border border-theme-4 dark:border-theme-9 rounded-full px-[20px] cursor-pointer bg-theme-4 hover:bg-theme-4/90 tlg:hover:bg-theme-4 dark:bg-transparent hover:dark:bg-theme-9/10 tlg:hover:dark:bg-transparent">폰트 다운로드</Link>
+                        : <Link aria-label="github-source-link" href={font.github_link} className="w-[160px] tmd:w-[128px] h-[36px] tmd:h-[32px] flex flex-row justify-center items-center text-[14px] tmd:text-[12px] leading-none text-theme-9 dark:text-theme-9 font-medium dark:border-2 tmd:dark:border border-theme-4 dark:border-theme-9 rounded-full px-[20px] cursor-pointer bg-theme-3 hover:bg-theme-3/90 tlg:hover:bg-theme-3 dark:bg-transparent hover:dark:bg-theme-9/10 tlg:hover:dark:bg-transparent">폰트 다운로드</Link>
                     }
                 </div>
                 {
@@ -289,7 +289,7 @@ function DetailPage({params}: any) {
                                 <input onChange={handleWebFont} type="radio" id="cdn_font_face" name="cdn" value="font-face" className="hidden"/>
                                 <label htmlFor="cdn_font_face" className="w-[25%] h-[100%] flex flex-row justify-center items-center text-[14px] tmd:text-[10px] text-theme-3 dark:text-theme-9 leading-none cursor-pointer">font-face 방식</label>
                             </div>
-                            <div className="w-[916px] tlg:w-[100%] border-x border-b rounded-b-[12px] border-theme-4 dark:border-theme-blue-2 bg-theme-4 dark:bg-theme-blue-2">
+                            <div className="w-[916px] tlg:w-[100%] border-x border-b rounded-b-[12px] border-theme-4 dark:border-theme-blue-2 bg-theme-3 dark:bg-theme-blue-2">
                                 {
                                     webFont === "CSS"
                                     ? <div className="w-[100%] relative pl-[24px] tmd:pl-[16px] pr-[60px] overflow-hidden">
@@ -334,7 +334,7 @@ function DetailPage({params}: any) {
                     <div className="w-[100%] px-[16px] py-[8px] mb-[16px] border-b border-theme-7 dark:border-theme-4">
                         <textarea onChange={handleFontWeightChange} onInput={handleHeightChange} placeholder="원하는 문구를 적어보세요..." className="w-[100%] h-[18px] resize-none text-[14px] text-theme-5 dark:text-theme-8 placeholder-theme-5 dark:placeholder-theme-6 leading-tight bg-transparent"/>
                     </div>
-                    <div className="font-preview-wrap max-w-[100%] overflow-hidden rounded-[12px] p-[20px] pt-[28px] pb-[14px] bg-theme-4 dark:bg-theme-blue-2">
+                    <div className="font-preview-wrap max-w-[100%] overflow-hidden rounded-[12px] p-[20px] pt-[28px] pb-[14px] bg-theme-3 dark:bg-theme-blue-2">
                         <div className="w-[100%] flex flex-row flex-wrap justify-start items-center">
                             <div className="flex flex-col justify-center items-start mr-[40px] mb-[16px]">
                                 <p className="text-[14px] text-normal leading-none mb-[8px] text-theme-9">
@@ -482,7 +482,7 @@ function DetailPage({params}: any) {
                                     <th className="absolute bottom-0 left-[50%] translate-x-[-50%] w-[calc(100%-40px)] tlg:w-[calc(100%-32px)] tmd:w-[calc(100%-24px)] h-px bg-theme-7 dark:bg-theme-5"></th>
                                 </tr>
                             </thead>
-                            <tbody className="text-[13px] leading-tight text-theme-4 dark:text-theme-8 fill-theme-4 dark:fill-theme-8 text-left font-normal">
+                            <tbody className="text-[13px] leading-tight text-theme-3 dark:text-theme-8 fill-theme-3 dark:fill-theme-8 text-left font-normal">
                                 <tr className="relative">
                                     <td className="h-[68px] flex flex-col justify-center items-center text-theme-3 dark:text-theme-9 fill-theme-3 dark:fill-theme-9">
                                         <svg className="w-[20px] mb-[8px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M2.5 8a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z"/><path d="M5 1a2 2 0 0 0-2 2v2H2a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h1v1a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1h1a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1V3a2 2 0 0 0-2-2H5zM4 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2H4V3zm1 5a2 2 0 0 0-2 2v1H2a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v-1a2 2 0 0 0-2-2H5zm7 2v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1z"/></svg>
@@ -709,7 +709,7 @@ function DetailPage({params}: any) {
                                 <div className="absolute bottom-0 left-[50%] translate-x-[-50%] w-[calc(100%-40px)] tlg:w-[calc(100%-32px)] tmd:w-[calc(100%-24px)] h-px bg-theme-7 dark:bg-theme-5"></div>
                             </h2>
                             <div className="license-wrap w-[100%] h-[612px] tlg:h-[auto] overflow-hidden overflow-y-auto px-[28px] tlg:px-[24px] tmd:px-[20px] py-[12px] tlg:py-[16px]">
-                                <pre style={{fontFamily: "Spoqa Han Sans Neo"}} id="license" className="text-[15px] tlg:text-[13px] text-theme-4 dark:text-theme-8 leading-loose whitespace-pre-wrap"></pre>
+                                <pre style={{fontFamily: "Spoqa Han Sans Neo"}} id="license" className="text-[15px] tlg:text-[13px] text-theme-3 dark:text-theme-8 leading-loose whitespace-pre-wrap"></pre>
                             </div>
                         </div>
                     </div>

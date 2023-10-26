@@ -26,6 +26,12 @@ export default function App({ Component, pageProps }: AppProps) {
                             href: "/favicon.svg"
                         }
                     ]}
+                    openGraph={{
+                        type: 'website',
+                        locale: 'ko_KR',
+                        url: 'https://fonts.taedonn.com',
+                        siteName: '폰트 아카이브 · 상업용 무료 한글 폰트 저장소',
+                    }}
                 />
                 <main>
                     <Component {...pageProps}/>

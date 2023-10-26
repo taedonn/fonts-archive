@@ -164,7 +164,7 @@ html.dark .font-edit-textarea::-webkit-scrollbar-thumb {
 
 /* 셀렉트 박스 클릭 시 스타일 변경 */
 .select:checked + label {
-    background-color: #4C4D50;
+    background-color: #35363A;
     border-color: #FCBE11;
     color: #FFFFFF;
     fill: #FFFFFF;
@@ -386,10 +386,10 @@ html.dark .search-list::-webkit-scrollbar-track { background-color: #35363A; }
 }
 
 /* 웹 폰트 적용하기 */
-.cdn input:checked + label { background-color: #646568; color: #E9EAEE; }
+.cdn input:checked + label { background-color: #4C4D50; color: #E9EAEE; }
 @media (hover: hover) and (pointer: fine) {
     .cdn input + label:hover { background-color: #97989C1A; }
-    .cdn input:checked + label:hover { background-color: #646568; }
+    .cdn input:checked + label:hover { background-color: #4C4D50; }
 }
 html.dark .cdn input:checked + label { background-color: #35363A; }
 @media (hover: hover) and (pointer: fine) {
