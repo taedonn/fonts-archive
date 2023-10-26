@@ -32,6 +32,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                         license_purpose: req.body.license[7],
                         license_source: req.body.license[8],
                         license: req.body.license_text,
+                        show_type: req.body.show_type
                     }
                 });
 

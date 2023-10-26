@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useQuery } from "react-query";
 import { debounce } from "lodash";
+import { Switch } from "@mui/material";
 
 // next hooks
 import { NextSeo } from "next-seo";
@@ -33,7 +34,10 @@ const Edit = ({params}: any) => {
         isSuccess, 
         refetch
     } = useQuery(['font-search'], async () => {
-        await axios.get("/api/fontsearch", { params: {keyword: keyword}})
+        await axios.get("/api/fontsearch", { params: {
+            keyword: keyword,
+            action: "admin"
+        }})
         .then((res) => { setData(res.data); })
         .catch(err => console.log(err));
     });
@@ -104,6 +108,7 @@ const Edit = ({params}: any) => {
                 fontCdnUrl.value = font.cdn_url;
                 fontLicense.value = font.license_print + font.license_web + font.license_video + font.license_package + font.license_embed + font.license_bici + font.license_ofl + font.license_purpose + font.license_source;
                 fontLicenseText.value = font.license;
+                setFontShow(font.show_type);
             })
             .then(() => {
                 setFocus(false);
@@ -140,6 +145,10 @@ const Edit = ({params}: any) => {
             copyBtn.style.display = 'none';
         },1000);
     }
+
+    // 폰트 보임/숨김 change
+    const [fontShow, setFontShow] = useState<boolean>(false);
+    const handleToggleChange = (e: React.ChangeEvent<HTMLInputElement>) => { setFontShow(e.target.checked); }
 
     // 수정하기 state
     const [editBtnLoading, setEditBtnLoading] = useState<boolean>(false);
@@ -252,6 +261,7 @@ const Edit = ({params}: any) => {
                 cdn_url: fontCdnUrl.value,
                 license: fontLicense.value,
                 license_text: fontLicenseText.value,
+                show_type: fontShow
             })
             .then(res => {
                 console.log(res.data.msg);
@@ -350,7 +360,7 @@ const Edit = ({params}: any) => {
                         <div className="w-content relative">
                             <label htmlFor='search-font' className='block text-[14px] ml-px'>폰트 검색</label>
                             <input ref={refSearchBar} onChange={handleSearch} onFocus={handleFocus} type='text' id='search-font' tabIndex={1} placeholder='폰트명/회사명을 입력해 주세요...' className={`w-[280px] border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1 text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
-                            <div ref={refSearchResult} style={focus ? {display: "block"} : {display: "none"}} className="edit-font-search w-[100%] h-[180px] overflow-y-auto absolute bottom-[-6px] translate-y-[100%] rounded-[8px] py-[10px] bg-theme-4 dark:bg-theme-blue-2">
+                            <div ref={refSearchResult} style={focus ? {display: "block"} : {display: "none"}} className="edit-font-search w-[100%] h-[180px] overflow-y-auto absolute z-10 bottom-[-6px] translate-y-[100%] rounded-[8px] py-[10px] bg-theme-4 dark:bg-theme-blue-2">
                                 {
                                     data.fonts && isSuccess && !isLoading && !isRefetching
                                     ? data.fonts.length !== 0
@@ -375,6 +385,16 @@ const Edit = ({params}: any) => {
                         <div className="text-[14px] flex flex-col">
                             <label htmlFor="font-code">폰트 번호</label>
                             <input type="text" disabled id="font-code" placeholder="폰트 번호" className='w-[100%] border-theme-6 dark:border-theme-4 text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 autofill:bg-theme-4 dark:bg-theme-2 autofill:dark:bg-theme-blue-2'/>
+                            <div className="block mt-[20px] text-[14px]">폰트 보임/숨김</div>
+                            <div className="w-content h-[34px] rounded-[8px] mt-[8px] px-[14px] flex items-center text-[12px] bg-theme-4 dark:bg-theme-blue-2">
+                            <div className={`mr-[4px]`}>숨김</div>
+                            <Switch
+                                checked={fontShow}
+                                onChange={handleToggleChange}
+                                size="small"
+                            />
+                            <div className={`${fontShow ? "text-theme-green" : ""} ml-[6px]`}>보임</div>
+                        </div>
                             <label htmlFor="font-name" className="mt-[20px]">폰트 이름</label>
                             <input onChange={handleFontNameChange} tabIndex={2} type="text" id="font-name" placeholder="나눔 스퀘어" className={`w-[100%] ${fontNameAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
                             {

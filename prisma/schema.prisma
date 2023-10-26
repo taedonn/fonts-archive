@@ -39,6 +39,7 @@ model fonts {
   license         String         @db.Text
   created_at      DateTime       @default(now())
   updated_at      DateTime       @default(now()) @updatedAt
+  show_type       Boolean        @default(true)
   liked_user      fontsLiked[]
   comments        fontsComment[]
 

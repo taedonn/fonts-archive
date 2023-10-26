@@ -29,6 +29,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 OR: req.query.searchword !== '' ? searchword : req.query.filter !== '' ? objArr : [{ name: { not: '' } }],
                 lang: lang,
                 font_type: type,
+                show_type: true,
             },
             orderBy: sort, // 정렬순
             take: limit, // 가져오는 데이터 수

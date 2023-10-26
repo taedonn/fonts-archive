@@ -109,7 +109,7 @@ export default function FontSearch(
     },[closeBtn, refSearchOutside]);
 
     // useQuery를 이용한 데이터 파싱
-    const {isLoading, isRefetching, isSuccess, data, remove, refetch} = useQuery(['font-search'], async () => await axios.get("/api/fontsearch", {params: {keyword: keyword}}).then((res) => { return res.data }));
+    const {isLoading, isRefetching, isSuccess, data, remove, refetch} = useQuery(['font-search'], async () => await axios.get("/api/fontsearch", {params: {keyword: keyword, action: "user"}}).then((res) => { return res.data }));
     
     // display가 show 상태가 아닐 시 useQuery 실행 중지
     useEffect(() => { if (display !== "show") { remove(); } }, [display, remove])
