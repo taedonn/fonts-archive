@@ -19,7 +19,6 @@ export default function App({ Component, pageProps }: AppProps) {
                 <DefaultSeo
                     title="폰트 아카이브 · 상업용 무료 한글 폰트 저장소"
                     description="상업용 무료 한글 폰트 저장소"
-                    canonical="https://fonts.taedonn.com"
                     additionalLinkTags={[
                         {
                             rel:"icon",
@@ -31,6 +30,19 @@ export default function App({ Component, pageProps }: AppProps) {
                         locale: 'ko_KR',
                         url: 'https://fonts.taedonn.com',
                         siteName: '폰트 아카이브 · 상업용 무료 한글 폰트 저장소',
+                        // images: [
+                        //     {
+                        //         url: 'https://www.test.ie/images/cover.jpg',
+                        //         width: 850,
+                        //         height: 650,
+                        //         alt: 'Photo of text',
+                        //     },
+                        // ],
+                    }}
+                    twitter={{
+                        handle: '@handle',
+                        site: '@site',
+                        cardType: 'summary_large_image',
                     }}
                 />
                 <main>

@@ -195,7 +195,35 @@ function DetailPage({params}: any) {
             {/* Head 부분*/}
             <NextSeo 
                 title={font.name + " · 폰트 아카이브"}
-                description={font.name + " - 상업용 무료 한글 폰트 저장소"}
+                description={font.name + " - 상업용 무료 한글 폰트 저장소 | " + font.license}
+                openGraph={{
+                    title: font.name + " · 폰트 아카이브",
+                    description: font.name + " - 상업용 무료 한글 폰트 저장소 | " + font.license,
+                    url: `https://fonts.taedonn.com/${font.code}`,
+                    type: "article",
+                    article: {
+                        publishedTime: font.created_at,
+                        modifiedTime: font.updated_at,
+                        authors: ["태돈"],
+                        tags: [
+                            font.name,
+                            font.font_family,
+                            font.font_type,
+                            font.source,
+                            "폰트",
+                            "한글 폰트",
+                            "웹 폰트",
+                            "한글 웹 폰트",
+                            "상업용 무료 폰트",
+                            "상업용 무료 한글 폰트",
+                            "CDN",
+                            "CDN 링크",
+                            "link",
+                            "import",
+                            "font-face"
+                        ],
+                    },
+                }}
             />
 
             {/* 헤더 */}
