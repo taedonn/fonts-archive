@@ -33,8 +33,8 @@ export default function App({ Component, pageProps }: AppProps) {
                         images: [
                             {
                                 url: 'https://fonts-archive.s3.ap-northeast-2.amazonaws.com/meta_image.png',
-                                width: 1280,
-                                height: 720,
+                                width: 1000,
+                                height: 1000,
                                 alt: '폰트 아카이브 메타 이미지',
                             },
                         ],
