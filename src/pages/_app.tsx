@@ -30,14 +30,14 @@ export default function App({ Component, pageProps }: AppProps) {
                         locale: 'ko_KR',
                         url: 'https://fonts.taedonn.com',
                         siteName: '폰트 아카이브 · 상업용 무료 한글 폰트 저장소',
-                        // images: [
-                        //     {
-                        //         url: 'https://www.test.ie/images/cover.jpg',
-                        //         width: 850,
-                        //         height: 650,
-                        //         alt: 'Photo of text',
-                        //     },
-                        // ],
+                        images: [
+                            {
+                                url: 'https://fonts-archive.s3.ap-northeast-2.amazonaws.com/meta_image.png',
+                                width: 1280,
+                                height: 720,
+                                alt: '폰트 아카이브 메타 이미지',
+                            },
+                        ],
                     }}
                     twitter={{
                         handle: '@handle',
