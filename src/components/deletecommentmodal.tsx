@@ -55,7 +55,7 @@ export default function DeleteCommentModal(
 
     /** 댓글 삭제 */
     const deleteComment = async () => {
-        await axios.post('/api/detailpage/comments', {
+        await axios.post('/api/post/comments', {
             action: 'delete-comment',
             font_id: font_id,
             comment_id: comment_id

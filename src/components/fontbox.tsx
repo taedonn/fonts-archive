@@ -67,7 +67,7 @@ export default function FontBox ({lang, type, sort, user, like, filter, searchwo
             // 좋아요 버튼 눌렀을 때 호버창 지우기
             setHoverDisplay(false);
 
-            await axios.post('/api/detailpage/updatelike', null, { params: { code: e.target.id ,checked: e.target.checked, user_no: user.user_no } })
+            await axios.post('/api/post/updatelike', null, { params: { code: e.target.id ,checked: e.target.checked, user_no: user.user_no } })
             .then(res => {
                 let hoverEl = e.target.nextSibling?.nextSibling as HTMLDivElement;
                 if (res.data.msg === 'liked') { hoverEl.innerText='좋아요 해제'; }

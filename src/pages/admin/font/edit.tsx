@@ -70,7 +70,7 @@ const Edit = ({params}: any) => {
     /** 검색결과 클릭 */
     const onFontClick = async (e: any) => {
         if (e.target.id) {
-            await axios.get(`/api/detailpage/${e.target.id}`)
+            await axios.get(`/api/post/${e.target.id}`)
             .then(res => {
                 const font = res.data.fonts;
                 const fontCode = document.getElementById("font-code") as HTMLInputElement;

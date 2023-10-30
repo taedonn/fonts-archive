@@ -56,7 +56,7 @@ export default function SideMenu({fonts}:{fonts:any}) {
                     </div>
                     {
                         fonts.map((font:any) => (
-                            <Link key={font.code} href={`/DetailPage/${font.code}`} className="fonts-list w-[100%] block text-[14px] text-left text-theme-8 px-[5%] py-[6px] rounded-[8px]  hover:bg-theme-3/60">{font.name}</Link>
+                            <Link key={font.code} href={`/post/${font.font_family.replaceAll(" ", "+")}`} className="fonts-list w-[100%] block text-[14px] text-left text-theme-8 px-[5%] py-[6px] rounded-[8px]  hover:bg-theme-3/60">{font.name}</Link>
                         ))
                     }
                 </div>

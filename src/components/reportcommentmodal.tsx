@@ -123,7 +123,7 @@ export default function ReportCommentModal(
             setIsLoading(true);
 
             // 신고 axios 실행
-            await axios.post('/api/detailpage/comments', {
+            await axios.post('/api/post/comments', {
                 action: 'report-comment',
                 // action: 'reset-reports',
                 font_id: font_id,

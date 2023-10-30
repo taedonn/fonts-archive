@@ -94,7 +94,7 @@ export default function Comments (
     /** 새 댓글 쓰기 */
     const newComment = async (e: React.MouseEvent<HTMLButtonElement>) => {
         if (commentRef.current && e.currentTarget.classList.contains('comment-enabled')) {
-            await axios.post('/api/detailpage/comments', {
+            await axios.post('/api/post/comments', {
                 action: 'new-comment',
                 font_id: font.code,
                 user_id: user.user_no,
@@ -214,7 +214,7 @@ export default function Comments (
             const textarea = document.getElementById('comment-edit-textarea-' + id) as HTMLTextAreaElement;
             const input = document.getElementById('comment-edit-' + id) as HTMLInputElement;
 
-            await axios.post('/api/detailpage/comments', {
+            await axios.post('/api/post/comments', {
                 action: 'edit-comment',
                 font_id: font.code,
                 comment_id: id,
@@ -299,7 +299,7 @@ export default function Comments (
             const textarea = document.getElementById('comment-reply-textarea-' + id) as HTMLTextAreaElement;
             const input = document.getElementById('comment-reply-' + id) as HTMLInputElement;
 
-            await axios.post('/api/detailpage/comments', {
+            await axios.post('/api/post/comments', {
                 action: 'reply-comment',
                 font_id: font.code,
                 user_id: user.user_no,
