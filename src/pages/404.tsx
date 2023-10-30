@@ -1,4 +1,14 @@
+import { useEffect } from "react";
+
 export default function Custom404() {
+    // 로딩 시 body 패딩 제거 & 풋터 제거
+    useEffect(() => {
+        const body = document.body as HTMLBodyElement;
+        const footer = document.getElementsByTagName("footer")[0] as HTMLElement;
+        body.style.paddingBottom = "0";
+        footer.style.display = "none";
+    }, []);
+    
     return (
         <>
             <div className="w-[100%] h-[100vh] flex flex-col justify-center items-center text-center text-theme-3 dark:text-theme-9">
