@@ -3,8 +3,11 @@ import { useEffect } from "react";
 export default function Custom404() {
     // 로딩 시 body 패딩 제거 & 풋터 제거
     useEffect(() => {
+        const head = document.head as HTMLHeadElement;
         const body = document.body as HTMLBodyElement;
         const footer = document.getElementsByTagName("footer")[0] as HTMLElement;
+        
+        head.innerHTML += '<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fonts-archive/IntelOneMono/IntelOneMono.css" type="text/css"/>'
         body.style.paddingBottom = "0";
         footer.style.display = "none";
     }, []);
