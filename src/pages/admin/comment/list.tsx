@@ -192,9 +192,9 @@ const CommentList = ({params}: any) => {
                                                 return (
                                                     <tr key={comment.comment_id} className='h-[40px] tlg:h-[34px] border-t border-theme-5 dark:border-theme-3'>
                                                         <td className='pl-[16px] py-[10px]'>{comment.comment_id}</td>
-                                                        <td className='pl-[16px] py-[10px] break-keep'><a href={`/detailpage/${comment.code}`} className='text-theme-yellow dark:text-theme-blue-1 focus:underline hover:underline tlg:hover:no-underline'>{comment.name}</a></td>
+                                                        <td className='pl-[16px] py-[10px] break-keep'><a href={`/post/${comment.font_family.replaceAll(" ", "+")}`} className='text-theme-yellow dark:text-theme-blue-1 focus:underline hover:underline tlg:hover:no-underline'>{comment.name}</a></td>
                                                         <td className='pl-[16px] py-[10px] break-keep'><a href={`/admin/user/${comment.user_no}`} className='focus:underline hover:underline tlg:hover:no-underline'>{comment.user_name}</a></td>
-                                                        <td className='pl-[16px] py-[10px] break-keep'><a href={`/detailpage/${comment.code}#c${comment.comment_id}`} className='focus:underline hover:underline tlg:hover:no-underline'>{comment.comment}</a></td>
+                                                        <td className='pl-[16px] py-[10px] break-keep'><a href={`/post/${comment.font_family.replaceAll(" ", "+")}#c${comment.comment_id}`} className='focus:underline hover:underline tlg:hover:no-underline'>{comment.comment}</a></td>
                                                         <td className='pl-[16px] py-[10px]'>{commentsDateFormat(comment.updated_at)}</td>
                                                         <td className='pl-[16px] py-[10px]'>{commentsDateFormat(comment.created_at)}</td>
                                                         <td className='py-[10px] relative'>

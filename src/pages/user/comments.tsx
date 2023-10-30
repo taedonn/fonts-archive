@@ -24,10 +24,12 @@ const Comments = ({params}: any) => {
     const emptyFn = () => { return; }
 
     // 댓글 목록 state
-    const [comments, setComments] = useState(JSON.parse(params.comments));
+    const [comments, setComments] = useState(params.comments);
     const [count, setCount] = useState<number>(params.count);
     const [filter, setFilter] = useState<string>('all');
     const [text, setText] = useState<string>('');
+
+    console.log(comments[0]);
 
     // 댓글 목록 ref
     const selectRef = useRef<HTMLSelectElement>(null);
@@ -185,8 +187,8 @@ const Comments = ({params}: any) => {
                                             comments.map((comment: any) => {
                                                 return (
                                                     <tr key={comment.comment_id} className='h-[40px] tlg:h-[34px] border-t border-theme-5 dark:border-theme-3'>
-                                                        <td className='pl-[16px] py-[10px] break-keep'><a href={`/detailpage/${comment.code}`} className='text-theme-yellow dark:text-theme-blue-1 focus:underline hover:underline tlg:hover:no-underline'>{comment.name}</a></td>
-                                                        <td className='pl-[16px] py-[10px] break-keep'><a href={`/detailpage/${comment.code}#c${comment.comment_id}`} className='focus:underline hover:underline tlg:hover:no-underline'>{comment.comment}</a></td>
+                                                        <td className='pl-[16px] py-[10px] break-keep'><a href={`/post/${comment.font_family.replaceAll(" ", "+")}`} className='text-theme-yellow dark:text-theme-blue-1 focus:underline hover:underline tlg:hover:no-underline'>{comment.name}</a></td>
+                                                        <td className='pl-[16px] py-[10px] break-keep'><a href={`/post/${comment.font_family.replaceAll(" ", "+")}#c${comment.comment_id}`} className='focus:underline hover:underline tlg:hover:no-underline'>{comment.comment}</a></td>
                                                         <td className='pl-[16px] py-[10px] break-keep'>{commentsDateFormat(comment.updated_at)}</td>
                                                         <td className='pl-[16px] py-[10px] break-keep'>{commentsDateFormat(comment.created_at)}</td>
                                                         <td className='py-[10px] relative'>
@@ -255,7 +257,7 @@ export async function getServerSideProps(ctx: any) {
                         userAgent: userAgent,
                         user: JSON.parse(JSON.stringify(user)),
                         count: count,
-                        comments: JSON.stringify(comments)
+                        comments: JSON.parse(JSON.stringify(comments))
                     }
                 }
             }

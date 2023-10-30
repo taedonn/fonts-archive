@@ -6,13 +6,13 @@ import { NextSeo } from 'next-seo';
 import React, { useEffect, useState } from "react";
 
 // api
-import { FetchFontDetail } from "../api/detailpage/fetchfontdetail";
+import { FetchFontDetail } from "../api/post/fetchfontdetail";
 import { CheckIfSessionExists } from "../api/user/checkifsessionexists";
 import { FetchUserInfo } from "../api/user/fetchuserinfo";
 import { FetchUserLike } from "../api/user/fetchuserlike";
 import { FetchNumberOfLikes } from "../api/user/fetchnumberoflikes";
-import { FetchComments } from "../api/detailpage/fetchcomments";
-import { FetchReports } from "../api/detailpage/fetchReports";
+import { FetchComments } from "../api/post/fetchcomments";
+import { FetchReports } from "../api/post/fetchReports";
 import axios from "axios";
 import { throttle } from "lodash";
 
@@ -37,7 +37,7 @@ function DetailPage({params}: any) {
 
     /** 조회수 업데이트 */
     const viewUpdate = async () => {
-        await fetch("/api/detailpage/updateview", { method: "POST", body: JSON.stringify(font) });
+        await fetch("/api/post/updateview", { method: "POST", body: JSON.stringify(font) });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => { viewUpdate(); }, [font]);
@@ -70,7 +70,7 @@ function DetailPage({params}: any) {
             // 댓글창 위 좋아요 버튼의 아이디 규칙에 맞게 변경
             const thisId = e.target.id.includes('like-bottom-') ? e.target.id.replace('like-bottom-','') : e.target.id;
 
-            await axios.post('/api/detailpage/updatelike', null, { params: { code: thisId ,checked: e.target.checked, user_no: params.user.user_no } })
+            await axios.post('/api/post/updatelike', null, { params: { code: thisId ,checked: e.target.checked, user_no: params.user.user_no } })
             .then(res => {
                 // 좋아요 여부 확인 후 문장 변경
                 if (res.data.msg === 'liked') { setLiked(true); }
@@ -775,7 +775,7 @@ function DetailPage({params}: any) {
 
 // export async function getStaticProps(ctx: any) {
 //     try {
-//         const fonts = await FetchFontDetail(ctx.params.fontId);
+//         const fonts = await FetchFontDetail(ctx.params.fontFamily);
 //         const randomNum: number = Math.floor(Math.random() * 19);
 
 //         return {
@@ -794,8 +794,10 @@ function DetailPage({params}: any) {
 
 export async function getServerSideProps(ctx: any) {
     try {
+        const fontFamily = ctx.params.fontFamily.replaceAll("+", " ");
+
         // 폰트 정보 불러오기
-        const fonts = await FetchFontDetail(ctx.params.fontId);
+        const fonts = await FetchFontDetail(fontFamily);
 
         // 랜덤 넘버
         const randomNum: number = Math.floor(Math.random() * 19);
@@ -815,7 +817,7 @@ export async function getServerSideProps(ctx: any) {
 
         // 유저 정보에 신고 리포트 합치기
         const report = user !== null
-        ? await FetchReports(ctx.params.fontId, user.user_no)
+        ? await FetchReports(fontFamily, user.user_no)
         : null;
 
         // 좋아요한 폰트 체크
@@ -825,10 +827,10 @@ export async function getServerSideProps(ctx: any) {
             : null
         );
 
-        const likedNum = await FetchNumberOfLikes(ctx.params.fontId);
+        const likedNum = await FetchNumberOfLikes(fontFamily);
 
         // 댓글 체크
-        const comments = await FetchComments(ctx.params.fontId);
+        const comments = await FetchComments(fontFamily);
 
         if (fonts.length === 0) {
             return {

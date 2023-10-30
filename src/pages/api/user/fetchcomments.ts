@@ -48,7 +48,8 @@ export async function FetchComments(user_id: number, lastId: number | undefined)
     const fonts = await prisma.fonts.findMany({
         select: {
             code: true,
-            name: true
+            name: true,
+            font_family: true,
         },
         where: { OR: commentsArr }
     });
@@ -74,6 +75,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     select: {
                         code: true,
                         name: true,
+                        font_family: true,
                     },
                     where: { name: {contains: req.query.text as string} }
                 }) 
@@ -134,7 +136,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             const fonts = await prisma.fonts.findMany({
                 select: {
                     code: true,
-                    name: true
+                    name: true,
+                    font_family: true,
                 },
                 where: { OR: commentsArr }
             });
