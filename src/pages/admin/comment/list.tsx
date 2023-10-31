@@ -178,7 +178,7 @@ const CommentList = ({params}: any) => {
                                     <th className='w-[100px] pl-[16px]'>폰트</th>
                                     <th className='w-[100px] pl-[16px]'>작성자</th>
                                     <th className='pl-[16px]'>댓글</th>
-                                    <th className='w-[108px] pl-[16px]'>수정 날짜</th>
+                                    <th className='w-[120px] pl-[16px]'>수정 날짜</th>
                                     <th className='w-[120px] pl-[16px]'>작성 날짜</th>
                                     <th className='w-[68px]'>댓글 삭제</th>
                                 </tr>

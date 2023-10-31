@@ -134,8 +134,8 @@ const UserList = ({params}: any) => {
                                     <th className='pl-[16px]'>유저 아이디</th>
                                     <th className='w-[108px] pl-[16px]'>수정 날짜</th>
                                     <th className='w-[100px] pl-[16px]'>생성 날짜</th>
-                                    <th className='w-[80px] pl-[16px]'>닉네임 신고</th>
-                                    <th className='w-[92px] pl-[16px]'>이메일 확인</th>
+                                    <th className='w-[88px] pl-[16px]'>닉네임 신고</th>
+                                    <th className='w-[100px] pl-[16px]'>이메일 확인</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -151,7 +151,7 @@ const UserList = ({params}: any) => {
                                                         <td className='pl-[16px] py-[10px] break-all'>{user.user_id}</td>
                                                         <td className='pl-[16px] py-[10px]'>{commentsDateFormat(user.updated_at)}</td>
                                                         <td className='pl-[16px] py-[10px]'>{commentsDateFormat(user.created_at)}</td>
-                                                        <td className='pl-[16px] py-[10px] break-keep text-center'>{user.nickname_reported}</td>
+                                                        <td className='py-[10px] break-keep text-center'>{user.nickname_reported}</td>
                                                         <td className='pl-[16px] py-[10px] break-keep'>
                                                             {
                                                                 user.user_email_confirm
