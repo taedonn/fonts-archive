@@ -15,7 +15,7 @@ import { FetchIssuesLength } from '@/pages/api/admin/issue';
 import Header from "@/components/header";
 import { Pagination } from '@mui/material';
 
-const UserList = ({params}: any) => {
+const IssueList = ({params}: any) => {
     // 디바이스 체크
     const isMac: boolean = params.userAgent.includes("Mac OS") ? true : false;
 
@@ -37,19 +37,19 @@ const UserList = ({params}: any) => {
     const handleChange = (e: React.ChangeEvent<unknown>, value: number) => { setPage(value); };
 
     // 페이지 변경 시 데이터 다시 불러오기
-    // useEffect(() => {
-    //     const fetchNewComments = async () => {
-    //         await axios.post('/api/admin/user', {
-    //             action: "list",
-    //             page: page,
-    //             filter: filter,
-    //             text: text
-    //         })
-    //         .then((res) => { setList(res.data.list); })
-    //         .catch(err => console.log(err));
-    //     }
-    //     fetchNewComments();
-    // }, [filter, text, page]);
+    useEffect(() => {
+        const fetchNewComments = async () => {
+            await axios.post('/api/admin/issue', {
+                action: "list",
+                page: page,
+                filter: filter,
+                text: text
+            })
+            .then((res) => { setList(res.data.list); })
+            .catch(err => console.log(err));
+        }
+        fetchNewComments();
+    }, [filter, text, page]);
 
     // 검색 버튼 클릭 시 값 state에 저장 후, API 호출
     const handleClick = async () => {
@@ -60,7 +60,7 @@ const UserList = ({params}: any) => {
             setText(textRef.current.value);
             
             // API 호출
-            await axios.post('/api/admin/user', {
+            await axios.post('/api/admin/issue', {
                 action: "list",
                 page: 1,
                 filter: selectRef.current.value,
@@ -86,12 +86,17 @@ const UserList = ({params}: any) => {
         return splitDate[0].replace("20", "") + '.' + splitDate[1] + '.' + commentsTimeFormat(splitDate[2].replace('T', ' ').replace('Z', ''));
     }
 
+    /** 목록 클릭 시 해당 제보 페이지로 이동 */
+    const handleIssueClick = (e: React.MouseEvent<HTMLTableRowElement>) => {
+        location.href = `/admin/issue/${e.currentTarget.id}`;
+    }
+
     return (
         <>
             {/* Head 부분*/}
             <NextSeo 
-                title={"유저 관리 · 폰트 아카이브"}
-                description={"유저 관리 - 상업용 무료 한글 폰트 저장소"}
+                title={"제보 목록 · 폰트 아카이브"}
+                description={"제보 목록 - 상업용 무료 한글 폰트 저장소"}
             />
 
             {/* 헤더 */}
@@ -118,9 +123,9 @@ const UserList = ({params}: any) => {
                     <div className='w-content flex items-center p-[6px] mb-[12px] tlg:mb-[8px] rounded-[6px] text-theme-10 dark:text-theme-9 bg-theme-5 dark:bg-theme-3'>
                         <select ref={selectRef} className='w-[80px] h-[32px] tlg:h-[28px] text-[12px] pt-px px-[10px] bg-transparent rounded-[6px] outline-none border border-theme-6 dark:border-theme-5 cursor-pointer'>
                             <option value='all' defaultChecked>전체</option>
-                            <option value='email-confirmed'>답변중</option>
+                            <option value='issue_opened'>답변중</option>
                         </select>
-                        <input ref={textRef} type='textbox' placeholder='번호/제목/이메일' className='w-[200px] tlg:w-[160px] h-[32px] tlg:h-[28px] ml-[8px] px-[12px] text-[12px] bg-transparent border rounded-[6px] border-theme-6 dark:border-theme-5'/>
+                        <input ref={textRef} type='textbox' placeholder='제목/이메일' className='w-[200px] tlg:w-[160px] h-[32px] tlg:h-[28px] ml-[8px] px-[12px] text-[12px] bg-transparent border rounded-[6px] border-theme-6 dark:border-theme-5'/>
                         <button onClick={handleClick} className='w-[68px] h-[32px] tlg:h-[28px] ml-[8px] text-[12px] border rounded-[6px] bg-theme-6/40 hover:bg-theme-6/60 tlg:hover:bg-theme-6/40 dark:bg-theme-4 hover:dark:bg-theme-5 tlg:hover:dark:bg-theme-4'>검색</button>
                     </div>
                     <div className='w-[100%] rounded-[8px] overflow-hidden overflow-x-auto'>
@@ -142,7 +147,7 @@ const UserList = ({params}: any) => {
                                         {
                                             list.map((issue: any) => {
                                                 return (
-                                                    <tr key={issue.issue_id} className='h-[40px] tlg:h-[34px] border-t border-theme-5 dark:border-theme-3'>
+                                                    <tr onClick={handleIssueClick} key={issue.issue_id} id={issue.issue_id} className='h-[40px] tlg:h-[34px] border-t border-theme-5 dark:border-theme-3 hover:bg-theme-yellow/20 hover:dark:bg-theme-blue-1/20 cursor-pointer'>
                                                         <td className='pl-[16px] py-[10px] break-keep'>{issue.issue_id}</td>
                                                         <td className='pl-[16px] py-[10px]'>{issue.issue_title}</td>
                                                         <td className='pl-[16px] py-[10px]'><div className='font-size'>{issue.issue_email}</div></td>
@@ -155,18 +160,17 @@ const UserList = ({params}: any) => {
                                                                     <span className='text-theme-green'>답변 완료</span>
                                                                     <svg className='inline-block w-[8px] ml-[4px] mb-px fill-theme-green' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></svg>
                                                                 </> : <>
-                                                                    <span className='text-theme-red'>답변중</span>
-                                                                    <svg className='inline-block w-[8px] ml-[4px] mb-px fill-theme-red' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>
+                                                                    <span className='text-theme-9'>답변중...</span>
                                                                 </>
                                                             }
                                                         </td>
-                                                    </tr> 
+                                                    </tr>
                                                 )
                                             })
                                         }
                                     </>
                                     : <tr className='h-[60px]'>
-                                        <td colSpan={7} className='text-center'>제보가 없습니다.</td>
+                                        <td colSpan={6} className='text-center'>제보가 없습니다.</td>
                                     </tr>
                                 }
                             </tbody>
@@ -229,4 +233,4 @@ export async function getServerSideProps(ctx: any) {
     }
 }
 
-export default UserList;
+export default IssueList;

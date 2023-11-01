@@ -29,8 +29,6 @@ const Comments = ({params}: any) => {
     const [filter, setFilter] = useState<string>('all');
     const [text, setText] = useState<string>('');
 
-    console.log(comments[0]);
-
     // 댓글 목록 ref
     const selectRef = useRef<HTMLSelectElement>(null);
     const textRef = useRef<HTMLInputElement>(null);
