@@ -71,11 +71,11 @@ const IssuePage = ({params}: any) => {
                     <div className='text-[12px] text-theme-5 dark:text-theme-6 mt-[4px] mb-[10px] tlg:mb-[8px]'>{commentsDateFormat(issue.issue_created_at) === commentsDateFormat(issue.issue_closed_at) ? commentsDateFormat(issue.issue_created_at) + "에 생성됨" : commentsDateFormat(issue.issue_closed_at) + "에 수정됨"}</div>
                     <div className='w-[100%] p-[20px] rounded-[8px] text-[14px] text-theme-10 dark:text-theme-9 bg-theme-5 dark:bg-theme-3 drop-shadow-default dark:drop-shadow-dark'>
                         <label htmlFor="title">제목</label>
-                        <input id="title" defaultValue={issue.issue_title} type="text" disabled className='w-[100%] border-theme-6 dark:border-theme-4 text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] bg-theme-4 dark:bg-theme-2 text-theme-8 dark:text-theme-7'/>
+                        <input id="title" defaultValue={issue.issue_title} type="text" disabled className='w-[100%] border-theme-6 dark:border-theme-4 text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] bg-theme-4 dark:bg-theme-2 text-theme-10 dark:text-theme-9 cursor-text'/>
                         <label htmlFor="email" className="block mt-[20px]">이메일</label>
-                        <input id="email" defaultValue={issue.issue_email} type="text" disabled className='w-[100%] border-theme-6 dark:border-theme-4 text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] bg-theme-4 dark:bg-theme-2 text-theme-8 dark:text-theme-7'/>
+                        <input id="email" defaultValue={issue.issue_email} type="text" disabled className='w-[100%] border-theme-6 dark:border-theme-4 text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] bg-theme-4 dark:bg-theme-2 text-theme-10 dark:text-theme-9 cursor-text'/>
                         <label htmlFor="content" className="block mt-[20px]">내용</label>
-                        <textarea id="content" disabled defaultValue={issue.issue_content} tabIndex={14} className={`font-edit-textarea w-[100%] h-[196px] resize-none border-theme-6 dark:border-theme-4 bg-theme-4 dark:bg-theme-2 text-theme-8 dark:text-theme-7 text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px]`}></textarea>
+                        <textarea id="content" disabled defaultValue={issue.issue_content} tabIndex={14} className={`font-edit-textarea w-[100%] h-[196px] resize-none border-theme-6 dark:border-theme-4 bg-theme-4 dark:bg-theme-2 text-theme-10 dark:text-theme-9 text-[12px] mt-[8px] px-[14px] py-[12px] rounded-[8px] border-[2px] cursor-text`}></textarea>
                         <div className="mt-[20px]">첨부한 이미지</div>
                         <div className="w-[100%] min-h-[88px] flex items-center px-[16px] mt-[8px] rounded-[8px] border-[2px] border-theme-6 dark:border-theme-4 bg-theme-4 dark:bg-theme-2">
                             {
@@ -87,7 +87,7 @@ const IssuePage = ({params}: any) => {
                                     {issue.issue_img_4 !== "null" && <img src={issue.issue_img_4} alt="첨부한 이미지 4" className="w-[72px] h-[88px] rounded-[8px] border-[2px] border-theme-6 dark:border-theme-4 object-cover cursor-pointer"/>}
                                     {issue.issue_img_5 !== "null" && <img src={issue.issue_img_5} alt="첨부한 이미지 5" className="w-[72px] h-[88px] rounded-[8px] border-[2px] border-theme-6 dark:border-theme-4 object-cover cursor-pointer"/>}
                                 </div> 
-                                : <div className="w-[100%] text-[12px] text-center text-theme-8 dark:text-theme-7">첨부한 이미지가 없습니다.</div>
+                                : <div className="w-[100%] text-[12px] text-center text-theme-10 dark:text-theme-9 cursor-text">첨부한 이미지가 없습니다.</div>
                             }
                         </div>
                     </div>
