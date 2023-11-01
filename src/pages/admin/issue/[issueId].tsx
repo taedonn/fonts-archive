@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 // next hooks
 import { NextSeo } from "next-seo";
 
@@ -67,7 +68,7 @@ const IssuePage = ({params}: any) => {
                     {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
                     <a href="/admin/issue/list" className="absolute left-0 top-[-80px] tlg:top-[-28px] text-[12px] text-theme-5 hover:text-theme-3 tlg:hover:text-theme-5 dark:text-theme-7 hover:dark:text-theme-9 tlg:hover:dark:text-theme-7 block border-b border-transparent hover:border-theme-3 tlg:border-theme-5 tlg:hover:border-theme-5 hover:dark:border-theme-9 tlg:dark:border-theme-7 tlg:hover:dark:border-theme-7"><div className="inline-block mr-[4px]">&#60;</div> 목록으로 돌아가기</a>
                     <h2 className='text-[20px] tlg:text-[18px] text-theme-3 dark:text-theme-9 font-medium'>티켓</h2>
-                    <div className='text-[12px] text-theme-5 dark:text-theme-6 mt-[4px] mb-[10px] tlg:mb-[8px]'>{commentsDateFormat(issue.issue_created_at)}에 생성됨</div>
+                    <div className='text-[12px] text-theme-5 dark:text-theme-6 mt-[4px] mb-[10px] tlg:mb-[8px]'>{commentsDateFormat(issue.issue_created_at) === commentsDateFormat(issue.issue_closed_at) ? commentsDateFormat(issue.issue_created_at) + "에 생성됨" : commentsDateFormat(issue.issue_closed_at) + "에 수정됨"}</div>
                     <div className='w-[100%] p-[20px] rounded-[8px] text-[14px] text-theme-10 dark:text-theme-9 bg-theme-5 dark:bg-theme-3 drop-shadow-default dark:drop-shadow-dark'>
                         <label htmlFor="title">제목</label>
                         <input id="title" defaultValue={issue.issue_title} type="text" disabled className='w-[100%] border-theme-6 dark:border-theme-4 text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] bg-theme-4 dark:bg-theme-2 text-theme-8 dark:text-theme-7'/>
@@ -75,6 +76,20 @@ const IssuePage = ({params}: any) => {
                         <input id="email" defaultValue={issue.issue_email} type="text" disabled className='w-[100%] border-theme-6 dark:border-theme-4 text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] bg-theme-4 dark:bg-theme-2 text-theme-8 dark:text-theme-7'/>
                         <label htmlFor="content" className="block mt-[20px]">내용</label>
                         <textarea id="content" disabled defaultValue={issue.issue_content} tabIndex={14} className={`font-edit-textarea w-[100%] h-[196px] resize-none border-theme-6 dark:border-theme-4 bg-theme-4 dark:bg-theme-2 text-theme-8 dark:text-theme-7 text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px]`}></textarea>
+                        <div className="mt-[20px]">첨부한 이미지</div>
+                        <div className="w-[100%] min-h-[88px] flex items-center px-[16px] mt-[8px] rounded-[8px] border-[2px] border-theme-6 dark:border-theme-4 bg-theme-4 dark:bg-theme-2">
+                            {
+                                issue.issue_img_length > 0
+                                ? <div className="w-[100%] flex justify-center items-center gap-x-[10px] my-[16px]">
+                                    {issue.issue_img_1 !== "null" && <img src={issue.issue_img_1} alt="첨부한 이미지 1" className="w-[72px] h-[88px] rounded-[8px] border-[2px] border-theme-6 dark:border-theme-4 object-cover cursor-pointer"/>}
+                                    {issue.issue_img_2 !== "null" && <img src={issue.issue_img_2} alt="첨부한 이미지 2" className="w-[72px] h-[88px] rounded-[8px] border-[2px] border-theme-6 dark:border-theme-4 object-cover cursor-pointer"/>}
+                                    {issue.issue_img_3 !== "null" && <img src={issue.issue_img_3} alt="첨부한 이미지 3" className="w-[72px] h-[88px] rounded-[8px] border-[2px] border-theme-6 dark:border-theme-4 object-cover cursor-pointer"/>}
+                                    {issue.issue_img_4 !== "null" && <img src={issue.issue_img_4} alt="첨부한 이미지 4" className="w-[72px] h-[88px] rounded-[8px] border-[2px] border-theme-6 dark:border-theme-4 object-cover cursor-pointer"/>}
+                                    {issue.issue_img_5 !== "null" && <img src={issue.issue_img_5} alt="첨부한 이미지 5" className="w-[72px] h-[88px] rounded-[8px] border-[2px] border-theme-6 dark:border-theme-4 object-cover cursor-pointer"/>}
+                                </div> 
+                                : <div className="w-[100%] text-[12px] text-center text-theme-8 dark:text-theme-7">첨부한 이미지가 없습니다.</div>
+                            }
+                        </div>
                     </div>
                 </div>
             </div>

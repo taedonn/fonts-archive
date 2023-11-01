@@ -149,7 +149,7 @@ const IssueList = ({params}: any) => {
                                                 return (
                                                     <tr onClick={handleIssueClick} key={issue.issue_id} id={issue.issue_id} className='h-[40px] tlg:h-[34px] border-t border-theme-5 dark:border-theme-3 hover:bg-theme-yellow/20 hover:dark:bg-theme-blue-1/20 cursor-pointer'>
                                                         <td className='pl-[16px] py-[10px] break-keep'>{issue.issue_id}</td>
-                                                        <td className='pl-[16px] py-[10px]'>{issue.issue_title}</td>
+                                                        <td className='pl-[16px] py-[10px]'><div className='font-size'>{issue.issue_title}</div></td>
                                                         <td className='pl-[16px] py-[10px]'><div className='font-size'>{issue.issue_email}</div></td>
                                                         <td className='pl-[16px] py-[10px]'>{commentsDateFormat(issue.issue_created_at)}</td>
                                                         <td className='pl-[16px] py-[10px]'>{commentsDateFormat(issue.issue_closed_at)}</td>
