@@ -31,6 +31,7 @@ const IssuePage = ({params}: any) => {
     // state
     const [isFocused, setIsFocused] = useState<boolean>(false);
     const [focusedImg, setFocusedImg] = useState<string>("");
+    const [txtAlert, setTxtAlert] = useState<boolean>(false);
 
     /** 댓글 시간 포맷 */
     const commentsTimeFormat = (time: string) => {
@@ -61,7 +62,6 @@ const IssuePage = ({params}: any) => {
 
     /** 이미지 영역 축소 */
     const handleOffImgFocus = () => {
-        // 이미지 영역 축소
         setIsFocused(false);
         document.body.style.overflow = "auto";
     }
@@ -78,6 +78,62 @@ const IssuePage = ({params}: any) => {
         document.addEventListener("mouseup", handleImgOutside);
         return () => document.removeEventListener("mouseup", handleImgOutside);
     },[imgRef]);
+
+    /** 왼쪽 화살표 클릭 */
+    const handleImgPrev = () => {
+        const imgNum = focusedImg.split(`/issue-font-${issue.issue_id}-`)[1].split(".")[0];
+        if (Number(imgNum) > 1) {
+            const nextImgNum = `https://fonts-archive-issue-font.s3.ap-northeast-2.amazonaws.com/issue-font-${issue.issue_id}-${Number(imgNum) - 1}.png`
+            setFocusedImg(nextImgNum);
+        }
+    }
+
+    /** 오른쪽 화살표 클릭 */
+    const handleImgNext = () => {
+        const imgNum = focusedImg.split("/issue-font-")[1].split("-")[1].split(".")[0];
+        if (Number(imgNum) < issue.issue_img_length) {
+            const nextImgNum = `https://fonts-archive-issue-font.s3.ap-northeast-2.amazonaws.com/issue-font-${issue.issue_id}-${Number(imgNum) + 1}.png`
+            setFocusedImg(nextImgNum);
+        }
+    }
+
+    // 키 다운 이벤트
+    useEffect(() => {
+        const keys: any = [];
+        const handleKeydown = (e: KeyboardEvent) => {
+            // 한글로 쓸 때 keydown이 두번 실행되는 현상 방지
+            if (e.isComposing) return;
+            keys[e.key] = true;
+
+            // 왼쪽 화살표 입력
+            if (keys["ArrowLeft"] && isFocused) {
+                handleImgPrev();
+                e.preventDefault();
+            }
+            // 오른쪽 화살표 입력
+            if (keys["ArrowRight"] && isFocused) {
+                handleImgNext();
+                e.preventDefault();
+            }
+            // ESC 입력
+            if (keys["Escape"] && isFocused) {
+                handleOffImgFocus();
+            }
+        }
+
+        const handleKeyup = (e: KeyboardEvent) => {
+            keys[e.key] = false;
+        }
+
+        window.addEventListener("keydown", handleKeydown, false);
+        window.addEventListener("keyup", handleKeyup, false);
+
+        return () => {
+            window.removeEventListener("keydown", handleKeydown);
+            window.removeEventListener("keyup", handleKeyup);
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [handleImgPrev, handleImgNext, handleOffImgFocus]);
 
     return (
         <>
@@ -132,6 +188,13 @@ const IssuePage = ({params}: any) => {
                                 : <div className="w-[100%] text-[12px] text-center text-theme-10 dark:text-theme-9 cursor-text">첨부한 이미지가 없습니다.</div>
                             }
                         </div>
+                        <div className="w-[100%] h-px my-[32px] bg-theme-8/80 dark:bg-theme-7/80"></div>
+                        <div className="mt-[20px]">답변</div>
+                        <textarea id="content" tabIndex={14} className={`font-edit-textarea w-[100%] h-[196px] resize-none ${txtAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-[12px] mt-[8px] px-[14px] py-[12px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}></textarea>
+                        {
+                            txtAlert &&
+                            <div className="text-[10px] ml-[16px] mt-[6px] text-theme-red">답변 내용이 없습니다.</div>
+                        }
                     </div>
                 </div>
             </div>
@@ -144,12 +207,12 @@ const IssuePage = ({params}: any) => {
                         <button onClick={handleOffImgFocus} className="w-[40px] h-[40px] rounded-full hover:dark:bg-theme-4 absolute right-[92px] top-[-48px] flex justify-center items-center">
                             <svg className="w-[28px] h-[28px] fill-theme-10 dark:fill-theme-9" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>
                         </button>
-                        <button className="w-[40px] h-[40px] rounded-full hover:dark:bg-theme-4 mr-[60px] flex justify-center items-center">
-                            <svg className="w-[28px] h-[28px] fill-theme-10 dark:fill-theme-9" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
+                        <button onClick={handleImgPrev} className="w-[40px] h-[40px] rounded-full hover:dark:bg-theme-4 mr-[60px] flex justify-center items-center">
+                            <svg className="w-[28px] h-[28px] translate-x-[-1px] fill-theme-10 dark:fill-theme-9" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
                         </button>
                         <img src={focusedImg} alt="이미지 미리보기" className="w-[600px] animate-zoom-in"/>
-                        <button className="w-[40px] h-[40px] rounded-full hover:dark:bg-theme-4 ml-[60px] flex justify-center items-center">
-                            <svg className="w-[28px] h-[28px] fill-theme-10 dark:fill-theme-9" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg>
+                        <button onClick={handleImgNext} className="w-[40px] h-[40px] rounded-full hover:dark:bg-theme-4 ml-[60px] flex justify-center items-center">
+                            <svg className="w-[28px] h-[28px] translate-x-[1px] fill-theme-10 dark:fill-theme-9" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg>
                         </button>
                     </div>
                 </div>
