@@ -3,7 +3,7 @@
 import { NextSeo } from "next-seo";
 
 // react hooks
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
 // API
 import { CheckIfSessionExists } from "@/pages/api/user/checkifsessionexists";
@@ -25,6 +25,13 @@ const IssuePage = ({params}: any) => {
     // 유저 정보
     const issue = params.issue;
 
+    // ref
+    const imgRef = useRef<HTMLDivElement>(null);
+
+    // state
+    const [isFocused, setIsFocused] = useState<boolean>(false);
+    const [focusedImg, setFocusedImg] = useState<string>("");
+
     /** 댓글 시간 포맷 */
     const commentsTimeFormat = (time: string) => {
         const splitTime = time.split(':');
@@ -36,6 +43,41 @@ const IssuePage = ({params}: any) => {
         const splitDate = date.split('-');
         return splitDate[0].replace("20", "") + '.' + splitDate[1] + '.' + commentsTimeFormat(splitDate[2].replace('T', ' ').replace('Z', ''));
     }
+
+    /** 이미지 영역 확대 */
+    const handleOnImgFocus = (e: React.MouseEvent<HTMLImageElement>) => {
+        // 이미지 번호에 맞는 이미지 넣기
+        const imgNum = e.currentTarget.id.split("_").pop();
+        if (imgNum === "1") { setFocusedImg(issue.issue_img_1); }
+        else if (imgNum === "2") { setFocusedImg(issue.issue_img_2); }
+        else if (imgNum === "3") { setFocusedImg(issue.issue_img_3); }
+        else if (imgNum === "4") { setFocusedImg(issue.issue_img_4); }
+        else if (imgNum === "5") { setFocusedImg(issue.issue_img_5); }
+
+        // 이미지 영역 확대
+        setIsFocused(true);
+        document.body.style.overflow = "hidden";
+    }
+
+    /** 이미지 영역 축소 */
+    const handleOffImgFocus = () => {
+        // 이미지 영역 축소
+        setIsFocused(false);
+        document.body.style.overflow = "auto";
+    }
+
+    // 이미지 영역 축소
+    useEffect(() => {
+        function handleImgOutside(e:Event) {
+            if (imgRef?.current && !imgRef.current.contains(e.target as Node)) {
+                // 이미지 영역 축소
+                setIsFocused(false);
+                document.body.style.overflow = "auto";
+            }
+        }
+        document.addEventListener("mouseup", handleImgOutside);
+        return () => document.removeEventListener("mouseup", handleImgOutside);
+    },[imgRef]);
 
     return (
         <>
@@ -81,11 +123,11 @@ const IssuePage = ({params}: any) => {
                             {
                                 issue.issue_img_length > 0
                                 ? <div className="w-[100%] flex justify-center items-center gap-x-[10px] my-[16px]">
-                                    {issue.issue_img_1 !== "null" && <img src={issue.issue_img_1} alt="첨부한 이미지 1" className="w-[72px] h-[88px] rounded-[8px] border-[2px] border-theme-6 dark:border-theme-4 object-cover cursor-pointer"/>}
-                                    {issue.issue_img_2 !== "null" && <img src={issue.issue_img_2} alt="첨부한 이미지 2" className="w-[72px] h-[88px] rounded-[8px] border-[2px] border-theme-6 dark:border-theme-4 object-cover cursor-pointer"/>}
-                                    {issue.issue_img_3 !== "null" && <img src={issue.issue_img_3} alt="첨부한 이미지 3" className="w-[72px] h-[88px] rounded-[8px] border-[2px] border-theme-6 dark:border-theme-4 object-cover cursor-pointer"/>}
-                                    {issue.issue_img_4 !== "null" && <img src={issue.issue_img_4} alt="첨부한 이미지 4" className="w-[72px] h-[88px] rounded-[8px] border-[2px] border-theme-6 dark:border-theme-4 object-cover cursor-pointer"/>}
-                                    {issue.issue_img_5 !== "null" && <img src={issue.issue_img_5} alt="첨부한 이미지 5" className="w-[72px] h-[88px] rounded-[8px] border-[2px] border-theme-6 dark:border-theme-4 object-cover cursor-pointer"/>}
+                                    {issue.issue_img_1 !== "null" && <img src={issue.issue_img_1} onClick={handleOnImgFocus} id="img_1" alt="첨부한 이미지 1" className="w-[72px] h-[88px] rounded-[8px] border-[2px] border-theme-6 dark:border-theme-4 object-cover cursor-pointer"/>}
+                                    {issue.issue_img_2 !== "null" && <img src={issue.issue_img_2} onClick={handleOnImgFocus} id="img_2" alt="첨부한 이미지 2" className="w-[72px] h-[88px] rounded-[8px] border-[2px] border-theme-6 dark:border-theme-4 object-cover cursor-pointer"/>}
+                                    {issue.issue_img_3 !== "null" && <img src={issue.issue_img_3} onClick={handleOnImgFocus} id="img_3" alt="첨부한 이미지 3" className="w-[72px] h-[88px] rounded-[8px] border-[2px] border-theme-6 dark:border-theme-4 object-cover cursor-pointer"/>}
+                                    {issue.issue_img_4 !== "null" && <img src={issue.issue_img_4} onClick={handleOnImgFocus} id="img_4" alt="첨부한 이미지 4" className="w-[72px] h-[88px] rounded-[8px] border-[2px] border-theme-6 dark:border-theme-4 object-cover cursor-pointer"/>}
+                                    {issue.issue_img_5 !== "null" && <img src={issue.issue_img_5} onClick={handleOnImgFocus} id="img_5" alt="첨부한 이미지 5" className="w-[72px] h-[88px] rounded-[8px] border-[2px] border-theme-6 dark:border-theme-4 object-cover cursor-pointer"/>}
                                 </div> 
                                 : <div className="w-[100%] text-[12px] text-center text-theme-10 dark:text-theme-9 cursor-text">첨부한 이미지가 없습니다.</div>
                             }
@@ -93,6 +135,25 @@ const IssuePage = ({params}: any) => {
                     </div>
                 </div>
             </div>
+
+            {/* 이미지 확대 */}
+            {
+                isFocused &&
+                <div className="fixed z-40 left-0 top-0 backdrop-blur bg-blur-theme w-[100%] h-[100vh] flex justify-center items-center">
+                    <div ref={imgRef} className="relative flex items-center">
+                        <button onClick={handleOffImgFocus} className="w-[40px] h-[40px] rounded-full hover:dark:bg-theme-4 absolute right-[92px] top-[-48px] flex justify-center items-center">
+                            <svg className="w-[28px] h-[28px] fill-theme-10 dark:fill-theme-9" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>
+                        </button>
+                        <button className="w-[40px] h-[40px] rounded-full hover:dark:bg-theme-4 mr-[60px] flex justify-center items-center">
+                            <svg className="w-[28px] h-[28px] fill-theme-10 dark:fill-theme-9" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
+                        </button>
+                        <img src={focusedImg} alt="이미지 미리보기" className="w-[600px] animate-zoom-in"/>
+                        <button className="w-[40px] h-[40px] rounded-full hover:dark:bg-theme-4 ml-[60px] flex justify-center items-center">
+                            <svg className="w-[28px] h-[28px] fill-theme-10 dark:fill-theme-9" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg>
+                        </button>
+                    </div>
+                </div>
+            }
         </>
     )
 }
