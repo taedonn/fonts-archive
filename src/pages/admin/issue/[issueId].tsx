@@ -29,6 +29,7 @@ const IssuePage = ({params}: any) => {
     const imgRef = useRef<HTMLDivElement>(null);
 
     // state
+    const [replySuccess, setReplySuccess] = useState<string>("");
     const [isFocused, setIsFocused] = useState<boolean>(false);
     const [focusedImg, setFocusedImg] = useState<string>("");
     const [txtAlert, setTxtAlert] = useState<boolean>(false);
@@ -153,6 +154,25 @@ const IssuePage = ({params}: any) => {
 
         if (txt.value === "") {
             setTxtAlert(true);
+        } else if (!issueClosed) {
+            setIsLoading(true);
+
+            // 답변 완료 비활성화 시 DB에만 저장
+            await axios.post("/api/admin/issue", {
+                action: "issue_saved",
+                issue_id: issue.issue_id,
+                issue_reply: txt.value,
+            })
+            .then(res => {
+                console.log(res.data.msg);
+                setIsLoading(false);
+                setReplySuccess("success");
+                window.scrollTo({top: 0});
+            })
+            .catch(err => {
+                console.log(err);
+                setReplySuccess("fail");
+            });
         } else {
             setIsLoading(true);
 
@@ -160,12 +180,38 @@ const IssuePage = ({params}: any) => {
             await axios.post("/api/admin/issue", {
                 action: "issue_id",
                 email: issue.issue_email,
-                content: issue.issue_content
+                content: issue.issue_content,
+                reply: txt.value,
             })
-            .then(() => {})
-            .catch(() => console.log("메일을 보내는데 실패했습니다."));
+            .then(async () => {
+                await axios.post("/api/admin/issue", {
+                    action: "issue_closed",
+                    issue_id: issue.issue_id,
+                    issue_reply: txt.value,
+                    issue_closed: issueClosed,
+                })
+                .then(res => {
+                    console.log(res.data.msg);
+                    setIsLoading(false);
+                    setReplySuccess("success");
+                    window.scrollTo({top: 0});
+                })
+                .catch(err => {
+                    console.log(err);
+                    setReplySuccess("fail");
+                });
+            })
+            .catch(err => {
+                console.log(err);
+                setReplySuccess("fail");
+            });
         }
         setIsLoading(false);
+    }
+
+    /** 답변 완료 시 알럿 표시 */
+    const handleOnReplyClose = () => {
+        setReplySuccess("");
     }
 
     return (
@@ -200,6 +246,30 @@ const IssuePage = ({params}: any) => {
                     <a href="/admin/issue/list" className="absolute left-0 top-[-80px] tlg:top-[-28px] text-[12px] text-theme-5 hover:text-theme-3 tlg:hover:text-theme-5 dark:text-theme-7 hover:dark:text-theme-9 tlg:hover:dark:text-theme-7 block border-b border-transparent hover:border-theme-3 tlg:border-theme-5 tlg:hover:border-theme-5 hover:dark:border-theme-9 tlg:dark:border-theme-7 tlg:hover:dark:border-theme-7"><div className="inline-block mr-[4px]">&#60;</div> 목록으로 돌아가기</a>
                     <h2 className='text-[20px] tlg:text-[18px] text-theme-3 dark:text-theme-9 font-medium'>티켓</h2>
                     <div className='text-[12px] text-theme-5 dark:text-theme-6 mt-[4px] mb-[10px] tlg:mb-[8px]'>{commentsDateFormat(issue.issue_created_at) === commentsDateFormat(issue.issue_closed_at) ? commentsDateFormat(issue.issue_created_at) + "에 생성됨" : commentsDateFormat(issue.issue_closed_at) + "에 수정됨"}</div>
+                    <div id="reply-success" className="w-[100%]">
+                        {
+                            replySuccess === "success"
+                            ? <div className='w-[100%] h-[40px] px-[10px] mb-[10px] flex flex-row justify-between items-center rounded-[6px] border-[2px] border-theme-yellow dark:border-theme-blue-1/80 text-[12px] text-theme-3 dark:text-theme-9 bg-theme-yellow/40 dark:bg-theme-blue-1/20'>
+                                <div className='flex flex-row justify-start items-center'>
+                                    <svg className='w-[14px] fill-theme-yellow dark:fill-theme-blue-1/80' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg>
+                                    <div className='ml-[6px]'>답변이 완료되었습니다.</div>
+                                </div>
+                                <div onClick={handleOnReplyClose} className='flex flex-row justify-center items-center cursor-pointer'>
+                                    <svg className='w-[18px] fill-theme-3 dark:fill-theme-9' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg>
+                                </div>
+                            </div>
+                            : replySuccess === "fail"
+                                ? <div className='w-[100%] h-[40px] px-[10px] mb-[10px] flex flex-row justify-between items-center rounded-[6px] border-[2px] border-theme-red/80 text-[12px] text-theme-3 dark:text-theme-9 bg-theme-red/20'>
+                                    <div className='flex flex-row justify-start items-center'>
+                                        <svg className='w-[14px] fill-theme-red/80' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg>
+                                        <div className='ml-[6px]'>답변 전송에 실패했습니다.</div>
+                                    </div>
+                                    <div onClick={handleOnReplyClose} className='flex flex-row justify-center items-center cursor-pointer'>
+                                        <svg className='w-[18px] fill-theme-3 dark:fill-theme-9' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg>
+                                    </div>
+                                </div> : <></>
+                        }
+                    </div>
                     <div className='w-[100%] p-[20px] rounded-[8px] text-[14px] text-theme-10 dark:text-theme-9 bg-theme-5 dark:bg-theme-3 drop-shadow-default dark:drop-shadow-dark'>
                         <label htmlFor="title">제목</label>
                         <input id="title" defaultValue={issue.issue_title} type="text" disabled className='w-[100%] border-theme-6 dark:border-theme-4 text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] bg-theme-4 dark:bg-theme-2 text-theme-10 dark:text-theme-9 cursor-text'/>
@@ -233,7 +303,7 @@ const IssuePage = ({params}: any) => {
                             <div className={`${issueClosed ? "text-theme-green" : ""} ml-[6px]`}>답변 완료</div>
                         </div>
                         <div className="mt-[28px]">답변</div>
-                        <textarea onChange={handleTextAreaOnChange} id="answer" placeholder="답변을 입력해 주세요." tabIndex={14} className={`font-edit-textarea w-[100%] h-[196px] resize-none ${txtAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-[12px] mt-[8px] px-[14px] py-[12px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}></textarea>
+                        <textarea onChange={handleTextAreaOnChange} defaultValue={issue.issue_reply} id="answer" placeholder="답변을 입력해 주세요." tabIndex={14} className={`font-edit-textarea w-[100%] h-[196px] resize-none ${txtAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-[12px] mt-[8px] px-[14px] py-[12px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}></textarea>
                         {
                             txtAlert &&
                             <div className="text-[10px] ml-[16px] mt-[6px] text-theme-red">답변 내용이 없습니다.</div>

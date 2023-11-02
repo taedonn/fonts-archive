@@ -85,6 +85,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             try {
                 const email = req.body.email as string;
                 const content = req.body.content as string;
+                const reply = req.body.reply as string;
 
                 // transporter 설정
                 const transporter =  nodemailer.createTransport({
@@ -103,26 +104,27 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     to: email,
                     subject: '[폰트 아카이브] 제보해주신 내용에 대한 답변입니다.',
                     html: `
-                        <div style="width:100%; font-size:16px; font-weight:400; line-height:1.25; color:#000; background-color:#F3F5F7; font-family:'Roboto', 'Noto Sans KR', '맑은고딕', Malgun Gothic, '돋움', Dotum, Helvetica, 'Apple SD Gothic Neo', Sans-serif;">
-                                <div style="width:100%; max-width:520px; background-color:#FFF; margin:0 auto; padding:80px 20px; box-sizing:border-box; font-size:16px; font-weight:400; line-height:1.25; color:#000;">
+                        <div style="width:100%; font-size:16px; font-weight:400; line-height:1.25; color:#000; font-family:'Roboto', 'Noto Sans KR', '맑은고딕', Malgun Gothic, '돋움', Dotum, Helvetica, 'Apple SD Gothic Neo', Sans-serif;">
+                            <div style="width:100%; max-width:520px; background-color:#FFF; margin:0 auto; padding:80px 20px; box-sizing:border-box; font-size:16px; font-weight:400; line-height:1.25; color:#000;">
                                 <div style="width:100%; max-width:400px; margin:0 auto;">
                                     <div style="width: 100%; margin: 0 auto;">
                                         <div style="margin: 0 auto; width:24px; height:24px; background-color:#000; color:#FFF; font-size:10px; font-weight:400; text-align:center; line-height:22px; border-radius:4px;">Aa</div>
                                         <div style="margin: 0 auto; margin-top: 16px; font-size: 14px; text-align: center; color: #3A3A3A;">폰트 아카이브</div>
                                     </div>
                                     <h2 style="font-size:20px; font-weight:500; text-align: center; color: #3A3A3A; margin-top:8px;">
-                                        폰트를 제보해주셔서 <span style="color: #000; font-weight: 700;">감사합니다.</span>
+                                        제보해주신 내용에 대한 <span style="color: #000; font-weight: 700;">답변입니다.</span>
                                     </h2>
-                                    <p style="text-align: center; margin-top: 40px;">
-                                        <img src="https://fonts-archive.s3.ap-northeast-2.amazonaws.com/mail.png" alt="메일 아이콘" style="width: 160px;"/>
+                                    <p style="width:100%; font-size:14px; font-weight:500; line-height:2; color:#3A3A3A; text-decoration:underline; margin:0; margin-top:40px;">
+                                        제보
                                     </p>
-                                    <p style="width:100%; font-size:14px; font-weight:400; line-height:2; color:#3A3A3A; margin:0; margin-top:40px;">
-                                        제보해주신 내용 관련해서 최대한 빠른 시일 내에 <span style="font-weight:500; color:#000;">답변</span>드리겠습니다. <br/>
-                                        폰트를 찾을 수 없거나, 저작권 등의 문제로 폰트를 올릴 수 없는 경우, 관련 내용 첨부해 답변 드리겠습니다.
-                                    </p>
-                                    <div style="width:100%; padding:16px 20px; box-sizing:border-box; margin-top:14px; box-sizing:border-box; background-color:#EEE; font-size:12px; font-weight:500; color:#3A3A3A; text-decoration:none; border-radius:6px;">
-                                        <div style="text-decoration:underline; font-weight:bold;">내용</div><br/>
+                                    <div style="width:100%; padding:16px 20px; box-sizing:border-box; margin-top:8px; box-sizing:border-box; background-color:#EEE; font-size:12px; font-weight:500; color:#3A3A3A; text-decoration:none; border-radius:6px;">
                                         ${content}
+                                    </div>
+                                    <p style="width:100%; font-size:14px; font-weight:500; line-height:2; color:#3A3A3A; text-decoration:underline; margin:0; margin-top:28px;">
+                                        답변
+                                    </p>
+                                    <div style="width:100%; padding:16px 20px; box-sizing:border-box; margin-top:8px; box-sizing:border-box; background-color:#EEE; font-size:12px; font-weight:500; color:#3A3A3A; text-decoration:none; border-radius:6px;">
+                                        ${reply}
                                     </div>
                                     <div style="width:100%; height:1px; background-color:#EEE; margin-top:48px;"></div>
                                     <p style="width:100%; font-size:12px; font-weight:400; line-height:2.5; color:#97989C; margin:0; margin-top:24px;">
@@ -138,12 +140,49 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
                 return res.status(200).json({
                     msg: "이메일 보내기 성공"
-                })
+                });
             } catch (err) {
                 return res.status(500).json({
                     msg: "이메일 보내기 실패",
                     err: err
-                })
+                });
+            }
+        } else if (req.body.action === "issue_closed") {
+            try {
+                await prisma.fontsIssue.update({
+                    where: { issue_id: Number(req.body.issue_id) },
+                    data: {
+                        issue_reply: req.body.issue_reply,
+                        issue_closed: req.body.issue_closed,
+                    }
+                });
+
+                return res.status(200).json({
+                    msg: "DB 저장 성공"
+                });
+            } catch (err) {
+                return res.status(500).json({
+                    msg: "DB 저장 실패",
+                    err: err
+                });
+            }
+        } else if (req.body.action === "issue_saved") {
+            try {
+                await prisma.fontsIssue.update({
+                    where: { issue_id: Number(req.body.issue_id) },
+                    data: {
+                        issue_reply: req.body.issue_reply,
+                    }
+                });
+
+                return res.status(200).json({
+                    msg: "DB 저장 성공"
+                });
+            } catch (err) {
+                return res.status(500).json({
+                    msg: "DB 저장 실패",
+                    err: err
+                });
             }
         }
     }

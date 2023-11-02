@@ -46,6 +46,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                         issue_title: req.body.title as string,
                         issue_email: req.body.email as string,
                         issue_content: req.body.content as string,
+                        issue_reply: "",
                         issue_img_length: Number(req.body.img_length),
                         issue_img_1: req.body.img_1 as string,
                         issue_img_2: req.body.img_2 as string,
