@@ -8,14 +8,14 @@ import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import { CheckIfSessionExists } from "@/pages/api/user/checkifsessionexists";
 import { FetchUserInfo } from "@/pages/api/user/fetchuserinfo";
-import { FetchIssues } from '@/pages/api/admin/issue';
-import { FetchIssuesLength } from '@/pages/api/admin/issue';
+import { FetchBugs } from '@/pages/api/admin/bug';
+import { FetchBugsLength } from '@/pages/api/admin/bug';
 
 // components
 import Header from "@/components/header";
 import { Pagination } from '@mui/material';
 
-const IssueList = ({params}: any) => {
+const BugList = ({params}: any) => {
     // 디바이스 체크
     const isMac: boolean = params.userAgent.includes("Mac OS") ? true : false;
 
@@ -39,7 +39,7 @@ const IssueList = ({params}: any) => {
     // 페이지 변경 시 데이터 다시 불러오기
     useEffect(() => {
         const fetchNewComments = async () => {
-            await axios.post('/api/admin/issue', {
+            await axios.post('/api/admin/bug', {
                 action: "list",
                 page: page,
                 filter: filter,
@@ -60,7 +60,7 @@ const IssueList = ({params}: any) => {
             setText(textRef.current.value);
             
             // API 호출
-            await axios.post('/api/admin/issue', {
+            await axios.post('/api/admin/bug', {
                 action: "list",
                 page: 1,
                 filter: selectRef.current.value,
@@ -86,12 +86,17 @@ const IssueList = ({params}: any) => {
         return splitDate[0].replace("20", "") + '.' + splitDate[1] + '.' + commentsTimeFormat(splitDate[2].replace('T', ' ').replace('Z', ''));
     }
 
+    /** 목록 클릭 시 해당 제보 페이지로 이동 */
+    const handleIssueClick = (e: React.MouseEvent<HTMLTableRowElement>) => {
+        location.href = `/admin/bug/${e.currentTarget.id}`;
+    }
+
     return (
         <>
             {/* Head 부분*/}
             <NextSeo 
-                title={"폰트 제보 목록 · 폰트 아카이브"}
-                description={"폰트 제보 목록 - 상업용 무료 한글 폰트 저장소"}
+                title={"버그 제보 목록 · 폰트 아카이브"}
+                description={"버그 제보 목록 - 상업용 무료 한글 폰트 저장소"}
             />
 
             {/* 헤더 */}
@@ -114,11 +119,11 @@ const IssueList = ({params}: any) => {
             {/* 메인 */}
             <form onSubmit={e => e.preventDefault()} className='w-[100%] flex flex-col justify-center items-center'>
                 <div className='w-[720px] tmd:w-[100%] flex flex-col justify-center items-start my-[100px] tlg:my-[40px]'>
-                    <h2 className='text-[20px] tlg:text-[18px] text-theme-3 dark:text-theme-9 font-medium mb-[16px] tlg:mb-[12px]'>폰트 제보 목록</h2>
+                    <h2 className='text-[20px] tlg:text-[18px] text-theme-3 dark:text-theme-9 font-medium mb-[16px] tlg:mb-[12px]'>버그 제보 목록</h2>
                     <div className='w-content flex items-center p-[6px] mb-[12px] tlg:mb-[8px] rounded-[6px] text-theme-10 dark:text-theme-9 bg-theme-5 dark:bg-theme-3'>
                         <select ref={selectRef} className='w-[80px] h-[32px] tlg:h-[28px] text-[12px] pt-px px-[10px] bg-transparent rounded-[6px] outline-none border border-theme-6 dark:border-theme-5 cursor-pointer'>
                             <option value='all' defaultChecked>전체</option>
-                            <option value='issue_opened'>답변중</option>
+                            <option value='issue_opened'>해결중</option>
                         </select>
                         <input ref={textRef} type='textbox' placeholder='제목/이메일' className='w-[200px] tlg:w-[160px] h-[32px] tlg:h-[28px] ml-[8px] px-[12px] text-[12px] bg-transparent border rounded-[6px] border-theme-6 dark:border-theme-5'/>
                         <button onClick={handleClick} className='w-[68px] h-[32px] tlg:h-[28px] ml-[8px] text-[12px] border rounded-[6px] bg-theme-6/40 hover:bg-theme-6/60 tlg:hover:bg-theme-6/40 dark:bg-theme-4 hover:dark:bg-theme-5 tlg:hover:dark:bg-theme-4'>검색</button>
@@ -132,7 +137,7 @@ const IssueList = ({params}: any) => {
                                     <th className='pl-[16px]'>이메일</th>
                                     <th className='w-[116px] pl-[16px]'>생성 날짜</th>
                                     <th className='w-[116px] pl-[16px]'>종료 날짜</th>
-                                    <th className='w-[96px] pl-[16px]'>답변 여부</th>
+                                    <th className='w-[96px] pl-[16px]'>해결 여부</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -145,7 +150,7 @@ const IssueList = ({params}: any) => {
                                                     <tr key={issue.issue_id} className='h-[40px] tlg:h-[34px] relative border-t border-theme-5 dark:border-theme-3 hover:bg-theme-yellow/20 hover:dark:bg-theme-blue-1/20 cursor-pointer'>
                                                         <td className='pl-[16px] py-[10px] break-keep'>
                                                             {issue.issue_id}
-                                                            <a href={`/admin/issue/${issue.issue_id}`} className='w-[100%] h-[100%] absolute z-10 left-0 top-0'></a>
+                                                            <a href={`/admin/bug/${issue.issue_id}`} className='w-[100%] h-[100%] absolute z-10 left-0 top-0'></a>
                                                         </td>
                                                         <td className='pl-[16px] py-[10px]'><div className='font-size'>{issue.issue_title}</div></td>
                                                         <td className='pl-[16px] py-[10px]'><div className='font-size'>{issue.issue_email}</div></td>
@@ -155,10 +160,10 @@ const IssueList = ({params}: any) => {
                                                             {
                                                                 issue.issue_closed
                                                                 ? <>
-                                                                    <span className='text-theme-green'>답변 완료</span>
+                                                                    <span className='text-theme-green'>해결 됨</span>
                                                                     <svg className='inline-block w-[8px] ml-[4px] mb-px fill-theme-green' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></svg>
                                                                 </> : <>
-                                                                    <span className='text-theme-9'>답변 중...</span>
+                                                                    <span className='text-theme-9'>해결 중...</span>
                                                                 </>
                                                             }
                                                         </td>
@@ -208,10 +213,10 @@ export async function getServerSideProps(ctx: any) {
             }
         } else {
             // 유저 목록 페이지 수
-            const count = await FetchIssuesLength();
+            const count = await FetchBugsLength();
 
             // 첫 유저 목록 가져오기
-            const list = await FetchIssues(undefined);
+            const list = await FetchBugs(undefined);
 
             return {
                 props: {
@@ -231,4 +236,4 @@ export async function getServerSideProps(ctx: any) {
     }
 }
 
-export default IssueList;
+export default BugList;

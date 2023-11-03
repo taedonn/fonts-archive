@@ -15,7 +15,7 @@ import axios, { AxiosProgressEvent } from "axios";
 // components
 import Header from "@/components/header";
 
-const IssueFont = ({params}: any) => {
+const IssueBug = ({params}: any) => {
     // 디바이스 체크
     const isMac: boolean = params.userAgent.includes("Mac OS") ? true : false
 
@@ -61,7 +61,7 @@ const IssueFont = ({params}: any) => {
             setIsLoading(true);
 
             // ID 가져오기
-            await axios.get('/api/issue/font', {
+            await axios.get('/api/issue/bug', {
                 params: {
                     action: "get-issue-id"
                 }
@@ -80,10 +80,10 @@ const IssueFont = ({params}: any) => {
                     
                     // 이미지 여러개 업로드
                     for (let i = 0; i < imgs.length; i++) {
-                        let promise = await axios.post('/api/issue/font', 
+                        let promise = await axios.post('/api/issue/bug', 
                             {
                                 action: 'upload-img',
-                                file_name: `issue-font-${issueId}-${i+1}.` + imgs[i].file.name.split('.').pop(),
+                                file_name: `issue-bug-${issueId}-${i+1}.` + imgs[i].file.name.split('.').pop(),
                                 file_type: imgs[i].file.type
                             }, {
                                 onUploadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -108,7 +108,7 @@ const IssueFont = ({params}: any) => {
                     await axios.all(allPromise)
                     .then(async () => {
                         // Prisma에 저장
-                        await axios.post("/api/issue/font", 
+                        await axios.post("/api/issue/bug", 
                             {
                                 action: "upload-to-prisma",
                                 issue_id: issueId,
@@ -116,11 +116,11 @@ const IssueFont = ({params}: any) => {
                                 email: email.value,
                                 content: content.value,
                                 img_length: imgs.length,
-                                img_1: imgs[0] !== undefined ? `https://fonts-archive-issue-font.s3.ap-northeast-2.amazonaws.com/issue-font-${issueId}-1.` + imgs[0].file.name.split('.').pop() : "null",
-                                img_2: imgs[1] !== undefined ? `https://fonts-archive-issue-font.s3.ap-northeast-2.amazonaws.com/issue-font-${issueId}-2.` + imgs[1].file.name.split('.').pop() : "null",
-                                img_3: imgs[2] !== undefined ? `https://fonts-archive-issue-font.s3.ap-northeast-2.amazonaws.com/issue-font-${issueId}-3.` + imgs[2].file.name.split('.').pop() : "null",
-                                img_4: imgs[3] !== undefined ? `https://fonts-archive-issue-font.s3.ap-northeast-2.amazonaws.com/issue-font-${issueId}-4.` + imgs[3].file.name.split('.').pop() : "null",
-                                img_5: imgs[4] !== undefined ? `https://fonts-archive-issue-font.s3.ap-northeast-2.amazonaws.com/issue-font-${issueId}-5.` + imgs[4].file.name.split('.').pop() : "null",
+                                img_1: imgs[0] !== undefined ? `https://fonts-archive-issue-bug.s3.ap-northeast-2.amazonaws.com/issue-bug-${issueId}-1.` + imgs[0].file.name.split('.').pop() : "null",
+                                img_2: imgs[1] !== undefined ? `https://fonts-archive-issue-bug.s3.ap-northeast-2.amazonaws.com/issue-bug-${issueId}-2.` + imgs[1].file.name.split('.').pop() : "null",
+                                img_3: imgs[2] !== undefined ? `https://fonts-archive-issue-bug.s3.ap-northeast-2.amazonaws.com/issue-bug-${issueId}-3.` + imgs[2].file.name.split('.').pop() : "null",
+                                img_4: imgs[3] !== undefined ? `https://fonts-archive-issue-bug.s3.ap-northeast-2.amazonaws.com/issue-bug-${issueId}-4.` + imgs[3].file.name.split('.').pop() : "null",
+                                img_5: imgs[4] !== undefined ? `https://fonts-archive-issue-bug.s3.ap-northeast-2.amazonaws.com/issue-bug-${issueId}-5.` + imgs[4].file.name.split('.').pop() : "null",
                                 issue_closed_type: "Open",
                             },
                             {
@@ -134,7 +134,7 @@ const IssueFont = ({params}: any) => {
                         )
                         .then(async () => {
                             // 이메일 발송
-                            await axios.post("/api/issue/font", {
+                            await axios.post("/api/issue/bug", {
                                 action: "send-email",
                                 title: title.value,
                                 email: email.value,
@@ -158,7 +158,7 @@ const IssueFont = ({params}: any) => {
                     });
                 } else {
                     // 이미지 없으면 바로 Prisma에 저장
-                    await axios.post("/api/issue/font", {
+                    await axios.post("/api/issue/bug", {
                         action: "upload-to-prisma",
                         issue_id: issueId,
                         title: title.value,
@@ -174,7 +174,7 @@ const IssueFont = ({params}: any) => {
                     })
                     .then(async () => {
                         // 이메일 발송
-                        await axios.post("/api/issue/font", {
+                        await axios.post("/api/issue/bug", {
                             action: "send-email",
                             title: title.value,
                             email: email.value,
@@ -400,8 +400,8 @@ const IssueFont = ({params}: any) => {
         <>
             {/* Head 부분*/}
             <NextSeo 
-                title={"폰트 제보하기 · 폰트 아카이브"}
-                description={"폰트 제보하기 - 상업용 무료 한글 폰트 저장소"}
+                title={"버그 리포트 · 폰트 아카이브"}
+                description={"버그 리포트 - 상업용 무료 한글 폰트 저장소"}
             />
 
             {/* 헤더 */}
@@ -427,7 +427,7 @@ const IssueFont = ({params}: any) => {
             {/* 메인 */}
             <div className='w-[100%] flex flex-col justify-center items-center'>
                 <div className='max-w-[720px] w-[100%] flex flex-col justify-center items-start my-[100px] tlg:my-[40px]'>
-                    <h2 className='text-[20px] tlg:text-[18px] text-theme-3 dark:text-theme-9 font-medium mb-[12px] tlg:mb-[8px]'>폰트 제보하기</h2>
+                    <h2 className='text-[20px] tlg:text-[18px] text-theme-3 dark:text-theme-9 font-medium mb-[12px] tlg:mb-[8px]'>버그 리포트</h2>
                     <div id="is-issued" className="w-[100%]">
                         {
                             isIssued === "success"
@@ -435,7 +435,7 @@ const IssueFont = ({params}: any) => {
                                 <div className='w-[100%] h-[40px] px-[10px] mb-[10px] flex flex-row justify-between items-center rounded-[6px] border-[2px] border-theme-yellow dark:border-theme-blue-1/80 text-[12px] text-theme-3 dark:text-theme-9 bg-theme-yellow/40 dark:bg-theme-blue-1/20'>
                                     <div className='flex flex-row justify-start items-center'>
                                         <svg className='w-[14px] fill-theme-yellow dark:fill-theme-blue-1/80' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg>
-                                        <div className='ml-[6px]'>폰트를 제보해주셔서 감사합니다. 빠른 시일내에 답변 드리겠습니다.</div>
+                                        <div className='ml-[6px]'>이상 현상을 제보해주셔서 감사합니다. 빠른 시일 내에 해결할 수 있도록 노력하겠습니다.</div>
                                     </div>
                                     <div onClick={handleIssueClose} className='flex flex-row justify-center items-center cursor-pointer'>
                                         <svg className='w-[18px] fill-theme-3 dark:fill-theme-9' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg>
@@ -447,7 +447,7 @@ const IssueFont = ({params}: any) => {
                                     <div className='w-[100%] h-[40px] px-[10px] mb-[10px] flex flex-row justify-between items-center rounded-[6px] border-[2px] border-theme-red/80 text-[12px] text-theme-3 dark:text-theme-9 bg-theme-red/20'>
                                         <div className='flex flex-row justify-start items-center'>
                                             <svg className='w-[14px] fill-theme-red/80' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg>
-                                            <div className='ml-[6px]'>폰트 제보에 실패했습니다. 다시 시도해 주세요.</div>
+                                            <div className='ml-[6px]'>제보에 실패했습니다. 잠시 후 다시 시도해 주세요.</div>
                                         </div>
                                         <div onClick={handleIssueClose} className='flex flex-row justify-center items-center cursor-pointer'>
                                             <svg className='w-[18px] fill-theme-3 dark:fill-theme-9' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg>
@@ -466,7 +466,7 @@ const IssueFont = ({params}: any) => {
                                 : <></>
                             }
                             <label htmlFor="email" className="mt-[20px]">이메일</label>
-                            <input onChange={handleEmailChange} placeholder="빠른 시일내에 답변 드릴게요." id="email" tabIndex={2} type="text" className={`w-[100%] ${emailAlert || emailValid ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
+                            <input onChange={handleEmailChange} placeholder="이메일을 입력해 주세요." id="email" tabIndex={2} type="text" className={`w-[100%] ${emailAlert || emailValid ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
                             {
                                 emailAlert && !emailValid
                                 ? <div className="text-[10px] ml-[16px] mt-[6px] text-theme-red">이메일을 입력해 주세요.</div>
@@ -577,4 +577,4 @@ export async function getServerSideProps(ctx: any) {
     }
 }
 
-export default IssueFont;
+export default IssueBug;

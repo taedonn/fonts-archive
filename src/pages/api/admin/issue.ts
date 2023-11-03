@@ -154,6 +154,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     data: {
                         issue_reply: req.body.issue_reply,
                         issue_closed: req.body.issue_closed,
+                        issue_closed_type: req.body.issue_closed_type,
                     }
                 });
 

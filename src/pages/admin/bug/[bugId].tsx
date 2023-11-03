@@ -8,14 +8,14 @@ import { useState, useEffect, useRef } from "react";
 // API
 import { CheckIfSessionExists } from "@/pages/api/user/checkifsessionexists";
 import { FetchUserInfo } from "@/pages/api/user/fetchuserinfo";
-import { FetchIssue } from "@/pages/api/admin/issue";
+import { FetchBug } from "@/pages/api/admin/bug";
 import axios from "axios";
 
 // components
 import Header from "@/components/header";
 import { Switch } from "@mui/material";
 
-const IssuePage = ({params}: any) => {
+const BugPage = ({params}: any) => {
     // 디바이스 체크
     const isMac: boolean = params.userAgent.includes("Mac OS") ? true : false;
 
@@ -32,7 +32,6 @@ const IssuePage = ({params}: any) => {
     const [replySuccess, setReplySuccess] = useState<string>("");
     const [isFocused, setIsFocused] = useState<boolean>(false);
     const [focusedImg, setFocusedImg] = useState<string>("");
-    const [txtAlert, setTxtAlert] = useState<boolean>(false);
     const [issueClosed, setIssueClosed] = useState<boolean>(issue.issue_closed);
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -84,18 +83,18 @@ const IssuePage = ({params}: any) => {
 
     /** 왼쪽 화살표 클릭 */
     const handleImgPrev = () => {
-        const imgNum = focusedImg.split(`/issue-font-${issue.issue_id}-`)[1].split(".")[0];
+        const imgNum = focusedImg.split(`/issue-bug-${issue.issue_id}-`)[1].split(".")[0];
         if (Number(imgNum) > 1) {
-            const nextImgNum = `https://fonts-archive-issue-font.s3.ap-northeast-2.amazonaws.com/issue-font-${issue.issue_id}-${Number(imgNum) - 1}.png`
+            const nextImgNum = `https://fonts-archive-issue-bug.s3.ap-northeast-2.amazonaws.com/issue-bug-${issue.issue_id}-${Number(imgNum) - 1}.png`
             setFocusedImg(nextImgNum);
         }
     }
 
     /** 오른쪽 화살표 클릭 */
     const handleImgNext = () => {
-        const imgNum = focusedImg.split("/issue-font-")[1].split("-")[1].split(".")[0];
+        const imgNum = focusedImg.split("/issue-bug-")[1].split("-")[1].split(".")[0];
         if (Number(imgNum) < issue.issue_img_length) {
-            const nextImgNum = `https://fonts-archive-issue-font.s3.ap-northeast-2.amazonaws.com/issue-font-${issue.issue_id}-${Number(imgNum) + 1}.png`
+            const nextImgNum = `https://fonts-archive-issue-bug.s3.ap-northeast-2.amazonaws.com/issue-bug-${issue.issue_id}-${Number(imgNum) + 1}.png`
             setFocusedImg(nextImgNum);
         }
     }
@@ -143,71 +142,27 @@ const IssuePage = ({params}: any) => {
         setIssueClosed(e.target.checked);
     }
 
-    /** 텍스트 에리어 변경사항 있을 때 알럿 해제 */
-    const handleTextAreaOnChange = () => {
-        setTxtAlert(false);
-    }
-
-    /** 답변하기 버튼 클릭 */
+    /** 저장하기 버튼 클릭 */
     const handleBtnClick = async () => {
-        const txt = document.getElementById("answer") as HTMLTextAreaElement;
+        setIsLoading(true);
 
-        if (txt.value === "") {
-            setTxtAlert(true);
-        } else if (!issueClosed) {
-            setIsLoading(true);
-
-            // 답변 완료 비활성화 시 DB에만 저장
-            await axios.post("/api/admin/issue", {
-                action: "issue_saved",
-                issue_id: issue.issue_id,
-                issue_reply: txt.value,
-            })
-            .then(res => {
-                console.log(res.data.msg);
-                setIsLoading(false);
-                setReplySuccess("success");
-                window.scrollTo({top: 0});
-            })
-            .catch(err => {
-                console.log(err);
-                setReplySuccess("fail");
-                window.scrollTo({top: 0});
-            });
-        } else {
-            setIsLoading(true);
-
-            // 답변 완료하고 메일 보내기
-            await axios.post("/api/admin/issue", {
-                action: "issue_id",
-                email: issue.issue_email,
-                content: issue.issue_content,
-                reply: txt.value,
-            })
-            .then(async () => {
-                await axios.post("/api/admin/issue", {
-                    action: "issue_closed",
-                    issue_id: issue.issue_id,
-                    issue_reply: txt.value,
-                    issue_closed: issueClosed,
-                    issue_closed_type: "Closed",
-                })
-                .then(res => {
-                    console.log(res.data.msg);
-                    setIsLoading(false);
-                    setReplySuccess("success");
-                    window.scrollTo({top: 0});
-                })
-                .catch(err => {
-                    console.log(err);
-                    setReplySuccess("fail");
-                });
-            })
-            .catch(err => {
-                console.log(err);
-                setReplySuccess("fail");
-            });
-        }
+        // 값 저장하기 (메일 전송 X)
+        await axios.post("/api/admin/bug", {
+            action: "issue_saved",
+            issue_id: issue.issue_id,
+            issue_closed: issueClosed,
+            issue_closed_type: "Closed",
+        })
+        .then(res => {
+            console.log(res.data.msg);
+            setReplySuccess("success");
+            window.scrollTo({top: 0});
+        })
+        .catch(err => {
+            console.log(err);
+            setReplySuccess("fail");
+            window.scrollTo({top: 0});
+        });
         setIsLoading(false);
     }
 
@@ -220,8 +175,8 @@ const IssuePage = ({params}: any) => {
         <>
             {/* Head 부분*/}
             <NextSeo 
-                title={`폰트 티켓 · 폰트 아카이브`}
-                description={`폰트 티켓 - 상업용 무료 한글 폰트 저장소`}
+                title={`버그 티켓 · 폰트 아카이브`}
+                description={`버그 티켓 - 상업용 무료 한글 폰트 저장소`}
             />
 
             {/* 헤더 */}
@@ -245,8 +200,8 @@ const IssuePage = ({params}: any) => {
             <div className='w-[100%] flex flex-col justify-center items-center'>
                 <div className='relative max-w-[720px] w-[100%] flex flex-col justify-center items-start my-[100px] tlg:my-[40px]'>
                     {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-                    <a href="/admin/issue/list" className="absolute left-0 top-[-80px] tlg:top-[-28px] text-[12px] text-theme-5 hover:text-theme-3 tlg:hover:text-theme-5 dark:text-theme-7 hover:dark:text-theme-9 tlg:hover:dark:text-theme-7 block border-b border-transparent hover:border-theme-3 tlg:border-theme-5 tlg:hover:border-theme-5 hover:dark:border-theme-9 tlg:dark:border-theme-7 tlg:hover:dark:border-theme-7"><div className="inline-block mr-[4px]">&#60;</div> 목록으로 돌아가기</a>
-                    <h2 className='text-[20px] tlg:text-[18px] text-theme-3 dark:text-theme-9 font-medium'>폰트 티켓</h2>
+                    <a href="/admin/bug/list" className="absolute left-0 top-[-80px] tlg:top-[-28px] text-[12px] text-theme-5 hover:text-theme-3 tlg:hover:text-theme-5 dark:text-theme-7 hover:dark:text-theme-9 tlg:hover:dark:text-theme-7 block border-b border-transparent hover:border-theme-3 tlg:border-theme-5 tlg:hover:border-theme-5 hover:dark:border-theme-9 tlg:dark:border-theme-7 tlg:hover:dark:border-theme-7"><div className="inline-block mr-[4px]">&#60;</div> 목록으로 돌아가기</a>
+                    <h2 className='text-[20px] tlg:text-[18px] text-theme-3 dark:text-theme-9 font-medium'>버그 티켓</h2>
                     <div className='text-[12px] text-theme-5 dark:text-theme-6 mt-[4px] mb-[10px] tlg:mb-[8px]'>{commentsDateFormat(issue.issue_created_at) === commentsDateFormat(issue.issue_closed_at) ? commentsDateFormat(issue.issue_created_at) + "에 생성됨" : commentsDateFormat(issue.issue_closed_at) + "에 수정됨"}</div>
                     <div id="reply-success" className="w-[100%]">
                         {
@@ -254,7 +209,7 @@ const IssuePage = ({params}: any) => {
                             ? <div className='w-[100%] h-[40px] px-[10px] mb-[10px] flex flex-row justify-between items-center rounded-[6px] border-[2px] border-theme-yellow dark:border-theme-blue-1/80 text-[12px] text-theme-3 dark:text-theme-9 bg-theme-yellow/40 dark:bg-theme-blue-1/20'>
                                 <div className='flex flex-row justify-start items-center'>
                                     <svg className='w-[14px] fill-theme-yellow dark:fill-theme-blue-1/80' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg>
-                                    <div className='ml-[6px]'>답변이 완료되었습니다.</div>
+                                    <div className='ml-[6px]'>저장이 완료되었습니다.</div>
                                 </div>
                                 <div onClick={handleOnReplyClose} className='flex flex-row justify-center items-center cursor-pointer'>
                                     <svg className='w-[18px] fill-theme-3 dark:fill-theme-9' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg>
@@ -264,7 +219,7 @@ const IssuePage = ({params}: any) => {
                                 ? <div className='w-[100%] h-[40px] px-[10px] mb-[10px] flex flex-row justify-between items-center rounded-[6px] border-[2px] border-theme-red/80 text-[12px] text-theme-3 dark:text-theme-9 bg-theme-red/20'>
                                     <div className='flex flex-row justify-start items-center'>
                                         <svg className='w-[14px] fill-theme-red/80' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg>
-                                        <div className='ml-[6px]'>답변 전송에 실패했습니다.</div>
+                                        <div className='ml-[6px]'>저장에 실패했습니다. 잠시 후 다시 시도해 주세요.</div>
                                     </div>
                                     <div onClick={handleOnReplyClose} className='flex flex-row justify-center items-center cursor-pointer'>
                                         <svg className='w-[18px] fill-theme-3 dark:fill-theme-9' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg>
@@ -294,27 +249,21 @@ const IssuePage = ({params}: any) => {
                             }
                         </div>
                         <div className="w-[100%] h-px my-[28px] bg-theme-8/80 dark:bg-theme-7/80"></div>
-                        <div className="mt-[20px]">답변 여부</div>
+                        <div className="mt-[20px]">해결 여부</div>
                         <div className="w-content flex items-center text-[12px] mt-[12px] px-[20px] py-[8px] rounded-[8px] bg-theme-4 dark:bg-theme-blue-2">
-                            <div className={`mr-[4px]`}>답변 중</div>
+                            <div className={`mr-[4px]`}>해결 중</div>
                             <Switch
                                 checked={issueClosed}
                                 onChange={handleToggleChange}
                                 size="small"
                             />
-                            <div className={`${issueClosed ? "text-theme-green" : ""} ml-[6px]`}>답변 완료</div>
+                            <div className={`${issueClosed ? "text-theme-green" : ""} ml-[6px]`}>해결 됨</div>
                         </div>
-                        <div className="mt-[28px]">답변</div>
-                        <textarea onChange={handleTextAreaOnChange} defaultValue={issue.issue_reply} id="answer" placeholder="답변을 입력해 주세요." tabIndex={14} className={`font-edit-textarea w-[100%] h-[196px] resize-none ${txtAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-[12px] mt-[8px] px-[14px] py-[12px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}></textarea>
-                        {
-                            txtAlert &&
-                            <div className="text-[10px] ml-[16px] mt-[6px] text-theme-red">답변 내용이 없습니다.</div>
-                        }
                         <button onClick={handleBtnClick} className="w-[100%] h-[34px] rounded-[8px] mt-[20px] font-medium text-[12px] text-theme-3 dark:text-theme-2 bg-theme-yellow/80 hover:bg-theme-yellow dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1">
                             {
                                 isLoading
                                 ? <span className='loader loader-register w-[16px] h-[16px] mt-[2px]'></span>
-                                : <>답변하기</>
+                                : <>저장하기</>
                             }
                         </button>
                     </div>
@@ -359,7 +308,7 @@ export async function getServerSideProps(ctx: any) {
         )
 
         // 유저 상세정보 불러오기
-        const issue = await FetchIssue(ctx.params.issueId);
+        const issue = await FetchBug(ctx.params.bugId);
 
         // 쿠키에 저장된 세션ID가 유효하지 않다면, 메인페이지로 이동, 유효하면 클리이언트로 유저 정보 return
         if (user === null || user.user_no !== 1) {
@@ -387,4 +336,4 @@ export async function getServerSideProps(ctx: any) {
     }
 }
 
-export default IssuePage;
+export default BugPage;
