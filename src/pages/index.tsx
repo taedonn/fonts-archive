@@ -12,6 +12,7 @@ import { FetchUserLike } from "./api/user/fetchuserlike";
 // components
 import Header from "@/components/header";
 import TooltipIndex from "@/components/tooltipIndex";
+import FontFilter from "@/components/fontfilter";
 import FontBox from "@/components/fontbox";
 
 const Index = ({params}: any) => {
@@ -88,6 +89,12 @@ const Index = ({params}: any) => {
             {/* 헤더 */}
             <Header
                 isMac={isMac}
+                theme={params.theme}
+                user={params.user}
+            />
+
+            {/* 필터 */}
+            <FontFilter
                 theme={params.theme}
                 user={params.user}
                 page={"index"}
