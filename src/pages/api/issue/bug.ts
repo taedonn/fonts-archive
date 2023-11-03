@@ -68,7 +68,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             }
         } else if (req.body.action === "send-email") {
             try {
+                const title = req.body.title as string;
                 const email = req.body.email as string;
+                const content = req.body.content as string;
 
                 // transporter 설정
                 const transporter =  nodemailer.createTransport({
@@ -101,10 +103,56 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                                         <img src="https://fonts-archive.s3.ap-northeast-2.amazonaws.com/mail.png" alt="메일 아이콘" style="width: 160px;"/>
                                     </p>
                                     <p style="width:100%; font-size:14px; font-weight:400; line-height:2; color:#3A3A3A; margin:0; margin-top:40px; word-break:keep-all;">
-                                        폰트 아카이브 이용에 불편을 드려 죄송합니다. 제보해주신 내용에 대해 최대한 빠른 시일 내에 검토 후 <span style="font-weight:500; color:#000;">해결할 수 있도록 노력하겠습니다.</span> <br/><br/>
-                                        만일 동일한 현상이 지속된다면, 번거로우시겠지만 다시 한번 제보를 부탁드립니다. 다시 한 번 고객님의 소중한 제보 감사드립니다. <br/><br/>
-                                        감사합니다.
+                                        폰트 아카이브 이용에 불편을 드려 죄송합니다. 제보해주신 내용 검토 후 <span style="font-weight:500; color:#000;">최대한 빠른 시일 내에 </span>해결할 수 있도록 노력하겠습니다. <br/><br/>
+                                        만일 동일한 현상이 지속된다면, 번거로우시겠지만 다시 한번 제보 부탁드립니다. 감사합니다!<br/><br/>
+                                        - 태돈
                                     </p>
+                                    <div style="width:100%; height:1px; background-color:#EEE; margin-top:48px;"></div>
+                                    <p style="width:100%; font-size:12px; font-weight:400; line-height:2.5; color:#97989C; margin:0; margin-top:24px;">
+                                        taedonn - <a style="text-decoration:none; color:#067DF7;" href="https://fonts.taedonn.com">fonts.taedonn.com</a> <br/>
+                                        check our GitHub repository @<a style="text-decoration:none; color:#97989C;" href="https://github.com/taedonn/fonts-archive">github.com/taedonn/fonts-archive</a> <br/>
+                                        © 2023. taedonn, all rights reserved.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    `
+                });
+
+                // 관리자 메일로 보내기
+                transporter === await transporter.sendMail({
+                    from: '"폰트 아카이브" <taedonn@taedonn.com>',
+                    to: "taedonn@taedonn.com",
+                    subject: '[폰트 아카이브] 버그 제보',
+                    html: `
+                        <div style="width:100%; font-size:16px; font-weight:400; line-height:1.25; color:#000; font-family:'Roboto', 'Noto Sans KR', '맑은고딕', Malgun Gothic, '돋움', Dotum, Helvetica, 'Apple SD Gothic Neo', Sans-serif;">
+                            <div style="width:100%; max-width:520px; background-color:#FFF; margin:0 auto; padding:80px 20px; box-sizing:border-box; font-size:16px; font-weight:400; line-height:1.25; color:#000;">
+                                <div style="width:100%; max-width:400px; margin:0 auto;">
+                                    <div style="width: 100%; margin: 0 auto;">
+                                        <div style="margin: 0 auto; width:24px; height:24px; background-color:#000; color:#FFF; font-size:10px; font-weight:400; text-align:center; line-height:22px; border-radius:4px;">Aa</div>
+                                        <div style="margin: 0 auto; margin-top: 16px; font-size: 14px; text-align: center; color: #3A3A3A;">폰트 아카이브</div>
+                                    </div>
+                                    <h2 style="font-size:20px; font-weight:500; text-align: center; color: #3A3A3A; margin-top:8px;">
+                                        <span style="color: #000; font-weight: 700;">버그 제보</span> 관련 내용입니다.
+                                    </h2>
+                                    <p style="width:100%; font-size:14px; font-weight:500; line-height:2; color:#3A3A3A; text-decoration:underline; margin:0; margin-top:40px;">
+                                        제목
+                                    </p>
+                                    <div style="width:100%; padding:16px 20px; box-sizing:border-box; margin-top:8px; box-sizing:border-box; background-color:#EEE; font-size:12px; font-weight:500; color:#3A3A3A; text-decoration:none; border-radius:6px;">
+                                        ${title}
+                                    </div>
+                                    <p style="width:100%; font-size:14px; font-weight:500; line-height:2; color:#3A3A3A; text-decoration:underline; margin:0; margin-top:28px;">
+                                        이메일
+                                    </p>
+                                    <div style="width:100%; padding:16px 20px; box-sizing:border-box; margin-top:8px; box-sizing:border-box; background-color:#EEE; font-size:12px; font-weight:500; color:#3A3A3A; text-decoration:none; border-radius:6px;">
+                                        ${email}
+                                    </div>
+                                    <p style="width:100%; font-size:14px; font-weight:500; line-height:2; color:#3A3A3A; text-decoration:underline; margin:0; margin-top:28px;">
+                                        내용
+                                    </p>
+                                    <div style="width:100%; padding:16px 20px; box-sizing:border-box; margin-top:8px; box-sizing:border-box; background-color:#EEE; font-size:12px; font-weight:500; color:#3A3A3A; text-decoration:none; border-radius:6px;">
+                                        ${content}
+                                    </div>
                                     <div style="width:100%; height:1px; background-color:#EEE; margin-top:48px;"></div>
                                     <p style="width:100%; font-size:12px; font-weight:400; line-height:2.5; color:#97989C; margin:0; margin-top:24px;">
                                         taedonn - <a style="text-decoration:none; color:#067DF7;" href="https://fonts.taedonn.com">fonts.taedonn.com</a> <br/>

@@ -1,6 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import prisma from '@/libs/client-prisma';
-const nodemailer = require('nodemailer');
 
 const limit = 10;
 
@@ -88,6 +87,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     data: {
                         issue_closed: req.body.issue_closed,
                         issue_closed_type: req.body.issue_closed_type,
+                        issue_closed_at: new Date,
                     }
                 });
 

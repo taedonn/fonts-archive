@@ -427,7 +427,10 @@ const IssueBug = ({params}: any) => {
             {/* 메인 */}
             <div className='w-[100%] flex flex-col justify-center items-center'>
                 <div className='max-w-[720px] w-[100%] flex flex-col justify-center items-start my-[100px] tlg:my-[40px]'>
-                    <h2 className='text-[20px] tlg:text-[18px] text-theme-3 dark:text-theme-9 font-medium mb-[12px] tlg:mb-[8px]'>버그 리포트</h2>
+                    <h2 className='text-[20px] tlg:text-[18px] text-theme-3 dark:text-theme-9 font-medium mb-[6px]'>버그 리포트</h2>
+                    <h3 className='text-[13px] text-theme-5 dark:text-theme-7 mb-[12px]'>
+                        버그를 발견하셨다면 제보해 주세요! 운영에 많은 도움이 됩니다.
+                    </h3>
                     <div id="is-issued" className="w-[100%]">
                         {
                             isIssued === "success"

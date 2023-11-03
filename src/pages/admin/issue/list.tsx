@@ -142,7 +142,7 @@ const IssueList = ({params}: any) => {
                                         {
                                             list.map((issue: any) => {
                                                 return (
-                                                    <tr key={issue.issue_id} className='h-[40px] tlg:h-[34px] relative border-t border-theme-5 dark:border-theme-3 hover:bg-theme-yellow/20 hover:dark:bg-theme-blue-1/20 cursor-pointer'>
+                                                    <tr key={issue.issue_id} className='h-[40px] tlg:h-[34px] relative border-t border-theme-5 dark:border-theme-3 hover:bg-theme-yellow/20 tlg:hover:bg-transparent hover:dark:bg-theme-blue-1/20 tlg:hover:dark:bg-transparent cursor-pointer'>
                                                         <td className='pl-[16px] py-[10px] break-keep'>
                                                             {issue.issue_id}
                                                             <a href={`/admin/issue/${issue.issue_id}`} className='w-[100%] h-[100%] absolute z-10 left-0 top-0'></a>
