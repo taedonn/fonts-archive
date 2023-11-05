@@ -18,11 +18,13 @@ export default function Header (
         theme,
         user,
         page,
+        license,
         lang,
         type,
         sort,
         source,
         handleTextChange,
+        handleLicenseOptionChange,
         handleLangOptionChange,
         handleTypeOptionChange,
         handleSortOptionChange,
@@ -33,11 +35,13 @@ export default function Header (
         theme: string,
         user: any,
         page: string,
+        license: string,
         lang: string,
         type: string,
         sort: string,
         source: string,
         handleTextChange: any,
+        handleLicenseOptionChange: any,
         handleLangOptionChange: any,
         handleTypeOptionChange: any,
         handleSortOptionChange: any,
@@ -47,6 +51,31 @@ export default function Header (
     // 쿠키 훅
     const [, setCookie] = useCookies<string>([]);
 
+    // 셀렉트 박스 - "허용 범위" 영역
+    const refLicenseSelect = useRef<HTMLLabelElement>(null);
+    const refLicenseOption = useRef<HTMLDivElement>(null);
+
+    // 셀렉트 박스 - "허용 범위" 외 영역 클릭
+    useEffect(() => {
+        function handleLicenseOutside(e:Event) {
+            const selectInput = document.getElementById("select-license") as HTMLInputElement;
+            if (refLicenseSelect?.current && !refLicenseSelect.current.contains(e.target as Node) && refLicenseOption.current && !refLicenseOption.current.contains(e.target as Node)) {
+                selectInput.checked = false;
+            }
+        }
+        document.addEventListener("mouseup", handleLicenseOutside);
+        return () => document.removeEventListener("mouseup", handleLicenseOutside);
+    },[refLicenseOption]);
+
+    /** 셀렉트 박스 - "언어 선택" 클릭 */
+    const handleLicenseChange = (e:React.ChangeEvent<HTMLInputElement>) => {
+        const option = document.getElementById("option-license") as HTMLDivElement;
+        if (e.target.checked) {
+            option.classList.add("animate-fade-in");
+            setTimeout(function() { option.classList.remove('animate-fade-in'); },600);
+        }
+    }
+    
     // 셀렉트 박스 - "언어 선택" 영역
     const refLangSelect = useRef<HTMLLabelElement>(null);
     const refLangOption = useRef<HTMLDivElement>(null);
@@ -199,11 +228,13 @@ export default function Header (
     /** lodash/throttle을 이용해 스크롤 제어 */
     const handleScroll = () => {
         if (page === "index") {
+            const inputLicense = document.getElementById("select-license") as HTMLInputElement;
             const inputLang = document.getElementById("select-lang") as HTMLInputElement;
             const inputType = document.getElementById("select-type") as HTMLInputElement;
             const inputSort = document.getElementById("select-sort") as HTMLInputElement;
             const inputTheme = document.getElementById("color-theme") as HTMLInputElement;
             const inputAccount = document.getElementById("account") as HTMLInputElement;
+            inputLicense.checked = false;
             inputLang.checked = false;
             inputType.checked = false;
             inputSort.checked = false;
@@ -265,7 +296,7 @@ export default function Header (
                             page === "index"
                             ? <>
                                 <div className="tlg:w-[calc(100%-56px)] relative group">
-                                    <input onChange={handleTextChange} type='text' placeholder='원하는 문구를 적어보세요...' className="w-[400px] txl:w-[260px] tlg:w-[100%] text-[14px] tlg:text-[12px] text-normal placeholder-theme-5 dark:placeholder-theme-6 text-theme-5 dark:text-theme-8 leading-none border rounded-full border-theme-7 dark:border-theme-4 px-[20px] tlg:px-[16px] py-[10px] tlg:py-[8px] pl-[52px] tlg:pl-[38px] bg-transparent group-hover:dark:bg-theme-3/40 tlg:group-hover:bg-transparent focus:dark:bg-theme-3/40 tlg:focus:bg-transparent"/>
+                                    <input onChange={handleTextChange} type='text' placeholder='원하는 문구를 적어보세요...' className="w-[280px] txl:w-[200px] tlg:w-[100%] text-[14px] tlg:text-[12px] text-normal placeholder-theme-5 dark:placeholder-theme-6 text-theme-5 dark:text-theme-8 leading-none border rounded-full border-theme-7 dark:border-theme-4 px-[20px] tlg:px-[16px] py-[10px] tlg:py-[8px] pl-[52px] tlg:pl-[38px] bg-transparent group-hover:dark:bg-theme-3/40 tlg:group-hover:bg-transparent focus:dark:bg-theme-3/40 tlg:focus:bg-transparent"/>
                                     <svg className="w-[16px] tlg:w-[14px] absolute left-[24px] tlg:left-[16px] top-[50%] translate-y-[-50%] fill-theme-5 dark:fill-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="m2.244 13.081.943-2.803H6.66l.944 2.803H8.86L5.54 3.75H4.322L1 13.081h1.244zm2.7-7.923L6.34 9.314H3.51l1.4-4.156h.034zm9.146 7.027h.035v.896h1.128V8.125c0-1.51-1.114-2.345-2.646-2.345-1.736 0-2.59.916-2.666 2.174h1.108c.068-.718.595-1.19 1.517-1.19.971 0 1.518.52 1.518 1.464v.731H12.19c-1.647.007-2.522.8-2.522 2.058 0 1.319.957 2.18 2.345 2.18 1.06 0 1.716-.43 2.078-1.011zm-1.763.035c-.752 0-1.456-.397-1.456-1.244 0-.65.424-1.115 1.408-1.115h1.805v.834c0 .896-.752 1.525-1.757 1.525z"/></svg>
                                 </div>
                             </> : <></>
@@ -276,7 +307,43 @@ export default function Header (
                             page === "index"
                             ? <>
                                 <div className="flex flex-row justify-end items-center tlg:hidden">
-                                    <div className='w-content relative flex flex-row justify-start items-center'>
+                                <div className='w-content relative flex flex-row justify-start items-center'>
+                                        <input type='checkbox' id='select-license' onChange={handleLicenseChange} className="select hidden"/>
+                                        <label ref={refLicenseSelect} htmlFor='select-license' className="h-[32px] tlg:h-[30px] tmd:h-[28px] relative flex flex-row justify-center items-center text-[14px] text-theme-3 dark:text-theme-8 leading-none tracking-normal px-[20px] tlg:px-[16px] tmd:px-[12px] border border-theme-7 dark:border-theme-5 rounded-full cursor-pointer fill-theme-3 dark:fill-theme-8 hover:bg-theme-3 hover:dark:bg-theme-blue-2 hover:border-theme-yellow hover:dark:border-theme-blue-1 hover:text-theme-10 hover:dark:text-theme-9 hover:fill-theme-10 hover:dark:fill-theme-9 hover:drop-shadow-default hover:dark:drop-shadow-dark">
+                                            <div className='w-[100%] h-[100%] absolute z-10'></div>
+                                            <button className="w-[100%] flex flex-row justify-center items-center text-inherit leading-[32px] text-[14px] tlg:text-[12px] tmd:text-[10px] pt-px">
+                                                허용 범위
+                                                <svg className="w-[8px] tlg:w-[6px] rotate-180 ml-[12px] tlg:ml-[8px] fill-inherit" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M7.022 1.566a1.13 1.13 0 0 1 1.96 0l6.857 11.667c.457.778-.092 1.767-.98 1.767H1.144c-.889 0-1.437-.99-.98-1.767L7.022 1.566z"/></svg>
+                                            </button>
+                                        </label>
+                                        <div ref={refLicenseOption} id="option-license" className='option w-[128px] tlg:w-[108px] tmd:w-[92px] absolute z-2 left-[50%] top-[40px] tlg:top-[36px] tmd:top-[34px] translate-x-[-50%] border border-theme-yellow dark:border-theme-blue-1 rounded-[12px] flex flex-col justify-start items-start px-[16px] tlg:px-[14px] tmd:px-[12px] py-[20px] tmd:py-[14px] tlg:py-[16px] bg-theme-3 dark:bg-theme-blue-2 drop-shadow-default dark:drop-shadow-dark'>
+                                            <input onChange={handleLicenseOptionChange} type='radio' id="option-license-all" name="option-license" value="all" className="option-input hidden" defaultChecked={license === "all" ? true : false}/>
+                                            <div className='flex flex-row justify-start items-center mb-[16px] tlg:mb-[10px]'>
+                                                <label htmlFor='option-license-all'>
+                                                    <svg className='w-[18px] tlg:w-[14px] mr-[10px] tlg:mr-[8px] cursor-pointer fill-theme-yellow dark:fill-theme-blue-1' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.235.235 0 0 1 .02-.022z"/></svg>
+                                                    <svg className='w-[18px] tlg:w-[14px] mr-[10px] tlg:mr-[8px] cursor-pointer fill-theme-yellow dark:fill-theme-blue-1' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm10.03 4.97a.75.75 0 0 1 .011 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.75.75 0 0 1 1.08-.022z"/></svg>
+                                                </label>
+                                                <span className="text-[14px] tlg:text-[12px] text-theme-10 dark:text-theme-9 leading-tight tlg:pb-px">전체</span>
+                                            </div>
+                                            <input onChange={handleLicenseOptionChange} type='radio' id="option-license-print" name="option-license" value="print" className="option-input hidden" defaultChecked={license === "print" ? true : false}/>
+                                            <div className='flex flex-row justify-start items-center mb-[16px] tlg:mb-[10px]'>
+                                                <label htmlFor='option-license-print'>
+                                                    <svg className='w-[18px] tlg:w-[14px] mr-[10px] tlg:mr-[8px] cursor-pointer fill-theme-yellow dark:fill-theme-blue-1' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.235.235 0 0 1 .02-.022z"/></svg>
+                                                    <svg className='w-[18px] tlg:w-[14px] mr-[10px] tlg:mr-[8px] cursor-pointer fill-theme-yellow dark:fill-theme-blue-1' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm10.03 4.97a.75.75 0 0 1 .011 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.75.75 0 0 1 1.08-.022z"/></svg>
+                                                </label>
+                                                <span className="text-[14px] tlg:text-[12px] text-theme-10 dark:text-theme-9 leading-tight tlg:pb-px">인쇄물</span>
+                                            </div>
+                                            <input onChange={handleLicenseOptionChange} type='radio' id="option-license-web" name="option-license" value="web" className="option-input hidden" defaultChecked={license === "web" ? true : false}/>
+                                            <div className='flex flex-row justify-start items-center'>
+                                                <label htmlFor='option-license-web'>
+                                                    <svg className='w-[18px] tlg:w-[14px] mr-[10px] tlg:mr-[8px] cursor-pointer fill-theme-yellow dark:fill-theme-blue-1' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.235.235 0 0 1 .02-.022z"/></svg>
+                                                    <svg className='w-[18px] tlg:w-[14px] mr-[10px] tlg:mr-[8px] cursor-pointer fill-theme-yellow dark:fill-theme-blue-1' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm10.03 4.97a.75.75 0 0 1 .011 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.75.75 0 0 1 1.08-.022z"/></svg>
+                                                </label>
+                                                <span className="text-[14px] tlg:text-[12px] text-theme-10 dark:text-theme-9 leading-tight tlg:pb-px">웹 서비스</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className='w-content relative flex flex-row justify-start items-center ml-[8px]'>
                                         <input type='checkbox' id='select-lang' onChange={handleLangChange} className="select hidden"/>
                                         <label ref={refLangSelect} htmlFor='select-lang' className="h-[32px] tlg:h-[30px] tmd:h-[28px] relative flex flex-row justify-center items-center text-[14px] text-theme-3 dark:text-theme-8 leading-none tracking-normal px-[20px] tlg:px-[16px] tmd:px-[12px] border border-theme-7 dark:border-theme-5 rounded-full cursor-pointer fill-theme-3 dark:fill-theme-8 hover:bg-theme-3 hover:dark:bg-theme-blue-2 hover:border-theme-yellow hover:dark:border-theme-blue-1 hover:text-theme-10 hover:dark:text-theme-9 hover:fill-theme-10 hover:dark:fill-theme-9 hover:drop-shadow-default hover:dark:drop-shadow-dark">
                                             <div className='w-[100%] h-[100%] absolute z-10'></div>

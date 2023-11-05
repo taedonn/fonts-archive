@@ -7,6 +7,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const limit = 24;
 
         // 정렬 조건에 맞게 Sorting
+        const license: string = req.query.license as string;
         const lang: string | object = req.query.lang === 'kr' ? 'KR' : (req.query.lang === 'en' ? 'EN' : {});
         const type: string | object = req.query.type === 'sans-serif' ? 'Sans Serif' : (req.query.type === 'serif' ? 'Serif' : (req.query.type === 'hand-writing' ? 'Hand Writing' : (req.query.type === 'display' ? 'Display' : (req.query.type === 'pixel' ? 'Pixel' : {}))));
         const sort: object[] = req.query.sort === 'like' ? [{ like: 'desc' },{ name: 'asc' }] : req.query.sort === 'view' ? [{ view: 'desc' },{ name: 'asc' }] : req.query.sort === 'date' ? [{ code: 'desc' }] : [{ lang: 'desc' },{ name: 'asc' }];

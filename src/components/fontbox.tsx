@@ -11,7 +11,7 @@ import { throttle } from 'lodash';
 import DummyText from "./dummytext";
 import SkeletonBox from './skeletonbox';
 
-export default function FontBox ({lang, type, sort, user, like, filter, searchword, text, num}:{lang: string, type: string, sort: string, user: any, like: any, filter: string, searchword: string, text: string, num: number}) {        
+export default function FontBox ({license, lang, type, sort, user, like, filter, searchword, text, num}:{license: string, lang: string, type: string, sort: string, user: any, like: any, filter: string, searchword: string, text: string, num: number}) {        
     // react-intersection-observer 훅
     const { ref, inView } = useInView();
 
@@ -30,7 +30,7 @@ export default function FontBox ({lang, type, sort, user, like, filter, searchwo
         hasNextPage
     } = useInfiniteQuery(['fonts', {keepPreviousData: true}], async ({ pageParam = '' }) => {
         await new Promise((res) => setTimeout(res, 100));
-        const res = await axios.get('/api/fontlist', {params: { id: pageParam, lang: lang, type: type, sort: sort, searchword: searchword, filter: filter === 'liked' ? liked : '' }});
+        const res = await axios.get('/api/fontlist', {params: { id: pageParam, license: license, lang: lang, type: type, sort: sort, searchword: searchword, filter: filter === 'liked' ? liked : '' }});
         return res.data;
     },{
         getNextPageParam: (lastPage) => lastPage.nextId ?? false,
@@ -47,7 +47,7 @@ export default function FontBox ({lang, type, sort, user, like, filter, searchwo
         remove();
         refetch();
         window.scrollTo(0, 0);
-    }, [lang, type, sort, searchword, remove, refetch]);
+    }, [license, lang, type, sort, searchword, remove, refetch]);
 
     // 좋아요 state
     const [alertDisplay, setAlertDisplay] = useState<boolean>(false);

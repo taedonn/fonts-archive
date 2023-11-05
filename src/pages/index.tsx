@@ -21,6 +21,21 @@ const Index = ({params}: any) => {
     // 디바이스 체크
     const isMac: boolean = params.userAgent.includes("Mac OS") ? true : false
 
+    // 옵션 - "허용 범위" 디폴트: "전체"
+    const [license, setLicense] = useState<string>(params.license);
+
+    /** 옵션 - "허용 범위" 클릭 */
+    const handleLicenseOptionChange = (e:React.ChangeEvent<HTMLInputElement>) => {
+        // 쿠키 유효 기간 1년으로 설정
+        const expires = new Date();
+        expires.setFullYear(expires.getFullYear() + 1);
+
+        if (e.target.checked) {
+            setCookie('license', e.target.value, {path:'/', expires: expires, secure:true, sameSite:'none'});
+            setLicense(e.target.value);
+        }
+    }
+
     // 옵션 - "언어 선택" 디폴트: "전체"
     const [lang, setLang] = useState<string>(params.lang);
 
@@ -91,11 +106,13 @@ const Index = ({params}: any) => {
                 theme={params.theme}
                 user={params.user}
                 page={"index"}
+                license={license}
                 lang={lang}
                 type={type}
                 sort={sort}
                 source={params.source}
                 handleTextChange={handleTextChange}
+                handleLicenseOptionChange={handleLicenseOptionChange}
                 handleLangOptionChange={handleLangOptionChange}
                 handleTypeOptionChange={handleTypeOptionChange}
                 handleSortOptionChange={handleSortOptionChange}
@@ -104,6 +121,7 @@ const Index = ({params}: any) => {
             
             {/* 메인 */}
             <FontBox 
+                license={license}
                 lang={lang}
                 type={type}
                 sort={sort}
@@ -124,6 +142,7 @@ const Index = ({params}: any) => {
 export async function getServerSideProps(ctx: any) {
     try {
         // 필터링 쿠키 체크
+        const cookieLicense = ctx.req.cookies.license === undefined ? "all" : ctx.req.cookies.license;
         const cookieLang = ctx.req.cookies.lang === undefined ? "all" : ctx.req.cookies.lang;
         const cookieType = ctx.req.cookies.type === undefined ? "all" : ctx.req.cookies.type;
         const cookieSort = ctx.req.cookies.sort === undefined ? "view" : ctx.req.cookies.sort;
@@ -169,6 +188,7 @@ export async function getServerSideProps(ctx: any) {
         return {
             props: {
                 params: {
+                    license: cookieLicense,
                     lang: cookieLang,
                     type: cookieType,
                     sort: cookieSort,
