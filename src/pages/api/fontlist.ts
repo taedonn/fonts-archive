@@ -7,7 +7,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const limit = 24;
 
         // 정렬 조건에 맞게 Sorting
-        const license: string = req.query.license as string;
         const lang: string | object = req.query.lang === 'kr' ? 'KR' : (req.query.lang === 'en' ? 'EN' : {});
         const type: string | object = req.query.type === 'sans-serif' ? 'Sans Serif' : (req.query.type === 'serif' ? 'Serif' : (req.query.type === 'hand-writing' ? 'Hand Writing' : (req.query.type === 'display' ? 'Display' : (req.query.type === 'pixel' ? 'Pixel' : {}))));
         const sort: object[] = req.query.sort === 'like' ? [{ like: 'desc' },{ name: 'asc' }] : req.query.sort === 'view' ? [{ view: 'desc' },{ name: 'asc' }] : req.query.sort === 'date' ? [{ code: 'desc' }] : [{ lang: 'desc' },{ name: 'asc' }];
@@ -25,9 +24,21 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const filteredArr = filter === null ? null : filter.split(','); // [A,B,C]
         filteredArr === null ? null : filteredArr.forEach((arr: string) => objArr.push({ code: Number(arr) }));
 
+        // 라이센스 필터링
+        const license = req.query.license as string;
+        const licenseFilter = [];
+        if (license === "print") { licenseFilter.push({ license_print: "Y" }); }
+        else if (license === "web") { licenseFilter.push({ license_web: "Y" }); }
+        else if (license === "video") { licenseFilter.push({ license_video: "Y" }); }
+        else if (license === "package") { licenseFilter.push({ license_package: "Y" }); }
+        else if (license === "embed") { licenseFilter.push({ license_package: "Y" }); }
+        else if (license === "bici") { licenseFilter.push({ license_package: "Y" }); }
+        else if (license === "ofl") { licenseFilter.push({ license_ofl: "Y" }); }
+
         const fonts = await prisma.fonts.findMany({
             where: {
                 OR: req.query.searchword !== '' ? searchword : req.query.filter !== '' ? objArr : [{ name: { not: '' } }],
+                AND: licenseFilter,
                 lang: lang,
                 font_type: type,
                 show_type: true,

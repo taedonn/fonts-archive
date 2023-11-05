@@ -46,12 +46,14 @@ const SendEmail = ({params}: any) => {
                 isMac={isMac}
                 theme={params.theme}
                 user={null}
-                page={"login"}
+                page={""}
+                license={""}
                 lang={""}
                 type={""}
                 sort={""}
                 source={""}
                 handleTextChange={emptyFn}
+                handleLicenseOptionChange={emptyFn}
                 handleLangOptionChange={emptyFn}
                 handleTypeOptionChange={emptyFn}
                 handleSortOptionChange={emptyFn}

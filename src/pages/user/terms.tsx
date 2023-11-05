@@ -29,12 +29,14 @@ const Terms = ({params}: any) => {
                 isMac={isMac}
                 theme={params.theme}
                 user={params.user}
-                page={"login"}
+                page={""}
+                license={""}
                 lang={""}
                 type={""}
                 sort={""}
                 source={""}
                 handleTextChange={emptyFn}
+                handleLicenseOptionChange={emptyFn}
                 handleLangOptionChange={emptyFn}
                 handleTypeOptionChange={emptyFn}
                 handleSortOptionChange={emptyFn}

@@ -229,12 +229,14 @@ const IssuePage = ({params}: any) => {
                 isMac={isMac}
                 theme={params.theme}
                 user={params.user}
-                page={"admin"}
+                page={""}
+                license={""}
                 lang={""}
                 type={""}
                 sort={""}
                 source={""}
                 handleTextChange={emptyFn}
+                handleLicenseOptionChange={emptyFn}
                 handleLangOptionChange={emptyFn}
                 handleTypeOptionChange={emptyFn}
                 handleSortOptionChange={emptyFn}
