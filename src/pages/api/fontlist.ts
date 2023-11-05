@@ -37,21 +37,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             cursor: cursorObj, // 불러온 마지막 데이터의 ID값
         });
 
-        // 총 개수 가져오기
-        const total = await prisma.fonts.findMany({
-            select: { code: true },
-            where: {
-                OR: req.query.searchword !== '' ? searchword : req.query.filter !== '' ? objArr : [{ name: { not: '' } }],
-                lang: lang,
-                font_type: type,
-                show_type: true,
-            },
-        });
-
-        return res.json({ 
-            fonts, 
-            nextId: fonts.length === limit ? fonts[limit - 1].code : undefined, sort: sort,
-            total: total.length,
-        });
+        return res.json({ fonts, nextId: fonts.length === limit ? fonts[limit - 1].code : undefined, sort: sort });
     }
 }

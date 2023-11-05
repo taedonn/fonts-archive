@@ -13,6 +13,9 @@ const Terms = ({params}: any) => {
     // 디바이스 체크
     const isMac: boolean = params.userAgent.includes("Mac OS") ? true : false;
 
+    // 빈 함수
+    const emptyFn = () => { return; }
+
     return (
         <>
             {/* Head 부분*/}
@@ -26,6 +29,16 @@ const Terms = ({params}: any) => {
                 isMac={isMac}
                 theme={params.theme}
                 user={params.user}
+                page={"login"}
+                lang={""}
+                type={""}
+                sort={""}
+                source={""}
+                handleTextChange={emptyFn}
+                handleLangOptionChange={emptyFn}
+                handleTypeOptionChange={emptyFn}
+                handleSortOptionChange={emptyFn}
+                handleSearch={emptyFn}
             />
 
             {/* 고정 메뉴 */}
