@@ -39,7 +39,7 @@ model fonts {
   license         String         @db.Text
   created_at      DateTime       @default(now())
   updated_at      DateTime       @default(now()) @updatedAt
-  show_type       Boolean        @default(true)
+  show_type       Boolean        @default(false)
   liked_user      fontsLiked[]
   comments        fontsComment[]
 
@@ -160,4 +160,15 @@ model fontsBugReport {
   issue_created_at  DateTime @default(now())
 
   @@index([issue_id])
+}
+
+model fontsNotice {
+  notice_id         Int      @id @default(autoincrement())
+  notice_type       String
+  notice_title      String
+  notice_content    String   @db.Text
+  notice_created_at DateTime @default(now())
+  notice_updated_at DateTime @default(now()) @updatedAt
+
+  @@index([notice_id])
 }
