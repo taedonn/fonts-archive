@@ -626,7 +626,7 @@ export async function getServerSideProps(ctx: any) {
         if (user === null || user.user_no !== 1) {
             return {
                 redirect: {
-                    destination: '/',
+                    destination: '/404',
                     permanent: false,
                 }
             }
