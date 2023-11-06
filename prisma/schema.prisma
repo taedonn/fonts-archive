@@ -167,6 +167,7 @@ model fontsNotice {
   notice_type       String
   notice_title      String
   notice_content    String   @db.Text
+  notice_show_type  Boolean  @default(false)
   notice_created_at DateTime @default(now())
   notice_updated_at DateTime @default(now()) @updatedAt
 

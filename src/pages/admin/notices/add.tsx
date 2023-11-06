@@ -1,27 +1,110 @@
+// react hooks
+import { useState } from "react";
+
 // next hooks
-import { NextSeo } from 'next-seo';
+import { NextSeo } from "next-seo";
 
 // api
-import { CheckIfSessionExists } from '@/pages/api/user/checkifsessionexists';
-import { FetchUserInfo } from '@/pages/api/user/fetchuserinfo';
+import { CheckIfSessionExists } from "@/pages/api/user/checkifsessionexists";
+import { FetchUserInfo } from "@/pages/api/user/fetchuserinfo";
+import axios from "axios";
 
 // components
 import Header from "@/components/header";
-import Tooltip from '@/components/tooltip';
 
 const NoticesAdd = ({params}: any) => {
     // 디바이스 체크
-    const isMac: boolean = params.userAgent.includes("Mac OS") ? true : false;
+    const isMac: boolean = params.userAgent.includes("Mac OS") ? true : false
 
     // 빈 함수
     const emptyFn = () => { return; }
+
+    // state
+    const [titleAlert, setTitleAlert] = useState<boolean>(false);
+    const [contentAlert, setContentAlert] = useState<boolean>(false);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [isAlerted, setIsAlerted] = useState<string>("");
+    const [isSelected, setIsSelected] = useState<string>("service");
+
+    // onChange
+    const handleTitleChange = () => { setTitleAlert(false); }
+    const handleContentChange = () => { setContentAlert(false); }
+
+    /** 셀렉트박스 선택 */
+    const handleSelectBoxChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        setIsSelected(e.target.value);
+    }
+
+    // submit
+    const handleSubmit = async () => {
+        // 변수
+        const title = document.getElementById("title") as HTMLInputElement;
+        const content = document.getElementById("content") as HTMLTextAreaElement;
+
+        if (title.value === "") {
+            setTitleAlert(true);
+            window.scrollTo({top: title.offsetTop});
+        } else if (content.value === "") {
+            setContentAlert(true);
+            window.scrollTo({top: content.offsetTop});
+        } else {
+            setIsLoading(true);
+
+            await axios.post("/api/admin/notices", {
+                action: "add",
+                notice_type: isSelected,
+                notice_title: title.value,
+                notice_content: content.value,
+            })
+            .then(res => {
+                console.log(res.data.msg);
+                uploadOnSuccess();
+            })
+            .catch(err => {
+                console.log(err);
+                uploadOnFail();
+            });
+        }
+        setIsLoading(false);
+    }
+
+    /** 업로드 실패 시 */
+    const uploadOnFail = () => {
+        // 초기화
+        setIsAlerted("fail");
+        window.scrollTo({top: 0});
+    }
+
+    /** 업로드 성공 시 */
+    const uploadOnSuccess = () => {
+        // 초기화
+        resetForm();
+        setIsAlerted("success");
+        window.scrollTo({top: 0});
+    }
+
+    /** 업로드 성공 시 폼 초기화 */
+    const resetForm = () => {
+        // 변수
+        const title = document.getElementById("title") as HTMLInputElement;
+        const content = document.getElementById("content") as HTMLTextAreaElement;
+
+        // 초기화
+        title.value = "";
+        content.value = "";
+    }
+
+    /** 알럿 닫기 */
+    const handleAlertClose = () => {
+        setIsAlerted("");
+    }
 
     return (
         <>
             {/* Head 부분*/}
             <NextSeo 
-                title={"공지사항 추가 · 폰트 아카이브"}
-                description={"공지사항 추가 - 상업용 무료 한글 폰트 저장소"}
+                title={"공지 추가 · 폰트 아카이브"}
+                description={"공지 추가 - 상업용 무료 한글 폰트 저장소"}
             />
 
             {/* 헤더 */}
@@ -43,33 +126,67 @@ const NoticesAdd = ({params}: any) => {
                 handleSearch={emptyFn}
             />
 
-            {/* 고정 메뉴 */}
-            <Tooltip/>
-
             {/* 메인 */}
-            <div className='w-[100%] flex flex-col justify-center items-center py-[60px]'>
-                <div className='w-[720px] tmd:w-[100%] flex flex-col justify-center items-start'>
-                    <div className='flex items-center mb-[16px]'>
-                        <h2 className='text-[24px] text-theme-3 dark:text-theme-9 font-medium'>공지사항</h2>
-                        <h3 className='text-[16px] ml-[16px] text-theme-5 dark:text-theme-7'>폰트 업데이트 & 소식</h3>
+            <div className='w-[100%] flex flex-col justify-center items-center'>
+                <div className='max-w-[720px] w-[100%] flex flex-col justify-center items-start my-[100px] tlg:my-[40px]'>
+                    <h2 className='text-[20px] tlg:text-[18px] text-theme-3 dark:text-theme-9 font-medium mb-[16px] tlg:mb-[12px]'>공지 추가</h2>
+                    <div id="is-issued" className="w-[100%]">
+                        {
+                            isAlerted === "success"
+                            ? <>
+                                <div className='w-[100%] h-[40px] px-[10px] mb-[10px] flex flex-row justify-between items-center rounded-[6px] border-[2px] border-theme-yellow dark:border-theme-blue-1/80 text-[12px] text-theme-3 dark:text-theme-9 bg-theme-yellow/40 dark:bg-theme-blue-1/20'>
+                                    <div className='flex flex-row justify-start items-center'>
+                                        <svg className='w-[14px] fill-theme-yellow dark:fill-theme-blue-1/80' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg>
+                                        <div className='ml-[6px]'>공지 추가에 성공했습니다.</div>
+                                    </div>
+                                    <div onClick={handleAlertClose} className='flex flex-row justify-center items-center cursor-pointer'>
+                                        <svg className='w-[18px] fill-theme-3 dark:fill-theme-9' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg>
+                                    </div>
+                                </div>
+                            </>
+                            : isAlerted === "fail"
+                                ? <>
+                                    <div className='w-[100%] h-[40px] px-[10px] mb-[10px] flex flex-row justify-between items-center rounded-[6px] border-[2px] border-theme-red/80 text-[12px] text-theme-3 dark:text-theme-9 bg-theme-red/20'>
+                                        <div className='flex flex-row justify-start items-center'>
+                                            <svg className='w-[14px] fill-theme-red/80' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg>
+                                            <div className='ml-[6px]'>공지 추가에 실패했습니다. 잠시 후 다시 시도해 주세요.</div>
+                                        </div>
+                                        <div onClick={handleAlertClose} className='flex flex-row justify-center items-center cursor-pointer'>
+                                            <svg className='w-[18px] fill-theme-3 dark:fill-theme-9' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg>
+                                        </div>
+                                    </div>
+                                </> : <></>
+                        }
                     </div>
-                    <div className='relative mb-[32px]'>
-                        <svg className='w-[14px] absolute left-[18px] top-[50%] translate-y-[-50%] fill-theme-5 dark:fill-theme-7' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/></svg>
-                        <input type="text" id="search" placeholder="검색어 입력" className="w-[300px] h-[40px] text-[14px] pl-[40px] pr-[20px] border rounded-full border-theme-7 dark:border-theme-5 text-theme-5 dark:text-theme-7 placeholder:text-theme-5 dark:placeholder:text-theme-7 bg-transparent"/>
-                    </div>
-                    <div className='flex items-center gap-[8px] mb-[32px]'>
-                        <div>
-                            <input type="radio" id="all" name="type" className="hidden peer" defaultChecked/>
-                            <label htmlFor='all' className='w-[80px] h-[34px] text-[14px] pt-px flex justify-center items-center cursor-pointer border rounded-full border-theme-3 dark:border-theme-9 peer-checked:border-theme-yellow peer-checked:dark:border-theme-blue-1 text-theme-3 dark:text-theme-9 peer-checked:text-theme-3 peer-checked:dark:text-theme-blue-2 peer-checked:bg-theme-yellow peer-checked:dark:bg-theme-blue-1'>전체</label>
+                    <div className='w-[100%] p-[20px] rounded-[8px] text-theme-10 dark:text-theme-9 bg-theme-5 dark:bg-theme-3 drop-shadow-default dark:drop-shadow-dark'>
+                        <div className="text-[14px] flex flex-col">
+                            <div>공지 유형</div>
+                            <select onChange={handleSelectBoxChange} className='w-[100px] h-[32px] text-[12px] pt-px px-[10px] mt-[8px] rounded-[8px] outline-none cursor-pointer border-[2px] border-theme-7 dark:border-theme-5 bg-theme-4 dark:bg-theme-blue-2'>
+                                <option value='service' defaultChecked>서비스</option>
+                                <option value='font'>폰트</option>
+                            </select>
+                            <label htmlFor="title" className="mt-[28px]">공지 제목</label>
+                            <input onChange={handleTitleChange} placeholder="공지 제목을 입력해 주세요." id="title" tabIndex={1} type="text" className={`w-[100%] ${titleAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
+                            {
+                                titleAlert
+                                ? <div className="text-[10px] ml-[16px] mt-[6px] text-theme-red">제목을 입력해 주세요.</div>
+                                : <></>
+                            }
+                            <label htmlFor="content" className="mt-[28px]">공지 내용</label>
+                            <textarea onChange={handleContentChange} placeholder="공지 내용을 입력해 주세요." id="content" tabIndex={2} className={`font-edit-textarea w-[100%] h-[200px] resize-none ${contentAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-[12px] mt-[8px] px-[14px] py-[12px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}></textarea>
+                            {
+                                contentAlert
+                                ? <div className="text-[10px] ml-[16px] mt-[6px] text-theme-red">내용을 입력해 주세요.</div>
+                                : <></>
+                            }
                         </div>
-                        <div>
-                            <input type="radio" id="service" name="type" className="hidden peer"/>
-                            <label htmlFor='service' className='w-[80px] h-[34px] text-[14px] pt-px flex justify-center items-center cursor-pointer border rounded-full border-theme-3 dark:border-theme-9 peer-checked:border-theme-yellow peer-checked:dark:border-theme-blue-1 text-theme-3 dark:text-theme-9 peer-checked:text-theme-3 peer-checked:dark:text-theme-blue-2 peer-checked:bg-theme-yellow peer-checked:dark:bg-theme-blue-1'>서비스</label>
-                        </div>
-                        <div>
-                            <input type="radio" id="font" name="type" className="hidden peer"/>
-                            <label htmlFor='font' className='w-[80px] h-[34px] text-[14px] pt-px flex justify-center items-center cursor-pointer border rounded-full border-theme-3 dark:border-theme-9 peer-checked:border-theme-yellow peer-checked:dark:border-theme-blue-1 text-theme-3 dark:text-theme-9 peer-checked:text-theme-3 peer-checked:dark:text-theme-blue-2 peer-checked:bg-theme-yellow peer-checked:dark:bg-theme-blue-1'>폰트</label>
-                        </div>
+                        <button onClick={handleSubmit} className="w-[100%] h-[34px] rounded-[8px] mt-[20px] font-medium text-[12px] text-theme-4 dark:text-theme-3 bg-theme-yellow/80 hover:bg-theme-yellow dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1">
+                            {
+                                isLoading === true
+                                ? <span className='loader loader-register w-[16px] h-[16px]'></span>
+                                : '추가하기'
+                            }
+                        </button>
                     </div>
                 </div>
             </div>
