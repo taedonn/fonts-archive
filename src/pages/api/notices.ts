@@ -34,6 +34,15 @@ export async function FetchNotice(noticeId: number) {
     return notice;
 }
 
+// 공지 전체 불러오기
+export async function FetchAllNotices() {
+    const notices = await prisma.fontsNotice.findMany({
+        where: { notice_show_type: true }
+    });
+
+    return notices;
+}
+
 // API
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method === "POST") {

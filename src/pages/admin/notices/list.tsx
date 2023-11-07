@@ -39,11 +39,13 @@ const NoticeList = ({params}: any) => {
     // 페이지 변경 시 데이터 다시 불러오기
     useEffect(() => {
         const fetchNewData = async () => {
-            await axios.post('/api/admin/notices', {
-                action: "list",
-                page: page,
-                filter: filter,
-                text: text
+            await axios.get('/api/admin/notices', {
+                params: {
+                    action: "list",
+                    page: page,
+                    filter: filter,
+                    text: text,
+                }
             })
             .then((res) => { setList(res.data.list); })
             .catch(err => console.log(err));
@@ -60,11 +62,13 @@ const NoticeList = ({params}: any) => {
             setText(textRef.current.value);
             
             // API 호출
-            await axios.post('/api/admin/notices', {
-                action: "list",
-                page: 1,
-                filter: selectRef.current.value,
-                text: textRef.current.value
+            await axios.get('/api/admin/notices', {
+                params: {
+                    action: "list",
+                    page: 1,
+                    filter: selectRef.current.value,
+                    text: textRef.current.value,
+                }
             })
             .then((res) => {
                 setList(res.data.list);

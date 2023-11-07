@@ -74,39 +74,33 @@ const NoticePage = ({params}: any) => {
 
         if (createdDate.value === "") {
             setCreatedDateAlert(true);
+        } else if (updatedDate.value === "") {
+            setUpdatedDateAlert(true);
+        } else if (title.value === "") {
+            setTitleAlert(true);
+        } else if (content.value === "") {
+            setContentAlert(true);
         } else {
             setIsLoading(true);
 
-            // 답변 완료하고 메일 보내기
-            // await axios.post("/api/admin/issue", {
-            //     action: "issue_id",
-            //     email: issue.issue_email,
-            //     content: issue.issue_content,
-            //     reply: txt.value,
-            // })
-            // .then(async () => {
-            //     await axios.post("/api/admin/issue", {
-            //         action: "issue_closed",
-            //         issue_id: issue.issue_id,
-            //         issue_reply: txt.value,
-            //         issue_closed: issueClosed,
-            //         issue_closed_type: "Closed",
-            //     })
-            //     .then(res => {
-            //         console.log(res.data.msg);
-            //         setIsLoading(false);
-            //         setReplySuccess("success");
-            //         window.scrollTo({top: 0});
-            //     })
-            //     .catch(err => {
-            //         console.log(err);
-            //         setReplySuccess("fail");
-            //     });
-            // })
-            // .catch(err => {
-            //     console.log(err);
-            //     setReplySuccess("fail");
-            // });
+            // 답변 완료하고 DB에 저장하기
+            await axios.post("/api/admin/notices", {
+                action: "edit",
+                id: notice.notice_id,
+                show_type: noticeShow,
+                created_date: new Date(createdDate.value),
+                updated_date: new Date(updatedDate.value),
+                title: title.value,
+                content: content.value,
+            })
+            .then(res => {
+                console.log(res.data.msg);
+                setIsEdited("success");
+            })
+            .catch(err => {
+                console.log(err);
+                setIsEdited("fail");
+            });
         }
         setIsLoading(false);
     }
