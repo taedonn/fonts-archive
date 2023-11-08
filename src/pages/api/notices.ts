@@ -37,7 +37,8 @@ export async function FetchNotice(noticeId: number) {
 // 공지 전체 불러오기
 export async function FetchAllNotices() {
     const notices = await prisma.fontsNotice.findMany({
-        where: { notice_show_type: true }
+        where: { notice_show_type: true },
+        orderBy: { notice_id: "desc" }
     });
 
     return notices;
@@ -129,6 +130,28 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     message: "공지 목록 불러오기 실패",
                     err: err
                 });
+            }
+        } else if (req.query.action === "search") {
+            try {
+                const notices = await prisma.fontsNotice.findMany({
+                    where: {
+                        OR: [
+                            { notice_title: {contains: req.query.text as string} },
+                            { notice_content: {contains: req.query.text as string} },
+                        ]
+                    },
+                    orderBy: { notice_id: "desc" }
+                });
+
+                return res.status(200).json({
+                    msg: "공지 찾기 성공",
+                    notices: notices,
+                })
+            } catch (err) {
+                return res.status(500).json({
+                    msg: '공지 찾기 실패',
+                    err: err,
+                })
             }
         }
     }

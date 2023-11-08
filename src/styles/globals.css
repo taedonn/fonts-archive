@@ -616,3 +616,21 @@ html.dark #__next .MuiPagination-ul .Mui-selected {
 #__next .Mui-checked .MuiSwitch-thumb { color: #40E0D0; }
 #__next .MuiSwitch-track { background-color: #FFFFFF80; }
 #__next .Mui-checked + .MuiSwitch-track { background-color: #40E0D080; }
+
+/* 공지사항 */
+.notices .notice:last-of-type label > div {
+    border-bottom: 1px solid #B1B2B6;
+}
+html.dark .notices .notice:last-of-type label > div {
+    border-bottom: 1px solid #646568;
+}
+.notices .notice:last-of-type input:checked ~ pre {
+    border-top: none;
+    border-bottom: 1px solid #B1B2B6;
+}
+html.dark .notices .notice:last-of-type input:checked ~ pre {
+    border-bottom: 1px solid #646568;
+}
+.notice input:checked + label svg {
+    transform: rotate(90deg);
+}
