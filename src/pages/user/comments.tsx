@@ -170,9 +170,9 @@ const Comments = ({params}: any) => {
                     </div>
                     <div className='w-[100%] rounded-[8px] overflow-hidden overflow-x-auto'>
                         <table className='w-[720px] text-[12px] text-theme-10 dark:text-theme-9 bg-theme-4 dark:bg-theme-4'>
-                            <thead className='h-[40px] tlg:h-[34px] text-left bg-theme-5 dark:bg-theme-3'>
+                            <thead className='text-left bg-theme-5 dark:bg-theme-3'>
                                 <tr>
-                                    <th className='w-[120px] pl-[16px]'>폰트</th>
+                                    <th className='h-[40px] tlg:h-[34px] w-[120px] pl-[16px]'>폰트</th>
                                     <th className='pl-[16px]'>댓글</th>
                                     <th className='w-[112px] pl-[16px]'>수정 날짜</th>
                                     <th className='w-[120px] pl-[16px]'>작성 날짜</th>
@@ -186,8 +186,8 @@ const Comments = ({params}: any) => {
                                         {
                                             comments.map((comment: any) => {
                                                 return (
-                                                    <tr key={comment.comment_id} className='h-[40px] tlg:h-[34px] border-t border-theme-5 dark:border-theme-3'>
-                                                        <td className='pl-[16px] py-[10px] break-keep'><a href={`/post/${comment.font_family.replaceAll(" ", "+")}`} className='text-theme-yellow dark:text-theme-blue-1 focus:underline hover:underline tlg:hover:no-underline'>{comment.name}</a></td>
+                                                    <tr key={comment.comment_id} className='border-t border-theme-5 dark:border-theme-3'>
+                                                        <td className='h-[40px] tlg:h-[34px] pl-[16px] py-[10px] break-keep'><a href={`/post/${comment.font_family.replaceAll(" ", "+")}`} className='text-theme-yellow dark:text-theme-blue-1 focus:underline hover:underline tlg:hover:no-underline'>{comment.name}</a></td>
                                                         <td className='pl-[16px] py-[10px] break-keep'><a href={`/post/${comment.font_family.replaceAll(" ", "+")}#c${comment.comment_id}`} className='focus:underline hover:underline tlg:hover:no-underline'>{comment.comment}</a></td>
                                                         <td className='pl-[16px] py-[10px] break-keep'>{commentsDateFormat(comment.updated_at)}</td>
                                                         <td className='pl-[16px] py-[10px] break-keep'>{commentsDateFormat(comment.created_at)}</td>

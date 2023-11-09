@@ -129,9 +129,9 @@ const UserList = ({params}: any) => {
                     </div>
                     <div className='w-[100%] rounded-[8px] overflow-hidden overflow-x-auto'>
                         <table className='w-[720px] text-[12px] text-theme-10 dark:text-theme-9 bg-theme-4 dark:bg-theme-4'>
-                            <thead className='h-[40px] tlg:h-[34px] text-left bg-theme-5 dark:bg-theme-3'>
+                            <thead className='text-left bg-theme-5 dark:bg-theme-3'>
                                 <tr>
-                                    <th className='w-[52px] pl-[16px]'>번호</th>
+                                    <th className='h-[40px] tlg:h-[34px] w-[52px] pl-[16px]'>번호</th>
                                     <th className='w-[80px] pl-[16px]'>유저명</th>
                                     <th className='pl-[16px]'>유저 아이디</th>
                                     <th className='w-[108px] pl-[16px]'>수정 날짜</th>
@@ -147,8 +147,8 @@ const UserList = ({params}: any) => {
                                         {
                                             list.map((user: any) => {
                                                 return (
-                                                    <tr key={user.user_no} className='h-[40px] tlg:h-[34px] border-t border-theme-5 dark:border-theme-3'>
-                                                        <td className='pl-[16px] py-[10px] break-keep'>{user.user_no}</td>
+                                                    <tr key={user.user_no} className='border-t border-theme-5 dark:border-theme-3'>
+                                                        <td className='h-[40px] tlg:h-[34px] pl-[16px] py-[10px]'>{user.user_no}</td>
                                                         <td className='pl-[16px] py-[10px] break-all'><a href={`/admin/user/${user.user_no}`} className='text-theme-yellow dark:text-theme-blue-1 focus:underline hover:underline tlg:hover:no-underline'>{user.user_name}</a></td>
                                                         <td className='pl-[16px] py-[10px] break-all'>{user.user_id}</td>
                                                         <td className='pl-[16px] py-[10px]'>{commentsDateFormat(user.updated_at)}</td>

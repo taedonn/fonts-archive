@@ -504,9 +504,9 @@ function DetailPage({params}: any) {
                     <h2 className="text-[20px] tmd:text-[18px] text-theme-3 dark:text-theme-9 font-medium mb-[16px] tmd:mb-[14px]">라이센스 사용 범위</h2>
                     <div className="w-[100%] flex flex-row tlg:flex-col justify-between items-stretch tlg:items-start mb-[80px] tlg:mb-[60px] tmd:mb-[48px]">
                         <table className="tlg:w-[100%] tlg:mb-[16px] text-left rounded-[12px] border border-theme-7 dark:border-theme-5">
-                            <thead className="relative h-[56px]">
+                            <thead className="relative">
                                 <tr className="text-[15px] text-theme-3 dark:text-theme-9 font-medium">
-                                    <th className="w-[120px] tlg:w-[100px] text-center">카테고리</th>
+                                    <th className="w-[120px] h-[56px] tlg:w-[100px] text-center">카테고리</th>
                                     <th className="w-[450px] tlg:w-[auto]">사용 범위</th>
                                     <th className="w-[100px] tmd:w-[80px] pr-[28px] tlg:pr-[24px] tmd:pr-[20px] text-right">허용 여부</th>
                                     <th className="absolute bottom-0 left-[50%] translate-x-[-50%] w-[calc(100%-40px)] tlg:w-[calc(100%-32px)] tmd:w-[calc(100%-24px)] h-px bg-theme-7 dark:bg-theme-5"></th>

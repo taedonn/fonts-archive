@@ -127,9 +127,9 @@ const IssueList = ({params}: any) => {
                     </div>
                     <div className='w-[100%] rounded-[8px] overflow-hidden overflow-x-auto'>
                         <table className='w-[720px] text-[12px] text-theme-10 dark:text-theme-9 bg-theme-4 dark:bg-theme-4'>
-                            <thead className='h-[40px] tlg:h-[34px] text-left bg-theme-5 dark:bg-theme-3'>
+                            <thead className='text-left bg-theme-5 dark:bg-theme-3'>
                                 <tr>
-                                    <th className='w-[52px] pl-[16px]'>번호</th>
+                                    <th className='h-[40px] tlg:h-[34px] w-[52px] pl-[16px]'>번호</th>
                                     <th className='w-[120px] pl-[16px]'>제목</th>
                                     <th className='pl-[16px]'>이메일</th>
                                     <th className='w-[116px] pl-[16px]'>생성 날짜</th>
@@ -144,8 +144,8 @@ const IssueList = ({params}: any) => {
                                         {
                                             list.map((issue: any) => {
                                                 return (
-                                                    <tr key={issue.issue_id} className='h-[40px] tlg:h-[34px] relative border-t border-theme-5 dark:border-theme-3 hover:bg-theme-yellow/20 tlg:hover:bg-transparent hover:dark:bg-theme-blue-1/20 tlg:hover:dark:bg-transparent cursor-pointer'>
-                                                        <td className='pl-[16px] py-[10px] break-keep'>
+                                                    <tr key={issue.issue_id} className='relative border-t border-theme-5 dark:border-theme-3 hover:bg-theme-yellow/20 tlg:hover:bg-transparent hover:dark:bg-theme-blue-1/20 tlg:hover:dark:bg-transparent cursor-pointer'>
+                                                        <td className='h-[40px] tlg:h-[34px] pl-[16px] py-[10px] break-keep'>
                                                             {issue.issue_id}
                                                             <a href={`/admin/issue/${issue.issue_id}`} className='w-[100%] h-[100%] absolute z-10 left-0 top-0'></a>
                                                         </td>

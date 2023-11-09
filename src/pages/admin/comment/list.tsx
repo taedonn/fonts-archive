@@ -174,9 +174,9 @@ const CommentList = ({params}: any) => {
                     </div>
                     <div className='w-[100%] rounded-[8px] overflow-hidden overflow-x-auto'>
                         <table className='w-[720px] text-[12px] text-theme-10 dark:text-theme-9 bg-theme-4 dark:bg-theme-4'>
-                            <thead className='h-[40px] tlg:h-[34px] text-left bg-theme-5 dark:bg-theme-3'>
+                            <thead className='text-left bg-theme-5 dark:bg-theme-3'>
                                 <tr>
-                                    <th className='w-[52px] pl-[16px]'>번호</th>
+                                    <th className='h-[40px] tlg:h-[34px] w-[52px] pl-[16px]'>번호</th>
                                     <th className='w-[100px] pl-[16px]'>폰트</th>
                                     <th className='w-[100px] pl-[16px]'>작성자</th>
                                     <th className='pl-[16px]'>댓글</th>
@@ -192,8 +192,8 @@ const CommentList = ({params}: any) => {
                                         {
                                             comments.map((comment: any) => {
                                                 return (
-                                                    <tr key={comment.comment_id} className='h-[40px] tlg:h-[34px] border-t border-theme-5 dark:border-theme-3'>
-                                                        <td className='pl-[16px] py-[10px]'>{comment.comment_id}</td>
+                                                    <tr key={comment.comment_id} className='border-t border-theme-5 dark:border-theme-3'>
+                                                        <td className='h-[40px] tlg:h-[34px] pl-[16px] py-[10px]'>{comment.comment_id}</td>
                                                         <td className='pl-[16px] py-[10px] break-keep'><a href={`/post/${comment.font_family.replaceAll(" ", "+")}`} className='text-theme-yellow dark:text-theme-blue-1 focus:underline hover:underline tlg:hover:no-underline'>{comment.name}</a></td>
                                                         <td className='pl-[16px] py-[10px] break-keep'><a href={`/admin/user/${comment.user_no}`} className='focus:underline hover:underline tlg:hover:no-underline'>{comment.user_name}</a></td>
                                                         <td className='pl-[16px] py-[10px] break-keep'><a href={`/post/${comment.font_family.replaceAll(" ", "+")}#c${comment.comment_id}`} className='focus:underline hover:underline tlg:hover:no-underline'>{comment.comment}</a></td>
