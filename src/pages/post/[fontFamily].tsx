@@ -503,7 +503,8 @@ function DetailPage({params}: any) {
                 <div>
                     <h2 className="text-[20px] tmd:text-[18px] text-theme-3 dark:text-theme-9 font-medium mb-[16px] tmd:mb-[14px]">라이센스 사용 범위</h2>
                     <div className="w-[100%] flex flex-row tlg:flex-col justify-between items-stretch tlg:items-start mb-[80px] tlg:mb-[60px] tmd:mb-[48px]">
-                        <table className="tlg:w-[100%] tlg:mb-[16px] text-left rounded-[12px] border border-theme-7 dark:border-theme-5">
+                        <div className="border border-theme-7 dark:border-theme-5">
+                        <table className="tlg:w-[100%] tlg:mb-[16px] text-left">
                             <thead className="relative">
                                 <tr className="text-[15px] text-theme-3 dark:text-theme-9 font-medium">
                                     <th className="w-[120px] h-[56px] tlg:w-[100px] text-center">카테고리</th>
@@ -733,6 +734,7 @@ function DetailPage({params}: any) {
                                 </tr>
                             </tbody>
                         </table>
+                        </div>
                         <div className="w-[calc(100%-690px)] tlg:w-[100%] h-[calc(100%-56px)] tlg:h-auto border border-theme-7 dark:border-theme-5">
                             <h2 className="relative h-[56px] flex flex-row justify-start items-center text-[15px] text-theme-3 dark:text-theme-9 font-normal leading-none pl-[28px] tlg:pl-[24px] tmd:pl-[20px]">
                                 라이센스 본문
