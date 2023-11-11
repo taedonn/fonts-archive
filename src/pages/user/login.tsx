@@ -110,7 +110,6 @@ const Login = ({params}: any) => {
                     // 세션 스토리지가 저장되어 있으면, 해당 페이지로 이동
                     sessionStorage.removeItem("login_history");
 
-                    console.log(history);
                     if (history.includes("user")) {
                         console.log("history가 user일 때");
                         if (history.includes("privacy") || history.includes("terms")) {
@@ -181,7 +180,7 @@ const Login = ({params}: any) => {
             <div className='w-[100%] flex flex-col justify-center items-center'>
                 <div className='w-[360px] flex flex-col justify-center items-start my-[100px] tlg:my-[40px]'>
                     <h2 className='text-[20px] tlg:text-[18px] text-theme-3 dark:text-theme-9 font-medium mb-[12px] tlg:mb-[8px]'>로그인</h2>
-                    <form onSubmit={e => e.preventDefault()} className='w-[100%] p-[20px] rounded-[8px] text-theme-10 dark:text-theme-9 bg-theme-5 dark:bg-theme-3 drop-shadow-default dark:drop-shadow-dark'>
+                    <form onSubmit={e => e.preventDefault()} className='w-[100%] p-[20px] mb-[16px] rounded-[8px] text-theme-10 dark:text-theme-9 bg-theme-5 dark:bg-theme-3 drop-shadow-default dark:drop-shadow-dark'>
                         <label htmlFor='id' className='block text-[14px] ml-px'>아이디</label>
                         <input onChange={handleIdChange} type='text' id='id' tabIndex={1} autoComplete='on' placeholder='이메일을 입력해 주세요.' className={`${idChk === '' ? 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' : 'border-theme-red focus:border-theme-red dark:border-theme-red focus:dark:border-theme-red'} w-[100%] text-[14px] mt-[6px] px-[14px] py-[8px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
                         {
@@ -240,7 +239,7 @@ const Login = ({params}: any) => {
                             }
                         </button>
                     </form>
-                    <div className='w-[100%] h-[52px] text-[14px] rounded-[8px] mt-[16px] gap-[8px] flex justify-center items-center border border-theme-7 dark:border-theme-4'>
+                    {/* <div className='w-[100%] h-[52px] text-[14px] rounded-[8px] mb-[8px] gap-[8px] flex justify-center items-center border border-theme-7 dark:border-theme-4'>
                         <div className='w-[28px] h-[28px] rounded-[6px] flex justify-center items-center cursor-pointer bg-theme-naver'>
                             <svg className='w-[14px] fill-theme-10' viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.273 12.845 7.376 0H0v24h7.726V11.156L16.624 24H24V0h-7.727v12.845Z"/></svg>
                         </div>
@@ -253,8 +252,8 @@ const Login = ({params}: any) => {
                         <div className='w-[28px] h-[28px] rounded-[6px] flex justify-center items-center cursor-pointer bg-theme-1 dark:bg-theme-10'>
                             <svg className='w-[20px] fill-theme-10 dark:fill-theme-1' viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
                         </div>
-                    </div>
-                    <div className='w-[100%] h-[52px] text-[14px] rounded-[8px] mt-[8px] flex flex-row justify-center items-center border border-theme-7 dark:border-theme-4'>
+                    </div> */}
+                    <div className='w-[100%] h-[52px] text-[14px] rounded-[8px] flex flex-row justify-center items-center border border-theme-7 dark:border-theme-4'>
                         <span className='text-theme-4 dark:text-theme-9 mr-[12px]'>처음 방문하셨나요?</span>
                         {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
                         <a href="/user/register" className='text-theme-yellow dark:text-theme-blue-1 hover:underline tlg:hover:no-underline'>회원가입하기</a>
