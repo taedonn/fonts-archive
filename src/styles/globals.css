@@ -513,6 +513,24 @@ html.dark .same-source::after {
     background-color: #8AB4F8;
 }
 
+/* 다른 방식으로 로그인 호버 이벤트 */
+.login-method { font-family: "Spoqa Han Sans Neo", "Noto Sans KR"; }
+.login-method::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    width: 8px;
+    height: 8px;
+    left: 50%;
+    bottom: -4px;
+    transform: translateX(-50%) rotate(45deg);
+}
+.login-naver::after { background-color: #03C75A; }
+.login-kakao::after { background-color: #FFE812; }
+.login-google::after { background-color: #FFF; }
+.login-github::after { background-color: #000; }
+html.dark .login-github::after { background-color: #FFF; }
+
 .like-btn { font-family: "Spoqa Han Sans Neo", "Noto Sans KR"; }
 .like-btn::after {
     content: "";
