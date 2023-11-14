@@ -431,7 +431,7 @@ const IssueFont = ({params}: any) => {
                 <div className='max-w-[720px] w-[100%] flex flex-col justify-center items-start my-[100px] tlg:my-[40px]'>
                     <h2 className='text-[20px] tlg:text-[18px] text-theme-3 dark:text-theme-9 font-medium mb-[6px]'>폰트 제보하기</h2>
                     <h3 className='text-[13px] text-theme-5 dark:text-theme-7 mb-[12px]'>
-                        폰트 아카이브에 새 폰트를 추가했으면 하시거나, 기존 폰트의 문제점을 발견하셨다거나, 아니면 아무 말이나 보내주셔도 좋습니다!
+                        폰트 관련 제보 사항(새 폰트, 라이센스 등)이 있으시면 제보해 주시면 감사하겠습니다.
                     </h3>
                     <div id="is-issued" className="w-[100%]">
                         {
