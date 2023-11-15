@@ -195,10 +195,10 @@ function DetailPage({params}: any) {
             {/* Head 부분*/}
             <NextSeo 
                 title={font.name + " · 폰트 아카이브"}
-                description={font.name + " - 상업용 무료 한글 폰트 저장소 | " + font.license}
+                description={font.name + " - 폰트 아카이브 · 상업용 무료 한글 폰트 저장소 | " + font.license}
                 openGraph={{
                     title: font.name + " · 폰트 아카이브",
-                    description: font.name + " - 상업용 무료 한글 폰트 저장소 | " + font.license,
+                    description: font.name + " - 폰트 아카이브 · 상업용 무료 한글 폰트 저장소 | " + font.license,
                     url: `https://fonts.taedonn.com/${font.code}`,
                     images: [{
                         url: `https://${process.env.MY_AWS_S3_META_IMAGE_BUCKET}.s3.ap-northeast-2.amazonaws.com/${font.font_family.replaceAll(" ", "")}.png`,
