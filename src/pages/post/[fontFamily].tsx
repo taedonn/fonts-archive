@@ -17,7 +17,18 @@ import axios from "axios";
 import { throttle } from "lodash";
 
 // material-ui hooks
-import { Slider } from "@mui/material";
+import { createTheme, ThemeProvider, Slider, FormControl, InputLabel, Select, SelectChangeEvent, MenuItem } from "@mui/material";
+
+const theme = createTheme({
+    palette: {
+        primary: {
+            main: '#8AB4F8',
+            light: '#8AB4F8',
+            dark: '#FFFFFF',
+            contrastText: '#fff',
+        }
+    }
+})
 
 // components
 import Header from "@/components/header";
@@ -40,14 +51,15 @@ function DetailPage({params}: any) {
         await fetch("/api/post/updateview", { method: "POST", body: JSON.stringify(font) });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    useEffect(() => { viewUpdate(); }, [font]);
+    // useEffect(() => { viewUpdate(); }, [font]);
 
-    // 좋아요 state
+    // state
     const [alertDisplay, setAlertDisplay] = useState<boolean>(false);
     const [hoverDisplay, setHoverDisplay] = useState<boolean>(true);
     const [liked, setLiked] = useState<boolean>(params.like === null ? false : params.like.some((font: any) => font.font_id === params.fonts[0].code));
     const [likedInput, setLikedInput] = useState<boolean>(params.like === null ? false : params.like.some((font: any) => font.font_id === params.fonts[0].code));
     const [likedNum, setLikedNum] = useState<number>(params.likedNum);
+    const [fontUnit, setFontUnit] = useState<string>("");
 
     /** 로그인 중이 아닐 때 좋아요 클릭 방지 */
     const handleLikeClick = (e: React.MouseEvent<HTMLInputElement>) => {
@@ -189,6 +201,11 @@ function DetailPage({params}: any) {
 
     /** MUI 자간 값 */
     const fnLetterSpacingValue = (value: number) => { return value / 10; }
+
+    /** 폰트 단위 변경 */
+    const handleFontUnit = (e: SelectChangeEvent) => {
+        setFontUnit(e.target.value as string);
+    };
 
     return (
         <>
@@ -373,9 +390,27 @@ function DetailPage({params}: any) {
                     <div className="font-preview-wrap max-w-[100%] overflow-hidden rounded-[12px] p-[20px] pt-[28px] pb-[14px] bg-theme-3 dark:bg-theme-blue-2">
                         <div className="w-[100%] flex flex-row flex-wrap justify-start items-center">
                             <div className="flex flex-col justify-center items-start mr-[40px] mb-[16px]">
-                                <p className="text-[14px] text-normal leading-none mb-[8px] text-theme-9">
-                                    폰트 크기<span className="text-[12px] text-theme-7 ml-[6px]">Font Size</span>
-                                </p>
+                                <div className="flex items-center">
+                                    <p className="text-[14px] text-normal leading-none mb-[8px] text-theme-9">
+                                        폰트 크기<span className="text-[12px] text-theme-7 ml-[6px]">Font Size</span>
+                                    </p>
+                                    <ThemeProvider theme={theme}>
+                                        <FormControl sx={{ m: 1, minWidth: 120 }}>
+                                            <InputLabel id="font-unit">단위</InputLabel>
+                                            <Select
+                                                labelId="font-unit"
+                                                id="font-unit-select"
+                                                value={fontUnit}
+                                                label="단위"
+                                                onChange={handleFontUnit}
+                                            >
+                                                <MenuItem value={"px"}>px</MenuItem>
+                                                <MenuItem value={"em"}>em</MenuItem>
+                                                <MenuItem value={"rem"}>rem</MenuItem>
+                                            </Select>
+                                        </FormControl>
+                                    </ThemeProvider>
+                                </div>
                                 <div className="w-[200px] mx-[34px] relative">
                                     <Slider
                                         className="font-size-slider"
