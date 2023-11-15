@@ -336,7 +336,7 @@ const Info = ({params}: any) => {
             {/* Head 부분*/}
             <NextSeo 
                 title={"회원정보 · 폰트 아카이브"}
-                description={"회원정보 - 상업용 무료 한글 폰트 저장소"}
+                description={"회원정보 - 폰트 아카이브 · 상업용 무료 한글 폰트 저장소"}
             />
 
             {/* 헤더 */}

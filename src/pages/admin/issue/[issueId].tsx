@@ -221,7 +221,7 @@ const IssuePage = ({params}: any) => {
             {/* Head 부분*/}
             <NextSeo 
                 title={`폰트 티켓 · 폰트 아카이브`}
-                description={`폰트 티켓 - 상업용 무료 한글 폰트 저장소`}
+                description={`폰트 티켓 - 폰트 아카이브 · 상업용 무료 한글 폰트 저장소`}
             />
 
             {/* 헤더 */}

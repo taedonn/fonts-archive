@@ -115,7 +115,7 @@ const NoticePage = ({params}: any) => {
             {/* Head 부분*/}
             <NextSeo 
                 title={`공지 수정 · 폰트 아카이브`}
-                description={`공지 수정 - 상업용 무료 한글 폰트 저장소`}
+                description={`공지 수정 - 폰트 아카이브 · 상업용 무료 한글 폰트 저장소`}
             />
 
             {/* 헤더 */}

@@ -176,7 +176,7 @@ const BugPage = ({params}: any) => {
             {/* Head 부분*/}
             <NextSeo 
                 title={`버그 티켓 · 폰트 아카이브`}
-                description={`버그 티켓 - 상업용 무료 한글 폰트 저장소`}
+                description={`버그 티켓 - 폰트 아카이브 · 상업용 무료 한글 폰트 저장소`}
             />
 
             {/* 헤더 */}
