@@ -17,18 +17,7 @@ import axios from "axios";
 import { throttle } from "lodash";
 
 // material-ui hooks
-import { createTheme, ThemeProvider, Slider, FormControl, InputLabel, Select, SelectChangeEvent, MenuItem } from "@mui/material";
-
-const theme = createTheme({
-    palette: {
-        primary: {
-            main: '#8AB4F8',
-            light: '#8AB4F8',
-            dark: '#FFFFFF',
-            contrastText: '#fff',
-        }
-    }
-})
+import {  Slider } from "@mui/material";
 
 // components
 import Header from "@/components/header";
@@ -59,7 +48,6 @@ function DetailPage({params}: any) {
     const [liked, setLiked] = useState<boolean>(params.like === null ? false : params.like.some((font: any) => font.font_id === params.fonts[0].code));
     const [likedInput, setLikedInput] = useState<boolean>(params.like === null ? false : params.like.some((font: any) => font.font_id === params.fonts[0].code));
     const [likedNum, setLikedNum] = useState<number>(params.likedNum);
-    const [fontUnit, setFontUnit] = useState<string>("");
 
     /** 로그인 중이 아닐 때 좋아요 클릭 방지 */
     const handleLikeClick = (e: React.MouseEvent<HTMLInputElement>) => {
@@ -194,17 +182,26 @@ function DetailPage({params}: any) {
     }
 
     /** MUI 폰트 크기 뒤에 px 추가 */
-    const fnAddUnit = (value: number) => { return value + "px"; }
+    const fnAddUnit = (value: number) => { return value + fontUnit; }
 
     /** MUI 행간 값 */
-    const fnLineheightValue = (value: number) => { return value / 10; }
+    const fnLineheightValue = (value: number) => { return value + lineHeightUnit; }
 
     /** MUI 자간 값 */
     const fnLetterSpacingValue = (value: number) => { return value / 10; }
 
+    // 단위 변경 state
+    const [fontUnit, setFontUnit] = useState<string>("px");
+    const [lineHeightUnit, setLineHeightUnit] = useState<string>("px");
+
     /** 폰트 단위 변경 */
-    const handleFontUnit = (e: SelectChangeEvent) => {
-        setFontUnit(e.target.value as string);
+    const handleFontUnit = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        setFontUnit(e.target.value);
+    };
+
+    /** 행간 단위 변경 */
+    const handleLineHeightUnit = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        setLineHeightUnit(e.target.value);
     };
 
     return (
@@ -390,28 +387,16 @@ function DetailPage({params}: any) {
                     <div className="font-preview-wrap max-w-[100%] overflow-hidden rounded-[12px] p-[20px] pt-[28px] pb-[14px] bg-theme-3 dark:bg-theme-blue-2">
                         <div className="w-[100%] flex flex-row flex-wrap justify-start items-center">
                             <div className="flex flex-col justify-center items-start mr-[40px] mb-[16px]">
-                                <div className="flex items-center">
-                                    <p className="text-[14px] text-normal leading-none mb-[8px] text-theme-9">
+                                <div className="flex items-center mb-[8px]">
+                                    <p className="text-[14px] text-normal leading-none text-theme-9">
                                         폰트 크기<span className="text-[12px] text-theme-7 ml-[6px]">Font Size</span>
                                     </p>
-                                    <ThemeProvider theme={theme}>
-                                        <FormControl sx={{ m: 1, minWidth: 120 }}>
-                                            <InputLabel id="font-unit">단위</InputLabel>
-                                            <Select
-                                                labelId="font-unit"
-                                                id="font-unit-select"
-                                                value={fontUnit}
-                                                label="단위"
-                                                onChange={handleFontUnit}
-                                            >
-                                                <MenuItem value={"px"}>px</MenuItem>
-                                                <MenuItem value={"em"}>em</MenuItem>
-                                                <MenuItem value={"rem"}>rem</MenuItem>
-                                            </Select>
-                                        </FormControl>
-                                    </ThemeProvider>
+                                    <select onChange={handleFontUnit} className='w-[60px] h-[28px] text-[12px] ml-[10px] px-[10px] bg-transparent rounded-[6px] outline-none border border-theme-6 dark:border-theme-5 text-theme-9 cursor-pointer'>
+                                        <option value='px' defaultChecked>px</option>
+                                        <option value='pt'>pt</option>
+                                    </select>
                                 </div>
-                                <div className="w-[200px] mx-[34px] relative">
+                                <div className="w-[200px] mx-[40px] relative">
                                     <Slider
                                         className="font-size-slider"
                                         aria-label="font-size-slider"
@@ -423,27 +408,34 @@ function DetailPage({params}: any) {
                                         min={12}
                                         max={64}
                                     />
-                                    <div className="absolute left-[-34px] top-[50%] translate-y-[-70%] text-[12px] text-theme-9">12px</div>
-                                    <div className="absolute right-[-34px] top-[50%] translate-y-[-70%] text-[12px] text-theme-9">64px</div>
+                                    <div className="absolute left-[-40px] top-[50%] translate-y-[-70%] text-[12px] text-theme-9">12{fontUnit}</div>
+                                    <div className="absolute right-[-40px] top-[50%] translate-y-[-70%] text-[12px] text-theme-9">64{fontUnit}</div>
                                 </div>
                             </div>
                             <div className="flex flex-col justify-center items-start mr-[40px] mb-[16px]">
-                                <p className="text-[14px] text-normal leading-none mb-[8px] text-theme-9">
-                                    행간<span className="text-[12px] text-theme-7 ml-[6px]">Line Height</span>
-                                </p>
-                                <div className="w-[200px] mx-[20px] relative">
+                                <div className="flex items-center mb-[8px]">
+                                    <p className="text-[14px] text-normal leading-none text-theme-9">
+                                        행간<span className="text-[12px] text-theme-7 ml-[6px]">Line Height</span>
+                                    </p>
+                                    <select onChange={handleLineHeightUnit} className='w-[60px] h-[28px] text-[12px] ml-[10px] px-[10px] bg-transparent rounded-[6px] outline-none border border-theme-6 dark:border-theme-5 text-theme-9 cursor-pointer'>
+                                        <option value='px' defaultChecked>px</option>
+                                        <option value='em'>em</option>
+                                        <option value='%'>%</option>
+                                    </select>
+                                </div>
+                                <div className="w-[200px] mx-[40px] relative">
                                     <Slider
                                         className="font-size-slider"
                                         aria-label="font-size-slider"
                                         valueLabelDisplay="auto"
                                         valueLabelFormat={fnLineheightValue}
-                                        onChange={(e, v) => setLineHeight(Number(v)/10)}
-                                        defaultValue={12}
-                                        min={10}
-                                        max={20}
+                                        onChange={(e, v) => setLineHeight(Number(v))}
+                                        defaultValue={20}
+                                        min={12}
+                                        max={64}
                                     />
-                                    <div className="absolute left-[-18px] top-[50%] translate-y-[-70%] text-[12px] text-theme-9">1</div>
-                                    <div className="absolute right-[-18px] top-[50%] translate-y-[-70%] text-[12px] text-theme-9">2</div>
+                                    <div className="absolute left-[-40px] top-[50%] translate-y-[-70%] text-[12px] text-theme-9">12{lineHeightUnit}</div>
+                                    <div className="absolute right-[-40px] top-[50%] translate-y-[-70%] text-[12px] text-theme-9">64{lineHeightUnit}</div>
                                 </div>
                             </div>
                             <div className="flex flex-col justify-center items-start mr-[40px] mb-[16px]">
@@ -471,7 +463,7 @@ function DetailPage({params}: any) {
                             font.font_weight[0] === "Y"
                             ? <>
                                 <div className="text-[12px] text-theme-7 leading-none mb-[12px]">Thin 100</div>
-                                <pre style={{fontFamily:'"'+font.font_family+'"', fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"100"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
+                                <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: fontUnit === "px" ? fontSize : (fontSize*96)/72, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"100"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
                             </>
                             : <></>
                         }
@@ -479,7 +471,7 @@ function DetailPage({params}: any) {
                             font.font_weight[1] === "Y"
                             ? <>
                                 <div className="text-[12px] text-theme-7 leading-none mb-[12px]">ExtraLight 200</div>
-                                <pre style={{fontFamily:'"'+font.font_family+'"', fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"200"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
+                                <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: fontUnit === "px" ? fontSize : (fontSize*96)/72, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"200"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
                             </>
                             : <></>
                         }
@@ -487,7 +479,7 @@ function DetailPage({params}: any) {
                             font.font_weight[2] === "Y"
                             ? <>
                                 <div className="text-[12px] text-theme-7 leading-none mb-[12px]">Light 300</div>
-                                <pre style={{fontFamily:'"'+font.font_family+'"', fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"300"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
+                                <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: fontUnit === "px" ? fontSize : (fontSize*96)/72, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"300"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
                             </>
                             : <></>
                         }
@@ -495,7 +487,7 @@ function DetailPage({params}: any) {
                             font.font_weight[3] === "Y"
                             ? <>
                                 <div className="text-[12px] text-theme-7 leading-none mb-[12px]">Regular 400</div>
-                                <pre style={{fontFamily:'"'+font.font_family+'"', fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"400"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
+                                <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: fontUnit === "px" ? fontSize : (fontSize*96)/72, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"400"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
                             </>
                             : <></>
                         }
@@ -503,7 +495,7 @@ function DetailPage({params}: any) {
                             font.font_weight[4] === "Y"
                             ? <>
                                 <div className="text-[12px] text-theme-7 leading-none mb-[12px]">Medium 500</div>
-                                <pre style={{fontFamily:'"'+font.font_family+'"', fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"500"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
+                                <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: fontUnit === "px" ? fontSize : (fontSize*96)/72, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"500"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
                             </>
                             : <></>
                         }
@@ -511,7 +503,7 @@ function DetailPage({params}: any) {
                             font.font_weight[5] === "Y"
                             ? <>
                                 <div className="text-[12px] text-theme-7 leading-none mb-[12px]">SemiBold 600</div>
-                                <pre style={{fontFamily:'"'+font.font_family+'"', fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"600"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
+                                <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: fontUnit === "px" ? fontSize : (fontSize*96)/72, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"600"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
                             </>
                             : <></>
                         }
@@ -519,7 +511,7 @@ function DetailPage({params}: any) {
                             font.font_weight[6] === "Y"
                             ? <>
                                 <div className="text-[12px] text-theme-7 leading-none mb-[12px]">Bold 700</div>
-                                <pre style={{fontFamily:'"'+font.font_family+'"', fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"700"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
+                                <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: fontUnit === "px" ? fontSize : (fontSize*96)/72, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"700"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
                             </>
                             : <></>
                         }
@@ -527,7 +519,7 @@ function DetailPage({params}: any) {
                             font.font_weight[7] === "Y"
                             ? <>
                                 <div className="text-[12px] text-theme-7 leading-none mb-[12px]">Heavy 800</div>
-                                <pre style={{fontFamily:'"'+font.font_family+'"', fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"800"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
+                                <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: fontUnit === "px" ? fontSize : (fontSize*96)/72, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"800"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
                             </>
                             : <></>
                         }
@@ -535,7 +527,7 @@ function DetailPage({params}: any) {
                             font.font_weight[8] === "Y"
                             ? <>
                                 <div className="text-[12px] text-theme-7 leading-none mb-[12px]">Black 900</div>
-                                <pre style={{fontFamily:'"'+font.font_family+'"', fontSize:fontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"900"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
+                                <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: fontUnit === "px" ? fontSize : (fontSize*96)/72, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"900"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
                             </>
                             : <></>
                         }
