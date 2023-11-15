@@ -200,6 +200,12 @@ function DetailPage({params}: any) {
                     title: font.name + " · 폰트 아카이브",
                     description: font.name + " - 상업용 무료 한글 폰트 저장소 | " + font.license,
                     url: `https://fonts.taedonn.com/${font.code}`,
+                    images: [{
+                        url: `https://${process.env.MY_AWS_S3_META_IMAGE_BUCKET}.s3.ap-northeast-2.amazonaws.com/${font.font_family.replaceAll(" ", "")}.png`,
+                        width: 500,
+                        height: 500,
+                        alt: `${font.name} 메타 이미지`
+                    }],
                     type: "article",
                     article: {
                         publishedTime: font.created_at,
