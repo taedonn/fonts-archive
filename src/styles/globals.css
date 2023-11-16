@@ -652,3 +652,12 @@ html.dark .notices .notice:last-of-type input:checked ~ pre {
 .notice input:checked + label svg {
     transform: rotate(90deg);
 }
+
+/* color picker */
+.color-picker .rcp-root {
+    width: 320px;
+    overflow: hidden;
+}
+.color-picker .rcp-body {
+    background-color: #35363A;
+}

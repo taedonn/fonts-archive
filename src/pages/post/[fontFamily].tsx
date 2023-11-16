@@ -3,7 +3,9 @@ import Link from "next/link";
 import { NextSeo } from 'next-seo';
 
 // react hooks
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
+import { ColorPicker, useColor } from "react-color-palette";
+import "react-color-palette/dist/css/rcp.css";
 
 // api
 import { FetchFontDetail } from "../api/post/fetchfontdetail";
@@ -172,7 +174,7 @@ function DetailPage({params}: any) {
 
     // 폰트 미리보기 state
     const [fontSize, setFontSize] = useState<number>(20);
-    const [lineHeight, setLineHeight] = useState<number>(1.2);
+    const [lineHeight, setLineHeight] = useState<number>(1.5);
     const [letterSpacing, setLetterSpacing] = useState<number>(0);
 
     /** MUI TextArea 줄바꿈 시 높이 변경 */
@@ -181,15 +183,10 @@ function DetailPage({params}: any) {
         e.target.style.height = (e.target.scrollHeight)+"px";
     }
 
-    /** MUI 행간 값 */
-    const fnLineheightValue = (value: number) => { return value + lineHeightUnit; }
-
-    /** MUI 자간 값 */
-    const fnLetterSpacingValue = (value: number) => { return value / 10; }
-
     // 단위 변경 state
     const [fontUnit, setFontUnit] = useState<string>("px");
-    const [lineHeightUnit, setLineHeightUnit] = useState<string>("px");
+    const [lineHeightUnit, setLineHeightUnit] = useState<string>("em");
+    const [letterSpacingUnit, setLetterSpacingUnit] = useState<string>("em");
     const convertedFontSize = fontUnit === "px" ? fontSize : fontSize * 0.75;
 
     /** 폰트 단위 변경 */
@@ -202,7 +199,40 @@ function DetailPage({params}: any) {
     /** 행간 단위 변경 */
     const handleLineHeightUnit = (e: React.ChangeEvent<HTMLSelectElement>) => {
         setLineHeightUnit(e.target.value);
+        if (e.target.value === "em") { setLineHeight(1.5); }
+        else if (e.target.value === "px") { setLineHeight(28); }
+        else { setLineHeight(150); }
     };
+
+    /** 자간 단위 변경 */
+    const handleLetterSpacingUnit = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        setLetterSpacingUnit(e.target.value);
+        setLetterSpacing(0);
+    };
+
+    // color picker state
+    const [color, setColor] = useColor("#E9EAEE");
+    const [displayColorPicker, setDisplayColorPicker] = useState<boolean>(false);
+    
+    /** color picker 보임/숨김 */
+    const handleColorPickerDisplay = () => {
+        setDisplayColorPicker(!displayColorPicker);
+    }
+
+    // color picker 영역
+    const refColorPickerBtn = useRef<HTMLDivElement>(null);
+    const refColorPicker = useRef<HTMLDivElement>(null);
+
+    // color picker 영역 외 클릭
+    useEffect(() => {
+        function handleOutside(e:Event) {
+            if (refColorPickerBtn.current && !refColorPickerBtn.current.contains(e.target as Node) && refColorPicker.current && !refColorPicker.current.contains(e.target as Node)) {
+                setDisplayColorPicker(false);
+            }
+        }
+        document.addEventListener("mouseup", handleOutside);
+        return () => document.removeEventListener("mouseup", handleOutside);
+    }, [refColorPicker, refColorPickerBtn]);
 
     return (
         <>
@@ -384,21 +414,20 @@ function DetailPage({params}: any) {
                     <div className="w-[100%] px-[16px] py-[8px] mb-[16px] border-b border-theme-7 dark:border-theme-4">
                         <textarea onChange={handleFontWeightChange} onInput={handleHeightChange} placeholder="원하는 문구를 적어보세요..." className="w-[100%] h-[18px] resize-none text-[14px] text-theme-5 dark:text-theme-8 placeholder-theme-5 dark:placeholder-theme-6 leading-tight bg-transparent"/>
                     </div>
-                    <div className="font-preview-wrap max-w-[100%] overflow-hidden rounded-[12px] p-[20px] pt-[28px] pb-[14px] bg-theme-3 dark:bg-theme-blue-2">
-                        <div className="w-[100%] flex flex-row flex-wrap justify-start items-center">
+                    <div className="font-preview-wrap max-w-[100%] rounded-[12px] pt-[28px] pb-[14px] bg-theme-3 dark:bg-theme-blue-2">
+                        <div className="w-[100%] px-[20px] flex flex-row flex-wrap justify-start items-center">
                             <div className="flex flex-col justify-center items-start mr-[40px] mb-[16px]">
                                 <div className="flex items-center mb-[8px]">
                                     <p className="text-[14px] text-normal leading-none text-theme-9">
                                         폰트 크기<span className="text-[12px] text-theme-7 ml-[6px]">Font Size</span>
                                     </p>
-                                    <select onChange={handleFontUnit} className='w-[60px] h-[28px] text-[12px] ml-[10px] px-[10px] bg-transparent rounded-[6px] outline-none border border-theme-6 dark:border-theme-5 text-theme-9 cursor-pointer'>
+                                    <select onChange={handleFontUnit} className='w-[56px] h-[28px] text-[12px] ml-[10px] px-[10px] bg-transparent rounded-[6px] outline-none border border-theme-6 dark:border-theme-5 text-theme-9 cursor-pointer'>
                                         <option value='px' defaultChecked>px</option>
                                         <option value='pt'>pt</option>
                                     </select>
                                 </div>
                                 <div className="w-[200px] mx-[40px] relative">
                                     <Slider
-                                        id="font-size-slider"
                                         className="font-size-slider"
                                         aria-label="font-size-slider"
                                         valueLabelDisplay="auto"
@@ -418,7 +447,7 @@ function DetailPage({params}: any) {
                                     <p className="text-[14px] text-normal leading-none text-theme-9">
                                         행간<span className="text-[12px] text-theme-7 ml-[6px]">Line Height</span>
                                     </p>
-                                    <select onChange={handleLineHeightUnit} className='w-[60px] h-[28px] text-[12px] ml-[10px] px-[10px] bg-transparent rounded-[6px] outline-none border border-theme-6 dark:border-theme-5 text-theme-9 cursor-pointer'>
+                                    <select onChange={handleLineHeightUnit} className='w-[56px] h-[28px] text-[12px] ml-[10px] px-[10px] bg-transparent rounded-[6px] outline-none border border-theme-6 dark:border-theme-5 text-theme-9 cursor-pointer'>
                                         <option value='em' defaultChecked>em</option>
                                         <option value='px'>px</option>
                                         <option value='%'>%</option>
@@ -428,110 +457,134 @@ function DetailPage({params}: any) {
                                     <Slider
                                         className="font-size-slider"
                                         aria-label="font-size-slider"
+                                        step={lineHeightUnit === "em" ? 0.1 : lineHeightUnit === "px" ? 1 : 10}
                                         valueLabelDisplay="auto"
-                                        valueLabelFormat={fnLineheightValue}
+                                        valueLabelFormat={lineHeight + lineHeightUnit}
                                         onChange={(e, v) => setLineHeight(Number(v))}
-                                        defaultValue={20}
-                                        min={12}
-                                        max={64}
+                                        defaultValue={1.5}
+                                        value={lineHeight}
+                                        min={lineHeightUnit === "em" ? 1 : lineHeightUnit === "px" ? 12 : 50}
+                                        max={lineHeightUnit === "em" ? 3 : lineHeightUnit === "px" ? 64 : 200}
                                     />
-                                    <div className="absolute left-[-40px] top-[50%] translate-y-[-70%] text-[12px] text-theme-9">12{lineHeightUnit}</div>
-                                    <div className="absolute right-[-40px] top-[50%] translate-y-[-70%] text-[12px] text-theme-9">64{lineHeightUnit}</div>
+                                    <div className="absolute left-[-40px] top-[50%] translate-y-[-70%] text-[12px] text-theme-9">{lineHeightUnit === "em" ? 1 : lineHeightUnit === "px" ? 12 : 50}{lineHeightUnit}</div>
+                                    <div className="absolute right-[-40px] top-[50%] translate-y-[-70%] text-[12px] text-theme-9">{lineHeightUnit === "em" ? 3 : lineHeightUnit === "px" ? 64 : 200}{lineHeightUnit}</div>
                                 </div>
                             </div>
                             <div className="flex flex-col justify-center items-start mr-[40px] mb-[16px]">
-                                <p className="text-[14px] text-normal leading-none mb-[8px] text-theme-9">
-                                    자간<span className="text-[12px] text-theme-7 ml-[6px]">Letter Spacing</span>
-                                </p>
+                                <div className="flex items-center mb-[8px]">
+                                    <p className="text-[14px] text-normal leading-none text-theme-9">
+                                        자간<span className="text-[12px] text-theme-7 ml-[6px]">Letter Spacing</span>
+                                    </p>
+                                    <select onChange={handleLetterSpacingUnit} className='w-[56px] h-[28px] text-[12px] ml-[10px] px-[10px] bg-transparent rounded-[6px] outline-none border border-theme-6 dark:border-theme-5 text-theme-9 cursor-pointer'>
+                                        <option value='em' defaultChecked>em</option>
+                                        <option value='px'>px</option>
+                                    </select>
+                                </div>
                                 <div className="w-[200px] ml-[48px] relative">
                                     <Slider
                                         className="font-size-slider"
                                         aria-label="font-size-slider"
+                                        step={letterSpacingUnit === "em" ? 0.1 : 1}
                                         valueLabelDisplay="auto"
-                                        valueLabelFormat={fnLetterSpacingValue}
-                                        onChange={(e, v) => setLetterSpacing(Number(v)/10)}
+                                        valueLabelFormat={letterSpacing + letterSpacingUnit}
+                                        onChange={(e, v) => setLetterSpacing(Number(v))}
                                         defaultValue={0}
-                                        min={-5}
-                                        max={10}
+                                        value={letterSpacing}
+                                        min={letterSpacingUnit === "em" ? -1 : -10}
+                                        max={letterSpacingUnit === "em" ? 1 : 10}
                                     />
-                                    <div className="absolute left-[-48px] top-[50%] translate-y-[-70%] text-[12px] text-theme-9">-0.5em</div>
-                                    <div className="absolute right-[-32px] top-[50%] translate-y-[-70%] text-[12px] text-theme-9">1em</div>
+                                    <div className="absolute left-[-48px] top-[50%] translate-y-[-70%] text-[12px] text-theme-9">{letterSpacingUnit === "em" ? -1 :  -10}{letterSpacingUnit}</div>
+                                    <div className="absolute right-[-32px] top-[50%] translate-y-[-70%] text-[12px] text-theme-9">{letterSpacingUnit === "em" ? 1 : 10}{letterSpacingUnit}</div>
                                 </div>
                             </div>
                         </div>
-                        <div className="w-[100%] h-px mb-[28px] bg-theme-5"></div>
-                        {
-                            font.font_weight[0] === "Y"
-                            ? <>
-                                <div className="text-[12px] text-theme-7 leading-none mb-[12px]">Thin 100</div>
-                                <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"100"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
-                            </>
-                            : <></>
-                        }
-                        {
-                            font.font_weight[1] === "Y"
-                            ? <>
-                                <div className="text-[12px] text-theme-7 leading-none mb-[12px]">ExtraLight 200</div>
-                                <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"200"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
-                            </>
-                            : <></>
-                        }
-                        {
-                            font.font_weight[2] === "Y"
-                            ? <>
-                                <div className="text-[12px] text-theme-7 leading-none mb-[12px]">Light 300</div>
-                                <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"300"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
-                            </>
-                            : <></>
-                        }
-                        {
-                            font.font_weight[3] === "Y"
-                            ? <>
-                                <div className="text-[12px] text-theme-7 leading-none mb-[12px]">Regular 400</div>
-                                <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"400"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
-                            </>
-                            : <></>
-                        }
-                        {
-                            font.font_weight[4] === "Y"
-                            ? <>
-                                <div className="text-[12px] text-theme-7 leading-none mb-[12px]">Medium 500</div>
-                                <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"500"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
-                            </>
-                            : <></>
-                        }
-                        {
-                            font.font_weight[5] === "Y"
-                            ? <>
-                                <div className="text-[12px] text-theme-7 leading-none mb-[12px]">SemiBold 600</div>
-                                <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"600"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
-                            </>
-                            : <></>
-                        }
-                        {
-                            font.font_weight[6] === "Y"
-                            ? <>
-                                <div className="text-[12px] text-theme-7 leading-none mb-[12px]">Bold 700</div>
-                                <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"700"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
-                            </>
-                            : <></>
-                        }
-                        {
-                            font.font_weight[7] === "Y"
-                            ? <>
-                                <div className="text-[12px] text-theme-7 leading-none mb-[12px]">Heavy 800</div>
-                                <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"800"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
-                            </>
-                            : <></>
-                        }
-                        {
-                            font.font_weight[8] === "Y"
-                            ? <>
-                                <div className="text-[12px] text-theme-7 leading-none mb-[12px]">Black 900</div>
-                                <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight:lineHeight, letterSpacing:letterSpacing+"em", fontWeight:"900"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
-                            </>
-                            : <></>
-                        }
+                        <div className="w-[100%] px-[20px] mb-[28px]">
+                            <div className="w-[100%] h-px relative bg-theme-5">
+                                <div className="color-picker absolute z-10 right-0 top-[12px] transform-y-[-100%] flex flex-col items-end">
+                                    <div ref={refColorPickerBtn} onClick={handleColorPickerDisplay} className="w-[20px] h-[20px] rounded-[4px] mb-[8px] cursor-pointer dark:bg-theme-9"></div>
+                                    <div ref={refColorPicker}>
+                                        {
+                                            displayColorPicker && 
+                                            <ColorPicker height={120} color={color} onChange={setColor} hideInput={["hsv"]}/>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="w-[100%] px-[20px] overflow-hidden">
+                            {
+                                font.font_weight[0] === "Y"
+                                ? <>
+                                    <div className="text-[12px] text-theme-7 leading-none mb-[12px]">Thin 100</div>
+                                    <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"100"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
+                                </>
+                                : <></>
+                            }
+                            {
+                                font.font_weight[1] === "Y"
+                                ? <>
+                                    <div className="text-[12px] text-theme-7 leading-none mb-[12px]">ExtraLight 200</div>
+                                    <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"200"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
+                                </>
+                                : <></>
+                            }
+                            {
+                                font.font_weight[2] === "Y"
+                                ? <>
+                                    <div className="text-[12px] text-theme-7 leading-none mb-[12px]">Light 300</div>
+                                    <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"300"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
+                                </>
+                                : <></>
+                            }
+                            {
+                                font.font_weight[3] === "Y"
+                                ? <>
+                                    <div className="text-[12px] text-theme-7 leading-none mb-[12px]">Regular 400</div>
+                                    <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"400"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
+                                </>
+                                : <></>
+                            }
+                            {
+                                font.font_weight[4] === "Y"
+                                ? <>
+                                    <div className="text-[12px] text-theme-7 leading-none mb-[12px]">Medium 500</div>
+                                    <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"500"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
+                                </>
+                                : <></>
+                            }
+                            {
+                                font.font_weight[5] === "Y"
+                                ? <>
+                                    <div className="text-[12px] text-theme-7 leading-none mb-[12px]">SemiBold 600</div>
+                                    <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"600"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
+                                </>
+                                : <></>
+                            }
+                            {
+                                font.font_weight[6] === "Y"
+                                ? <>
+                                    <div className="text-[12px] text-theme-7 leading-none mb-[12px]">Bold 700</div>
+                                    <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"700"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
+                                </>
+                                : <></>
+                            }
+                            {
+                                font.font_weight[7] === "Y"
+                                ? <>
+                                    <div className="text-[12px] text-theme-7 leading-none mb-[12px]">Heavy 800</div>
+                                    <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"800"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
+                                </>
+                                : <></>
+                            }
+                            {
+                                font.font_weight[8] === "Y"
+                                ? <>
+                                    <div className="text-[12px] text-theme-7 leading-none mb-[12px]">Black 900</div>
+                                    <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"900"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
+                                </>
+                                : <></>
+                            }
+                        </div>
                     </div>
                 </div>
                 <div>
