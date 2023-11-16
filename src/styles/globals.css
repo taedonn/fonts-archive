@@ -659,5 +659,35 @@ html.dark .notices .notice:last-of-type input:checked ~ pre {
     overflow: hidden;
 }
 .color-picker .rcp-body {
+    padding: 16px 20px;
+    gap: 16px;
     background-color: #35363A;
+}
+.color-picker .rcp-fields {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+}
+.color-picker .rcp-fields .rcp-fields-floor {
+    width: 50%;
+    display: flex;
+}
+.color-picker .rcp-fields .rcp-fields-floor label {
+    font-size: 14px;
+    margin-top: 4px;
+    color: #B1B2B6;
+}
+.color-picker .rcp-body .rcp-field-input {
+    border: 1px solid;
+    border-color: #646568;
+}
+
+#text-color-picker + label .same-sourc,
+#bg-color-picker + label .same-source {
+    top: -42px;
+}
+#text-color-picker:checked + label .same-source,
+#bg-color-picker:checked + label .same-source {
+    display: none;
 }

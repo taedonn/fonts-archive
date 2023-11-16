@@ -62,7 +62,7 @@ function DetailPage({params}: any) {
         await fetch("/api/post/updateview", { method: "POST", body: JSON.stringify(font) });
     }
     useEffect(() => {
-        if (!window.location.href.includes("localhost") || !window.location.href.includes("127.0.0.1")) {
+        if (!window.location.href.includes("localhost") && !window.location.href.includes("127.0.0.1")) {
             viewUpdate();
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -234,32 +234,72 @@ function DetailPage({params}: any) {
         setLetterSpacing(0);
     };
 
-    // color picker state
-    const [color, setColor] = useColor("#E9EAEE");
-    const [displayColorPicker, setDisplayColorPicker] = useState<boolean>(false);
+    // 폰트 color picker state
+    const [textColor, setTextColor] = useColor("#E9EAEE");
+    const [displayTextColorPicker, setDisplayTextColorPicker] = useState<boolean>(false);
     
-    /** color picker 보임/숨김 */
-    const handleColorPickerDisplay = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (e.target.checked) { setDisplayColorPicker(true); }
-        else { setDisplayColorPicker(false); }
+    /** 폰트 color picker 보임/숨김 */
+    const handleTextColorPickerDisplay = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.checked) { setDisplayTextColorPicker(true); }
+        else { setDisplayTextColorPicker(false); }
     }
 
-    // color picker 영역
+    // 폰트 color picker 영역
     const textColorPickerBtn = useRef<HTMLLabelElement>(null);
     const textColorPicker = useRef<HTMLDivElement>(null);
 
-    // color picker 영역 외 클릭
+    // 폰트 color picker 영역 외 클릭
     useEffect(() => {
         function handleOutside(e:Event) {
             const textInput = document.getElementById("text-color-picker") as HTMLInputElement;
             if (textColorPickerBtn.current && !textColorPickerBtn.current.contains(e.target as Node) && textColorPicker.current && !textColorPicker.current.contains(e.target as Node)) {
-                setDisplayColorPicker(false);
+                setDisplayTextColorPicker(false);
                 textInput.checked = false;
             }
         }
         document.addEventListener("mouseup", handleOutside);
         return () => document.removeEventListener("mouseup", handleOutside);
     }, [textColorPicker, textColorPickerBtn]);
+
+    // 배경 color picker state
+    const [bgColor, setBgColor] = useColor(params.theme === "dark" ? "#17181B" : "#35363A");
+    const [displaybgColorPicker, setDisplaybgColorPicker] = useState<boolean>(false);
+    
+    /** 배경 color picker 보임/숨김 */
+    const handlebgColorPickerDisplay = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.checked) { setDisplaybgColorPicker(true); }
+        else { setDisplaybgColorPicker(false); }
+    }
+
+    // 배경 color picker 영역
+    const bgColorPickerBtn = useRef<HTMLLabelElement>(null);
+    const bgColorPicker = useRef<HTMLDivElement>(null);
+
+    // 배경 color picker 영역 외 클릭
+    useEffect(() => {
+        function handleOutside(e:Event) {
+            const bgInput = document.getElementById("bg-color-picker") as HTMLInputElement;
+            if (bgColorPickerBtn.current && !bgColorPickerBtn.current.contains(e.target as Node) && bgColorPicker.current && !bgColorPicker.current.contains(e.target as Node)) {
+                setDisplaybgColorPicker(false);
+                bgInput.checked = false;
+            }
+        }
+        document.addEventListener("mouseup", handleOutside);
+        return () => document.removeEventListener("mouseup", handleOutside);
+    }, [bgColorPicker, bgColorPickerBtn]);
+
+    /** color picker 리셋 */
+    const resetColorPicker = () => {
+        const html = document.getElementsByTagName("html")[0];
+        if (html.classList.contains("dark")) {
+            setTextColor({hex: "#E9EAEE", rgb: {r: 233, g: 234, b: 238, a: 1}, hsv: {h: 228, s: 2.1, v: 93.3, a: 1}});
+            setBgColor({hex: "#17181B", rgb: {r: 23, g: 24, b: 27, a: 1}, hsv: {h: 225, s: 14.8, v: 10.6, a: 1}});
+        }
+        else {
+            setTextColor({hex: "#E9EAEE", rgb: {r: 233, g: 234, b: 238, a: 1}, hsv: {h: 228, s: 2.1, v: 93.3, a: 1}});
+            setBgColor({hex: "#35363A", rgb: {r: 53, g: 54, b: 58, a: 1}, hsv: {h: 228, s: 8.6, v: 22.7, a: 1}});
+        }
+    }
 
     return (
         <>
@@ -441,19 +481,19 @@ function DetailPage({params}: any) {
                     <div className="w-[100%] px-[16px] py-[8px] mb-[16px] border-b border-theme-7 dark:border-theme-4">
                         <textarea onChange={handleFontWeightChange} onInput={handleHeightChange} placeholder="원하는 문구를 적어보세요..." className="w-[100%] h-[18px] resize-none text-[14px] text-theme-5 dark:text-theme-8 placeholder-theme-5 dark:placeholder-theme-6 leading-tight bg-transparent"/>
                     </div>
-                    <div className="font-preview-wrap max-w-[100%] rounded-[12px] pt-[28px] pb-[14px] bg-theme-3 dark:bg-theme-blue-2">
+                    <div className="font-preview-wrap max-w-[100%] rounded-[12px] pt-[28px] bg-theme-3 dark:bg-theme-blue-2">
                         <div className="w-[100%] px-[20px] flex flex-row flex-wrap justify-start items-center">
                             <div className="flex flex-col justify-center items-start mr-[40px] mb-[16px]">
                                 <div className="flex items-center mb-[8px]">
                                     <p className="text-[14px] text-normal leading-none text-theme-9">
                                         폰트 크기<span className="text-[12px] text-theme-7 ml-[6px]">Font Size</span>
                                     </p>
-                                    <select onChange={handleFontUnit} className='w-[56px] h-[28px] text-[12px] ml-[10px] px-[10px] bg-transparent rounded-[6px] outline-none border border-theme-6 dark:border-theme-5 text-theme-9 cursor-pointer'>
+                                    <select onChange={handleFontUnit} className='w-[56px] h-[28px] text-[12px] ml-[10px] px-[10px] bg-transparent rounded-[6px] outline-none border border-theme-6 hover:border-theme-8 tlg:hover:border-theme-6 dark:border-theme-5 hover:dark:border-theme-7 tlg:hover:dark:border-theme-5 text-theme-9 cursor-pointer'>
                                         <option value='px' defaultChecked>px</option>
                                         <option value='pt'>pt</option>
                                     </select>
                                 </div>
-                                <div className="w-[200px] mx-[40px] relative">
+                                <div className="w-[182px] mx-[40px] relative">
                                     <Slider
                                         className="font-size-slider"
                                         aria-label="font-size-slider"
@@ -474,13 +514,13 @@ function DetailPage({params}: any) {
                                     <p className="text-[14px] text-normal leading-none text-theme-9">
                                         행간<span className="text-[12px] text-theme-7 ml-[6px]">Line Height</span>
                                     </p>
-                                    <select onChange={handleLineHeightUnit} className='w-[56px] h-[28px] text-[12px] ml-[10px] px-[10px] bg-transparent rounded-[6px] outline-none border border-theme-6 dark:border-theme-5 text-theme-9 cursor-pointer'>
+                                    <select onChange={handleLineHeightUnit} className='w-[56px] h-[28px] text-[12px] ml-[10px] px-[10px] bg-transparent rounded-[6px] outline-none border border-theme-6 hover:border-theme-8 tlg:hover:border-theme-6 dark:border-theme-5 hover:dark:border-theme-7 tlg:hover:dark:border-theme-5 text-theme-9 cursor-pointer'>
                                         <option value='em' defaultChecked>em</option>
                                         <option value='px'>px</option>
                                         <option value='%'>%</option>
                                     </select>
                                 </div>
-                                <div className="w-[200px] mx-[40px] relative">
+                                <div className="w-[182px] mx-[40px] relative">
                                     <Slider
                                         className="font-size-slider"
                                         aria-label="font-size-slider"
@@ -502,12 +542,12 @@ function DetailPage({params}: any) {
                                     <p className="text-[14px] text-normal leading-none text-theme-9">
                                         자간<span className="text-[12px] text-theme-7 ml-[6px]">Letter Spacing</span>
                                     </p>
-                                    <select onChange={handleLetterSpacingUnit} className='w-[56px] h-[28px] text-[12px] ml-[10px] px-[10px] bg-transparent rounded-[6px] outline-none border border-theme-6 dark:border-theme-5 text-theme-9 cursor-pointer'>
+                                    <select onChange={handleLetterSpacingUnit} className='w-[56px] h-[28px] text-[12px] ml-[10px] px-[10px] bg-transparent rounded-[6px] outline-none border border-theme-6 hover:border-theme-8 tlg:hover:border-theme-6 dark:border-theme-5 hover:dark:border-theme-7 tlg:hover:dark:border-theme-5 text-theme-9 cursor-pointer'>
                                         <option value='em' defaultChecked>em</option>
                                         <option value='px'>px</option>
                                     </select>
                                 </div>
-                                <div className="w-[200px] ml-[48px] relative">
+                                <div className="w-[182px] ml-[48px] relative">
                                     <Slider
                                         className="font-size-slider"
                                         aria-label="font-size-slider"
@@ -525,93 +565,114 @@ function DetailPage({params}: any) {
                                 </div>
                             </div>
                         </div>
-                        <div className="w-[100%] px-[20px] mb-[28px]">
-                            <div className="w-[100%] h-px relative bg-theme-5">
-                                <div className="color-picker absolute z-10 right-0 top-[12px] transform-y-[-100%] flex flex-col items-end">
-                                    <input onChange={handleColorPickerDisplay} id="text-color-picker" type="checkbox" className="peer hidden"/>
-                                    <label htmlFor="text-color-picker" ref={textColorPickerBtn} className="w-[28px] h-[28px] rounded-[4px] mb-[8px] flex flex-col justify-center items-center cursor-pointer dark:bg-theme-3 hover:dark:bg-theme-4 peer-checked:dark:bg-theme-4">
-                                        <svg style={{fill: color.hex}} className="w-[12px] dark:fill-theme-9" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M254 52.8C249.3 40.3 237.3 32 224 32s-25.3 8.3-30 20.8L57.8 416H32c-17.7 0-32 14.3-32 32s14.3 32 32 32h96c17.7 0 32-14.3 32-32s-14.3-32-32-32h-1.8l18-48H303.8l18 48H320c-17.7 0-32 14.3-32 32s14.3 32 32 32h96c17.7 0 32-14.3 32-32s-14.3-32-32-32H390.2L254 52.8zM279.8 304H168.2L224 155.1 279.8 304z"/></svg>
-                                        <div style={{background: color.hex}} className="w-[16px] h-[2px] mt-[2px]"></div>
-                                    </label>
-                                    <div ref={textColorPicker}>
-                                        {
-                                            displayColorPicker && 
-                                            <ColorPicker height={120} color={color} onChange={setColor} hideInput={["hsv"]}/>
-                                        }
+                        <div className="w-[100%]">
+                            <div className="w-[100%] h-px mt-[40px] relative bg-theme-5">
+                                <div className="color-picker absolute z-10 left-[20px] top-[-12px] translate-y-[-100%] flex flex-row gap-[8px]">
+                                    <div className="relative">
+                                        <input onChange={handleTextColorPickerDisplay} id="text-color-picker" type="checkbox" className="peer hidden"/>
+                                        <label htmlFor="text-color-picker" ref={textColorPickerBtn} className="w-[28px] h-[28px] rounded-[4px] relative group flex flex-col justify-center items-center cursor-pointer bg-theme-yellow/80 hover:bg-theme-yellow tlg:hover:bg-theme-yellow/80 dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1/80 hover:drop-shadow-dark tlg:hover:drop-shadow-none">
+                                            <svg className="w-[12px] fill-theme-3 dark:fill-theme-blue-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M254 52.8C249.3 40.3 237.3 32 224 32s-25.3 8.3-30 20.8L57.8 416H32c-17.7 0-32 14.3-32 32s14.3 32 32 32h96c17.7 0 32-14.3 32-32s-14.3-32-32-32h-1.8l18-48H303.8l18 48H320c-17.7 0-32 14.3-32 32s14.3 32 32 32h96c17.7 0 32-14.3 32-32s-14.3-32-32-32H390.2L254 52.8zM279.8 304H168.2L224 155.1 279.8 304z"/></svg>
+                                            <div style={{background: textColor.hex}} className="w-[16px] h-[2px] mt-[2px]"></div>
+                                            <div className="same-source w-content absolute left-[50%] top-[-38px] text-[13px] font-medium leading-none px-[14px] py-[8px] rounded-[4px] hidden group-hover:block tlg:group-hover:hidden group-hover:animate-fontbox-zoom-in bg-theme-yellow dark:bg-theme-blue-1 text-theme-3 dark:text-theme-blue-2">폰트색 변경</div>
+                                        </label>
+                                        <div ref={textColorPicker} className="drop-shadow-dark absolute left-0 top-[-8px] translate-y-[-100%]">
+                                            {
+                                                displayTextColorPicker && 
+                                                <ColorPicker height={120} color={textColor} onChange={setTextColor} hideInput={["hsv"]}/>
+                                            }
+                                        </div>
                                     </div>
+                                    <div className="relative">
+                                        <input onChange={handlebgColorPickerDisplay} id="bg-color-picker" type="checkbox" className="peer hidden"/>
+                                        <label htmlFor="bg-color-picker" ref={bgColorPickerBtn} className="w-[28px] h-[28px] rounded-[4px] relative group flex flex-col justify-center items-center cursor-pointer bg-theme-yellow/80 hover:bg-theme-yellow tlg:hover:bg-theme-yellow/80 dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1/80 hover:drop-shadow-dark tlg:hover:drop-shadow-none">
+                                            <svg className="w-[14px] fill-theme-3 dark:fill-theme-blue-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M86.6 9.4C74.1-3.1 53.9-3.1 41.4 9.4s-12.5 32.8 0 45.3L122.7 136 30.6 228.1c-37.5 37.5-37.5 98.3 0 135.8L148.1 481.4c37.5 37.5 98.3 37.5 135.8 0L474.3 290.9c28.1-28.1 28.1-73.7 0-101.8L322.9 37.7c-28.1-28.1-73.7-28.1-101.8 0L168 90.7 86.6 9.4zM168 181.3l49.4 49.4c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L213.3 136l53.1-53.1c3.1-3.1 8.2-3.1 11.3 0L429.1 234.3c3.1 3.1 3.1 8.2 0 11.3L386.7 288H67.5c1.4-5.4 4.2-10.4 8.4-14.6L168 181.3z"/></svg>
+                                            <div style={{background: bgColor.hex}} className="w-[16px] h-[2px] mt-[2px]"></div>
+                                            <div className="same-source w-content absolute left-[50%] top-[-38px] text-[13px] font-medium leading-none px-[14px] py-[8px] rounded-[4px] hidden group-hover:block tlg:group-hover:hidden group-hover:animate-fontbox-zoom-in bg-theme-yellow dark:bg-theme-blue-1 text-theme-3 dark:text-theme-blue-2">배경색 변경</div>
+                                        </label>
+                                        <div ref={bgColorPicker} className="drop-shadow-dark absolute left-0 top-[-8px] translate-y-[-100%]">
+                                            {
+                                                displaybgColorPicker && 
+                                                <ColorPicker height={120} color={bgColor} onChange={setBgColor} hideInput={["hsv"]}/>
+                                            }
+                                        </div>
+                                    </div>
+                                    <button onClick={resetColorPicker} className="w-[28px] h-[28px] rounded-[4px] relative group flex flex-col justify-center items-center bg-theme-yellow/80 hover:bg-theme-yellow tlg:hover:bg-theme-yellow/80 dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1/80 hover:drop-shadow-dark tlg:hover:drop-shadow-none">
+                                        <svg className="w-[14px] group-hover:rotate-[45deg] tlg:group-hover:rotate-0 duration-100" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M142.9 142.9c62.2-62.2 162.7-62.5 225.3-1L327 183c-6.9 6.9-8.9 17.2-5.2 26.2s12.5 14.8 22.2 14.8H463.5c0 0 0 0 0 0H472c13.3 0 24-10.7 24-24V72c0-9.7-5.8-18.5-14.8-22.2s-19.3-1.7-26.2 5.2L413.4 96.6c-87.6-86.5-228.7-86.2-315.8 1C73.2 122 55.6 150.7 44.8 181.4c-5.9 16.7 2.9 34.9 19.5 40.8s34.9-2.9 40.8-19.5c7.7-21.8 20.2-42.3 37.8-59.8zM16 312v7.6 .7V440c0 9.7 5.8 18.5 14.8 22.2s19.3 1.7 26.2-5.2l41.6-41.6c87.6 86.5 228.7 86.2 315.8-1c24.4-24.4 42.1-53.1 52.9-83.7c5.9-16.7-2.9-34.9-19.5-40.8s-34.9 2.9-40.8 19.5c-7.7 21.8-20.2 42.3-37.8 59.8c-62.2 62.2-162.7 62.5-225.3 1L185 329c6.9-6.9 8.9-17.2 5.2-26.2s-12.5-14.8-22.2-14.8H48.4h-.7H40c-13.3 0-24 10.7-24 24z"/></svg>
+                                        <div className="same-source w-content absolute left-[50%] top-[-38px] text-[13px] font-medium leading-none px-[14px] py-[8px] rounded-[4px] hidden group-hover:block tlg:group-hover:hidden group-hover:animate-fontbox-zoom-in bg-theme-yellow dark:bg-theme-blue-1 text-theme-3 dark:text-theme-blue-2">리셋하기</div>
+                                    </button>
                                 </div>
                             </div>
                         </div>
-                        <div className="w-[100%] px-[20px] overflow-hidden">
+                        <div style={{backgroundColor: bgColor.hex}} className="w-[100%] px-[20px] pt-[28px] pb-[14px] rounded-b-[12px] relative overflow-hidden">
                             {
                                 font.font_weight[0] === "Y"
                                 ? <>
-                                    <div className="text-[12px] text-theme-7 leading-none mb-[12px]">Thin 100</div>
-                                    <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"100"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
+                                    <div style={{color: textColor.hex, opacity: "0.8"}} className="text-[12px] leading-none mb-[12px]">Thin 100</div>
+                                    <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"100", color: textColor.hex}} className="font-preview w-[100%] pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
                                 </>
                                 : <></>
                             }
                             {
                                 font.font_weight[1] === "Y"
                                 ? <>
-                                    <div className="text-[12px] text-theme-7 leading-none mb-[12px]">ExtraLight 200</div>
-                                    <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"200"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
+                                    <div style={{color: textColor.hex, opacity: "0.8"}} className="text-[12px] leading-none mb-[12px]">ExtraLight 200</div>
+                                    <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"200", color: textColor.hex}} className="font-preview w-[100%] pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
                                 </>
                                 : <></>
                             }
                             {
                                 font.font_weight[2] === "Y"
                                 ? <>
-                                    <div className="text-[12px] text-theme-7 leading-none mb-[12px]">Light 300</div>
-                                    <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"300"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
+                                    <div style={{color: textColor.hex, opacity: "0.8"}} className="text-[12px] leading-none mb-[12px]">Light 300</div>
+                                    <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"300", color: textColor.hex}} className="font-preview w-[100%] pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
                                 </>
                                 : <></>
                             }
                             {
                                 font.font_weight[3] === "Y"
                                 ? <>
-                                    <div className="text-[12px] text-theme-7 leading-none mb-[12px]">Regular 400</div>
-                                    <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"400"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
+                                    <div style={{color: textColor.hex, opacity: "0.8"}} className="text-[12px] leading-none mb-[12px]">Regular 400</div>
+                                    <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"400", color: textColor.hex}} className="font-preview w-[100%] pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
                                 </>
                                 : <></>
                             }
                             {
                                 font.font_weight[4] === "Y"
                                 ? <>
-                                    <div className="text-[12px] text-theme-7 leading-none mb-[12px]">Medium 500</div>
-                                    <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"500"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
+                                    <div style={{color: textColor.hex, opacity: "0.8"}} className="text-[12px] leading-none mb-[12px]">Medium 500</div>
+                                    <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"500", color: textColor.hex}} className="font-preview w-[100%] pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
                                 </>
                                 : <></>
                             }
                             {
                                 font.font_weight[5] === "Y"
                                 ? <>
-                                    <div className="text-[12px] text-theme-7 leading-none mb-[12px]">SemiBold 600</div>
-                                    <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"600"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
+                                    <div style={{color: textColor.hex, opacity: "0.8"}} className="text-[12px] leading-none mb-[12px]">SemiBold 600</div>
+                                    <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"600", color: textColor.hex}} className="font-preview w-[100%] pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
                                 </>
                                 : <></>
                             }
                             {
                                 font.font_weight[6] === "Y"
                                 ? <>
-                                    <div className="text-[12px] text-theme-7 leading-none mb-[12px]">Bold 700</div>
-                                    <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"700"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
+                                    <div style={{color: textColor.hex, opacity: "0.8"}} className="text-[12px] leading-none mb-[12px]">Bold 700</div>
+                                    <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"700", color: textColor.hex}} className="font-preview w-[100%] pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
                                 </>
                                 : <></>
                             }
                             {
                                 font.font_weight[7] === "Y"
                                 ? <>
-                                    <div className="text-[12px] text-theme-7 leading-none mb-[12px]">Heavy 800</div>
-                                    <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"800"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
+                                    <div style={{color: textColor.hex, opacity: "0.8"}} className="text-[12px] leading-none mb-[12px]">Heavy 800</div>
+                                    <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"800", color: textColor.hex}} className="font-preview w-[100%] pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
                                 </>
                                 : <></>
                             }
                             {
                                 font.font_weight[8] === "Y"
                                 ? <>
-                                    <div className="text-[12px] text-theme-7 leading-none mb-[12px]">Black 900</div>
-                                    <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"900"}} className="font-preview w-[100%] text-theme-9 pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
+                                    <div style={{color: textColor.hex, opacity: "0.8"}} className="text-[12px] leading-none mb-[12px]">Black 900</div>
+                                    <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"900", color: textColor.hex}} className="font-preview w-[100%] pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
                                 </>
                                 : <></>
                             }
