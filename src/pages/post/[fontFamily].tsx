@@ -27,6 +27,26 @@ import Tooltip from "@/components/tooltip";
 import DummyText from "@/components/dummytext";
 import Comments from "@/components/comments";
 
+interface IColor {
+    hex: string
+    rgb: IColorRgb
+    hsv: IColorHsv
+}
+
+interface IColorRgb {
+    r: number
+    g: number
+    b: number
+    a: number
+}
+
+interface IColorHsv {
+    h: number
+    s: number
+    v: number 
+    a: number
+}
+
 function DetailPage({params}: any) {
     // 디바이스 체크
     const isMac: boolean = params.userAgent.includes("Mac OS") ? true : false;
@@ -41,8 +61,12 @@ function DetailPage({params}: any) {
     const viewUpdate = async () => {
         await fetch("/api/post/updateview", { method: "POST", body: JSON.stringify(font) });
     }
+    useEffect(() => {
+        if (!window.location.href.includes("localhost") || !window.location.href.includes("127.0.0.1")) {
+            viewUpdate();
+        }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    // useEffect(() => { viewUpdate(); }, [font]);
+    }, [font]);
 
     // state
     const [alertDisplay, setAlertDisplay] = useState<boolean>(false);
@@ -215,24 +239,27 @@ function DetailPage({params}: any) {
     const [displayColorPicker, setDisplayColorPicker] = useState<boolean>(false);
     
     /** color picker 보임/숨김 */
-    const handleColorPickerDisplay = () => {
-        setDisplayColorPicker(!displayColorPicker);
+    const handleColorPickerDisplay = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.checked) { setDisplayColorPicker(true); }
+        else { setDisplayColorPicker(false); }
     }
 
     // color picker 영역
-    const refColorPickerBtn = useRef<HTMLDivElement>(null);
-    const refColorPicker = useRef<HTMLDivElement>(null);
+    const textColorPickerBtn = useRef<HTMLLabelElement>(null);
+    const textColorPicker = useRef<HTMLDivElement>(null);
 
     // color picker 영역 외 클릭
     useEffect(() => {
         function handleOutside(e:Event) {
-            if (refColorPickerBtn.current && !refColorPickerBtn.current.contains(e.target as Node) && refColorPicker.current && !refColorPicker.current.contains(e.target as Node)) {
+            const textInput = document.getElementById("text-color-picker") as HTMLInputElement;
+            if (textColorPickerBtn.current && !textColorPickerBtn.current.contains(e.target as Node) && textColorPicker.current && !textColorPicker.current.contains(e.target as Node)) {
                 setDisplayColorPicker(false);
+                textInput.checked = false;
             }
         }
         document.addEventListener("mouseup", handleOutside);
         return () => document.removeEventListener("mouseup", handleOutside);
-    }, [refColorPicker, refColorPickerBtn]);
+    }, [textColorPicker, textColorPickerBtn]);
 
     return (
         <>
@@ -501,8 +528,12 @@ function DetailPage({params}: any) {
                         <div className="w-[100%] px-[20px] mb-[28px]">
                             <div className="w-[100%] h-px relative bg-theme-5">
                                 <div className="color-picker absolute z-10 right-0 top-[12px] transform-y-[-100%] flex flex-col items-end">
-                                    <div ref={refColorPickerBtn} onClick={handleColorPickerDisplay} className="w-[20px] h-[20px] rounded-[4px] mb-[8px] cursor-pointer dark:bg-theme-9"></div>
-                                    <div ref={refColorPicker}>
+                                    <input onChange={handleColorPickerDisplay} id="text-color-picker" type="checkbox" className="peer hidden"/>
+                                    <label htmlFor="text-color-picker" ref={textColorPickerBtn} className="w-[28px] h-[28px] rounded-[4px] mb-[8px] flex flex-col justify-center items-center cursor-pointer dark:bg-theme-3 hover:dark:bg-theme-4 peer-checked:dark:bg-theme-4">
+                                        <svg style={{fill: color.hex}} className="w-[12px] dark:fill-theme-9" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M254 52.8C249.3 40.3 237.3 32 224 32s-25.3 8.3-30 20.8L57.8 416H32c-17.7 0-32 14.3-32 32s14.3 32 32 32h96c17.7 0 32-14.3 32-32s-14.3-32-32-32h-1.8l18-48H303.8l18 48H320c-17.7 0-32 14.3-32 32s14.3 32 32 32h96c17.7 0 32-14.3 32-32s-14.3-32-32-32H390.2L254 52.8zM279.8 304H168.2L224 155.1 279.8 304z"/></svg>
+                                        <div style={{background: color.hex}} className="w-[16px] h-[2px] mt-[2px]"></div>
+                                    </label>
+                                    <div ref={textColorPicker}>
                                         {
                                             displayColorPicker && 
                                             <ColorPicker height={120} color={color} onChange={setColor} hideInput={["hsv"]}/>
