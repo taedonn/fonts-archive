@@ -5,7 +5,7 @@ import { NextSeo } from 'next-seo';
 // react hooks
 import React, { useEffect, useState, useRef } from "react";
 import { ColorPicker, useColor } from "react-color-palette";
-import "react-color-palette/dist/css/rcp.css";
+import "react-color-palette/css"
 
 // api
 import { FetchFontDetail } from "../api/post/fetchfontdetail";
