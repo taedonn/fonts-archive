@@ -1,5 +1,6 @@
+/* eslint-disable @next/next/no-img-element */
 // react hooks
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 
 // api
 import axios from "axios";
@@ -335,6 +336,35 @@ export default function Comments (
         setReportModalDisplay(false);
     }
 
+    // 공유 state
+    const [shareExpand, setShareExpand] = useState<boolean>(false);
+
+    // 공유 ref
+    const shareExpandBtn = useRef<HTMLLabelElement>(null);
+    const shareExpandContent = useRef<HTMLDivElement>(null);
+
+    // 공유 버튼 클릭
+    const handleShareExpand = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.checked) { setShareExpand(true); }
+        else { setShareExpand(false); }
+    }
+
+    // 공유 버튼 외 영역 클릭
+    useEffect(() => {
+        function handleOutside(e:Event) {
+            const input = document.getElementById("share-expand") as HTMLInputElement;
+            if (shareExpandBtn.current && !shareExpandBtn.current.contains(e.target as Node) && shareExpandContent.current && !shareExpandContent.current.contains(e.target as Node)) {
+                setShareExpand(false);
+                input.checked = false;
+            }
+        }
+        document.addEventListener("mouseup", handleOutside);
+        return () => document.removeEventListener("mouseup", handleOutside);
+    }, [shareExpandBtn, shareExpandContent]);
+
+    /** URL 복사 */
+
+
     return (
         <>
 
@@ -358,11 +388,11 @@ export default function Comments (
                 update_reports={updateReports}
             />
 
-            <div className='w-content mb-[12px]'>
+            <div className='w-content mb-[12px] flex gap-[8px]'>
                 <label htmlFor={font.code.toString()} className='cursor-pointer'>
                     {
                         !likedInput
-                        ? <div className="w-[52px] h-[32px] flex justify-center items-center rounded-[6px] bg-theme-8 hover:bg-theme-7/80 dark:bg-theme-4/60 hover:dark:bg-theme-4 tlg:dark:hover:bg-theme-4/60">
+                        ? <div className="w-[52px] h-[32px] flex justify-center items-center rounded-[6px] bg-theme-8 hover:bg-theme-7/80 tlg:hover:bg-theme-8 dark:bg-theme-4/60 hover:dark:bg-theme-4 tlg:dark:hover:bg-theme-4/60">
                             <svg className='w-[12px] fill-theme-4 dark:fill-theme-9 mb-px' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9L464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96 244 84c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z"/></svg>
                             <div className="ml-[6px] text-[13px] font-medium leading-none text-theme-4 dark:text-theme-9">{likedNum}</div>
                         </div>
@@ -372,6 +402,57 @@ export default function Comments (
                         </div>
                     }
                 </label>
+                <div className="relative">
+                    <input onChange={handleShareExpand} type="checkbox" id="share-expand" className="hidden"/>
+                    <label ref={shareExpandBtn} htmlFor="share-expand" className="w-content h-[32px] px-[12px] text-[13px] font-medium flex justify-center items-center cursor-pointer rounded-[6px] text-theme-4 dark:text-theme-9 bg-theme-8 hover:bg-theme-7/80 tlg:hover:bg-theme-8 dark:bg-theme-4/60 hover:dark:bg-theme-4 tlg:dark:hover:bg-theme-4/60">
+                        <svg className="w-[12px] mr-[8px] fill-theme-4 dark:fill-theme-9" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M352 224c53 0 96-43 96-96s-43-96-96-96s-96 43-96 96c0 4 .2 8 .7 11.9l-94.1 47C145.4 170.2 121.9 160 96 160c-53 0-96 43-96 96s43 96 96 96c25.9 0 49.4-10.2 66.6-26.9l94.1 47c-.5 3.9-.7 7.8-.7 11.9c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-25.9 0-49.4 10.2-66.6 26.9l-94.1-47c.5-3.9 .7-7.8 .7-11.9s-.2-8-.7-11.9l94.1-47C302.6 213.8 326.1 224 352 224z"/></svg>
+                        공유
+                    </label>
+                    {
+                        shareExpand &&
+                        <div ref={shareExpandContent} className="w-content px-[20px] py-[16px] rounded-[8px] absolute left-0 top-[-8px] translate-y-[-100%] bg-theme-8 dark:bg-theme-3">
+                            <div className="rounded-[8px] border-[2px] flex items-center overflow-hidden border-theme-6 dark:border-theme-6 dark:bg-theme-6">
+                                <input type="text" id="url" defaultValue={`https://fonts.taedonn.com/post/${font.font_family.replaceAll(" ", "+")}`} disabled className="w-[100%] text-[12px] px-[12px] py-[8px] rounded-r-[8px] text-theme-8 placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2"/>
+                                <label htmlFor="url" className="w-[44px] h-[34px] text-[13px] shrink-0 flex justify-center items-center font-medium cursor-pointer text-theme-2">
+                                    복사
+                                </label>
+                            </div>
+                            <div className="w-[100%] h-px bg-theme-5 mt-[10px] mb-[16px]"></div>
+                            <div className="gap-[16px] flex justify-center items-center">
+                                {/* <button className="group text-[11px] flex flex-col justify-center items-center">
+                                    <div className="w-[32px] h-[32px] rounded-full flex justify-center items-center bg-theme-10 drop-shadow-default dark:drop-shadow-dark">
+                                        <svg className="w-[16px] fill-theme-4 dark:fill-theme-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path d="M392.8 1.2c-17-4.9-34.7 5-39.6 22l-128 448c-4.9 17 5 34.7 22 39.6s34.7-5 39.6-22l128-448c4.9-17-5-34.7-22-39.6zm80.6 120.1c-12.5 12.5-12.5 32.8 0 45.3L562.7 256l-89.4 89.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l112-112c12.5-12.5 12.5-32.8 0-45.3l-112-112c-12.5-12.5-32.8-12.5-45.3 0zm-306.7 0c-12.5-12.5-32.8-12.5-45.3 0l-112 112c-12.5 12.5-12.5 32.8 0 45.3l112 112c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l89.4-89.4c12.5-12.5 12.5-32.8 0-45.3z"/></svg>
+                                    </div>
+                                    <div className="w-[42px] mt-[10px] text-center text-theme-5 group-hover:text-theme-3 tlg:group-hover:text-theme-5 dark:text-theme-7 group-hover:dark:text-theme-9 tlg:group-hover:dark:text-theme7">URL</div>
+                                </button> */}
+                                <button className="group text-[11px] flex flex-col justify-center items-center">
+                                    <div className="w-[32px] h-[32px] rounded-full overflow-hidden flex justify-center items-center bg-theme-kakao drop-shadow-default dark:drop-shadow-dark">
+                                        <img src="/logo-kakaotalk.svg" alt="카카오톡 로고" className="w-[24px]"/>
+                                    </div>
+                                    <div className="w-[42px] mt-[10px] text-center text-theme-5 group-hover:text-theme-3 tlg:group-hover:text-theme-5 dark:text-theme-7 group-hover:dark:text-theme-9 tlg:group-hover:dark:text-theme7">카카오톡</div>
+                                </button>
+                                <button className="group text-[11px] flex flex-col justify-center items-center">
+                                    <div className="w-[32px] h-[32px] rounded-full overflow-hidden flex justify-center items-center bg-theme-naver drop-shadow-default dark:drop-shadow-dark">
+                                        <img src="/logo-line.svg" alt="라인 로고" className="w-[26px]"/>
+                                    </div>
+                                    <div className="w-[42px] mt-[10px] text-center text-theme-5 group-hover:text-theme-3 tlg:group-hover:text-theme-5 dark:text-theme-7 group-hover:dark:text-theme-9 tlg:group-hover:dark:text-theme7">라인</div>
+                                </button>
+                                <button className="group text-[11px] flex flex-col justify-center items-center">
+                                    <div className="w-[32px] h-[32px] rounded-full overflow-hidden flex justify-center items-centerdrop-shadow-default dark:drop-shadow-dark">
+                                        <img src="/logo-facebook.png" alt="페이스북 로고" className="w-[100%]"/>
+                                    </div>
+                                    <div className="w-[42px] mt-[10px] text-center text-theme-5 group-hover:text-theme-3 tlg:group-hover:text-theme-5 dark:text-theme-7 group-hover:dark:text-theme-9 tlg:group-hover:dark:text-theme7">페이스북</div>
+                                </button>
+                                <button className="group text-[11px] flex flex-col justify-center items-center">
+                                    <div className="w-[32px] h-[32px] rounded-full overflow-hidden flex justify-center items-center bg-theme-1 drop-shadow-default dark:drop-shadow-dark">
+                                        <img src="/logo-x.svg" alt="엑스(트위터) 로고" className="w-[16px]"/>
+                                    </div>
+                                    <div className="w-[42px] mt-[10px] text-center text-theme-5 group-hover:text-theme-3 tlg:group-hover:text-theme-5 dark:text-theme-7 group-hover:dark:text-theme-9 tlg:group-hover:dark:text-theme7">엑스</div>
+                                </button>
+                            </div>
+                        </div>
+                    }
+                </div>
             </div>
             <div className="w-[100%] h-px bg-theme-7 dark:bg-theme-5 mb-[20px]"></div>
             <h2 className="text-[16px] tlg:text-[14px] text-theme-3 dark:text-theme-9 font-medium mb-[16px] tlg:mb-[12px]">댓글 {comments.length}개</h2>
