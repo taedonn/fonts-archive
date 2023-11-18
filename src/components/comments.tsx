@@ -12,6 +12,12 @@ import axios from "axios";
 import DeleteCommentModal from "@/components/deletecommentmodal";
 import ReportCommentModal from "@/components/reportcommentmodal";
 
+declare global {
+    interface Window {
+        Kakao: any;
+    }
+}
+
 export default function Comments (
     {
         font,
@@ -381,20 +387,46 @@ export default function Comments (
         }, 1000);
     }
 
+    console.log(comment.length);
+
     // 카카오톡 공유
     const shareKakao = async () => {
+        const { Kakao } = window;
+        
         // 카카오 API 로드
         if (!Kakao.isInitialized()) Kakao.init(process.env.NEXT_PUBLIC_KAKAO_JAVASCRIPT_KEY as string);
 
-        // 카카오톡 공유
-        // await Kakao.Share.sendDefault({
-        //     objectType: 'text',
-        //     text: '기본 템플릿으로 제공되는 텍스트 템플릿은 텍스트를 최대 200자까지 표시할 수 있습니다. 텍스트 템플릿은 텍스트 영역과 하나의 기본 버튼을 가집니다. 임의의 버튼을 설정할 수도 있습니다. 여러 장의 이미지, 프로필 정보 등 보다 확장된 형태의 카카오톡 공유는 다른 템플릿을 이용해 보낼 수 있습니다.',
-        //     link: {
-        //         mobileWebUrl: 'https://fonts.taedonn.com',
-        //         webUrl: 'https://fonts.taedonn.com',
-        //     },
-        // });
+        // API 실행
+        await Kakao.Share.sendDefault({
+            objectType: 'feed',
+            content: {
+                title: font.name + " · 폰트 아카이브",
+                description: "상업용 무료 한글 폰트 저장소",
+                imageUrl: `https://fonts-archive-meta-image.s3.ap-northeast-2.amazonaws.com/${font.font_family.replaceAll(" ", "")}.png`,
+                link: {
+                    mobileWebUrl: `https://fonts.taedonn.com/post/${font.font_family.replaceAll(" ", "+")}`,
+                    webUrl: `https://fonts.taedonn.com/post/${font.font_family.replaceAll(" ", "+")}`,
+                },
+            },
+            social: {
+                likeCount: likedNum,
+                commentCount: comment.length,
+            },
+            buttons: [
+                {
+                    title: '웹으로 이동',
+                    link: {
+                        mobileWebUrl: `https://fonts.taedonn.com/post/${font.font_family.replaceAll(" ", "+")}`,
+                        webUrl: `https://fonts.taedonn.com/post/${font.font_family.replaceAll(" ", "+")}`,
+                    },
+                },
+            ],
+        });
+    }
+
+    const shareLine = () => {
+        const url = "https://fonts.taedonn.com/post/" + font.font_family.replaceAll(" ", "%2B");
+        window.open(`https://social-plugins.line.me/lineit/share?url=${decodeURI(url)}`, 'linesharedialog', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,width=520,height=700');
     }
 
     return (
@@ -457,19 +489,13 @@ export default function Comments (
                             </div>
                             <div className="w-[100%] h-px bg-theme-5 mt-[10px] mb-[16px]"></div>
                             <div className="gap-[16px] flex justify-center items-center">
-                                {/* <button className="group text-[11px] flex flex-col justify-center items-center">
-                                    <div className="w-[32px] h-[32px] rounded-full flex justify-center items-center bg-theme-10 drop-shadow-default dark:drop-shadow-dark">
-                                        <svg className="w-[16px] fill-theme-4 dark:fill-theme-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path d="M392.8 1.2c-17-4.9-34.7 5-39.6 22l-128 448c-4.9 17 5 34.7 22 39.6s34.7-5 39.6-22l128-448c4.9-17-5-34.7-22-39.6zm80.6 120.1c-12.5 12.5-12.5 32.8 0 45.3L562.7 256l-89.4 89.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l112-112c12.5-12.5 12.5-32.8 0-45.3l-112-112c-12.5-12.5-32.8-12.5-45.3 0zm-306.7 0c-12.5-12.5-32.8-12.5-45.3 0l-112 112c-12.5 12.5-12.5 32.8 0 45.3l112 112c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256l89.4-89.4c12.5-12.5 12.5-32.8 0-45.3z"/></svg>
-                                    </div>
-                                    <div className="w-[42px] mt-[10px] text-center text-theme-5 group-hover:text-theme-3 tlg:group-hover:text-theme-5 dark:text-theme-7 group-hover:dark:text-theme-9 tlg:group-hover:dark:text-theme7">URL</div>
-                                </button> */}
                                 <button onClick={shareKakao} id="share-kakao" className="group text-[11px] flex flex-col justify-center items-center">
                                     <div className="w-[32px] h-[32px] rounded-full overflow-hidden flex justify-center items-center bg-theme-kakao drop-shadow-default dark:drop-shadow-dark">
                                         <img src="/logo-kakaotalk.svg" alt="카카오톡 로고" className="w-[24px]"/>
                                     </div>
                                     <div className="w-[42px] mt-[10px] text-center text-theme-5 group-hover:text-theme-3 tlg:group-hover:text-theme-5 dark:text-theme-7 group-hover:dark:text-theme-9 tlg:group-hover:dark:text-theme7">카카오톡</div>
                                 </button>
-                                <button className="group text-[11px] flex flex-col justify-center items-center">
+                                <button onClick={shareLine} className="group text-[11px] flex flex-col justify-center items-center">
                                     <div className="w-[32px] h-[32px] rounded-full overflow-hidden flex justify-center items-center bg-theme-naver drop-shadow-default dark:drop-shadow-dark">
                                         <img src="/logo-line.svg" alt="라인 로고" className="w-[26px]"/>
                                     </div>
