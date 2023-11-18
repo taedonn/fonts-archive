@@ -2,6 +2,9 @@
 // react hooks
 import { useRef, useState, useEffect } from "react";
 
+// next hooks
+import Script from "next/script";
+
 // api
 import axios from "axios";
 
@@ -363,10 +366,44 @@ export default function Comments (
     }, [shareExpandBtn, shareExpandContent]);
 
     /** URL 복사 */
+    const copyUrl = () => {
+        const input = document.getElementById("url") as HTMLInputElement;
+        const copyBtn = document.getElementsByClassName("url_copy_btn")[0] as HTMLDivElement;
+        const copyChkBtn = document.getElementsByClassName("url_copy_chk_btn")[0] as SVGSVGElement;
 
+        window.navigator.clipboard.writeText(input.value);
+
+        copyBtn.style.display = 'none';
+        copyChkBtn.style.display = 'block';
+        setTimeout(function() {
+            copyBtn.style.display = 'block';
+            copyChkBtn.style.display = 'none';
+        }, 1000);
+    }
+
+    // 카카오톡 공유
+    const shareKakao = async () => {
+        // 카카오 API 로드
+        if (!Kakao.isInitialized()) Kakao.init(process.env.NEXT_PUBLIC_KAKAO_JAVASCRIPT_KEY as string);
+
+        // 카카오톡 공유
+        await Kakao.Share.sendDefault({
+            objectType: 'text',
+            text: '기본 템플릿으로 제공되는 텍스트 템플릿은 텍스트를 최대 200자까지 표시할 수 있습니다. 텍스트 템플릿은 텍스트 영역과 하나의 기본 버튼을 가집니다. 임의의 버튼을 설정할 수도 있습니다. 여러 장의 이미지, 프로필 정보 등 보다 확장된 형태의 카카오톡 공유는 다른 템플릿을 이용해 보낼 수 있습니다.',
+            link: {
+                mobileWebUrl: 'https://fonts.taedonn.com',
+                webUrl: 'https://fonts.taedonn.com',
+            },
+        });
+    }
 
     return (
         <>
+
+            <Script
+                src="https://t1.kakaocdn.net/kakao_js_sdk/2.5.0/kakao.min.js"
+                crossOrigin="anonymous"
+            />
 
             {/* 댓글 삭제 모달 */}
             <DeleteCommentModal
@@ -404,17 +441,18 @@ export default function Comments (
                 </label>
                 <div className="relative">
                     <input onChange={handleShareExpand} type="checkbox" id="share-expand" className="hidden"/>
-                    <label ref={shareExpandBtn} htmlFor="share-expand" className="w-content h-[32px] px-[12px] text-[13px] font-medium flex justify-center items-center cursor-pointer rounded-[6px] text-theme-4 dark:text-theme-9 bg-theme-8 hover:bg-theme-7/80 tlg:hover:bg-theme-8 dark:bg-theme-4/60 hover:dark:bg-theme-4 tlg:dark:hover:bg-theme-4/60">
+                    <label ref={shareExpandBtn} htmlFor="share-expand" className="w-content h-[32px] px-[12px] text-[13px] font-medium flex justify-center items-center cursor-pointer rounded-[6px] selection:bg-transparent text-theme-4 dark:text-theme-9 bg-theme-8 hover:bg-theme-7/80 tlg:hover:bg-theme-8 dark:bg-theme-4/60 hover:dark:bg-theme-4 tlg:dark:hover:bg-theme-4/60">
                         <svg className="w-[12px] mr-[8px] fill-theme-4 dark:fill-theme-9" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M352 224c53 0 96-43 96-96s-43-96-96-96s-96 43-96 96c0 4 .2 8 .7 11.9l-94.1 47C145.4 170.2 121.9 160 96 160c-53 0-96 43-96 96s43 96 96 96c25.9 0 49.4-10.2 66.6-26.9l94.1 47c-.5 3.9-.7 7.8-.7 11.9c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-25.9 0-49.4 10.2-66.6 26.9l-94.1-47c.5-3.9 .7-7.8 .7-11.9s-.2-8-.7-11.9l94.1-47C302.6 213.8 326.1 224 352 224z"/></svg>
                         공유
                     </label>
                     {
                         shareExpand &&
                         <div ref={shareExpandContent} className="w-content px-[20px] py-[16px] rounded-[8px] absolute left-0 top-[-8px] translate-y-[-100%] bg-theme-8 dark:bg-theme-3">
-                            <div className="rounded-[8px] border-[2px] flex items-center overflow-hidden border-theme-6 dark:border-theme-6 dark:bg-theme-6">
-                                <input type="text" id="url" defaultValue={`https://fonts.taedonn.com/post/${font.font_family.replaceAll(" ", "+")}`} disabled className="w-[100%] text-[12px] px-[12px] py-[8px] rounded-r-[8px] text-theme-8 placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2"/>
-                                <label htmlFor="url" className="w-[44px] h-[34px] text-[13px] shrink-0 flex justify-center items-center font-medium cursor-pointer text-theme-2">
-                                    복사
+                            <div className="rounded-[8px] border-[2px] flex items-center overflow-hidden border-theme-yellow dark:border-theme-blue-1 bg-theme-yellow dark:bg-theme-blue-1">
+                                <input type="text" id="url" defaultValue={`https://fonts.taedonn.com/post/${font.font_family.replaceAll(" ", "+")}`} className="w-[100%] text-[12px] px-[12px] py-[8px] rounded-r-[8px] text-theme-9 dark:text-theme-8 placeholder-theme-7 dark:placeholder-theme-6 bg-theme-3 dark:bg-theme-blue-2 autofill:bg-theme-3 autofill:dark:bg-theme-blue-2"/>
+                                <label onClick={copyUrl} htmlFor="url" className="w-[44px] h-[34px] text-[13px] shrink-0 flex justify-center items-center cursor-pointer font-medium text-theme-3 dark:text-theme-blue-2">
+                                    <div className="url_copy_btn selection:bg-transparent">복사</div>
+                                    <svg className="url_copy_chk_btn w-[32px] tmd:w-[28px] p-[8px] rounded-[6px] hidden fill-theme-3 dark:fill-theme-blue-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/></svg>
                                 </label>
                             </div>
                             <div className="w-[100%] h-px bg-theme-5 mt-[10px] mb-[16px]"></div>
@@ -425,7 +463,7 @@ export default function Comments (
                                     </div>
                                     <div className="w-[42px] mt-[10px] text-center text-theme-5 group-hover:text-theme-3 tlg:group-hover:text-theme-5 dark:text-theme-7 group-hover:dark:text-theme-9 tlg:group-hover:dark:text-theme7">URL</div>
                                 </button> */}
-                                <button className="group text-[11px] flex flex-col justify-center items-center">
+                                <button onClick={shareKakao} id="share-kakao" className="group text-[11px] flex flex-col justify-center items-center">
                                     <div className="w-[32px] h-[32px] rounded-full overflow-hidden flex justify-center items-center bg-theme-kakao drop-shadow-default dark:drop-shadow-dark">
                                         <img src="/logo-kakaotalk.svg" alt="카카오톡 로고" className="w-[24px]"/>
                                     </div>
@@ -438,7 +476,7 @@ export default function Comments (
                                     <div className="w-[42px] mt-[10px] text-center text-theme-5 group-hover:text-theme-3 tlg:group-hover:text-theme-5 dark:text-theme-7 group-hover:dark:text-theme-9 tlg:group-hover:dark:text-theme7">라인</div>
                                 </button>
                                 <button className="group text-[11px] flex flex-col justify-center items-center">
-                                    <div className="w-[32px] h-[32px] rounded-full overflow-hidden flex justify-center items-centerdrop-shadow-default dark:drop-shadow-dark">
+                                    <div className="w-[32px] h-[32px] rounded-full overflow-hidden flex justify-center items-center drop-shadow-default dark:drop-shadow-dark">
                                         <img src="/logo-facebook.png" alt="페이스북 로고" className="w-[100%]"/>
                                     </div>
                                     <div className="w-[42px] mt-[10px] text-center text-theme-5 group-hover:text-theme-3 tlg:group-hover:text-theme-5 dark:text-theme-7 group-hover:dark:text-theme-9 tlg:group-hover:dark:text-theme7">페이스북</div>
