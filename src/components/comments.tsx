@@ -387,9 +387,7 @@ export default function Comments (
         }, 1000);
     }
 
-    console.log(comment.length);
-
-    // 카카오톡 공유
+    /** 카카오톡 공유 */
     const shareKakao = async () => {
         const { Kakao } = window;
         
@@ -424,6 +422,7 @@ export default function Comments (
         });
     }
 
+    /** 라인 공유 */
     const shareLine = () => {
         const url = "https://fonts.taedonn.com/post/" + font.font_family.replaceAll(" ", "%2B");
         window.open(`https://social-plugins.line.me/lineit/share?url=${decodeURI(url)}`, 'linesharedialog', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,width=520,height=700');
