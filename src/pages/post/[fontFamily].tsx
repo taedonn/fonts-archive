@@ -306,10 +306,10 @@ function DetailPage({params}: any) {
             {/* Head 부분*/}
             <NextSeo 
                 title={font.name + " · 폰트 아카이브"}
-                description={"상업용 무료 한글 폰트 저장소 " + font.license}
+                description={"상업용 무료 한글 폰트 저장소 | " + font.license}
                 openGraph={{
                     title: font.name + " · 폰트 아카이브",
-                    description: "상업용 무료 한글 폰트 저장소 " + font.license,
+                    description: "상업용 무료 한글 폰트 저장소 | " + font.license,
                     url: `https://fonts.taedonn.com/post/${font.font_family.replaceAll(" ", "+")}`,
                     images: [{
                         url: `https://${process.env.MY_AWS_S3_META_IMAGE_BUCKET}.s3.ap-northeast-2.amazonaws.com/${font.font_family.replaceAll(" ", "")}.png`,
@@ -682,8 +682,8 @@ function DetailPage({params}: any) {
                 <div>
                     <h2 className="text-[20px] tmd:text-[18px] text-theme-3 dark:text-theme-9 font-medium mb-[16px] tmd:mb-[14px]">라이센스 사용 범위</h2>
                     <div className="w-[100%] flex flex-row tlg:flex-col justify-between items-stretch tlg:items-start mb-[80px] tlg:mb-[60px] tmd:mb-[48px]">
-                        <div className="border border-theme-7 dark:border-theme-5">
-                        <table className="tlg:w-[100%] tlg:mb-[16px] text-left">
+                        <div className="tlg:w-[100%] tlg:mb-[16px] border border-theme-7 dark:border-theme-5">
+                        <table className="tlg:w-[100%] text-left">
                             <thead className="relative">
                                 <tr className="text-[15px] text-theme-3 dark:text-theme-9 font-medium">
                                     <th className="w-[120px] h-[56px] tlg:w-[100px] text-center">카테고리</th>

@@ -387,6 +387,10 @@ export default function Comments (
         }, 1000);
     }
 
+    // 공유할 url
+    const url = "https://fonts.taedonn.com/post/" + font.font_family.replaceAll(" ", "+");
+    const urlEncoded = "https://fonts.taedonn.com/post/" + font.font_family.replaceAll(" ", "%2B");
+
     /** 카카오톡 공유 */
     const shareKakao = async () => {
         const { Kakao } = window;
@@ -402,8 +406,8 @@ export default function Comments (
                 description: "상업용 무료 한글 폰트 저장소",
                 imageUrl: `https://fonts-archive-meta-image.s3.ap-northeast-2.amazonaws.com/${font.font_family.replaceAll(" ", "")}.png`,
                 link: {
-                    mobileWebUrl: `https://fonts.taedonn.com/post/${font.font_family.replaceAll(" ", "+")}`,
-                    webUrl: `https://fonts.taedonn.com/post/${font.font_family.replaceAll(" ", "+")}`,
+                    mobileWebUrl: url,
+                    webUrl: url,
                 },
             },
             social: {
@@ -414,8 +418,8 @@ export default function Comments (
                 {
                     title: '웹으로 이동',
                     link: {
-                        mobileWebUrl: `https://fonts.taedonn.com/post/${font.font_family.replaceAll(" ", "+")}`,
-                        webUrl: `https://fonts.taedonn.com/post/${font.font_family.replaceAll(" ", "+")}`,
+                        mobileWebUrl: url,
+                        webUrl: url,
                     },
                 },
             ],
@@ -424,8 +428,18 @@ export default function Comments (
 
     /** 라인 공유 */
     const shareLine = () => {
-        const url = "https://fonts.taedonn.com/post/" + font.font_family.replaceAll(" ", "%2B");
-        window.open(`https://social-plugins.line.me/lineit/share?url=${decodeURI(url)}`, 'linesharedialog', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,width=520,height=700');
+        window.open(`https://social-plugins.line.me/lineit/share?url=${decodeURI(urlEncoded)}`, 'line', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,width=520,height=700');
+    }
+
+    /** 페이스북 공유 */
+    const shareFacebook = () => {
+        window.open(`https://facebook.com/sharer.php?u=${url}`, "facebook", "menubar=no,toolbar=no,resizable=yes,scrollbars=yes,width=520,height=700");
+    }
+
+    /** 트위터 공유 */
+    const shareTwitter = () => {
+        const text = font.name + " · 폰트 아카이브";
+        window.open(`https://twitter.com/intent/tweet?text=${text}&url=${decodeURI(urlEncoded)}`, "x", "menubar=no,toolbar=no,resizable=yes,scrollbars=yes,width=520,height=700");
     }
 
     return (
@@ -500,13 +514,13 @@ export default function Comments (
                                     </div>
                                     <div className="w-[42px] mt-[10px] text-center text-theme-5 group-hover:text-theme-3 tlg:group-hover:text-theme-5 dark:text-theme-7 group-hover:dark:text-theme-9 tlg:group-hover:dark:text-theme7">라인</div>
                                 </button>
-                                <button className="group text-[11px] flex flex-col justify-center items-center">
+                                <button onClick={shareFacebook} className="group text-[11px] flex flex-col justify-center items-center">
                                     <div className="w-[32px] h-[32px] rounded-full overflow-hidden flex justify-center items-center drop-shadow-default dark:drop-shadow-dark">
                                         <img src="/logo-facebook.png" alt="페이스북 로고" className="w-[100%]"/>
                                     </div>
                                     <div className="w-[42px] mt-[10px] text-center text-theme-5 group-hover:text-theme-3 tlg:group-hover:text-theme-5 dark:text-theme-7 group-hover:dark:text-theme-9 tlg:group-hover:dark:text-theme7">페이스북</div>
                                 </button>
-                                <button className="group text-[11px] flex flex-col justify-center items-center">
+                                <button onClick={shareTwitter} className="group text-[11px] flex flex-col justify-center items-center">
                                     <div className="w-[32px] h-[32px] rounded-full overflow-hidden flex justify-center items-center bg-theme-1 drop-shadow-default dark:drop-shadow-dark">
                                         <img src="/logo-x.svg" alt="엑스(트위터) 로고" className="w-[16px]"/>
                                     </div>
