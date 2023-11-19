@@ -691,3 +691,12 @@ html.dark .notices .notice:last-of-type input:checked ~ pre {
 #bg-color-picker:checked + label .same-source {
     display: none;
 }
+
+@media screen and (max-width: 1024px) {
+    .color-picker .rcp-root {
+        width: 240px;
+    }
+    .color-picker .rcp-fields .rcp-fields-floor label {
+        font-size: 12px;
+    }
+}
