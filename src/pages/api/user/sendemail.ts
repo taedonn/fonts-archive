@@ -57,14 +57,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                                     안녕하세요 ${user.user_name}님, <br/>
                                     아래 버튼을 클릭해서 <span style="font-weight:700; color:#000;">회원가입을 완료</span>해 주세요.
                                 </p>
-                                <a style="width:200px; display:block; padding:16px 20px; box-sizing:border-box; margin: 0 auto; margin-top:20px; background-color:#000; font-size:14px; font-weight:700; text-align:center; color:#FFF; text-decoration:none; border-radius:6px;" href="https://fonts.taedonn.com?session=${user.user_session_id}">
+                                <a style="width:200px; display:block; padding:16px 20px; box-sizing:border-box; margin: 0 auto; margin-top:20px; background-color:#000; font-size:14px; font-weight:700; text-align:center; color:#FFF; text-decoration:none; border-radius:6px;" href="https://fonts.taedonn.com/confirm?session=${user.user_session_id}">
                                     회원가입 완료하기
                                 </a>
                                 <div style="width:100%; height:1px; background-color:#EEE; margin-top:48px;"></div>
                                 <p style="width:100%; font-size:12px; font-weight:400; line-height:2.5; color:#97989C; margin:0; margin-top:28px;">
                                     버튼이 클릭되지 않을 시, <br/>
                                     아래 링크를 복사해서 <span style="font-weight:700;">주소창에 입력</span>해 주세요. <br/>
-                                    <a style="text-decoration:none; color:#067DF7;" href="https://fonts.taedonn.com?session=${user.user_session_id}">https://fonts.taedonn.com?session=${user.user_session_id}</a>
+                                    <a style="text-decoration:none; color:#067DF7;" href="https://fonts.taedonn.com/confirm?session=${user.user_session_id}">https://fonts.taedonn.com/confirm?session=${user.user_session_id}</a>
                                 </p>
                                 <div style="width: 20px; height: 2px; background-color: #CDCED2; margin-top: 20px;"></div>
                                 <p style="width:100%; font-size:12px; font-weight:400; line-height:2.5; color:#97989C; margin:0; margin-top:24px;">

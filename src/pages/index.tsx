@@ -157,23 +157,13 @@ export async function getServerSideProps(ctx: any) {
         // 디바이스 체크
         const userAgent = ctx.req ? ctx.req.headers['user-agent'] : navigator.userAgent;
 
-        // 파라미터에 세션ID가 있을 경우 세션ID가 유효한지 체크 후, 세션ID 쿠키 갱신 & 이메일 인증 완료 체크
-        ctx.query.session === undefined
-            ? null 
-            : await CheckIfSessionExists(ctx.query.session)
-                ? ctx.res.setHeader('Set-Cookie', 'session=' + ctx.query.session + '; HttpOnly') && await UpdateEmailConfirm(ctx.query.session)
-                : null;
-
         // 쿠키나 파라미터에 저장된 세션ID가 유효하면, 유저 정보 가져오기
-        const user = ctx.query.session === undefined
-            ? ctx.req.cookies.session === undefined
-                ? null
-                : await CheckIfSessionExists(ctx.req.cookies.session)
-                    ? await FetchUserInfo(ctx.req.cookies.session)
-                    : null
-            : await CheckIfSessionExists(ctx.query.session)
-                ? await FetchUserInfo(ctx.query.session)
-                : null;
+        const session = ctx.req.cookies.session;
+        const user = session === undefined
+            ? null
+            : await CheckIfSessionExists(session)
+                ? await FetchUserInfo(session)
+                : null
 
         // 유저 정보가 있으면, 좋아요한 폰트 체크
         const like = user === null
