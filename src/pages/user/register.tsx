@@ -59,32 +59,31 @@ const Register = ({params}: any) => {
             // 약관 동의 체크
             if (handleTermsAndPrivacyChk()) {
                 // 약관 동의 시 Form 서밋
-                await axios
-                .post('/api/user/sendregisterform', null, { params: {
-                    name: nameVal,
+                await axios.post('/api/user/register', {
+                    action: "register",
                     id: idVal,
-                    pw: pwVal
-                }})
-                .then(async() => {
+                    pw: pwVal,
+                    name: nameVal,
+                })
+                .then(async (res) => {
                     // 이메일 보내기
-                    await axios.post('/api/user/sendemail', null, { params: {
-                        name: nameVal,
-                        email: idVal,
-                        token: "",
-                    }})
-                    // 이메일 토큰을 가져와 회원가입 완료 랜딩페이지로 이동
-                    .then(async () => await axios.get('/api/user/sendemailtoken', {
-                            params: { id: idVal }
-                        })
-                        .then(res => { 
-                            location.href = '/user/sendemail?token=' + res.data;
-                        }))
-                        .catch(err => {
-                            console.log(err);
+                    await axios.post('/api/user/register', {
+                        action: "send-email",
+                        id: res.data.id,
+                        name: res.data.name,
+                        session_id: res.data.session_id,
+                        email_token: res.data.email_token,
+                    })
+                    .then(res => {
+                        // 이메일 토큰을 가져와 회원가입 완료 페이지로 이동
+                        location.href = '/user/sendemail?token=' + res.data.email_token;
+                    })
+                    .catch(err => {
+                        console.log(err);
 
-                            // 로딩 스피너 실행
-                            setIsLoading(false);
-                        });
+                        // 로딩 스피너 실행
+                        setIsLoading(false);
+                    });
                 });
             } else {
                 // 약관 미동의 시 알럿 표시
@@ -118,14 +117,18 @@ const Register = ({params}: any) => {
         let isIdExists = false;
 
         // 이메일 중복 체크 api 호출
-        await axios
-        .get('/api/user/checkifidexists', {params: {id: idVal}})
+        await axios.get('/api/user/register', {
+            params: {
+                action: "check-id",
+                id: idVal
+            }
+        })
         .then(res => {
             // 이름 유효성 검사
             if (nameVal=== '') { setNameChk('empty'); }
 
             // 이메일 유효성 검사
-            isIdExists = res.data;
+            isIdExists = res.data.check;
             if (idVal === '') { setIdChk('empty'); }
             else if (!emailPattern.test(idVal)) { setIdChk('wrong-pattern'); }
             else if (isIdExists) { setIdChk('is-used'); }
