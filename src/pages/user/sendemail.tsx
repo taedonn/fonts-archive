@@ -2,10 +2,10 @@
 import { NextSeo } from 'next-seo';
 
 // react hooks
-import React, { useState } from 'react';
+import React from 'react';
 
 // api
-import { FetchEmailFromToken } from '../api/user/fetchemailfromtoken';
+import { FetchUserInfoFromToken } from '../api/user/fetchuserinfo';
 import axios from 'axios';
 
 // components
@@ -19,16 +19,17 @@ const SendEmail = ({params}: any) => {
     // 빈 함수
     const emptyFn = () => { return; }
 
-    // 토큰 state에 저장
-    const [token, setToken] = useState<string>(params.token);
+    // 유저 정보 저장
+    const user = params.user;
 
     // 이메일 다시 보내기
     const resendEmail = async () => {
-        await axios.post('/api/user/sendemail', null, { params: {
-            name: "",
-            email: "",
-            token: token
-        }})
+        await axios.post('/api/user/register', {
+            id: user.user_id,
+            name: user.user_name,
+            session_id: user.user_session_id,
+            email_token: user.user_email_token,
+        })
         .then(() => location.reload())
         .catch(err => console.log(err));
     }
@@ -90,51 +91,28 @@ export async function getServerSideProps(ctx: any) {
         ctx.res.setHeader('Set-Cookie', [`session=deleted; max-Age=0; path=/`]);
 
         // 토큰 유효성 검사
-        const token: string = ctx.query.token === undefined ? "" : ctx.query.token;
-        const user = await FetchEmailFromToken(token);
-        const userJSON = JSON.parse(JSON.stringify(user))
+        const token = ctx.query.token;
+        const user = await FetchUserInfoFromToken(token);
 
-        // 파라미터에 토큰이 없는 경우
-        if (token === "") {
+        if (token === undefined || token === "" || user === null || user.user_email_confirm) {
             return {
                 redirect: {
-                    destination: '/404',
+                    destination: "/404",
                     permanent: false,
                 }
             }
         } else {
-            if (user === null) {
-                return {
-                    redirect: {
-                        destination: '/404',
-                        permanent: false,
-                    }
-                }
-            } else {
-                // user가 이메일 인증을 한 경우
-                if (user.user_email_confirm) {
-                    return {
-                        redirect: {
-                            destination: '/404',
-                            permanent: false,
-                        }
-                    }
-                } else {
-                    return {
-                        props: {
-                            params: {
-                                theme: cookieTheme,
-                                userAgent: userAgent,
-                                token: token,
-                                id: userJSON.user_id,
-                            }
-                        }
+            return {
+                props: {
+                    params: {
+                        theme: cookieTheme,
+                        userAgent: userAgent,
+                        user: user,
                     }
                 }
             }
         }
-    }
-    catch (error) {
+    } catch (error) {
         console.log(error);
     }
 }

@@ -7,3 +7,11 @@ export async function FetchUserInfo(session: string) {
 
     return user;
 }
+
+export async function FetchUserInfoFromToken(token: string) {
+    const user = await prisma.fontsUser.findFirst({
+        where: { user_email_token: token }
+    });
+
+    return user;
+}
