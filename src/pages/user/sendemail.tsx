@@ -67,7 +67,7 @@ const SendEmail = ({params}: any) => {
                 <div className='w-[100%] text-[14px] tlg:text-[12px] text-theme-6 dark:text-theme-7 flex flex-col justify-center items-center'>
                     <MailAnimation/>
                     <h2 className='text-center leading-relaxed break-keep'>
-                        인증 메일이 <span className='text-theme-5 dark:text-theme-9 font-medium'>[{user.id}]</span>(으)로 전송되었습니다. <br className='txs:hidden'/>
+                        인증 메일이 <span className='text-theme-5 dark:text-theme-9 font-medium'>[{user.user_id}]</span>(으)로 전송되었습니다. <br className='txs:hidden'/>
                         받으신 이메일의 링크를 클릭하면 가입이 완료됩니다.
                     </h2>
                     <h3 className='mt-[28px] tlg:mt-[20px] flex flex-row justify-center items-center'>
@@ -108,7 +108,7 @@ export async function getServerSideProps(ctx: any) {
                     params: {
                         theme: cookieTheme,
                         userAgent: userAgent,
-                        user: user,
+                        user: JSON.parse(JSON.stringify(user)),
                     }
                 }
             }
