@@ -53,11 +53,11 @@ const Confirm = ({params}: any) => {
 export async function getServerSideProps(ctx: any) {
     try {
         const session = ctx.query.session;
-        const user = session !== undefined || session !== ""
-            ? await CheckIfSessionExists(session)
+        const user = session === undefined
+            ? null
+            : await CheckIfSessionExists(session)
                 ? await FetchUserInfo(session)
-                : null
-            : null
+                : null;
 
         if (user === null || user.user_email_confirm) {
             return {
@@ -68,10 +68,10 @@ export async function getServerSideProps(ctx: any) {
             }
         } else {
             // 세션ID 쿠키 추가
-            ctx.res.setHeader('Set-Cookie', 'session=' + ctx.query.session + '; HttpOnly');
+            ctx.res.setHeader('Set-Cookie', 'session=' + session + '; HttpOnly');
             
             // 이메일 인증 확인
-            await UpdateEmailConfirm(ctx.query.session);
+            await UpdateEmailConfirm(session);
 
             return {
                 props: {
