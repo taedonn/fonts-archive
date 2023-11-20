@@ -1,13 +1,17 @@
 // react hooks
 import { useEffect } from "react";
+import { useCookies } from "react-cookie";
 
 // API
 import { CheckIfSessionExists } from "./api/user/checkifsessionexists";
 import { FetchUserInfo } from "./api/user/fetchuserinfo";
-import { UpdateEmailConfirm } from "./api/user/updateemailconfirm";
+import axios from "axios";
 
 const Confirm = ({params}: any) => {
     const user = params.user;
+
+    // 쿠키 훅
+    const [, setCookie] = useCookies<string>([]);
 
     // 로딩 시 body 패딩 제거 & 풋터 제거
     useEffect(() => {
@@ -18,7 +22,18 @@ const Confirm = ({params}: any) => {
         head.innerHTML += '<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fonts-archive/IntelOneMono/IntelOneMono.css" type="text/css"/>'
         body.style.paddingBottom = "0";
         footer.style.display = "none";
-    }, []);
+
+        async function updateEmailConfirmation() {
+            await axios.post("/api/user/updateemailconfirm", {
+                session_id: user.user_session_id
+            })
+            .then(() => {
+                setCookie('session', user.user_session_id, {path:'/', expires: new Date(), secure:true, sameSite:'none'});
+            })
+            .catch(err => console.log(err));
+        }
+        updateEmailConfirmation();
+    }, [user, setCookie]);
 
     /** 날짜 포맷 */
     const dateFormat = (date: string) => {
@@ -67,12 +82,6 @@ export async function getServerSideProps(ctx: any) {
                 }
             }
         } else {
-            // 세션ID 쿠키 추가
-            ctx.res.setHeader('Set-Cookie', 'session=' + session + '; HttpOnly');
-            
-            // 이메일 인증 확인
-            await UpdateEmailConfirm(session);
-
             return {
                 props: {
                     params: {
