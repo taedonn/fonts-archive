@@ -23,6 +23,7 @@ const Confirm = ({params}: any) => {
         body.style.paddingBottom = "0";
         footer.style.display = "none";
 
+        /** 이메일 확인 DB에 저장 후 쿠키 저장 */
         async function updateEmailConfirmation() {
             await axios.post("/api/user/updateemailconfirm", {
                 session_id: user.user_session_id

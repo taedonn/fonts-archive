@@ -1,15 +1,10 @@
 import prisma from '@/libs/client-prisma';
   
-export async function FetchReports(font_family: string, user_no: number) {
-    // 폰트 정보 불러오기
-    const font = await prisma.fonts.findMany({
-        where: { font_family: font_family }
-    });
-
+export async function FetchReports(code: number, user_no: number) {
     // 해당 폰트 상세페이지에 쓰인 댓글 전부 가져오기
     const comments: any = await prisma.fontsComment.findMany({
         where: {
-            font_id: font[0].code,
+            font_id: code,
             is_deleted: false
         }
     });

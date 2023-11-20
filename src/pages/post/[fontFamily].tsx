@@ -12,7 +12,6 @@ import { FetchFontDetail } from "../api/post/fetchfontdetail";
 import { CheckIfSessionExists } from "../api/user/checkifsessionexists";
 import { FetchUserInfo } from "../api/user/fetchuserinfo";
 import { FetchUserLike } from "../api/user/fetchuserlike";
-import { FetchNumberOfLikes } from "../api/user/fetchnumberoflikes";
 import { FetchComments } from "../api/post/fetchcomments";
 import { FetchReports } from "../api/post/fetchReports";
 import axios from "axios";
@@ -55,7 +54,7 @@ function DetailPage({params}: any) {
     const emptyFn = () => { return; }
 
     // 폰트 데이터 props
-    const font = params.fonts[0];
+    const font = params.font[0];
 
     /** 조회수 업데이트 */
     const viewUpdate = async () => {
@@ -71,9 +70,9 @@ function DetailPage({params}: any) {
     // state
     const [alertDisplay, setAlertDisplay] = useState<boolean>(false);
     const [hoverDisplay, setHoverDisplay] = useState<boolean>(true);
-    const [liked, setLiked] = useState<boolean>(params.like === null ? false : params.like.some((font: any) => font.font_id === params.fonts[0].code));
-    const [likedInput, setLikedInput] = useState<boolean>(params.like === null ? false : params.like.some((font: any) => font.font_id === params.fonts[0].code));
-    const [likedNum, setLikedNum] = useState<number>(params.likedNum);
+    const [liked, setLiked] = useState<boolean>(params.like === null ? false : params.like.some((font: any) => font.font_id === params.font[0].code));
+    const [likedInput, setLikedInput] = useState<boolean>(params.like === null ? false : params.like.some((font: any) => font.font_id === params.font[0].code));
+    const [likedNum, setLikedNum] = useState<number>(font.like);
 
     /** 로그인 중이 아닐 때 좋아요 클릭 방지 */
     const handleLikeClick = (e: React.MouseEvent<HTMLInputElement>) => {
@@ -96,7 +95,11 @@ function DetailPage({params}: any) {
             // 댓글창 위 좋아요 버튼의 아이디 규칙에 맞게 변경
             const thisId = e.target.id.includes('like-bottom-') ? e.target.id.replace('like-bottom-','') : e.target.id;
 
-            await axios.post('/api/post/updatelike', null, { params: { code: thisId ,checked: e.target.checked, user_no: params.user.user_no } })
+            await axios.post('/api/post/updatelike', {
+                action: e.target.checked ? "increase" : "decrease",
+                code: thisId,
+                user_no: params.user.user_no
+            })
             .then(res => {
                 // 좋아요 여부 확인 후 문장 변경
                 if (res.data.msg === 'liked') { setLiked(true); }
@@ -980,7 +983,7 @@ export async function getServerSideProps(ctx: any) {
         const fontFamily = ctx.params.fontFamily.replaceAll("+", " ");
 
         // 폰트 정보 불러오기
-        const fonts = await FetchFontDetail(fontFamily);
+        const font = await FetchFontDetail(fontFamily);
 
         // 랜덤 넘버
         const randomNum: number = Math.floor(Math.random() * 19);
@@ -1006,18 +1009,15 @@ export async function getServerSideProps(ctx: any) {
         // 유저 정보에 신고 리포트 합치기
         const report = user === null
             ? null
-            : await FetchReports(fontFamily, user.user_no);
-
-        // 좋아요 수 체크
-        const likedNum = await FetchNumberOfLikes(fontFamily);
+            : await FetchReports(font[0].code, user.user_no);
 
         // 댓글 체크
-        const comments = await FetchComments(fontFamily);
+        const comments = await FetchComments(font[0].code);
 
-        if (fonts.length === 0) {
+        if (font.length === 0) {
             return {
                 redirect: {
-                    destination: '/',
+                    destination: '/404',
                     permanent: false,
                 }
             }
@@ -1025,14 +1025,13 @@ export async function getServerSideProps(ctx: any) {
             return {
                 props: {
                     params: {
-                        fonts: JSON.parse(JSON.stringify(fonts)), // typescript에서 createdAt은 JSON.parse를 통해 serialized object로 변환 후 params로 보낼 수 있다.
+                        font: JSON.parse(JSON.stringify(font)), // typescript에서 createdAt은 JSON.parse를 통해 serialized object로 변환 후 params로 보낼 수 있다.
                         randomNum: randomNum,
                         theme: cookieTheme,
                         userAgent: userAgent,
                         user: JSON.parse(JSON.stringify(user)),
                         report: JSON.parse(JSON.stringify(report)),
                         like: like,
-                        likedNum: likedNum.length,
                         comments: JSON.parse(JSON.stringify(comments)),
                     }
                 }
