@@ -45,15 +45,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             });
 
             return res.status(200).json({
+                msg: "로그인 성공",
                 status: status,
                 session: user === null
-                ? null
-                : status === "success"
-                    ? userSessionId
-                    : user.user_session_id
+                            ? null
+                            : status === "success"
+                                ? userSessionId
+                                : user.user_session_id,
             });
         } catch (err) {
             return res.status(500).json({
+                msg: "로그인 실패",
                 err: err,
             });
         }

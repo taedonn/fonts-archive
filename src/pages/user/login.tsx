@@ -100,11 +100,13 @@ const Login = ({params}: any) => {
                 else if (res.data.status === 'success') {
                     // 쿠키 유효 기간 설정
                     if (stayLoggedIn) {
-                        const expires = new Date();
-                        expires.setFullYear(expires.getFullYear() + 1);
-                        setCookie('session', res.data.session, {path:'/', expires: expires, secure:true, sameSite:'none'});
+                        const expiresInYear = new Date();
+                        expiresInYear.setFullYear(expiresInYear.getFullYear() + 1);
+                        setCookie('session', res.data.session, {path:'/', expires: expiresInYear, secure:true, sameSite:'none'});
                     } else {
-                        setCookie('session', res.data.session, {path:'/', secure:true, sameSite:'none'});
+                        const expiresInDay = new Date();
+                        expiresInDay.setDate(expiresInDay.getDate() + 1)
+                        setCookie('session', res.data.session, {path:'/', expires: expiresInDay, secure:true, sameSite:'none'});
                     }
 
                     // 세션 스토리지가 저장되어 있으면, 해당 페이지로 이동

@@ -10,7 +10,8 @@ export async function FetchCommentsLength(user_id: number) {
             is_deleted: false,
             is_deleted_with_reply: false,
             is_deleted_by_reports: false
-        }
+        },
+        take: 50,
     });
 
     return comments.length;
