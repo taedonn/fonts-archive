@@ -24,8 +24,11 @@ const Info = ({params}: any) => {
     // 빈 함수
     const emptyFn = () => { return; }
 
+    const user = params.user;
+
     // 폼 state
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [profileImg, setProfileImg] = useState<string>(user.profile_img);
     const [isImgLoading, setIsImgLoading] = useState<boolean>(false);
     const [isImgError, setisImgError] = useState<boolean>(false);
     const [nameVal, setNameVal] = useState<string>('');
@@ -53,19 +56,17 @@ const Info = ({params}: any) => {
         setIsLoading(true);
 
         if (nameVal === '') { setNameChk('empty'); }
+        else if (nameVal === user.user_name) { setNameChk("exists"); }
         else {
             // 이름 변경하기 API 호출
-            await axios.post('/api/user/updateusername', null, { params: {
-                id: params.user.user_id,
+            await axios.post('/api/user/updateuserinfo', {
+                action: "change-name",
+                id: user.user_id,
                 name: nameVal,
-            }})
-            .then(res => {
-                if (res.data === 'exists') {
-                    setNameChk('exists');
-                } else {
-                    setAlert('name');
-                    setAlertDisplay(true);
-                }
+            })
+            .then(() => {
+                setAlert('name');
+                setAlertDisplay(true);
             })
             .catch(err => console.log(err));
         }
@@ -131,19 +132,17 @@ const Info = ({params}: any) => {
         // 이미지 로딩 스피너 실행
         setIsImgLoading(true);
 
-        if (!params.user.profile_img.startsWith('/fonts-archive-base-profile-img-')) {
+        if (!user.profile_img.startsWith('/fonts-archive-base-profile-img-')) {
             // 프로필 이미지 제거 후 state에 저장된 프로필 이미지 변경
-            await axios.get('/api/user/changeprofileimg', {
-                params: {
-                    userNo: params.user.user_no,
-                    action: 'Delete Original',
-                }
+            await axios.post('/api/user/updateuserinfo', {
+                action: 'delete-profile-img',
+                id: user.user_id,
             })
-            .then((res) => {
-                console.log(res);
+            .then(res => {
+                setProfileImg(res.data.img);
 
-                // 새로고침
-                location.reload();
+                // 이미지 로딩 스피너 제거
+                setIsImgLoading(false);
             })
             .catch(err => {
                 console.log(err);
@@ -200,93 +199,20 @@ const Info = ({params}: any) => {
 
     // 프로필 사진 변경 함수
     const fnChangeImg = async function(file: File, fileType: string) {
-        // 기존 프로필 사진 정보 가져오기
-        await axios.get('/api/user/changeprofileimg', {
-            params: {
-                userNo: params.user.user_no,
-                action: 'Get Original',
-            }
-        })
-        .then(async (res) => {
-            // 프로필 사진이 기본 프로필 사진이 아닌 경우
-            if (!res.data.url.startsWith('/fonts-archive-base-profile-img-')) {
-                // 기존 프로필 삭제를 위한 Presigned URL 가져오기
-                await axios.post('/api/user/changeprofileimg', {
-                    action: 'Delete Signed URL',
-                    fileName: `fonts-archive-user-${params.user.user_no}-profile-img.` + res.data.url.split('.').pop(),
-                    fileType: 'image/' + res.data.url.split('.').pop() === 'jpg' ? 'jpeg' : res.data.url.split('.').pop(),
-                })
-                .then(async (res) => {
-                    // 기존 프로필 삭제
-                    await axios.delete(res.data.url, { headers: { 'Content-Type': 'image/' + res.data.url.split('.').pop() === 'jpg' ? 'jpeg' : res.data.url.split('.').pop() }})
-                    .then(async () => {
-                        console.log('file deleted from s3 succeeded.');
-
-                        // 이미지 업로드
-                        fnImgUpload(file, fileType);
-                    })
-                    .catch(() => {
-                        console.log('file deleted from s3 failed.');
-
-                        // 이미지 로딩 스피너 제거
-                        setIsImgLoading(false);
-
-                        // 에러 메세지 표시
-                        setisImgError(true);
-                    });
-                })
-                .catch(err => {
-                    console.log(err);
-
-                    // 이미지 로딩 스피너 제거
-                    setIsImgLoading(false);
-
-                    // 에러 메세지 표시
-                    setisImgError(true);
-                });
-            }
-            // 프로필 사진이 기본 프로필 사진인 경우
-            else {
-                // 이미지 업로드
-                fnImgUpload(file, fileType);
-            }
-        })
-        .catch(err => {
-            console.log(err);
-
-            // 이미지 로딩 스피너 제거
-            setIsImgLoading(false);
-
-            // 에러 메세지 표시
-            setisImgError(true);
-        });
-    }
-
-    // s3, prisma에 이미지 업로드하는 함수
-    const fnImgUpload = async function(file: File, fileType: string) {
-        // 프로필 이미지 업로드를 위한 Presigned URL 가져오기
-        await axios.post('/api/user/changeprofileimg', {
-            action: 'Put Signed URL',
-            fileName: `fonts-archive-user-${params.user.user_no}-profile-img.` + fileType,
-            fileType: file.type,
-        })
-        .then(async (res) => {
-            console.log(res.data.url);
-
-            // 프로필 이미지 s3에 업로드
-            await axios.put(res.data.url, file, { headers: { 'Content-Type': file.type }})
-            .then(async () => {
-                console.log('file upload to s3 succeeded.');
-
-                // 프로필 이미지 Prisma에 저장
-                await axios.post('/api/user/changeprofileimg', {
-                    action: 'Update Prisma',
-                    user_no: params.user.user_no,
-                    img_type: fileType,
-                })
-                .then(() => {
-                    // 새로고침
-                    location.reload();
+        // 프로필 사진이 기본 프로필 사진이 아닌 경우
+        if (!user.profile_img.startsWith('/fonts-archive-base-profile-img-')) {
+            // 기존 프로필 삭제를 위한 Presigned URL 가져오기
+            await axios.post('/api/user/updateuserinfo', {
+                action: 'delete-s3-img',
+                file_name: `fonts-archive-user-${user.user_no}-profile-img.` + user.profile_img.split('.').pop(),
+                file_type: 'image/' + user.profile_img.split('.').pop() === 'jpg' ? 'jpeg' : user.profile_img.split('.').pop(),
+            })
+            .then(async (res) => {
+                // 기존 프로필 삭제
+                await axios.delete(res.data.url, { headers: { 'Content-Type': 'image/' + res.data.url.split('.').pop() === 'jpg' ? 'jpeg' : res.data.url.split('.').pop() }})
+                .then(async () => {
+                    // 이미지 업로드
+                    fnImgUpload(file, fileType);
                 })
                 .catch(err => {
                     console.log(err);
@@ -298,8 +224,55 @@ const Info = ({params}: any) => {
                     setisImgError(true);
                 });
             })
-            .catch(() => {
-                console.log('file upload to s3 failed.');
+            .catch(err => {
+                console.log(err);
+
+                // 이미지 로딩 스피너 제거
+                setIsImgLoading(false);
+
+                // 에러 메세지 표시
+                setisImgError(true);
+            });
+        }
+        // 프로필 사진이 기본 프로필 사진인 경우
+        else {
+            // 이미지 업로드
+            fnImgUpload(file, fileType);
+        }
+    }
+
+    // s3, prisma에 이미지 업로드하는 함수
+    const fnImgUpload = async function(file: File, fileType: string) {
+        // 프로필 이미지 업로드를 위한 Presigned URL 가져오기
+        await axios.post('/api/user/updateuserinfo', {
+            action: 'upload-s3-img',
+            file_name: `fonts-archive-user-${user.user_no}-profile-img.` + fileType,
+            file_type: file.type,
+        })
+        .then(async (res) => {
+            // 프로필 이미지 s3에 업로드
+            await axios.put(res.data.url, file, { headers: { 'Content-Type': file.type }})
+            .then(async () => {
+                // 프로필 이미지 Prisma에 저장
+                await axios.post('/api/user/updateuserinfo', {
+                    action: 'upload-s3-img-to-prisma',
+                    user_id: user.user_id,
+                    user_no: user.user_no,
+                    img_type: fileType,
+                })
+                .then(() => location.reload())
+                .catch(err => {
+                    console.log(err);
+
+                    // 이미지 로딩 스피너 제거
+                    setIsImgLoading(false);
+
+                    // 에러 메세지 표시
+                    setisImgError(true);
+                });
+            })
+            .catch(err => {
+                console.log(err);
 
                 // 이미지 로딩 스피너 제거
                 setIsImgLoading(false);
@@ -343,7 +316,7 @@ const Info = ({params}: any) => {
             <Header
                 isMac={isMac}
                 theme={params.theme}
-                user={params.user}
+                user={user}
                 page={""}
                 license={""}
                 lang={""}
@@ -362,7 +335,7 @@ const Info = ({params}: any) => {
             <form onSubmit={e => e.preventDefault()} className='w-[100%] flex flex-col justify-center items-center'>
                 <div className='w-[360px] flex flex-col justify-center items-start my-[100px] tlg:my-[40px]'>
                     <h2 className='text-[20px] tlg:text-[18px] text-theme-3 dark:text-theme-9 font-medium'>프로필 정보</h2>
-                    <div className='text-[12px] text-theme-5 dark:text-theme-6 mt-[4px] mb-[10px] tlg:mb-[8px]'>{commentsDateFormat(params.user.updated_at)}에 마지막으로 수정됨</div>
+                    <div className='text-[12px] text-theme-5 dark:text-theme-6 mt-[4px] mb-[10px] tlg:mb-[8px]'>{commentsDateFormat(user.updated_at)}에 마지막으로 수정됨</div>
                     {
                         alertDisplay === true
                         ? alert === 'name'
@@ -400,7 +373,7 @@ const Info = ({params}: any) => {
                                         !isImgLoading
                                         ? <>
                                             {/* eslint-disable-next-line @next/next/no-img-element */}
-                                            <img className='w-[100%] h-[100%] object-cover rounded-full' src={params.user.profile_img} width={60} height={60} alt='유저 프로필 사진'/>
+                                            <img className='w-[100%] h-[100%] object-cover rounded-full' src={profileImg} width={60} height={60} alt='유저 프로필 사진'/>
                                         </>
                                         : <div className='w-[100%] h-[100%] rounded-full flex items-center bg-theme-4 dark:bg-theme-blue-2/60'><div className='img-loader'></div></div>
                                     }
@@ -432,7 +405,7 @@ const Info = ({params}: any) => {
                         <div className='w-[100%] h-px bg-theme-6 dark:bg-theme-5 mt-[16px] mb-[32px]'></div>
                         <label htmlFor='name' className='block text-[14px] ml-px'>이름</label>
                         <div className='w-[100%] flex flex-row justify-between items-center mt-[6px]'>
-                            <input onChange={handleNameChange} onKeyDown={handleNameEnter} type='text' id='name' tabIndex={1} autoComplete='on' defaultValue={params.user.user_name} placeholder='홍길동' className={`${nameChk === '' ? 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' : 'border-theme-red focus:border-theme-red dark:border-theme-red focus:dark:border-theme-red'} w-[calc(100%-84px)] text-[14px] px-[14px] py-[8px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
+                            <input onChange={handleNameChange} onKeyDown={handleNameEnter} type='text' id='name' tabIndex={1} autoComplete='on' defaultValue={user.user_name} placeholder='홍길동' className={`${nameChk === '' ? 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' : 'border-theme-red focus:border-theme-red dark:border-theme-red focus:dark:border-theme-red'} w-[calc(100%-84px)] text-[14px] px-[14px] py-[8px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
                             <button onClick={handleNameClick} className='w-[76px] h-[39px] flex flex-row justify-center items-center rounded-[8px] font-medium text-[14px] text-theme-4 dark:text-theme-blue-2 bg-theme-yellow/80 hover:bg-theme-yellow tlg:hover:bg-theme-yellow/80 dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1/80'>
                                 {
                                     isLoading === true
@@ -450,7 +423,7 @@ const Info = ({params}: any) => {
                             )
                         }
                         <div className='block text-[14px] mt-[18px] ml-px'>아이디</div>
-                        <div className='w-[100%] text-[14px] mt-[6px] px-[14px] py-[8px] rounded-[8px] border-[2px] text-theme-8 dark:text-theme-7 border-theme-6 dark:border-theme-4 bg-theme-4 dark:bg-theme-blue-2/60 cursor-default'>{params.user.user_id}</div>
+                        <div className='w-[100%] text-[14px] mt-[6px] px-[14px] py-[8px] rounded-[8px] border-[2px] text-theme-8 dark:text-theme-7 border-theme-6 dark:border-theme-4 bg-theme-4 dark:bg-theme-blue-2/60 cursor-default'>{user.user_id}</div>
                         <div className='w-[100%] h-px bg-theme-6 dark:bg-theme-5 mt-[16px] mb-[32px]'></div>
                         <h2 className="font-bold text-[16px] text-theme-10 dark:text-theme-9 mb-[8px]">비밀번호 변경</h2>
                         <div className='w-[100%] flex flex-row justify-start items-start mb-[4px] text-[12px] text-theme-8 dark:text-theme-7'>
@@ -462,7 +435,7 @@ const Info = ({params}: any) => {
                             <div>비밀번호 변경 완료 시, 비밀번호는 즉시 변경됩니다.</div>
                         </div>
                         <div className='w-[100%] flex flex-row justify-between items-center mt-[6px]'>
-                            <input type='password' id='pw' tabIndex={2} autoComplete='on' defaultValue={params.user.user_pw} disabled className='text-theme-8 dark:text-theme-7 border-theme-6 dark:border-theme-4 w-[calc(100%-84px)] text-[14px] px-[14px] py-[8px] rounded-[8px] border-[2px] bg-theme-4 dark:bg-theme-blue-2/60'/>
+                            <input type='password' id='pw' tabIndex={2} autoComplete='on' defaultValue={user.user_pw} disabled className='text-theme-8 dark:text-theme-7 border-theme-6 dark:border-theme-4 w-[calc(100%-84px)] text-[14px] px-[14px] py-[8px] rounded-[8px] border-[2px] bg-theme-4 dark:bg-theme-blue-2/60'/>
                             <button onClick={handleChangePwModalClick} className='w-[76px] h-[39px] pt-px rounded-[8px] font-medium text-[14px] text-theme-4 dark:text-theme-blue-2 bg-theme-yellow/80 hover:bg-theme-yellow tlg:hover:bg-theme-yellow/80 dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1/80'>변경하기</button>
                         </div>
                         <div className='w-[100%] h-px bg-theme-6 dark:bg-theme-5 mt-[16px] mb-[32px]'></div>
@@ -485,15 +458,14 @@ const Info = ({params}: any) => {
                 display={changePwModalDisplay}
                 close={handleChangePwModalClose}
                 success={handlePwChangeOnSuccess}
-                id={params.user.user_id}
+                id={user.user_id}
             />
 
             {/* 회원 탈퇴 모달창 */}
             <DeleteUserModal
                 display={deleteUserModalDisplay}
                 close={handleDeleteUserModalClose}
-                id={params.user.user_id}
-                user_no={params.user.user_no}
+                user={user}
             />
         </>
     );

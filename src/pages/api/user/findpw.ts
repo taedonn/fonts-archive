@@ -5,43 +5,23 @@ const nodemailer = require('nodemailer');
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method === 'POST') {
         try {
-            const name = req.body.name as string;
-            const id = req.body.id as string;
-            
-            // 임시 비밀번호
             const randomPw = Math.random().toString(36).slice(2);
 
-            // 이름 조회
-            const nameExists = !!await prisma.fontsUser.findFirst({
-                select: { user_name: true },
-                where: { user_name: name }
-            });
-            
-            // 이름 조회 성공 시, 아이디 조회
-            const idExists = !nameExists ? false : !!await prisma.fontsUser.findUnique({
-                select: { user_id: true },
-                where: { user_id: id }
+            // 유저 정보 조회
+            const user = await prisma.fontsUser.findUnique({
+                where: { user_id: req.body.id }
             });
 
-            const valid = !nameExists 
-                ? 'wrong-name'
-                : !idExists
-                    ? 'wrong-id'
-                    : 'success';
+            // 유효성 검사
+            const valid = user === null
+                ? "wrong-id"
+                : user.user_name !== req.body.name
+                    ? "wrong-name"
+                    : "success";
 
-            // 아이디 조회 성공 시 유저 정보 가져오기
-            const user = valid === "success" && await prisma.fontsUser.findUnique({
-                select: {
-                    user_name: true,
-                    user_id: true,
-                    user_session_id: true
-                },
-                where: { user_id: id }
-            });
-
-            // 임시 비밀번호 업데이트
-            user && await prisma.fontsUser.update({
-                where: { user_id: id },
+            // 임시 비밀번호 발급
+            user && valid === "success" && await prisma.fontsUser.update({
+                where: { user_id: req.body.id },
                 data: { user_pw: randomPw }
             });
 
@@ -57,7 +37,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             });
 
             // transporter에 정의된 계정 정보를 사용해 이메일 전송
-            user && await transporter.sendMail({
+            user && valid === "success" && await transporter.sendMail({
                 from: '"폰트 아카이브" <taedonn@taedonn.com>',
                 to: user.user_id,
                 subject: '[폰트 아카이브] 임시 비밀번호가 발급되었습니다.',
@@ -95,10 +75,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
             return res.status(200).json({
                 msg: "이메일 발송 성공",
-                user: user,
                 valid: valid,
-                nameExists: nameExists,
-                idExists: idExists,
             });
         } catch (err) {
             return res.status(500).json({

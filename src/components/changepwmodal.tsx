@@ -101,21 +101,24 @@ export default function ChangePwModal(
         setIsLoading(true);
 
         // 현재 비밀번호
-        let currentPw: string = '';
+        let currentPw = '';
         
-        await axios.get('/api/user/changepw', {
-            params: { id: id }
+        await axios.get('/api/user/updateuserinfo', {
+            params: {
+                action: "get-current-pw",
+                id: id,
+            }
         })
         .then(res => {
             // 현재 비밀번호 유효성 검사
-            currentPw = res.data.user_pw;
+            currentPw = res.data.user.user_pw;
             if (currentPwVal === '') { setCurrentPwChk('empty'); }
-            else if (currentPwVal !== res.data.user_pw) { setCurrentPwChk('invalid'); }
+            else if (currentPwVal !== currentPw) { setCurrentPwChk('invalid'); }
             else { setCurrentPwChk('success'); }
 
             // 새 비밀번호 유효성 검사
             if (newPwVal === '') { setNewPwChk('empty'); }
-            else if (newPwVal === res.data.user_pw) { setNewPwChk('unchanged'); }
+            else if (newPwVal === currentPw) { setNewPwChk('unchanged'); }
             else if (!pwPattern.test(newPwVal)) { setNewPwChk('invalid'); }
             else { setNewPwChk('success'); }
 
@@ -135,10 +138,11 @@ export default function ChangePwModal(
                 newPwConfirmVal !== '' &&
                 newPwConfirmVal === newPwVal
             ) {
-                await axios.post('/api/user/changepw', null, { params: {
+                await axios.post('/api/user/updateuserinfo', {
+                    action: "change-pw",
                     id: id,
                     pw: newPwVal,
-                }})
+                })
                 .then(() => {
                     setIsLoading(false);
                     setCurrentPwVal('');

@@ -5,18 +5,30 @@ import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { useCookies } from "react-cookie";
 
+interface User {
+    user_no: number,
+    user_name: string,
+    user_id: string,
+    user_pw: string,
+    user_session_id: string,
+    user_email_token: string,
+    user_email_confirm: boolean,
+    profile_img: string,
+    nickname_reported: number,
+    created_at: Date,
+    updated_at: Date,
+}
+
 export default function DeleteUserModal(
     {
         display,
         close,
-        id,
-        user_no
+        user,
     }:
     {
         display: boolean, 
         close: any,
-        id: string,
-        user_no: string,
+        user: User,
     }
 ) {
     // 쿠키 훅
@@ -84,7 +96,7 @@ export default function DeleteUserModal(
             // 로딩 스피너 정지
             setIsLoading(false);
         }
-        else if (inputVal !== id + '/탈퇴한다') {
+        else if (inputVal !== user.user_id + '/탈퇴한다') {
             // "입력값이 일치하지 않습니다." 표시
             setInputChk('wrong-val');
 
@@ -92,53 +104,27 @@ export default function DeleteUserModal(
             setIsLoading(false);
         }
         else {
-            // 기존 프로필 사진 정보 가져오기
-            await axios.get('/api/user/changeprofileimg', {
-                params: {
-                    userNo: user_no,
-                    action: 'Get Original',
-                }
-            })
-            .then(async (res) => {
-                // 프로필 사진이 기본 프로필 사진이 아닌 경우
-                if (!res.data.url.startsWith('/fonts-archive-base-profile-img-')) {
-                    // 기존 프로필 삭제를 위한 Presigned URL 가져오기
-                    await axios.post('/api/user/changeprofileimg', {
-                        action: 'Delete Signed URL',
-                        fileName: `fonts-archive-user-${user_no}-profile-img.` + res.data.url.split('.').pop(),
-                        fileType: 'image/' + res.data.url.split('.').pop() === 'jpg' ? 'jpeg' : res.data.url.split('.').pop(),
+            // 프로필 사진이 기본 프로필 사진이 아닌 경우
+            if (!user.profile_img.startsWith('/fonts-archive-base-profile-img-')) {
+                // 기존 프로필 삭제를 위한 Presigned URL 가져오기
+                await axios.post('/api/user/updateuserinfo', {
+                    action: 'delete-s3-img',
+                    file_name: `fonts-archive-user-${user.user_no}-profile-img.` + user.profile_img.split('.').pop(),
+                    file_type: 'image/' + user.profile_img.split('.').pop() === 'jpg' ? 'jpeg' : user.profile_img.split('.').pop(),
+                })
+                .then(async (res) => {
+                    // 기존 프로필 삭제
+                    await axios.delete(res.data.url, { headers: { 'Content-Type': 'image/' + res.data.url.split('.').pop() === 'jpg' ? 'jpeg' : res.data.url.split('.').pop() }})
+                    .then(async () => {
+                        // 유저 정보 삭제
+                        await deleteUser();
                     })
-                    .then(async (res) => {
-                        // 기존 프로필 삭제
-                        await axios.delete(res.data.url, { headers: { 'Content-Type': 'image/' + res.data.url.split('.').pop() === 'jpg' ? 'jpeg' : res.data.url.split('.').pop() }})
-                        .then(async () => {
-                            console.log('file deleted from s3 succeeded.');
-                        })
-                        .catch(() => {
-                            console.log('file deleted from s3 failed.');
-
-                            // 로딩 스피너 정지
-                            setIsLoading(false);
-                        });
-                    })
-                    .catch(err => {
-                        console.log(err);
+                    .catch(() => {
+                        console.log('이미지 삭제 실패');
 
                         // 로딩 스피너 정지
                         setIsLoading(false);
                     });
-                }
-            })
-            .then(async () => {
-                // 유저 정보 삭제
-                await axios.post('/api/user/deleteuser', {
-                    id: id,
-                    user_no: user_no
-                })
-                .then((res) => {
-                    removeCookies('session', { path: '/' });
-                    location.href = '/';
-                    console.log(res.data);
                 })
                 .catch(err => {
                     console.log(err);
@@ -146,9 +132,30 @@ export default function DeleteUserModal(
                     // 로딩 스피너 정지
                     setIsLoading(false);
                 });
-            })
-            .catch(err => console.log(err));
+            } else {
+                // 유저 정보 삭제
+                await deleteUser();
+            }
         }
+    }
+
+    /** 유저 정보 삭제 */
+    const deleteUser = async () => {
+        await axios.post('/api/user/updateuserinfo', {
+            action: "delete-user",
+            user_no: user.user_no,
+            user_id: user.user_id,
+        })
+        .then(() => {
+            removeCookies('session', { path: '/' });
+            location.href = '/';
+        })
+        .catch(err => {
+            console.log(err);
+
+            // 로딩 스피너 정지
+            setIsLoading(false);
+        });
     }
 
     return (
@@ -176,7 +183,7 @@ export default function DeleteUserModal(
                             <div className="text-[12px] text-theme-5 dark:text-theme-7 flex flex-row justify-start items-center mt-[6px]">
                                 아래 문구를 정확히 입력 후 탈퇴하기 버튼을 눌러주세요.
                             </div>
-                            <input onChange={handleDeleteValChange} id="delete-confirm" type="text" placeholder={`${id}/탈퇴한다`} className={`${inputChk === '' ? 'border-theme-4 focus:border-theme-yellow dark:border-theme-5 focus:dark:border-theme-blue-1' : 'border-theme-red focus:border-theme-red dark:border-theme-red focus:dark:border-theme-red'} w-[100%] text-[14px] text-theme-10 dark:text-theme-9 px-[14px] py-[8px] mt-[6px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
+                            <input onChange={handleDeleteValChange} id="delete-confirm" type="text" placeholder={`${user.user_id}/탈퇴한다`} className={`${inputChk === '' ? 'border-theme-4 focus:border-theme-yellow dark:border-theme-5 focus:dark:border-theme-blue-1' : 'border-theme-red focus:border-theme-red dark:border-theme-red focus:dark:border-theme-red'} w-[100%] text-[14px] text-theme-10 dark:text-theme-9 px-[14px] py-[8px] mt-[6px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
                             {
                                 inputChk === 'empty'
                                 ? <span className='block text-[12px] text-theme-red mt-[4px] ml-[16px]'>입력칸이 비어있습니다.</span>

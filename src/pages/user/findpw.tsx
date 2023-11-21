@@ -51,9 +51,9 @@ const FindPw = ({params}: any) => {
             setIdChk('empty');
         } else {
             await axios
-            .post('/api/user/sendpwemail', {
+            .post('/api/user/findpw', {
+                id: idVal,
                 name: nameVal,
-                id: idVal
             })
             .then(res => {
                 if (res.data.valid === 'wrong-name') { setNameChk('wrong-name'); }
@@ -138,7 +138,7 @@ const FindPw = ({params}: any) => {
                             nameChk === 'empty'
                             ? <span className='block text-[12px] text-theme-red mt-[4px] ml-[16px]'>이름을 입력해 주세요.</span>
                             : ( nameChk === 'wrong-name'
-                                ? <span className='block text-[12px] text-theme-red mt-[4px] ml-[16px]'>조회된 이름이 없습니다.</span>
+                                ? <span className='block text-[12px] text-theme-red mt-[4px] ml-[16px]'>이름이 아이디와 일치하지 않습니다.</span>
                                 : <></>
                             )
                         }
@@ -148,7 +148,7 @@ const FindPw = ({params}: any) => {
                             idChk === 'empty'
                             ? <span className='block text-[12px] text-theme-red mt-[4px] ml-[16px]'>아이디를 입력해 주세요.</span>
                             : ( idChk === 'wrong-id'
-                                ? <span className='block text-[12px] text-theme-red mt-[4px] ml-[16px]'>아이디가 이름과 일치하지 않습니다.</span>
+                                ? <span className='block text-[12px] text-theme-red mt-[4px] ml-[16px]'>조회된 아이디가 없습니다.</span>
                                 : <></>
                             )
                         }
