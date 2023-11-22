@@ -4,7 +4,6 @@ import { useCookies } from 'react-cookie';
 import { debounce } from "lodash";
 
 // api
-import { CheckIfSessionExists } from "./api/user/checkifsessionexists";
 import { FetchUserInfo } from "./api/user/fetchuserinfo";
 import { FetchUserLike } from "./api/user/fetchuserlike";
 
