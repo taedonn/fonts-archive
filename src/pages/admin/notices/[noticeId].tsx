@@ -15,6 +15,9 @@ import axios from "axios";
 import Header from "@/components/header";
 import { Switch } from "@mui/material";
 
+// common
+import { dateFormat } from "@/libs/common";
+
 const NoticePage = ({params}: any) => {
     // 디바이스 체크
     const isMac: boolean = params.userAgent.includes("Mac OS") ? true : false;
@@ -33,12 +36,6 @@ const NoticePage = ({params}: any) => {
     const [contentAlert, setContentAlert] = useState<boolean>(false);
     const [noticeShow, setNoticeShow] = useState<boolean>(notice.notice_show_type);
     const [isLoading, setIsLoading] = useState<boolean>(false);
-
-    /** 날짜 포맷 */
-    const dateFormat = (date: string) => {
-        const splitDate = date.split('-');
-        return splitDate[0] + '-' + splitDate[1] + '-' + splitDate[2].split("T")[0];
-    }
 
     /** 보임/숨김 변경 */
     const handleToggleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

@@ -16,6 +16,9 @@ import { FetchUsersLength } from '@/pages/api/admin/user';
 import Header from "@/components/header";
 import { Pagination } from '@mui/material';
 
+// common
+import { timeFormat } from '@/libs/common';
+
 const UserList = ({params}: any) => {
     // 디바이스 체크
     const isMac: boolean = params.userAgent.includes("Mac OS") ? true : false;
@@ -73,18 +76,6 @@ const UserList = ({params}: any) => {
             })
             .catch(err => console.log(err));
         }
-    }
-
-    /** 댓글 시간 포맷 */
-    const commentsTimeFormat = (time: string) => {
-        const splitTime = time.split(':');
-        return splitTime[0] + ':' + splitTime[1];
-    }
-
-    /** 댓글 날짜 포맷 */
-    const commentsDateFormat = (date: string) => {
-        const splitDate = date.split('-');
-        return splitDate[0].replace("20", "") + '.' + splitDate[1] + '.' + commentsTimeFormat(splitDate[2].replace('T', ' ').replace('Z', ''));
     }
 
     return (
@@ -151,8 +142,8 @@ const UserList = ({params}: any) => {
                                                         <td className='h-[40px] tlg:h-[34px] pl-[16px] py-[10px]'>{user.user_no}</td>
                                                         <td className='pl-[16px] py-[10px] break-all'><a href={`/admin/user/${user.user_no}`} className='font-size text-theme-yellow dark:text-theme-blue-1 focus:underline hover:underline tlg:hover:no-underline'>{user.user_name}</a></td>
                                                         <td className='pl-[16px] py-[10px] break-all'><div className='font-size'>{user.user_id}</div></td>
-                                                        <td className='pl-[16px] py-[10px]'>{commentsDateFormat(user.updated_at)}</td>
-                                                        <td className='pl-[16px] py-[10px]'>{commentsDateFormat(user.created_at)}</td>
+                                                        <td className='pl-[16px] py-[10px]'>{timeFormat(user.updated_at)}</td>
+                                                        <td className='pl-[16px] py-[10px]'>{timeFormat(user.created_at)}</td>
                                                         <td className='py-[10px] break-keep text-center'>{user.nickname_reported}</td>
                                                         <td className='pl-[16px] py-[10px] break-keep'>
                                                             {

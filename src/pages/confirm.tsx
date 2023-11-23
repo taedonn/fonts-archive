@@ -7,6 +7,9 @@ import { CheckIfSessionExists } from "./api/user/checkifsessionexists";
 import { FetchUserInfo } from "./api/user/fetchuserinfo";
 import axios from "axios";
 
+// common
+import { dateFormat } from "@/libs/common";
+
 const Confirm = ({params}: any) => {
     const user = params.user;
 
@@ -35,12 +38,6 @@ const Confirm = ({params}: any) => {
         }
         updateEmailConfirmation();
     }, [user, setCookie]);
-
-    /** 날짜 포맷 */
-    const dateFormat = (date: string) => {
-        const splitDate = date.split('-');
-        return splitDate[0] + '-' + splitDate[1] + '-' + splitDate[2].split("T")[0];
-    }
     
     return (
         <>

@@ -1,19 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import prisma from '@/libs/client-prisma';
-
-interface User {
-    user_no: number,
-    user_name: string,
-    user_id: string,
-    user_pw: string,
-    user_session_id: string,
-    user_email_token: string,
-    user_email_confirm: boolean,
-    profile_img: string,
-    nickname_reported: number,
-    created_at: Date,
-    updated_at: Date,
-}
   
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method === 'GET') {
@@ -23,7 +9,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             const userSessionId = crypto.randomUUID();
 
             // 유저 정보 불러오기
-            const user: User | null = await prisma.fontsUser.findUnique({
+            const user = await prisma.fontsUser.findUnique({
                 where: { user_id: userId }
             });
 

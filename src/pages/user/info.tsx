@@ -17,6 +17,9 @@ import Header from "@/components/header";
 import ChangePwModal from '@/components/changepwmodal';
 import DeleteUserModal from '@/components/deleteusermodal';
 
+// common
+import { timeFormat } from '@/libs/common';
+
 const Info = ({params}: any) => {
     // 디바이스 체크
     const isMac: boolean = params.userAgent.includes("Mac OS") ? true : false;
@@ -292,18 +295,6 @@ const Info = ({params}: any) => {
         });
     }
 
-    /** 댓글 시간 포맷 */
-    const commentsTimeFormat = (time: string) => {
-        const splitTime = time.split(':');
-        return splitTime[0] + ':' + splitTime[1];
-    }
-
-    /** 댓글 날짜 포맷 */
-    const commentsDateFormat = (date: string) => {
-        const splitDate = date.split('-');
-        return splitDate[0].replace("20", "") + '.' + splitDate[1] + '.' + commentsTimeFormat(splitDate[2].replace('T', ' ').replace('Z', ''));
-    }
-
     return (
         <>
             {/* Head 부분*/}
@@ -335,7 +326,7 @@ const Info = ({params}: any) => {
             <form onSubmit={e => e.preventDefault()} className='w-[100%] flex flex-col justify-center items-center'>
                 <div className='w-[360px] flex flex-col justify-center items-start my-[100px] tlg:my-[40px]'>
                     <h2 className='text-[20px] tlg:text-[18px] text-theme-3 dark:text-theme-9 font-medium'>프로필 정보</h2>
-                    <div className='text-[12px] text-theme-5 dark:text-theme-6 mt-[4px] mb-[10px] tlg:mb-[8px]'>{commentsDateFormat(user.updated_at)}에 마지막으로 수정됨</div>
+                    <div className='text-[12px] text-theme-5 dark:text-theme-6 mt-[4px] mb-[10px] tlg:mb-[8px]'>{timeFormat(user.updated_at)}에 마지막으로 수정됨</div>
                     {
                         alertDisplay === true
                         ? alert === 'name'

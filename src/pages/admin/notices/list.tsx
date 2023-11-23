@@ -15,6 +15,9 @@ import { FetchNotices } from '@/pages/api/admin/notices';
 import Header from "@/components/header";
 import { Pagination } from '@mui/material';
 
+// common
+import { timeFormat } from '@/libs/common';
+
 const NoticeList = ({params}: any) => {
     // 디바이스 체크
     const isMac: boolean = params.userAgent.includes("Mac OS") ? true : false;
@@ -76,18 +79,6 @@ const NoticeList = ({params}: any) => {
             })
             .catch(err => console.log(err));
         }
-    }
-
-    /** 시간 포맷 */
-    const timeFormat = (time: string) => {
-        const splitTime = time.split(':');
-        return splitTime[0] + ':' + splitTime[1];
-    }
-
-    /** 날짜 포맷 */
-    const dateFormat = (date: string) => {
-        const splitDate = date.split('-');
-        return splitDate[0].replace("20", "") + '.' + splitDate[1] + '.' + timeFormat(splitDate[2].replace('T', ' ').replace('Z', ''));
     }
 
     return (
@@ -163,8 +154,8 @@ const NoticeList = ({params}: any) => {
                                                                 : <span>숨김</span>
                                                             }
                                                         </div>
-                                                        <div className='w-[120px] pl-[16px] py-[10px] shrink-0'>{dateFormat(notice.notice_created_at)}</div>
-                                                        <div className='w-[120px] pl-[16px] py-[10px] shrink-0'>{dateFormat(notice.notice_updated_at)}</div>
+                                                        <div className='w-[120px] pl-[16px] py-[10px] shrink-0'>{timeFormat(notice.notice_created_at)}</div>
+                                                        <div className='w-[120px] pl-[16px] py-[10px] shrink-0'>{timeFormat(notice.notice_updated_at)}</div>
                                                     </div>
                                                 )
                                             })

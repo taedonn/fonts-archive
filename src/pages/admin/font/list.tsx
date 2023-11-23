@@ -15,6 +15,9 @@ import { FetchFonts } from '@/pages/api/admin/font';
 import Header from "@/components/header";
 import { Pagination } from '@mui/material';
 
+// common
+import { timeFormat } from '@/libs/common';
+
 const FontsList = ({params}: any) => {
     // 디바이스 체크
     const isMac: boolean = params.userAgent.includes("Mac OS") ? true : false;
@@ -81,18 +84,6 @@ const FontsList = ({params}: any) => {
             })
             .catch(err => console.log(err));
         }
-    }
-
-    /** 시간 포맷 */
-    const timeFormat = (time: string) => {
-        const splitTime = time.split(':');
-        return splitTime[0] + ':' + splitTime[1];
-    }
-
-    /** 날짜 포맷 */
-    const dateFormat = (date: string) => {
-        const splitDate = date.split('-');
-        return splitDate[0].replace("20", "") + '.' + splitDate[1] + '.' + timeFormat(splitDate[2].replace('T', ' ').replace('Z', ''));
     }
 
     /** 조회수 단위 변경 : 1000 => 1K */
@@ -196,8 +187,8 @@ const FontsList = ({params}: any) => {
                                                         <div className='w-[60px] pl-[12px] shrink-0 break-keep'>{font.lang}</div>
                                                         <div className='w-[60px] pl-[12px] shrink-0 break-keep'>{formatType(font.font_type)}</div>
                                                         <div className='w-[60px] pl-[12px] shrink-0 break-keep text-theme-green'>{font.show_type ? "보임" : "숨김"}</div>
-                                                        <div className='w-[112px] pl-[12px] shrink-0 break-keep'>{dateFormat(font.created_at)}</div>
-                                                        <div className='w-[112px] pl-[12px] shrink-0 break-keep'>{dateFormat(font.updated_at)}</div>
+                                                        <div className='w-[112px] pl-[12px] shrink-0 break-keep'>{timeFormat(font.created_at)}</div>
+                                                        <div className='w-[112px] pl-[12px] shrink-0 break-keep'>{timeFormat(font.updated_at)}</div>
                                                     </div>
                                                 )
                                             })

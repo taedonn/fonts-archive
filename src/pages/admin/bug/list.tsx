@@ -15,6 +15,9 @@ import { FetchBugsLength } from '@/pages/api/admin/bug';
 import Header from "@/components/header";
 import { Pagination } from '@mui/material';
 
+// common
+import { timeFormat } from '@/libs/common';
+
 const BugList = ({params}: any) => {
     // 디바이스 체크
     const isMac: boolean = params.userAgent.includes("Mac OS") ? true : false;
@@ -72,23 +75,6 @@ const BugList = ({params}: any) => {
             })
             .catch(err => console.log(err));
         }
-    }
-
-    /** 댓글 시간 포맷 */
-    const commentsTimeFormat = (time: string) => {
-        const splitTime = time.split(':');
-        return splitTime[0] + ':' + splitTime[1];
-    }
-
-    /** 댓글 날짜 포맷 */
-    const commentsDateFormat = (date: string) => {
-        const splitDate = date.split('-');
-        return splitDate[0].replace("20", "") + '.' + splitDate[1] + '.' + commentsTimeFormat(splitDate[2].replace('T', ' ').replace('Z', ''));
-    }
-
-    /** 목록 클릭 시 해당 제보 페이지로 이동 */
-    const handleIssueClick = (e: React.MouseEvent<HTMLTableRowElement>) => {
-        location.href = `/admin/bug/${e.currentTarget.id}`;
     }
 
     return (
@@ -154,8 +140,8 @@ const BugList = ({params}: any) => {
                                                         <div className='w-[48px] pl-[16px] py-[10px] shrink-0'>{issue.issue_id}</div>
                                                         <div className='w-[120px] pl-[16px] py-[10px] shrink-0'><div className='font-size'>{issue.issue_title}</div></div>
                                                         <div className='w-[100%] pl-[16px] py-[10px]'><div className='font-size'>{issue.issue_email}</div></div>
-                                                        <div className='w-[112px] pl-[16px] py-[10px] shrink-0'>{commentsDateFormat(issue.issue_created_at)}</div>
-                                                        <div className='w-[112px] pl-[16px] py-[10px] shrink-0'>{commentsDateFormat(issue.issue_closed_at)}</div>
+                                                        <div className='w-[112px] pl-[16px] py-[10px] shrink-0'>{timeFormat(issue.issue_created_at)}</div>
+                                                        <div className='w-[112px] pl-[16px] py-[10px] shrink-0'>{timeFormat(issue.issue_closed_at)}</div>
                                                         <div className='w-[88px] pl-[16px] py-[10px] break-keep shrink-0'>
                                                             {
                                                                 issue.issue_closed

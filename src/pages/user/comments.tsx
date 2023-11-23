@@ -16,6 +16,9 @@ import Header from "@/components/header";
 import AdminDeleteCommentModal from '@/components/admindeletecommentmodal';
 import { Pagination } from '@mui/material';
 
+// common
+import { timeFormat } from '@/libs/common';
+
 const Comments = ({params}: any) => {
     // 디바이스 체크
     const isMac: boolean = params.userAgent.includes("Mac OS") ? true : false;
@@ -82,18 +85,6 @@ const Comments = ({params}: any) => {
             })
             .catch(err => console.log(err));
         }
-    }
-
-    /** 댓글 시간 포맷 */
-    const commentsTimeFormat = (time: string) => {
-        const splitTime = time.split(':');
-        return splitTime[0] + ':' + splitTime[1];
-    }
-
-    /** 댓글 날짜 포맷 */
-    const commentsDateFormat = (date: string) => {
-        const splitDate = date.split('-');
-        return splitDate[0].replace("20", "") + '.' + splitDate[1] + '.' + commentsTimeFormat(splitDate[2].replace('T', ' ').replace('Z', ''));
     }
 
     // 댓글 삭제
@@ -193,8 +184,8 @@ const Comments = ({params}: any) => {
                                                     <tr key={comment.comment_id} className='border-t border-theme-5 dark:border-theme-3'>
                                                         <td className='h-[40px] tlg:h-[34px] pl-[16px] py-[10px] break-keep'><a href={`/post/${comment.font_family.replaceAll(" ", "+")}`} className='font-size text-theme-yellow dark:text-theme-blue-1 focus:underline hover:underline tlg:hover:no-underline'>{comment.name}</a></td>
                                                         <td className='pl-[16px] py-[10px] break-keep'><a href={`/post/${comment.font_family.replaceAll(" ", "+")}#c${comment.comment_id}`} className='font-size focus:underline hover:underline tlg:hover:no-underline'>{comment.comment}</a></td>
-                                                        <td className='pl-[16px] py-[10px] break-keep'>{commentsDateFormat(comment.updated_at)}</td>
-                                                        <td className='pl-[16px] py-[10px] break-keep'>{commentsDateFormat(comment.created_at)}</td>
+                                                        <td className='pl-[16px] py-[10px] break-keep'>{timeFormat(comment.updated_at)}</td>
+                                                        <td className='pl-[16px] py-[10px] break-keep'>{timeFormat(comment.created_at)}</td>
                                                         <td className='py-[10px] break-keep text-center'>{comment.reported_politics + comment.reported_swearing + comment.reported_etc}</td>
                                                         <td className='py-[10px] relative'>
                                                             <div className='absolute w-[100%] h-[100%] left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] flex justify-center items-center'>

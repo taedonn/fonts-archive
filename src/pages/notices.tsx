@@ -14,16 +14,11 @@ import axios from 'axios';
 import Header from "@/components/header";
 import Tooltip from '@/components/tooltip';
 
+// common
+import { dateFormat } from '@/libs/common';
+
 // type
-interface Notice {
-    notice_id: number,
-    notice_type: string,
-    notice_title: string,
-    notice_content: string,
-    notice_show_type: boolean,
-    notice_created_at: string,
-    notice_updated_at: string,
-}
+import { notices } from '@/libs/global';
 
 const Notices = ({params}: any) => {
     // 디바이스 체크
@@ -39,19 +34,13 @@ const Notices = ({params}: any) => {
     const [all, setAll] = useState(params.notices);
 
     // 공지 - 서비스
-    const [services, setServices] = useState(params.notices.filter((notice: Notice) => notice.notice_type === "service"));
+    const [services, setServices] = useState(params.notices.filter((notice: notices) => notice.notice_type === "service"));
     
     // 공지 - 폰트
-    const [fonts, setFonts] = useState(params.notices.filter((notice: Notice) => notice.notice_type === "font"));
+    const [fonts, setFonts] = useState(params.notices.filter((notice: notices) => notice.notice_type === "font"));
 
     // 공지 타입 저장
     const [type, setType] = useState<string>("all");
-
-    /** 날짜 포맷 */
-    const dateFormat = (date: string) => {
-        const splitDate = date.split('-');
-        return splitDate[0] + '-' + splitDate[1] + '-' + splitDate[2].split("T")[0];
-    }
 
     /** 서비스 유형 선택 시 */
     const handleTypeOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -80,12 +69,12 @@ const Notices = ({params}: any) => {
             })
             .then(res => {
                 setAll(res.data.notices);
-                setServices(res.data.notices.filter((notice: Notice) => notice.notice_type === "service"));
-                setFonts(res.data.notices.filter((notice: Notice) => notice.notice_type === "font"));
+                setServices(res.data.notices.filter((notice: notices) => notice.notice_type === "service"));
+                setFonts(res.data.notices.filter((notice: notices) => notice.notice_type === "font"));
 
                 if (type === "all") { setNotices(res.data.notices); }
-                else if (type === "service") { setNotices(res.data.notices.filter((notice: Notice) => notice.notice_type === "service")); }
-                else { setNotices(res.data.notices.filter((notice: Notice) => notice.notice_type === "font")); }
+                else if (type === "service") { setNotices(res.data.notices.filter((notice: notices) => notice.notice_type === "service")); }
+                else { setNotices(res.data.notices.filter((notice: notices) => notice.notice_type === "font")); }
             })
             .catch(err => console.log(err));
         }
@@ -148,7 +137,7 @@ const Notices = ({params}: any) => {
                     </div>
                     {
                         notices && notices.length > 0
-                        ?  notices.map((notice: Notice) => {
+                        ?  notices.map((notice: notices) => {
                             return <div key={notice.notice_id.toString()} className='notice w-[100%] flex flex-col'>
                                 <input type='checkbox' id={`notice-${notice.notice_id}`} className='hidden peer/expand'/>
                                 <label htmlFor={`notice-${notice.notice_id}`} className='cursor-pointer hover:bg-theme-7/20 hover:dark:bg-theme-5/20'>

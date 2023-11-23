@@ -17,6 +17,9 @@ import Header from "@/components/header";
 import AdminDeleteCommentModal from '@/components/admindeletecommentmodal';
 import { Pagination } from '@mui/material';
 
+// common
+import { timeFormat } from '@/libs/common';
+
 const CommentList = ({params}: any) => {
     // 디바이스 체크
     const isMac: boolean = params.userAgent.includes("Mac OS") ? true : false;
@@ -82,18 +85,6 @@ const CommentList = ({params}: any) => {
             })
             .catch(err => console.log(err));
         }
-    }
-
-    /** 댓글 시간 포맷 */
-    const commentsTimeFormat = (time: string) => {
-        const splitTime = time.split(':');
-        return splitTime[0] + ':' + splitTime[1];
-    }
-
-    /** 댓글 날짜 포맷 */
-    const commentsDateFormat = (date: string) => {
-        const splitDate = date.split('-');
-        return splitDate[0].replace("20", "") + '.' + splitDate[1] + '.' + commentsTimeFormat(splitDate[2].replace('T', ' ').replace('Z', ''));
     }
 
     // 댓글 삭제
@@ -197,8 +188,8 @@ const CommentList = ({params}: any) => {
                                                         <td className='pl-[16px] py-[10px] break-keep'><a href={`/post/${comment.font_family.replaceAll(" ", "+")}`} className='font-size text-theme-yellow dark:text-theme-blue-1 focus:underline hover:underline tlg:hover:no-underline'>{comment.name}</a></td>
                                                         <td className='pl-[16px] py-[10px] break-keep'><a href={`/admin/user/${comment.user_no}`} className='font-size focus:underline hover:underline tlg:hover:no-underline'>{comment.user_name}</a></td>
                                                         <td className='pl-[16px] py-[10px] break-keep'><a href={`/post/${comment.font_family.replaceAll(" ", "+")}#c${comment.comment_id}`} className='font-size focus:underline hover:underline tlg:hover:no-underline'>{comment.comment}</a></td>
-                                                        <td className='pl-[16px] py-[10px]'>{commentsDateFormat(comment.updated_at)}</td>
-                                                        <td className='pl-[16px] py-[10px]'>{commentsDateFormat(comment.created_at)}</td>
+                                                        <td className='pl-[16px] py-[10px]'>{timeFormat(comment.updated_at)}</td>
+                                                        <td className='pl-[16px] py-[10px]'>{timeFormat(comment.created_at)}</td>
                                                         <td className='py-[10px] relative'>
                                                             <div className='absolute w-[100%] h-[100%] left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] flex justify-center items-center'>
                                                                 <button onClick={deleteCommentModalOpen} data-font={comment.font_id} data-comment={comment.comment_id} className='group w-[20px] h-[20px] flex justify-center items-center'>

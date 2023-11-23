@@ -26,26 +26,6 @@ import Tooltip from "@/components/tooltip";
 import DummyText from "@/components/dummytext";
 import Comments from "@/components/comments";
 
-interface IColor {
-    hex: string
-    rgb: IColorRgb
-    hsv: IColorHsv
-}
-
-interface IColorRgb {
-    r: number
-    g: number
-    b: number
-    a: number
-}
-
-interface IColorHsv {
-    h: number
-    s: number
-    v: number 
-    a: number
-}
-
 function DetailPage({params}: any) {
     // 디바이스 체크
     const isMac: boolean = params.userAgent.includes("Mac OS") ? true : false;

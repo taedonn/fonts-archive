@@ -1,19 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import prisma from '@/libs/client-prisma';
-
-type fonts = {
-    code: number
-    name: string
-    source: string
-    font_family: string
-}
   
-interface data {
-    fonts: fonts[],
-    id: number
-}
-  
-export default async function handler(req: NextApiRequest, res: NextApiResponse<data>) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method === 'GET') {
         if (req.query.action === "user") {
             const thisQuery = req.query;

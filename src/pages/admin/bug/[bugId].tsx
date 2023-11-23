@@ -15,6 +15,9 @@ import axios from "axios";
 import Header from "@/components/header";
 import { Switch } from "@mui/material";
 
+// common
+import { timeFormat } from "@/libs/common";
+
 const BugPage = ({params}: any) => {
     // 디바이스 체크
     const isMac: boolean = params.userAgent.includes("Mac OS") ? true : false;
@@ -34,18 +37,6 @@ const BugPage = ({params}: any) => {
     const [focusedImg, setFocusedImg] = useState<string>("");
     const [issueClosed, setIssueClosed] = useState<boolean>(issue.issue_closed);
     const [isLoading, setIsLoading] = useState<boolean>(false);
-
-    /** 댓글 시간 포맷 */
-    const commentsTimeFormat = (time: string) => {
-        const splitTime = time.split(':');
-        return splitTime[0] + ':' + splitTime[1];
-    }
-
-    /** 댓글 날짜 포맷 */
-    const commentsDateFormat = (date: string) => {
-        const splitDate = date.split('-');
-        return splitDate[0].replace("20", "") + '.' + splitDate[1] + '.' + commentsTimeFormat(splitDate[2].replace('T', ' ').replace('Z', ''));
-    }
 
     /** 이미지 영역 확대 */
     const handleOnImgFocus = (e: React.MouseEvent<HTMLImageElement>) => {
@@ -204,7 +195,7 @@ const BugPage = ({params}: any) => {
                     {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
                     <a href="/admin/bug/list" className="absolute left-0 top-[-80px] tlg:top-[-28px] text-[12px] text-theme-5 hover:text-theme-3 tlg:hover:text-theme-5 dark:text-theme-7 hover:dark:text-theme-9 tlg:hover:dark:text-theme-7 block border-b border-transparent hover:border-theme-3 tlg:border-theme-5 tlg:hover:border-theme-5 hover:dark:border-theme-9 tlg:dark:border-theme-7 tlg:hover:dark:border-theme-7"><div className="inline-block mr-[4px]">&#60;</div> 목록으로 돌아가기</a>
                     <h2 className='text-[20px] tlg:text-[18px] text-theme-3 dark:text-theme-9 font-medium'>버그 티켓</h2>
-                    <div className='text-[12px] text-theme-5 dark:text-theme-6 mt-[4px] mb-[10px] tlg:mb-[8px]'>{commentsDateFormat(issue.issue_created_at) === commentsDateFormat(issue.issue_closed_at) ? commentsDateFormat(issue.issue_created_at) + "에 생성됨" : commentsDateFormat(issue.issue_closed_at) + "에 수정됨"}</div>
+                    <div className='text-[12px] text-theme-5 dark:text-theme-6 mt-[4px] mb-[10px] tlg:mb-[8px]'>{timeFormat(issue.issue_created_at) === timeFormat(issue.issue_closed_at) ? timeFormat(issue.issue_created_at) + "에 생성됨" : timeFormat(issue.issue_closed_at) + "에 수정됨"}</div>
                     <div id="reply-success" className="w-[100%]">
                         {
                             replySuccess === "success"
