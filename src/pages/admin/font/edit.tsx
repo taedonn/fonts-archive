@@ -10,6 +10,7 @@ import { NextSeo } from "next-seo";
 // api
 import { CheckIfSessionExists } from "@/pages/api/user/checkifsessionexists";
 import { FetchUserInfo } from "@/pages/api/user/fetchuserinfo";
+import { FetchFont } from "@/pages/api/admin/font";
 
 // components
 import Header from "@/components/header";
@@ -21,6 +22,9 @@ const Edit = ({params}: any) => {
 
     // 빈 함수
     const emptyFn = () => { return; }
+
+    // 파라미터에서 폰트 조회
+    const defaultFont = params.font;
 
     // 검색 키워드 디폴트: 빈 문자열
     const [keyword, setKeyword] = useState<string>("");
@@ -67,10 +71,10 @@ const Edit = ({params}: any) => {
         return () => document.removeEventListener("mouseup", handleAccountOutside);
     },[refSearchBar, refSearchResult]);
 
-    /** 검색결과 클릭 */
-    const onFontClick = async (e: any) => {
-        if (e.target.id) {
-            await axios.get(`/api/post/${e.target.id}`)
+    /** 검색 결과 클릭 */
+    const onFontClick = async (id: number) => {
+        if (id) {
+            await axios.get(`/api/post/${id}`)
             .then(res => {
                 const font = res.data.fonts;
                 const fontCode = document.getElementById("font-code") as HTMLInputElement;
@@ -108,7 +112,7 @@ const Edit = ({params}: any) => {
                 fontCdnUrl.value = font.cdn_url;
                 fontLicense.value = font.license_print + font.license_web + font.license_video + font.license_package + font.license_embed + font.license_bici + font.license_ofl + font.license_purpose + font.license_source;
                 fontLicenseText.value = font.license;
-                setFontShow(font.show_type);
+                setShowType(font.show_type);
             })
             .then(() => {
                 setFocus(false);
@@ -147,8 +151,8 @@ const Edit = ({params}: any) => {
     }
 
     // 폰트 보임/숨김 change
-    const [fontShow, setFontShow] = useState<boolean>(false);
-    const handleToggleChange = (e: React.ChangeEvent<HTMLInputElement>) => { setFontShow(e.target.checked); }
+    const [showType, setShowType] = useState(defaultFont !== null ? defaultFont.show_type : false);
+    const handleToggleChange = (e: React.ChangeEvent<HTMLInputElement>) => { setShowType(e.target.checked); }
 
     // 수정하기 state
     const [editBtnLoading, setEditBtnLoading] = useState<boolean>(false);
@@ -261,7 +265,7 @@ const Edit = ({params}: any) => {
                 cdn_url: fontCdnUrl.value,
                 license: fontLicense.value,
                 license_text: fontLicenseText.value,
-                show_type: fontShow
+                show_type: showType
             })
             .then(res => {
                 console.log(res.data.msg);
@@ -369,7 +373,7 @@ const Edit = ({params}: any) => {
                                         ? data.fonts.map((font: any) => {
                                             return (
                                                 <div key={font.code} className="group relative w-[100%] h-[36px] px-[12px] flex items-center bg-transparent hover:bg-theme-yellow hover:dark:bg-theme-blue-1 text-[12px] cursor-pointer">
-                                                    <div onClick={onFontClick} id={font.code} className="w-[100%] h-[100%] absolute z-10 left-0 top-0"></div>
+                                                    <div onClick={() => onFontClick(font.code)} id={font.code} className="w-[100%] h-[100%] absolute z-10 left-0 top-0"></div>
                                                     <div className="text-theme-7 group-hover:text-theme-4 group-hover:dark:text-theme-blue-2">{font.code}</div>
                                                     <div className="text-theme-9 group-hover:text-theme-2 group-hover:dark:text-theme-blue-2 font-bold shrink-0 ml-[12px]">{font.name}</div>
                                                     <div className="ellipsed-text-1 text-theme-7 group-hover:text-theme-4 group-hover:dark:text-theme-blue-2 ml-[12px] text-ellipsis overflow-hidden">{font.source}</div>
@@ -386,19 +390,19 @@ const Edit = ({params}: any) => {
                         <div className="w-[100%] h-px my-[16px] bg-theme-8/80 dark:bg-theme-7/80"></div>
                         <div className="text-[14px] flex flex-col">
                             <label htmlFor="font-code">폰트 번호</label>
-                            <input type="text" disabled id="font-code" placeholder="폰트 번호" className='w-[100%] border-theme-6 dark:border-theme-4 text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 autofill:bg-theme-4 dark:bg-theme-2 autofill:dark:bg-theme-blue-2'/>
+                            <input type="text" defaultValue={defaultFont !== null ? defaultFont.code : ""} disabled id="font-code" placeholder="폰트 번호" className='w-[100%] border-theme-6 dark:border-theme-4 text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 autofill:bg-theme-4 dark:bg-theme-2 autofill:dark:bg-theme-blue-2'/>
                             <div className="block mt-[20px] text-[14px]">폰트 보임/숨김</div>
                             <div className="w-content h-[34px] rounded-[8px] mt-[8px] px-[14px] flex items-center text-[12px] bg-theme-4 dark:bg-theme-blue-2">
                             <div className={`mr-[4px]`}>숨김</div>
                             <Switch
-                                checked={fontShow}
+                                checked={showType}
                                 onChange={handleToggleChange}
                                 size="small"
                             />
-                            <div className={`${fontShow ? "text-theme-green" : ""} ml-[6px]`}>보임</div>
+                            <div className={`${showType ? "text-theme-green" : ""} ml-[6px]`}>보임</div>
                         </div>
                             <label htmlFor="font-name" className="mt-[20px]">폰트 이름</label>
-                            <input onChange={handleFontNameChange} tabIndex={2} type="text" id="font-name" placeholder="나눔 스퀘어" className={`w-[100%] ${fontNameAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
+                            <input onChange={handleFontNameChange} defaultValue={defaultFont !== null ? defaultFont.name : ""} tabIndex={2} type="text" id="font-name" placeholder="나눔 스퀘어" className={`w-[100%] ${fontNameAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
                             {
                                 fontNameAlert
                                 ? <div className="text-[10px] ml-[16px] mt-[6px] text-theme-red">폰트명을 올바르게 입력해 주세요.</div>
@@ -408,21 +412,21 @@ const Edit = ({params}: any) => {
                                 <div className="inline-block mr-[6px]">폰트 언어</div>
                                 <div className="inline-block leading-loose text-[12px] text-theme-yellow dark:text-theme-blue-1 cursor-text">[KR, EN]</div>
                             </label>
-                            <input onChange={handleFontLangChange} tabIndex={3} type="text" id="font-lang" placeholder="KR" maxLength={2} className={`w-[100%] ${fontLangAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
+                            <input onChange={handleFontLangChange} defaultValue={defaultFont !== null ? defaultFont.lang : ""} tabIndex={3} type="text" id="font-lang" placeholder="KR" maxLength={2} className={`w-[100%] ${fontLangAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
                             {
                                 fontLangAlert
                                 ? <div className="text-[10px] ml-[16px] mt-[6px] text-theme-red">폰트 언어를 올바르게 입력해 주세요.</div>
                                 : <></>
                             }
                             <label htmlFor="font-date" className="mt-[20px]">폰트 생성 날짜</label>
-                            <input onChange={handleFontDateChange} tabIndex={4} type="text" id="font-date" placeholder="99.01.01" className={`w-[100%] ${fontDateAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
+                            <input onChange={handleFontDateChange} defaultValue={defaultFont !== null ? defaultFont.date : ""} tabIndex={4} type="text" id="font-date" placeholder="99.01.01" className={`w-[100%] ${fontDateAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
                             {
                                 fontDateAlert
                                 ? <div className="text-[10px] ml-[16px] mt-[6px] text-theme-red">폰트 생성 날짜를 올바르게 입력해 주세요.</div>
                                 : <></>
                             }
                             <label htmlFor="font-family" className="mt-[20px]">폰트체</label>
-                            <input onChange={handleFontFamilyChange} tabIndex={5} type="text" id="font-family" placeholder="Nanum Square" className={`w-[100%] ${fontFamilyAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
+                            <input onChange={handleFontFamilyChange} defaultValue={defaultFont !== null ? defaultFont.font_family : ""} tabIndex={5} type="text" id="font-family" placeholder="Nanum Square" className={`w-[100%] ${fontFamilyAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
                             {
                                 fontFamilyAlert
                                 ? <div className="text-[10px] ml-[16px] mt-[6px] text-theme-red">폰트체를 올바르게 입력해 주세요.</div>
@@ -432,28 +436,28 @@ const Edit = ({params}: any) => {
                                 <div className="inline-block mr-[6px]">폰트 형태</div>
                                 <div className="inline-block leading-loose text-[12px] text-theme-yellow dark:text-theme-blue-1 cursor-text">[Sans Serif, Serif, Hand Writing, Display, Pixel]</div>
                             </label>
-                            <input onChange={handleFontTypeChange} tabIndex={6} type="text" id="font-type" placeholder="Sans Serif" className={`w-[100%] ${fontTypeAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
+                            <input onChange={handleFontTypeChange} defaultValue={defaultFont !== null ? defaultFont.font_type : ""} tabIndex={6} type="text" id="font-type" placeholder="Sans Serif" className={`w-[100%] ${fontTypeAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
                             {
                                 fontTypeAlert
                                 ? <div className="text-[10px] ml-[16px] mt-[6px] text-theme-red">폰트 형태를 올바르게 입력해 주세요.</div>
                                 : <></>
                             }
                             <label htmlFor="font-weight" className="mt-[20px]">폰트 두께</label>
-                            <input onChange={handleFontWeightChange} tabIndex={7} type="text" id="font-weight" placeholder="NNNYNNNNN" className={`w-[100%] ${fontWeightAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
+                            <input onChange={handleFontWeightChange} defaultValue={defaultFont !== null ? defaultFont.font_weight : ""} tabIndex={7} type="text" id="font-weight" placeholder="NNNYNNNNN" className={`w-[100%] ${fontWeightAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
                             {
                                 fontWeightAlert
                                 ? <div className="text-[10px] ml-[16px] mt-[6px] text-theme-red">폰트 두께를 올바르게 입력해 주세요.</div>
                                 : <></>
                             }
                             <label htmlFor="font-source" className="mt-[20px]">폰트 출처</label>
-                            <input onChange={handleFontSourceChange} tabIndex={8} type="text" id="font-source" placeholder="네이버" className={`w-[100%] ${fontSourceAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
+                            <input onChange={handleFontSourceChange} defaultValue={defaultFont !== null ? defaultFont.source : ""} tabIndex={8} type="text" id="font-source" placeholder="네이버" className={`w-[100%] ${fontSourceAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
                             {
                                 fontSourceAlert
                                 ? <div className="text-[10px] ml-[16px] mt-[6px] text-theme-red">폰트 출처를 올바르게 입력해 주세요.</div>
                                 : <></>
                             }
                             <label htmlFor="font-source-link" className="mt-[20px]">폰트 출처 링크</label>
-                            <input onChange={handleFontSourceLinkChange} tabIndex={9} type="text" id="font-source-link" placeholder="https://hangeul.naver.com/font" className={`w-[100%] ${fontSourceLinkAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
+                            <input onChange={handleFontSourceLinkChange} defaultValue={defaultFont !== null ? defaultFont.source_link : ""} tabIndex={9} type="text" id="font-source-link" placeholder="https://hangeul.naver.com/font" className={`w-[100%] ${fontSourceLinkAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
                             {
                                 fontSourceLinkAlert
                                 ? <div className="text-[10px] ml-[16px] mt-[6px] text-theme-red">폰트 출처 링크를 올바르게 입력해 주세요.</div>
@@ -466,7 +470,7 @@ const Edit = ({params}: any) => {
                                     <svg className="copy_btn hidden w-[18px] ml-[2px] fill-theme-yellow dark:fill-theme-blue-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/></svg>
                                 </button>
                             </label>
-                            <input onChange={handleFontDownloadLinkChange} tabIndex={10} type="text" id="font-download-link" placeholder="https://github.com/fonts-archive/NanumSquare/archive/refs/heads/main.zip" className={`w-[100%] ${fontDownloadLinkAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
+                            <input onChange={handleFontDownloadLinkChange} defaultValue={defaultFont !== null ? defaultFont.github_link : ""} tabIndex={10} type="text" id="font-download-link" placeholder="https://github.com/fonts-archive/NanumSquare/archive/refs/heads/main.zip" className={`w-[100%] ${fontDownloadLinkAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
                             {
                                 fontDownloadLinkAlert
                                 ? <div className="text-[10px] ml-[16px] mt-[6px] text-theme-red">폰트 다운로드 링크를 올바르게 입력해 주세요.</div>
@@ -479,7 +483,7 @@ const Edit = ({params}: any) => {
                                     <svg className="copy_btn hidden w-[18px] ml-[2px] fill-theme-yellow dark:fill-theme-blue-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/></svg>
                                 </button>
                             </label>
-                            <input onChange={handleFontCdnCssChange} tabIndex={11} type="text" id="font-cdn-css" placeholder="font-family: 'Nanum Square';" className={`w-[100%] ${fontCdnCssAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
+                            <input onChange={handleFontCdnCssChange} defaultValue={defaultFont !== null ? defaultFont.cdn_css : ""} tabIndex={11} type="text" id="font-cdn-css" placeholder="font-family: 'Nanum Square';" className={`w-[100%] ${fontCdnCssAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
                             {
                                 fontCdnCssAlert
                                 ? <div className="text-[10px] ml-[16px] mt-[6px] text-theme-red">폰트 CSS 설정을 올바르게 입력해 주세요.</div>
@@ -492,7 +496,7 @@ const Edit = ({params}: any) => {
                                     <svg className="copy_btn hidden w-[18px] ml-[2px] fill-theme-yellow dark:fill-theme-blue-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/></svg>
                                 </button>
                             </label>
-                            <input onChange={handleFontCdnLinkChange} tabIndex={12} type="text" id="font-cdn-link" placeholder='<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fonts-archive/NanumSquare/NanumSquare.css" type="text/css"/>' className={`w-[100%] ${fontCdnLinkAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
+                            <input onChange={handleFontCdnLinkChange} defaultValue={defaultFont !== null ? defaultFont.cdn_link : ""} tabIndex={12} type="text" id="font-cdn-link" placeholder='<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fonts-archive/NanumSquare/NanumSquare.css" type="text/css"/>' className={`w-[100%] ${fontCdnLinkAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
                             {
                                 fontCdnLinkAlert
                                 ? <div className="text-[10px] ml-[16px] mt-[6px] text-theme-red">폰트 Link 설정을 올바르게 입력해 주세요.</div>
@@ -505,7 +509,7 @@ const Edit = ({params}: any) => {
                                     <svg className="copy_btn hidden w-[18px] ml-[2px] fill-theme-yellow dark:fill-theme-blue-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/></svg>
                                 </button>
                             </label>
-                            <input onChange={handleFontCdnImportChange} tabIndex={13} type="text" id="font-cdn-import" placeholder="@import url('https://cdn.jsdelivr.net/gh/fonts-archive/NanumSquare/NanumSquare.css');" className={`w-[100%] ${fontCdnImportAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
+                            <input onChange={handleFontCdnImportChange} defaultValue={defaultFont !== null ? defaultFont.cdn_import : ""} tabIndex={13} type="text" id="font-cdn-import" placeholder="@import url('https://cdn.jsdelivr.net/gh/fonts-archive/NanumSquare/NanumSquare.css');" className={`w-[100%] ${fontCdnImportAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
                             {
                                 fontCdnImportAlert
                                 ? <div className="text-[10px] ml-[16px] mt-[6px] text-theme-red">폰트 Import 설정을 올바르게 입력해 주세요.</div>
@@ -536,6 +540,7 @@ const Edit = ({params}: any) => {
                                 onChange={handleFontCdnFontFaceChange}
                                 id="font-cdn-font-face" 
                                 tabIndex={14}
+                                defaultValue={defaultFont !== null ? defaultFont.cdn_font_face : ""}
                                 placeholder={
 `@font-face {
     font-family: 'Nanum Square';
@@ -561,14 +566,14 @@ const Edit = ({params}: any) => {
                                     <svg className="copy_btn hidden w-[18px] ml-[2px] fill-theme-yellow dark:fill-theme-blue-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/></svg>
                                 </button>
                             </label>
-                            <input onChange={handleFontCdnUrlChange} tabIndex={15} type="text" id="font-cdn-url" placeholder="https://cdn.jsdelivr.net/gh/fonts-archive/NanumSquare/NanumSquare.css" className={`w-[100%] ${fontCdnUrlAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
+                            <input onChange={handleFontCdnUrlChange} defaultValue={defaultFont !== null ? defaultFont.cdn_url : ""} tabIndex={15} type="text" id="font-cdn-url" placeholder="https://cdn.jsdelivr.net/gh/fonts-archive/NanumSquare/NanumSquare.css" className={`w-[100%] ${fontCdnUrlAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
                             {
                                 fontCdnUrlAlert
                                 ? <div className="text-[10px] ml-[16px] mt-[6px] text-theme-red">CDN 주소를 올바르게 입력해 주세요.</div>
                                 : <></>
                             }
                             <label htmlFor="font-license" className="mt-[20px]">라이센스 사용 범위</label>
-                            <input onChange={handleFontLicenseChange} tabIndex={16} type="text" id="font-license" placeholder="HHHHHHNNN" className={`w-[100%] ${fontLicenseAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
+                            <input onChange={handleFontLicenseChange} defaultValue={defaultFont !== null ? defaultFont.license_print + defaultFont.license_web + defaultFont.license_video + defaultFont.license_package + defaultFont.license_embed + defaultFont.license_bici + defaultFont.license_ofl + defaultFont.license_purpose + defaultFont.license_source : ""} tabIndex={16} type="text" id="font-license" placeholder="HHHHHHNNN" className={`w-[100%] ${fontLicenseAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
                             {
                                 fontLicenseAlert
                                 ? <div className="text-[10px] ml-[16px] mt-[6px] text-theme-red">폰트 라이센스 사용 범위를 올바르게 입력해 주세요.</div>
@@ -579,6 +584,7 @@ const Edit = ({params}: any) => {
                                 onChange={handleFontLicenseTextChange}
                                 id="font-license-text" 
                                 tabIndex={17}
+                                defaultValue={defaultFont !== null ? defaultFont.license : ""}
                                 placeholder={
 `네이버에서 제작한 나눔 글꼴과 마루 부리 글꼴, 클로바 나눔손글씨(이하 네이버 글꼴)의 지적 재산권은 네이버와 네이버 문화재단에 있습니다.
 네이버 글꼴은 개인 및 기업 사용자를 포함한 모든 사용자에게 무료로 제공되며 글꼴 자체를 유료로 판매하는 것을 제외한 상업적인 사용이 가능합니다.
@@ -623,6 +629,9 @@ export async function getServerSideProps(ctx: any) {
                 ? await FetchUserInfo(session)
                 : null;
 
+        // 쿼리가 있으면 폰트 불러오기
+        const font = await FetchFont(Number(ctx.query.code));
+
         // 쿠키에 저장된 세션ID가 유효하지 않다면, 메인페이지로 이동, 유효하면 클리이언트로 유저 정보 return
         if (user === null || user.user_no !== 1) {
             return {
@@ -638,6 +647,7 @@ export async function getServerSideProps(ctx: any) {
                         theme: cookieTheme,
                         userAgent: userAgent,
                         user: JSON.parse(JSON.stringify(user)),
+                        font: JSON.parse(JSON.stringify(font)),
                     }
                 }
             }

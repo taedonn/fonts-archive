@@ -627,6 +627,12 @@ html.dark #__next .MuiPagination-ul .Mui-selected {
     color: #E9EAEE;
     background-color: #35363A;
 }
+#__next .MuiPaginationItem-root {
+    color: #646568;
+}
+html.dark #__next .MuiPaginationItem-root {
+    color: #E9EAEE;
+}
 
 /* 토글 */
 #__next .MuiTouchRipple-root { display: none; }

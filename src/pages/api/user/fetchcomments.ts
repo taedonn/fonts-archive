@@ -84,7 +84,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             : [];
 
             // 폰트 이름 배열에 저장
-            let textArr: any = [];
+            let textArr = [];
             if (req.query.filter === 'font') { // 필터링: 폰트 선택 시
                 if (textWithFonts.length > 0) { for (let i = 0; i < textWithFonts.length; i++) { textArr.push({font_id: textWithFonts[i].code}); } }
             } else if (req.query.filter === 'comment') {
