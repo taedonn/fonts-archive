@@ -131,53 +131,49 @@ const NoticeList = ({params}: any) => {
                         <button onClick={handleClick} className='w-[68px] h-[32px] tlg:h-[28px] ml-[8px] text-[12px] border rounded-[6px] bg-theme-6/40 hover:bg-theme-6/60 tlg:hover:bg-theme-6/40 dark:bg-theme-4 hover:dark:bg-theme-5 tlg:hover:dark:bg-theme-4'>검색</button>
                     </div>
                     <div className='w-[100%] rounded-[8px] overflow-hidden overflow-x-auto'>
-                        <table className='w-[720px] text-[12px] text-theme-10 dark:text-theme-9 bg-theme-4 dark:bg-theme-4'>
-                            <thead className='text-left bg-theme-5 dark:bg-theme-3'>
-                                <tr>
-                                    <th className='h-[40px] tlg:h-[34px] w-[40px] pl-[16px]'>번호</th>
-                                    <th className='w-[60px] pl-[16px]'>유형</th>
-                                    <th className='w-[120px] pl-[16px]'>제목</th>
-                                    <th className='pl-[16px]'>내용</th>
-                                    <th className='w-[80px] pl-[16px]'>숨김 여부</th>
-                                    <th className='w-[116px] pl-[16px]'>생성 날짜</th>
-                                    <th className='w-[116px] pl-[16px]'>수정 날짜</th>
-                                </tr>
-                            </thead>
-                            <tbody>
+                        <div className='w-[720px] text-[12px] text-theme-10 dark:text-theme-9 bg-theme-4 dark:bg-theme-4'>
+                            <div className='text-left bg-theme-5 dark:bg-theme-3'>
+                                <div className='h-[40px] tlg:h-[34px] flex items-center'>
+                                    <div className='w-[48px] pl-[16px] shrink-0'>번호</div>
+                                    <div className='w-[60px] pl-[16px] shrink-0'>유형</div>
+                                    <div className='w-[120px] pl-[16px] shrink-0'>제목</div>
+                                    <div className='w-[100%] pl-[16px]'>내용</div>
+                                    <div className='w-[80px] pl-[16px] shrink-0'>숨김 여부</div>
+                                    <div className='w-[120px] pl-[16px] shrink-0'>생성 날짜</div>
+                                    <div className='w-[120px] pl-[16px] shrink-0'>수정 날짜</div>
+                                </div>
+                            </div>
+                            <div>
                                 {
                                     list && list.length > 0
                                     ? <>
                                         {
                                             list.map((notice: any) => {
                                                 return (
-                                                    <tr key={notice.notice_id} className='relative border-t border-theme-5 dark:border-theme-3 hover:bg-theme-yellow/20 tlg:hover:bg-transparent hover:dark:bg-theme-blue-1/20 tlg:hover:dark:bg-transparent cursor-pointer'>
-                                                        <td className='h-[40px] tlg:h-[34px] pl-[16px] py-[10px] text-center'>
-                                                            {notice.notice_id}
-                                                            <a href={`/admin/notices/${notice.notice_id}`} className='w-[100%] h-[100%] absolute z-10 left-0 top-0'></a>
-                                                        </td>
-                                                        <td className='pl-[16px] py-[10px]'>{notice.notice_type === "service" ? "서비스" : "폰트"}</td>
-                                                        <td className='pl-[16px] py-[10px]'><div className='font-size'>{notice.notice_title}</div></td>
-                                                        <td className='pl-[16px] py-[10px]'><div className='font-size'>{notice.notice_content}</div></td>
-                                                        <td className='py-[10px] text-center text-theme-green'>
+                                                    <div key={notice.notice_id} className='h-[40px] tlg:h-[34px] relative flex items-center border-t border-theme-5 dark:border-theme-3 hover:bg-theme-yellow/20 tlg:hover:bg-transparent hover:dark:bg-theme-blue-1/20 tlg:hover:dark:bg-transparent cursor-pointer'>
+                                                        <a href={`/admin/notices/${notice.notice_id}`} className='w-[100%] h-[100%] absolute z-10 left-0 top-0'></a>
+                                                        <div className='w-[48px] pl-[16px] py-[10px] shrink-0'>{notice.notice_id}</div>
+                                                        <div className='w-[60px] pl-[16px] py-[10px] shrink-0'>{notice.notice_type === "service" ? "서비스" : "폰트"}</div>
+                                                        <div className='w-[120px] pl-[16px] py-[10px] shrink-0'><div className='font-size'>{notice.notice_title}</div></div>
+                                                        <div className='w-[100%] pl-[16px] py-[10px]'><div className='font-size'>{notice.notice_content}</div></div>
+                                                        <div className='w-[80px] py-[10px] shrink-0 text-center text-theme-green'>
                                                             {
                                                                 notice.notice_show_type
                                                                 ? <span>보임</span> 
                                                                 : <span>숨김</span>
                                                             }
-                                                        </td>
-                                                        <td className='pl-[16px] py-[10px]'>{dateFormat(notice.notice_created_at)}</td>
-                                                        <td className='pl-[16px] py-[10px]'>{dateFormat(notice.notice_updated_at)}</td>
-                                                    </tr>
+                                                        </div>
+                                                        <div className='w-[120px] pl-[16px] py-[10px] shrink-0'>{dateFormat(notice.notice_created_at)}</div>
+                                                        <div className='w-[120px] pl-[16px] py-[10px] shrink-0'>{dateFormat(notice.notice_updated_at)}</div>
+                                                    </div>
                                                 )
                                             })
                                         }
                                     </>
-                                    : <tr className='h-[60px]'>
-                                        <td colSpan={7} className='text-center'>공지가 없습니다.</td>
-                                    </tr>
+                                    : <div className='h-[60px] flex justify-center items-center'>공지가 없습니다.</div>
                                 }
-                            </tbody>
-                        </table>
+                            </div>
+                        </div>
                     </div>
                     <div className='w-[100%] flex justify-center mt-[12px]'>
                         <Pagination count={count} page={page} onChange={handleChange} shape='rounded' showFirstButton showLastButton/>

@@ -23,6 +23,8 @@ const Comments = ({params}: any) => {
     // 빈 함수
     const emptyFn = () => { return; }
 
+    const user = params.user;
+
     // 댓글 목록 state
     const [comments, setComments] = useState(params.comments);
     const [count, setCount] = useState<number>(params.count);
@@ -35,26 +37,27 @@ const Comments = ({params}: any) => {
 
     // 댓글 목록 페이지 변경
     const [page, setPage] = useState<number>(1);
-    const handleChange = (e: React.ChangeEvent<unknown>, value: number) => {
-        setPage(value);
-    };
+    const handleChange = (e: React.ChangeEvent<unknown>, value: number) => { setPage(value); };
 
     // 페이지 변경 시 데이터 다시 불러오기
     useEffect(() => {
         const fetchNewComments = async () => {
             await axios.get('/api/user/fetchcomments', {
                 params: {
-                    user_id: params.user.user_no,
+                    user_id: user.user_no,
                     page: page,
                     filter: filter,
                     text: text
                 }
             })
-            .then((res) => { setComments(res.data.comments); })
+            .then((res) => {
+                setComments(res.data.comments);
+                setCount(res.data.count);
+            })
             .catch(err => console.log(err));
         }
         fetchNewComments();
-    }, [filter, page, params.user.user_no, text]);
+    }, [filter, page, user.user_no, text]);
 
     // 댓글 필터 버튼 클릭 시 값 state에 저장 후, API 호출
     const handleClick = async () => {
@@ -67,7 +70,7 @@ const Comments = ({params}: any) => {
             // API 호출
             await axios.get('/api/user/fetchcomments', {
                 params: {
-                    user_id: params.user.user_no,
+                    user_id: user.user_no,
                     page: 1,
                     filter: selectRef.current.value,
                     text: textRef.current.value
@@ -127,7 +130,7 @@ const Comments = ({params}: any) => {
             <Header
                 isMac={isMac}
                 theme={params.theme}
-                user={params.user}
+                user={user}
                 page={""}
                 license={""}
                 lang={""}
@@ -148,7 +151,7 @@ const Comments = ({params}: any) => {
                 close={deleteCommentModalClose}
                 font_id={fontId}
                 comment_id={commentId}
-                user_id={params.user.user_no}
+                user_id={user.user_no}
                 update={updateComments}
                 page={page}
                 text={text}
@@ -172,11 +175,12 @@ const Comments = ({params}: any) => {
                         <table className='w-[720px] text-[12px] text-theme-10 dark:text-theme-9 bg-theme-4 dark:bg-theme-4'>
                             <thead className='text-left bg-theme-5 dark:bg-theme-3'>
                                 <tr>
-                                    <th className='h-[40px] tlg:h-[34px] w-[120px] pl-[16px]'>폰트</th>
+                                    <th className='w-[120px] h-[40px] tlg:h-[34px] pl-[16px]'>폰트</th>
                                     <th className='pl-[16px]'>댓글</th>
-                                    <th className='w-[112px] pl-[16px]'>수정 날짜</th>
+                                    <th className='w-[120px] pl-[16px]'>수정 날짜</th>
                                     <th className='w-[120px] pl-[16px]'>작성 날짜</th>
-                                    <th className='w-[72px]'>댓글 삭제</th>
+                                    <th className='w-[52px] text-center'>신고수</th>
+                                    <th className='w-[88px] text-center'>댓글 삭제</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -187,13 +191,14 @@ const Comments = ({params}: any) => {
                                             comments.map((comment: any) => {
                                                 return (
                                                     <tr key={comment.comment_id} className='border-t border-theme-5 dark:border-theme-3'>
-                                                        <td className='h-[40px] tlg:h-[34px] pl-[16px] py-[10px] break-keep'><a href={`/post/${comment.font_family.replaceAll(" ", "+")}`} className='text-theme-yellow dark:text-theme-blue-1 focus:underline hover:underline tlg:hover:no-underline'>{comment.name}</a></td>
-                                                        <td className='pl-[16px] py-[10px] break-keep'><a href={`/post/${comment.font_family.replaceAll(" ", "+")}#c${comment.comment_id}`} className='focus:underline hover:underline tlg:hover:no-underline'>{comment.comment}</a></td>
+                                                        <td className='h-[40px] tlg:h-[34px] pl-[16px] py-[10px] break-keep'><a href={`/post/${comment.font_family.replaceAll(" ", "+")}`} className='font-size text-theme-yellow dark:text-theme-blue-1 focus:underline hover:underline tlg:hover:no-underline'>{comment.name}</a></td>
+                                                        <td className='pl-[16px] py-[10px] break-keep'><a href={`/post/${comment.font_family.replaceAll(" ", "+")}#c${comment.comment_id}`} className='font-size focus:underline hover:underline tlg:hover:no-underline'>{comment.comment}</a></td>
                                                         <td className='pl-[16px] py-[10px] break-keep'>{commentsDateFormat(comment.updated_at)}</td>
                                                         <td className='pl-[16px] py-[10px] break-keep'>{commentsDateFormat(comment.created_at)}</td>
+                                                        <td className='py-[10px] break-keep text-center'>{comment.reported_politics + comment.reported_swearing + comment.reported_etc}</td>
                                                         <td className='py-[10px] relative'>
-                                                            <div className='absolute w-[100%] h-[100%] left-0 top-0 flex items-center'>
-                                                                <button onClick={deleteCommentModalOpen} data-font={comment.font_id} data-comment={comment.comment_id} className='group w-[20px] h-[20px] ml-[16px] flex justify-center items-center'>
+                                                            <div className='absolute w-[100%] h-[100%] left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] flex justify-center items-center'>
+                                                                <button onClick={deleteCommentModalOpen} data-font={comment.font_id} data-comment={comment.comment_id} className='group w-[20px] h-[20px] flex justify-center items-center'>
                                                                     <svg className='w-[14px] fill-theme-10 group-hover:fill-theme-yellow tlg:group-hover:fill-theme-10 dark:fill-theme-9 group-hover:dark:fill-theme-blue-1 tlg:group-hover:dark:fill-theme-9' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/><path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/></svg>
                                                                 </button>
                                                             </div>
@@ -204,7 +209,7 @@ const Comments = ({params}: any) => {
                                         }
                                     </>
                                     : <tr className='h-[60px]'>
-                                        <td colSpan={5} className='text-center'>댓글이 없습니다.</td>
+                                        <td colSpan={6} className='text-center'>댓글이 없습니다.</td>
                                     </tr>
                                 }
                             </tbody>

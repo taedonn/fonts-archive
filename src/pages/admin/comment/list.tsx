@@ -178,11 +178,11 @@ const CommentList = ({params}: any) => {
                                 <tr>
                                     <th className='h-[40px] tlg:h-[34px] w-[52px] pl-[16px]'>번호</th>
                                     <th className='w-[100px] pl-[16px]'>폰트</th>
-                                    <th className='w-[100px] pl-[16px]'>작성자</th>
+                                    <th className='w-[80px] pl-[16px]'>작성자</th>
                                     <th className='pl-[16px]'>댓글</th>
-                                    <th className='w-[120px] pl-[16px]'>수정 날짜</th>
-                                    <th className='w-[120px] pl-[16px]'>작성 날짜</th>
-                                    <th className='w-[68px]'>댓글 삭제</th>
+                                    <th className='w-[100px] pl-[16px]'>수정 날짜</th>
+                                    <th className='w-[100px] pl-[16px]'>작성 날짜</th>
+                                    <th className='w-[80px] text-center'>댓글 삭제</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -194,14 +194,14 @@ const CommentList = ({params}: any) => {
                                                 return (
                                                     <tr key={comment.comment_id} className='border-t border-theme-5 dark:border-theme-3'>
                                                         <td className='h-[40px] tlg:h-[34px] pl-[16px] py-[10px]'>{comment.comment_id}</td>
-                                                        <td className='pl-[16px] py-[10px] break-keep'><a href={`/post/${comment.font_family.replaceAll(" ", "+")}`} className='text-theme-yellow dark:text-theme-blue-1 focus:underline hover:underline tlg:hover:no-underline'>{comment.name}</a></td>
-                                                        <td className='pl-[16px] py-[10px] break-keep'><a href={`/admin/user/${comment.user_no}`} className='focus:underline hover:underline tlg:hover:no-underline'>{comment.user_name}</a></td>
-                                                        <td className='pl-[16px] py-[10px] break-keep'><a href={`/post/${comment.font_family.replaceAll(" ", "+")}#c${comment.comment_id}`} className='focus:underline hover:underline tlg:hover:no-underline'>{comment.comment}</a></td>
+                                                        <td className='pl-[16px] py-[10px] break-keep'><a href={`/post/${comment.font_family.replaceAll(" ", "+")}`} className='font-size text-theme-yellow dark:text-theme-blue-1 focus:underline hover:underline tlg:hover:no-underline'>{comment.name}</a></td>
+                                                        <td className='pl-[16px] py-[10px] break-keep'><a href={`/admin/user/${comment.user_no}`} className='font-size focus:underline hover:underline tlg:hover:no-underline'>{comment.user_name}</a></td>
+                                                        <td className='pl-[16px] py-[10px] break-keep'><a href={`/post/${comment.font_family.replaceAll(" ", "+")}#c${comment.comment_id}`} className='font-size focus:underline hover:underline tlg:hover:no-underline'>{comment.comment}</a></td>
                                                         <td className='pl-[16px] py-[10px]'>{commentsDateFormat(comment.updated_at)}</td>
                                                         <td className='pl-[16px] py-[10px]'>{commentsDateFormat(comment.created_at)}</td>
                                                         <td className='py-[10px] relative'>
-                                                            <div className='absolute w-[100%] h-[100%] left-0 top-0 flex items-center'>
-                                                                <button onClick={deleteCommentModalOpen} data-font={comment.font_id} data-comment={comment.comment_id} className='group w-[20px] h-[20px] ml-[16px] flex justify-center items-center'>
+                                                            <div className='absolute w-[100%] h-[100%] left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] flex justify-center items-center'>
+                                                                <button onClick={deleteCommentModalOpen} data-font={comment.font_id} data-comment={comment.comment_id} className='group w-[20px] h-[20px] flex justify-center items-center'>
                                                                     <svg className='w-[14px] fill-theme-10 group-hover:fill-theme-yellow tlg:group-hover:fill-theme-10 dark:fill-theme-9 group-hover:dark:fill-theme-blue-1 tlg:group-hover:dark:fill-theme-9' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/><path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/></svg>
                                                                 </button>
                                                             </div>

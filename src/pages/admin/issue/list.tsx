@@ -126,34 +126,34 @@ const IssueList = ({params}: any) => {
                         <button onClick={handleClick} className='w-[68px] h-[32px] tlg:h-[28px] ml-[8px] text-[12px] border rounded-[6px] bg-theme-6/40 hover:bg-theme-6/60 tlg:hover:bg-theme-6/40 dark:bg-theme-4 hover:dark:bg-theme-5 tlg:hover:dark:bg-theme-4'>검색</button>
                     </div>
                     <div className='w-[100%] rounded-[8px] overflow-hidden overflow-x-auto'>
-                        <table className='w-[720px] text-[12px] text-theme-10 dark:text-theme-9 bg-theme-4 dark:bg-theme-4'>
-                            <thead className='text-left bg-theme-5 dark:bg-theme-3'>
-                                <tr>
-                                    <th className='h-[40px] tlg:h-[34px] w-[52px] pl-[16px]'>번호</th>
-                                    <th className='w-[120px] pl-[16px]'>제목</th>
-                                    <th className='pl-[16px]'>이메일</th>
-                                    <th className='w-[116px] pl-[16px]'>생성 날짜</th>
-                                    <th className='w-[116px] pl-[16px]'>종료 날짜</th>
-                                    <th className='w-[96px] pl-[16px]'>답변 여부</th>
-                                </tr>
-                            </thead>
-                            <tbody>
+                        <div className='w-[720px] text-[12px] text-theme-10 dark:text-theme-9 bg-theme-4 dark:bg-theme-4'>
+                            <div className='text-left bg-theme-5 dark:bg-theme-3'>
+                                <div className='h-[40px] tlg:h-[34px] flex items-center'>
+                                    <div className='w-[48px] pl-[16px] shrink-0'>번호</div>
+                                    <div className='w-[120px] pl-[16px] shrink-0'>제목</div>
+                                    <div className='w-[100%] pl-[16px]'>이메일</div>
+                                    <div className='w-[112px] pl-[16px] shrink-0'>생성 날짜</div>
+                                    <div className='w-[112px] pl-[16px] shrink-0'>종료 날짜</div>
+                                    <div className='w-[100px] pl-[16px] shrink-0'>답변 여부</div>
+                                </div>
+                            </div>
+                            <div>
                                 {
                                     list && list.length > 0
                                     ? <>
                                         {
                                             list.map((issue: any) => {
                                                 return (
-                                                    <tr key={issue.issue_id} className='relative border-t border-theme-5 dark:border-theme-3 hover:bg-theme-yellow/20 tlg:hover:bg-transparent hover:dark:bg-theme-blue-1/20 tlg:hover:dark:bg-transparent cursor-pointer'>
-                                                        <td className='h-[40px] tlg:h-[34px] pl-[16px] py-[10px] break-keep'>
+                                                    <div key={issue.issue_id} className='h-[40px] tlg:h-[34px] relative flex items-center border-t border-theme-5 dark:border-theme-3 hover:bg-theme-yellow/20 tlg:hover:bg-transparent hover:dark:bg-theme-blue-1/20 tlg:hover:dark:bg-transparent cursor-pointer'>
+                                                        <div className='w-[48px] pl-[16px] py-[10px] shrink-0'>
                                                             {issue.issue_id}
                                                             <a href={`/admin/issue/${issue.issue_id}`} className='w-[100%] h-[100%] absolute z-10 left-0 top-0'></a>
-                                                        </td>
-                                                        <td className='pl-[16px] py-[10px]'><div className='font-size'>{issue.issue_title}</div></td>
-                                                        <td className='pl-[16px] py-[10px]'><div className='font-size'>{issue.issue_email}</div></td>
-                                                        <td className='pl-[16px] py-[10px]'>{commentsDateFormat(issue.issue_created_at)}</td>
-                                                        <td className='pl-[16px] py-[10px]'>{commentsDateFormat(issue.issue_closed_at)}</td>
-                                                        <td className='pl-[16px] py-[10px] break-keep'>
+                                                        </div>
+                                                        <div className='w-[120px] pl-[16px] py-[10px] shrink-0'><div className='font-size'>{issue.issue_title}</div></div>
+                                                        <div className='w-[100%] pl-[16px] py-[10px]'><div className='font-size'>{issue.issue_email}</div></div>
+                                                        <div className='w-[112px] pl-[16px] py-[10px] shrink-0'>{commentsDateFormat(issue.issue_created_at)}</div>
+                                                        <div className='w-[112px] pl-[16px] py-[10px] shrink-0'>{commentsDateFormat(issue.issue_closed_at)}</div>
+                                                        <div className='w-[100px] pl-[16px] py-[10px] shrink-0'>
                                                             {
                                                                 issue.issue_closed
                                                                 ? <>
@@ -163,18 +163,18 @@ const IssueList = ({params}: any) => {
                                                                     <span className='text-theme-9'>답변 중...</span>
                                                                 </>
                                                             }
-                                                        </td>
-                                                    </tr>
+                                                        </div>
+                                                    </div>
                                                 )
                                             })
                                         }
                                     </>
-                                    : <tr className='h-[60px]'>
-                                        <td colSpan={6} className='text-center'>제보가 없습니다.</td>
-                                    </tr>
+                                    : <div className='h-[60px] flex justify-center items-center'>
+                                        제보가 없습니다.
+                                    </div>
                                 }
-                            </tbody>
-                        </table>
+                            </div>
+                        </div>
                     </div>
                     <div className='w-[100%] flex justify-center mt-[12px]'>
                         <Pagination count={count} page={page} onChange={handleChange} shape='rounded' showFirstButton showLastButton/>

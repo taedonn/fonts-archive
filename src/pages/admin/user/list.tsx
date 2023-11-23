@@ -134,9 +134,9 @@ const UserList = ({params}: any) => {
                                     <th className='h-[40px] tlg:h-[34px] w-[52px] pl-[16px]'>번호</th>
                                     <th className='w-[80px] pl-[16px]'>유저명</th>
                                     <th className='pl-[16px]'>유저 아이디</th>
-                                    <th className='w-[108px] pl-[16px]'>수정 날짜</th>
+                                    <th className='w-[100px] pl-[16px]'>수정 날짜</th>
                                     <th className='w-[100px] pl-[16px]'>생성 날짜</th>
-                                    <th className='w-[88px] pl-[16px]'>닉네임 신고</th>
+                                    <th className='w-[80px] text-center'>닉네임 신고</th>
                                     <th className='w-[100px] pl-[16px]'>이메일 확인</th>
                                 </tr>
                             </thead>
@@ -149,8 +149,8 @@ const UserList = ({params}: any) => {
                                                 return (
                                                     <tr key={user.user_no} className='border-t border-theme-5 dark:border-theme-3'>
                                                         <td className='h-[40px] tlg:h-[34px] pl-[16px] py-[10px]'>{user.user_no}</td>
-                                                        <td className='pl-[16px] py-[10px] break-all'><a href={`/admin/user/${user.user_no}`} className='text-theme-yellow dark:text-theme-blue-1 focus:underline hover:underline tlg:hover:no-underline'>{user.user_name}</a></td>
-                                                        <td className='pl-[16px] py-[10px] break-all'>{user.user_id}</td>
+                                                        <td className='pl-[16px] py-[10px] break-all'><a href={`/admin/user/${user.user_no}`} className='font-size text-theme-yellow dark:text-theme-blue-1 focus:underline hover:underline tlg:hover:no-underline'>{user.user_name}</a></td>
+                                                        <td className='pl-[16px] py-[10px] break-all'><div className='font-size'>{user.user_id}</div></td>
                                                         <td className='pl-[16px] py-[10px]'>{commentsDateFormat(user.updated_at)}</td>
                                                         <td className='pl-[16px] py-[10px]'>{commentsDateFormat(user.created_at)}</td>
                                                         <td className='py-[10px] break-keep text-center'>{user.nickname_reported}</td>

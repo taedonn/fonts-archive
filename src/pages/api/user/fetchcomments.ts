@@ -71,17 +71,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         try {
             // text에 폰트 이름이 포함되어 있는지 체크
             const textWithFonts = req.query.text !== ''
-            ? req.query.filter === 'all' || req.query.filter === 'font'
-                ? await prisma.fonts.findMany({
-                    select: {
-                        code: true,
-                        name: true,
-                        font_family: true,
-                    },
-                    where: { name: {contains: req.query.text as string} }
-                }) 
-                : []
-            : [];
+                ? req.query.filter === 'all' || req.query.filter === 'font'
+                    ? await prisma.fonts.findMany({
+                        select: {
+                            code: true,
+                            name: true,
+                            font_family: true,
+                        },
+                        where: { name: {contains: req.query.text as string} }
+                    }) 
+                    : []
+                : [];
 
             // 폰트 이름 배열에 저장
             let textArr = [];
@@ -154,7 +154,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 message: "댓글 가져오기 성공",
                 comments: comments,
                 count: count,
-                test: textWithFonts,
             });
         } catch (err) {
             return res.status(500).json({
