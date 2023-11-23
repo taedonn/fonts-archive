@@ -995,10 +995,11 @@ export async function getServerSideProps(ctx: any) {
         const userAgent = ctx.req ? ctx.req.headers['user-agent'] : navigator.userAgent;
 
         // 쿠키에 저장된 세션ID가 유효하면, 유저 정보 가져오기
-        const user = ctx.req.cookies.session === undefined
+        const session = ctx.req.cookies.session;
+        const user = session === undefined
             ? null
-            : await CheckIfSessionExists(ctx.req.cookies.session)
-                ? await FetchUserInfo(ctx.req.cookies.session)
+            : await CheckIfSessionExists(session)
+                ? await FetchUserInfo(session)
                 : null;
 
         // 유저 정보가 있으면, 좋아요한 폰트 체크

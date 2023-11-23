@@ -354,11 +354,12 @@ export async function getServerSideProps(ctx: any) {
         const userAgent = ctx.req ? ctx.req.headers['user-agent'] : navigator.userAgent;
 
         // 쿠키에 저장된 세션ID가 유효하면, 유저 정보 가져오기
-        const user = ctx.req.cookies.session === undefined ? null : (
-            await CheckIfSessionExists(ctx.req.cookies.session) === true 
-            ? await FetchUserInfo(ctx.req.cookies.session)
-            : null
-        )
+        const session = ctx.req.cookies.session;
+        const user = session === undefined
+            ? null
+            : await CheckIfSessionExists(session)
+                ? await FetchUserInfo(session)
+                : null;
 
         // 유저 상세정보 불러오기
         const issue = await FetchIssue(ctx.params.issueId);

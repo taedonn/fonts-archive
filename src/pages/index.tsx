@@ -6,6 +6,7 @@ import { debounce } from "lodash";
 // api
 import { FetchUserInfo } from "./api/user/fetchuserinfo";
 import { FetchUserLike } from "./api/user/fetchuserlike";
+import { CheckIfSessionExists } from "./api/user/checkifsessionexists";
 
 // components
 import Header from "@/components/header";
@@ -159,7 +160,9 @@ export async function getServerSideProps(ctx: any) {
         const session = ctx.req.cookies.session;
         const user = session === undefined
             ? null
-            : await FetchUserInfo(session);
+            : await CheckIfSessionExists(session)
+                ? await FetchUserInfo(session)
+                : null;
 
         // 유저 정보가 있으면, 좋아요한 폰트 체크
         const like = user === null
