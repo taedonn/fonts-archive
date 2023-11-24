@@ -234,7 +234,10 @@ export async function getServerSideProps(ctx: any) {
             ? null
             : await CheckIfSessionExists(session)
                 ? await FetchUserInfo(session)
-                : ctx.res.setHeader('Set-Cookie', [`session=deleted; max-Age=0; path=/`]);;;
+                : null;
+
+        // 유저 정보 없으면 쿠키에서 session 제거
+        user === null && ctx.res.setHeader('Set-Cookie', [`session=deleted; max-Age=0; path=/`]);
 
         // 유저 상세정보 불러오기
         const notice = await FetchNotice(ctx.params.noticeId);
