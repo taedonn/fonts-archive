@@ -125,7 +125,6 @@ export default function ReportCommentModal(
             // 신고 axios 실행
             await axios.post('/api/post/comments', {
                 action: 'report-comment',
-                // action: 'reset-reports',
                 font_id: font_id,
                 user_id: user.user_no,
                 comment_id: comment_id,
