@@ -4,9 +4,8 @@ import { NextSeo } from "next-seo";
 // react hooks
 import { useState } from "react";
 
-// API
-import { CheckIfSessionExists } from "@/pages/api/user/checkifsessionexists";
-import { FetchUserInfo } from "@/pages/api/user/fetchuserinfo";
+// api
+import { Auth } from "@/pages/api/user/auth";
 import { FetchUser } from "@/pages/api/admin/user";
 import axios from "axios";
 
@@ -343,13 +342,8 @@ export async function getServerSideProps(ctx: any) {
         // 디바이스 체크
         const userAgent = ctx.req ? ctx.req.headers['user-agent'] : navigator.userAgent;
 
-        // 쿠키에 저장된 세션ID가 유효하면, 유저 정보 가져오기
-        const session = ctx.req.cookies.session;
-        const user = session === undefined
-            ? null
-            : await CheckIfSessionExists(session)
-                ? await FetchUserInfo(session)
-                : ctx.res.setHeader('Set-Cookie', [`session=deleted; max-Age=0; path=/`]);;;
+        // 유저 정보 조회
+        const user = await Auth(ctx.req.cookies.session, ctx.res);
 
         // 유저 상세정보 불러오기
         const userDetail = await FetchUser(ctx.params.userNo);

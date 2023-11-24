@@ -26,6 +26,7 @@ export async function FetchFont(code: number) {
     const font = await prisma.fonts.findUnique({
         where: { code: code }
     });
+    
     return font;
 }
   

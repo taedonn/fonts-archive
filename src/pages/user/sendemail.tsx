@@ -5,7 +5,7 @@ import { NextSeo } from 'next-seo';
 import React from 'react';
 
 // api
-import { FetchUserInfoFromToken } from '../api/user/fetchuserinfo';
+import { FetchUserInfoFromToken } from '../api/user/auth';
 import axios from 'axios';
 
 // components

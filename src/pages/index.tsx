@@ -4,9 +4,8 @@ import { useCookies } from 'react-cookie';
 import { debounce } from "lodash";
 
 // api
-import { FetchUserInfo } from "./api/user/fetchuserinfo";
+import { Auth } from "./api/user/auth";
 import { FetchUserLike } from "./api/user/fetchuserlike";
-import { CheckIfSessionExists } from "./api/user/checkifsessionexists";
 
 // components
 import Header from "@/components/header";
@@ -156,16 +155,8 @@ export async function getServerSideProps(ctx: any) {
         // 디바이스 체크
         const userAgent = ctx.req ? ctx.req.headers['user-agent'] : navigator.userAgent;
 
-        // 유저 정보 가져오기
-        const session = ctx.req.cookies.session;
-        const user = session === undefined
-            ? null
-            : await CheckIfSessionExists(session)
-                ? await FetchUserInfo(session)
-                : null;
-
-        // 유저 정보 없으면 쿠키에서 session 제거
-        user === null && ctx.res.setHeader('Set-Cookie', [`session=deleted; max-Age=0; path=/`]);
+        // 유저 정보 조회
+        const user = await Auth(ctx.req.cookies.session, ctx.res);
 
         // 유저 정보가 있으면, 좋아요한 폰트 체크
         const like = user === null

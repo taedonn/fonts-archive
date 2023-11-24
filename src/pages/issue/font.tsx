@@ -8,8 +8,7 @@ import { NextSeo } from "next-seo";
 import imageCompression from 'browser-image-compression';
 
 // api
-import { CheckIfSessionExists } from "@/pages/api/user/checkifsessionexists";
-import { FetchUserInfo } from "@/pages/api/user/fetchuserinfo";
+import { Auth } from "../api/user/auth";
 import axios, { AxiosProgressEvent } from "axios";
 
 // components
@@ -560,16 +559,8 @@ export async function getServerSideProps(ctx: any) {
         // 디바이스 체크
         const userAgent = ctx.req ? ctx.req.headers['user-agent'] : navigator.userAgent;
 
-        // 쿠키에 저장된 세션ID가 유효하면, 유저 정보 가져오기
-        const session = ctx.req.cookies.session;
-        const user = session === undefined
-            ? null
-            : await CheckIfSessionExists(session)
-                ? await FetchUserInfo(session)
-                : null;
-
-        // 유저 정보 없으면 쿠키에서 session 제거
-        user === null && ctx.res.setHeader('Set-Cookie', [`session=deleted; max-Age=0; path=/`]);
+        // 유저 정보 조회
+        const user = await Auth(ctx.req.cookies.session, ctx.res);
 
         return {
             props: {
