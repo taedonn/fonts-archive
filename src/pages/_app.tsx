@@ -22,7 +22,7 @@ export default function App({ Component, pageProps }: AppProps) {
                     additionalLinkTags={[
                         {
                             rel:"icon",
-                            href: "/favicon.svg"
+                            href: "/favicon.ico"
                         }
                     ]}
                     openGraph={{
