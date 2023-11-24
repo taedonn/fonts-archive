@@ -208,7 +208,7 @@ export async function getServerSideProps(ctx: any) {
             ? null
             : await CheckIfSessionExists(session)
                 ? await FetchUserInfo(session)
-                : null;
+                : ctx.res.setHeader('Set-Cookie', [`session=deleted; max-Age=0; path=/`]);;;
 
         if (user === null || user.user_no !== 1) {
             return {

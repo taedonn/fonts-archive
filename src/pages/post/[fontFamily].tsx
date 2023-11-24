@@ -980,7 +980,7 @@ export async function getServerSideProps(ctx: any) {
             ? null
             : await CheckIfSessionExists(session)
                 ? await FetchUserInfo(session)
-                : null;
+                : ctx.res.setHeader('Set-Cookie', [`session=deleted; max-Age=0; path=/`]);;;
 
         // 유저 정보가 있으면, 좋아요한 폰트 체크
         const like = user === null

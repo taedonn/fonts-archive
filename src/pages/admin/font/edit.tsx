@@ -627,7 +627,7 @@ export async function getServerSideProps(ctx: any) {
             ? null
             : await CheckIfSessionExists(session)
                 ? await FetchUserInfo(session)
-                : null;
+                : ctx.res.setHeader('Set-Cookie', [`session=deleted; max-Age=0; path=/`]);;;
 
         // 쿼리가 있으면 폰트 불러오기
         const font = await FetchFont(Number(ctx.query.code));
