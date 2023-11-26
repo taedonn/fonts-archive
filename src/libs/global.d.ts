@@ -37,6 +37,8 @@ export type users = {
     user_id: string
     user_pw: string
     user_session_id: string
+    access_token: string
+    refresh_token: string
     user_email_token: string
     user_email_confirm: boolean
     profile_img: string
