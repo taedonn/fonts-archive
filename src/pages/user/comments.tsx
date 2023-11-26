@@ -1,4 +1,5 @@
 // next hooks
+import Link from 'next/link';
 import { NextSeo } from 'next-seo';
 
 // react hooks
@@ -181,8 +182,8 @@ const Comments = ({params}: any) => {
                                             comments.map((comment: any) => {
                                                 return (
                                                     <tr key={comment.comment_id} className='border-t border-theme-5 dark:border-theme-3'>
-                                                        <td className='h-[40px] tlg:h-[34px] pl-[16px] py-[10px] break-keep'><a href={`/post/${comment.font_family.replaceAll(" ", "+")}`} className='font-size text-theme-yellow dark:text-theme-blue-1 focus:underline hover:underline tlg:hover:no-underline'>{comment.name}</a></td>
-                                                        <td className='pl-[16px] py-[10px] break-keep'><a href={`/post/${comment.font_family.replaceAll(" ", "+")}#c${comment.comment_id}`} className='font-size focus:underline hover:underline tlg:hover:no-underline'>{comment.comment}</a></td>
+                                                        <td className='h-[40px] tlg:h-[34px] pl-[16px] py-[10px] break-keep'><Link href={`/post/${comment.font_family.replaceAll(" ", "+")}`} className='font-size text-theme-yellow dark:text-theme-blue-1 focus:underline hover:underline tlg:hover:no-underline'>{comment.name}</Link></td>
+                                                        <td className='pl-[16px] py-[10px] break-keep'><Link href={`/post/${comment.font_family.replaceAll(" ", "+")}#c${comment.comment_id}`} className='font-size focus:underline hover:underline tlg:hover:no-underline'>{comment.comment}</Link></td>
                                                         <td className='pl-[16px] py-[10px] break-keep'>{timeFormat(comment.updated_at)}</td>
                                                         <td className='pl-[16px] py-[10px] break-keep'>{timeFormat(comment.created_at)}</td>
                                                         <td className='py-[10px] break-keep text-center'>{comment.reported_politics + comment.reported_swearing + comment.reported_etc}</td>

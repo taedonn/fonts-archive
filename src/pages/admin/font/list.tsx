@@ -1,4 +1,5 @@
 // next hooks
+import Link from 'next/link';
 import { NextSeo } from 'next-seo';
 
 // react hooks
@@ -178,7 +179,7 @@ const FontsList = ({params}: any) => {
                                             fonts.map((font: any) => {
                                                 return (
                                                     <div key={font.code} className='h-[40px] tlg:h-[34px] relative flex items-center border-t border-theme-5 dark:border-theme-3 hover:bg-theme-yellow/20 tlg:hover:bg-transparent hover:dark:bg-theme-blue-1/20 tlg:hover:dark:bg-transparent'>
-                                                        <a href={`/admin/font/edit?code=${font.code}`} className='w-[100%] h-[100%] block absolute z-10 left-0 top-0'></a>
+                                                        <Link href={`/admin/font/edit?code=${font.code}`} className='w-[100%] h-[100%] block absolute z-10 left-0 top-0'></Link>
                                                         <div className='w-[60px] pl-[12px] shrink-0 break-keep'>{font.code}</div>
                                                         <div className='w-[100%] pl-[12px] break-keep'><div className='font-size'>{font.name}</div></div>
                                                         <div className='w-[60px] pl-[12px] shrink-0 break-keep'>{formatNumber(font.view)}</div>

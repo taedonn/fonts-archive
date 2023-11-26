@@ -1,4 +1,5 @@
 // next hooks
+import Link from 'next/link';
 import { NextSeo } from 'next-seo';
 
 // react hooks
@@ -139,7 +140,7 @@ const UserList = ({params}: any) => {
                                                 return (
                                                     <tr key={user.user_no} className='border-t border-theme-5 dark:border-theme-3'>
                                                         <td className='h-[40px] tlg:h-[34px] pl-[16px] py-[10px]'>{user.user_no}</td>
-                                                        <td className='pl-[16px] py-[10px] break-all'><a href={`/admin/user/${user.user_no}`} className='font-size text-theme-yellow dark:text-theme-blue-1 focus:underline hover:underline tlg:hover:no-underline'>{user.user_name}</a></td>
+                                                        <td className='pl-[16px] py-[10px] break-all'><Link href={`/admin/user/${user.user_no}`} className='font-size text-theme-yellow dark:text-theme-blue-1 focus:underline hover:underline tlg:hover:no-underline'>{user.user_name}</Link></td>
                                                         <td className='pl-[16px] py-[10px] break-all'><div className='font-size'>{user.user_id}</div></td>
                                                         <td className='pl-[16px] py-[10px]'>{timeFormat(user.updated_at)}</td>
                                                         <td className='pl-[16px] py-[10px]'>{timeFormat(user.created_at)}</td>

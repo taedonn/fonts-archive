@@ -2,6 +2,9 @@
 import { useEffect } from "react";
 import { useCookies } from "react-cookie";
 
+// next hooks
+import Link from "next/link";
+
 // api
 import { Auth } from "./api/user/auth";
 import axios from "axios";
@@ -54,8 +57,7 @@ const Confirm = ({params}: any) => {
                     가입일: {dateFormat(user.created_at)}
                 </div>
                 <div className="flex items-center mt-[40px]">
-                    {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-                    <a href="/" className="flex justify-center items-center w-[132px] h-[36px] rounded-full text-[13px] border border-theme-8 hover:border-theme-3 dark:border-theme-blue-1/40 hover:bg-theme-3 hover:dark:bg-theme-blue-1 text-theme-3 hover:text-theme-9 dark:text-theme-blue-1 hover:dark:text-theme-blue-2 cursor-pointer duration-100">메인 페이지</a>
+                    <Link href="/" className="flex justify-center items-center w-[132px] h-[36px] rounded-full text-[13px] border border-theme-8 hover:border-theme-3 dark:border-theme-blue-1/40 hover:bg-theme-3 hover:dark:bg-theme-blue-1 text-theme-3 hover:text-theme-9 dark:text-theme-blue-1 hover:dark:text-theme-blue-2 cursor-pointer duration-100">메인 페이지</Link>
                 </div>
             </div>
         </>

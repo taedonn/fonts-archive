@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 // next hooks
+import Link from "next/link";
 import { NextSeo } from "next-seo";
 
 // react hooks
@@ -136,8 +137,7 @@ const NoticePage = ({params}: any) => {
             {/* 메인 */}
             <div className='w-[100%] flex flex-col justify-center items-center'>
                 <div className='relative max-w-[720px] w-[100%] flex flex-col justify-center items-start my-[100px] tlg:my-[40px]'>
-                    {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-                    <a href="/admin/notices/list" className="absolute left-0 top-[-80px] tlg:top-[-28px] text-[12px] text-theme-5 hover:text-theme-3 tlg:hover:text-theme-5 dark:text-theme-7 hover:dark:text-theme-9 tlg:hover:dark:text-theme-7 block border-b border-transparent hover:border-theme-3 tlg:border-theme-5 tlg:hover:border-theme-5 hover:dark:border-theme-9 tlg:dark:border-theme-7 tlg:hover:dark:border-theme-7"><div className="inline-block mr-[4px]">&#60;</div> 목록으로 돌아가기</a>
+                    <Link href="/admin/notices/list" className="absolute left-0 top-[-80px] tlg:top-[-28px] text-[12px] text-theme-5 hover:text-theme-3 tlg:hover:text-theme-5 dark:text-theme-7 hover:dark:text-theme-9 tlg:hover:dark:text-theme-7 block border-b border-transparent hover:border-theme-3 tlg:border-theme-5 tlg:hover:border-theme-5 hover:dark:border-theme-9 tlg:dark:border-theme-7 tlg:hover:dark:border-theme-7"><div className="inline-block mr-[4px]">&#60;</div> 목록으로 돌아가기</Link>
                     <h2 className='text-[20px] tlg:text-[18px] text-theme-3 dark:text-theme-9 font-medium mb-[16px] tlg:mb-[12px]'>공지 수정</h2>
                     <div id="reply-success" className="w-[100%]">
                         {

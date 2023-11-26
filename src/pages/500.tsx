@@ -1,4 +1,8 @@
+// react hooks
 import { useEffect } from "react";
+
+// next hooks
+import Link from "next/link";
 
 export default function Custom500() {
     // 로딩 시 body 패딩 제거 & 풋터 제거
@@ -21,8 +25,7 @@ export default function Custom500() {
                 </div>
                 <div style={{fontFamily: "Intel One Mono"}} className="w-[340px] h-[60px] mt-[16px] flex justify-center items-center rounded-[8px] text-[14px] text-theme-3 dark:text-theme-9 bg-theme-red/20 dark:bg-theme-blue-1/20 border border-dashed border-theme-red dark:border-theme-blue-1">500: Internal Server Error</div>
                 <div className="flex items-center mt-[40px]">
-                    {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-                    <a href="/" className="flex justify-center items-center w-[132px] h-[36px] rounded-full text-[13px] border border-theme-8 hover:border-theme-3 dark:border-theme-blue-1/40 hover:bg-theme-3 hover:dark:bg-theme-blue-1 text-theme-3 hover:text-theme-9 dark:text-theme-blue-1 hover:dark:text-theme-blue-2 cursor-pointer duration-100">메인 페이지</a>
+                    <Link href="/" className="flex justify-center items-center w-[132px] h-[36px] rounded-full text-[13px] border border-theme-8 hover:border-theme-3 dark:border-theme-blue-1/40 hover:bg-theme-3 hover:dark:bg-theme-blue-1 text-theme-3 hover:text-theme-9 dark:text-theme-blue-1 hover:dark:text-theme-blue-2 cursor-pointer duration-100">메인 페이지</Link>
                 </div>
             </div>
         </>

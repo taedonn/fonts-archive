@@ -195,8 +195,7 @@ const Login = ({params}: any) => {
                         }
                         <label htmlFor='pw' className='w-[100%] flex flex-row justify-between items-center text-[14px] ml-px mt-[18px]'>
                             <span>비밀번호</span>
-                            {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-                            <a href="/user/findpw" className='text-[12px] text-theme-yellow dark:text-theme-blue-1 hover:underline tlg:hover:no-underline'>비밀번호를 잊으셨나요?</a>
+                            <Link href="/user/findpw" className='text-[12px] text-theme-yellow dark:text-theme-blue-1 hover:underline tlg:hover:no-underline'>비밀번호를 잊으셨나요?</Link>
                         </label>
                         <input onChange={handlePwChange} type='password' id='pw' tabIndex={2} autoComplete='on' placeholder='비밀번호를 입력해 주세요.' className={`${pwChk === '' ? 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' : 'border-theme-red focus:border-theme-red dark:border-theme-red focus:dark:border-theme-red'} w-[100%] text-[14px] mt-[6px] px-[14px] py-[8px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2`}/>
                         {
@@ -261,8 +260,7 @@ const Login = ({params}: any) => {
                     </div>*/}
                     <div className='w-[100%] h-[52px] text-[14px] rounded-[8px] flex flex-row justify-center items-center border border-theme-7 dark:border-theme-4'>
                         <span className='text-theme-4 dark:text-theme-9 mr-[12px]'>처음 방문하셨나요?</span>
-                        {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-                        <a href="/user/register" className='text-theme-yellow dark:text-theme-blue-1 hover:underline tlg:hover:no-underline'>회원가입하기</a>
+                        <Link href="/user/register" className='text-theme-yellow dark:text-theme-blue-1 hover:underline tlg:hover:no-underline'>회원가입하기</Link>
                     </div>
                     <div className='w-[100%] flex flex-row justify-center items-center text-[12px] mt-[12px]'>
                         <Link href="/user/terms" target="_blank" rel="noopener noreferrer" className='text-theme-5 dark:text-theme-6 hover:underline tlg:hover:underline'>서비스 이용약관</Link>

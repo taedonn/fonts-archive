@@ -1,4 +1,5 @@
 // next hooks
+import Link from 'next/link';
 import { NextSeo } from 'next-seo';
 
 // react hooks
@@ -141,7 +142,7 @@ const NoticeList = ({params}: any) => {
                                             list.map((notice: any) => {
                                                 return (
                                                     <div key={notice.notice_id} className='h-[40px] tlg:h-[34px] relative flex items-center border-t border-theme-5 dark:border-theme-3 hover:bg-theme-yellow/20 tlg:hover:bg-transparent hover:dark:bg-theme-blue-1/20 tlg:hover:dark:bg-transparent cursor-pointer'>
-                                                        <a href={`/admin/notices/${notice.notice_id}`} className='w-[100%] h-[100%] absolute z-10 left-0 top-0'></a>
+                                                        <Link href={`/admin/notices/${notice.notice_id}`} className='w-[100%] h-[100%] absolute z-10 left-0 top-0'></Link>
                                                         <div className='w-[48px] pl-[16px] py-[10px] shrink-0'>{notice.notice_id}</div>
                                                         <div className='w-[60px] pl-[16px] py-[10px] shrink-0'>{notice.notice_type === "service" ? "서비스" : "폰트"}</div>
                                                         <div className='w-[120px] pl-[16px] py-[10px] shrink-0'><div className='font-size'>{notice.notice_title}</div></div>
