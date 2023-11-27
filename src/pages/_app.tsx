@@ -1,8 +1,13 @@
 // 서버로 요청이 들어왔을 때 가장 먼저 실행되는 component
 
+// react hooks
+import { useEffect, useState } from "react";
+
 // next hooks
 import type { AppProps } from "next/app";
+import { useRouter } from "next/router";
 import { DefaultSeo } from 'next-seo';
+import NextNProgress from 'nextjs-progressbar';
 
 // react-query hooks
 import { QueryClientProvider, QueryClient } from "react-query";
@@ -13,6 +18,18 @@ import '../styles/globals.css';
 import '../styles/mailanimation.css';
 
 export default function App({ Component, pageProps }: AppProps) {
+    const [theme, setTheme] = useState<string>("dark");
+    const Router = useRouter();
+    
+    useEffect(() => {
+        const start = () => {
+            const thisHTML = document.getElementsByTagName("html")[0];
+            if (thisHTML.classList.contains("dark")) setTheme("dark");
+            else setTheme("light");
+        }
+        Router.events.on("routeChangeStart", start);
+    }, [Router]);
+
     return (
         <>
             <QueryClientProvider client={queryClient}>
@@ -46,6 +63,9 @@ export default function App({ Component, pageProps }: AppProps) {
                     }}
                 />
                 <main>
+                    <NextNProgress
+                        color={theme === "dark" ? "#8AB4F8" : "#FCBE11"}
+                    />
                     <Component {...pageProps}/>
                 </main>
             </QueryClientProvider>

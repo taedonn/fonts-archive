@@ -283,12 +283,17 @@ export default function Header (
         sessionStorage.setItem('login_history', location.href);
     }
 
+    /** 로고 클릭 시 searchword, filter 초기화 */
+    const reset = () => {
+        handleSearch("");
+    }
+
     return (
         <>
             <header className="w-[100%] mt-[60px] tlg:mt-[52px]">
                 <div className='interface w-[100%] h-[60px] tlg:h-[52px] px-[32px] tlg:px-[16px] fixed right-0 top-0 z-20 flex flex-row justify-between items-center backdrop-blur bg-theme-9/80 dark:bg-theme-2/80 border-b border-theme-7 dark:border-theme-4'>
                     <div className="tlg:w-[100%] flex flex-row justify-start items-center">
-                        <Link href="/" aria-label="logo" className="w-[36px] tlg:w-[32px] h-[36px] tlg:h-[32px] flex flex-row justify-center items-center rounded-[8px] tlg:rounded-[6px] mr-[12px] bg-theme-3 dark:bg-theme-1 hover:drop-shadow-default tlg:hover:drop-shadow-none hover:dark:drop-shadow-dark tlg:hover:dark:drop-shadow-none">
+                        <Link onClick={reset} href="/" aria-label="logo" className="w-[36px] tlg:w-[32px] h-[36px] tlg:h-[32px] flex flex-row justify-center items-center rounded-[8px] tlg:rounded-[6px] mr-[12px] bg-theme-3 dark:bg-theme-1 hover:drop-shadow-default tlg:hover:drop-shadow-none hover:dark:drop-shadow-dark tlg:hover:dark:drop-shadow-none">
                             <svg className="w-[18px] tlg:w-[16px] pb-px fill-theme-10 dark:fill-theme-9" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="m2.244 13.081.943-2.803H6.66l.944 2.803H8.86L5.54 3.75H4.322L1 13.081h1.244zm2.7-7.923L6.34 9.314H3.51l1.4-4.156h.034zm9.146 7.027h.035v.896h1.128V8.125c0-1.51-1.114-2.345-2.646-2.345-1.736 0-2.59.916-2.666 2.174h1.108c.068-.718.595-1.19 1.517-1.19.971 0 1.518.52 1.518 1.464v.731H12.19c-1.647.007-2.522.8-2.522 2.058 0 1.319.957 2.18 2.345 2.18 1.06 0 1.716-.43 2.078-1.011zm-1.763.035c-.752 0-1.456-.397-1.456-1.244 0-.65.424-1.115 1.408-1.115h1.805v.834c0 .896-.752 1.525-1.757 1.525z"/></svg>
                         </Link>
                         {
@@ -607,7 +612,7 @@ export default function Header (
                                             <svg className="w-[14px] mr-[4px] mb-px fill-theme-8/80 group-hover:fill-theme-10/80 tlg:group-hover:fill-theme-8/80 dark:fill-theme-7/80 group-hover:dark:fill-theme-9/80 tlg:group-hover:dark:fill-theme-7/80" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0ZM8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm0 5.996V14H3s-1 0-1-1 1-4 6-4c.564 0 1.077.038 1.544.107a4.524 4.524 0 0 0-.803.918A10.46 10.46 0 0 0 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h5ZM9 13a1 1 0 0 1 1-1v-1a2 2 0 1 1 4 0v1a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1v-2Zm3-3a1 1 0 0 0-1 1v1h2v-1a1 1 0 0 0-1-1Z"/></svg>
                                             프로필 정보
                                         </Link>
-                                        <Link href="/?filter=liked" className="flex flex-row justify-start items-center text-theme-8/80 hover:text-theme-10/80 tlg:hover:text-theme-8/80 dark:text-theme-7/80 hover:dark:text-theme-9/80 tlg:hover:dark:text-theme-7/80 mt-[2px] ml-px group">
+                                        <Link onClick={reset} href="/?filter=liked" className="flex flex-row justify-start items-center text-theme-8/80 hover:text-theme-10/80 tlg:hover:text-theme-8/80 dark:text-theme-7/80 hover:dark:text-theme-9/80 tlg:hover:dark:text-theme-7/80 mt-[2px] ml-px group">
                                             <svg className='w-[13px] mr-[5px] mb-px fill-theme-8/80 group-hover:fill-theme-10/80 tlg:group-hover:fill-theme-8/80 dark:fill-theme-7/80 group-hover:dark:fill-theme-9/80 tlg:group-hover:dark:fill-theme-7/80' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M225.8 468.2l-2.5-2.3L48.1 303.2C17.4 274.7 0 234.7 0 192.8v-3.3c0-70.4 50-130.8 119.2-144C158.6 37.9 198.9 47 231 69.6c9 6.4 17.4 13.8 25 22.3c4.2-4.8 8.7-9.2 13.5-13.3c3.7-3.2 7.5-6.2 11.5-9c0 0 0 0 0 0C313.1 47 353.4 37.9 392.8 45.4C462 58.6 512 119.1 512 189.5v3.3c0 41.9-17.4 81.9-48.1 110.4L288.7 465.9l-2.5 2.3c-8.2 7.6-19 11.9-30.2 11.9s-22-4.2-30.2-11.9zM239.1 145c-.4-.3-.7-.7-1-1.1l-17.8-20c0 0-.1-.1-.1-.1c0 0 0 0 0 0c-23.1-25.9-58-37.7-92-31.2C81.6 101.5 48 142.1 48 189.5v3.3c0 28.5 11.9 55.8 32.8 75.2L256 430.7 431.2 268c20.9-19.4 32.8-46.7 32.8-75.2v-3.3c0-47.3-33.6-88-80.1-96.9c-34-6.5-69 5.4-92 31.2c0 0 0 0-.1 .1s0 0-.1 .1l-17.8 20c-.3 .4-.7 .7-1 1.1c-4.5 4.5-10.6 7-16.9 7s-12.4-2.5-16.9-7z"/></svg>
                                             좋아요 목록
                                         </Link>

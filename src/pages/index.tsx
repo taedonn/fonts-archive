@@ -85,7 +85,10 @@ const Index = ({params}: any) => {
 
     // 폰트 검색 기능
     const [searchword, setSearchword] = useState(params.source);
-    const debouncedSearch = debounce((e) => { setSearchword(e.target.value); }, 500);
+    const debouncedSearch = debounce((e) => {
+        if (e.target) setSearchword(e.target.value);
+        else setSearchword("");
+    }, 500);
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => { debouncedSearch(e); }
 
     // 로딩 시 body 패딩 제거 & 풋터 제거

@@ -50,7 +50,7 @@ export default function FontBox ({license, lang, type, sort, user, like, filter,
         remove();
         refetch();
         window.scrollTo(0, 0);
-    }, [license, lang, type, sort, searchword, remove, refetch]);
+    }, [license, lang, type, sort, searchword, filter, remove, refetch]);
 
     // 좋아요 state
     const [alertDisplay, setAlertDisplay] = useState<boolean>(false);

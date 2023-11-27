@@ -423,7 +423,7 @@ const IssueFont = ({params}: any) => {
             />
 
             {/* Progress Bar */}
-            <div style={{width: `${progress}%`}} className="h-[4px] bg-theme-green fixed z-30 left-0 top-0 duration-300 ease-out"></div>
+            <div style={{width: `${progress}%`}} className="h-[3px] bg-theme-yellow dark:bg-theme-blue-1 fixed z-30 left-0 top-0 duration-300 ease-out"></div>
 
             {/* 메인 */}
             <div className='w-[100%] flex flex-col justify-center items-center'>
