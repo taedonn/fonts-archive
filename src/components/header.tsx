@@ -288,7 +288,7 @@ export default function Header (
 
     return (
         <>
-            <header className="w-[100%] mt-[60px] tlg:mt-[52px]">
+            <header className="w-[100%]">
                 <div className='interface w-[100%] h-[60px] tlg:h-[52px] px-[32px] tlg:px-[16px] fixed right-0 top-0 z-20 flex flex-row justify-between items-center backdrop-blur bg-theme-9/80 dark:bg-theme-2/80 border-b border-theme-7 dark:border-theme-4'>
                     <div className="tlg:w-[100%] flex flex-row justify-start items-center">
                         <Link onClick={reset} href="/" aria-label="logo" className="w-[36px] tlg:w-[32px] h-[36px] tlg:h-[32px] flex flex-row justify-center items-center rounded-[8px] tlg:rounded-[6px] mr-[12px] bg-theme-3 dark:bg-theme-1 hover:drop-shadow-default tlg:hover:drop-shadow-none hover:dark:drop-shadow-dark tlg:hover:dark:drop-shadow-none">

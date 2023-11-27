@@ -5,6 +5,7 @@ import { useInView } from 'react-intersection-observer';
 
 // next hooks
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 // hooks
 import axios from 'axios';
@@ -42,7 +43,9 @@ export default function FontBox ({license, lang, type, sort, user, like, filter,
     // react-intersection-observer 사용해 ref를 지정한 요소가 viewport에 있을 때 fetchNextPage 함수 실행
     useEffect(() => {
         if (inView && hasNextPage) { fetchNextPage(); }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
+        if (!hasNextPage) document.body.style.paddingBottom = 16 + "px";
+        else document.body.style.paddingBottom = 76 + "px";
     }, [inView]);
 
     // 폰트 검색 필터링 값 변경 시 기존 데이터 지우고 useInfiniteQuery 재실행
@@ -51,6 +54,21 @@ export default function FontBox ({license, lang, type, sort, user, like, filter,
         refetch();
         window.scrollTo(0, 0);
     }, [license, lang, type, sort, searchword, filter, remove, refetch]);
+
+    // 다음 페이지가 없으면 패딩 변경
+    const router = useRouter();
+    
+    useEffect(() => {
+        const start = () => {
+            document.body.style.paddingBottom = 76 + "px";
+        }
+        router.events.on("routeChangeStart", start);
+        router.events.on("routeChangeError", start);
+        return () => {
+            router.events.off("routeChangeStart", start);
+            router.events.off("routeChangeError", start);
+        }
+    }, [router]);
 
     // 좋아요 state
     const [alertDisplay, setAlertDisplay] = useState<boolean>(false);
