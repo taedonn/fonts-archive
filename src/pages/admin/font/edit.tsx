@@ -13,6 +13,7 @@ import { FetchFont } from "@/pages/api/admin/font";
 
 // components
 import Header from "@/components/header";
+import Footer from "@/components/footer";
 import axios from "axios";
 
 const Edit = ({params}: any) => {
@@ -608,6 +609,9 @@ const Edit = ({params}: any) => {
                     </div>
                 </div>
             </div>
+
+            {/* 풋터 */}
+            <Footer/>
         </>
     );
 }

@@ -284,9 +284,7 @@ export default function Header (
     }
 
     /** 로고 클릭 시 searchword, filter 초기화 */
-    const reset = () => {
-        handleSearch("");
-    }
+    const reset = () => { handleSearch(""); }
 
     return (
         <>
@@ -639,11 +637,11 @@ export default function Header (
                                                 </Link>
                                                 <Link href="/admin/user/list" className="flex flex-row justify-start items-center text-theme-8/80 hover:text-theme-10/80 tlg:hover:text-theme-8/80 dark:text-theme-7/80 hover:dark:text-theme-9/80 tlg:hover:dark:text-theme-7/80 mt-[2px] ml-px group">
                                                     <svg className="w-[14px] mr-[4px] fill-theme-8/80 group-hover:fill-theme-10/80 tlg:group-hover:fill-theme-8/80 dark:fill-theme-7/80 group-hover:dark:fill-theme-9/80 tlg:group-hover:dark:fill-theme-7/80" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0ZM8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm.256 7a4.474 4.474 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10c.26 0 .507.009.74.025.226-.341.496-.65.804-.918C9.077 9.038 8.564 9 8 9c-5 0-6 3-6 4s1 1 1 1h5.256Zm3.63-4.54c.18-.613 1.048-.613 1.229 0l.043.148a.64.64 0 0 0 .921.382l.136-.074c.561-.306 1.175.308.87.869l-.075.136a.64.64 0 0 0 .382.92l.149.045c.612.18.612 1.048 0 1.229l-.15.043a.64.64 0 0 0-.38.921l.074.136c.305.561-.309 1.175-.87.87l-.136-.075a.64.64 0 0 0-.92.382l-.045.149c-.18.612-1.048.612-1.229 0l-.043-.15a.64.64 0 0 0-.921-.38l-.136.074c-.561.305-1.175-.309-.87-.87l.075-.136a.64.64 0 0 0-.382-.92l-.148-.045c-.613-.18-.613-1.048 0-1.229l.148-.043a.64.64 0 0 0 .382-.921l-.074-.136c-.306-.561.308-1.175.869-.87l.136.075a.64.64 0 0 0 .92-.382l.045-.148ZM14 12.5a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0Z"/></svg>
-                                                    유저 관리
+                                                    유저 목록
                                                 </Link>
                                                 <Link href="/admin/comment/list" className="flex flex-row justify-start items-center text-theme-8/80 hover:text-theme-10/80 tlg:hover:text-theme-8/80 dark:text-theme-7/80 hover:dark:text-theme-9/80 tlg:hover:dark:text-theme-7/80 mt-[2px] ml-[2px] group">
                                                     <svg className="w-[13px] mr-[4px] mb-px fill-theme-8/80 group-hover:fill-theme-10/80 tlg:group-hover:fill-theme-8/80 dark:fill-theme-7/80 group-hover:dark:fill-theme-9/80 tlg:group-hover:dark:fill-theme-7/80" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M5 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/><path d="m2.165 15.803.02-.004c1.83-.363 2.948-.842 3.468-1.105A9.06 9.06 0 0 0 8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6a10.437 10.437 0 0 1-.524 2.318l-.003.011a10.722 10.722 0 0 1-.244.637c-.079.186.074.394.273.362a21.673 21.673 0 0 0 .693-.125zm.8-3.108a1 1 0 0 0-.287-.801C1.618 10.83 1 9.468 1 8c0-3.192 3.004-6 7-6s7 2.808 7 6c0 3.193-3.004 6-7 6a8.06 8.06 0 0 1-2.088-.272 1 1 0 0 0-.711.074c-.387.196-1.24.57-2.634.893a10.97 10.97 0 0 0 .398-2z"/></svg>
-                                                    댓글 관리
+                                                    댓글 목록
                                                 </Link>
                                                 <Link href="/admin/issue/list" className="flex flex-row justify-start items-center text-theme-8/80 hover:text-theme-10/80 tlg:hover:text-theme-8/80 dark:text-theme-7/80 hover:dark:text-theme-9/80 tlg:hover:dark:text-theme-7/80 mt-[2px] ml-[2px] group">
                                                     <svg className="w-[12px] mr-[6px] mb-px fill-theme-8/80 group-hover:fill-theme-10/80 tlg:group-hover:fill-theme-8/80 dark:fill-theme-7/80 group-hover:dark:fill-theme-9/80 tlg:group-hover:dark:fill-theme-7/80" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M16.1 260.2c-22.6 12.9-20.5 47.3 3.6 57.3L160 376V479.3c0 18.1 14.6 32.7 32.7 32.7c9.7 0 18.9-4.3 25.1-11.8l62-74.3 123.9 51.6c18.9 7.9 40.8-4.5 43.9-24.7l64-416c1.9-12.1-3.4-24.3-13.5-31.2s-23.3-7.5-34-1.4l-448 256zm52.1 25.5L409.7 90.6 190.1 336l1.2 1L68.2 285.7zM403.3 425.4L236.7 355.9 450.8 116.6 403.3 425.4z"/></svg>
@@ -659,7 +657,7 @@ export default function Header (
                                                 </Link>
                                                 <Link href="/admin/notices/list" className="flex flex-row justify-start items-center text-theme-8/80 hover:text-theme-10/80 tlg:hover:text-theme-8/80 dark:text-theme-7/80 hover:dark:text-theme-9/80 tlg:hover:dark:text-theme-7/80 mt-[2px] ml-[2px] group">
                                                     <svg className="w-[11px] mr-[6px] ml-px mb-px fill-theme-8/80 group-hover:fill-theme-10/80 tlg:group-hover:fill-theme-8/80 dark:fill-theme-7/80 group-hover:dark:fill-theme-9/80 tlg:group-hover:dark:fill-theme-7/80" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M48 24C48 10.7 37.3 0 24 0S0 10.7 0 24V64 350.5 400v88c0 13.3 10.7 24 24 24s24-10.7 24-24V388l80.3-20.1c41.1-10.3 84.6-5.5 122.5 13.4c44.2 22.1 95.5 24.8 141.7 7.4l34.7-13c12.5-4.7 20.8-16.6 20.8-30V66.1c0-23-24.2-38-44.8-27.7l-9.6 4.8c-46.3 23.2-100.8 23.2-147.1 0c-35.1-17.6-75.4-22-113.5-12.5L48 52V24zm0 77.5l96.6-24.2c27-6.7 55.5-3.6 80.4 8.8c54.9 27.4 118.7 29.7 175 6.8V334.7l-24.4 9.1c-33.7 12.6-71.2 10.7-103.4-5.4c-48.2-24.1-103.3-30.1-155.6-17.1L48 338.5v-237z"/></svg>
-                                                    공지 관리
+                                                    공지 목록
                                                 </Link>
                                             </> : <></>
                                         }

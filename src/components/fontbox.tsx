@@ -133,7 +133,7 @@ export default function FontBox ({license, lang, type, sort, user, like, filter,
     return (
         <>
             <div className='w-[100%] flex flex-col justify-start items-end'>
-                <div className="main-menu w-[100%] relative flex flex-wrap flex-row justify-between items-stretch pt-[16px] pb-[20px]">
+                <div className="main-menu w-[100%] relative flex flex-wrap flex-row justify-between items-stretch pt-[16px]">
                     
                     {/* 로그인 중이 아닐 때 좋아요 alert창 팝업 */}
                     {
@@ -231,7 +231,7 @@ export default function FontBox ({license, lang, type, sort, user, like, filter,
                     <span className="w-[100%]" ref={ref}></span>
 
                     {/* 로딩 바 */}
-                    {hasNextPage ? <div className="w-[100%] pt-[20px] flex flex-row justify-center items-center"><span className="loader w-[36px] h-[36px]"></span></div> : null}
+                    {hasNextPage ? <div className="w-[100%] py-[20px] absolute left-0 bottom-[-76px] flex flex-row justify-center items-center"><span className="loader w-[36px] h-[36px]"></span></div> : null}
                 </div>
             </div>
         </>

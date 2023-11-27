@@ -9,6 +9,7 @@ import { Auth } from "@/pages/api/user/auth";
 
 // components
 import Header from "@/components/header";
+import Footer from "@/components/footer";
 import axios from "axios";
 
 const Add = ({params}: any) => {
@@ -444,6 +445,9 @@ const Add = ({params}: any) => {
                     </div>
                 </div>
             </div>
+
+            {/* 풋터 */}
+            <Footer/>
         </>
     );
 }

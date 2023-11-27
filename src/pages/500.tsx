@@ -5,20 +5,15 @@ import { useEffect } from "react";
 import Link from "next/link";
 
 export default function Custom500() {
-    // 로딩 시 body 패딩 제거 & 풋터 제거
+    // 로딩 시 폰트 다운로드
     useEffect(() => {
         const head = document.head as HTMLHeadElement;
-        const body = document.body as HTMLBodyElement;
-        const footer = document.getElementsByTagName("footer")[0] as HTMLElement;
-        
         head.innerHTML += '<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fonts-archive/IntelOneMono/IntelOneMono.css" type="text/css"/>'
-        body.style.paddingBottom = "0";
-        footer.style.display = "none";
     }, []);
     
     return (
         <>
-            <div className="w-[100%] h-[100vh] flex flex-col justify-center items-center text-center text-theme-3 dark:text-theme-9">
+            <div className="w-[100%] h-[100%] absolute left-0 top-0 flex flex-col justify-center items-center text-center text-theme-3 dark:text-theme-9">
                 <div className="text-[28px] font-medium">
                     권한이 없거나 <br/>
                     존재하지 않는 페이지입니다.

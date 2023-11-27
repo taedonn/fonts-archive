@@ -13,6 +13,7 @@ import { Auth } from '../api/user/auth';
 
 // components
 import Header from "@/components/header";
+import Footer from '@/components/footer';
 import ChangePwModal from '@/components/changepwmodal';
 import DeleteUserModal from '@/components/deleteusermodal';
 
@@ -442,6 +443,9 @@ const Info = ({params}: any) => {
                     </div>
                 </div>
             </form>
+
+            {/* 풋터 */}
+            <Footer/>
 
             {/* 비밀번호 변경 모달창 */}
             <ChangePwModal

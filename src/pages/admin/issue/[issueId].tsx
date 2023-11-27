@@ -13,6 +13,7 @@ import axios from "axios";
 
 // components
 import Header from "@/components/header";
+import Footer from "@/components/footer";
 import { Switch } from "@mui/material";
 
 // common
@@ -331,6 +332,9 @@ const IssuePage = ({params}: any) => {
                     </div>
                 </div>
             }
+
+            {/* 풋터 */}
+            <Footer/>
         </>
     )
 }

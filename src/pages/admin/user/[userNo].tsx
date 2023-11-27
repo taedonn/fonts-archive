@@ -12,6 +12,7 @@ import axios from "axios";
 
 // components
 import Header from "@/components/header";
+import Footer from "@/components/footer";
 import { Switch } from "@mui/material";
 
 const UserDetailPage = ({params}: any) => {
@@ -330,6 +331,9 @@ const UserDetailPage = ({params}: any) => {
                     </div>
                 </div>
             </div>
+
+            {/* 풋터 */}
+            <Footer/>
         </>
     )
 }

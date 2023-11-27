@@ -11,6 +11,7 @@ import axios from 'axios';
 
 // components
 import Header from "@/components/header";
+import Footer from '@/components/footer';
 import Tooltip from '@/components/tooltip';
 
 // common
@@ -158,6 +159,9 @@ const Notices = ({params}: any) => {
                     }
                 </div>
             </div>
+
+            {/* 풋터 */}
+            <Footer/>
         </>
     );
 }

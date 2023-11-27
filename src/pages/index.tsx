@@ -1,5 +1,5 @@
 // react hooks
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useCookies } from 'react-cookie';
 import { debounce } from "lodash";
 
@@ -90,14 +90,6 @@ const Index = ({params}: any) => {
         else setSearchword("");
     }, 500);
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => { debouncedSearch(e); }
-
-    // 로딩 시 body 패딩 제거 & 풋터 제거
-    useEffect(() => {
-        const body = document.body as HTMLBodyElement;
-        const footer = document.getElementsByTagName("footer")[0] as HTMLElement;
-        body.style.paddingBottom = "0";
-        footer.style.display = "none";
-    }, []);
 
     return (
         <>

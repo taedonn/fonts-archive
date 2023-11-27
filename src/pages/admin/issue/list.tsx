@@ -13,6 +13,7 @@ import { FetchIssuesLength } from '@/pages/api/admin/issue';
 
 // components
 import Header from "@/components/header";
+import Footer from '@/components/footer';
 import { Pagination } from '@mui/material';
 
 // common
@@ -172,6 +173,9 @@ const IssueList = ({params}: any) => {
                     </div>
                 </div>
             </form>
+
+            {/* 풋터 */}
+            <Footer/>
         </>
     );
 }

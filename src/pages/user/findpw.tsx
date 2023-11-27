@@ -10,6 +10,7 @@ import axios from 'axios';
 
 // components
 import Header from "@/components/header";
+import Footer from '@/components/footer';
 
 const FindPw = ({params}: any) => {
     // 디바이스 체크
@@ -167,6 +168,9 @@ const FindPw = ({params}: any) => {
                     </div>
                 </div>
             </div>
+
+            {/* 풋터 */}
+            <Footer/>
         </>
     );
 }

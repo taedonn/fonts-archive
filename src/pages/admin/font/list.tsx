@@ -13,6 +13,7 @@ import { FetchFonts } from '@/pages/api/admin/font';
 
 // components
 import Header from "@/components/header";
+import Footer from '@/components/footer';
 import { Pagination } from '@mui/material';
 
 // common
@@ -206,6 +207,9 @@ const FontsList = ({params}: any) => {
                     </div>
                 </div>
             </form>
+
+            {/* 풋터 */}
+            <Footer/>
         </>
     );
 }

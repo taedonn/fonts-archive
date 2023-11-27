@@ -6,6 +6,7 @@ import { Auth } from '../api/user/auth';
 
 // components
 import Header from "@/components/header";
+import Footer from '@/components/footer';
 import Tooltip from '@/components/tooltip';
 
 const Terms = ({params}: any) => {
@@ -47,7 +48,7 @@ const Terms = ({params}: any) => {
 
             {/* 메인 */}
             <div className='w-[100%] flex flex-col justify-center items-center'>
-                <div className='w-[720px] tmd:w-[100%] flex flex-col justify-center items-start my-[32px] tmd:my-[24px]'>
+                <div className='w-[720px] tmd:w-[100%] flex flex-col justify-center items-start my-[32px] mb-[64px] tmd:my-[24px] tmd:mb-[48px]'>
                     <h2 className='text-[28px] tmd:text-[20px] text-theme-3 dark:text-theme-9 font-medium'>서비스 이용약관</h2>
                     <div className='w-[100%] h-px bg-theme-7 dark:bg-theme-5 my-[16px] tmd:my-[12px]'></div>
 <pre style={{fontFamily: "Spoqa Han Sans Neo, Noto Sans KR"}} className='whitespace-pre-wrap text-[14px] text-theme-5 dark:text-theme-9/80 leading-loose'>{
@@ -347,6 +348,9 @@ const Terms = ({params}: any) => {
 </pre>
                 </div>
             </div>
+
+            {/* 풋터 */}
+            <Footer/>
         </>
     );
 }

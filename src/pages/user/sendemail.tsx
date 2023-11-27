@@ -10,6 +10,7 @@ import axios from 'axios';
 
 // components
 import Header from "@/components/header";
+import Footer from '@/components/footer';
 import MailAnimation from '@/components/mailanimation';
 
 const SendEmail = ({params}: any) => {
@@ -76,6 +77,9 @@ const SendEmail = ({params}: any) => {
                     </h3>
                 </div>
             </div>
+
+            {/* 풋터 */}
+            <Footer/>
         </>
     );
 }

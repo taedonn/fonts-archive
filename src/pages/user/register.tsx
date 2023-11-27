@@ -1,5 +1,6 @@
 // next hooks
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
 
 // react hooks
@@ -10,6 +11,7 @@ import axios from 'axios';
 
 // components
 import Header from "@/components/header";
+import Footer from '@/components/footer';
 
 const Register = ({params}: any) => {
     // 디바이스 체크
@@ -17,6 +19,8 @@ const Register = ({params}: any) => {
 
     // 빈 함수
     const emptyFn = () => { return; }
+
+    const router = useRouter();
 
     // 폼 유효성 검사 state
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -76,7 +80,7 @@ const Register = ({params}: any) => {
                     })
                     .then(res => {
                         // 이메일 토큰을 가져와 회원가입 완료 페이지로 이동
-                        location.href = '/user/sendemail?token=' + res.data.email_token;
+                        router.push('/user/sendemail?token=' + res.data.email_token);
                     })
                     .catch(err => {
                         console.log(err);
@@ -329,6 +333,9 @@ const Register = ({params}: any) => {
                     </form>
                 </div>
             </div>
+
+            {/* 풋터 */}
+            <Footer/>
         </>
     );
 }

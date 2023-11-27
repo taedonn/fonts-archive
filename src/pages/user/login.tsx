@@ -1,5 +1,6 @@
 // next hooks
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
 
 // react hooks
@@ -11,6 +12,7 @@ import { useCookies } from 'react-cookie';
 
 // components
 import Header from "@/components/header";
+import Footer from '@/components/footer';
 
 const Login = ({params}: any) => {
     // 쿠키 훅
@@ -21,6 +23,8 @@ const Login = ({params}: any) => {
 
     // 빈 함수
     const emptyFn = () => { return; }
+
+    const router = useRouter();
 
     // 폼 state
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -115,12 +119,12 @@ const Login = ({params}: any) => {
                     if (history.includes("user")) {
                         console.log("history가 user일 때");
                         if (history.includes("privacy") || history.includes("terms")) {
-                            location.href = history as string; // 이전 페이지로 이동
+                            router.push(history); // 이전 페이지로 이동
                         } else {
-                            location.href = "/";
+                            router.push("/");
                         }
                     } else {
-                        location.href = history as string; // 이전 페이지로 이동
+                        router.push(history); // 이전 페이지로 이동
                     }
                 }
             })
@@ -269,6 +273,9 @@ const Login = ({params}: any) => {
                     </div>
                 </div>
             </div>
+
+            {/* 풋터 */}
+            <Footer/>
         </>
     );
 }

@@ -13,6 +13,7 @@ import { FetchComments } from '../api/user/fetchcomments';
 
 // components
 import Header from "@/components/header";
+import Footer from '@/components/footer';
 import AdminDeleteCommentModal from '@/components/admindeletecommentmodal';
 import { Pagination } from '@mui/material';
 
@@ -211,6 +212,9 @@ const Comments = ({params}: any) => {
                     </div>
                 </div>
             </form>
+
+            {/* 풋터 */}
+            <Footer/>
         </>
     );
 }

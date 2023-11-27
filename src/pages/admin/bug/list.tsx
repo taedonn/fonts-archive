@@ -13,6 +13,7 @@ import { FetchBugsLength } from '@/pages/api/admin/bug';
 
 // components
 import Header from "@/components/header";
+import Footer from '@/components/footer';
 import { Pagination } from '@mui/material';
 
 // common
@@ -168,6 +169,9 @@ const BugList = ({params}: any) => {
                     </div>
                 </div>
             </form>
+
+            {/* 풋터 */}
+            <Footer/>
         </>
     );
 }

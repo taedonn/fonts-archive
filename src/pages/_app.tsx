@@ -19,7 +19,7 @@ import '../styles/mailanimation.css';
 
 export default function App({ Component, pageProps }: AppProps) {
     const [theme, setTheme] = useState<string>("dark");
-    const Router = useRouter();
+    const router = useRouter();
     
     useEffect(() => {
         const start = () => {
@@ -27,8 +27,8 @@ export default function App({ Component, pageProps }: AppProps) {
             if (thisHTML.classList.contains("dark")) setTheme("dark");
             else setTheme("light");
         }
-        Router.events.on("routeChangeStart", start);
-    }, [Router]);
+        router.events.on("routeChangeStart", start);
+    }, [router]);
 
     return (
         <>

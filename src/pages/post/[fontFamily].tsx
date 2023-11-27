@@ -21,6 +21,7 @@ import {  Slider } from "@mui/material";
 
 // components
 import Header from "@/components/header";
+import Footer from "@/components/footer";
 import Tooltip from "@/components/tooltip";
 import DummyText from "@/components/dummytext";
 import Comments from "@/components/comments";
@@ -918,6 +919,9 @@ function DetailPage({params}: any) {
 
                 </div>
             </div>
+
+            {/* 풋터 */}
+            <Footer/>
         </>
     )
 }

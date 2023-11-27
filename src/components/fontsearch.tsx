@@ -5,6 +5,7 @@ import { debounce } from "lodash";
 
 // next hooks
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 // hooks
 import axios from "axios";
@@ -23,6 +24,8 @@ export default function FontSearch(
         showBtn: any
     }
 ) {
+    const router = useRouter();
+
     // 검색 키워드 디폴트: 빈 문자열
     const [keyword, setKeyword] = useState<string>("");
 
@@ -74,7 +77,7 @@ export default function FontSearch(
             }
 
             // 엔터키 눌렀을 때 해당 페이지로 이동s
-            if (keys["Enter"] && activeRef.current) { location.href = activeRef.current.href; }
+            if (keys["Enter"] && activeRef.current) { router.push(activeRef.current.href); }
         }
         const handleKeyup = (e: KeyboardEvent) => {
             keys[e.key] = false;
@@ -151,6 +154,15 @@ export default function FontSearch(
             }
         }
     }, [activeEl]);
+
+    // 라우팅 끝날 때 검색창 닫기
+    useEffect(() => {
+        const end = () => { closeBtn(); }
+        router.events.on("routeChangeComplete", end);
+        return () => {
+            router.events.off("routeChangeComplete", end);
+        }
+    }, [router, closeBtn]);
 
     return (
         <>

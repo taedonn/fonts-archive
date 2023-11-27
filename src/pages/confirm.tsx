@@ -18,15 +18,10 @@ const Confirm = ({params}: any) => {
     // 쿠키 훅
     const [, setCookie] = useCookies<string>([]);
 
-    // 로딩 시 body 패딩 제거 & 풋터 제거
+    // 로딩 시 폰트 다운로드
     useEffect(() => {
-        const head = document.head as HTMLHeadElement;
-        const body = document.body as HTMLBodyElement;
-        const footer = document.getElementsByTagName("footer")[0] as HTMLElement;
-        
+        const head = document.head as HTMLHeadElement;    
         head.innerHTML += '<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fonts-archive/IntelOneMono/IntelOneMono.css" type="text/css"/>'
-        body.style.paddingBottom = "0";
-        footer.style.display = "none";
 
         /** 이메일 확인 DB에 저장 후 쿠키 저장 */
         async function updateEmailConfirmation() {
