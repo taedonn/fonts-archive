@@ -95,7 +95,7 @@ export default function FontBox ({license, lang, type, sort, user, like, filter,
             })
             .then(res => {
                 let hoverEl = e.target.nextSibling?.nextSibling as HTMLDivElement;
-                if (res.data.msg === 'liked') { hoverEl.innerText='좋아요 해제'; }
+                if (res.data.like === true) { hoverEl.innerText='좋아요 해제'; }
                 else { hoverEl.innerText='좋아요'; }
 
                 // 좋아요 버튼 눌렀을 때 호버창 다시 띄우기
@@ -184,7 +184,8 @@ export default function FontBox ({license, lang, type, sort, user, like, filter,
                                     font_type: string
                                     cdn_url: string
                                 }) => (
-                                    <Link aria-label="font-link" href={`/post/${font.font_family.replaceAll(" ", "+")}`} key={font.code} className="relative block w-[calc(25%-8px)] tlg:w-[calc(33.3%-6px)] tmd:w-[calc(50%-4px)] txs:w-[100%] h-[22vw] tlg:h-[30vw] tmd:h-[46vw] txs:h-[82vw] p-[1.04vw] tlg:p-[1.95vw] tmd:p-[2.6vw] txs:p-[4.17vw] mt-[12px] tlg:mt-[10px] rounded-[8px] border border-theme-7 dark:border-theme-4 hover:bg-theme-8/60 tlg:hover:bg-transparent hover:dark:bg-theme-3/40 tlg:hover:dark:bg-transparent animate-fontbox-fade-in cursor-pointer">
+                                    <div aria-label="font-link" key={font.code} className="relative block w-[calc(25%-8px)] tlg:w-[calc(33.3%-6px)] tmd:w-[calc(50%-4px)] txs:w-[100%] h-[22vw] tlg:h-[30vw] tmd:h-[46vw] txs:h-[82vw] p-[1.04vw] tlg:p-[1.95vw] tmd:p-[2.6vw] txs:p-[4.17vw] mt-[12px] tlg:mt-[10px] rounded-[8px] border border-theme-7 dark:border-theme-4 hover:bg-theme-8/60 tlg:hover:bg-transparent hover:dark:bg-theme-3/40 tlg:hover:dark:bg-transparent animate-fontbox-fade-in cursor-pointer">
+                                        <Link href={`/post/${font.font_family.replaceAll(" ", "+")}`} className='w-[100%] h-[100%] absolute left-0 top-0'></Link>
                                         <link href={font.cdn_url} rel="stylesheet" type="text/css" itemProp="url"></link>
                                         <div className='group absolute z-20 top-[1.46vw] tlg:top-[2.73vw] tmd:top-[3.65vw] txs:top-[5.83vw] right-[1.25vw] tlg:right-[1.95vw] tmd:right-[2.6vw] txs:right-[4.17vw]'>
                                             <input onClick={handleLikeClick} onChange={handleLikeChange} type="checkbox" id={font.code.toString()} className='like hidden' defaultChecked={handleDefaultLike(font.code)}/>
@@ -202,7 +203,7 @@ export default function FontBox ({license, lang, type, sort, user, like, filter,
                                         <div style={{fontFamily:"'"+font.font_family+"'"}} className="text-[1.88vw] tlg:text-[3.52vw] tmd:text-[4.69vw] txs:text-[7.5vw] text-normal leading-normal overflow-hidden">
                                             <p className={`${font.code + '-text'} textbox ellipsed-text text-theme-3/60 dark:text-theme-8/60`}><DummyText lang={font.lang} text={text} num={num}/></p>
                                         </div>
-                                    </Link>
+                                    </div>
                                 ))}
                             </React.Fragment>
                         )

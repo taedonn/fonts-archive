@@ -27,12 +27,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
                 return res.status(200).json({
                     msg: "좋아요 업데이트 성공",
-                    num: like.length
+                    num: like.length,
+                    like: true,
                 });
             } catch (err) {
                 return res.status(500).json({
                     msg: "좋아요 업데이트 실패",
-                    err: err
+                    err: err,
+                    like: false,
                 });
             }
         } else if (req.body.action === "decrease") {
