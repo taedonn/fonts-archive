@@ -143,8 +143,8 @@ const Notices = ({params}: any) => {
                                 <label htmlFor={`notice-${notice.notice_id}`} className='cursor-pointer hover:bg-theme-7/20 hover:dark:bg-theme-5/20'>
                                     <div className='w-[100%] h-[56px] text-[14px] flex justify-between items-center border-t text-theme-3 dark:text-theme-9 border-theme-7 dark:border-theme-5'>
                                         <div className='flex items-center'>
-                                            <div className='w-[100px] flex justify-center items-center'><div className='px-[4px] border-b-[2px] dark:border-theme-blue-1'>{notice.notice_type === "service" ? "서비스" : "폰트"}</div></div>
-                                            <div className='ml-[12px]'><div className='font-size'>{notice.notice_title}</div></div>
+                                            <div className='w-[100px] tlg:w-[80px] shrink-0 flex justify-center items-center'><div className='px-[4px] border-b-[2px] dark:border-theme-blue-1'>{notice.notice_type === "service" ? "서비스" : "폰트"}</div></div>
+                                            <div className='w-[100%] ml-[12px]'><div className='font-size'>{notice.notice_title}</div></div>
                                         </div>
                                         <div className='flex items-center mr-[20px]'>
                                             <div className='w-[80px] text-theme-5 dark:text-theme-7'>{dateFormat(notice.notice_created_at)}</div>
