@@ -22,12 +22,22 @@ export async function FetchFonts(lastId: number | undefined) {
     return fonts;
 }
 
+// 폰트 모두 불러오기
 export async function FetchFont(code: number) {
     const font = await prisma.fonts.findUnique({
         where: { code: code }
     });
     
     return font;
+}
+
+export async function FetchAllFonts() {
+    const fonts = await prisma.fonts.findMany({
+        select: { font_family: true },
+        where: { show_type: true }
+    });
+
+    return fonts;
 }
   
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
