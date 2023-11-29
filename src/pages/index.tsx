@@ -4,7 +4,7 @@ import { useCookies } from 'react-cookie';
 import { debounce } from "lodash";
 
 // api
-import { Auth } from "./api/user/auth";
+import { Auth, getAccessToken } from "./api/user/auth";
 import { FetchUserLike } from "./api/user/fetchuserlike";
 
 // components
@@ -143,13 +143,14 @@ export async function getServerSideProps(ctx: any) {
 
         // 파라미터 가져오기
         const source = ctx.query.search === undefined ? "" : ctx.query.search;
-        const filter = ctx.query.filter === undefined ? '' : ctx.query.filter;
+        const filter = ctx.query.filter === undefined ? "" : ctx.query.filter;
 
         // 디바이스 체크
         const userAgent = ctx.req ? ctx.req.headers['user-agent'] : navigator.userAgent;
 
         // 유저 정보 조회
         const user = await Auth(ctx.req.cookies.session, ctx.res);
+        // const user = await getAccessToken(ctx.req.cookies.refreshToken);
 
         // 유저 정보가 있으면, 좋아요한 폰트 체크
         const like = user === null

@@ -1,7 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import prisma from '@/libs/client-prisma';
-import { refresh, sign } from '@/libs/jwt-utils';
-import { verify } from 'crypto';
+import { refresh, refreshVerify, sign } from '@/libs/jwt-utils';
 
 async function CheckIfSessionExists(session: string) {
     const user = await prisma.fontsUser.findFirst({
@@ -30,7 +29,7 @@ export async function FetchUserInfoFromToken(token: string) {
 
 export async function Auth(session: string, res: any) {
     // 유저 정보 조회
-    const user = session === undefined
+    const user = session === undefined || session === ""
         ? null
         : await CheckIfSessionExists(session)
             ? await FetchUserInfo(session)
@@ -42,23 +41,9 @@ export async function Auth(session: string, res: any) {
     return user;
 }
 
-// async function getAccessToken(refreshToken: string) {
-//     const userId = await prisma.fontsUser.findFirst({
-//         select: { user_id: true },
-//         where: { refresh_token: refreshToken }
-//     });
-
-//     return userId;
-// }
-
-// export async function Auth(refreshToken: string) {
-//     // 유저 정보 조회
-//     const userId = refreshToken === undefined
-//         ? null
-//         : await getAccessToken(refreshToken)
-
-//     return userId;
-// }
+export async function getAccessToken(refreshToken: string) {
+    // if (refreshVerify(refreshToken)) 
+}
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method === "GET") {
