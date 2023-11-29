@@ -135,16 +135,14 @@ const Index = ({params}: any) => {
 export async function getServerSideProps(ctx: any) {
     try {
         // 필터링 쿠키 체크
-        const cookieLicense = ctx.req.cookies.license === undefined ? "all" : ctx.req.cookies.license;
-        const cookieLang = ctx.req.cookies.lang === undefined ? "all" : ctx.req.cookies.lang;
-        const cookieType = ctx.req.cookies.type === undefined ? "all" : ctx.req.cookies.type;
-        const cookieSort = ctx.req.cookies.sort === undefined ? "view" : ctx.req.cookies.sort;
-        const cookieTheme = ctx.req.cookies.theme === undefined ? "dark" : ctx.req.cookies.theme;
+        const license = ctx.req.cookies.license === undefined ? "all" : ctx.req.cookies.license;
+        const lang = ctx.req.cookies.lang === undefined ? "all" : ctx.req.cookies.lang;
+        const type = ctx.req.cookies.type === undefined ? "all" : ctx.req.cookies.type;
+        const sort = ctx.req.cookies.sort === undefined ? "view" : ctx.req.cookies.sort;
+        const theme = ctx.req.cookies.theme === undefined ? "dark" : ctx.req.cookies.theme;
 
-        // 검색어 파라미터 체크
+        // 파라미터 가져오기
         const source = ctx.query.search === undefined ? "" : ctx.query.search;
-
-        // 필터링 파라미터 체크
         const filter = ctx.query.filter === undefined ? '' : ctx.query.filter;
 
         // 디바이스 체크
@@ -161,16 +159,16 @@ export async function getServerSideProps(ctx: any) {
         return {
             props: {
                 params: {
-                    license: cookieLicense,
-                    lang: cookieLang,
-                    type: cookieType,
-                    sort: cookieSort,
-                    theme: cookieTheme,
+                    license: license,
+                    lang: lang,
+                    type: type,
+                    sort: sort,
+                    theme: theme,
                     source: source,
+                    filter: filter,
                     userAgent: userAgent,
                     user: user !== null ? JSON.parse(JSON.stringify(user)) : null,
                     like: like,
-                    filter: filter,
                 }
             }
         }

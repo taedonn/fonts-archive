@@ -11,7 +11,7 @@ const sign = (userId: string) => {
   
 // access Token 검증
 const verify = (token: string) => {
-let decoded: any = null;
+    let decoded: any = null;
     try {
         decoded = jwt.verify(token, secret);
         return {
