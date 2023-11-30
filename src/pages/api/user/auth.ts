@@ -73,7 +73,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     }),
                     res.setHeader(
                         'Set-Cookie',
-                        `refreshToken=${refreshToken}; Path=/; max-Age=31536000; Expires=${stayLoggedIn ? date.setFullYear(date.getFullYear() + 1) : date.setDate(date.getDate() + 1)}; HttpOnly; secure=true;`,
+                        `refreshToken=${refreshToken}; Path=/; max-Age=31536000; Expires=${stayLoggedIn ? date.setFullYear(date.getFullYear() + 1) : date.setDate(date.getDate() + 1)}; HttpOnly;`,
                     )
                 );
     
