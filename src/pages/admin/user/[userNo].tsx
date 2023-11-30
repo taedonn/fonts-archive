@@ -36,14 +36,12 @@ const UserDetailPage = ({params}: any) => {
     const [userPwAlert, setUserPwAlert] = useState<boolean>(false);
     const [emailConfirmed, setEmailConfirmed] = useState<boolean>(user.user_email_confirm);
     const [userEmailTokenAlert, setUserEmailTokenAlert] = useState<boolean>(false);
-    const [userSessionIdAlert, setUserSessionIdAlert] = useState<boolean>(false);
 
     // change 이벤트
     const handleUserNameChange = () => { setUserNameAlert(false); }
     const handleUserNameReportChange = () => { setUserNameReportAlert(false); }
     const handleUserPwChange = () => { setUserPwAlert(false); }
     const handleUserEmailTokenChange = () => { setUserEmailTokenAlert(false); }
-    const handleUserSessionIdChange = () => { setUserSessionIdAlert(false); }
 
     // 부적절한 아이디 버튼 클릭
     const changeNickname = () => {
@@ -85,19 +83,6 @@ const UserDetailPage = ({params}: any) => {
         setUserEmailTokenAlert(false);
     }
 
-    // 세션 ID 재생성하기 버튼 클릭
-    const regenerateSessionId = () => {
-        // 세션 ID 생성
-        const newSessionId = crypto.randomUUID();
-
-        // input value값 변경
-        const input = document.getElementById("user-session-id") as HTMLInputElement;
-        input.value = newSessionId;
-
-        // 알럿이 체크되어 있으면 체크 해제
-        setUserSessionIdAlert(false);
-    }
-
     // 이미지 랜덤 변경하기 버튼 클릭
     const changeProfileImg = () => {
         const randomProfileImg = "/fonts-archive-base-profile-img-" + (Math.floor(Math.random() * 6) + 1) + ".svg";
@@ -111,7 +96,6 @@ const UserDetailPage = ({params}: any) => {
         const userNameReported = document.getElementById("user-name-reported") as HTMLInputElement;
         const userPw = document.getElementById("user-pw") as HTMLInputElement;
         const userEmailToken = document.getElementById("user-email-token") as HTMLInputElement;
-        const userSessionId = document.getElementById("user-session-id") as HTMLInputElement;
 
         // 빈 값 유효성 체크
         if (userName.value === "") {
@@ -126,9 +110,6 @@ const UserDetailPage = ({params}: any) => {
         } else if (userEmailToken.value === "") {
             setUserEmailTokenAlert(true);
             window.scrollTo({top: userEmailToken.offsetTop});
-        } else if (userSessionId.value === "") {
-            setUserSessionIdAlert(true);
-            window.scrollTo({top: userSessionId.offsetTop});
         } else {
             // 로딩 스피너 실행
             setIsLoading(true);
@@ -143,7 +124,6 @@ const UserDetailPage = ({params}: any) => {
                 user_pw: userPw.value,
                 user_email_confirm: emailConfirmed,
                 user_email_token: userEmailToken.value,
-                user_session_id: userSessionId.value
             })
             .then(res => {
                 console.log(res.data.message);
@@ -300,25 +280,6 @@ const UserDetailPage = ({params}: any) => {
                         {
                             userEmailTokenAlert
                             ? <div className="text-[10px] ml-[16px] mt-[6px] text-theme-red">이메일 토큰을 올바르게 입력해 주세요.</div>
-                            : <></>
-                        }
-                        <label htmlFor="user-session-id" className="flex items-center mt-[20px]">
-                            세션 ID
-                            <button id="session-id-copy" onClick={copyOnClick} value={user.user_session_id} className="inline-flex items-center leading-loose ml-[6px] text-[12px] text-theme-yellow dark:text-theme-blue-1 hover:underline tlg:hover:no-underline">
-                                복사하기
-                                <svg className="copy_btn hidden w-[18px] ml-[2px] fill-theme-yellow dark:fill-theme-blue-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/></svg>
-                            </button>
-                        </label>
-                        <div className="relative mt-[8px]">
-                            <button onClick={regenerateSessionId} className="group w-[22px] h-[22px] flex justify-center items-center absolute z-10 right-[8px] top-[50%] translate-y-[-50%] cursor-pointer">
-                                <svg className="w-[14px] fill-theme-yellow dark:fill-theme-blue-1 duration-200 group-hover:rotate-90" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M142.9 142.9c62.2-62.2 162.7-62.5 225.3-1L327 183c-6.9 6.9-8.9 17.2-5.2 26.2s12.5 14.8 22.2 14.8H463.5c0 0 0 0 0 0H472c13.3 0 24-10.7 24-24V72c0-9.7-5.8-18.5-14.8-22.2s-19.3-1.7-26.2 5.2L413.4 96.6c-87.6-86.5-228.7-86.2-315.8 1C73.2 122 55.6 150.7 44.8 181.4c-5.9 16.7 2.9 34.9 19.5 40.8s34.9-2.9 40.8-19.5c7.7-21.8 20.2-42.3 37.8-59.8zM16 312v7.6 .7V440c0 9.7 5.8 18.5 14.8 22.2s19.3 1.7 26.2-5.2l41.6-41.6c87.6 86.5 228.7 86.2 315.8-1c24.4-24.4 42.1-53.1 52.9-83.7c5.9-16.7-2.9-34.9-19.5-40.8s-34.9 2.9-40.8 19.5c-7.7 21.8-20.2 42.3-37.8 59.8c-62.2 62.2-162.7 62.5-225.3 1L185 329c6.9-6.9 8.9-17.2 5.2-26.2s-12.5-14.8-22.2-14.8H48.4h-.7H40c-13.3 0-24 10.7-24 24z"/></svg>
-                                <div className="same-source w-content absolute z-10 left-[50%] top-[-38px] text-[12px] font-medium leading-none px-[10px] py-[8px] rounded-[4px] hidden group-hover:block tlg:group-hover:hidden group-hover:animate-fontbox-zoom-in bg-theme-yellow dark:bg-theme-blue-1 text-theme-3 dark:text-theme-blue-2">세션 ID 재생성하기</div>
-                            </button>
-                            <input onChange={handleUserSessionIdChange} id="user-session-id" tabIndex={5} defaultValue={user.user_session_id} type="text" placeholder="세션 ID" className={`w-[100%] ${userSessionIdAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-[12px] px-[14px] py-[6px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
-                        </div>
-                        {
-                            userSessionIdAlert
-                            ? <div className="text-[10px] ml-[16px] mt-[6px] text-theme-red">세션 ID를 올바르게 입력해 주세요.</div>
                             : <></>
                         }
                         <button onClick={saveUserInfo} className="w-[100%] h-[34px] rounded-[8px] mt-[20px] font-medium text-[13px] text-theme-4 dark:text-theme-blue-2 bg-theme-yellow/80 hover:bg-theme-yellow tlg:bg-theme-yellow dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:dark:bg-theme-blue-1">

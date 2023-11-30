@@ -92,7 +92,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                         user_pw: req.body.user_pw,
                         user_email_confirm: req.body.user_email_confirm,
                         user_email_token: req.body.user_email_token,
-                        user_session_id: req.body.user_session_id
                     }
                 })
 

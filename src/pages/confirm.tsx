@@ -1,6 +1,5 @@
 // react hooks
 import { useEffect } from "react";
-import { useCookies } from "react-cookie";
 
 // next hooks
 import Link from "next/link";
@@ -15,9 +14,6 @@ import { dateFormat } from "@/libs/common";
 const Confirm = ({params}: any) => {
     const user = params.user;
 
-    // 쿠키 훅
-    const [, setCookie] = useCookies<string>([]);
-
     // 로딩 시 폰트 다운로드
     useEffect(() => {
         const head = document.head as HTMLHeadElement;    
@@ -26,15 +22,13 @@ const Confirm = ({params}: any) => {
         /** 이메일 확인 DB에 저장 후 쿠키 저장 */
         async function updateEmailConfirmation() {
             await axios.post("/api/user/updateemailconfirm", {
-                session_id: user.user_session_id
+                email_token: user.user_email_token
             })
-            .then(() => {
-                setCookie('session', user.user_session_id, {path:'/', expires: new Date(), secure:true, sameSite:'none'});
-            })
+            .then(res => console.log(res))
             .catch(err => console.log(err));
         }
         updateEmailConfirmation();
-    }, [user, setCookie]);
+    }, [user]);
     
     return (
         <>

@@ -75,7 +75,6 @@ const Register = ({params}: any) => {
                         action: "send-email",
                         id: res.data.id,
                         name: res.data.name,
-                        session_id: res.data.session_id,
                         email_token: res.data.email_token,
                     })
                     .then(res => {
