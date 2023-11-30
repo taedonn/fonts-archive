@@ -104,14 +104,14 @@ const Login = ({params}: any) => {
                     sessionStorage.removeItem("login_history");
 
                     if (history.includes("user")) {
-                        console.log("history가 user일 때");
+                        // history가 user일 때
                         if (history.includes("privacy") || history.includes("terms")) {
-                            router.push(history); // 이전 페이지로 이동
+                            location.href = history; // 이전 페이지로 이동
                         } else {
-                            router.push("/");
+                            location.href = "/";
                         }
                     } else {
-                        router.push(history); // 이전 페이지로 이동
+                        location.href = history; // 이전 페이지로 이동
                     }
                 }
             })
