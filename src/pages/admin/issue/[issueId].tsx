@@ -7,7 +7,7 @@ import { NextSeo } from "next-seo";
 import { useState, useEffect, useRef } from "react";
 
 // api
-import { Auth } from "@/pages/api/user/auth";
+import { Auth, getAccessToken } from "@/pages/api/user/auth";
 import { FetchIssue } from "@/pages/api/admin/issue";
 import axios from "axios";
 
@@ -347,8 +347,18 @@ export async function getServerSideProps(ctx: any) {
         // 디바이스 체크
         const userAgent = ctx.req ? ctx.req.headers['user-agent'] : navigator.userAgent;
 
-        // 유저 정보 조회
-        const user = await Auth(ctx.req.cookies.session, ctx.res);
+        // refreshToken 불러오기
+        const refreshToken = ctx.req.cookies.refreshToken;
+
+        // accessToken으로 유저 정보 가져오기
+        const accessToken = refreshToken === undefined
+            ? null
+            : await getAccessToken(refreshToken);
+
+        // accessToken으로 유저 정보 불러오기
+        const user = accessToken === null
+            ? null
+            : await Auth(accessToken);
 
         // 유저 상세정보 불러오기
         const issue = await FetchIssue(ctx.params.issueId);

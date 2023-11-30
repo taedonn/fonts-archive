@@ -8,16 +8,12 @@ import { useState, useEffect } from 'react';
 
 // hooks
 import axios from 'axios';
-import { useCookies } from 'react-cookie';
 
 // components
 import Header from "@/components/header";
 import Footer from '@/components/footer';
 
 const Login = ({params}: any) => {
-    // 쿠키 훅
-    const [, setCookie] = useCookies<string>([]);
-
     // 디바이스 체크
     const isMac: boolean = params.userAgent.includes("Mac OS") ? true : false;
 
@@ -73,8 +69,9 @@ const Login = ({params}: any) => {
             setIsLoading(true);
 
             // 유효성 검사 성공 시, 로그인 API 실행
-            await axios.get('/api/user/login', {
+            await axios.get('/api/user/auth', {
                 params: {
+                    action: "login",
                     id: idVal,
                     pw: pwVal,
                     stay_logged_in: stayLoggedIn,
@@ -278,8 +275,8 @@ export async function getServerSideProps(ctx: any) {
         // 디바이스 체크
         const userAgent = ctx.req ? ctx.req.headers['user-agent'] : navigator.userAgent;
 
-        // 세션ID 쿠키 제거
-        ctx.res.setHeader('Set-Cookie', [`session=deleted; max-Age=0; path=/`]);
+        // refreshToken 제거
+        ctx.res.setHeader('Set-Cookie', [`refreshToken=; max-Age=0; path=/`]);
         
         return {
             props: {

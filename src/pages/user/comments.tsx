@@ -7,7 +7,7 @@ import React, { useEffect, useState, useRef } from 'react';
 
 // api
 import axios from 'axios';
-import { Auth } from '../api/user/auth';
+import { Auth, getAccessToken } from '../api/user/auth';
 import { FetchCommentsLength } from '../api/user/fetchcomments'
 import { FetchComments } from '../api/user/fetchcomments';
 
@@ -227,10 +227,20 @@ export async function getServerSideProps(ctx: any) {
         // 디바이스 체크
         const userAgent = ctx.req ? ctx.req.headers['user-agent'] : navigator.userAgent;
 
-        // 유저 정보 조회
-        const user = await Auth(ctx.req.cookies.session, ctx.res);
+        // refreshToken 불러오기
+        const refreshToken = ctx.req.cookies.refreshToken;
 
-        // 쿠키에 저장된 세션ID가 유효하지 않다면, 메인페이지로 이동, 유효하면 클리이언트로 유저 정보 return
+        // accessToken으로 유저 정보 가져오기
+        const accessToken = refreshToken === undefined
+            ? null
+            : await getAccessToken(refreshToken);
+
+        // accessToken으로 유저 정보 불러오기
+        const user = accessToken === null
+            ? null
+            : await Auth(accessToken);
+
+        // 쿠키에 저장된 refreshToken이 유효하지 않다면, 메인페이지로 이동, 유효하면 클리이언트로 유저 정보 return
         if (user === null) {
             return {
                 redirect: {

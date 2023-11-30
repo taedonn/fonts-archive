@@ -148,13 +148,22 @@ export async function getServerSideProps(ctx: any) {
         // 디바이스 체크
         const userAgent = ctx.req ? ctx.req.headers['user-agent'] : navigator.userAgent;
 
-        // 유저 정보 조회
-        const user = await Auth(ctx.req.cookies.session, ctx.res);
-        // const user = await getAccessToken(ctx.req.cookies.refreshToken);
+        // refreshToken 불러오기
+        const refreshToken = ctx.req.cookies.refreshToken;
+
+        // accessToken으로 유저 정보 가져오기
+        const accessToken = refreshToken === undefined
+            ? null
+            : await getAccessToken(refreshToken);
+
+        // accessToken으로 유저 정보 불러오기
+        const user = accessToken === null
+            ? null
+            : await Auth(accessToken);
 
         // 유저 정보가 있으면, 좋아요한 폰트 체크
         const like = user === null
-            ? null 
+            ? null
             : await FetchUserLike(user.user_no);
 
         return {
