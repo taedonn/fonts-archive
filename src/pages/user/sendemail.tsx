@@ -63,7 +63,7 @@ const SendEmail = ({params}: any) => {
             />
 
             {/* 메인 */}
-            <div className='w-[100%] flex flex-col justify-start items-center'>
+            <div className='w-[100%] mb-[60px] flex flex-col justify-start items-center'>
                 <div className='w-[100%] text-[14px] tlg:text-[12px] text-theme-6 dark:text-theme-7 flex flex-col justify-center items-center'>
                     <MailAnimation/>
                     <h2 className='text-center leading-relaxed break-keep'>

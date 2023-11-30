@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import Link from "next/link";
 
 // api
-import { Auth, getAccessToken } from "./api/user/auth";
+import { FetchUserInfoFromToken } from "./api/user/auth";
 import axios from "axios";
 
 // common
@@ -32,7 +32,7 @@ const Confirm = ({params}: any) => {
     
     return (
         <>
-            <div className="w-[100%] h-[100vh] flex flex-col justify-center items-center text-center text-theme-3 dark:text-theme-9">
+            <div className="w-[100%] h-[100%] absolute left-0 top-0 flex flex-col justify-center items-center text-center text-theme-3 dark:text-theme-9">
                 <div className="text-[28px] font-medium">
                     환영합니다 {user.user_name}님!
                 </div>
@@ -46,7 +46,7 @@ const Confirm = ({params}: any) => {
                     가입일: {dateFormat(user.created_at)}
                 </div>
                 <div className="flex items-center mt-[40px]">
-                    <Link href="/" className="flex justify-center items-center w-[132px] h-[36px] rounded-full text-[13px] border border-theme-8 hover:border-theme-3 dark:border-theme-blue-1/40 hover:bg-theme-3 hover:dark:bg-theme-blue-1 text-theme-3 hover:text-theme-9 dark:text-theme-blue-1 hover:dark:text-theme-blue-2 cursor-pointer duration-100">메인 페이지</Link>
+                    <Link href="/user/login" className="flex justify-center items-center w-[132px] h-[36px] rounded-full text-[13px] border border-theme-8 hover:border-theme-3 dark:border-theme-blue-1/40 hover:bg-theme-3 hover:dark:bg-theme-blue-1 text-theme-3 hover:text-theme-9 dark:text-theme-blue-1 hover:dark:text-theme-blue-2 cursor-pointer duration-100">로그인 페이지</Link>
                 </div>
             </div>
         </>
@@ -55,18 +55,13 @@ const Confirm = ({params}: any) => {
 
 export async function getServerSideProps(ctx: any) {
     try {
-        // refreshToken 불러오기
-        const refreshToken = ctx.req.cookies.refreshToken;
+        // token 불러오기
+        const token = ctx.query.token;
 
-        // accessToken으로 유저 정보 가져오기
-        const accessToken = refreshToken === undefined
+        // token으로 유저 정보 불러오기
+        const user = token === undefined
             ? null
-            : await getAccessToken(refreshToken);
-
-        // accessToken으로 유저 정보 불러오기
-        const user = accessToken === null
-            ? null
-            : await Auth(accessToken);
+            : await FetchUserInfoFromToken(token);
 
         if (user === null || user.user_email_confirm) {
             return {

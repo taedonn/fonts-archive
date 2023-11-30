@@ -6,7 +6,7 @@
     position: absolute;
     width: 200px;
     height: 150px;
-    top: 60px;
+    top: 100px;
     animation: animatedMail 0.4s 0.4s both;
 }
 .animated-mail .body {
