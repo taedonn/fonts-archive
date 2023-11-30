@@ -73,7 +73,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     }),
                     res.setHeader(
                         'set-cookie',
-                        `refreshToken=${refreshToken}; path=/; max-age=31536000; expires=${stayLoggedIn ? date.setFullYear(date.getFullYear() + 1) : date.setDate(date.getDate() + 1)}; samesite=lax; httponly;`,
+                        `refreshToken=${refreshToken}; path=/; max-age=31536000; expires=${stayLoggedIn ? date.setFullYear(date.getFullYear() + 1) : date.setDate(date.getDate() + 1)};`,
                     )
                 );
     
@@ -90,7 +90,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         } else if (req.query.action === "logout") {
             res.setHeader(
                 'set-cookie',
-                `refreshToken=; path=/; max-age=0; samesite=lax; httponly;`,
+                `refreshToken=; path=/; max-age=0;`,
             );
             res.end();
         }
