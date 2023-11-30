@@ -276,7 +276,7 @@ export async function getServerSideProps(ctx: any) {
         const userAgent = ctx.req ? ctx.req.headers['user-agent'] : navigator.userAgent;
 
         // refreshToken 제거
-        ctx.res.setHeader('Set-Cookie', [`refreshToken=; max-Age=0; path=/`]);
+        ctx.res.setHeader('Set-Cookie', [`refreshToken=; Path=/; max-Age=0;`]);
         
         return {
             props: {

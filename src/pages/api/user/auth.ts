@@ -90,7 +90,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         } else if (req.query.action === "logout") {
             res.setHeader(
                 'Set-Cookie',
-                `refreshToken=; max-Age=0; Path=/;`,
+                `refreshToken=; Path=/; max-Age=0; secure=true; sameSite=Strict`,
             );
             res.end();
         }
