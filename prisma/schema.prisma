@@ -51,8 +51,6 @@ model fontsUser {
   user_name          String
   user_id            String         @unique
   user_pw            String
-  user_session_id    String
-  access_token       String         @default("")
   refresh_token      String         @default("")
   user_email_token   String
   user_email_confirm Boolean
