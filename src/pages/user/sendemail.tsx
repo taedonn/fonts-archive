@@ -29,7 +29,6 @@ const SendEmail = ({params}: any) => {
             action: "send-email",
             id: user.user_id,
             name: user.user_name,
-            session_id: user.user_session_id,
             email_token: user.user_email_token,
         })
         .then(() => location.reload())
@@ -93,7 +92,7 @@ export async function getServerSideProps(ctx: any) {
         const userAgent = ctx.req ? ctx.req.headers['user-agent'] : navigator.userAgent;
 
         // 세션ID 쿠키 제거
-        ctx.res.setHeader('Set-Cookie', [`session=deleted; max-Age=0; path=/`]);
+        ctx.res.setHeader('Set-Cookie', [`refreshToken=; max-Age=0; path=/`]);
 
         // 토큰 유효성 검사
         const token = ctx.query.token;

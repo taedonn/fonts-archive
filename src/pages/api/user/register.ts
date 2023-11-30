@@ -25,7 +25,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     } else if (req.method === 'POST') {
         if (req.body.action === "register") {
             try {
-                const userSessionId = crypto.randomUUID();
                 const userEmailToken = crypto.randomUUID();
     
                 // 유저 정보 생성
@@ -88,7 +87,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                                         안녕하세요 ${req.body.name}님, <br/>
                                         아래 버튼을 클릭해서 <span style="font-weight:700; color:#000;">회원가입을 완료</span>해 주세요.
                                     </p>
-                                    <a style="width:200px; display:block; padding:16px 20px; box-sizing:border-box; margin: 0 auto; margin-top:20px; background-color:#000; font-size:14px; font-weight:700; text-align:center; color:#FFF; text-decoration:none; border-radius:6px;" href="https://fonts.taedonn.com/confirm?session=${req.body.email_token}">
+                                    <a style="width:200px; display:block; padding:16px 20px; box-sizing:border-box; margin: 0 auto; margin-top:20px; background-color:#000; font-size:14px; font-weight:700; text-align:center; color:#FFF; text-decoration:none; border-radius:6px;" href="https://fonts.taedonn.com/confirm?token=${req.body.email_token}">
                                         회원가입 완료하기
                                     </a>
                                     <div style="width:100%; height:1px; background-color:#EEE; margin-top:48px;"></div>
