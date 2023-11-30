@@ -1,5 +1,6 @@
 // next hooks
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
 
 // react hooks
@@ -20,7 +21,11 @@ const Login = ({params}: any) => {
     // 빈 함수
     const emptyFn = () => { return; }
 
+    // 쿠키 훅
     const [, setCookie] = useCookies<string>([]);
+
+    // 라우터 훅
+    const router = useRouter();
 
     // 폼 state
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -110,12 +115,12 @@ const Login = ({params}: any) => {
                     if (history.includes("user")) {
                         // history가 user일 때
                         if (history.includes("privacy") || history.includes("terms")) {
-                            location.href = history; // 이전 페이지로 이동
+                            router.push(history); // 이전 페이지로 이동
                         } else {
-                            location.href = "/";
+                            router.push("/");
                         }
                     } else {
-                        location.href = history; // 이전 페이지로 이동
+                        router.push(history); // 이전 페이지로 이동
                     }
                 }
             })

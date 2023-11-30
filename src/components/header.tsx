@@ -188,7 +188,7 @@ export default function Header (
         expires.setFullYear(expires.getFullYear() + 1);
 
         if (e.target.checked) {
-            setCookie('theme', e.target.value, {path:'/', expires: expires, secure:true, sameSite:'none'});
+            setCookie('theme', e.target.value, {path:'/', expires: expires, secure: true, sameSite: 'strict'});
             if (e.target.value === "dark") {
                 document.documentElement.classList.add('dark');
                 setTheme("dark");

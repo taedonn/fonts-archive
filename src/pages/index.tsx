@@ -29,7 +29,7 @@ const Index = ({params}: any) => {
         expires.setFullYear(expires.getFullYear() + 1);
 
         if (e.target.checked) {
-            setCookie('license', e.target.value, {path:'/', expires: expires, secure:true, sameSite:'none'});
+            setCookie('license', e.target.value, {path:'/', expires: expires, secure: true, sameSite: 'strict'});
             setLicense(e.target.value);
         }
     }
@@ -44,7 +44,7 @@ const Index = ({params}: any) => {
         expires.setFullYear(expires.getFullYear() + 1);
 
         if (e.target.checked) {
-            setCookie('lang', e.target.value, {path:'/', expires: expires, secure:true, sameSite:'none'});
+            setCookie('lang', e.target.value, {path:'/', expires: expires, secure: true, sameSite: 'strict'});
             setLang(e.target.value);
         }
     }
@@ -59,7 +59,7 @@ const Index = ({params}: any) => {
         expires.setFullYear(expires.getFullYear() + 1);
 
         if (e.target.checked) {
-            setCookie('type', e.target.value, {path:'/', expires: expires, secure:true, sameSite:'none'});
+            setCookie('type', e.target.value, {path:'/', expires: expires, secure: true, sameSite: 'strict'});
             setType(e.target.value);
         }
     }
@@ -74,7 +74,7 @@ const Index = ({params}: any) => {
         expires.setFullYear(expires.getFullYear() + 1);
 
         if (e.target.checked) {
-            setCookie('sort', e.target.value, {path:'/', expires: expires, secure:true, sameSite:'none'});
+            setCookie('sort', e.target.value, {path:'/', expires: expires, secure: true, sameSite: 'strict'});
             setSort(e.target.value);
         }
     }
