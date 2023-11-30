@@ -72,8 +72,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                         data: { refresh_token: refreshToken }
                     }),
                     res.setHeader(
-                        'Set-Cookie',
-                        `refreshToken=${refreshToken}; Path=/; max-Age=31536000; Expires=${stayLoggedIn ? date.setFullYear(date.getFullYear() + 1) : date.setDate(date.getDate() + 1)}; secure=true; SameSite=Strict;`,
+                        'set-cookie',
+                        `refreshToken=${refreshToken}; path=/; max-age=31536000; expires=${stayLoggedIn ? date.setFullYear(date.getFullYear() + 1) : date.setDate(date.getDate() + 1)}; samesite=lax; httponly;`,
                     )
                 );
     
@@ -89,8 +89,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             }
         } else if (req.query.action === "logout") {
             res.setHeader(
-                'Set-Cookie',
-                `refreshToken=; Path=/; max-Age=0; secure=true; sameSite=Strict`,
+                'set-cookie',
+                `refreshToken=; path=/; max-age=0; samesite=lax; httponly;`,
             );
             res.end();
         }
