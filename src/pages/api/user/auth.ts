@@ -64,22 +64,18 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     
                 // refreshToken 만들고 쿠키에 저장
                 let refreshToken = "";
-                let date = new Date();
                 status === "success" && user!== null && (
                     refreshToken = refresh(user.user_id),
                     await prisma.fontsUser.update({
                         where: { user_id: userId },
                         data: { refresh_token: refreshToken }
-                    }),
-                    res.setHeader(
-                        'set-cookie',
-                        `refreshToken=${refreshToken}; path=/; max-age=31536000; expires=${stayLoggedIn ? date.setFullYear(date.getFullYear() + 1) : date.setDate(date.getDate() + 1)};`,
-                    )
+                    })
                 );
     
                 return res.status(200).json({
                     msg: "로그인 성공",
                     status: status,
+                    refreshToken: refreshToken,
                 });
             } catch (err) {
                 return res.status(500).json({

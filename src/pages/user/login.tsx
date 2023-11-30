@@ -1,6 +1,5 @@
 // next hooks
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
 
 // react hooks
@@ -8,6 +7,7 @@ import { useState, useEffect } from 'react';
 
 // hooks
 import axios from 'axios';
+import { useCookies } from 'react-cookie';
 
 // components
 import Header from "@/components/header";
@@ -20,7 +20,7 @@ const Login = ({params}: any) => {
     // 빈 함수
     const emptyFn = () => { return; }
 
-    const router = useRouter();
+    const [, setCookie] = useCookies<string>([]);
 
     // 폼 state
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -100,6 +100,10 @@ const Login = ({params}: any) => {
                     setIsLoading(false);
                 }
                 else if (res.data.status === 'success') {
+                    let date = new Date();
+                    let expires = stayLoggedIn ? new Date(date.setFullYear(date.getFullYear() + 1)) : new Date(date.setDate(date.getDate() + 1));
+                    setCookie('refreshToken', res.data.refreshToken, {path:'/', expires: expires, secure:true, sameSite:'strict'});
+                    
                     // 세션 스토리지가 저장되어 있으면, 해당 페이지로 이동
                     sessionStorage.removeItem("login_history");
 
