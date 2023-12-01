@@ -32,6 +32,7 @@
         "jsonwebtoken": "^9.0.2",
         "lodash": "^4.17.21",
         "next": "13.4.1",
+        "next-auth": "^4.24.5",
         "next-seo": "^6.0.0",
         "nextjs-progressbar": "^0.0.16",
         "nodemailer": "^6.9.3",

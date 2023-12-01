@@ -46,11 +46,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             try {
                 const userId = req.query.id as string;
                 const userPw = req.query.pw as string;
-                const stayLoggedIn = req.query.stay_logged_in;
     
                 // 유저 정보 불러오기
                 const user = await prisma.fontsUser.findUnique({
-                    where: { user_id: userId }
+                    where: {
+                        user_id: userId,
+                        auth: "",
+                    }
                 });
     
                 // 로그인 상태
