@@ -308,7 +308,7 @@ const Register = ({params}: any) => {
                                     </label>
                                     <p className='text-[13px] text-theme-10 dark:text-theme-9 mt-px ml-[6px]'>서비스 이용약관 (필수)</p>
                                 </div>
-                                <Link href="/user/terms" target='_blank' rel="noopener noreferrer" className='text-[12px] text-theme-6 dark:text-theme-7 flex flex-row justify-center items-center hover:underline tlg:hover:no-underline'>전문보기</Link>
+                                <Link href="/terms" target='_blank' rel="noopener noreferrer" className='text-[12px] text-theme-6 dark:text-theme-7 flex flex-row justify-center items-center hover:underline tlg:hover:no-underline'>전문보기</Link>
                             </div>
                             <div className='w-[100%] flex flex-row justify-between items-center mt-[8px]'>
                                 <div className='flex flex-row justify-start items-center'>
@@ -319,7 +319,7 @@ const Register = ({params}: any) => {
                                     </label>
                                     <p className='text-[13px] text-theme-10 dark:text-theme-9 mt-px ml-[6px]'>개인정보 처리방침 (필수)</p>
                                 </div>
-                                <Link href="/user/privacy" target='_blank' rel="noopener noreferrer" className='text-[12px] text-theme-6 dark:text-theme-7 flex flex-row justify-center items-center hover:underline tlg:hover:no-underline'>전문보기</Link>
+                                <Link href="/privacy" target='_blank' rel="noopener noreferrer" className='text-[12px] text-theme-6 dark:text-theme-7 flex flex-row justify-center items-center hover:underline tlg:hover:no-underline'>전문보기</Link>
                             </div>
                         </div>
                         <button onClick={handleOnSubmit} className='w-[100%] h-[40px] rounded-[8px] mt-[24px] flex flex-row justify-center items-center text-[14px] font-medium text-theme-4 dark:text-theme-blue-2 bg-theme-yellow/80 hover:bg-theme-yellow tlg:hover:bg-theme-yellow/80 dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1/80'>

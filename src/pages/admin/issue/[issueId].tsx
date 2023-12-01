@@ -7,7 +7,7 @@ import { NextSeo } from "next-seo";
 import { useState, useEffect, useRef } from "react";
 
 // api
-import { Auth, getAccessToken } from "@/pages/api/user/auth";
+import { Auth, getAccessToken } from "@/pages/api/auth/auth";
 import { FetchIssue } from "@/pages/api/admin/issue";
 import axios from "axios";
 

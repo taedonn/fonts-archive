@@ -272,11 +272,10 @@ export default function Header (
 
     /** 로그아웃 버튼 클릭 */
     const handleLogout = async () => {
-        await axios.get('/api/user/auth', {
+        await axios.get('/api/auth/auth', {
             params: { action: "logout" }
         }).then(() => {
-            if (location.search.includes('session')) { location.href = location.href.replace(location.search, ''); } 
-            else { location.reload(); }
+            location.reload();
         });
     }
 

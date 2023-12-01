@@ -7,7 +7,7 @@ import React, { useEffect, useState, useRef } from 'react';
 
 // api
 import axios from 'axios';
-import { Auth, getAccessToken } from '../api/user/auth';
+import { Auth, getAccessToken } from '../api/auth/auth';
 import { FetchCommentsLength } from '../api/user/fetchcomments'
 import { FetchComments } from '../api/user/fetchcomments';
 

@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import Link from "next/link";
 
 // api
-import { FetchUserInfoFromToken } from "./api/user/auth";
+import { FetchUserInfoFromToken } from "./api/auth/auth";
 import axios from "axios";
 
 // common

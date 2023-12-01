@@ -2,7 +2,7 @@
 import { NextSeo } from 'next-seo';
 
 // api
-import { Auth, getAccessToken } from '../api/user/auth';
+import { Auth, getAccessToken } from './api/auth/auth';
 
 // components
 import Header from "@/components/header";

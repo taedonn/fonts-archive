@@ -8,7 +8,7 @@ import { Switch } from "@mui/material";
 import { NextSeo } from "next-seo";
 
 // api
-import { Auth, getAccessToken } from "@/pages/api/user/auth";
+import { Auth, getAccessToken } from "@/pages/api/auth/auth";
 import { FetchFont } from "@/pages/api/admin/font";
 
 // components

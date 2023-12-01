@@ -8,7 +8,7 @@ import { NextSeo } from "next-seo";
 import imageCompression from 'browser-image-compression';
 
 // api
-import { Auth, getAccessToken } from "../api/user/auth";
+import { Auth, getAccessToken } from "../api/auth/auth";
 import axios, { AxiosProgressEvent } from "axios";
 
 // components

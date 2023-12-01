@@ -5,7 +5,7 @@ import { useState } from "react";
 import { NextSeo } from "next-seo";
 
 // api
-import { Auth, getAccessToken } from "@/pages/api/user/auth";
+import { Auth, getAccessToken } from "@/pages/api/auth/auth";
 import axios from "axios";
 
 // components

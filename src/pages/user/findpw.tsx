@@ -162,9 +162,9 @@ const FindPw = ({params}: any) => {
                         </button>
                     </form>
                     <div className='w-[100%] flex flex-row justify-center items-center text-[12px] mt-[12px]'>
-                        <Link href="/user/terms" target="_blank" rel="noopener noreferrer" className='text-theme-5 dark:text-theme-6 hover:underline tlg:hover:underline'>서비스 이용약관</Link>
+                        <Link href="/terms" target="_blank" rel="noopener noreferrer" className='text-theme-5 dark:text-theme-6 hover:underline tlg:hover:underline'>서비스 이용약관</Link>
                         <div className='text-theme-5 dark:text-theme-6 mx-[4px]'>·</div>
-                        <Link href="/user/privacy" target="_blank" rel="noopener noreferrer" className='text-theme-5 dark:text-theme-6 hover:underline tlg:hover:underline'>개인정보처리방침</Link>
+                        <Link href="/privacy" target="_blank" rel="noopener noreferrer" className='text-theme-5 dark:text-theme-6 hover:underline tlg:hover:underline'>개인정보처리방침</Link>
                     </div>
                 </div>
             </div>

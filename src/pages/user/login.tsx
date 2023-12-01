@@ -74,7 +74,7 @@ const Login = ({params}: any) => {
             setIsLoading(true);
 
             // 유효성 검사 성공 시, 로그인 API 실행
-            await axios.get('/api/user/auth', {
+            await axios.get('/api/auth/auth', {
                 params: {
                     action: "login",
                     id: idVal,
@@ -263,9 +263,9 @@ const Login = ({params}: any) => {
                         <Link href="/user/register" className='text-theme-yellow dark:text-theme-blue-1 hover:underline tlg:hover:no-underline'>회원가입하기</Link>
                     </div>
                     <div className='w-[100%] flex flex-row justify-center items-center text-[12px] mt-[12px]'>
-                        <Link href="/user/terms" target="_blank" rel="noopener noreferrer" className='text-theme-5 dark:text-theme-6 hover:underline tlg:hover:underline'>서비스 이용약관</Link>
+                        <Link href="/terms" target="_blank" rel="noopener noreferrer" className='text-theme-5 dark:text-theme-6 hover:underline tlg:hover:underline'>서비스 이용약관</Link>
                         <div className='text-theme-5 dark:text-theme-6 mx-[4px]'>·</div>
-                        <Link href="/user/privacy" target="_blank" rel="noopener noreferrer" className='text-theme-5 dark:text-theme-6 hover:underline tlg:hover:underline'>개인정보처리방침</Link>
+                        <Link href="/privacy" target="_blank" rel="noopener noreferrer" className='text-theme-5 dark:text-theme-6 hover:underline tlg:hover:underline'>개인정보처리방침</Link>
                     </div>
                 </div>
             </div>

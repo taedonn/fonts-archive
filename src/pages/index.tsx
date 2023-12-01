@@ -4,7 +4,7 @@ import { useCookies } from 'react-cookie';
 import { debounce } from "lodash";
 
 // api
-import { Auth, getAccessToken } from "./api/user/auth";
+import { Auth, getAccessToken } from "./api/auth/auth";
 import { FetchUserLike } from "./api/user/fetchuserlike";
 
 // components

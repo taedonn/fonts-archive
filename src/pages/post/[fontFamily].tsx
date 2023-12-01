@@ -8,7 +8,7 @@ import { ColorPicker, useColor } from "react-color-palette";
 import "react-color-palette/css"
 
 // api
-import { Auth, getAccessToken } from "../api/user/auth";
+import { Auth, getAccessToken } from "../api/auth/auth";
 import { FetchFontDetail } from "../api/post/fetchfontdetail";
 import { FetchUserLike } from "../api/user/fetchuserlike";
 import { FetchComments } from "../api/post/fetchcomments";
