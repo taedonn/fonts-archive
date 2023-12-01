@@ -250,11 +250,11 @@ const Login = ({params}: any) => {
                         </button>
                     </form>
                     <div className='w-[100%] h-[52px] text-[14px] rounded-[8px] mb-[8px] gap-[8px] flex justify-center items-center border border-theme-7 dark:border-theme-4'>
-                        {/* <div className='w-[28px] h-[28px] rounded-[6px] group relative flex justify-center items-center cursor-pointer bg-theme-naver'>
+                        <div className='w-[28px] h-[28px] rounded-[6px] group relative flex justify-center items-center cursor-pointer bg-theme-naver'>
                             <svg className='w-[14px] fill-theme-10' viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.273 12.845 7.376 0H0v24h7.726V11.156L16.624 24H24V0h-7.727v12.845Z"/></svg>
                             <div className="login-method login-naver w-content absolute z-10 left-[50%] top-[-36px] text-[12px] font-medium leading-none px-[12px] py-[6px] rounded-[4px] hidden group-hover:block tlg:group-hover:hidden group-hover:animate-fontbox-zoom-in bg-theme-naver text-theme-3">네이버로 로그인</div>
                         </div>
-                        <div onClick={kakaoLogin} className='w-[28px] h-[28px] rounded-[6px] group relative flex justify-center items-center cursor-pointer bg-theme-kakao'>
+                        {/* <div onClick={kakaoLogin} className='w-[28px] h-[28px] rounded-[6px] group relative flex justify-center items-center cursor-pointer bg-theme-kakao'>
                             <svg className='w-[20px] fill-theme-1' viewBox="0 0 512 512" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M255.5 48C299.345 48 339.897 56.5332 377.156 73.5996C414.415 90.666 443.871 113.873 465.522 143.22C487.174 172.566 498 204.577 498 239.252C498 273.926 487.174 305.982 465.522 335.42C443.871 364.857 414.46 388.109 377.291 405.175C340.122 422.241 299.525 430.775 255.5 430.775C241.607 430.775 227.262 429.781 212.467 427.795C148.233 472.402 114.042 494.977 109.892 495.518C107.907 496.241 106.012 496.15 104.208 495.248C103.486 494.706 102.945 493.983 102.584 493.08C102.223 492.177 102.043 491.365 102.043 490.642V489.559C103.126 482.515 111.335 453.169 126.672 401.518C91.8486 384.181 64.1974 361.2 43.7185 332.575C23.2395 303.951 13 272.843 13 239.252C13 204.577 23.8259 172.566 45.4777 143.22C67.1295 113.873 96.5849 90.666 133.844 73.5996C171.103 56.5332 211.655 48 255.5 48Z"></path></svg>
                             <div className="login-method login-kakao w-content absolute z-10 left-[50%] top-[-36px] text-[12px] font-medium leading-none px-[12px] py-[6px] rounded-[4px] hidden group-hover:block tlg:group-hover:hidden group-hover:animate-fontbox-zoom-in bg-theme-kakao text-theme-3">카카오로 로그인</div>
                         </div> */}
@@ -276,7 +276,6 @@ const Login = ({params}: any) => {
                         <div className='text-theme-5 dark:text-theme-6 mx-[4px]'>·</div>
                         <Link href="/privacy" target="_blank" rel="noopener noreferrer" className='text-theme-5 dark:text-theme-6 hover:underline tlg:hover:underline'>개인정보처리방침</Link>
                     </div>
-                    <button onClick={() => signOut()} className='w-[100%] mt-[20px] text-center text-theme-9'>로그아웃</button>
                 </div>
             </div>
 
