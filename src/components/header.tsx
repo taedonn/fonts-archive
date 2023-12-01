@@ -1,6 +1,9 @@
 // next hooks
 import Link from "next/link";
 
+// next-auth
+import { signOut } from "next-auth/react";
+
 // react hooks
 import { useEffect, useRef, useState } from "react";
 
@@ -272,6 +275,8 @@ export default function Header (
 
     /** 로그아웃 버튼 클릭 */
     const handleLogout = async () => {
+        signOut();
+        
         await axios.get('/api/auth/auth', {
             params: { action: "logout" }
         }).then(() => {

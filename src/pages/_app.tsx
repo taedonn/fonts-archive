@@ -10,7 +10,7 @@ import { DefaultSeo } from 'next-seo';
 import NextNProgress from 'nextjs-progressbar';
 
 // next-auth
-import { SessionProvider } from "next-auth/react";
+// import { SessionProvider } from "next-auth/react";
 
 // react-query hooks
 import { QueryClientProvider, QueryClient } from "react-query";
@@ -22,7 +22,8 @@ import '../styles/mailanimation.css';
 
 export default function App({
     Component,
-    pageProps: { session, ...pageProps }
+    // pageProps: { session, ...pageProps }
+    pageProps: { ...pageProps }
 }: AppProps) {
     const [theme, setTheme] = useState<string>("dark");
     const router = useRouter();
@@ -39,7 +40,7 @@ export default function App({
     return (
         <>
             <QueryClientProvider client={queryClient}>
-                <SessionProvider session={session}>
+                {/* <SessionProvider session={session}> */}
                     <DefaultSeo
                         title="폰트 아카이브 · 상업용 무료 한글 폰트 저장소"
                         description="폰트 아카이브 · 상업용 무료 한글 폰트 저장소"
@@ -75,7 +76,7 @@ export default function App({
                         />
                         <Component {...pageProps}/>
                     </main>
-                </SessionProvider>
+                {/* </SessionProvider> */}
             </QueryClientProvider>
         </>
     );
