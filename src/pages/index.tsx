@@ -12,9 +12,14 @@ import Header from "@/components/header";
 import TooltipIndex from "@/components/tooltipIndex";
 import FontBox from "@/components/fontbox";
 
+// import { useSession } from "next-auth/react";
+
 const Index = ({params}: any) => {
     // 쿠키 훅
     const [, setCookie] = useCookies<string>([]);
+
+    // const session = useSession();
+    // console.log(session);
 
     // 디바이스 체크
     const isMac: boolean = params.userAgent.includes("Mac OS") ? true : false

@@ -32,11 +32,24 @@ const nextAuthOptions = (req: NextApiRequest, res: NextApiResponse) => {
                 } catch (err) {
                     return false;
                 }
-            },
+            }
+            // async jwt({ token, user, account }: { token: any, user: any, account: any }) {
+            //     if (user) {
+            //         token = {
+            //             email: user.id,
+            //             name: user.name,
+            //             image: user.image,
+            //             provider: account.provider,
+            //         }
+            //     }
+
+            //     return token;
+            // }
         }
     }
 }
   
+// eslint-disable-next-line import/no-anonymous-default-export
 export default (req: NextApiRequest, res: NextApiResponse) => {
 	return NextAuth(req, res, nextAuthOptions(req, res));
 };
