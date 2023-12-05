@@ -2,7 +2,8 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import NextAuth from "next-auth"
 import GoogleProvider from "next-auth/providers/google";
 import KakaoProvider from "next-auth/providers/kakao";
-import { getRefreshToken } from "./oauth";
+import { getRefreshToken, HasUser } from "./oauth";
+import { oauthSign } from '@/libs/jwt-utils';
 import { setCookie } from "nookies";
 
 const nextAuthOptions = (req: NextApiRequest, res: NextApiResponse) => {
@@ -20,13 +21,26 @@ const nextAuthOptions = (req: NextApiRequest, res: NextApiResponse) => {
         callbacks: {
             async signIn({ user }: { user: any }) {
                 try {
-                    const refreshToken = await getRefreshToken(user);
-                    setCookie({ res }, "refreshToken", refreshToken, {
-                        path: "/",
-                        maxAge: 60 * 60 * 24 * 30, // 1m
-                        secure: true,
-                        sameSite: 'strict',
-                    });
+                    // const refreshToken = await getRefreshToken(user);
+                    // setCookie({ res }, "refreshToken", refreshToken, {
+                    //     path: "/",
+                    //     maxAge: 60 * 60 * 24 * 30, // 1m
+                    //     secure: true,
+                    //     sameSite: 'strict',
+                    // });
+
+                    // if (hasUser) {
+                    //     res.redirect(307, "/");
+                    // } else {
+                    //     res.redirect(307, '/oauth');
+                    // }
+
+                    const hasUser = await HasUser(user);
+                    const token = oauthSign(user);
+                    
+                    hasUser
+                        ? res.redirect(307, "/")
+                        : res.redirect(307, `/user/oauth?token=${token}`);
 
                     return true;
                 } catch (err) {
@@ -40,6 +54,13 @@ const nextAuthOptions = (req: NextApiRequest, res: NextApiResponse) => {
             //             name: user.name,
             //             image: user.image,
             //             provider: account.provider,
+            //         }
+
+            //         const hasUser = await HasUser(user);
+            //         if (hasUser) {
+            //             res.redirect(307, "/");
+            //         } else {
+            //             res.redirect(307, `/oauth?token=${token}`);
             //         }
             //     }
 

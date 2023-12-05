@@ -1,5 +1,5 @@
 import prisma from '@/libs/client-prisma';
-import { refresh } from '@/libs/jwt-utils';
+import { refresh, oauthVerify } from '@/libs/jwt-utils';
 
 export async function getRefreshToken(snsUser: any) {
     let refreshToken = "";
@@ -36,4 +36,20 @@ export async function getRefreshToken(snsUser: any) {
     );
 
     return refreshToken;
+}
+
+// 유저 정보 있는 지 조회
+export async function HasUser(oauth_user: any) {
+    const user = await prisma.fontsUser.findUnique({
+        where: { user_id: oauth_user.email }
+    });
+
+    return user !== null ? true : false;
+}
+
+// OAUTH 유저 AccessToken 검증
+export async function verifyAccessToken(token: string) {
+    const user = oauthVerify(token);
+
+    return user;
 }
