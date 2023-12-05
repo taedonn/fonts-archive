@@ -1,0 +1,9 @@
+# START ROBOTS.TXT FOR FONTS ARCHIVE
+# ----------------------------------
+
+User-agent: *
+Disallow: /?search=*
+Sitemap: https://fonts.taedonn.com/sitemap.xml
+
+# ----------------------------------
+# CLOSE ROBOTS.TXT FOR FONTS ARCHIVE
