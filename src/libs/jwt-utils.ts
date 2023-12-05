@@ -46,8 +46,9 @@ const refreshVerify = (token: string) => {
 // OAuth access Token 발급
 const oauthSign = (user: any) => {
     return jwt.sign({
-        email: user.id,
+        email: user.email,
         name: user.name,
+        image: user.image,
     }, secret, {
         algorithm: 'HS256', // 암호화 알고리즘
         expiresIn: 300, // 유효기간: 5분
@@ -63,6 +64,7 @@ const oauthVerify = (token: string) => {
             ok: true,
             email: decoded.email,
             name: decoded.name,
+            image: decoded.image,
         };
     } catch (err: any) {
         return {

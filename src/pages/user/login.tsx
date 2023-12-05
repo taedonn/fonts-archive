@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
 
 // next-auth
-import { useSession, signIn, signOut } from 'next-auth/react';
+import { signIn } from 'next-auth/react';
 
 // react hooks
 import { useState, useEffect } from 'react';
@@ -154,11 +154,7 @@ const Login = ({params}: any) => {
     /** 알럿창 닫기 */
     const handleAlertClose = () => { setEmailConfirmChk(true); }
 
-    // next-auth 세션 불러오기
-    // const { data: session } = useSession()
-
     /** 구글 로그인 */
-    // const googleLogin = () => { signIn("google", { callbackUrl: history }); }
     const googleLogin = () => { signIn("google"); }
 
     return (
@@ -250,7 +246,7 @@ const Login = ({params}: any) => {
                             }
                         </button>
                     </form>
-                    /<div className='w-[100%] h-[52px] text-[14px] rounded-[8px] mb-[8px] gap-[8px] flex justify-center items-center border border-theme-7 dark:border-theme-4'>
+                    <div className='w-[100%] h-[52px] text-[14px] rounded-[8px] mb-[8px] gap-[8px] flex justify-center items-center border border-theme-7 dark:border-theme-4'>
                         <div className='w-[28px] h-[28px] rounded-[6px] group relative flex justify-center items-center cursor-pointer bg-theme-naver'>
                             <svg className='w-[14px] fill-theme-10' viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.273 12.845 7.376 0H0v24h7.726V11.156L16.624 24H24V0h-7.727v12.845Z"/></svg>
                             <div className="login-method login-naver w-content absolute z-10 left-[50%] top-[-36px] text-[12px] font-medium leading-none px-[12px] py-[6px] rounded-[4px] hidden group-hover:block tlg:group-hover:hidden group-hover:animate-fontbox-zoom-in bg-theme-naver text-theme-3">네이버로 로그인</div>

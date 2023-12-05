@@ -21,51 +21,28 @@ const nextAuthOptions = (req: NextApiRequest, res: NextApiResponse) => {
         callbacks: {
             async signIn({ user }: { user: any }) {
                 try {
-                    // const refreshToken = await getRefreshToken(user);
-                    // setCookie({ res }, "refreshToken", refreshToken, {
-                    //     path: "/",
-                    //     maxAge: 60 * 60 * 24 * 30, // 1m
-                    //     secure: true,
-                    //     sameSite: 'strict',
-                    // });
-
-                    // if (hasUser) {
-                    //     res.redirect(307, "/");
-                    // } else {
-                    //     res.redirect(307, '/oauth');
-                    // }
-
+                    // 아이디 이미 존재하는지 확인
                     const hasUser = await HasUser(user);
-                    const token = oauthSign(user);
-                    
-                    hasUser
-                        ? res.redirect(307, "/")
-                        : res.redirect(307, `/user/oauth?token=${token}`);
+
+                    if (hasUser) {
+                        const refreshToken = await getRefreshToken(user);
+                        setCookie({ res }, "refreshToken", refreshToken, {
+                            path: "/",
+                            maxAge: 60 * 60 * 24 * 7, // 7d
+                            secure: true,
+                            sameSite: 'strict',
+                        });
+                        res.redirect(307, "/");
+                    } else {
+                        const token = oauthSign(user);
+                        res.redirect(307, `/user/oauth?token=${token}`);
+                    }
 
                     return true;
                 } catch (err) {
                     return false;
                 }
             }
-            // async jwt({ token, user, account }: { token: any, user: any, account: any }) {
-            //     if (user) {
-            //         token = {
-            //             email: user.id,
-            //             name: user.name,
-            //             image: user.image,
-            //             provider: account.provider,
-            //         }
-
-            //         const hasUser = await HasUser(user);
-            //         if (hasUser) {
-            //             res.redirect(307, "/");
-            //         } else {
-            //             res.redirect(307, `/oauth?token=${token}`);
-            //         }
-            //     }
-
-            //     return token;
-            // }
         }
     }
 }
