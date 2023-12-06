@@ -13,12 +13,15 @@ export async function getRefreshToken(snsUser: any) {
 }
 
 // 유저 정보 있는지 조회
-export async function HasUser(oauth_user: any) {
+export async function HasUser(oauth_user: any, oauth_account: any) {
     const user = await prisma.fontsUser.findUnique({
-        where: { user_id: oauth_user.email }
+        where: {
+            user_id: oauth_user.email,
+            auth: oauth_account.provider,
+        }
     });
 
-    return user !== null ? true : false;
+    return user === null ? false : true;
 }
 
 // OAUTH 유저 AccessToken 검증

@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
 
 // next-auth
-import { signIn } from 'next-auth/react';
+import { useSession, signIn } from 'next-auth/react';
 
 // react hooks
 import { useState, useEffect } from 'react';
@@ -154,7 +154,9 @@ const Login = ({params}: any) => {
     /** 알럿창 닫기 */
     const handleAlertClose = () => { setEmailConfirmChk(true); }
 
-    /** 구글 로그인 */
+    /** OAuth 로그인 */
+    const { data: session } = useSession();
+    console.log(session);
     const googleLogin = () => { signIn("google"); }
 
     return (

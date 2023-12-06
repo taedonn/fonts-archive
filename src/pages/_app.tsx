@@ -9,6 +9,9 @@ import { useRouter } from "next/router";
 import { DefaultSeo } from 'next-seo';
 import NextNProgress from 'nextjs-progressbar';
 
+// next-auth
+import { SessionProvider } from "next-auth/react";
+
 // react-query hooks
 import { QueryClientProvider, QueryClient } from "react-query";
 const queryClient = new QueryClient();
@@ -17,7 +20,7 @@ const queryClient = new QueryClient();
 import '../styles/globals.css';
 import '../styles/mailanimation.css';
 
-export default function App({Component, pageProps: { ...pageProps }}: AppProps) {
+export default function App({Component, pageProps: { session, ...pageProps }}: AppProps) {
     const [theme, setTheme] = useState<string>("dark");
     const router = useRouter();
     
@@ -33,41 +36,43 @@ export default function App({Component, pageProps: { ...pageProps }}: AppProps) 
     return (
         <>
             <QueryClientProvider client={queryClient}>
-                <DefaultSeo
-                    title="폰트 아카이브 · 상업용 무료 한글 폰트 저장소"
-                    description="폰트 아카이브 · 상업용 무료 한글 폰트 저장소"
-                    additionalLinkTags={[
-                        {
-                            rel:"icon",
-                            href: "/favicon.ico"
-                        }
-                    ]}
-                    openGraph={{
-                        type: 'website',
-                        locale: 'ko_KR',
-                        url: 'https://fonts.taedonn.com',
-                        siteName: '폰트 아카이브 · 상업용 무료 한글 폰트 저장소',
-                        images: [
+                <SessionProvider session={session}>
+                    <DefaultSeo
+                        title="폰트 아카이브 · 상업용 무료 한글 폰트 저장소"
+                        description="폰트 아카이브 · 상업용 무료 한글 폰트 저장소"
+                        additionalLinkTags={[
                             {
-                                url: 'https://fonts-archive.s3.ap-northeast-2.amazonaws.com/meta_image.png',
-                                width: 1000,
-                                height: 1000,
-                                alt: '폰트 아카이브 메타 이미지',
-                            },
-                        ],
-                    }}
-                    twitter={{
-                        handle: '@handle',
-                        site: '@site',
-                        cardType: 'summary_large_image',
-                    }}
-                />
-                <main>
-                    <NextNProgress
-                        color={theme === "dark" ? "#8AB4F8" : "#FCBE11"}
+                                rel:"icon",
+                                href: "/favicon.ico"
+                            }
+                        ]}
+                        openGraph={{
+                            type: 'website',
+                            locale: 'ko_KR',
+                            url: 'https://fonts.taedonn.com',
+                            siteName: '폰트 아카이브 · 상업용 무료 한글 폰트 저장소',
+                            images: [
+                                {
+                                    url: 'https://fonts-archive.s3.ap-northeast-2.amazonaws.com/meta_image.png',
+                                    width: 1000,
+                                    height: 1000,
+                                    alt: '폰트 아카이브 메타 이미지',
+                                },
+                            ],
+                        }}
+                        twitter={{
+                            handle: '@handle',
+                            site: '@site',
+                            cardType: 'summary_large_image',
+                        }}
                     />
-                    <Component {...pageProps}/>
-                </main>
+                    <main>
+                        <NextNProgress
+                            color={theme === "dark" ? "#8AB4F8" : "#FCBE11"}
+                        />
+                        <Component {...pageProps}/>
+                    </main>
+                </SessionProvider>
             </QueryClientProvider>
         </>
     );
