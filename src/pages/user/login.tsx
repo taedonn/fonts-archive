@@ -4,7 +4,6 @@ import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
 
 // next-auth
-import { authOptions } from '../api/auth/[...nextauth]';
 import { getServerSession } from 'next-auth';
 import { useSession, signIn, signOut } from 'next-auth/react';
 
@@ -162,7 +161,20 @@ const Login = ({params}: any) => {
     const { data: session } = useSession();
     // console.log(session);
 
-    const googleLogin = () => { signIn("google"); }
+    const googleLogin = async () => {
+        signIn("google");
+
+        // try {
+        //     const isLoggedin: any = await signIn("google", { callbackUrl: history });
+        //     if (isLoggedin.error !== null) {
+        //         console.log("에러");
+        //     } else {
+        //         console.log("성공");
+        //     }
+        // } catch (err) {
+        //     console.log("캐치 에러");
+        // }
+    }
 
     const handleSignout = () => { signOut(); }
 
@@ -302,15 +314,12 @@ export async function getServerSideProps(ctx: any) {
 
         // refreshToken 제거
         ctx.res.setHeader('Set-Cookie', [`refreshToken=; Path=/; max-Age=0;`]);
-
-        const session = await getServerSession(ctx.req, ctx.res, authOptions);
         
         return {
             props: {
                 params: {
                     theme: cookieTheme,
                     userAgent: userAgent,
-                    session: session,
                 }
             }
         }

@@ -3,6 +3,9 @@ import { useState } from "react";
 import { useCookies } from 'react-cookie';
 import { debounce } from "lodash";
 
+// next-auth
+import { getServerSession } from "next-auth";
+
 // api
 import { Auth, getAccessToken } from "./api/auth/auth";
 import { FetchUserLike } from "./api/user/fetchuserlike";
