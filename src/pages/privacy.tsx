@@ -54,7 +54,7 @@ const Privacy = ({params}: any) => {
 <pre style={{fontFamily: "Spoqa Han Sans Neo, Noto Sans KR"}} className='whitespace-pre-wrap text-[14px] text-theme-5 dark:text-theme-9/80 leading-loose'>{
 `< 태돈 >('https://fonts.taedonn.com'이하 '폰트 아카이브')은(는) 「개인정보 보호법」 제30조에 따라 정보주체의 개인정보를 보호하고 이와 관련한 고충을 신속하고 원활하게 처리할 수 있도록 하기 위하여 다음과 같이 개인정보 처리방침을 수립·공개합니다.
 
-○ 이 개인정보처리방침은 2023년 5월 1부터 적용됩니다.
+○ 이 개인정보처리방침은 2023년 12월 1부터 적용됩니다.
 
 
 제1조(개인정보의 처리 목적)
@@ -264,7 +264,7 @@ const Privacy = ({params}: any) => {
 
 제16조(개인정보 처리방침 변경)
 
-이 개인정보처리방침은 2023년 5월 2일부터 적용됩니다.`
+이 개인정보처리방침은 2023년 12월 1일부터 적용됩니다.`
 }
 </pre>
                 </div>

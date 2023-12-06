@@ -62,6 +62,7 @@ const Register = ({params}: any) => {
                     id: user.email,
                     name: user.name,
                     image: user.image,
+                    provider: user.provider,
                 })
                 .then(res => {
                     // 회원가입 완료 페이지로 이동

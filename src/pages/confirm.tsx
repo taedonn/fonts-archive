@@ -1,5 +1,6 @@
 // react hooks
 import { useEffect } from "react";
+import { useCookies } from 'react-cookie';
 
 // next hooks
 import Link from "next/link";
@@ -13,6 +14,7 @@ import { dateFormat } from "@/libs/common";
 
 const Confirm = ({params}: any) => {
     const user = params.user;
+    const [, setCookie] = useCookies<string>([]);
 
     // 로딩 시 폰트 다운로드
     useEffect(() => {
@@ -22,13 +24,18 @@ const Confirm = ({params}: any) => {
         /** 이메일 확인 DB에 저장 후 쿠키 저장 */
         async function updateEmailConfirmation() {
             await axios.post("/api/user/updateemailconfirm", {
-                email_token: user.user_email_token
+                email_token: user.user_email_token,
+                user_id: user.user_id,
             })
-            .then(res => console.log(res))
+            .then(res => {
+                let date = new Date();
+                let expires = new Date(date.setDate(date.getDate() + 7));
+                setCookie('refreshToken', res.data.refreshToken, {path:'/', expires: expires, secure: true, sameSite: 'strict'});
+            })
             .catch(err => console.log(err));
         }
         updateEmailConfirmation();
-    }, [user]);
+    }, [user, setCookie]);
     
     return (
         <>
@@ -46,7 +53,7 @@ const Confirm = ({params}: any) => {
                     가입일: {dateFormat(user.created_at)}
                 </div>
                 <div className="flex items-center mt-[40px]">
-                    <Link href="/user/login" className="flex justify-center items-center w-[132px] h-[36px] rounded-full text-[13px] border border-theme-8 hover:border-theme-3 dark:border-theme-blue-1/40 hover:bg-theme-3 hover:dark:bg-theme-blue-1 text-theme-3 hover:text-theme-9 dark:text-theme-blue-1 hover:dark:text-theme-blue-2 cursor-pointer duration-100">로그인 페이지</Link>
+                    <Link href="/" className="flex justify-center items-center w-[132px] h-[36px] rounded-full text-[13px] border border-theme-8 hover:border-theme-3 dark:border-theme-blue-1/40 hover:bg-theme-3 hover:dark:bg-theme-blue-1 text-theme-3 hover:text-theme-9 dark:text-theme-blue-1 hover:dark:text-theme-blue-2 cursor-pointer duration-100">메인 페이지</Link>
                 </div>
             </div>
         </>

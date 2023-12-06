@@ -110,7 +110,7 @@ const Login = ({params}: any) => {
                 else if (res.data.status === 'success') {
                     let date = new Date();
                     let expires = stayLoggedIn ? new Date(date.setFullYear(date.getFullYear() + 1)) : new Date(date.setDate(date.getDate() + 1));
-                    setCookie('refreshToken', res.data.refreshToken, {path:'/', expires: expires, secure:true, sameSite:'strict'});
+                    setCookie('refreshToken', res.data.refreshToken, {path:'/', expires: expires, secure: true, sameSite: 'strict'});
                     
                     // 세션 스토리지가 저장되어 있으면, 해당 페이지로 이동
                     sessionStorage.removeItem("login_history");

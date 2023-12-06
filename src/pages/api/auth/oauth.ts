@@ -49,7 +49,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     } else if (req.method === "POST") {
         if (req.body.action === "register") {
             try {
-                const { name, id, image } = req.body;
+                const { name, id, image, provider } = req.body;
                 const emailToken = crypto.randomUUID();
 
                 await prisma.fontsUser.create({
@@ -57,7 +57,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                         user_name: name,
                         user_id: id,
                         user_pw: "",
-                        auth: "oauth",
+                        auth: provider,
                         user_email_token: emailToken,
                         user_email_confirm: false,
                         profile_img: image === "" || image === undefined ? "/fonts-archive-base-profile-img-" + (Math.floor(Math.random() * 6) + 1) + ".svg" : image

@@ -30,6 +30,7 @@ const Info = ({params}: any) => {
     const user = params.user;
 
     // 폼 state
+    const [userName, setUserName] = useState<string>(user.user_name);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [profileImg, setProfileImg] = useState<string>(user.profile_img);
     const [isImgLoading, setIsImgLoading] = useState<boolean>(false);
@@ -59,7 +60,7 @@ const Info = ({params}: any) => {
         setIsLoading(true);
 
         if (nameVal === '') { setNameChk('empty'); }
-        else if (nameVal === user.user_name) { setNameChk("exists"); }
+        else if (nameVal === userName) { setNameChk("exists"); }
         else {
             // 이름 변경하기 API 호출
             await axios.post('/api/user/updateuserinfo', {
@@ -68,6 +69,7 @@ const Info = ({params}: any) => {
                 name: nameVal,
             })
             .then(() => {
+                setUserName(nameVal);
                 setAlert('name');
                 setAlertDisplay(true);
             })
@@ -325,8 +327,15 @@ const Info = ({params}: any) => {
             {/* 메인 */}
             <form onSubmit={e => e.preventDefault()} className='w-[100%] flex flex-col justify-center items-center'>
                 <div className='w-[360px] flex flex-col justify-center items-start my-[100px] tlg:my-[40px]'>
-                    <h2 className='text-[20px] tlg:text-[18px] text-theme-3 dark:text-theme-9 font-medium'>프로필 정보</h2>
-                    <div className='text-[12px] text-theme-5 dark:text-theme-6 mt-[4px] mb-[10px] tlg:mb-[8px]'>{timeFormat(user.updated_at)}에 마지막으로 수정됨</div>
+                    <h2 className='text-[20px] tlg:text-[18px] mb-[4px] text-theme-3 dark:text-theme-9 font-medium'>프로필 정보</h2>
+                    {
+                        user.auth === ""
+                            ? <></>
+                            : <div className='text-[12px] p-[4px] px-[12px] mb-[8px] flex items-center rounded-[6px] border-[2px] text-theme-3 dark:text-theme-9 border-theme-yellow dark:border-theme-blue-1/80 bg-theme-yellow/40 dark:bg-theme-blue-1/20'>
+                                <div className='mr-[2px] font-medium text-theme-3 dark:text-theme-9'>{user.auth === "google" ? "Google" : ""}</div>에서 연동 중
+                            </div>
+                    }
+                    <div className='text-[12px] text-theme-5 dark:text-theme-7 mb-[10px] tlg:mb-[8px]'>{timeFormat(user.updated_at)}에 마지막으로 수정됨</div>
                     {
                         alertDisplay === true
                         ? alert === 'name'

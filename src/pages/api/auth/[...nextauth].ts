@@ -19,7 +19,7 @@ const nextAuthOptions = (req: NextApiRequest, res: NextApiResponse) => {
             }),
         ],
         callbacks: {
-            async signIn({ user }: { user: any }) {
+            async signIn({ user, account }: { user: any, account: any }) {
                 try {
                     // 아이디 이미 존재하는지 확인
                     const hasUser = await HasUser(user);
@@ -34,7 +34,7 @@ const nextAuthOptions = (req: NextApiRequest, res: NextApiResponse) => {
                         });
                         res.redirect(307, "/");
                     } else {
-                        const token = oauthSign(user);
+                        const token = oauthSign(user, account);
                         res.redirect(307, `/user/oauth?token=${token}`);
                     }
 
