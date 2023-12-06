@@ -4,7 +4,9 @@ import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
 
 // next-auth
-import { useSession, signIn } from 'next-auth/react';
+import { authOptions } from '../api/auth/[...nextauth]';
+import { getServerSession } from 'next-auth';
+import { useSession, signIn, signOut } from 'next-auth/react';
 
 // react hooks
 import { useState, useEffect } from 'react';
@@ -26,6 +28,8 @@ const Login = ({params}: any) => {
 
     // 쿠키 훅
     const [, setCookie] = useCookies<string>([]);
+
+    console.log(params.session);
 
     // 라우터 훅
     const router = useRouter();
@@ -156,8 +160,11 @@ const Login = ({params}: any) => {
 
     /** OAuth 로그인 */
     const { data: session } = useSession();
-    console.log(session);
+    // console.log(session);
+
     const googleLogin = () => { signIn("google"); }
+
+    const handleSignout = () => { signOut(); }
 
     return (
         <>
@@ -275,6 +282,7 @@ const Login = ({params}: any) => {
                         <div className='text-theme-5 dark:text-theme-6 mx-[4px]'>·</div>
                         <Link href="/privacy" target="_blank" rel="noopener noreferrer" className='text-theme-5 dark:text-theme-6 hover:underline tlg:hover:underline'>개인정보처리방침</Link>
                     </div>
+                    <button onClick={handleSignout} className='text-center dark:text-theme-9'>로그아웃</button>
                 </div>
             </div>
 
@@ -294,12 +302,15 @@ export async function getServerSideProps(ctx: any) {
 
         // refreshToken 제거
         ctx.res.setHeader('Set-Cookie', [`refreshToken=; Path=/; max-Age=0;`]);
+
+        const session = await getServerSession(ctx.req, ctx.res, authOptions);
         
         return {
             props: {
                 params: {
                     theme: cookieTheme,
                     userAgent: userAgent,
+                    session: session,
                 }
             }
         }
