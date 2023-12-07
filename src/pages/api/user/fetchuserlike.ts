@@ -1,8 +1,8 @@
 import prisma from '@/libs/client-prisma';
   
-export async function FetchUserLike(user_no: number) {
+export async function FetchUserLike(user_email: string) {
     const like = await prisma.fontsLiked.findMany({
-        where: { user_id: user_no }
+        where: { user_email: user_email }
     });
 
     return like;

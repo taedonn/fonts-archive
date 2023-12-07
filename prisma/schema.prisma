@@ -49,10 +49,9 @@ model fonts {
 model fontsUser {
   user_no            Int            @id @default(autoincrement())
   user_name          String
-  user_id            String         @unique
+  user_id            String
   user_pw            String
   auth               String         @default("")
-  refresh_token      String         @default("")
   user_email_token   String
   user_email_confirm Boolean
   profile_img        String         @db.Text
@@ -68,10 +67,11 @@ model fontsUser {
 }
 
 model fontsLiked {
-  font_id Int
-  user_id Int
-  font    fonts     @relation(fields: [font_id], references: [code])
-  user    fontsUser @relation(fields: [user_id], references: [user_no])
+  font_id    Int
+  user_id    Int
+  user_email String    @default("")
+  font       fonts     @relation(fields: [font_id], references: [code])
+  user       fontsUser @relation(fields: [user_id], references: [user_no])
 
   @@id([font_id, user_id])
   @@index([font_id])
@@ -80,7 +80,10 @@ model fontsLiked {
 
 model fontsComment {
   font_id               Int
+  font_name             String    @default("")
+  font_family           String    @default("")
   user_id               Int
+  user_name             String    @default("")
   comment               String    @db.Text
   depth                 Int
   bundle_id             Int

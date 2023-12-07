@@ -13,15 +13,22 @@ export async function getRefreshToken(snsUser: any) {
 }
 
 // 유저 정보 있는지 조회
-export async function HasUser(oauth_user: any, oauth_account: any) {
+export async function HasUser(credentials: any) {
     const user = await prisma.fontsUser.findUnique({
-        where: {
-            user_id: oauth_user.email,
-            auth: oauth_account.provider,
-        }
+        where: { user_id: credentials.email } 
     });
 
-    return user === null ? false : true;
+    if (user !== null && user.user_pw === credentials.password) return true;
+    else return false;
+    
+    // const user = await prisma.fontsUser.findUnique({
+    //     where: {
+    //         user_id: oauth_user.email,
+    //         auth: oauth_account.provider,
+    //     }
+    // });
+
+    // return user === null ? false : true;
 }
 
 // OAUTH 유저 AccessToken 검증
@@ -29,6 +36,71 @@ export async function verifyAccessToken(token: string) {
     const user = oauthVerify(token);
 
     return user;
+}
+
+export async function GetUser(credentials: any) {
+    const user = await prisma.fontsUser.findUnique({
+        select: {
+            user_id: true,
+            user_pw: true,
+            user_name: true,
+            user_email_confirm: true,
+            auth: true,
+            profile_img: true,
+        },
+        where: {
+            user_id: credentials.email,
+            user_email_confirm: true,
+            auth: "",
+        } 
+    });
+
+    if (user !== null && user.user_pw === credentials.password) {
+        const sessionUser = {};
+
+        // Session의 기본 키 값과 동일하게 맞춰줌
+        Object.assign(sessionUser, {
+            email: user.user_id,
+            name: user.user_name,
+            image: user.profile_img
+        });
+        return sessionUser;
+    }
+    else return null;
+}
+
+export async function GetOAuthUser(user: any, account: any) {
+    const OAuthUser = await prisma.fontsUser.findUnique({
+        select: {
+            user_id: true,
+            user_pw: true,
+            user_name: true,
+            auth: true,
+            profile_img: true,
+        },
+        where: {
+            user_id: user.email,
+        } 
+    });
+
+    if (OAuthUser === null) {
+        await prisma.fontsUser.create({
+            data: {
+                user_name: user.name,
+                user_id: user.email,
+                user_pw: "",
+                user_email_token: "",
+                user_email_confirm: true,
+                auth: account.provider,
+                profile_img: user.image === undefined || user.image === "" ? "/fonts-archive-base-profile-img-" + (Math.floor(Math.random() * 6) + 1) + ".svg" : user.image
+            }
+        });
+
+        return true;
+    }
+    else {
+        return true;
+    }
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
