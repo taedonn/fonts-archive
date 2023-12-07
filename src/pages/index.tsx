@@ -4,8 +4,7 @@ import { useCookies } from 'react-cookie';
 import { debounce } from "lodash";
 
 // next-auth
-import { getServerSession } from "next-auth";
-import { authOptions } from "./api/auth/[...nextauth]";
+import { getSession } from "next-auth/react";
 
 // api
 import { FetchUserLike } from "./api/user/fetchuserlike";
@@ -18,8 +17,6 @@ import FontBox from "@/components/fontbox";
 const Index = ({params}: any) => {
     // 쿠키 훅
     const [, setCookie] = useCookies<string>([]);
-
-    console.log(params.user);
 
     // 디바이스 체크
     const isMac: boolean = params.userAgent.includes("Mac OS") ? true : false
@@ -99,7 +96,7 @@ const Index = ({params}: any) => {
     return (
         <>
             {/* 헤더 */}
-            {/* <Header
+            <Header
                 isMac={isMac}
                 theme={params.theme}
                 user={params.user}
@@ -115,10 +112,10 @@ const Index = ({params}: any) => {
                 handleTypeOptionChange={handleTypeOptionChange}
                 handleSortOptionChange={handleSortOptionChange}
                 handleSearch={handleSearch}
-            /> */}
+            />
             
             {/* 메인 */}
-            {/* <FontBox 
+            <FontBox 
                 license={license}
                 lang={lang}
                 type={type}
@@ -129,7 +126,7 @@ const Index = ({params}: any) => {
                 searchword={searchword}
                 text={text}
                 num={999}
-            /> */}
+            />
 
             {/* 고정 메뉴 */}
             <TooltipIndex/>
@@ -153,24 +150,15 @@ export async function getServerSideProps(ctx: any) {
         // 디바이스 체크
         const userAgent = ctx.req ? ctx.req.headers['user-agent'] : navigator.userAgent;
 
-        // refreshToken 불러오기
-        // const refreshToken = ctx.req.cookies.refreshToken;
-
-        // accessToken으로 유저 정보 가져오기
-        // const accessToken = refreshToken === undefined
-        //     ? null
-        //     : await getAccessToken(refreshToken);
-
-        // // accessToken으로 유저 정보 불러오기
-        // const user = accessToken === null
-        //     ? null
-        //     : await Auth(accessToken);
-        const session: any = getServerSession(ctx.req, ctx.res, authOptions);
+        // 유저 정보 불러오기
+        const session = await getSession(ctx);
 
         // 유저 정보가 있으면, 좋아요한 폰트 체크
         const like = session === null
             ? null
-            : await FetchUserLike(session.email);
+            : session.user === undefined
+                ? null
+                : await FetchUserLike(session.user?.email || "");
 
         return {
             props: {
@@ -183,8 +171,8 @@ export async function getServerSideProps(ctx: any) {
                     source: source,
                     filter: filter,
                     userAgent: userAgent,
-                    user: session ? session.length : null,
-                    like: null,
+                    user: session === null ? null : session.user,
+                    like: like,
                 }
             }
         }

@@ -4,16 +4,11 @@ import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
 
 // next-auth
-import { authOptions } from '../api/auth/[...nextauth]';
-import { getServerSession } from 'next-auth';
-import { useSession, signIn, signOut } from 'next-auth/react';
+import { getSession } from 'next-auth/react';
+import { signIn, signOut } from 'next-auth/react';
 
 // react hooks
 import { useState, useEffect } from 'react';
-
-// hooks
-import axios from 'axios';
-import { useCookies } from 'react-cookie';
 
 // components
 import Header from "@/components/header";
@@ -25,11 +20,6 @@ const Login = ({params}: any) => {
 
     // 빈 함수
     const emptyFn = () => { return; }
-
-    // 쿠키 훅
-    const [, setCookie] = useCookies<string>([]);
-
-    console.log(params.session);
 
     // 라우터 훅
     const router = useRouter();
@@ -61,78 +51,6 @@ const Login = ({params}: any) => {
     // 비밀번호 입력 시 state에 저장
     const handlePwChange = (e: React.ChangeEvent<HTMLInputElement>) => { setPwChk(''); setPwVal(e.target.value); }
 
-    // 로그인 상태 유지하기 state
-    const [stayLoggedIn, setStayLoggedIn] = useState<boolean>(false);
-
-    // 로그인 버튼 클릭
-    // const handleLogin = async () => {
-    //     // 폼 유효성 검사
-    //     if (idVal === '') { setIdChk('empty'); }
-    //     else if (pwVal === '') { setPwChk('empty'); }
-    //     else {
-    //         // 로딩 스피너 실행
-    //         setIsLoading(true);
-
-    //         // 유효성 검사 성공 시, 로그인 API 실행
-    //         await axios.get('/api/auth/auth', {
-    //             params: {
-    //                 action: "login",
-    //                 id: idVal,
-    //                 pw: pwVal,
-    //                 stay_logged_in: stayLoggedIn,
-    //             }
-    //         })
-    //         .then(res => {
-    //             if (res.data.status === 'wrong-id') {
-    //                 // "아이디가 존재하지 않습니다." 표시
-    //                 setIdChk('wrong-id');
-
-    //                 // 로딩 스피너 정지
-    //                 setIsLoading(false);
-    //             }
-    //             else if (res.data.status === 'wrong-pw') {
-    //                 // "비밀번호가 올바르지 않습니다." 표시
-    //                 setPwChk('wrong-pw');
-
-    //                 // 로딩 스피너 정지
-    //                 setIsLoading(false);
-    //             }
-    //             else if (res.data.status === 'not-confirmed') {
-    //                 // "이메일 인증을 완료해 주세요." 표시
-    //                 setEmailConfirmChk(false);
-
-    //                 // 로딩 스피너 정지
-    //                 setIsLoading(false);
-    //             }
-    //             else if (res.data.status === 'success') {
-    //                 let date = new Date();
-    //                 let expires = stayLoggedIn ? new Date(date.setFullYear(date.getFullYear() + 1)) : new Date(date.setDate(date.getDate() + 1));
-    //                 setCookie('refreshToken', res.data.refreshToken, {path:'/', expires: expires, secure: true, sameSite: 'strict'});
-                    
-    //                 // 세션 스토리지가 저장되어 있으면, 해당 페이지로 이동
-    //                 sessionStorage.removeItem("login_history");
-
-    //                 if (history.includes("user")) {
-    //                     // history가 user일 때
-    //                     if (history.includes("privacy") || history.includes("terms")) {
-    //                         router.push(history); // 이전 페이지로 이동
-    //                     } else {
-    //                         router.push("/");
-    //                     }
-    //                 } else {
-    //                     router.push(history); // 이전 페이지로 이동
-    //                 }
-    //             }
-    //         })
-    //         .catch(err => {
-    //             console.log(err);
-
-    //             // 로딩 스피너 실행
-    //             setIsLoading(false);
-    //         });
-    //     }
-    // }
-
     // 엔터키 입력 시 로그인 버튼 클릭
     useEffect(() => {
         const keys: any = [];
@@ -147,9 +65,6 @@ const Login = ({params}: any) => {
             window.removeEventListener("keyup", handleKeyup);
         }
     });
-
-    const { data: session } = useSession();
-    console.log(session);
 
     const handleLogin = async () => {
         // 폼 유효성 검사
@@ -170,7 +85,7 @@ const Login = ({params}: any) => {
                 setAlertDisplay(true);
             }
             else {
-                // router.push(history);
+                router.push(history);
             }
         }
     }
@@ -179,20 +94,8 @@ const Login = ({params}: any) => {
     /** 알럿창 닫기 */
     const handleAlertClose = () => { setAlertDisplay(false); }
 
-    const googleLogin = async () => {
-        const res = await signIn("google", {
-            callbackUrl: history,
-        });
-
-        if (res?.error) {
-            setIsLoading(false);
-            setAlertDisplay(true);
-        }
-        else {
-            // router.push(history);
-            setIsLoading(false);
-        }
-    }
+    /** OAuth 로그인 */
+    const googleLogin = async () => { signIn("google", { callbackUrl: history }); }
 
     return (
         <>
@@ -314,17 +217,23 @@ export async function getServerSideProps(ctx: any) {
         // 디바이스 체크
         const userAgent = ctx.req ? ctx.req.headers['user-agent'] : navigator.userAgent;
 
-        // refreshToken 제거
-        ctx.res.setHeader('Set-Cookie', [`refreshToken=; Path=/; max-Age=0;`]);
-
-        const session = getServerSession(ctx.req, ctx.res, authOptions);
+        // 유저 정보 불러오기
+        const session = await getSession(ctx);
         
-        return {
-            props: {
-                params: {
-                    theme: cookieTheme,
-                    userAgent: userAgent,
-                    session: JSON.parse(JSON.stringify(session)),
+        if (session === null || session.user === undefined) {
+            return {
+                props: {
+                    params: {
+                        theme: cookieTheme,
+                        userAgent: userAgent,
+                    }
+                }
+            }
+        } else {
+            return {
+                redirect: {
+                    destination: '/404',
+                    permanent: false,
                 }
             }
         }

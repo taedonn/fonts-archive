@@ -1,6 +1,5 @@
 // react hooks
 import { useEffect } from "react";
-import { useCookies } from 'react-cookie';
 
 // next hooks
 import Link from "next/link";
@@ -14,7 +13,6 @@ import { dateFormat } from "@/libs/common";
 
 const Confirm = ({params}: any) => {
     const user = params.user;
-    const [, setCookie] = useCookies<string>([]);
 
     // 로딩 시 폰트 다운로드
     useEffect(() => {
@@ -27,15 +25,11 @@ const Confirm = ({params}: any) => {
                 email_token: user.user_email_token,
                 user_id: user.user_id,
             })
-            .then(res => {
-                let date = new Date();
-                let expires = new Date(date.setDate(date.getDate() + 7));
-                setCookie('refreshToken', res.data.refreshToken, {path:'/', expires: expires, secure: true, sameSite: 'strict'});
-            })
+            .then(res => console.log(res))
             .catch(err => console.log(err));
         }
         updateEmailConfirmation();
-    }, [user, setCookie]);
+    }, [user]);
     
     return (
         <>

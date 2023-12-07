@@ -91,9 +91,6 @@ export async function getServerSideProps(ctx: any) {
         // 디바이스 체크
         const userAgent = ctx.req ? ctx.req.headers['user-agent'] : navigator.userAgent;
 
-        // 세션ID 쿠키 제거
-        ctx.res.setHeader('Set-Cookie', [`refreshToken=; max-Age=0; path=/`]);
-
         // 토큰 유효성 검사
         const token = ctx.query.token;
         const user = await FetchUserInfoFromToken(token);

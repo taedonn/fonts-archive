@@ -1,14 +1,17 @@
-import type { NextApiRequest, NextApiResponse } from 'next';
 import prisma from '@/libs/client-prisma';
 
-async function FetchUserInfo(userId: string) {
+export async function FetchUserInfo(id: string, provider: string) {
     const user = await prisma.fontsUser.findFirst({
-        where: { user_id: userId }
+        where: {
+            user_id: id,
+            auth: provider,
+        }
     });
 
     return user;
 }
 
+/** sendemail.tsx에서 이메일 토큰으로 유저 정보 불러오기 */
 export async function FetchUserInfoFromToken(token: string) {
     const user = await prisma.fontsUser.findFirst({
         where: { user_email_token: token }
@@ -17,9 +20,11 @@ export async function FetchUserInfoFromToken(token: string) {
     return user;
 }
 
+/** next-auth credentials 로그인 */
 export async function GetUser(credentials: any) {
     const user = await prisma.fontsUser.findFirst({
         select: {
+            user_no: true,
             user_id: true,
             user_pw: true,
             user_name: true,
@@ -31,7 +36,7 @@ export async function GetUser(credentials: any) {
             user_id: credentials.email,
             user_email_confirm: true,
             auth: "",
-        } 
+        }
     });
 
     if (user !== null && user.user_pw === credentials.password) {
@@ -39,6 +44,7 @@ export async function GetUser(credentials: any) {
 
         // Session의 기본 키 값과 동일하게 맞춰줌
         Object.assign(sessionUser, {
+            id: user.user_no,
             email: user.user_id,
             name: user.user_name,
             image: user.profile_img
@@ -48,6 +54,7 @@ export async function GetUser(credentials: any) {
     else return null;
 }
 
+/** next-auth oauth 로그인 */
 export async function GetOAuthUser(user: any, account: any) {
     const OAuthUser = await prisma.fontsUser.findFirst({
         select: {
@@ -59,6 +66,7 @@ export async function GetOAuthUser(user: any, account: any) {
         },
         where: {
             user_id: user.email,
+            auth: account.provider,
         } 
     });
 
@@ -81,58 +89,3 @@ export async function GetOAuthUser(user: any, account: any) {
         return true;
     }
 }
-
-// export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-//     if (req.method === "GET") {
-//         if (req.query.action === "login") {
-//             try {
-//                 const userId = req.query.id as string;
-//                 const userPw = req.query.pw as string;
-    
-//                 // 유저 정보 불러오기
-//                 const user = await prisma.fontsUser.findFirst({
-//                     where: {
-//                         user_id: userId,
-//                         auth: "",
-//                     }
-//                 });
-    
-//                 // 로그인 상태
-//                 const status = user === null
-//                 ? "wrong-id"
-//                 : user.user_pw !== userPw
-//                     ? "wrong-pw"
-//                     : !user.user_email_confirm
-//                         ? "not-confirmed"
-//                         : "success";
-    
-//                 // refreshToken 만들고 쿠키에 저장
-//                 let refreshToken = "";
-//                 status === "success" && user!== null && (
-//                     refreshToken = refresh(user.user_id),
-//                     await prisma.fontsUser.update({
-//                         where: { user_id: userId },
-//                         data: { refresh_token: refreshToken }
-//                     })
-//                 );
-    
-//                 return res.status(200).json({
-//                     msg: "로그인 성공",
-//                     status: status,
-//                     refreshToken: refreshToken,
-//                 });
-//             } catch (err) {
-//                 return res.status(500).json({
-//                     msg: "로그인 실패",
-//                     err: err,
-//                 });
-//             }
-//         } else if (req.query.action === "logout") {
-//             res.setHeader(
-//                 'set-cookie',
-//                 `refreshToken=; path=/; max-age=0;`,
-//             );
-//             res.end();
-//         }
-//     }
-// }

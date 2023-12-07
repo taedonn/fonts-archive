@@ -1,15 +1,16 @@
 // next hooks
 import { NextSeo } from 'next-seo';
 
+// next-auth
+import { getSession } from 'next-auth/react';
+import { FetchUserInfo } from '../api/auth/auth';
+
 // react hooks
 import React, { useState, useEffect, useRef, ChangeEvent } from 'react';
 
 // hooks
 import axios from 'axios';
 import imageCompression from 'browser-image-compression';
-
-// api
-import { Auth, getAccessToken } from '../api/auth/auth';
 
 // components
 import Header from "@/components/header";
@@ -27,7 +28,7 @@ const Info = ({params}: any) => {
     // 빈 함수
     const emptyFn = () => { return; }
 
-    const user = params.user;
+    const user = params.info;
 
     // 폼 state
     const [userName, setUserName] = useState<string>(user.user_name);
@@ -67,6 +68,7 @@ const Info = ({params}: any) => {
                 action: "change-name",
                 id: user.user_id,
                 name: nameVal,
+                auth: user.auth,
             })
             .then(() => {
                 setUserName(nameVal);
@@ -309,7 +311,7 @@ const Info = ({params}: any) => {
             <Header
                 isMac={isMac}
                 theme={params.theme}
-                user={user}
+                user={params.user}
                 page={""}
                 license={""}
                 lang={""}
@@ -329,9 +331,8 @@ const Info = ({params}: any) => {
                 <div className='w-[360px] flex flex-col justify-center items-start my-[100px] tlg:my-[40px]'>
                     <h2 className='text-[20px] tlg:text-[18px] mb-[4px] text-theme-3 dark:text-theme-9 font-medium'>프로필 정보</h2>
                     {
-                        user.auth === ""
-                            ? <></>
-                            : <div className='text-[12px] p-[4px] px-[12px] mb-[8px] flex items-center rounded-[6px] border-[2px] text-theme-3 dark:text-theme-9 border-theme-yellow dark:border-theme-blue-1/80 bg-theme-yellow/40 dark:bg-theme-blue-1/20'>
+                        user.auth !== "credentials"
+                            && <div className='text-[12px] p-[4px] px-[12px] mb-[8px] flex items-center rounded-[6px] border-[2px] text-theme-3 dark:text-theme-9 border-theme-yellow dark:border-theme-blue-1/80 bg-theme-yellow/40 dark:bg-theme-blue-1/20'>
                                 <div className='mr-[2px] font-medium text-theme-3 dark:text-theme-9'>{user.auth === "google" ? "Google" : ""}</div>에서 연동 중
                             </div>
                     }
@@ -487,21 +488,10 @@ export async function getServerSideProps(ctx: any) {
         // 디바이스 체크
         const userAgent = ctx.req ? ctx.req.headers['user-agent'] : navigator.userAgent;
 
-        // refreshToken 불러오기
-        const refreshToken = ctx.req.cookies.refreshToken;
+        // 유저 정보 불러오기
+        const session: any = await getSession(ctx);
 
-        // accessToken으로 유저 정보 가져오기
-        const accessToken = refreshToken === undefined
-            ? null
-            : await getAccessToken(refreshToken);
-
-        // accessToken으로 유저 정보 불러오기
-        const user = accessToken === null
-            ? null
-            : await Auth(accessToken);
-
-        // 쿠키에 저장된 세션ID가 유효하지 않다면, 메인페이지로 이동, 유효하면 클리이언트로 유저 정보 return
-        if (user === null) {
+        if (session === null || session.user === undefined) {
             return {
                 redirect: {
                     destination: '/404',
@@ -509,12 +499,15 @@ export async function getServerSideProps(ctx: any) {
                 }
             }
         } else {
+            const info = await FetchUserInfo(session.user.email, session.user.provider);
+
             return {
                 props: {
                     params: {
                         theme: cookieTheme,
                         userAgent: userAgent,
-                        user: JSON.parse(JSON.stringify(user)),
+                        user: session === null ? null : session.user,
+                        info: JSON.parse(JSON.stringify(info)),
                     }
                 }
             }

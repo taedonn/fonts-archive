@@ -42,38 +42,5 @@ const refreshVerify = (token: string) => {
         return false;
     }
 };
-
-// OAuth access Token 발급
-const oauthSign = (user: any, account: any) => {
-    return jwt.sign({
-        email: user.email,
-        name: user.name,
-        image: user.image,
-        provider: account.provider,
-    }, secret, {
-        algorithm: 'HS256', // 암호화 알고리즘
-        expiresIn: 300, // 유효기간: 5분
-    });
-};
-
-// OOAuth access Token 검증
-const oauthVerify = (token: string) => {
-    let decoded: any = null;
-    try {
-        decoded = jwt.verify(token, secret);
-        return {
-            ok: true,
-            email: decoded.email,
-            name: decoded.name,
-            image: decoded.image,
-            provider: decoded.provider,
-        };
-    } catch (err: any) {
-        return {
-            ok: false,
-            message: err.message,
-        };
-    }
-};
   
-export { sign, verify, refresh, refreshVerify, oauthSign, oauthVerify };
+export { sign, verify, refresh, refreshVerify };

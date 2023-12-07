@@ -2,7 +2,7 @@
 import { NextSeo } from 'next-seo';
 
 // api
-import { Auth, getAccessToken } from './api/auth/auth';
+import { getSession } from 'next-auth/react';
 
 // components
 import Header from "@/components/header";
@@ -363,25 +363,15 @@ export async function getServerSideProps(ctx: any) {
         // 디바이스 체크
         const userAgent = ctx.req ? ctx.req.headers['user-agent'] : navigator.userAgent;
 
-        // refreshToken 불러오기
-        const refreshToken = ctx.req.cookies.refreshToken;
-
-        // accessToken으로 유저 정보 가져오기
-        const accessToken = refreshToken === undefined
-            ? null
-            : await getAccessToken(refreshToken);
-
-        // accessToken으로 유저 정보 불러오기
-        const user = accessToken === null
-            ? null
-            : await Auth(accessToken);
+        // 유저 정보 불러오기
+        const session = await getSession(ctx);
 
         return {
             props: {
                 params: {
                     theme: cookieTheme,
                     userAgent: userAgent,
-                    user: JSON.parse(JSON.stringify(user)),
+                    user: session === null ? null : session.user,
                 }
             }
         }

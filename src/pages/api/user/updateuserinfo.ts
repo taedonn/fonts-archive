@@ -62,9 +62,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             }
         } else if (req.body.action === "change-name") {
             try {
-                await prisma.fontsUser.update({
-                    where: { user_id: req.body.id },
-                    data: { user_name: req.body.name }
+                const { id, name, auth } = req.body;
+
+                await prisma.fontsUser.updateMany({
+                    where: {
+                        user_id: id,
+                        auth: auth,
+                    },
+                    data: { user_name: name }
                 });
 
                 return res.status(200).json({
