@@ -1,6 +1,9 @@
 // react hooks
 import React, { useEffect, useRef, useState } from "react";
 
+// next-auth
+import { signOut } from "next-auth/react";
+
 // hooks
 import axios from "axios";
 import { useCookies } from "react-cookie";
@@ -105,37 +108,55 @@ export default function DeleteUserModal(
         }
         else {
             // 프로필 사진이 기본 프로필 사진이 아닌 경우
-            if (!user.profile_img.startsWith('/fonts-archive-base-profile-img-')) {
-                // 기존 프로필 삭제를 위한 Presigned URL 가져오기
-                await axios.post('/api/user/updateuserinfo', {
-                    action: 'delete-s3-img',
-                    file_name: `fonts-archive-user-${user.user_no}-profile-img.` + user.profile_img.split('.').pop(),
-                    file_type: 'image/' + user.profile_img.split('.').pop() === 'jpg' ? 'jpeg' : user.profile_img.split('.').pop(),
-                })
-                .then(async (res) => {
-                    // 기존 프로필 삭제
-                    await axios.delete(res.data.url, { headers: { 'Content-Type': 'image/' + res.data.url.split('.').pop() === 'jpg' ? 'jpeg' : res.data.url.split('.').pop() }})
-                    .then(async () => {
-                        // 유저 정보 삭제
-                        await deleteUser();
-                    })
-                    .catch(() => {
-                        console.log('이미지 삭제 실패');
+            // if (!user.profile_img.startsWith('/fonts-archive-base-profile-img-')) {
+            //     // 기존 프로필 삭제를 위한 Presigned URL 가져오기
+            //     await axios.post('/api/user/updateuserinfo', {
+            //         action: 'delete-s3-img',
+            //         file_name: `fonts-archive-user-${user.user_no}-profile-img.` + user.profile_img.split('.').pop(),
+            //         file_type: 'image/' + user.profile_img.split('.').pop() === 'jpg' ? 'jpeg' : user.profile_img.split('.').pop(),
+            //     })
+            //     .then(async (res) => {
+            //         // 기존 프로필 삭제
+            //         await axios.delete(res.data.url, { headers: { 'Content-Type': 'image/' + res.data.url.split('.').pop() === 'jpg' ? 'jpeg' : res.data.url.split('.').pop() }})
+            //         .then(async () => {
+            //             // 유저 정보 삭제
+            //             await deleteUser();
+            //         })
+            //         .catch(() => {
+            //             console.log('이미지 삭제 실패');
 
-                        // 로딩 스피너 정지
-                        setIsLoading(false);
-                    });
-                })
-                .catch(err => {
-                    console.log(err);
+            //             // 로딩 스피너 정지
+            //             setIsLoading(false);
+            //         });
+            //     })
+            //     .catch(err => {
+            //         console.log(err);
 
-                    // 로딩 스피너 정지
-                    setIsLoading(false);
-                });
-            } else {
-                // 유저 정보 삭제
-                await deleteUser();
-            }
+            //         // 로딩 스피너 정지
+            //         setIsLoading(false);
+            //     });
+            // } else {
+            //     // 유저 정보 삭제
+            //     await deleteUser();
+            // }
+
+            await axios.post('/api/user/updateuserinfo', {
+                action: 'delete-user',
+                file_name: `fonts-archive-user-${user.user_no}-profile-img.`,
+                file_type: 'image/' + user.profile_img.split('.').pop() === 'jpg' ? 'jpeg' : user.profile_img.split('.').pop(),
+                // user_no: user.user_no,
+                user_id: user.user_id,
+            })
+            .then(() => {
+                signOut();
+                location.href= "/";
+            })
+            .catch(err => {
+                console.log(err);
+
+                // 로딩 스피너 정지
+                setIsLoading(false);
+            });
         }
     }
 

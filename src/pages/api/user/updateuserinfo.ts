@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import prisma from '@/libs/client-prisma';
-import { S3Client, PutObjectCommand, DeleteObjectCommand } from '@aws-sdk/client-s3';
+import { S3Client, PutObjectCommand, DeleteObjectsCommand } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 
 export const config = {
@@ -165,19 +165,43 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             }
         } else if (req.body.action === "delete-user") {
             try {
+                const { file_name, file_type, user_no } = req.body;
+
+                // s3 이미지 삭제
+                const deleteParams: any = {
+                    Bucket: s3Bucket,
+                    Delete: {
+                        Objects: [
+                            { key: file_name + "apng" },
+                            { key: file_name + "avif" },
+                            { key: file_name + "gif" },
+                            { key: file_name + "jpg" },
+                            { key: file_name + "jpeg" },
+                            { key: file_name + "jfif" },
+                            { key: file_name + "pjpeg" },
+                            { key: file_name + "pjp" },
+                            { key: file_name + "png" },
+                            { key: file_name + "svg" },
+                            { key: file_name + "webp" },
+                        ]
+                    },
+                    ContentType: file_type,
+                }
+                await s3.send(new DeleteObjectsCommand(deleteParams));
+
                 // 좋아요한 폰트 삭제
                 await prisma.fontsLiked.deleteMany({
-                    where: { user_id: Number(req.body.user_no) }
+                    where: { user_id: Number(user_no) }
                 });
 
                 // 댓글 신고 삭제
                 await prisma.fontsUserReport.deleteMany({
-                    where: { report_user_id: Number(req.body.user_no) }
+                    where: { report_user_id: Number(user_no) }
                 });
 
                 // 댓글 조회
                 const comments = await prisma.fontsComment.findMany({
-                    where: { user_id: Number(req.body.user_no) }
+                    where: { user_id: Number(user_no) }
                 });
 
                 // 댓글의 bundle_id 조회
@@ -198,7 +222,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
                 // 유저 정보 삭제
                 await prisma.fontsUser.delete({
-                    where: { user_no: Number(req.body.user_no) }
+                    where: { user_no: Number(user_no) }
                 });
 
                 return res.status(200).json({
