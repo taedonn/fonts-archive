@@ -5,7 +5,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (req.method === "POST") {
         try {
             await prisma.fontsUser.updateMany({
-                where: { user_email_token: req.body.email_token },
+                where: {
+                    user_email_token: req.body.email_token,
+                    auth: "credentials",
+                },
                 data: { user_email_confirm: true }
             });
 

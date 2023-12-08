@@ -5,7 +5,8 @@ import { useState } from 'react';
 import { NextSeo } from 'next-seo';
 
 // api
-import { getSession } from 'next-auth/react';
+import { getServerSession } from 'next-auth';
+import { authOptions } from './api/auth/[...nextauth]';
 import { FetchAllNotices } from './api/notices';
 import axios from 'axios';
 
@@ -175,7 +176,7 @@ export async function getServerSideProps(ctx: any) {
         const userAgent = ctx.req ? ctx.req.headers['user-agent'] : navigator.userAgent;
 
         // 유저 정보 불러오기
-        const session = await getSession(ctx);
+        const session = await getServerSession(ctx.req, ctx.res, authOptions);
 
         // 공지 사항 조회
         const notices = await FetchAllNotices();

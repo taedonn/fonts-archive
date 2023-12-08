@@ -4,7 +4,8 @@ import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
 
 // next-auth
-import { getSession } from 'next-auth/react';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '../api/auth/[...nextauth]';
 
 // react hooks
 import React, { useEffect, useState } from 'react';
@@ -351,7 +352,7 @@ export async function getServerSideProps(ctx: any) {
         const userAgent = ctx.req ? ctx.req.headers['user-agent'] : navigator.userAgent;
 
         // 유저 정보 불러오기
-        const session = await getSession(ctx);
+        const session = await getServerSession(ctx.req, ctx.res, authOptions);
 
         if (session === null || session.user === undefined) {
             return {

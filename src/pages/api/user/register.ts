@@ -6,9 +6,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (req.method === "GET") {
         if (req.query.action === "check-id") {
             try {
-                const user = await prisma.fontsUser.findUnique({
-                    select: { user_id: true },
-                    where: { user_id: req.query.id as string }
+                const user = await prisma.fontsUser.findFirst({
+                    select: {
+                        user_id: true,
+                        auth: true,
+                    },
+                    where: {
+                        user_id: req.query.id as string,
+                        auth: "credentials",
+                    }
                 });
 
                 return res.status(200).json({
@@ -25,14 +31,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     } else if (req.method === 'POST') {
         if (req.body.action === "register") {
             try {
+                const { id, pw, name } = req.body;
                 const userEmailToken = crypto.randomUUID();
     
                 // 유저 정보 생성
                 await prisma.fontsUser.create({
                     data: {
-                        user_name: req.body.name,
-                        user_id: req.body.id,
-                        user_pw: req.body.pw,
+                        user_name: name,
+                        user_id: id,
+                        user_pw: pw,
+                        auth: "credentials",
                         user_email_token: userEmailToken,
                         user_email_confirm: false,
                         profile_img: "/fonts-archive-base-profile-img-" + (Math.floor(Math.random() * 6) + 1) + ".svg"
@@ -41,8 +49,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     
                 return res.status(200).json({
                     msg: "유저 정보 생성 성공",
-                    id: req.body.id,
-                    name: req.body.name,
+                    id: id,
+                    name: name,
                     email_token: userEmailToken,
                 });
             } catch (err) {
@@ -53,6 +61,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             }
         } else if (req.body.action === "send-email") {
             try {
+                const { id, name, email_token } = req.body;
+
                 // transporter 설정
                 const transporter = nodemailer.createTransport({
                     host: 'smtp.daum.net',
@@ -67,7 +77,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 // transporter에 정의된 계정 정보를 사용해 이메일 전송
                 await transporter.sendMail({
                     from: '"폰트 아카이브" <taedonn@taedonn.com>',
-                    to: req.body.id,
+                    to: id,
                     subject: '[폰트 아카이브] 회원가입 인증 메일입니다.',
                     html: `
                         <div style="width:100%; background-color:#F3F5F7;">
@@ -84,17 +94,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                                         <img src="https://fonts-archive.s3.ap-northeast-2.amazonaws.com/mail.png" alt="메일 아이콘" style="width: 160px;"/>
                                     </p>
                                     <p style="width:100%; font-size:14px; font-weight:400; text-align: center; line-height:1.8; color:#3A3A3A; margin:0; margin-top:40px;">
-                                        안녕하세요 ${req.body.name}님, <br/>
+                                        안녕하세요 ${name}님, <br/>
                                         아래 버튼을 클릭해서 <span style="font-weight:700; color:#000;">회원가입을 완료</span>해 주세요.
                                     </p>
-                                    <a style="width:200px; display:block; padding:16px 20px; box-sizing:border-box; margin: 0 auto; margin-top:20px; background-color:#000; font-size:14px; font-weight:700; text-align:center; color:#FFF; text-decoration:none; border-radius:6px;" href="https://fonts.taedonn.com/confirm?token=${req.body.email_token}">
+                                    <a style="width:200px; display:block; padding:16px 20px; box-sizing:border-box; margin: 0 auto; margin-top:20px; background-color:#000; font-size:14px; font-weight:700; text-align:center; color:#FFF; text-decoration:none; border-radius:6px;" href="https://fonts.taedonn.com/confirm?token=${email_token}">
                                         회원가입 완료하기
                                     </a>
                                     <div style="width:100%; height:1px; background-color:#EEE; margin-top:48px;"></div>
                                     <p style="width:100%; font-size:12px; font-weight:400; line-height:2.5; color:#97989C; margin:0; margin-top:28px;">
                                         버튼이 클릭되지 않을 시, <br/>
                                         아래 링크를 복사해서 <span style="font-weight:700;">주소창에 입력</span>해 주세요. <br/>
-                                        <a style="text-decoration:none; color:#067DF7;" href="https://fonts.taedonn.com/confirm?token=${req.body.email_token}">https://fonts.taedonn.com/confirm?token=${req.body.email_token}</a>
+                                        <a style="text-decoration:none; color:#067DF7;" href="https://fonts.taedonn.com/confirm?token=${email_token}">https://fonts.taedonn.com/confirm?token=${email_token}</a>
                                     </p>
                                     <div style="width: 20px; height: 2px; background-color: #CDCED2; margin-top: 20px;"></div>
                                     <p style="width:100%; font-size:12px; font-weight:400; line-height:2.5; color:#97989C; margin:0; margin-top:24px;">
@@ -111,7 +121,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
                 return res.status(200).json({
                     msg: "이메일 전송 성공",
-                    email_token: req.body.email_token,
+                    email_token: email_token,
                 });
             } catch (err) {
                 return res.status(500).json({

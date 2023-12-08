@@ -5,7 +5,7 @@ import { NextSeo } from 'next-seo';
 
 // next-auth
 import { getSession } from 'next-auth/react';
-import { signIn, signOut } from 'next-auth/react';
+import { signIn } from 'next-auth/react';
 
 // react hooks
 import { useState, useEffect } from 'react';
@@ -89,7 +89,6 @@ const Login = ({params}: any) => {
             }
         }
     }
-    const handleSignout = () => { signOut(); }
 
     /** 알럿창 닫기 */
     const handleAlertClose = () => { setAlertDisplay(false); }
@@ -146,10 +145,7 @@ const Login = ({params}: any) => {
                         {
                             idChk === ''
                             ? <></>
-                            : ( idChk === 'empty'
-                                ? <span className='block text-[12px] text-theme-red mt-[4px] ml-[16px]'>아이디를 입력해 주세요.</span>
-                                : <span className='block text-[12px] text-theme-red mt-[4px] ml-[16px]'>아이디가 존재하지 않습니다.</span>
-                            )
+                            : <span className='block text-[12px] text-theme-red mt-[4px] ml-[16px]'>아이디를 입력해 주세요.</span>
                         }
                         <label htmlFor='pw' className='w-[100%] flex flex-row justify-between items-center text-[14px] ml-px mt-[18px]'>
                             <span>비밀번호</span>
@@ -159,10 +155,7 @@ const Login = ({params}: any) => {
                         {
                             pwChk === ''
                             ? <></>
-                            : ( pwChk === 'empty'
-                                ? <span className='block text-[12px] text-theme-red mt-[4px] ml-[16px]'>비밀번호를 입력해 주세요.</span>
-                                : <span className='block text-[12px] text-theme-red mt-[4px] ml-[16px]'>비밀번호가 올바르지 않습니다.</span>
-                            )
+                            : <span className='block text-[12px] text-theme-red mt-[4px] ml-[16px]'>비밀번호를 입력해 주세요.</span>
                         }
                         <button onClick={handleLogin} className='w-[100%] h-[40px] flex flex-row justify-center items-center rounded-[8px] mt-[16px] text-[14px] font-medium text-theme-4 dark:text-theme-blue-2 bg-theme-yellow/80 hover:bg-theme-yellow tlg:hover:bg-theme-yellow/80 dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1/80'>
                             {
@@ -199,7 +192,6 @@ const Login = ({params}: any) => {
                         <div className='text-theme-5 dark:text-theme-6 mx-[4px]'>·</div>
                         <Link href="/privacy" target="_blank" rel="noopener noreferrer" className='text-theme-5 dark:text-theme-6 hover:underline tlg:hover:underline'>개인정보처리방침</Link>
                     </div>
-                    <button onClick={handleSignout} className='text-center dark:text-theme-9'>로그아웃</button>
                 </div>
             </div>
 

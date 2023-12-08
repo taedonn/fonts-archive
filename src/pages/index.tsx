@@ -4,7 +4,8 @@ import { useCookies } from 'react-cookie';
 import { debounce } from "lodash";
 
 // next-auth
-import { getSession } from "next-auth/react";
+import { getServerSession } from "next-auth";
+import { authOptions } from "./api/auth/[...nextauth]";
 
 // api
 import { FetchUserLike } from "./api/user/fetchuserlike";
@@ -151,14 +152,12 @@ export async function getServerSideProps(ctx: any) {
         const userAgent = ctx.req ? ctx.req.headers['user-agent'] : navigator.userAgent;
 
         // 유저 정보 불러오기
-        const session = await getSession(ctx);
+        const session = await getServerSession(ctx.req, ctx.res, authOptions);
 
         // 유저 정보가 있으면, 좋아요한 폰트 체크
         const like = session === null
             ? null
-            : session.user === undefined
-                ? null
-                : await FetchUserLike(session.user?.email || "");
+            : await FetchUserLike(session.user?.email || "");
 
         return {
             props: {

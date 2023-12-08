@@ -35,7 +35,7 @@ export async function GetUser(credentials: any) {
         where: {
             user_id: credentials.email,
             user_email_confirm: true,
-            auth: "",
+            auth: "credentials",
         }
     });
 
