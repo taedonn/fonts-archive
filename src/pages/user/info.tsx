@@ -2,7 +2,8 @@
 import { NextSeo } from 'next-seo';
 
 // next-auth
-import { getSession } from 'next-auth/react';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '../api/auth/[...nextauth]';
 import { FetchUserInfo } from '../api/auth/auth';
 
 // react hooks
@@ -139,25 +140,24 @@ const Info = ({params}: any) => {
         // 이미지 로딩 스피너 실행
         setIsImgLoading(true);
 
-        if (!user.profile_img.startsWith('/fonts-archive-base-profile-img-')) {
-            // 프로필 이미지 제거 후 state에 저장된 프로필 이미지 변경
-            await axios.post('/api/user/updateuserinfo', {
-                action: 'delete-profile-img',
-                id: user.user_id,
-            })
-            .then(res => {
-                setProfileImg(res.data.img);
+        // 프로필 이미지 제거 후 state에 저장된 프로필 이미지 변경
+        await axios.post('/api/user/updateuserinfo', {
+            action: 'delete-profile-img',
+            id: user.user_id,
+            auth: user.auth,
+        })
+        .then(res => {
+            setProfileImg(res.data.img);
 
-                // 이미지 로딩 스피너 제거
-                setIsImgLoading(false);
-            })
-            .catch(err => {
-                console.log(err);
+            setIsImgLoading(false);
+            setisImgError(false);
+        })
+        .catch(err => {
+            console.log(err);
 
-                // 이미지 로딩 스피너 제거
-                setIsImgLoading(false);
-            });
-        }
+            setIsImgLoading(false);
+            setisImgError(true);
+        });
     }
 
     // 프로필 사진 변경
@@ -205,98 +205,50 @@ const Info = ({params}: any) => {
     }
 
     // 프로필 사진 변경 함수
-    const fnChangeImg = async function(file: File, fileType: string) {
-        // 프로필 사진이 기본 프로필 사진이 아닌 경우
-        if (!user.profile_img.startsWith('/fonts-archive-base-profile-img-')) {
-            // 기존 프로필 삭제를 위한 Presigned URL 가져오기
-            await axios.post('/api/user/updateuserinfo', {
-                action: 'delete-s3-img',
-                file_name: `fonts-archive-user-${user.user_no}-profile-img.` + user.profile_img.split('.').pop(),
-                file_type: 'image/' + user.profile_img.split('.').pop() === 'jpg' ? 'jpeg' : user.profile_img.split('.').pop(),
-            })
-            .then(async (res) => {
-                // 기존 프로필 삭제
-                await axios.delete(res.data.url, { headers: { 'Content-Type': 'image/' + res.data.url.split('.').pop() === 'jpg' ? 'jpeg' : res.data.url.split('.').pop() }})
-                .then(async () => {
-                    // 이미지 업로드
-                    fnImgUpload(file, fileType);
-                })
-                .catch(err => {
-                    console.log(err);
-
-                    // 이미지 로딩 스피너 제거
-                    setIsImgLoading(false);
-
-                    // 에러 메세지 표시
-                    setisImgError(true);
-                });
-            })
-            .catch(err => {
-                console.log(err);
-
-                // 이미지 로딩 스피너 제거
-                setIsImgLoading(false);
-
-                // 에러 메세지 표시
-                setisImgError(true);
-            });
-        }
-        // 프로필 사진이 기본 프로필 사진인 경우
-        else {
-            // 이미지 업로드
-            fnImgUpload(file, fileType);
-        }
-    }
-
-    // s3, prisma에 이미지 업로드하는 함수
-    const fnImgUpload = async function(file: File, fileType: string) {
-        // 프로필 이미지 업로드를 위한 Presigned URL 가져오기
-        await axios.post('/api/user/updateuserinfo', {
-            action: 'upload-s3-img',
+    const fnChangeImg = async function(file: File, fileType: string) {        
+        await axios.post("/api/user/updateuserinfo", {
+            action: 'change-img',
             file_name: `fonts-archive-user-${user.user_no}-profile-img.` + fileType,
             file_type: file.type,
         })
         .then(async (res) => {
-            // 프로필 이미지 s3에 업로드
+            // s3 업로드
             await axios.put(res.data.url, file, { headers: { 'Content-Type': file.type }})
             .then(async () => {
-                // 프로필 이미지 Prisma에 저장
-                await axios.post('/api/user/updateuserinfo', {
-                    action: 'upload-s3-img-to-prisma',
-                    user_id: user.user_id,
-                    user_no: user.user_no,
+                await axios.post("/api/user/updateuserinfo", {
+                    action: "upload-img-on-prisma",
+                    id: user.user_id,
+                    no: user.user_no,
+                    auth: user.auth,
                     img_type: fileType,
                 })
-                .then(() => location.reload())
+                .then((res) => {
+                    // 프로필 이미지 변경
+                    setProfileImg(res.data.url);
+                    setIsImgLoading(false);
+                    setisImgError(false);
+                })
                 .catch(err => {
                     console.log(err);
-
-                    // 이미지 로딩 스피너 제거
                     setIsImgLoading(false);
-
-                    // 에러 메세지 표시
                     setisImgError(true);
-                });
+                })
             })
             .catch(err => {
                 console.log(err);
-
-                // 이미지 로딩 스피너 제거
                 setIsImgLoading(false);
-
-                // 에러 메세지 표시
                 setisImgError(true);
-            });
+            })
         })
         .catch(err => {
             console.log(err);
-
-            // 이미지 로딩 스피너 제거
             setIsImgLoading(false);
-
-            // 에러 메세지 표시
             setisImgError(true);
         });
+
+        // input 리셋
+        const imgInput = document.getElementById("profile-img-upload") as HTMLInputElement;
+        imgInput.value = "";
     }
 
     return (
@@ -426,7 +378,7 @@ const Info = ({params}: any) => {
                         <div className='block text-[14px] mt-[18px] ml-px'>아이디</div>
                         <div className='w-[100%] text-[14px] mt-[6px] px-[14px] py-[8px] rounded-[8px] border-[2px] text-theme-8 dark:text-theme-7 border-theme-6 dark:border-theme-4 bg-theme-4 dark:bg-theme-blue-2/60 cursor-default'>{user.user_id}</div>
                         {
-                            user.auth === "" && 
+                            user.auth === "credentials" && 
                             <>
                                 <div className='w-[100%] h-px bg-theme-6 dark:bg-theme-5 mt-[16px] mb-[32px]'></div>
                                 <h2 className="font-bold text-[16px] text-theme-10 dark:text-theme-9 mb-[8px]">비밀번호 변경</h2>
@@ -468,6 +420,7 @@ const Info = ({params}: any) => {
                 close={handleChangePwModalClose}
                 success={handlePwChangeOnSuccess}
                 id={user.user_id}
+                auth={user.auth}
             />
 
             {/* 회원 탈퇴 모달창 */}
@@ -489,7 +442,7 @@ export async function getServerSideProps(ctx: any) {
         const userAgent = ctx.req ? ctx.req.headers['user-agent'] : navigator.userAgent;
 
         // 유저 정보 불러오기
-        const session: any = await getSession(ctx);
+        const session: any = await getServerSession(ctx.req, ctx.res, authOptions);
 
         if (session === null || session.user === undefined) {
             return {

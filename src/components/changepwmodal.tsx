@@ -10,12 +10,14 @@ export default function ChangePwModal(
         close,
         success,
         id,
+        auth,
     }:
     {
         display: boolean, 
         close: any,
         success: any,
         id: string,
+        auth: string,
     }
 ) {
     // 모달창 영역 Ref
@@ -107,6 +109,7 @@ export default function ChangePwModal(
             params: {
                 action: "get-current-pw",
                 id: id,
+                auth: auth,
             }
         })
         .then(res => {
@@ -142,6 +145,7 @@ export default function ChangePwModal(
                     action: "change-pw",
                     id: id,
                     pw: newPwVal,
+                    auth: auth,
                 })
                 .then(() => {
                     setIsLoading(false);
