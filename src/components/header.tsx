@@ -273,9 +273,7 @@ export default function Header (
     }
 
     /** 로그아웃 버튼 클릭 */
-    const handleLogout = async () => {
-        signOut();
-    }
+    const handleLogout = () => { signOut(); }
 
     /** 로그인 버튼 클릭 */
     const handleLoginClick = () => {

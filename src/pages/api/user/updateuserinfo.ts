@@ -165,27 +165,26 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             }
         } else if (req.body.action === "delete-user") {
             try {
-                const { file_name, file_type, user_no } = req.body;
+                const { file_name, user_no } = req.body;
 
                 // s3 이미지 삭제
-                const deleteParams: any = {
+                const deleteParams = {
                     Bucket: s3Bucket,
                     Delete: {
                         Objects: [
-                            { key: file_name + "apng" },
-                            { key: file_name + "avif" },
-                            { key: file_name + "gif" },
-                            { key: file_name + "jpg" },
-                            { key: file_name + "jpeg" },
-                            { key: file_name + "jfif" },
-                            { key: file_name + "pjpeg" },
-                            { key: file_name + "pjp" },
-                            { key: file_name + "png" },
-                            { key: file_name + "svg" },
-                            { key: file_name + "webp" },
-                        ]
+                            { Key: file_name + "apng" },
+                            { Key: file_name + "avif" },
+                            { Key: file_name + "gif" },
+                            { Key: file_name + "jpg" },
+                            { Key: file_name + "jpeg" },
+                            { Key: file_name + "jfif" },
+                            { Key: file_name + "pjpeg" },
+                            { Key: file_name + "pjp" },
+                            { Key: file_name + "png" },
+                            { Key: file_name + "svg" },
+                            { Key: file_name + "webp" },
+                        ],
                     },
-                    ContentType: file_type,
                 }
                 await s3.send(new DeleteObjectsCommand(deleteParams));
 

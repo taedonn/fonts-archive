@@ -79,7 +79,7 @@ export async function GetOAuthUser(user: any, account: any) {
                 user_email_token: "",
                 user_email_confirm: true,
                 auth: account.provider,
-                profile_img: user.image === undefined || user.image === "" ? "/fonts-archive-base-profile-img-" + (Math.floor(Math.random() * 6) + 1) + ".svg" : user.image
+                profile_img: user.image === undefined ? "" : user.image
             }
         });
 

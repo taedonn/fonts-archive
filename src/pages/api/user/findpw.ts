@@ -5,23 +5,35 @@ const nodemailer = require('nodemailer');
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method === 'POST') {
         try {
+            const { id, name } = req.body;
             const randomPw = Math.random().toString(36).slice(2);
 
             // 유저 정보 조회
-            const user = await prisma.fontsUser.findUnique({
-                where: { user_id: req.body.id }
+            const user = await prisma.fontsUser.findFirst({
+                select: {
+                    user_id: true,
+                    user_name: true,
+                    auth: true,
+                },
+                where: {
+                    user_id: id,
+                    auth: "credentials",
+                }
             });
 
             // 유효성 검사
             const valid = user === null
                 ? "wrong-id"
-                : user.user_name !== req.body.name
+                : user.user_name !== name
                     ? "wrong-name"
                     : "success";
 
             // 임시 비밀번호 발급
-            user && valid === "success" && await prisma.fontsUser.update({
-                where: { user_id: req.body.id },
+            user && valid === "success" && await prisma.fontsUser.updateMany({
+                where: {
+                    user_id: id,
+                    auth: "credentials",
+                },
                 data: { user_pw: randomPw }
             });
 

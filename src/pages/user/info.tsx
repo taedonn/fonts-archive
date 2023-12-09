@@ -44,12 +44,6 @@ const Info = ({params}: any) => {
     const [changePwModalDisplay, setChangePwModalDisplay] = useState<boolean>(false);
     const [deleteUserModalDisplay, setDeleteUserModalDisplay] = useState<boolean>(false);
 
-    // 뒤로가기 시 history가 남아있으면 state 변경
-    useEffect(() => {
-        const formName = document.getElementById('name') as HTMLInputElement;
-        if (formName.value !== '') { setNameVal(formName.value); }
-    }, []);
-
     /** 이름 체인지 이벤트 */
     const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setNameChk('');
@@ -288,7 +282,11 @@ const Info = ({params}: any) => {
                                 <div className='mr-[2px] font-medium text-theme-3 dark:text-theme-9'>{user.auth === "google" ? "Google" : ""}</div>에서 연동 중
                             </div>
                     }
-                    <div className='text-[12px] text-theme-5 dark:text-theme-7 mb-[10px] tlg:mb-[8px]'>{timeFormat(user.updated_at)}에 마지막으로 수정됨</div>
+                    {
+                        user.auth === "credentials"
+                            ? <div className='text-[12px] text-theme-5 dark:text-theme-7 mb-[10px] tlg:mb-[8px]'>{timeFormat(user.updated_at)}에 마지막으로 수정됨</div>
+                            : <div className='text-[12px] text-theme-5 dark:text-theme-7 mb-[10px] tlg:mb-[8px]'>{timeFormat(user.created_at)}에 생성됨</div>
+                    }
                     {
                         alertDisplay === true
                         ? alert === 'name'
@@ -330,23 +328,34 @@ const Info = ({params}: any) => {
                                         </>
                                         : <div className='w-[100%] h-[100%] rounded-full flex items-center bg-theme-4 dark:bg-theme-blue-2/60'><div className='img-loader'></div></div>
                                     }
-                                    <div className='w-[20px] h-[18px] flex justify-center items-center bg-theme-4 dark:bg-theme-blue-2 border border-theme-yellow dark:border-theme-blue-1 absolute z-10 left-[2px] bottom-[2px] rounded-[6px]'>
-                                        <svg className='w-[10px] fill-theme-yellow dark:fill-theme-blue-1' xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16"><path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/></svg>
-                                    </div>
+                                    {
+                                        user.auth === "credentials"
+                                            && <div className='w-[20px] h-[18px] flex justify-center items-center bg-theme-4 dark:bg-theme-blue-2 border border-theme-yellow dark:border-theme-blue-1 absolute z-10 left-[2px] bottom-[2px] rounded-[6px]'>
+                                                <svg className='w-[10px] fill-theme-yellow dark:fill-theme-blue-1' xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16"><path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/></svg>
+                                            </div>
+                                    }
                                 </label>
-                                <div ref={refImgPopup} className='w-content hidden peer-checked:block absolute left-[50%] bottom-[-8px] translate-x-[-50%] translate-y-[100%] rounded-[8px] bg-theme-4 dark:bg-theme-blue-2 drop-shadow-dark dark:drop-shadow-dark after:content-[""] after:w-[8px] after:h-[8px] after:absolute after:left-[25%] after:top-[-4px] after:translate-x-[-50%] after:rotate-45 after:bg-theme-4 after:dark:bg-theme-blue-2'>
-                                    <div className='flex'>
-                                        <input onChange={changeImg} className='hidden' type='file' accept='image/*' id='profile-img-upload'/>
-                                        <label className='w-[100%] relative z-[2] text-[12px] leading-none dark:text-theme-7 rounded-t-[8px] pl-[12px] pr-[14px] pt-[10px] pb-[8px] hover:bg-theme-yellow hover:dark:bg-theme-blue-1 hover:text-theme-2 hover:dark:text-theme-blue-2 cursor-pointer' htmlFor='profile-img-upload'>사진 변경</label>
-                                    </div>
-                                    <button onClick={deleteImg} className='w-[100%] text-[12px] leading-none dark:text-theme-7 rounded-b-[8px] pl-[12px] pr-[14px] pb-[10px] pt-[8px] hover:bg-theme-yellow hover:dark:bg-theme-blue-1 hover:text-theme-2 hover:dark:text-theme-blue-2'>사진 제거</button>
-                                </div>
+                                {
+                                    user.auth === "credentials"
+                                        && <div ref={refImgPopup} className='w-content hidden peer-checked:block absolute left-[50%] bottom-[-8px] translate-x-[-50%] translate-y-[100%] rounded-[8px] bg-theme-4 dark:bg-theme-blue-2 drop-shadow-dark dark:drop-shadow-dark after:content-[""] after:w-[8px] after:h-[8px] after:absolute after:left-[25%] after:top-[-4px] after:translate-x-[-50%] after:rotate-45 after:bg-theme-4 after:dark:bg-theme-blue-2'>
+                                            <div className='flex'>
+                                                <input onChange={changeImg} className='hidden' type='file' accept='image/*' id='profile-img-upload'/>
+                                                <label className='w-[100%] relative z-[2] text-[12px] leading-none dark:text-theme-7 rounded-t-[8px] pl-[12px] pr-[14px] pt-[10px] pb-[8px] hover:bg-theme-yellow hover:dark:bg-theme-blue-1 hover:text-theme-2 hover:dark:text-theme-blue-2 cursor-pointer' htmlFor='profile-img-upload'>사진 변경</label>
+                                            </div>
+                                            <button onClick={deleteImg} className='w-[100%] text-[12px] leading-none dark:text-theme-7 rounded-b-[8px] pl-[12px] pr-[14px] pb-[10px] pt-[8px] hover:bg-theme-yellow hover:dark:bg-theme-blue-1 hover:text-theme-2 hover:dark:text-theme-blue-2'>사진 제거</button>
+                                        </div>
+                                }
                             </div>
                             <div className='ml-[16px]'>
                                 <h2 className='mr-[1px] text-[14px] text-theme-10 dark:text-theme-9 font-bold'>프로필 이미지</h2>
                                 <div className='text-[11px] font-normal leading-none break-keep text-theme-8 dark:text-theme-7 mt-[6px]'>
-                                    <h3 className='flex items-center mb-[4px]'><div className='w-[3px] h-[3px] mr-[5px] mt-px rounded-full bg-theme-8 dark:bg-theme-7'></div>500px보다 큰 이미지는 축소되어 업로드 됩니다.</h3>
-                                    <h3 className='flex items-start leading-normal'><div className='w-[3px] h-[3px] mr-[5px] mt-[7px] shrink-0 rounded-full bg-theme-8 dark:bg-theme-7'></div>사진 변경이 안되면, 캐시를 지우거나 강력 새로고침 (Ctrl/Cmd + Shift + R)을 해주세요.</h3>
+                                    {
+                                        user.auth === "credentials"
+                                            ? <>
+                                                <h3 className='flex items-center mb-[4px]'><div className='w-[3px] h-[3px] mr-[5px] mt-px rounded-full bg-theme-8 dark:bg-theme-7'></div>500px보다 큰 이미지는 축소되어 업로드 됩니다.</h3>
+                                                <h3 className='flex items-start leading-normal'><div className='w-[3px] h-[3px] mr-[5px] mt-[7px] shrink-0 rounded-full bg-theme-8 dark:bg-theme-7'></div>업로드된 이미지는 다음 로그인부터 적용 됩니다.</h3>
+                                            </> : <h3 className='flex items-start leading-normal'><div className='w-[3px] h-[3px] mr-[5px] mt-[7px] shrink-0 rounded-full bg-theme-8 dark:bg-theme-7'></div>SNS로 로그인한 계정은 SNS 계정의 프로필 이미지가 표시됩니다.</h3>
+                                    }
                                 </div>
                             </div>
                         </div>
@@ -355,18 +364,21 @@ const Info = ({params}: any) => {
                             ? <span className='block text-[12px] text-theme-red mt-[12px]'>이미지 업로드에 실패했습니다. 잠시 후 다시 시도해 주세요.</span>
                             : <></>
                         }
-                        <div className='w-[100%] h-px bg-theme-6 dark:bg-theme-5 mt-[16px] mb-[32px]'></div>
+                        <div className='w-[100%] h-px bg-theme-6 dark:bg-theme-5 my-[20px]'></div>
                         <label htmlFor='name' className='block text-[14px] ml-px'>이름</label>
-                        <div className='w-[100%] flex flex-row justify-between items-center mt-[6px]'>
-                            <input onChange={handleNameChange} onKeyDown={handleNameEnter} type='text' id='name' tabIndex={1} autoComplete='on' defaultValue={user.user_name} placeholder='홍길동' className={`${nameChk === '' ? 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' : 'border-theme-red focus:border-theme-red dark:border-theme-red focus:dark:border-theme-red'} w-[calc(100%-84px)] text-[14px] px-[14px] py-[8px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
-                            <button onClick={handleNameClick} className='w-[76px] h-[39px] flex flex-row justify-center items-center rounded-[8px] font-medium text-[14px] text-theme-4 dark:text-theme-blue-2 bg-theme-yellow/80 hover:bg-theme-yellow tlg:hover:bg-theme-yellow/80 dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1/80'>
-                                {
-                                    isLoading === true
-                                    ? <span className='loader loader-register w-[18px] h-[18px]'></span>
-                                    : <span className='pt-px'>변경하기</span>
-                                }
-                            </button>
-                        </div>
+                        {
+                            user.auth === "credentials"
+                                ? <div className='w-[100%] flex flex-row justify-between items-center mt-[6px]'>
+                                    <input onChange={handleNameChange} onKeyDown={handleNameEnter} type='text' id='name' tabIndex={1} autoComplete='on' defaultValue={user.user_name} placeholder='홍길동' className={`${nameChk === '' ? 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' : 'border-theme-red focus:border-theme-red dark:border-theme-red focus:dark:border-theme-red'} w-[calc(100%-84px)] text-[14px] px-[14px] py-[8px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
+                                    <button onClick={handleNameClick} className='w-[76px] h-[39px] flex flex-row justify-center items-center rounded-[8px] font-medium text-[14px] text-theme-4 dark:text-theme-blue-2 bg-theme-yellow/80 hover:bg-theme-yellow tlg:hover:bg-theme-yellow/80 dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1/80'>
+                                        {
+                                            isLoading === true
+                                            ? <span className='loader loader-register w-[18px] h-[18px]'></span>
+                                            : <span className='pt-px'>변경하기</span>
+                                        }
+                                    </button>
+                                </div> : <div className='w-[100%] text-[14px] mt-[6px] px-[14px] py-[8px] rounded-[8px] border-[2px] text-theme-8 dark:text-theme-7 border-theme-6 dark:border-theme-4 bg-theme-4 dark:bg-theme-blue-2/60 cursor-default'>{user.user_name}</div>
+                        }
                         {
                             nameChk === 'empty'
                             ? <span className='block text-[12px] text-theme-red mt-[4px] ml-[16px]'>이름을 입력해 주세요.</span>
@@ -380,7 +392,7 @@ const Info = ({params}: any) => {
                         {
                             user.auth === "credentials" && 
                             <>
-                                <div className='w-[100%] h-px bg-theme-6 dark:bg-theme-5 mt-[16px] mb-[32px]'></div>
+                                <div className='w-[100%] h-px bg-theme-6 dark:bg-theme-5 my-[20px]'></div>
                                 <h2 className="font-bold text-[16px] text-theme-10 dark:text-theme-9 mb-[8px]">비밀번호 변경</h2>
                                 <div className='w-[100%] flex flex-row justify-start items-start mb-[4px] text-[12px] text-theme-8 dark:text-theme-7'>
                                     <svg className='w-[12px] mt-[3px] mr-[6px] fill-theme-yellow dark:fill-theme-blue-1' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg>
@@ -396,7 +408,7 @@ const Info = ({params}: any) => {
                                 </div>
                             </>
                         }
-                        <div className='w-[100%] h-px bg-theme-6 dark:bg-theme-5 mt-[16px] mb-[32px]'></div>
+                        <div className='w-[100%] h-px bg-theme-6 dark:bg-theme-5 my-[20px]'></div>
                         <h2 className="font-bold text-[16px] text-theme-10 dark:text-theme-9 mb-[8px]">회원 탈퇴</h2>
                         <div className='w-[100%] flex flex-row justify-start items-start mb-[4px] text-[12px] text-theme-8 dark:text-theme-7'>
                             <svg className='w-[12px] mt-[3px] mr-[6px] fill-theme-red' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg>

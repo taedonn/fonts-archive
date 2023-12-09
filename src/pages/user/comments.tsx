@@ -2,12 +2,15 @@
 import Link from 'next/link';
 import { NextSeo } from 'next-seo';
 
+// next-auth
+import { getServerSession } from 'next-auth';
+import { authOptions } from '../api/auth/[...nextauth]';
+
 // react hooks
 import React, { useEffect, useState, useRef } from 'react';
 
 // api
 import axios from 'axios';
-import { Auth, getAccessToken } from '../api/auth/auth';
 import { FetchCommentsLength } from '../api/user/fetchcomments'
 import { FetchComments } from '../api/user/fetchcomments';
 
@@ -227,21 +230,10 @@ export async function getServerSideProps(ctx: any) {
         // 디바이스 체크
         const userAgent = ctx.req ? ctx.req.headers['user-agent'] : navigator.userAgent;
 
-        // refreshToken 불러오기
-        const refreshToken = ctx.req.cookies.refreshToken;
+        // 유저 정보 불러오기
+        const session = await getServerSession(ctx.req, ctx.res, authOptions);
 
-        // accessToken으로 유저 정보 가져오기
-        const accessToken = refreshToken === undefined
-            ? null
-            : await getAccessToken(refreshToken);
-
-        // accessToken으로 유저 정보 불러오기
-        const user = accessToken === null
-            ? null
-            : await Auth(accessToken);
-
-        // 쿠키에 저장된 refreshToken이 유효하지 않다면, 메인페이지로 이동, 유효하면 클리이언트로 유저 정보 return
-        if (user === null) {
+        if (session === null || session.user === undefined) {
             return {
                 redirect: {
                     destination: '/404',

@@ -2,6 +2,10 @@
 import Link from 'next/link';
 import { NextSeo } from 'next-seo';
 
+// next-auth
+import { getServerSession } from 'next-auth';
+import { authOptions } from '../api/auth/[...nextauth]';
+
 // react hooks
 import React, { useState, useEffect } from 'react';
 
@@ -183,14 +187,23 @@ export async function getServerSideProps(ctx: any) {
         // 디바이스 체크
         const userAgent = ctx.req ? ctx.req.headers['user-agent'] : navigator.userAgent;
 
-        // refreshToken 제거
-        ctx.res.setHeader('Set-Cookie', [`refreshToken=; max-Age=0; path=/`]);
+        // 유저 정보 불러오기
+        const session = await getServerSession(ctx.req, ctx.res, authOptions);
 
-        return {
-            props: {
-                params: {
-                    theme: cookieTheme,
-                    userAgent: userAgent,
+        if (session === null || session.user === undefined) {
+            return {
+                props: {
+                    params: {
+                        theme: cookieTheme,
+                        userAgent: userAgent,
+                    }
+                }
+            }
+        } else {
+            return {
+                redirect: {
+                    destination: '/404',
+                    permanent: false,
                 }
             }
         }
