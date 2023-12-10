@@ -85,6 +85,8 @@ model fontsComment {
   font_family           String    @default("")
   user_id               Int
   user_name             String    @default("")
+  user_email            String    @default("")
+  user_auth             String    @default("")
   comment               String    @db.Text
   depth                 Int
   bundle_id             Int
@@ -109,18 +111,21 @@ model fontsComment {
 }
 
 model fontsUserReport {
-  report_id       Int          @id @default(autoincrement())
-  report_user_id  Int
-  comment_id      Int
-  report_nickname Boolean      @default(false)
-  report_politics Boolean      @default(false)
-  report_swearing Boolean      @default(false)
-  report_etc      Boolean      @default(false)
-  report_text     String       @db.Text
-  created_at      DateTime     @default(now())
-  updated_at      DateTime     @default(now()) @updatedAt
-  user            fontsUser    @relation(fields: [report_user_id], references: [user_no])
-  comment         fontsComment @relation(fields: [comment_id], references: [comment_id])
+  report_id         Int          @id @default(autoincrement())
+  report_font_code  Int          @default(0)
+  report_user_id    Int
+  report_user_email String       @default("")
+  report_user_auth  String       @default("")
+  comment_id        Int
+  report_nickname   Boolean      @default(false)
+  report_politics   Boolean      @default(false)
+  report_swearing   Boolean      @default(false)
+  report_etc        Boolean      @default(false)
+  report_text       String       @db.Text
+  created_at        DateTime     @default(now())
+  updated_at        DateTime     @default(now()) @updatedAt
+  user              fontsUser    @relation(fields: [report_user_id], references: [user_no])
+  comment           fontsComment @relation(fields: [comment_id], references: [comment_id])
 
   @@index([report_id])
   @@index([report_user_id])

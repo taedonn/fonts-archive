@@ -51,7 +51,8 @@ const Comments = ({params}: any) => {
         const fetchNewComments = async () => {
             await axios.get('/api/user/fetchcomments', {
                 params: {
-                    user_id: user.user_no,
+                    email: user.email,
+                    provider: user.provider,
                     page: page,
                     filter: filter,
                     text: text
@@ -77,7 +78,8 @@ const Comments = ({params}: any) => {
             // API 호출
             await axios.get('/api/user/fetchcomments', {
                 params: {
-                    user_id: user.user_no,
+                    email: user.email,
+                    provider: user.provider,
                     page: 1,
                     filter: selectRef.current.value,
                     text: textRef.current.value
@@ -186,7 +188,7 @@ const Comments = ({params}: any) => {
                                             comments.map((comment: any) => {
                                                 return (
                                                     <tr key={comment.comment_id} className='border-t border-theme-5 dark:border-theme-3'>
-                                                        <td className='h-[40px] tlg:h-[34px] pl-[16px] py-[10px] break-keep'><Link href={`/post/${comment.font_family.replaceAll(" ", "+")}`} className='font-size text-theme-yellow dark:text-theme-blue-1 focus:underline hover:underline tlg:hover:no-underline'>{comment.name}</Link></td>
+                                                        <td className='h-[40px] tlg:h-[34px] pl-[16px] py-[10px] break-keep'><Link href={`/post/${comment.font_family.replaceAll(" ", "+")}`} className='font-size text-theme-yellow dark:text-theme-blue-1 focus:underline hover:underline tlg:hover:no-underline'>{comment.font_name}</Link></td>
                                                         <td className='pl-[16px] py-[10px] break-keep'><Link href={`/post/${comment.font_family.replaceAll(" ", "+")}#c${comment.comment_id}`} className='font-size focus:underline hover:underline tlg:hover:no-underline'>{comment.comment}</Link></td>
                                                         <td className='pl-[16px] py-[10px] break-keep'>{timeFormat(comment.updated_at)}</td>
                                                         <td className='pl-[16px] py-[10px] break-keep'>{timeFormat(comment.created_at)}</td>
@@ -242,18 +244,18 @@ export async function getServerSideProps(ctx: any) {
             }
         } else {
             // 댓글 페이지 수
-            const length = await FetchCommentsLength(user.user_no);
+            const length = await FetchCommentsLength(session.user);
             const count = Number(length) % 10 > 0 ? Math.floor(Number(length)/10) + 1 : Math.floor(Number(length)/10);
 
             // 첫 댓글 목록 가져오기
-            const comments: any = await FetchComments(user.user_no, undefined);
+            const comments = await FetchComments(session.user, undefined);
 
             return {
                 props: {
                     params: {
                         theme: cookieTheme,
                         userAgent: userAgent,
-                        user: JSON.parse(JSON.stringify(user)),
+                        user: session === null ? null : session.user,
                         count: count,
                         comments: JSON.parse(JSON.stringify(comments))
                     }

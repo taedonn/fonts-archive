@@ -83,6 +83,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     data: { user_name: name }
                 });
 
+                await prisma.fontsComment.updateMany({
+                    where: {
+                        user_email: id,
+                        user_auth: auth,
+                    },
+                    data: { user_name: name }
+                });
+
                 return res.status(200).json({
                     msg: "이름 변경 성공"
                 });

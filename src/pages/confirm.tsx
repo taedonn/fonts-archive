@@ -56,6 +56,9 @@ const Confirm = ({params}: any) => {
 
 export async function getServerSideProps(ctx: any) {
     try {
+        // 필터링 쿠키 체크
+        const cookieTheme = ctx.req.cookies.theme === undefined ? "dark" : ctx.req.cookies.theme;
+
         // token 불러오기
         const token = ctx.query.token;
 
@@ -75,6 +78,7 @@ export async function getServerSideProps(ctx: any) {
             return {
                 props: {
                     params: {
+                        theme: cookieTheme,
                         user: JSON.parse(JSON.stringify(user))
                     }
                 }

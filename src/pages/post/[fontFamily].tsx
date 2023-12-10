@@ -2,18 +2,21 @@
 import Link from "next/link";
 import { NextSeo } from 'next-seo';
 
+// next-auth
+import { getServerSession } from "next-auth";
+import { authOptions } from "../api/auth/[...nextauth]";
+
 // react hooks
 import React, { useEffect, useState, useRef } from "react";
 import { ColorPicker, useColor } from "react-color-palette";
 import "react-color-palette/css"
 
 // api
-import { Auth, getAccessToken } from "../api/auth/auth";
+import axios from "axios";
 import { FetchFontDetail } from "../api/post/fetchfontdetail";
 import { FetchUserLike } from "../api/user/fetchuserlike";
 import { FetchComments } from "../api/post/fetchcomments";
 import { FetchReports } from "../api/post/fetchReports";
-import axios from "axios";
 import { throttle } from "lodash";
 
 // material-ui hooks
@@ -44,8 +47,19 @@ function DetailPage({params}: any) {
         if (!window.location.href.includes("localhost") && !window.location.href.includes("127.0.0.1")) {
             viewUpdate();
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [font]);
+
+    // 댓글 가져오기
+    const [reports, setReports] = useState<any>({});
+    const fetchComments = async () => {
+        await axios.get('/api/post/updatelike', {
+            params: {
+                action: "fetch-reports",
+                code: font.code,
+                user: params.user,
+            }
+        })
+    }
 
     // state
     const [alertDisplay, setAlertDisplay] = useState<boolean>(false);
@@ -962,42 +976,31 @@ function DetailPage({params}: any) {
 
 export async function getServerSideProps(ctx: any) {
     try {
-        const fontFamily = ctx.params.fontFamily.replaceAll("+", " ");
-
-        // 폰트 정보 불러오기
-        const font = await FetchFontDetail(fontFamily);
-
-        // 랜덤 넘버
-        const randomNum: number = Math.floor(Math.random() * 19);
-
-        // 쿠키
+        // 필터링 쿠키 체크
         const cookieTheme = ctx.req.cookies.theme === undefined ? "dark" : ctx.req.cookies.theme;
 
         // 디바이스 체크
         const userAgent = ctx.req ? ctx.req.headers['user-agent'] : navigator.userAgent;
 
-        // refreshToken 불러오기
-        const refreshToken = ctx.req.cookies.refreshToken;
+        // 랜덤 넘버
+        const randomNum: number = Math.floor(Math.random() * 19);
 
-        // accessToken으로 유저 정보 가져오기
-        const accessToken = refreshToken === undefined
-            ? null
-            : await getAccessToken(refreshToken);
+        // 폰트 정보 불러오기
+        const fontFamily = ctx.params.fontFamily.replaceAll("+", " ");
+        const font = await FetchFontDetail(fontFamily);
 
-        // accessToken으로 유저 정보 불러오기
-        const user = accessToken === null
-            ? null
-            : await Auth(accessToken);
+        // 유저 정보 불러오기
+        const session = await getServerSession(ctx.req, ctx.res, authOptions);
 
         // 유저 정보가 있으면, 좋아요한 폰트 체크
-        const like = user === null
+        const like = session === null
             ? null
-            : await FetchUserLike(user.user_no);
+            : await FetchUserLike(session.user?.email || "");
 
         // 유저 정보에 신고 리포트 합치기
-        const report = user === null
+        const report = session === null
             ? null
-            : await FetchReports(font[0].code, user.user_no);
+            : await FetchReports(font[0].code, session.user);
 
         // 댓글 체크
         const comments = await FetchComments(font[0].code);
@@ -1013,11 +1016,11 @@ export async function getServerSideProps(ctx: any) {
             return {
                 props: {
                     params: {
-                        font: JSON.parse(JSON.stringify(font)), // typescript에서 createdAt은 JSON.parse를 통해 serialized object로 변환 후 params로 보낼 수 있다.
-                        randomNum: randomNum,
                         theme: cookieTheme,
                         userAgent: userAgent,
-                        user: JSON.parse(JSON.stringify(user)),
+                        randomNum: randomNum,
+                        font: JSON.parse(JSON.stringify(font)), // typescript에서 createdAt은 JSON.parse를 통해 serialized object로 변환 후 params로 보낼 수 있다.
+                        user: session === null ? null : session.user,
                         report: JSON.parse(JSON.stringify(report)),
                         like: like,
                         comments: JSON.parse(JSON.stringify(comments)),
