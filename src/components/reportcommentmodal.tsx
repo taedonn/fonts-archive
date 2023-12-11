@@ -126,7 +126,9 @@ export default function ReportCommentModal(
             await axios.post('/api/post/comments', {
                 action: 'report-comment',
                 font_id: font_id,
-                user_id: user.user_no,
+                user_id: user.id,
+                user_email: user.email,
+                user_auth: user.provider,
                 comment_id: comment_id,
                 report_nickname: reportNickname,
                 report_politics: reportPolitics,
@@ -135,7 +137,7 @@ export default function ReportCommentModal(
                 report_text: reportText
             })
             .then(async (res) => {
-                console.log(res.data.message);
+                console.log(res.data.msg);
                 update(res.data.comments);
                 update_reports(res.data.reports);
 

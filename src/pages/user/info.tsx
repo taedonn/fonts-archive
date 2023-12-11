@@ -324,7 +324,7 @@ const Info = ({params}: any) => {
                                         !isImgLoading
                                         ? <>
                                             {/* eslint-disable-next-line @next/next/no-img-element */}
-                                            <img className='w-[100%] h-[100%] object-cover rounded-full' src={profileImg} width={60} height={60} alt='유저 프로필 사진'/>
+                                            <img className='w-[100%] h-[100%] object-cover rounded-full' src={profileImg} width={60} height={60} alt='유저 프로필 사진' referrerPolicy="no-referrer"/>
                                         </>
                                         : <div className='w-[100%] h-[100%] rounded-full flex items-center bg-theme-4 dark:bg-theme-blue-2/60'><div className='img-loader'></div></div>
                                     }

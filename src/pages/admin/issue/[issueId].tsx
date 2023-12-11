@@ -3,11 +3,14 @@
 import Link from "next/link";
 import { NextSeo } from "next-seo";
 
+// next-auth
+import { getServerSession } from "next-auth";
+import { authOptions } from '@/pages/api/auth/[...nextauth]';
+
 // react hooks
 import { useState, useEffect, useRef } from "react";
 
 // api
-import { Auth, getAccessToken } from "@/pages/api/auth/auth";
 import { FetchIssue } from "@/pages/api/admin/issue";
 import axios from "axios";
 
@@ -347,24 +350,14 @@ export async function getServerSideProps(ctx: any) {
         // 디바이스 체크
         const userAgent = ctx.req ? ctx.req.headers['user-agent'] : navigator.userAgent;
 
-        // refreshToken 불러오기
-        const refreshToken = ctx.req.cookies.refreshToken;
-
-        // accessToken으로 유저 정보 가져오기
-        const accessToken = refreshToken === undefined
-            ? null
-            : await getAccessToken(refreshToken);
-
-        // accessToken으로 유저 정보 불러오기
-        const user = accessToken === null
-            ? null
-            : await Auth(accessToken);
+        // 유저 정보 불러오기
+        const session: any = await getServerSession(ctx.req, ctx.res, authOptions);
 
         // 유저 상세정보 불러오기
         const issue = await FetchIssue(ctx.params.issueId);
 
         // 쿠키에 저장된 세션ID가 유효하지 않다면, 메인페이지로 이동, 유효하면 클리이언트로 유저 정보 return
-        if (user === null || user.user_no !== 1) {
+        if (session === null || session.user === undefined || session.user.id !== 1) {
             return {
                 redirect: {
                     destination: '/404',
@@ -377,7 +370,7 @@ export async function getServerSideProps(ctx: any) {
                     params: {
                         theme: cookieTheme,
                         userAgent: userAgent,
-                        user: JSON.parse(JSON.stringify(user)),
+                        user: session === null ? null : session.user,
                         issue: JSON.parse(JSON.stringify(issue)),
                     }
                 }

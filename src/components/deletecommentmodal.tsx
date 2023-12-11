@@ -61,7 +61,7 @@ export default function DeleteCommentModal(
             comment_id: comment_id
         })
         .then(async (res) => {
-            console.log(res.data.message);
+            console.log(res.data.msg);
             update(res.data.comments);
         })
         .catch(err => console.log(err));

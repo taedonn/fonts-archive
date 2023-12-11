@@ -4,8 +4,11 @@ import { useState } from "react";
 // next hooks
 import { NextSeo } from "next-seo";
 
+// next-auth
+import { getServerSession } from "next-auth";
+import { authOptions } from '@/pages/api/auth/[...nextauth]';
+
 // api
-import { Auth, getAccessToken } from "@/pages/api/auth/auth";
 import axios from "axios";
 
 // components
@@ -205,20 +208,10 @@ export async function getServerSideProps(ctx: any) {
         // 디바이스 체크
         const userAgent = ctx.req ? ctx.req.headers['user-agent'] : navigator.userAgent;
 
-        // refreshToken 불러오기
-        const refreshToken = ctx.req.cookies.refreshToken;
+        // 유저 정보 불러오기
+        const session: any = await getServerSession(ctx.req, ctx.res, authOptions);
 
-        // accessToken으로 유저 정보 가져오기
-        const accessToken = refreshToken === undefined
-            ? null
-            : await getAccessToken(refreshToken);
-
-        // accessToken으로 유저 정보 불러오기
-        const user = accessToken === null
-            ? null
-            : await Auth(accessToken);
-
-        if (user === null || user.user_no !== 1) {
+        if (session === null || session.user === undefined || session.user.id !== 1) {
             return {
                 redirect: {
                     destination: '/404',
@@ -231,7 +224,7 @@ export async function getServerSideProps(ctx: any) {
                     params: {
                         theme: cookieTheme,
                         userAgent: userAgent,
-                        user: JSON.parse(JSON.stringify(user)),
+                        user: session === null ? null : session.user,
                     }
                 }
             }

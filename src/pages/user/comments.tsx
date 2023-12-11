@@ -65,7 +65,7 @@ const Comments = ({params}: any) => {
             .catch(err => console.log(err));
         }
         fetchNewComments();
-    }, [filter, page, user.user_no, text]);
+    }, [user.email, user.provider, page, filter, text]);
 
     // 댓글 필터 버튼 클릭 시 값 state에 저장 후, API 호출
     const handleClick = async () => {
