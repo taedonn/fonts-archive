@@ -39,38 +39,36 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     msg: "이미지 업로드 실패"
                 });
             }
-        } else if (req.body.action === "upload-to-prisma") {
+        } else if (req.body.action === "upload-font-report") {
             try {
+                const {
+                    title,
+                    email,
+                    content,
+                    img_length,
+                    img_1,
+                    img_2,
+                    img_3,
+                    img_4,
+                    img_5,
+                    issue_closed_type,
+                } = req.body;
+
                 await prisma.fontsIssue.create({
                     data: {
-                        issue_title: req.body.title as string,
-                        issue_email: req.body.email as string,
-                        issue_content: req.body.content as string,
+                        issue_title: title,
+                        issue_email: email,
+                        issue_content: content,
                         issue_reply: "",
-                        issue_img_length: Number(req.body.img_length),
-                        issue_img_1: req.body.img_1 as string,
-                        issue_img_2: req.body.img_2 as string,
-                        issue_img_3: req.body.img_3 as string,
-                        issue_img_4: req.body.img_4 as string,
-                        issue_img_5: req.body.img_5 as string,
-                        issue_closed_type: req.body.issue_closed_type as string,
+                        issue_img_length: Number(img_length),
+                        issue_img_1: img_1,
+                        issue_img_2: img_2,
+                        issue_img_3: img_3,
+                        issue_img_4: img_4,
+                        issue_img_5: img_5,
+                        issue_closed_type: issue_closed_type,
                     }
                 });
-
-                return res.status(200).json({
-                    msg: "Prisma에 저장 성공"
-                })
-            } catch (err) {
-                return res.status(500).json({
-                    msg: "Prisma에 저장 실패",
-                    err: err,
-                });
-            }
-        } else if (req.body.action === "send-email") {
-            try {
-                const title = req.body.title as string;
-                const email = req.body.email as string;
-                const content = req.body.content as string;
 
                 // transporter 설정
                 const transporter =  nodemailer.createTransport({
@@ -166,11 +164,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 });
 
                 return res.status(200).json({
-                    msg: "이메일 발송 성공"
-                });
+                    msg: "이메일 발송 및 DB 저장 성공"
+                })
             } catch (err) {
                 return res.status(500).json({
-                    msg: "이메일 발송 실패",
+                    msg: "이메일 발송 및 DB 저장 실패",
                     err: err,
                 });
             }

@@ -110,11 +110,10 @@ const IssueBug = ({params}: any) => {
                     // 모든 이미지가 업로드되면 Prisma에 저장
                     await axios.all(allPromise)
                     .then(async () => {
-                        // Prisma에 저장
+                        // 버그 리포트 송신
                         await axios.post("/api/issue/bug", 
                             {
-                                action: "upload-to-prisma",
-                                issue_id: issueId,
+                                action: "upload-bug-report",
                                 title: title.value,
                                 email: email.value,
                                 content: content.value,
@@ -135,35 +134,24 @@ const IssueBug = ({params}: any) => {
                                 }
                             }
                         )
-                        .then(async () => {
-                            // 이메일 발송
-                            await axios.post("/api/issue/bug", {
-                                action: "send-email",
-                                title: title.value,
-                                email: email.value,
-                                content: content.value,
-                            })
-                            .then(() => {
-                                // 폼 초기화
-                                uploadOnSuccess();
-                                console.log("이메일 발송 성공");
-                            })
-                            .catch(() => console.log("이메일 발송 실패"));
+                        .then(() => {
+                            // 폼 초기화
+                            uploadOnSuccess();
+                            console.log("이메일 발송 및 DB 저장 성공");
                         })
                         .catch(() => {
-                            console.log("Prisma에 저장 실패");
                             uploadOnFail();
+                            console.log("이메일 발송 및 DB 저장 실패");
                         });
                     })
                     .catch(() => {
-                        console.log(`AWS에 이미지 업로드 실패`);
                         uploadOnFail();
+                        console.log(`AWS에 이미지 업로드 실패`);
                     });
                 } else {
                     // 이미지 없으면 바로 Prisma에 저장
                     await axios.post("/api/issue/bug", {
-                        action: "upload-to-prisma",
-                        issue_id: issueId,
+                        action: "upload-bug-report",
                         title: title.value,
                         email: email.value,
                         content: content.value,
@@ -175,31 +163,21 @@ const IssueBug = ({params}: any) => {
                         img_5: "null",
                         issue_closed_type: "Open"
                     })
-                    .then(async () => {
-                        // 이메일 발송
-                        await axios.post("/api/issue/bug", {
-                            action: "send-email",
-                            title: title.value,
-                            email: email.value,
-                            content: content.value,
-                        })
-                        .then(() => {
-                            // 폼 초기화
-                            uploadOnSuccess();
-                            console.log("이메일 발송 성공");
-                        })
-                        .catch(() => console.log("이메일 발송 실패"));
+                    .then(() => {
+                        // 폼 초기화
+                        uploadOnSuccess();
+                        console.log("이메일 발송 및 DB 저장 성공");
                     })
                     .catch((err) => {
-                        console.log("Prisma에 저장 실패");
-                        console.log(err);
                         uploadOnFail();
+                        console.log("이메일 발송 및 DB 저장 실패");
+                        console.log(err);
                     });
                 }
             })
             .catch(() => {
-                console.log("폰트 제보 실패");
                 uploadOnFail();
+                console.log("폰트 제보 실패");
             });
 
             setIsLoading(false);

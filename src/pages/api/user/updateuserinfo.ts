@@ -114,6 +114,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     data: { profile_img: randomProfileImg }
                 });
 
+                await prisma.fontsComment.updateMany({
+                    where: {
+                        user_email: id,
+                        user_auth: auth,
+                    },
+                    data: { user_image: randomProfileImg }
+                });
+
                 return res.status(200).json({
                     msg: "이미지 삭제 성공",
                     img: randomProfileImg,
