@@ -36,11 +36,10 @@ export type users = {
     user_name: string
     user_id: string
     user_pw: string
-    user_session_id: string
-    access_token: string
-    refresh_token: string
+    auth: string
     user_email_token: string
     user_email_confirm: boolean
+    refresh_token: string
     profile_img: string
     nickname_reported: number
     created_at:string
@@ -50,11 +49,18 @@ export type users = {
 export type likes = {
     font_id: number
     user_id: number
+    user_email: string
+    user_auth: string
 }
 
 export type comments = {
     font_id: number
+    font_name: string
+    font_family: string
     user_id: number
+    user_name: string
+    user_email: string
+    user_auth: string
     comment: string
     depth: number
     bundle_id: number
@@ -73,7 +79,10 @@ export type comments = {
 
 export type reports = {
     report_id: number
+    report_font_code: number
     report_user_id: number
+    report_user_email: string
+    report_user_auth: string
     comment_id: number
     report_nickname: boolean
     report_politics: boolean

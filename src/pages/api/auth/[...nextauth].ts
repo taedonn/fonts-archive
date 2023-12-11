@@ -3,7 +3,7 @@ import type { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import KakaoProvider from "next-auth/providers/kakao";
-import { GetUser, GetOAuthUser } from "./auth";
+import { GetUser, GetOAuthUser, GetOAuthUserInfo } from "./auth";
 
 export const authOptions: NextAuthOptions = {
     session: { strategy: "jwt" },
@@ -41,10 +41,18 @@ export const authOptions: NextAuthOptions = {
         },
         async jwt({ token, user, account }: any) {
             if (user) {
-                Object.assign(token, {
-                    sub: user.id,
-                    provider: account.provider
-                });
+                if (account.provider === "credentials") {
+                    Object.assign(token, {
+                        sub: user.id,
+                        provider: account.provider
+                    });
+                } else {
+                    const OAuthUser = await GetOAuthUserInfo(user, account);
+                    Object.assign(token, {
+                        sub: OAuthUser === null ? 0 : OAuthUser.user_no,
+                        provider: account.provider
+                    });
+                }
             }
             return token;
         },

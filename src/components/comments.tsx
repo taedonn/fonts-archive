@@ -45,6 +45,11 @@ export default function Comments (
     const [commentId, setCommentId] = useState<number>(0);
     const [reports, setReports] = useState(report);
 
+    useEffect(() => {
+        setComments(comment);
+        setReports(report);
+    }, [comment, report]);
+
     /** MUI TextArea 줄바꿈 시 높이 변경 */
     const handleHeightChange = (e: any) => {
         e.target.style.height = 0;
@@ -107,11 +112,17 @@ export default function Comments (
             await axios.post('/api/post/comments', {
                 action: 'new-comment',
                 font_id: font.code,
-                user_id: user.user_no,
+                font_name: font.name,
+                font_family: font.font_family,
+                user_id: user.id,
+                user_name: user.name,
+                user_email: user.email,
+                user_auth: user.provider,
+                user_image: user.image,
                 comment: commentRef.current.value,
             })
             .then(async (res) => {
-                console.log(res.data.message);
+                console.log(res.data.msg);
                 setComments(res.data.comments);
             })
             .catch(err => console.log(err));
@@ -532,7 +543,7 @@ export default function Comments (
                 </div>
             </div>
             <div className="w-[100%] h-px bg-theme-7 dark:bg-theme-5 mb-[20px]"></div>
-            <h2 className="text-[16px] tlg:text-[14px] text-theme-3 dark:text-theme-9 font-medium mb-[16px] tlg:mb-[12px]">댓글 {comments.length}개</h2>
+            <h2 className="text-[16px] tlg:text-[14px] text-theme-3 dark:text-theme-9 font-medium mb-[16px] tlg:mb-[12px]">댓글 {comments === null ? 0 : comments.length}개</h2>
             <div className="w-[100%] mb-[38px] tlg:mb-[34px]">
                 <div className="w-[100%] flex">
                     {
@@ -546,7 +557,7 @@ export default function Comments (
                         </>
                         : <>
                             {/* eslint-disable-next-line @next/next/no-img-element */}
-                            <img className="w-[40px] tlg:w-[32px] h-[40px] tlg:h-[32px] object-cover rounded-full" src={user.profile_img} width={28} height={28} alt="유저 프로필 사진"/>
+                            <img className="w-[40px] tlg:w-[32px] h-[40px] tlg:h-[32px] object-cover rounded-full" src={user.image} width={28} height={28} alt="유저 프로필 사진"/>
                             <div className="w-[100%] flex flex-col mt-[6px] ml-[16px] tlg:ml-[14px]">
                                 <div className={`relative w-[100%] flex items-center pb-[4px] border-b ${commentFocus ? 'border-theme-5 dark:border-theme-7' : 'border-theme-7 dark:border-theme-5'}`}>
                                     <textarea ref={commentRef} onChange={commentOnChange} onInput={handleHeightChange} onFocus={commentOnFocus} onBlur={commentOnBlur} placeholder="댓글 달기..." className="w-[100%] h-[21px] resize-none text-[14px] tlg:text-[12px] tracking-wide text-theme-5 dark:text-theme-8 placeholder-theme-5 dark:placeholder-theme-6 leading-normal bg-transparent"/>
@@ -565,7 +576,7 @@ export default function Comments (
             </div>
             <div className="w-[100%] min-h-[120px] mb-[180px] pl-[40px] tlg:pl-0">
                 {
-                    comments.length === 0
+                    comments === null || comments.length === 0
                     ? <div className="w-[100%] text-[14px] text-center text-theme-3 dark:text-theme-8">아직 댓글이 없습니다.</div>
                     : <>
                         {
@@ -583,7 +594,7 @@ export default function Comments (
                                                 </svg> : <></>
                                             }
                                             {/* eslint-disable-next-line @next/next/no-img-element */}
-                                            <img src={comment.profile_img} alt="유저 프로필 이미지" className="w-[40px] tlg:w-[32px] h-[40px] tlg:h-[32px] object-cover rounded-full"/>
+                                            <img src={comment.user_image} alt="유저 프로필 이미지" className="w-[40px] tlg:w-[32px] h-[40px] tlg:h-[32px] object-cover rounded-full"/>
                                             <div className="w-[100%] ml-[16px] tlg:ml-[14px]">
                                                 <div className="flex items-end">
                                                     <div className="text-[15px] tlg:text-[14px] font-medium">{comment.user_name}</div>
@@ -648,7 +659,7 @@ export default function Comments (
                                                     ? <div id={`comment-reply-content-${comment.comment_id}`} className="hidden mt-[20px]">
                                                         <div className="w-[100%] flex">
                                                             {/* eslint-disable-next-line @next/next/no-img-element */}
-                                                            <img src={user.profile_img} alt="유저 프로필 이미지" className="w-[40px] tlg:w-[32px] h-[40px] tlg:h-[32px] object-cover rounded-full"/>
+                                                            <img src={user.user_image} alt="유저 프로필 이미지" className="w-[40px] tlg:w-[32px] h-[40px] tlg:h-[32px] object-cover rounded-full"/>
                                                             <div className="w-[100%] ml-[16px] tlg:ml-[14px]">
                                                                 <div className="relative w-[100%] flex items-center pb-[4px] border-b border-theme-5 dark:border-theme-7">
                                                                     <textarea onInput={handleHeightChange} onChange={commentReplyOnChange} onFocus={commentReplyOnChange} id={`comment-reply-textarea-${comment.comment_id}`} placeholder="답글 달기..." className="w-[100%] h-[21px] resize-none text-[14px] tlg:text-[12px] tracking-wide mt-[6px] text-theme-5 dark:text-theme-8 placeholder-theme-5 dark:placeholder-theme-6 leading-normal bg-transparent"/>

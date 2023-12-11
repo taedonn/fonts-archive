@@ -15,8 +15,6 @@ import "react-color-palette/css"
 import axios from "axios";
 import { FetchFontDetail } from "../api/post/fetchfontdetail";
 import { FetchUserLike } from "../api/user/fetchuserlike";
-import { FetchComments } from "../api/post/fetchcomments";
-import { FetchReports } from "../api/post/fetchReports";
 import { throttle } from "lodash";
 
 // material-ui hooks
@@ -36,30 +34,52 @@ function DetailPage({params}: any) {
     // 빈 함수
     const emptyFn = () => { return; }
 
-    // 폰트 데이터 props
+    // props
     const font = params.font[0];
+    const user = params.user;
 
     /** 조회수 업데이트 */
-    const viewUpdate = async () => {
-        await fetch("/api/post/updateview", { method: "POST", body: JSON.stringify(font) });
-    }
     useEffect(() => {
+        const viewUpdate = async () => {
+            await fetch("/api/post/updateview", { method: "POST", body: JSON.stringify(font) });
+        }
         if (!window.location.href.includes("localhost") && !window.location.href.includes("127.0.0.1")) {
             viewUpdate();
         }
     }, [font]);
 
     // 댓글 가져오기
-    const [reports, setReports] = useState<any>({});
-    const fetchComments = async () => {
-        await axios.get('/api/post/updatelike', {
-            params: {
-                action: "fetch-reports",
-                code: font.code,
-                user: params.user,
+    const [comments, setComments] = useState(null);
+    const [reports, setReports] = useState(null);
+    useEffect(() => {
+        const fetchComments = async () => {
+            await axios.get("/api/post/fetchcomments", {
+                params: {
+                    action: "fetch-comments",
+                    code: font.code,
+                }
+            })
+            .then(res => setComments(res.data.comments))
+            .catch(err => console.log(err));
+        }
+        fetchComments();
+
+        const fetchReports = async () => {
+            if (user !== null) {
+                await axios.get('/api/post/fetchreports', {
+                    params: {
+                        action: "fetch-reports",
+                        code: font.code,
+                        email: user.email,
+                        provider: user.provider,
+                    }
+                })
+                .then(res => setReports(res.data.reports))
+                .catch(err => console.log(err));
             }
-        })
-    }
+        }
+        fetchReports();
+    }, [font.code, user]);
 
     // state
     const [alertDisplay, setAlertDisplay] = useState<boolean>(false);
@@ -70,7 +90,7 @@ function DetailPage({params}: any) {
 
     /** 로그인 중이 아닐 때 좋아요 클릭 방지 */
     const handleLikeClick = (e: React.MouseEvent<HTMLInputElement>) => {
-        if (params.user === null) {
+        if (user === null) {
             setAlertDisplay(true);
             e.preventDefault();
         }
@@ -78,7 +98,7 @@ function DetailPage({params}: any) {
 
     /** 좋아요 버튼 체인지 이벤트 */
     const handleLikeChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (params.user !== null) {
+        if (user !== null) {
             // 좋아요 버튼 눌렀을 때 호버창 지우기
             setHoverDisplay(false);
 
@@ -92,7 +112,9 @@ function DetailPage({params}: any) {
             await axios.post('/api/post/updatelike', {
                 action: e.target.checked ? "increase" : "decrease",
                 code: thisId,
-                user_no: params.user.user_no
+                id: user.id,
+                email: user.email,
+                provider: user.provider,
             })
             .then(res => {
                 // 좋아요 여부 확인 후 문장 변경
@@ -344,7 +366,7 @@ function DetailPage({params}: any) {
             <Header
                 isMac={isMac}
                 theme={params.theme}
-                user={params.user}
+                user={user}
                 page={""}
                 license={""}
                 lang={""}
@@ -924,9 +946,9 @@ function DetailPage({params}: any) {
                     {/* 댓글 */}
                     <Comments
                         font={font}
-                        user={params.user}
-                        report={params.report}
-                        comment={params.comments}
+                        user={user}
+                        report={reports}
+                        comment={comments}
                         likedInput={likedInput}
                         likedNum={likedNum}
                     />
@@ -995,15 +1017,7 @@ export async function getServerSideProps(ctx: any) {
         // 유저 정보가 있으면, 좋아요한 폰트 체크
         const like = session === null
             ? null
-            : await FetchUserLike(session.user?.email || "");
-
-        // 유저 정보에 신고 리포트 합치기
-        const report = session === null
-            ? null
-            : await FetchReports(font[0].code, session.user);
-
-        // 댓글 체크
-        const comments = await FetchComments(font[0].code);
+            : await FetchUserLike(session.user);
 
         if (font.length === 0) {
             return {
@@ -1021,9 +1035,7 @@ export async function getServerSideProps(ctx: any) {
                         randomNum: randomNum,
                         font: JSON.parse(JSON.stringify(font)), // typescript에서 createdAt은 JSON.parse를 통해 serialized object로 변환 후 params로 보낼 수 있다.
                         user: session === null ? null : session.user,
-                        report: JSON.parse(JSON.stringify(report)),
                         like: like,
-                        comments: JSON.parse(JSON.stringify(comments)),
                     }
                 }
             }

@@ -157,7 +157,7 @@ export async function getServerSideProps(ctx: any) {
         // 유저 정보가 있으면, 좋아요한 폰트 체크
         const like = session === null
             ? null
-            : await FetchUserLike(session.user?.email || "");
+            : await FetchUserLike(session.user);
 
         return {
             props: {

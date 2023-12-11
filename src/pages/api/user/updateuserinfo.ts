@@ -161,6 +161,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     data: { profile_img: url }
                 });
 
+                await prisma.fontsComment.updateMany({
+                    where: {
+                        user_email: id,
+                        user_auth: auth,
+                    },
+                    data: { user_image: url }
+                });
+
                 return res.status(200).json({
                     msg: "S3 이미지 업로드 성공",
                     url: url,

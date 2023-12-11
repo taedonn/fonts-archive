@@ -89,3 +89,19 @@ export async function GetOAuthUser(user: any, account: any) {
         return true;
     }
 }
+
+export async function GetOAuthUserInfo(user: any, account: any) {
+    const OAuthUser = await prisma.fontsUser.findFirst({
+        select: {
+            user_no: true,
+            user_id: true,
+            auth: true,
+        },
+        where: {
+            user_id: user.email,
+            auth: account.provider,
+        }
+    });
+
+    return OAuthUser;
+}

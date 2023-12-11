@@ -71,6 +71,7 @@ model fontsLiked {
   font_id    Int
   user_id    Int
   user_email String    @default("")
+  user_auth  String    @default("")
   font       fonts     @relation(fields: [font_id], references: [code])
   user       fontsUser @relation(fields: [user_id], references: [user_no])
 
@@ -87,6 +88,7 @@ model fontsComment {
   user_name             String    @default("")
   user_email            String    @default("")
   user_auth             String    @default("")
+  user_image            String    @default("")
   comment               String    @db.Text
   depth                 Int
   bundle_id             Int

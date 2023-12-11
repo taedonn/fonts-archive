@@ -3,8 +3,7 @@ import prisma from '@/libs/client-prisma';
   
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method === 'POST') {
-        const code = req.body.code;
-        const user_no = req.body.user_no;
+        const { code, id, email, provider } = req.body;
 
         if (req.body.action === "increase") {
             try {
@@ -12,7 +11,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 await prisma.fontsLiked.create({
                     data: {
                         font_id: Number(code),
-                        user_id: Number(user_no)
+                        user_id: Number(id),
+                        user_email: email,
+                        user_auth: provider,
                     }
                 });
     
@@ -43,7 +44,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 await prisma.fontsLiked.deleteMany({
                     where: {
                         font_id: Number(code),
-                        user_id: Number(user_no)
+                        user_id: Number(id),
+                        user_email: email,
+                        user_auth: provider,
                     }
                 });
     
