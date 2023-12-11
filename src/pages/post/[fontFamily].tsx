@@ -37,6 +37,7 @@ function DetailPage({params}: any) {
     // props
     const font = params.font[0];
     const user = params.user;
+    const like = params.like;
 
     /** 조회수 업데이트 */
     useEffect(() => {
@@ -84,8 +85,8 @@ function DetailPage({params}: any) {
     // state
     const [alertDisplay, setAlertDisplay] = useState<boolean>(false);
     const [hoverDisplay, setHoverDisplay] = useState<boolean>(true);
-    const [liked, setLiked] = useState<boolean>(params.like === null ? false : params.like.some((font: any) => font.font_id === params.font[0].code));
-    const [likedInput, setLikedInput] = useState<boolean>(params.like === null ? false : params.like.some((font: any) => font.font_id === params.font[0].code));
+    const [liked, setLiked] = useState<boolean>(like === null ? false : like.some((font: any) => font.font_id === params.font[0].code));
+    const [likedInput, setLikedInput] = useState<boolean>(like === null ? false : like.some((font: any) => font.font_id === params.font[0].code));
     const [likedNum, setLikedNum] = useState<number>(font.like);
 
     /** 로그인 중이 아닐 때 좋아요 클릭 방지 */
@@ -133,7 +134,7 @@ function DetailPage({params}: any) {
 
     /** 렌더링 시 좋아요 되어있는 폰트들은 체크된 상태로 변경 */
     const handleDefaultLike = (fontCode: number) => {
-        return params.like === null ? false : params.like.some((font: any) => font.font_id === fontCode || font.font_id === 'like-bottom-' + fontCode);
+        return like === null ? false : like.some((font: any) => font.font_id === fontCode || font.font_id === 'like-bottom-' + fontCode);
     }
 
     /** 알럿창 닫기 */

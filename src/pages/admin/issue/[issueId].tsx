@@ -178,25 +178,16 @@ const IssuePage = ({params}: any) => {
                 email: issue.issue_email,
                 content: issue.issue_content,
                 reply: txt.value,
+                issue_id: issue.issue_id,
+                issue_reply: txt.value,
+                issue_closed: issueClosed,
+                issue_closed_type: "Closed",
             })
-            .then(async () => {
-                await axios.post("/api/admin/issue", {
-                    action: "issue_closed",
-                    issue_id: issue.issue_id,
-                    issue_reply: txt.value,
-                    issue_closed: issueClosed,
-                    issue_closed_type: "Closed",
-                })
-                .then(res => {
-                    console.log(res.data.msg);
-                    setIsLoading(false);
-                    setReplySuccess("success");
-                    window.scrollTo({top: 0});
-                })
-                .catch(err => {
-                    console.log(err);
-                    setReplySuccess("fail");
-                });
+            .then(res => {
+                console.log(res.data.msg);
+                setIsLoading(false);
+                setReplySuccess("success");
+                window.scrollTo({top: 0});
             })
             .catch(err => {
                 console.log(err);

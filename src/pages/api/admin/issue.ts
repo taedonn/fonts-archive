@@ -40,21 +40,23 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (req.method === "POST") {
         if (req.body.action === "list") {
             try {
-                const filter: any = req.body.filter === 'issue_opened'
+                const { page, filter, text } = req.body;
+
+                const texts = [
+                    {issue_title: {contains: text}},
+                    {issue_email: {contains: text}},
+                ]
+
+                const filters = filter === 'issue_opened'
                 ? [{issue_closed: false}]
                 : [];
-
-                const text = [
-                    {issue_title: {contains: req.body.text as string}},
-                    {issue_email: {contains: req.body.text as string}},
-                ]
 
                 // 유저 목록 페이지 수
                 const length = await prisma.fontsIssue.findMany({
                     select: { issue_id: true },
                     where: {
-                        OR: text,
-                        AND: filter,
+                        OR: texts,
+                        AND: filters,
                     }
                 });
                 const count = Number(length.length) % limit > 0 ? Math.floor(Number(length.length)/limit) + 1 : Math.floor(Number(length.length)/limit);
@@ -62,12 +64,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 // 유저 목록 불러오기
                 const list = await prisma.fontsIssue.findMany({
                     where: {
-                        OR: text,
-                        AND: filter,
+                        OR: texts,
+                        AND: filters,
                     },
                     orderBy: [{issue_id: 'desc'}],
                     take: limit, // 가져오는 데이터 수
-                    skip: Number(req.body.page) === 1 ? 0 : (Number(req.body.page) - 1) * limit
+                    skip: Number(page) === 1 ? 0 : (Number(page) - 1) * limit
                 });
 
                 return res.status(200).json({
@@ -83,9 +85,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             }
         } else if (req.body.action === "issue_id") {
             try {
-                const email = req.body.email as string;
-                const content = req.body.content as string;
-                const reply = req.body.reply as string;
+                const {
+                    email,
+                    content,
+                    reply,
+                    issue_id,
+                    issue_reply,
+                    issue_closed,
+                    issue_closed_type,
+                } = req.body;
 
                 // transporter 설정
                 const transporter =  nodemailer.createTransport({
@@ -138,42 +146,34 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     `
                 });
 
-                return res.status(200).json({
-                    msg: "이메일 보내기 성공"
-                });
-            } catch (err) {
-                return res.status(500).json({
-                    msg: "이메일 보내기 실패",
-                    err: err
-                });
-            }
-        } else if (req.body.action === "issue_closed") {
-            try {
+                // DB 업데이트
                 await prisma.fontsIssue.update({
-                    where: { issue_id: Number(req.body.issue_id) },
+                    where: { issue_id: Number(issue_id) },
                     data: {
-                        issue_reply: req.body.issue_reply,
-                        issue_closed: req.body.issue_closed,
-                        issue_closed_type: req.body.issue_closed_type,
+                        issue_reply: issue_reply,
+                        issue_closed: issue_closed,
+                        issue_closed_type: issue_closed_type,
                         issue_closed_at: new Date(),
                     }
                 });
 
                 return res.status(200).json({
-                    msg: "DB 저장 성공"
+                    msg: "이메일 보내고 DB 업데이트 성공"
                 });
             } catch (err) {
                 return res.status(500).json({
-                    msg: "DB 저장 실패",
+                    msg: "이메일 보내고 DB 업데이트 실패",
                     err: err
                 });
             }
         } else if (req.body.action === "issue_saved") {
             try {
+                const { issue_id, issue_reply } = req.body;
+
                 await prisma.fontsIssue.update({
-                    where: { issue_id: Number(req.body.issue_id) },
+                    where: { issue_id: Number(issue_id) },
                     data: {
-                        issue_reply: req.body.issue_reply,
+                        issue_reply: issue_reply,
                         issue_closed_at: new Date,
                     }
                 });

@@ -189,8 +189,8 @@ const CommentList = ({params}: any) => {
                                                 return (
                                                     <tr key={comment.comment_id} className='border-t border-theme-5 dark:border-theme-3'>
                                                         <td className='h-[40px] tlg:h-[34px] pl-[16px] py-[10px]'>{comment.comment_id}</td>
-                                                        <td className='pl-[16px] py-[10px] break-keep'><Link href={`/post/${comment.font_family.replaceAll(" ", "+")}`} className='font-size text-theme-yellow dark:text-theme-blue-1 focus:underline hover:underline tlg:hover:no-underline'>{comment.name}</Link></td>
-                                                        <td className='pl-[16px] py-[10px] break-keep'><Link href={`/admin/user/${comment.user_no}`} className='font-size focus:underline hover:underline tlg:hover:no-underline'>{comment.user_name}</Link></td>
+                                                        <td className='pl-[16px] py-[10px] break-keep'><Link href={`/post/${comment.font_family.replaceAll(" ", "+")}`} className='font-size text-theme-yellow dark:text-theme-blue-1 focus:underline hover:underline tlg:hover:no-underline'>{comment.font_name}</Link></td>
+                                                        <td className='pl-[16px] py-[10px] break-keep'><Link href={`/admin/user/${comment.user_id}`} className='font-size focus:underline hover:underline tlg:hover:no-underline'>{comment.user_name}</Link></td>
                                                         <td className='pl-[16px] py-[10px] break-keep'><Link href={`/post/${comment.font_family.replaceAll(" ", "+")}#c${comment.comment_id}`} className='font-size focus:underline hover:underline tlg:hover:no-underline'>{comment.comment}</Link></td>
                                                         <td className='pl-[16px] py-[10px]'>{timeFormat(comment.updated_at)}</td>
                                                         <td className='pl-[16px] py-[10px]'>{timeFormat(comment.created_at)}</td>

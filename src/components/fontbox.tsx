@@ -91,7 +91,9 @@ export default function FontBox ({license, lang, type, sort, user, like, filter,
             await axios.post('/api/post/updatelike', {
                 action: e.target.checked ? "increase" : "decrease",
                 code: e.target.id,
-                user_no: user.user_no
+                id: user.id,
+                email: user.email,
+                provider: user.provider,
             })
             .then(res => {
                 let hoverEl = e.target.nextSibling?.nextSibling as HTMLDivElement;

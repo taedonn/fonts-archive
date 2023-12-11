@@ -54,7 +54,6 @@ model fontsUser {
   auth               String         @default("")
   user_email_token   String
   user_email_confirm Boolean
-  refresh_token      String         @default("")
   profile_img        String         @db.Text
   nickname_reported  Int            @default(0)
   created_at         DateTime       @default(now())

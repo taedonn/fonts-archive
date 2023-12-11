@@ -44,34 +44,36 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (req.method === "GET") {
         if (req.query.action === "fetch-fonts") {
             try {
+                const { page, filter, text } = req.query;
+
                 // 필터링 값
-                const filter = req.query.filter === "all"
-                    ? {name: {contains: req.query.text as string}}
-                    : req.query.filter === "kr"
+                const filters = filter === "all"
+                    ? {name: {contains: text as string}}
+                    : filter === "kr"
                         ? { 
                             AND: [
                                 {lang: {equals: "KR"}},
-                                {name: {contains: req.query.text as string}},
+                                {name: {contains: text as string}},
                             ]
                         }
-                        : req.query.filter === "en"
+                        : filter === "en"
                             ? {
                                 AND: [
                                     {lang: {equals: "EN"}},
-                                    {name: {contains: req.query.text as string}},
+                                    {name: {contains: text as string}},
                                 ]
                             }
-                            : req.query.filter === "show"
+                            : filter === "show"
                                 ? {
                                     AND: [
                                         {show_type: {equals: true}},
-                                        {name: {contains: req.query.text as string}},
+                                        {name: {contains: text as string}},
                                     ]
                                 }
                                 : {
                                     AND: [
                                         {show_type: {equals: false}},
-                                        {name: {contains: req.query.text as string}},
+                                        {name: {contains: text as string}},
                                     ]
                                 };
 
@@ -83,16 +85,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                         lang: true,
                         show_type: true,
                     },
-                    where: filter
+                    where: filters
                 });
                 const count = Number(length.length) % 10 > 0 ? Math.floor(Number(length.length)/10) + 1 : Math.floor(Number(length.length)/10);
 
                 // 폰트 가져오기
                 const fonts = await prisma.fonts.findMany({
-                    where: filter,
+                    where: filters,
                     orderBy: [{code: 'desc'}], // 정렬순
                     take: 10, // 가져오는 데이터 수
-                    skip: Number(req.query.page) === 1 ? 0 : (Number(req.query.page) - 1) * 10
+                    skip: Number(page) === 1 ? 0 : (Number(page) - 1) * 10
                 });
 
                 return res.status(200).json({
@@ -110,84 +112,124 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     } else if (req.method === 'POST') {
         if (req.body.action === "edit") {
             try {
+                const {
+                    id,
+                    name,
+                    lang,
+                    date,
+                    font_family,
+                    font_type,
+                    font_weight,
+                    source,
+                    source_link,
+                    download_link,
+                    cdn_css,
+                    cdn_link,
+                    cdn_import,
+                    cdn_font_face,
+                    cdn_url,
+                    license,
+                    license_text,
+                    show_type,
+                } = req.body;
+
                 await prisma.fonts.update({
-                    where: { code: Number(req.body.id) },
+                    where: { code: Number(id) },
                     data: {
-                        name: req.body.name,
-                        lang: req.body.lang,
-                        date: req.body.date,
-                        font_family: req.body.font_family,
-                        font_type: req.body.font_type,
-                        font_weight: req.body.font_weight,
-                        source: req.body.source,
-                        source_link: req.body.source_link,
-                        github_link: req.body.download_link,
-                        cdn_css: req.body.cdn_css,
-                        cdn_link: req.body.cdn_link,
-                        cdn_import: req.body.cdn_import,
-                        cdn_font_face: req.body.cdn_font_face,
-                        cdn_url: req.body.cdn_url,
-                        license_print: req.body.license[0],
-                        license_web: req.body.license[1],
-                        license_video: req.body.license[2],
-                        license_package: req.body.license[3],
-                        license_embed: req.body.license[4],
-                        license_bici: req.body.license[5],
-                        license_ofl: req.body.license[6],
-                        license_purpose: req.body.license[7],
-                        license_source: req.body.license[8],
-                        license: req.body.license_text,
-                        show_type: req.body.show_type
+                        name: name,
+                        lang: lang,
+                        date: date,
+                        font_family: font_family,
+                        font_type: font_type,
+                        font_weight: font_weight,
+                        source: source,
+                        source_link: source_link,
+                        github_link: download_link,
+                        cdn_css: cdn_css,
+                        cdn_link: cdn_link,
+                        cdn_import: cdn_import,
+                        cdn_font_face: cdn_font_face,
+                        cdn_url: cdn_url,
+                        license_print: license[0],
+                        license_web: license[1],
+                        license_video: license[2],
+                        license_package: license[3],
+                        license_embed: license[4],
+                        license_bici: license[5],
+                        license_ofl: license[6],
+                        license_purpose: license[7],
+                        license_source: license[8],
+                        license: license_text,
+                        show_type: show_type
                     }
                 });
 
                 return res.status(200).json({
-                    msg: "Editing font has succeeded.",
+                    msg: "폰트 수정 성공",
                 });
             } catch (err) {
                 return res.status(500).json({
-                    msg: "Editing font has failed.",
+                    msg: "폰트 수정 실패",
                     err: err
                 });
             }
         }
         else if (req.body.action === "add") {
             try {
+                const {
+                    name,
+                    lang,
+                    date,
+                    font_family,
+                    font_type,
+                    font_weight,
+                    source,
+                    source_link,
+                    download_link,
+                    cdn_css,
+                    cdn_link,
+                    cdn_import,
+                    cdn_font_face,
+                    cdn_url,
+                    license,
+                    license_text,
+                } = req.body;
+
                 await prisma.fonts.create({
                     data: {
-                        name: req.body.name,
-                        lang: req.body.lang,
-                        date: req.body.date,
-                        font_family: req.body.font_family,
-                        font_type: req.body.font_type,
-                        font_weight: req.body.font_weight,
-                        source: req.body.source,
-                        source_link: req.body.source_link,
-                        github_link: req.body.download_link,
-                        cdn_css: req.body.cdn_css,
-                        cdn_link: req.body.cdn_link,
-                        cdn_import: req.body.cdn_import,
-                        cdn_font_face: req.body.cdn_font_face,
-                        cdn_url: req.body.cdn_url,
-                        license_print: req.body.license[0],
-                        license_web: req.body.license[1],
-                        license_video: req.body.license[2],
-                        license_package: req.body.license[3],
-                        license_embed: req.body.license[4],
-                        license_bici: req.body.license[5],
-                        license_ofl: req.body.license[6],
-                        license_purpose: req.body.license[7],
-                        license_source: req.body.license[8],
-                        license: req.body.license_text,
+                        name: name,
+                        lang: lang,
+                        date: date,
+                        font_family: font_family,
+                        font_type: font_type,
+                        font_weight: font_weight,
+                        source: source,
+                        source_link: source_link,
+                        github_link: download_link,
+                        cdn_css: cdn_css,
+                        cdn_link: cdn_link,
+                        cdn_import: cdn_import,
+                        cdn_font_face: cdn_font_face,
+                        cdn_url: cdn_url,
+                        license_print: license[0],
+                        license_web: license[1],
+                        license_video: license[2],
+                        license_package: license[3],
+                        license_embed: license[4],
+                        license_bici: license[5],
+                        license_ofl: license[6],
+                        license_purpose: license[7],
+                        license_source: license[8],
+                        license: license_text,
                     }
                 });
 
                 return res.status(200).json({
-                    msg: "font added successfully.",
+                    msg: "폰트 추가 성공",
                 });
             } catch (err) {
                 return res.status(500).json({
-                    msg: "font failed to add.",
+                    msg: "폰트 추가 실패",
                     err: err
                 });
             }

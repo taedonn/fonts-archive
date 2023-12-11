@@ -44,16 +44,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             const { email, provider, page, filter, text } = req.query;
 
             // 폰트 이름 배열에 저장
-            let textArr = [];
+            let textArr: any[] = [];
             if (filter === 'font') {
-                textArr.push({font_name: {contains: text as string}})
+                textArr = [{font_name: { contains: text }}];
             } else if (filter === 'comment') {
-                textArr.push({comment: {contains: text as string}});
+                textArr = [{comment: { contains: text }}];
             } else {
-                textArr.push(
-                    {font_name: {contains: text as string}},
-                    {comment: {contains: text as string}}
-                )
+                textArr = [
+                    {font_name: { contains: text }},
+                    {comment: { contains: text }},
+                ];
             }
 
             // 댓글 페이지 수 가져오기

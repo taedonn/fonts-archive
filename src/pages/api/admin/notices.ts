@@ -39,11 +39,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (req.method === "POST") {
         if (req.body.action === "add") {
             try {
+                const { notice_type, notice_title, notice_content } = req.body;
+
                 await prisma.fontsNotice.create({
                     data: {
-                        notice_type: req.body.notice_type,
-                        notice_title: req.body.notice_title,
-                        notice_content: req.body.notice_content,
+                        notice_type: notice_type,
+                        notice_title: notice_title,
+                        notice_content: notice_content,
                     }
                 });
 
@@ -58,14 +60,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             }
         } else if (req.body.action === "edit") {
             try {
+                const { id, show_type, created_date, updated_date, title, content } = req.body;
+
                 await prisma.fontsNotice.update({
-                    where: { notice_id: Number(req.body.id) },
+                    where: { notice_id: Number(id) },
                     data: {
-                        notice_show_type: req.body.show_type,
-                        notice_created_at: req.body.created_date,
-                        notice_updated_at: req.body.updated_date,
-                        notice_title: req.body.title,
-                        notice_content: req.body.content,
+                        notice_show_type: show_type,
+                        notice_created_at: created_date,
+                        notice_updated_at: updated_date,
+                        notice_title: title,
+                        notice_content: content,
                     }
                 });
 
@@ -82,19 +86,20 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     } else if (req.method === "GET") {
         if (req.query.action === "list") {
             try {
-                const filter = req.query.filter as string;
-
-                const text = [
-                    {notice_title: {contains: req.query.text as string}},
-                    {notice_content: {contains: req.query.text as string}},
-                ]
+                const { page, text, filter } = req.query;
+                
+                const texts = [
+                    {notice_title: {contains: text as string}},
+                    {notice_content: {contains: text as string}},
+                ];
+                const filters = filter as string;
 
                 // 공지 목록 페이지 수
                 const length = await prisma.fontsNotice.findMany({
                     select: { notice_id: true },
                     where: {
-                        OR: text,
-                        notice_type: filter === "all" ? {} : filter,
+                        OR: texts,
+                        notice_type: filters === "all" ? {} : filters,
                     }
                 });
                 const count = Number(length.length) % limit > 0 ? Math.floor(Number(length.length)/limit) + 1 : Math.floor(Number(length.length)/limit);
@@ -102,12 +107,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 // 공지 목록 불러오기
                 const list = await prisma.fontsNotice.findMany({
                     where: {
-                        OR: text,
-                        notice_type: filter === "all" ? {} : filter,
+                        OR: texts,
+                        notice_type: filters === "all" ? {} : filters,
                     },
                     orderBy: [{notice_id: 'desc'}],
                     take: limit, // 가져오는 데이터 수
-                    skip: Number(req.query.page) === 1 ? 0 : (Number(req.query.page) - 1) * limit
+                    skip: Number(page) === 1 ? 0 : (Number(page) - 1) * limit
                 });
 
                 return res.status(200).json({
