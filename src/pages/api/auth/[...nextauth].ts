@@ -3,6 +3,7 @@ import type { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import KakaoProvider from "next-auth/providers/kakao";
+import GitHubProvider from "next-auth/providers/github";
 import { GetUser, GetOAuthUser, GetOAuthUserInfo } from "./auth";
 
 export const authOptions: NextAuthOptions = {
@@ -29,6 +30,10 @@ export const authOptions: NextAuthOptions = {
             clientId: process.env.KAKAO_OAUTH_CLIENT_ID as string,
             clientSecret: process.env.KAKAO_OAUTH_CLIENT_PW as string,
         }),
+        GitHubProvider({
+            clientId: process.env.GITHUB_OAUTH_CLIENT_ID as string,
+            clientSecret: process.env.GITHUB_OAUTH_CLIENT_PW as string,
+        })
     ],
     callbacks: {
         async signIn({ user, account }: any) {

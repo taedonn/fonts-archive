@@ -279,7 +279,7 @@ const Info = ({params}: any) => {
                     {
                         user.auth !== "credentials"
                             && <div className='text-[12px] p-[4px] px-[12px] mb-[8px] flex items-center rounded-[6px] border-[2px] text-theme-3 dark:text-theme-9 border-theme-yellow dark:border-theme-blue-1/80 bg-theme-yellow/40 dark:bg-theme-blue-1/20'>
-                                <div className='mr-[2px] font-medium text-theme-3 dark:text-theme-9'>{user.auth === "google" ? "Google" : user.auth === "kakao" ? "카카오" : ""}</div>에서 연동 중
+                                <div className='mr-[2px] font-medium text-theme-3 dark:text-theme-9'>{user.auth === "google" ? "Google" : user.auth === "kakao" ? "카카오" : user.auth === "github" ? "GitHub" : ""}</div>에서 연동 중
                             </div>
                     }
                     {
