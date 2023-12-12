@@ -459,6 +459,14 @@ export default function Comments (
         window.open(`https://twitter.com/intent/tweet?text=${text}&url=${decodeURI(urlEncoded)}`, "x", "menubar=no,toolbar=no,resizable=yes,scrollbars=yes,width=520,height=700");
     }
 
+    /** 배열 숨김 처리 */
+    const hideUserName = (name: string) => {
+        let arr = name.slice(1, name.length);
+        let newName = name.slice(0, 1);
+        for (let i = 0; i < arr.length; i++) newName += "*";
+        return newName;
+    }
+
     return (
         <>
 
@@ -603,7 +611,7 @@ export default function Comments (
                                             <img src={comment.user_image} alt="유저 프로필 이미지" className="w-[40px] tlg:w-[32px] h-[40px] tlg:h-[32px] object-cover rounded-full"/>
                                             <div className="w-[100%] ml-[16px] tlg:ml-[14px]">
                                                 <div className="flex items-end">
-                                                    <div className="text-[15px] tlg:text-[14px] font-medium">{comment.user_name}</div>
+                                                    <div className="text-[15px] tlg:text-[14px] font-medium">{comment.user_auth === "credentials" ? comment.user_name : hideUserName(comment.user_name)}</div>
                                                     {
                                                         comment.user_id === 1
                                                         ? <div className="text-[10px] leading-none px-[6px] pt-[4px] pb-[3px] ml-[6px] mb-[2px] border rounded-full border-theme-blue-1 text-theme-blue-1">Manager</div>
