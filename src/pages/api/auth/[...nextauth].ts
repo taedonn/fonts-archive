@@ -62,7 +62,7 @@ export const authOptions: NextAuthOptions = {
                         Object.assign(token, {
                             name: user.name === undefined ? OAuthUser.user_name : user.name,
                             sub: OAuthUser.user_no,
-                            provider: account.provider
+                            provider: account.provider,
                         });
                     }
                 }
@@ -74,7 +74,7 @@ export const authOptions: NextAuthOptions = {
                 Object.assign(session.user, {
                     name: token.name,
                     id: token.sub,
-                    provider: token.provider
+                    provider: token.provider,
                 });
             }
             return session;
