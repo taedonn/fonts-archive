@@ -55,6 +55,7 @@ const BugPage = ({params}: any) => {
         // 이미지 영역 확대
         setIsFocused(true);
         document.body.style.overflow = "hidden";
+        console.log(setFocusedImg);
     }
 
     /** 이미지 영역 축소 */
@@ -80,8 +81,7 @@ const BugPage = ({params}: any) => {
     const handleImgPrev = () => {
         const imgNum = focusedImg.split(`/issue-bug-${issue.issue_id}-`)[1].split(".")[0];
         if (Number(imgNum) > 1) {
-            const nextImgNum = `https://fonts-archive-issue-bug.s3.ap-northeast-2.amazonaws.com/issue-bug-${issue.issue_id}-${Number(imgNum) - 1}.png`
-            setFocusedImg(nextImgNum);
+            setFocusedImg(issue[`issue_img_${Number(imgNum) - 1}`]);
         }
     }
 
@@ -89,8 +89,7 @@ const BugPage = ({params}: any) => {
     const handleImgNext = () => {
         const imgNum = focusedImg.split("/issue-bug-")[1].split("-")[1].split(".")[0];
         if (Number(imgNum) < issue.issue_img_length) {
-            const nextImgNum = `https://fonts-archive-issue-bug.s3.ap-northeast-2.amazonaws.com/issue-bug-${issue.issue_id}-${Number(imgNum) + 1}.png`
-            setFocusedImg(nextImgNum);
+            setFocusedImg(issue[`issue_img_${Number(imgNum) + 1}`]);
         }
     }
 
