@@ -73,13 +73,13 @@ export async function GetOAuthUser(user: any, account: any) {
     if (OAuthUser === null) {
         await prisma.fontsUser.create({
             data: {
-                user_name: user.name,
+                user_name: user.name === undefined ? user.email.split("@")[0] : user.name,
                 user_id: user.email,
                 user_pw: "",
                 user_email_token: "",
                 user_email_confirm: true,
                 auth: account.provider,
-                profile_img: user.image === undefined ? "" : user.image
+                profile_img: user.image === undefined ? "/fonts-archive-base-profile-img-" + (Math.floor(Math.random() * 6) + 1) + ".svg" : user.image
             }
         });
 
@@ -95,6 +95,7 @@ export async function GetOAuthUserInfo(user: any, account: any) {
         select: {
             user_no: true,
             user_id: true,
+            user_name: true,
             auth: true,
         },
         where: {

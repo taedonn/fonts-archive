@@ -2,6 +2,7 @@ import NextAuth from "next-auth"
 import type { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
+import NaverProvider from "next-auth/providers/naver";
 import KakaoProvider from "next-auth/providers/kakao";
 import GitHubProvider from "next-auth/providers/github";
 import { GetUser, GetOAuthUser, GetOAuthUserInfo } from "./auth";
@@ -25,6 +26,10 @@ export const authOptions: NextAuthOptions = {
         GoogleProvider({
             clientId: process.env.GOOGLE_OAUTH_CLIENT_ID as string,
             clientSecret: process.env.GOOGLE_OAUTH_CLIENT_PW as string,
+        }),
+        NaverProvider({
+            clientId: process.env.NAVER_OAUTH_CLIENT_ID as string,
+            clientSecret: process.env.NAVER_OAUTH_CLIENT_PW as string,
         }),
         KakaoProvider({
             clientId: process.env.KAKAO_OAUTH_CLIENT_ID as string,
@@ -53,10 +58,13 @@ export const authOptions: NextAuthOptions = {
                     });
                 } else {
                     const OAuthUser = await GetOAuthUserInfo(user, account);
-                    Object.assign(token, {
-                        sub: OAuthUser === null ? 0 : OAuthUser.user_no,
-                        provider: account.provider
-                    });
+                    if (OAuthUser) {
+                        Object.assign(token, {
+                            name: user.name === undefined ? OAuthUser.user_name : user.name,
+                            sub: OAuthUser.user_no,
+                            provider: account.provider
+                        });
+                    }
                 }
             }
             return token;
@@ -64,6 +72,7 @@ export const authOptions: NextAuthOptions = {
         async session({ session, token }: any) {
             if (session?.user) {
                 Object.assign(session.user, {
+                    name: token.name,
                     id: token.sub,
                     provider: token.provider
                 });
