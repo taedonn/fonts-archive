@@ -1,9 +1,10 @@
-import { PrismaClient } from '@prisma/client'
+import { PrismaClient } from '@prisma/client';
+import { withAccelerate } from '@prisma/extension-accelerate';
 
 declare global {
   // allow global `var` declarations
   // eslint-disable-next-line no-var
-  var prisma: PrismaClient | undefined
+  var prisma: PrismaClient
 }
 
 let prisma: PrismaClient
@@ -21,4 +22,4 @@ if (typeof window === 'undefined') {
 }
 
 //@ts-ignore
-export default prisma
+export default prisma.$extends(withAccelerate())
