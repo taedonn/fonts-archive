@@ -7,11 +7,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const id: number = thisQuery.fontId === undefined || thisQuery.fontId === "" ? 9999 : Number(thisQuery.fontId);
 
         const fonts = await prisma.fonts.findUnique({
-            where: { code: id },
-            cacheStrategy: {
-                ttl: 30,
-                swr: 60,
-            },
+            where: { code: id }
         });
 
         return res.json({ fonts });
