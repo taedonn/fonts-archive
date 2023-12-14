@@ -4,7 +4,7 @@ import prisma from '@/libs/client-prisma';
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method === 'GET') {
         // 최대 폰트 로딩 개수
-        const limit = 24;
+        const limit = 30;
 
         // 정렬 조건에 맞게 Sorting
         const lang: string | object = req.query.lang === 'kr' ? 'KR' : (req.query.lang === 'en' ? 'EN' : {});

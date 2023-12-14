@@ -14,6 +14,7 @@ import { FetchUserLike } from "./api/user/fetchuserlike";
 import Header from "@/components/header";
 import TooltipIndex from "@/components/tooltipIndex";
 import FontBox from "@/components/fontbox";
+import KakaoAdFitTopBanner from "@/components/kakaoAdFitTopBanner";
 
 const Index = ({params}: any) => {
     // 쿠키 훅
@@ -114,6 +115,11 @@ const Index = ({params}: any) => {
                 handleSortOptionChange={handleSortOptionChange}
                 handleSearch={handleSearch}
             />
+
+            {/* 카카오 애드핏 상단 띠배너 */}
+            <div className="mt-[12px]">
+                <KakaoAdFitTopBanner/>
+            </div>
             
             {/* 메인 */}
             <FontBox 

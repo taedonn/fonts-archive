@@ -147,13 +147,14 @@ export default function FontBox ({license, lang, type, sort, user, like, filter,
                     }
                 });
             }
+            console.log(data.pages[0].fonts.length);
         }
     }, [data, FontFaceObserver]);
 
     return (
         <>
             <div className='w-[100%] flex flex-col justify-start items-end'>
-                <div className="main-menu w-[100%] relative flex flex-wrap flex-row justify-between items-stretch mt-[4px]">
+                <div className="main-menu w-[100%] relative flex flex-wrap flex-row justify-between items-stretch">
                     
                     {/* 로그인 중이 아닐 때 좋아요 alert창 팝업 */}
                     {
@@ -186,7 +187,7 @@ export default function FontBox ({license, lang, type, sort, user, like, filter,
                                     font_type: string
                                     cdn_url: string
                                 }) => (
-                                    <div aria-label="font-link" key={font.code} className="relative block w-[calc(25%-8px)] tlg:w-[calc(33.3%-6px)] tmd:w-[calc(50%-4px)] txs:w-[100%] h-[22vw] tlg:h-[30vw] tmd:h-[46vw] txs:h-[82vw] p-[1.04vw] tlg:p-[1.95vw] tmd:p-[2.6vw] txs:p-[4.17vw] mt-[12px] tlg:mt-[10px] rounded-[8px] border border-theme-7 dark:border-theme-4 hover:bg-theme-8/60 tlg:hover:bg-transparent hover:dark:bg-theme-3/40 tlg:hover:dark:bg-transparent animate-fontbox-fade-in cursor-pointer">
+                                    <div aria-label="font-link" key={font.code} className="relative block w-[calc(20%-8px)] tlg:w-[calc(33.3%-6px)] tmd:w-[calc(50%-4px)] txs:w-[100%] h-[18vw] tlg:h-[30vw] tmd:h-[46vw] txs:h-[82vw] p-[1.04vw] tlg:p-[1.95vw] tmd:p-[2.6vw] txs:p-[4.17vw] mt-[12px] tlg:mt-[10px] rounded-[8px] border border-theme-7 dark:border-theme-5 hover:bg-theme-8/60 tlg:hover:bg-transparent hover:dark:bg-theme-3/40 tlg:hover:dark:bg-transparent animate-fontbox-fade-in cursor-pointer">
                                         <Link href={`/post/${font.font_family.replaceAll(" ", "+")}`} className='w-[100%] h-[100%] absolute left-0 top-0'></Link>
                                         <link href={font.cdn_url} rel="stylesheet" type="text/css" itemProp="url"></link>
                                         <div className='group absolute z-20 top-[1.46vw] tlg:top-[2.73vw] tmd:top-[3.65vw] txs:top-[5.83vw] right-[1.25vw] tlg:right-[1.95vw] tmd:right-[2.6vw] txs:right-[4.17vw]'>
@@ -202,7 +203,7 @@ export default function FontBox ({license, lang, type, sort, user, like, filter,
                                             <div style={{fontFamily:"'"+font.font_family+"'"}} className="inline-block text-[0.73vw] tlg:text-[1.37] tmd:text-[1.82vw] txs:text-[2.92vw] text-normal text-theme-5 dark:text-theme-6 leading-tight"><span className="text-theme-3 dark:text-theme-8">by</span> {font.source}</div>
                                         </div>
                                         <div className="w-[100%] h-px my-[0.83vw] tlg:my-[1.56vw] tmd:my-[2.08vw] txs:my-[3.33vw] bg-theme-7 dark:bg-theme-5"></div>
-                                        <div style={{fontFamily:"'"+font.font_family+"'"}} className="text-[1.88vw] tlg:text-[3.52vw] tmd:text-[4.69vw] txs:text-[7.5vw] text-normal leading-normal overflow-hidden">
+                                        <div style={{fontFamily:"'"+font.font_family+"'"}} className="text-[1.67vw] tlg:text-[3.52vw] tmd:text-[4.69vw] txs:text-[7.5vw] text-normal leading-normal overflow-hidden">
                                             <p className={`${font.code + '-text'} textbox ellipsed-text text-theme-3/60 dark:text-theme-8/60`}><DummyText lang={font.lang} text={text} num={num}/></p>
                                         </div>
                                     </div>
@@ -246,6 +247,18 @@ export default function FontBox ({license, lang, type, sort, user, like, filter,
                             <SkeletonBox/>
                         </div>
                         : null
+                    }
+
+                    {/* 폰트가 없을 때 */}
+                    {
+                        data && data.pages[0].fonts.length === 0
+                            && <div className='w-[100%] pt-[40px] absolute top-0 left-0 flex flex-col justify-center items-center'>
+                                <svg className='w-[120px] fill-theme-4 dark:fill-theme-7' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                                    <path d="M6.831 11.43A3.1 3.1 0 0 1 8 11.196c.916 0 1.607.408 2.25.826.212.138.424-.069.282-.277-.564-.83-1.558-2.049-2.532-2.049-.53 0-1.066.361-1.536.824.083.179.162.36.232.535.045.115.092.241.135.373ZM6 11.333C6 12.253 5.328 13 4.5 13S3 12.254 3 11.333c0-.706.882-2.29 1.294-2.99a.238.238 0 0 1 .412 0c.412.7 1.294 2.284 1.294 2.99M7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5m4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5m-1.5-3A.5.5 0 0 1 10 3c1.162 0 2.35.584 2.947 1.776a.5.5 0 1 1-.894.448C11.649 4.416 10.838 4 10 4a.5.5 0 0 1-.5-.5M7 3.5a.5.5 0 0 0-.5-.5c-1.162 0-2.35.584-2.947 1.776a.5.5 0 1 0 .894.448C4.851 4.416 5.662 4 6.5 4a.5.5 0 0 0 .5-.5"/>
+                                </svg>
+                                <div className='text-[24px] mt-[24px] text-center font-bold text-theme-4 dark:text-theme-7'>찾으시는 폰트가 없습니다.</div>
+                            </div>
                     }
 
                     {/* 뷰포트 만날 시 다음 데이터 로딩 */}
