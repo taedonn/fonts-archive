@@ -147,7 +147,6 @@ export default function FontBox ({license, lang, type, sort, user, like, filter,
                     }
                 });
             }
-            console.log(data.pages[0].fonts.length);
         }
     }, [data, FontFaceObserver]);
 

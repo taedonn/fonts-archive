@@ -13,6 +13,18 @@ function KakaoAdFitTopBanner() {
 
         ins.className = 'kakao_ad_area';
         ins.style.display = 'none;';
+        
+        // const winodwSize = window.innerWidth;
+        // if (winodwSize < 1024) {
+        //     ins.setAttribute('data-ad-width', '320');
+        //     ins.setAttribute('data-ad-height', '100');
+        //     ins.setAttribute('data-ad-unit', 'DAN-S69UuSbs9M89VlPg');
+        // } else {
+        //     ins.setAttribute('data-ad-width', '728');
+        //     ins.setAttribute('data-ad-height', '90');
+        //     ins.setAttribute('data-ad-unit', 'DAN-qURIZ5pOgDDf9dCs');
+        // }
+
         ins.setAttribute('data-ad-width', '320');
         ins.setAttribute('data-ad-height', '100');
         ins.setAttribute('data-ad-unit', 'DAN-S69UuSbs9M89VlPg');
