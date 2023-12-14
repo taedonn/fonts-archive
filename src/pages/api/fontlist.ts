@@ -47,6 +47,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             take: limit, // 가져오는 데이터 수
             skip: cursor !== '' ? 1 : 0, // 건너뛸 데이터 수
             cursor: cursorObj, // 불러온 마지막 데이터의 ID값
+            cacheStrategy: { // query caching
+                ttl: 30,
+                swr: 60,
+            },
         });
 
         return res.json({ fonts, nextId: fonts.length === limit ? fonts[limit - 1].code : undefined, sort: sort });

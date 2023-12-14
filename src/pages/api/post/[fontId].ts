@@ -8,6 +8,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
         const fonts = await prisma.fonts.findUnique({
             where: { code: id },
+            cacheStrategy: {
+                ttl: 30,
+                swr: 60,
+            },
         });
 
         return res.json({ fonts });
