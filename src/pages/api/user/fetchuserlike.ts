@@ -11,10 +11,10 @@ export async function FetchUserLike(user: any) {
     return like;
 }
 
-export async function FetchUserLikeOnDetail(user: any, font: any) {
+export async function FetchUserLikeOnDetail(user: any, fontId: number) {
     const like = await prisma.fontsLiked.findFirst({
         where: {
-            font_id: font.code,
+            font_id: fontId,
             user_email: user.email,
             user_auth: user.provider,
         }
