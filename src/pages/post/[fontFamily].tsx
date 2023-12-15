@@ -949,6 +949,7 @@ function DetailPage({params}: any) {
                                 </div>
                             </div>
                         </div>
+                        
                         {/* 카카오 애드핏 하단 띠배너 */}
                         <div className="w-[100%]">
                             <KakaoAdFitBottomBanner

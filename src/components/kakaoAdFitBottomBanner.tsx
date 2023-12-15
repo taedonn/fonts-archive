@@ -14,10 +14,18 @@ function KakaoAdFitBottomBanner(props: any) {
         ins.className = 'kakao_ad_area';
         ins.style.display = 'none;';
 
-        ins.setAttribute('data-ad-width', '320');
-        ins.setAttribute('data-ad-height', '100');
-        ins.setAttribute('data-ad-unit', 'DAN-i74cAINlzifEFWxH');
-        ins.setAttribute('style', `margin-top: ${props.marginTop}px`);
+        const windowSize = window.innerWidth;
+        if (windowSize < 1024) {
+            ins.setAttribute('data-ad-width', '320');
+            ins.setAttribute('data-ad-height', '100');
+            ins.setAttribute('data-ad-unit', 'DAN-i74cAINlzifEFWxH');
+            ins.setAttribute('style', `margin-top: ${props.marginTop}px`);
+        } else {
+            ins.setAttribute('data-ad-width', '728');
+            ins.setAttribute('data-ad-height', '90');
+            ins.setAttribute('data-ad-unit', 'DAN-RGGxOLqLPc0Xouyi');
+            ins.setAttribute('style', `margin-top: ${props.marginTop}px`);
+        }
 
         script.async = true;
         script.type = 'text/javascript';
