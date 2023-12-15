@@ -184,15 +184,15 @@ const FontsList = ({params}: any) => {
                                                 return (
                                                     <div key={font.code} className='h-[40px] tlg:h-[34px] relative flex items-center border-t border-theme-5 dark:border-theme-3 hover:bg-theme-yellow/20 tlg:hover:bg-transparent hover:dark:bg-theme-blue-1/20 tlg:hover:dark:bg-transparent'>
                                                         <Link href={`/admin/font/edit?code=${font.code}`} className='w-[100%] h-[100%] block absolute z-10 left-0 top-0'></Link>
-                                                        <div className='w-[60px] pl-[12px] shrink-0 break-keep'>{font.code}</div>
-                                                        <div className='w-[100%] pl-[12px] break-keep'><div className='font-size'>{font.name}</div></div>
-                                                        <div className='w-[60px] pl-[12px] shrink-0 break-keep'>{formatNumber(font.view)}</div>
-                                                        <div className='w-[60px] pl-[12px] shrink-0 break-keep'>{formatNumber(font.like)}</div>
-                                                        <div className='w-[60px] pl-[12px] shrink-0 break-keep'>{font.lang}</div>
-                                                        <div className='w-[60px] pl-[12px] shrink-0 break-keep'>{formatType(font.font_type)}</div>
-                                                        <div className='w-[60px] pl-[12px] shrink-0 break-keep text-theme-green'>{font.show_type ? "보임" : "숨김"}</div>
-                                                        <div className='w-[112px] pl-[12px] shrink-0 break-keep'>{timeFormat(font.created_at)}</div>
-                                                        <div className='w-[112px] pl-[12px] shrink-0 break-keep'>{timeFormat(font.updated_at)}</div>
+                                                        <div className='w-[60px] pl-[12px] shrink-0'>{font.code}</div>
+                                                        <div className='w-[100%] pl-[12px] overflow-hidden'><div className='font-size'>{font.name}</div></div>
+                                                        <div className='w-[60px] pl-[12px] shrink-0'>{formatNumber(font.view)}</div>
+                                                        <div className='w-[60px] pl-[12px] shrink-0'>{formatNumber(font.like)}</div>
+                                                        <div className='w-[60px] pl-[12px] shrink-0'>{font.lang}</div>
+                                                        <div className='w-[60px] pl-[12px] shrink-0'>{formatType(font.font_type)}</div>
+                                                        <div className='w-[60px] pl-[12px] shrink-0 text-theme-green'>{font.show_type ? "보임" : "숨김"}</div>
+                                                        <div className='w-[112px] pl-[12px] shrink-0'>{timeFormat(font.created_at)}</div>
+                                                        <div className='w-[112px] pl-[12px] shrink-0'>{timeFormat(font.updated_at)}</div>
                                                     </div>
                                                 )
                                             })

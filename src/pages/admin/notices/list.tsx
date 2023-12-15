@@ -150,7 +150,7 @@ const NoticeList = ({params}: any) => {
                                                         <div className='w-[48px] pl-[16px] py-[10px] shrink-0'>{notice.notice_id}</div>
                                                         <div className='w-[60px] pl-[16px] py-[10px] shrink-0'>{notice.notice_type === "service" ? "서비스" : "폰트"}</div>
                                                         <div className='w-[120px] pl-[16px] py-[10px] shrink-0'><div className='font-size'>{notice.notice_title}</div></div>
-                                                        <div className='w-[100%] pl-[16px] py-[10px]'><div className='font-size'>{notice.notice_content}</div></div>
+                                                        <div className='w-[100%] pl-[16px] py-[10px] overflow-hidden'><div className='font-size'>{notice.notice_content}</div></div>
                                                         <div className='w-[80px] py-[10px] shrink-0 text-center text-theme-green'>
                                                             {
                                                                 notice.notice_show_type

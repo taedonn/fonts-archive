@@ -153,7 +153,7 @@ const Notices = ({params}: any) => {
                                         </div>
                                     </div>
                                 </label>
-                                <pre className='h-0 peer-checked/expand:h-[auto] px-[32px] peer-checked/expand:py-[20px] text-[14px] duration-100 flex items-center overflow-hidden peer-checked/expand:border-t border-theme-7 dark:border-theme-5 text-theme-3 dark:text-theme-9 bg-theme-7/20 dark:bg-theme-5/20'>{notice.notice_content}</pre>
+                                <pre className='w-[100%] h-0 whitespace-pre-wrap peer-checked/expand:h-[auto] px-[32px] peer-checked/expand:py-[20px] text-[14px] duration-100 flex items-center overflow-hidden peer-checked/expand:border-t border-theme-7 dark:border-theme-5 text-theme-3 dark:text-theme-9 bg-theme-7/20 dark:bg-theme-5/20'>{notice.notice_content}</pre>
                             </div>
                         })
                         : <div className='w-[100%] h-[68px] text-[14px] flex justify-center items-center text-center border-t border-theme-7 dark:border-theme-5 text-theme-3 dark:text-theme-9'>공지사항을 찾을 수 없습니다.</div>

@@ -143,10 +143,10 @@ const BugList = ({params}: any) => {
                                                         <Link href={`/admin/bug/${issue.issue_id}`} className='w-[100%] h-[100%] absolute z-10 left-0 top-0'></Link>
                                                         <div className='w-[48px] pl-[16px] py-[10px] shrink-0'>{issue.issue_id}</div>
                                                         <div className='w-[120px] pl-[16px] py-[10px] shrink-0'><div className='font-size'>{issue.issue_title}</div></div>
-                                                        <div className='w-[100%] pl-[16px] py-[10px]'><div className='font-size'>{issue.issue_email}</div></div>
+                                                        <div className='w-[100%] pl-[16px] py-[10px] overflow-hidden'><div className='font-size'>{issue.issue_email}</div></div>
                                                         <div className='w-[112px] pl-[16px] py-[10px] shrink-0'>{timeFormat(issue.issue_created_at)}</div>
                                                         <div className='w-[112px] pl-[16px] py-[10px] shrink-0'>{timeFormat(issue.issue_closed_at)}</div>
-                                                        <div className='w-[88px] pl-[16px] py-[10px] break-keep shrink-0'>
+                                                        <div className='w-[88px] pl-[16px] py-[10px] shrink-0'>
                                                             {
                                                                 issue.issue_closed
                                                                 ? <>
