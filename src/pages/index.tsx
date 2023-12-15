@@ -117,8 +117,10 @@ const Index = ({params}: any) => {
             />
 
             {/* 카카오 애드핏 상단 띠배너 */}
-            <div className="mt-[12px]">
-                <KakaoAdFitTopBanner/>
+            <div>
+                <KakaoAdFitTopBanner
+                    marginTop={12}
+                />
             </div>
             
             {/* 메인 */}
