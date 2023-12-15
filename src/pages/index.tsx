@@ -68,7 +68,7 @@ const Index = ({params}: any) => {
         }
     }
 
-    // 옵션 - "정렬순" 디폴트: 조회순
+    // 옵션 - "정렬순" 디폴트: 최신순
     const [sort, setSort] = useState<string>(params.sort);
 
     /** 옵션 - "정렬순" 클릭 */
@@ -149,7 +149,7 @@ export async function getServerSideProps(ctx: any) {
         const license = ctx.req.cookies.license === undefined ? "all" : ctx.req.cookies.license;
         const lang = ctx.req.cookies.lang === undefined ? "all" : ctx.req.cookies.lang;
         const type = ctx.req.cookies.type === undefined ? "all" : ctx.req.cookies.type;
-        const sort = ctx.req.cookies.sort === undefined ? "view" : ctx.req.cookies.sort;
+        const sort = ctx.req.cookies.sort === undefined ? "date" : ctx.req.cookies.sort;
         const theme = ctx.req.cookies.theme === undefined ? "dark" : ctx.req.cookies.theme;
 
         // 파라미터 가져오기
