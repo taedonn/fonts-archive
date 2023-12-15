@@ -244,6 +244,12 @@ export default function FontBox ({license, lang, type, sort, user, like, filter,
                             <SkeletonBox/>
                             <SkeletonBox/>
                             <SkeletonBox/>
+                            <SkeletonBox/>
+                            <SkeletonBox/>
+                            <SkeletonBox/>
+                            <SkeletonBox/>
+                            <SkeletonBox/>
+                            <SkeletonBox/>
                         </div>
                         : null
                     }
