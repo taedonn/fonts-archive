@@ -28,9 +28,6 @@ const CommentList = ({params}: any) => {
     // 디바이스 체크
     const isMac: boolean = params.userAgent.includes("Mac OS") ? true : false;
 
-    // 빈 함수
-    const emptyFn = () => { return; }
-
     // 댓글 목록 state
     const [comments, setComments] = useState(JSON.parse(params.comments));
     const [count, setCount] = useState<number>(params.count);
@@ -126,18 +123,6 @@ const CommentList = ({params}: any) => {
                 isMac={isMac}
                 theme={params.theme}
                 user={params.user}
-                page={""}
-                license={""}
-                lang={""}
-                type={""}
-                sort={""}
-                source={""}
-                handleTextChange={emptyFn}
-                handleLicenseOptionChange={emptyFn}
-                handleLangOptionChange={emptyFn}
-                handleTypeOptionChange={emptyFn}
-                handleSortOptionChange={emptyFn}
-                handleSearch={emptyFn}
             />
 
             {/* 댓글 삭제 모달 */}

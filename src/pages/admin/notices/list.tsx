@@ -26,9 +26,6 @@ const NoticeList = ({params}: any) => {
     // 디바이스 체크
     const isMac: boolean = params.userAgent.includes("Mac OS") ? true : false;
 
-    // 빈 함수
-    const emptyFn = () => { return; }
-
     // state
     const [list, setList] = useState(params.list);
     const [count, setCount] = useState<number>(params.count);
@@ -98,18 +95,6 @@ const NoticeList = ({params}: any) => {
                 isMac={isMac}
                 theme={params.theme}
                 user={params.user}
-                page={""}
-                license={""}
-                lang={""}
-                type={""}
-                sort={""}
-                source={""}
-                handleTextChange={emptyFn}
-                handleLicenseOptionChange={emptyFn}
-                handleLangOptionChange={emptyFn}
-                handleTypeOptionChange={emptyFn}
-                handleSortOptionChange={emptyFn}
-                handleSearch={emptyFn}
             />
 
             {/* 메인 */}

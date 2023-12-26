@@ -33,9 +33,6 @@ function DetailPage({params}: any) {
     // 디바이스 체크
     const isMac: boolean = params.userAgent.includes("Mac OS") ? true : false;
 
-    // 빈 함수
-    const emptyFn = () => { return; }
-
     // props
     const font = params.font[0];
     const user = params.user;
@@ -365,18 +362,6 @@ function DetailPage({params}: any) {
                 isMac={isMac}
                 theme={params.theme}
                 user={user}
-                page={""}
-                license={""}
-                lang={""}
-                type={""}
-                sort={""}
-                source={""}
-                handleTextChange={emptyFn}
-                handleLicenseOptionChange={emptyFn}
-                handleLangOptionChange={emptyFn}
-                handleTypeOptionChange={emptyFn}
-                handleSortOptionChange={emptyFn}
-                handleSearch={emptyFn}
             />
 
             {/* 고정 메뉴 */}

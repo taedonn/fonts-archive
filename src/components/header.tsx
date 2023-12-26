@@ -14,42 +14,60 @@ import { throttle } from "lodash";
 // components
 import FontSearch from "./fontsearch";
 
+// 빈 함수
+const emptyFn = () => { return; }
+
+const defaultHeader = {
+    page: "",
+    license: "",
+    lang: "",
+    type: "",
+    sort: "",
+    source: "",
+    handleTextChange: emptyFn,
+    handleLicenseOptionChange: emptyFn,
+    handleLangOptionChange: emptyFn,
+    handleTypeOptionChange: emptyFn,
+    handleSortOptionChange: emptyFn,
+    handleSearch: emptyFn,
+}
+
+interface Header {
+    isMac: boolean,
+    theme: string,
+    user: any,
+    page?: string,
+    license?: string,
+    lang?: string,
+    type?: string,
+    sort?: string,
+    source?: string,
+    handleTextChange?: any,
+    handleLicenseOptionChange?: any,
+    handleLangOptionChange?: any,
+    handleTypeOptionChange?: any,
+    handleSortOptionChange?: any,
+    handleSearch?: any,
+}
+
 export default function Header (
     {
         isMac,
         theme,
         user,
-        page,
-        license,
-        lang,
-        type,
-        sort,
-        source,
-        handleTextChange,
-        handleLicenseOptionChange,
-        handleLangOptionChange,
-        handleTypeOptionChange,
-        handleSortOptionChange,
-        handleSearch,
-    }:
-    {
-        isMac: boolean,
-        theme: string,
-        user: any,
-        page: string,
-        license: string,
-        lang: string,
-        type: string,
-        sort: string,
-        source: string,
-        handleTextChange: any,
-        handleLicenseOptionChange: any,
-        handleLangOptionChange: any,
-        handleTypeOptionChange: any,
-        handleSortOptionChange: any,
-        handleSearch: any,
-    }
-) {
+        page=defaultHeader.page,
+        license=defaultHeader.license,
+        lang=defaultHeader.lang,
+        type=defaultHeader.type,
+        sort=defaultHeader.sort,
+        source=defaultHeader.source,
+        handleTextChange=defaultHeader.handleTextChange,
+        handleLicenseOptionChange=defaultHeader.handleLangOptionChange,
+        handleLangOptionChange=defaultHeader.handleLangOptionChange,
+        handleTypeOptionChange=defaultHeader.handleTypeOptionChange,
+        handleSortOptionChange=defaultHeader.handleSortOptionChange,
+        handleSearch=defaultHeader.handleSearch,
+    }: Header) {
     // 쿠키 훅
     const [, setCookie] = useCookies<string>([]);
 

@@ -14,9 +14,6 @@ const Privacy = ({params}: any) => {
     // 디바이스 체크
     const isMac: boolean = params.userAgent.includes("Mac OS") ? true : false;
 
-    // 빈 함수
-    const emptyFn = () => { return; }
-
     return (
         <>
             {/* Head 부분*/}
@@ -30,18 +27,6 @@ const Privacy = ({params}: any) => {
                 isMac={isMac}
                 theme={params.theme}
                 user={params.user}
-                page={""}
-                license={""}
-                lang={""}
-                type={""}
-                sort={""}
-                source={""}
-                handleTextChange={emptyFn}
-                handleLicenseOptionChange={emptyFn}
-                handleLangOptionChange={emptyFn}
-                handleTypeOptionChange={emptyFn}
-                handleSortOptionChange={emptyFn}
-                handleSearch={emptyFn}
             />
 
             {/* 고정 메뉴 */}
@@ -49,7 +34,7 @@ const Privacy = ({params}: any) => {
 
             {/* 메인 */}
             <div className='w-[100%] flex flex-col justify-center items-center'>
-                <div className='w-[720px] tmd:w-[100%] flex flex-col justify-center items-start my-[32px] mb-[64px] tmd:my-[24px] tmd:mb-[48px]'>
+                <div className='w-[720px] tmd:w-[100%] flex flex-col justify-center items-start my-[64px] tmd:my-[48px]'>
                     <h2 className='text-[28px] tmd:text-[20px] text-theme-3 dark:text-theme-9 font-medium'>개인정보처리방침</h2>
                     <div className='w-[100%] h-px bg-theme-7 dark:bg-theme-5 my-[16px] tmd:my-[12px]'></div>
 <pre style={{fontFamily: "Spoqa Han Sans Neo, Noto Sans KR"}} className='whitespace-pre-wrap text-[14px] text-theme-5 dark:text-theme-9/80 leading-loose'>{

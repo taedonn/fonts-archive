@@ -19,9 +19,6 @@ const Login = ({params}: any) => {
     // 디바이스 체크
     const isMac: boolean = params.userAgent.includes("Mac OS") ? true : false;
 
-    // 빈 함수
-    const emptyFn = () => { return; }
-
     // 라우터 훅
     const router = useRouter();
 
@@ -113,18 +110,6 @@ const Login = ({params}: any) => {
                 isMac={isMac}
                 theme={params.theme}
                 user={null}
-                page={""}
-                license={""}
-                lang={""}
-                type={""}
-                sort={""}
-                source={""}
-                handleTextChange={emptyFn}
-                handleLicenseOptionChange={emptyFn}
-                handleLangOptionChange={emptyFn}
-                handleTypeOptionChange={emptyFn}
-                handleSortOptionChange={emptyFn}
-                handleSearch={emptyFn}
             />
 
             {/* 메인 */}
