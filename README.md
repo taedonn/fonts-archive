@@ -24,7 +24,7 @@
 
 &nbsp;
 
-## Core dependencies
+## 필수 패키지 및 버전
 
 ```
 "dependencies": {
