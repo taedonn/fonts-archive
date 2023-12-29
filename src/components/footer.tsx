@@ -12,7 +12,7 @@ export default function Footer () {
                         </div>
                         <div className="flex items-end">
                             <h2 className="text-[14px]">폰트 아카이브,</h2>
-                            <h3 className="text-[14px] ml-[8px] tracking-wide text-theme-5 dark:text-theme-7">© 2023 <Link href="https://taedonn.com" target="_blank" rel="noopener noreferrer" className="hover:underline tlg:hover:no-underline">태돈</Link></h3>
+                            <h3 className="text-[14px] ml-[8px] tracking-wide text-theme-5 dark:text-theme-7">© 2023 - {new Date().getFullYear()} <Link href="https://taedonn.com" target="_blank" rel="noopener noreferrer" className="hover:underline tlg:hover:no-underline">태돈</Link></h3>
                         </div>
                     </div>
                     <div className="text-[13px] text-theme-2 dark:text-theme-blue-1 ml-[36px] tlg:hidden">
