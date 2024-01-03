@@ -33,7 +33,7 @@ const Confirm = ({params}: any) => {
     
     return (
         <>
-            <div className="w-[100%] h-[100%] absolute left-0 top-0 flex flex-col justify-center items-center text-center text-theme-3 dark:text-theme-9">
+            <div className="w-full h-full absolute left-0 top-0 flex flex-col justify-center items-center text-center text-theme-3 dark:text-theme-9">
                 <div className="text-[28px] font-medium">
                     환영합니다 {user.user_name}님!
                 </div>
@@ -56,8 +56,8 @@ const Confirm = ({params}: any) => {
 
 export async function getServerSideProps(ctx: any) {
     try {
-        // 필터링 쿠키 체크
-        const cookieTheme = ctx.req.cookies.theme === undefined ? "dark" : ctx.req.cookies.theme;
+        // 쿠키 체크
+        const { theme } = ctx.req.cookies;
 
         // token 불러오기
         const token = ctx.query.token;
@@ -78,7 +78,7 @@ export async function getServerSideProps(ctx: any) {
             return {
                 props: {
                     params: {
-                        theme: cookieTheme,
+                        theme: theme ? theme : 'light',
                         user: JSON.parse(JSON.stringify(user))
                     }
                 }

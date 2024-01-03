@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import prisma from '@/libs/client-prisma';
+import prisma from '@/libs/prisma';
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 const nodemailer = require('nodemailer');

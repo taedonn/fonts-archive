@@ -48,8 +48,8 @@ const SendEmail = ({params}: any) => {
             />
 
             {/* 메인 */}
-            <div className='w-[100%] mb-[60px] flex flex-col justify-start items-center'>
-                <div className='w-[100%] text-[14px] tlg:text-[12px] text-theme-6 dark:text-theme-7 flex flex-col justify-center items-center'>
+            <div className='w-full mb-[60px] flex flex-col justify-start items-center'>
+                <div className='w-full text-[14px] tlg:text-[12px] text-theme-6 dark:text-theme-7 flex flex-col justify-center items-center'>
                     <MailAnimation/>
                     <h2 className='text-center leading-relaxed break-keep'>
                         인증 메일이 <span className='text-theme-5 dark:text-theme-9 font-medium'>[{user.user_id}]</span>(으)로 전송되었습니다. <br className='txs:hidden'/>
@@ -70,8 +70,8 @@ const SendEmail = ({params}: any) => {
 
 export async function getServerSideProps(ctx: any) {
     try {
-        // 필터링 쿠키 체크
-        const cookieTheme = ctx.req.cookies.theme === undefined ? "dark" : ctx.req.cookies.theme;
+        // 쿠키 체크
+        const { theme } = ctx.req.cookies;
 
         // 디바이스 체크
         const userAgent = ctx.req ? ctx.req.headers['user-agent'] : navigator.userAgent;
@@ -91,7 +91,7 @@ export async function getServerSideProps(ctx: any) {
             return {
                 props: {
                     params: {
-                        theme: cookieTheme,
+                        theme: theme ? theme : 'light',
                         userAgent: userAgent,
                         user: JSON.parse(JSON.stringify(user)),
                     }

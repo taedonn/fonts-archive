@@ -370,7 +370,7 @@ function DetailPage({params}: any) {
             {/* 로그인 중이 아닐 때 좋아요 alert창 팝업 */}
             {
                 alertDisplay === true
-                ? <div className='fixed z-20 top-[24px] tlg:top-[20px] right-[32px] tlg:right-[28px] w-content h-[60px] tlg:h-[56px] px-[12px] flex flex-row justify-between items-center rounded-[8px] border border-theme-yellow dark:border-theme-blue-1 text-[13px] tlg:text-[12px] text-theme-10/80 dark:text-theme-9/80 bg-theme-4 dark:bg-theme-blue-2'>
+                ? <div className='fixed z-20 top-[24px] tlg:top-[20px] right-[32px] tlg:right-[28px] w-max h-[60px] tlg:h-[56px] px-[12px] flex flex-row justify-between items-center rounded-[8px] border border-theme-yellow dark:border-theme-blue-1 text-[13px] tlg:text-[12px] text-theme-10/80 dark:text-theme-9/80 bg-theme-4 dark:bg-theme-blue-2'>
                     <div className='flex flex-row justify-start items-center'>
                         <svg className='w-[20px] fill-theme-8 dark:fill-theme-9/80' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M7.657 6.247c.11-.33.576-.33.686 0l.645 1.937a2.89 2.89 0 0 0 1.829 1.828l1.936.645c.33.11.33.576 0 .686l-1.937.645a2.89 2.89 0 0 0-1.828 1.829l-.645 1.936a.361.361 0 0 1-.686 0l-.645-1.937a2.89 2.89 0 0 0-1.828-1.828l-1.937-.645a.361.361 0 0 1 0-.686l1.937-.645a2.89 2.89 0 0 0 1.828-1.828l.645-1.937zM3.794 1.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387A1.734 1.734 0 0 0 4.593 5.69l-.387 1.162a.217.217 0 0 1-.412 0L3.407 5.69A1.734 1.734 0 0 0 2.31 4.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387A1.734 1.734 0 0 0 3.407 2.31l.387-1.162zM10.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732L9.1 2.137a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L10.863.1z"/></svg>
                         <div className='ml-[8px]'>
@@ -385,9 +385,9 @@ function DetailPage({params}: any) {
             }
 
             {/* 메인 */}
-            <div className="w-[100%] pt-[32px] tmd:pt-[20px]">
+            <div className="w-full pt-[32px] tmd:pt-[20px]">
                 <link href={font.cdn_url} rel="stylesheet" type="text/css" itemProp="url"></link>
-                <div className="w-[100%] flex flex-col justify-start items-start">
+                <div className="w-full flex flex-col justify-start items-start">
                     <div className="mb-[12px] tlg:mb-[8px] flex items-center">
                         <div style={{fontFamily:'"'+font.font_family+'"'}} className="text-[32px] tlg:text-[28px] tmd:text-[24px] text-theme-3 dark:text-theme-9 font-medium leading-tight">{font.name}</div>
                         <div className='group relative ml-[14px] tmd:ml-[10px] mb-[2px]'>
@@ -396,30 +396,30 @@ function DetailPage({params}: any) {
                                 <svg className='w-[26px] tmd:w-[22px] fill-theme-4 dark:fill-theme-6' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M225.8 468.2l-2.5-2.3L48.1 303.2C17.4 274.7 0 234.7 0 192.8v-3.3c0-70.4 50-130.8 119.2-144C158.6 37.9 198.9 47 231 69.6c9 6.4 17.4 13.8 25 22.3c4.2-4.8 8.7-9.2 13.5-13.3c3.7-3.2 7.5-6.2 11.5-9c0 0 0 0 0 0C313.1 47 353.4 37.9 392.8 45.4C462 58.6 512 119.1 512 189.5v3.3c0 41.9-17.4 81.9-48.1 110.4L288.7 465.9l-2.5 2.3c-8.2 7.6-19 11.9-30.2 11.9s-22-4.2-30.2-11.9zM239.1 145c-.4-.3-.7-.7-1-1.1l-17.8-20c0 0-.1-.1-.1-.1c0 0 0 0 0 0c-23.1-25.9-58-37.7-92-31.2C81.6 101.5 48 142.1 48 189.5v3.3c0 28.5 11.9 55.8 32.8 75.2L256 430.7 431.2 268c20.9-19.4 32.8-46.7 32.8-75.2v-3.3c0-47.3-33.6-88-80.1-96.9c-34-6.5-69 5.4-92 31.2c0 0 0 0-.1 .1s0 0-.1 .1l-17.8 20c-.3 .4-.7 .7-1 1.1c-4.5 4.5-10.6 7-16.9 7s-12.4-2.5-16.9-7z"/></svg>
                                 <svg className='w-[26px] tmd:w-[22px] fill-theme-red' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9L464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96 244 84c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z"/></svg>
                             </label>
-                            <div className={`${hoverDisplay === true ? 'group-hover:block' : 'group-hover:hidden'} like-btn w-content absolute z-20 left-[50%] top-[-42px] text-[13px] font-medium leading-none px-[14px] py-[8px] rounded-[4px] hidden tlg:group-hover:hidden group-hover:animate-fontbox-zoom-in bg-theme-red text-theme-2`}>{liked === true ? "좋아요 해제" : "좋아요"}</div>
+                            <div className={`${hoverDisplay === true ? 'group-hover:block' : 'group-hover:hidden'} like-btn w-max absolute z-20 left-[50%] top-[-42px] text-[13px] font-medium leading-none px-[14px] py-[8px] rounded-[4px] hidden tlg:group-hover:hidden group-hover:animate-zoom-in-fontbox bg-theme-red text-theme-2`}>{liked === true ? "좋아요 해제" : "좋아요"}</div>
                         </div>
                     </div>
                     <div className="flex flex-row justify-start items-center">
                         <div style={{fontFamily:'"'+font.font_family+'"'}} className="text-[16px] tmd:text-[12px] leading-tight text-theme-3 dark:text-theme-9 ml-[2px] mr-[16px] tmd:mr-[12px]">
-                            <span style={font.lang === "KR" ? {} : {fontFamily: "Spoqa Han Sans Neo"}}>제작</span>
+                            <span className={`${font.lang === 'KR' ? '' : 'font-sans'}`}>제작</span>
                             <Link href={{pathname: "/", query: {search: font.source}}} className="relative group text-theme-yellow dark:text-theme-blue-1 border-b border-theme-yellow dark:border-theme-blue-1 ml-[8px] tlg:ml-[6px]">
                                 {font.source}
-                                <div className="same-source w-content absolute z-10 left-[50%] top-[-38px] text-[13px] font-medium leading-none px-[14px] py-[8px] rounded-[4px] hidden group-hover:block tlg:group-hover:hidden group-hover:animate-fontbox-zoom-in bg-theme-yellow dark:bg-theme-blue-1 text-theme-3 dark:text-theme-blue-2">제작사의 다른 폰트 보기</div>
+                                <div className="same-source w-max absolute z-10 left-[50%] top-[-38px] text-[13px] font-medium leading-none px-[14px] py-[8px] rounded-[4px] hidden group-hover:block tlg:group-hover:hidden group-hover:animate-zoom-in-fontbox bg-theme-yellow dark:bg-theme-blue-1 text-theme-3 dark:text-theme-blue-2">제작사의 다른 폰트 보기</div>
                             </Link>
                         </div>
-                        <div style={font.lang === "KR" ? {fontFamily:'"'+font.font_family+'"'} : {}} className="text-[16px] tmd:text-[12px] leading-tight text-theme-3 dark:text-theme-9 mr-[14px] tmd:mr-[12px]">형태<span className="text-theme-5 dark:text-theme-7 ml-[6px]">{font.font_type === "Sans Serif" ? "고딕" : (font.font_type === "Serif" ? "명조" : (font.font_type === "Hand Writing" ? "손글씨" : (font.font_type === "Display" ? "장식체" : "픽셀체")))}</span></div>
-                        <div style={font.lang === "KR" ? {fontFamily:'"'+font.font_family+'"'} : {}} className="text-[16px] tmd:text-[12px] leading-tight text-theme-3 dark:text-theme-9 mr-[14px] tmd:mr-[12px]">조회수<span className="text-theme-5 dark:text-theme-7 ml-[6px]">{formatNumber(font.view)}</span></div>
-                        <div style={font.lang === "KR" ? {fontFamily:'"'+font.font_family+'"'} : {}} className="text-[16px] tmd:text-[12px] leading-tight text-theme-3 dark:text-theme-9">좋아요 수<span className="text-theme-5 dark:text-theme-7 ml-[6px]">{formatNumber(likedNum)}</span></div>
+                        <div className={`${font.lang === 'KR' ? '' : 'font-sans'} text-[16px] tmd:text-[12px] leading-tight text-theme-3 dark:text-theme-9 mr-[14px] tmd:mr-[12px]`}>형태<span className="text-theme-5 dark:text-theme-7 ml-[6px]">{font.font_type === "Sans Serif" ? "고딕" : (font.font_type === "Serif" ? "명조" : (font.font_type === "Hand Writing" ? "손글씨" : (font.font_type === "Display" ? "장식체" : "픽셀체")))}</span></div>
+                        <div className={`${font.lang === 'KR' ? '' : 'font-sans'} text-[16px] tmd:text-[12px] leading-tight text-theme-3 dark:text-theme-9 mr-[14px] tmd:mr-[12px]`}>조회수<span className="text-theme-5 dark:text-theme-7 ml-[6px]">{formatNumber(font.view)}</span></div>
+                        <div className={`${font.lang === 'KR' ? '' : 'font-sans'} text-[16px] tmd:text-[12px] leading-tight text-theme-3 dark:text-theme-9`}>좋아요 수<span className="text-theme-5 dark:text-theme-7 ml-[6px]">{formatNumber(likedNum)}</span></div>
                     </div>
 
                     {/* 카카오 애드핏 상단 띠배너 */}
-                    <div className="w-[100%]">
+                    <div className="w-full">
                         <KakaoAdFitTopBanner
                             marginTop={16}
                         />
                     </div>
 
-                    <div className="w-[100%] h-px my-[16px] tmd:my-[12px] bg-theme-7 dark:bg-theme-5"></div>
+                    <div className="w-full h-px my-[16px] tmd:my-[12px] bg-theme-7 dark:bg-theme-5"></div>
                 </div>
                 <div className="flex flex-row justify-start items-center mb-[60px] tmd:mb-[48px]">
                     <Link aria-label="source-link" href={font.source_link} target="_blank" rel="noopener noreferrer" className="h-[36px] tmd:h-[32px] flex flex-row justify-center items-center text-[14px] tmd:text-[12px] leading-none text-theme-3 dark:text-theme-blue-1 font-medium dark:border-2 tmd:dark:border dark:border-theme-blue-1 rounded-full px-[20px] mr-[12px] tmd:mr-[8px] cursor-pointer bg-theme-yellow hover:bg-theme-yellow/90 tlg:hover:bg-theme-yellow dark:bg-transparent hover:dark:bg-theme-blue-1/10 tlg:hover:dark:bg-transparent">다운로드 페이지로 이동</Link>
@@ -435,44 +435,44 @@ function DetailPage({params}: any) {
                     : <>
                         <div className="flex flex-col justify-start items-start mb-[60px] tmd:mb-[48px]">
                             <h2 className="text-[20px] tmd:text-[18px] text-theme-3 dark:text-theme-9 font-medium mb-[14px]">웹 폰트 사용하기</h2>
-                            <div className="cdn w-[916px] tlg:w-[100%] h-[48px] tmd:h-[40px] overflow-hidden border-x border-t border-b border-theme-4 dark:border-theme-3/80 rounded-t-[12px] flex flex-row justify-start items-center">
+                            <div className="cdn w-[916px] tlg:w-full h-[48px] tmd:h-[40px] overflow-hidden border-x border-t border-b border-theme-4 dark:border-theme-3/80 rounded-t-[12px] flex flex-row justify-start items-center">
                                 <input onChange={handleWebFont} type="radio" id="cdn_css" name="cdn" value="CSS" className="hidden" defaultChecked/>
-                                <label htmlFor="cdn_css" className="w-[25%] h-[100%] border-r border-theme-8 dark:border-theme-3/80 flex flex-row justify-center items-center text-[14px] tmd:text-[10px] text-theme-3 focused:text-theme-9 dark:text-theme-9 leading-none cursor-pointer">CSS 설정하기</label>
+                                <label htmlFor="cdn_css" className="w-[25%] h-full border-r border-theme-8 dark:border-theme-3/80 flex flex-row justify-center items-center text-[14px] tmd:text-[10px] text-theme-3 focused:text-theme-9 dark:text-theme-9 leading-none cursor-pointer">CSS 설정하기</label>
                                 <input onChange={handleWebFont} type="radio" id="cdn_link" name="cdn" value="link" className="hidden"/>
-                                <label htmlFor="cdn_link" className="w-[25%] h-[100%] border-r border-theme-8 dark:border-theme-3/80 flex flex-row justify-center items-center text-[14px] tmd:text-[10px] text-theme-3 dark:text-theme-9 leading-none cursor-pointer">link 방식</label>
+                                <label htmlFor="cdn_link" className="w-[25%] h-full border-r border-theme-8 dark:border-theme-3/80 flex flex-row justify-center items-center text-[14px] tmd:text-[10px] text-theme-3 dark:text-theme-9 leading-none cursor-pointer">link 방식</label>
                                 <input onChange={handleWebFont} type="radio" id="cdn_import" name="cdn" value="import" className="hidden"/>
-                                <label htmlFor="cdn_import" className="w-[25%] h-[100%] border-r border-theme-8 dark:border-theme-3/80 flex flex-row justify-center items-center text-[14px] tmd:text-[10px] text-theme-3 dark:text-theme-9 leading-none cursor-pointer">import 방식</label>
+                                <label htmlFor="cdn_import" className="w-[25%] h-full border-r border-theme-8 dark:border-theme-3/80 flex flex-row justify-center items-center text-[14px] tmd:text-[10px] text-theme-3 dark:text-theme-9 leading-none cursor-pointer">import 방식</label>
                                 <input onChange={handleWebFont} type="radio" id="cdn_font_face" name="cdn" value="font-face" className="hidden"/>
-                                <label htmlFor="cdn_font_face" className="w-[25%] h-[100%] flex flex-row justify-center items-center text-[14px] tmd:text-[10px] text-theme-3 dark:text-theme-9 leading-none cursor-pointer">font-face 방식</label>
+                                <label htmlFor="cdn_font_face" className="w-[25%] h-full flex flex-row justify-center items-center text-[14px] tmd:text-[10px] text-theme-3 dark:text-theme-9 leading-none cursor-pointer">font-face 방식</label>
                             </div>
-                            <div className="w-[916px] tlg:w-[100%] border-x border-b rounded-b-[12px] border-theme-4 dark:border-theme-blue-2 bg-theme-3 dark:bg-theme-blue-2">
+                            <div className="w-[916px] tlg:w-full border-x border-b rounded-b-[12px] border-theme-4 dark:border-theme-blue-2 bg-theme-3 dark:bg-theme-blue-2">
                                 {
                                     webFont === "CSS"
-                                    ? <div className="w-[100%] relative pl-[24px] tmd:pl-[16px] pr-[60px] overflow-hidden">
-                                        <div className="cdn_pre w-[100%] h-[60px] tmd:h-[48px] flex flex-row justify-start items-center overflow-x-auto"><pre style={{fontFamily:"Spoqa Han Sans Neo"}} className="text-[14px] tmd:text-[12px] text-theme-9">{font.cdn_css}</pre></div>
+                                    ? <div className="w-full relative pl-[24px] tmd:pl-[16px] pr-[60px] overflow-hidden">
+                                        <div className="cdn_pre w-full h-[60px] tmd:h-[48px] flex flex-row justify-start items-center overflow-x-auto"><pre className="font-sans text-[14px] tmd:text-[12px] text-theme-9">{font.cdn_css}</pre></div>
                                         <div className="absolute z-10 right-[16px] tmd:right-[12px] top-[50%] translate-y-[-50%] rounded-[6px] cursor-pointer">
                                             <svg onClick={copyOnClick} className="copy_btn w-[32px] tmd:w-[28px] p-[8px] rounded-[6px] hover:bg-theme-yellow/10 tlg:hover:bg-transparent hover:dark:bg-theme-blue-1/10 tlg:hover:dark:bg-transparent fill-theme-9 hover:fill-theme-yellow tlg:hover:fill-theme-9 dark:fill-theme-7 hover:dark:fill-theme-blue-1 tlg:hover:dark:fill-theme-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/><path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/></svg>
                                             <svg className="copy_chk_btn w-[32px] tmd:w-[28px] p-[8px] rounded-[6px] bg-theme-yellow/10 dark:bg-theme-blue-1/10 fill-theme-yellow dark:fill-theme-blue-1 hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/></svg>
                                         </div>
                                     </div>
                                     : ( webFont === "link"
-                                        ? <div className="w-[100%] relative pl-[24px] tmd:pl-[16px] pr-[60px] overflow-hidden">
-                                            <div className="cdn_pre w-[100%] h-[60px] tmd:h-[48px] flex flex-row justify-start items-center overflow-x-auto"><pre style={{fontFamily:"Spoqa Han Sans Neo"}} className="text-[14px] tmd:text-[12px] text-theme-9">{font.cdn_link}</pre></div>
+                                        ? <div className="w-full relative pl-[24px] tmd:pl-[16px] pr-[60px] overflow-hidden">
+                                            <div className="cdn_pre w-full h-[60px] tmd:h-[48px] flex flex-row justify-start items-center overflow-x-auto"><pre className="font-sans text-[14px] tmd:text-[12px] text-theme-9">{font.cdn_link}</pre></div>
                                             <div className="absolute z-10 right-[16px] tmd:right-[12px] top-[50%] translate-y-[-50%] cursor-pointer">
                                                 <svg onClick={copyOnClick} className="copy_btn w-[32px] tmd:w-[28px] p-[8px] rounded-[6px] hover:bg-theme-yellow/10 tlg:hover:bg-transparent hover:dark:bg-theme-blue-1/10 tlg:hover:dark:bg-transparent fill-theme-9 hover:fill-theme-yellow tlg:hover:fill-theme-9 dark:fill-theme-7 hover:dark:fill-theme-blue-1 tlg:hover:dark:fill-theme-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/><path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/></svg>
                                                 <svg className="copy_chk_btn w-[32px] tmd:w-[28px] p-[8px] rounded-[6px] bg-theme-yellow/10 dark:bg-theme-blue-1/10 fill-theme-yellow dark:fill-theme-blue-1 hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/></svg>
                                             </div>
                                         </div>
                                         : ( webFont === "import"
-                                            ? <div className="w-[100%] relative pl-[24px] tmd:pl-[16px] pr-[60px] overflow-hidden">
-                                                <div className="cdn_pre w-[100%] h-[60px] tmd:h-[48px] flex flex-row justify-start items-center overflow-x-auto"><pre style={{fontFamily:"Spoqa Han Sans Neo"}} className="text-[14px] tmd:text-[12px] text-theme-9">{font.cdn_import}</pre></div>
+                                            ? <div className="w-full relative pl-[24px] tmd:pl-[16px] pr-[60px] overflow-hidden">
+                                                <div className="cdn_pre w-full h-[60px] tmd:h-[48px] flex flex-row justify-start items-center overflow-x-auto"><pre className="font-sans text-[14px] tmd:text-[12px] text-theme-9">{font.cdn_import}</pre></div>
                                                 <div className="absolute z-10 right-[16px] tmd:right-[12px] top-[50%] translate-y-[-50%] cursor-pointer">
                                                     <svg onClick={copyOnClick} className="copy_btn w-[32px] tmd:w-[28px] p-[8px] rounded-[6px] hover:bg-theme-yellow/10 tlg:hover:bg-transparent hover:dark:bg-theme-blue-1/10 tlg:hover:dark:bg-transparent fill-theme-9 hover:fill-theme-yellow tlg:hover:fill-theme-9 dark:fill-theme-7 hover:dark:fill-theme-blue-1 tlg:hover:dark:fill-theme-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/><path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/></svg>
                                                     <svg className="copy_chk_btn w-[32px] tmd:w-[28px] p-[8px] rounded-[6px] bg-theme-yellow/10 dark:bg-theme-blue-1/10 fill-theme-yellow dark:fill-theme-blue-1 hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/></svg>
                                                 </div>
                                             </div>
-                                            : <div className="w-[100%] relative pl-[24px] tmd:pl-[16px] pr-[60px] overflow-hidden">
-                                                <div className="cdn_pre w-[100%] h-[auto] py-[20px] tmd:py-[15px] flex flex-row justify-start items-center overflow-auto whitespace-nowrap"><pre id="cdn-font-face" style={{fontFamily:"Spoqa Han Sans Neo", tabSize:8}} className="font-face text-[14px] tmd:text-[12px] text-theme-9">{font.cdn_font_face}</pre></div>
+                                            : <div className="w-full relative pl-[24px] tmd:pl-[16px] pr-[60px] overflow-hidden">
+                                                <div className="cdn_pre w-full h-[auto] py-[20px] tmd:py-[15px] flex flex-row justify-start items-center overflow-auto whitespace-nowrap"><pre id="cdn-font-face" style={{tabSize: 8}} className="font-sans font-face text-[14px] tmd:text-[12px] text-theme-9">{font.cdn_font_face}</pre></div>
                                                 <div className="absolute z-10 right-[16px] tmd:right-[12px] top-[30px] tmd:top-[24px] translate-y-[-50%] cursor-pointer">
                                                     <svg onClick={copyOnClick} className="copy_btn w-[32px] tmd:w-[28px] p-[8px] rounded-[6px] hover:bg-theme-yellow/10 tlg:hover:bg-transparent hover:dark:bg-theme-blue-1/10 tlg:hover:dark:bg-transparent fill-theme-9 hover:fill-theme-yellow tlg:hover:fill-theme-9 dark:fill-theme-7 hover:dark:fill-theme-blue-1 tlg:hover:dark:fill-theme-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/><path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/></svg>
                                                     <svg className="copy_chk_btn w-[32px] tmd:w-[28px] p-[8px] rounded-[6px] bg-theme-yellow/10 dark:bg-theme-blue-1/10 fill-theme-yellow dark:fill-theme-blue-1 hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/></svg>
@@ -485,13 +485,13 @@ function DetailPage({params}: any) {
                         </div>
                     </>
                 }
-                <div className="max-w-[100%] w-content flex flex-col justify-start items-start mb-[60px] tmd:mb-[48px]">
+                <div className="max-w-full w-max flex flex-col justify-start items-start mb-[60px] tmd:mb-[48px]">
                     <h2 className="text-[20px] tmd:text-[18px] text-theme-3 dark:text-theme-9 font-medium mb-[14px]">폰트 미리보기</h2>
-                    <div className="w-[100%] px-[16px] py-[8px] mb-[16px] border-b border-theme-7 dark:border-theme-5">
-                        <textarea onChange={handleFontWeightChange} onInput={handleHeightChange} placeholder="원하는 문구를 적어보세요..." className="w-[100%] h-[18px] resize-none text-[14px] text-theme-5 dark:text-theme-8 placeholder-theme-5 dark:placeholder-theme-6 leading-tight bg-transparent"/>
+                    <div className="w-full px-[16px] py-[8px] mb-[16px] border-b border-theme-7 dark:border-theme-5">
+                        <textarea onChange={handleFontWeightChange} onInput={handleHeightChange} placeholder="원하는 문구를 적어보세요..." className="w-full h-[18px] resize-none text-[14px] text-theme-5 dark:text-theme-8 placeholder-theme-5 dark:placeholder-theme-6 leading-tight bg-transparent"/>
                     </div>
-                    <div className="font-preview-wrap max-w-[100%] rounded-[12px] pt-[28px] bg-theme-3 dark:bg-theme-blue-2">
-                        <div className="w-[100%] px-[20px] flex flex-row flex-wrap justify-start items-center">
+                    <div className="font-preview-wrap max-w-full rounded-[12px] pt-[28px] bg-theme-3 dark:bg-theme-blue-2">
+                        <div className="w-full px-[20px] flex flex-row flex-wrap justify-start items-center">
                             <div className="flex flex-col justify-center items-start mr-[40px] mb-[16px]">
                                 <div className="flex items-center mb-[8px]">
                                     <p className="text-[14px] text-normal leading-none text-theme-9">
@@ -574,15 +574,15 @@ function DetailPage({params}: any) {
                                 </div>
                             </div>
                         </div>
-                        <div className="w-[100%]">
-                            <div className="w-[100%] h-px mt-[40px] relative bg-theme-5">
+                        <div className="w-full">
+                            <div className="w-full h-px mt-[40px] relative bg-theme-5">
                                 <div className="color-picker absolute z-10 left-[20px] top-[-12px] translate-y-[-100%] flex flex-row gap-[8px]">
                                     <div className="relative z-10">
                                         <input onChange={handleTextColorPickerDisplay} id="text-color-picker" type="checkbox" className="peer hidden"/>
                                         <label htmlFor="text-color-picker" ref={textColorPickerBtn} className="w-[28px] h-[28px] rounded-[4px] relative group flex flex-col justify-center items-center cursor-pointer bg-theme-yellow/80 hover:bg-theme-yellow tlg:hover:bg-theme-yellow/80 dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1/80 hover:drop-shadow-dark tlg:hover:drop-shadow-none">
                                             <svg className="w-[12px] fill-theme-3 dark:fill-theme-blue-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M254 52.8C249.3 40.3 237.3 32 224 32s-25.3 8.3-30 20.8L57.8 416H32c-17.7 0-32 14.3-32 32s14.3 32 32 32h96c17.7 0 32-14.3 32-32s-14.3-32-32-32h-1.8l18-48H303.8l18 48H320c-17.7 0-32 14.3-32 32s14.3 32 32 32h96c17.7 0 32-14.3 32-32s-14.3-32-32-32H390.2L254 52.8zM279.8 304H168.2L224 155.1 279.8 304z"/></svg>
                                             <div style={{background: textColor.hex}} className="w-[16px] h-[2px] mt-[2px]"></div>
-                                            <div className="same-source w-content absolute left-[50%] top-[-38px] text-[13px] font-medium leading-none px-[14px] py-[8px] rounded-[4px] hidden group-hover:block tlg:group-hover:hidden group-hover:animate-fontbox-zoom-in bg-theme-yellow dark:bg-theme-blue-1 text-theme-3 dark:text-theme-blue-2 selection:bg-transparent">폰트색 변경</div>
+                                            <div className="same-source w-max absolute left-[50%] top-[-38px] text-[13px] font-medium leading-none px-[14px] py-[8px] rounded-[4px] hidden group-hover:block tlg:group-hover:hidden group-hover:animate-zoom-in-fontbox bg-theme-yellow dark:bg-theme-blue-1 text-theme-3 dark:text-theme-blue-2 selection:bg-transparent">폰트색 변경</div>
                                         </label>
                                         <div ref={textColorPicker} className="drop-shadow-dark absolute left-0 top-[-8px] translate-y-[-100%]">
                                             {
@@ -596,7 +596,7 @@ function DetailPage({params}: any) {
                                         <label htmlFor="bg-color-picker" ref={bgColorPickerBtn} className="w-[28px] h-[28px] rounded-[4px] relative group flex flex-col justify-center items-center cursor-pointer bg-theme-yellow/80 hover:bg-theme-yellow tlg:hover:bg-theme-yellow/80 dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1/80 hover:drop-shadow-dark tlg:hover:drop-shadow-none">
                                             <svg className="w-[14px] fill-theme-3 dark:fill-theme-blue-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M86.6 9.4C74.1-3.1 53.9-3.1 41.4 9.4s-12.5 32.8 0 45.3L122.7 136 30.6 228.1c-37.5 37.5-37.5 98.3 0 135.8L148.1 481.4c37.5 37.5 98.3 37.5 135.8 0L474.3 290.9c28.1-28.1 28.1-73.7 0-101.8L322.9 37.7c-28.1-28.1-73.7-28.1-101.8 0L168 90.7 86.6 9.4zM168 181.3l49.4 49.4c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L213.3 136l53.1-53.1c3.1-3.1 8.2-3.1 11.3 0L429.1 234.3c3.1 3.1 3.1 8.2 0 11.3L386.7 288H67.5c1.4-5.4 4.2-10.4 8.4-14.6L168 181.3z"/></svg>
                                             <div style={{background: bgColor.hex}} className="w-[16px] h-[2px] mt-[2px]"></div>
-                                            <div className="same-source w-content absolute left-[50%] top-[-38px] text-[13px] font-medium leading-none px-[14px] py-[8px] rounded-[4px] hidden group-hover:block tlg:group-hover:hidden group-hover:animate-fontbox-zoom-in bg-theme-yellow dark:bg-theme-blue-1 text-theme-3 dark:text-theme-blue-2 selection:bg-transparent">배경색 변경</div>
+                                            <div className="same-source w-max absolute left-[50%] top-[-38px] text-[13px] font-medium leading-none px-[14px] py-[8px] rounded-[4px] hidden group-hover:block tlg:group-hover:hidden group-hover:animate-zoom-in-fontbox bg-theme-yellow dark:bg-theme-blue-1 text-theme-3 dark:text-theme-blue-2 selection:bg-transparent">배경색 변경</div>
                                         </label>
                                         <div ref={bgColorPicker} className="drop-shadow-dark absolute left-0 top-[-8px] translate-y-[-100%]">
                                             {
@@ -607,17 +607,17 @@ function DetailPage({params}: any) {
                                     </div>
                                     <button onClick={resetColorPicker} className="w-[28px] h-[28px] rounded-[4px] relative z-20 group flex flex-col justify-center items-center bg-theme-yellow/80 hover:bg-theme-yellow tlg:hover:bg-theme-yellow/80 dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1/80 hover:drop-shadow-dark tlg:hover:drop-shadow-none">
                                         <svg className="w-[14px] group-hover:rotate-[45deg] tlg:group-hover:rotate-0 duration-100" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M142.9 142.9c62.2-62.2 162.7-62.5 225.3-1L327 183c-6.9 6.9-8.9 17.2-5.2 26.2s12.5 14.8 22.2 14.8H463.5c0 0 0 0 0 0H472c13.3 0 24-10.7 24-24V72c0-9.7-5.8-18.5-14.8-22.2s-19.3-1.7-26.2 5.2L413.4 96.6c-87.6-86.5-228.7-86.2-315.8 1C73.2 122 55.6 150.7 44.8 181.4c-5.9 16.7 2.9 34.9 19.5 40.8s34.9-2.9 40.8-19.5c7.7-21.8 20.2-42.3 37.8-59.8zM16 312v7.6 .7V440c0 9.7 5.8 18.5 14.8 22.2s19.3 1.7 26.2-5.2l41.6-41.6c87.6 86.5 228.7 86.2 315.8-1c24.4-24.4 42.1-53.1 52.9-83.7c5.9-16.7-2.9-34.9-19.5-40.8s-34.9 2.9-40.8 19.5c-7.7 21.8-20.2 42.3-37.8 59.8c-62.2 62.2-162.7 62.5-225.3 1L185 329c6.9-6.9 8.9-17.2 5.2-26.2s-12.5-14.8-22.2-14.8H48.4h-.7H40c-13.3 0-24 10.7-24 24z"/></svg>
-                                        <div className="same-source w-content absolute left-[50%] top-[-38px] text-[13px] font-medium leading-none px-[14px] py-[8px] rounded-[4px] hidden group-hover:block tlg:group-hover:hidden group-hover:animate-fontbox-zoom-in bg-theme-yellow dark:bg-theme-blue-1 text-theme-3 dark:text-theme-blue-2 selection:bg-transparent">컬러 리셋하기</div>
+                                        <div className="same-source w-max absolute left-[50%] top-[-38px] text-[13px] font-medium leading-none px-[14px] py-[8px] rounded-[4px] hidden group-hover:block tlg:group-hover:hidden group-hover:animate-zoom-in-fontbox bg-theme-yellow dark:bg-theme-blue-1 text-theme-3 dark:text-theme-blue-2 selection:bg-transparent">컬러 리셋하기</div>
                                     </button>
                                 </div>
                             </div>
                         </div>
-                        <div style={{backgroundColor: bgColor.hex}} className="w-[100%] px-[20px] pt-[28px] pb-[14px] rounded-b-[12px] relative overflow-hidden">
+                        <div style={{backgroundColor: bgColor.hex}} className="w-full px-[20px] pt-[28px] pb-[14px] rounded-b-[12px] relative overflow-hidden">
                             {
                                 font.font_weight[0] === "Y"
                                 ? <>
                                     <div style={{color: textColor.hex, opacity: "0.8"}} className="text-[12px] leading-none mb-[12px]">Thin 100</div>
-                                    <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"100", color: textColor.hex}} className="font-preview w-[100%] pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
+                                    <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"100", color: textColor.hex}} className="font-preview w-full pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
                                 </>
                                 : <></>
                             }
@@ -625,7 +625,7 @@ function DetailPage({params}: any) {
                                 font.font_weight[1] === "Y"
                                 ? <>
                                     <div style={{color: textColor.hex, opacity: "0.8"}} className="text-[12px] leading-none mb-[12px]">ExtraLight 200</div>
-                                    <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"200", color: textColor.hex}} className="font-preview w-[100%] pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
+                                    <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"200", color: textColor.hex}} className="font-preview w-full pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
                                 </>
                                 : <></>
                             }
@@ -633,7 +633,7 @@ function DetailPage({params}: any) {
                                 font.font_weight[2] === "Y"
                                 ? <>
                                     <div style={{color: textColor.hex, opacity: "0.8"}} className="text-[12px] leading-none mb-[12px]">Light 300</div>
-                                    <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"300", color: textColor.hex}} className="font-preview w-[100%] pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
+                                    <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"300", color: textColor.hex}} className="font-preview w-full pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
                                 </>
                                 : <></>
                             }
@@ -641,7 +641,7 @@ function DetailPage({params}: any) {
                                 font.font_weight[3] === "Y"
                                 ? <>
                                     <div style={{color: textColor.hex, opacity: "0.8"}} className="text-[12px] leading-none mb-[12px]">Regular 400</div>
-                                    <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"400", color: textColor.hex}} className="font-preview w-[100%] pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
+                                    <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"400", color: textColor.hex}} className="font-preview w-full pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
                                 </>
                                 : <></>
                             }
@@ -649,7 +649,7 @@ function DetailPage({params}: any) {
                                 font.font_weight[4] === "Y"
                                 ? <>
                                     <div style={{color: textColor.hex, opacity: "0.8"}} className="text-[12px] leading-none mb-[12px]">Medium 500</div>
-                                    <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"500", color: textColor.hex}} className="font-preview w-[100%] pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
+                                    <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"500", color: textColor.hex}} className="font-preview w-full pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
                                 </>
                                 : <></>
                             }
@@ -657,7 +657,7 @@ function DetailPage({params}: any) {
                                 font.font_weight[5] === "Y"
                                 ? <>
                                     <div style={{color: textColor.hex, opacity: "0.8"}} className="text-[12px] leading-none mb-[12px]">SemiBold 600</div>
-                                    <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"600", color: textColor.hex}} className="font-preview w-[100%] pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
+                                    <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"600", color: textColor.hex}} className="font-preview w-full pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
                                 </>
                                 : <></>
                             }
@@ -665,7 +665,7 @@ function DetailPage({params}: any) {
                                 font.font_weight[6] === "Y"
                                 ? <>
                                     <div style={{color: textColor.hex, opacity: "0.8"}} className="text-[12px] leading-none mb-[12px]">Bold 700</div>
-                                    <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"700", color: textColor.hex}} className="font-preview w-[100%] pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
+                                    <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"700", color: textColor.hex}} className="font-preview w-full pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
                                 </>
                                 : <></>
                             }
@@ -673,7 +673,7 @@ function DetailPage({params}: any) {
                                 font.font_weight[7] === "Y"
                                 ? <>
                                     <div style={{color: textColor.hex, opacity: "0.8"}} className="text-[12px] leading-none mb-[12px]">Heavy 800</div>
-                                    <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"800", color: textColor.hex}} className="font-preview w-[100%] pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
+                                    <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"800", color: textColor.hex}} className="font-preview w-full pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
                                 </>
                                 : <></>
                             }
@@ -681,7 +681,7 @@ function DetailPage({params}: any) {
                                 font.font_weight[8] === "Y"
                                 ? <>
                                     <div style={{color: textColor.hex, opacity: "0.8"}} className="text-[12px] leading-none mb-[12px]">Black 900</div>
-                                    <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"900", color: textColor.hex}} className="font-preview w-[100%] pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
+                                    <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"900", color: textColor.hex}} className="font-preview w-full pb-[16px] tlg:pb-[14px] mb-[20px] tlg:mb-[16px]"><DummyText lang={font.lang} text={text} num={params.randomNum}/></pre>
                                 </>
                                 : <></>
                             }
@@ -691,9 +691,9 @@ function DetailPage({params}: any) {
                 <div>
                     <h2 className="text-[20px] tmd:text-[18px] text-theme-3 dark:text-theme-9 font-medium mb-[16px] tmd:mb-[14px]">라이센스 사용 범위</h2>
                     <div className="mb-[80px] tlg:mb-[60px] tmd:mb-[48px]">
-                        <div className="w-[100%] flex flex-row tlg:flex-col justify-between items-stretch tlg:items-start">
-                            <div className="tlg:w-[100%] tlg:mb-[16px] border border-theme-7 dark:border-theme-5">
-                                <table className="tlg:w-[100%] text-left">
+                        <div className="w-full flex flex-row tlg:flex-col justify-between items-stretch tlg:items-start">
+                            <div className="tlg:w-full tlg:mb-[16px] border border-theme-7 dark:border-theme-5">
+                                <table className="tlg:w-full text-left">
                                     <thead className="relative">
                                         <tr className="text-[15px] text-theme-3 dark:text-theme-9 font-medium">
                                             <th className="w-[120px] h-[56px] tlg:w-[100px] text-center">카테고리</th>
@@ -924,19 +924,19 @@ function DetailPage({params}: any) {
                                     </tbody>
                                 </table>
                             </div>
-                            <div className="w-[calc(100%-690px)] tlg:w-[100%] h-[calc(100%-56px)] tlg:h-auto border border-theme-7 dark:border-theme-5">
+                            <div className="w-[calc(100%-690px)] tlg:w-full h-[calc(100%-56px)] tlg:h-auto border border-theme-7 dark:border-theme-5">
                                 <h2 className="relative h-[56px] flex flex-row justify-start items-center text-[15px] text-theme-3 dark:text-theme-9 font-normal leading-none pl-[28px] tlg:pl-[24px] tmd:pl-[20px]">
                                     라이센스 본문
                                     <div className="absolute bottom-0 left-[50%] translate-x-[-50%] w-[calc(100%-40px)] tlg:w-[calc(100%-32px)] tmd:w-[calc(100%-24px)] h-px bg-theme-7 dark:bg-theme-5"></div>
                                 </h2>
-                                <div className="license-wrap w-[100%] h-[612px] tlg:h-[auto] overflow-hidden overflow-y-auto px-[28px] tlg:px-[24px] tmd:px-[20px] py-[12px] tlg:py-[16px]">
-                                    <pre style={{fontFamily: "Spoqa Han Sans Neo"}} id="license" className="text-[15px] tlg:text-[13px] text-theme-3 dark:text-theme-8 leading-loose whitespace-pre-wrap"></pre>
+                                <div className="license-wrap w-full h-[612px] tlg:h-[auto] overflow-hidden overflow-y-auto px-[28px] tlg:px-[24px] tmd:px-[20px] py-[12px] tlg:py-[16px]">
+                                    <pre id="license" className="font-sans text-[15px] tlg:text-[13px] text-theme-3 dark:text-theme-8 leading-loose whitespace-pre-wrap"></pre>
                                 </div>
                             </div>
                         </div>
                         
                         {/* 카카오 애드핏 하단 띠배너 */}
-                        <div className="w-[100%]">
+                        <div className="w-full">
                             <KakaoAdFitBottomBanner
                                 marginTop={16}
                             />
@@ -998,8 +998,8 @@ function DetailPage({params}: any) {
 
 export async function getServerSideProps(ctx: any) {
     try {
-        // 필터링 쿠키 체크
-        const cookieTheme = ctx.req.cookies.theme === undefined ? "dark" : ctx.req.cookies.theme;
+        // 쿠키 체크
+        const { theme } = ctx.req.cookies;
 
         // 디바이스 체크
         const userAgent = ctx.req ? ctx.req.headers['user-agent'] : navigator.userAgent;
@@ -1030,7 +1030,7 @@ export async function getServerSideProps(ctx: any) {
             return {
                 props: {
                     params: {
-                        theme: cookieTheme,
+                        theme: theme ? theme : 'light',
                         userAgent: userAgent,
                         randomNum: randomNum,
                         font: JSON.parse(JSON.stringify(font)), // typescript에서 createdAt은 JSON.parse를 통해 serialized object로 변환 후 params로 보낼 수 있다.

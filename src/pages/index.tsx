@@ -23,8 +23,14 @@ const Index = ({params}: any) => {
     // 디바이스 체크
     const isMac: boolean = params.userAgent.includes("Mac OS") ? true : false
 
-    // 옵션 - "허용 범위" 디폴트: "전체"
+    // states
+    const { theme, source, filter, user, like } = params;
     const [license, setLicense] = useState<string>(params.license);
+    const [lang, setLang] = useState<string>(params.lang);
+    const [type, setType] = useState<string>(params.type);
+    const [sort, setSort] = useState<string>(params.sort);
+    const [text, setText] = useState<string>("");
+    const [searchword, setSearchword] = useState<string>(source);
 
     /** 옵션 - "허용 범위" 클릭 */
     const handleLicenseOptionChange = (e:React.ChangeEvent<HTMLInputElement>) => {
@@ -38,9 +44,6 @@ const Index = ({params}: any) => {
         }
     }
 
-    // 옵션 - "언어 선택" 디폴트: "전체"
-    const [lang, setLang] = useState<string>(params.lang);
-
     /** 옵션 - "언어 선택" 클릭 */
     const handleLangOptionChange = (e:React.ChangeEvent<HTMLInputElement>) => {
         // 쿠키 유효 기간 1년으로 설정
@@ -52,9 +55,6 @@ const Index = ({params}: any) => {
             setLang(e.target.value);
         }
     }
-
-    // 옵션 - "폰트 형태" 디폴트: 전체
-    const [type, setType] = useState<string>(params.type);
 
     /** 옵션 - "폰트 형태" 클릭 */
     const handleTypeOptionChange = (e:React.ChangeEvent<HTMLInputElement>) => {
@@ -68,9 +68,6 @@ const Index = ({params}: any) => {
         }
     }
 
-    // 옵션 - "정렬순" 디폴트: 최신순
-    const [sort, setSort] = useState<string>(params.sort);
-
     /** 옵션 - "정렬순" 클릭 */
     const handleSortOptionChange = (e:React.ChangeEvent<HTMLInputElement>) => {
         // 쿠키 유효 기간 1년으로 설정
@@ -83,12 +80,10 @@ const Index = ({params}: any) => {
         }
     }
 
-    // 텍스트 입력칸 디폴트: 빈 문자열
-    const [text, setText] = useState("");
+    // 텍스트 입력칸
     const handleTextChange = (e:React.ChangeEvent<HTMLInputElement>) => { setText(e.target.value); }
 
     // 폰트 검색 기능
-    const [searchword, setSearchword] = useState(params.source);
     const debouncedSearch = debounce((e) => {
         if (e.target) setSearchword(e.target.value);
         else setSearchword("");
@@ -100,14 +95,14 @@ const Index = ({params}: any) => {
             {/* 헤더 */}
             <Header
                 isMac={isMac}
-                theme={params.theme}
-                user={params.user}
+                theme={theme}
+                user={user}
                 page={"index"}
                 license={license}
                 lang={lang}
                 type={type}
                 sort={sort}
-                source={params.source}
+                source={source}
                 handleTextChange={handleTextChange}
                 handleLicenseOptionChange={handleLicenseOptionChange}
                 handleLangOptionChange={handleLangOptionChange}
@@ -129,9 +124,9 @@ const Index = ({params}: any) => {
                 lang={lang}
                 type={type}
                 sort={sort}
-                user={params.user}
-                like={params.like}
-                filter={params.filter}
+                user={user}
+                like={like}
+                filter={filter}
                 searchword={searchword}
                 text={text}
                 num={999}
@@ -146,16 +141,10 @@ const Index = ({params}: any) => {
 export async function getServerSideProps(ctx: any) {
     try {
         // 쿠키 가져오기
-        const { theme } = ctx.req.cookies;
-        const license = ctx.req.cookies.license === undefined ? "all" : ctx.req.cookies.license;
-        const lang = ctx.req.cookies.lang === undefined ? "all" : ctx.req.cookies.lang;
-        const type = ctx.req.cookies.type === undefined ? "all" : ctx.req.cookies.type;
-        const sort = ctx.req.cookies.sort === undefined ? "date" : ctx.req.cookies.sort;
-        // const theme = ctx.req.cookies.theme === undefined ? "dark" : ctx.req.cookies.theme;
+        const { license, lang, type, sort, theme } = ctx.req.cookies;
 
         // 파라미터 가져오기
-        const source = ctx.query.search === undefined ? "" : ctx.query.search;
-        const filter = ctx.query.filter === undefined ? "" : ctx.query.filter;
+        const { source, filter } = ctx.query;
 
         // 디바이스 체크
         const userAgent = ctx.req ? ctx.req.headers['user-agent'] : navigator.userAgent;
@@ -171,13 +160,13 @@ export async function getServerSideProps(ctx: any) {
         return {
             props: {
                 params: {
-                    license: license,
-                    lang: lang,
-                    type: type,
-                    sort: sort,
+                    license: license ? license : 'all',
+                    lang: lang ? lang : 'all',
+                    type: type ? type : 'all',
+                    sort: sort ? sort : 'date',
                     theme: theme ? theme : 'light',
-                    source: source,
-                    filter: filter,
+                    source: source ? source : '',
+                    filter: filter ? filter : '',
                     userAgent: userAgent,
                     user: session === null ? null : session.user,
                     like: like,

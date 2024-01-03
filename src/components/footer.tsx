@@ -4,7 +4,7 @@ import Link from "next/link";
 export default function Footer () {
     return (
         <>
-            <footer className="w-[100%] h-[76px] tlg:px-[16px] absolute left-0 bottom-0 flex justify-center tlg:justify-start items-center border-t border-theme-7 dark:border-theme-4">
+            <footer className="w-full h-[76px] tlg:px-[16px] absolute left-0 bottom-0 flex justify-center tlg:justify-start items-center border-t border-theme-7 dark:border-theme-4">
                 <div className="flex items-center text-theme-3 dark:text-theme-8">
                     <div className="flex items-center">
                         <div className="w-[32px] tlg:w-[30px] h-[32px] tlg:h-[30px] mr-[12px] tlg:mr-[10px] flex flex-row justify-center items-center rounded-full bg-theme-3 dark:bg-theme-1/80">

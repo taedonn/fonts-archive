@@ -178,16 +178,16 @@ const BugPage = ({params}: any) => {
             />
 
             {/* 메인 */}
-            <div className='w-[100%] flex flex-col justify-center items-center'>
-                <div className='relative max-w-[720px] w-[100%] flex flex-col justify-center items-start my-[100px] tlg:my-[40px]'>
+            <div className='w-full flex flex-col justify-center items-center'>
+                <div className='relative max-w-[720px] w-full flex flex-col justify-center items-start my-[100px] tlg:my-[40px]'>
                     {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
                     <Link href="/admin/bug/list" className="absolute left-0 top-[-80px] tlg:top-[-28px] text-[12px] text-theme-5 hover:text-theme-3 tlg:hover:text-theme-5 dark:text-theme-7 hover:dark:text-theme-9 tlg:hover:dark:text-theme-7 block border-b border-transparent hover:border-theme-3 tlg:border-theme-5 tlg:hover:border-theme-5 hover:dark:border-theme-9 tlg:dark:border-theme-7 tlg:hover:dark:border-theme-7"><div className="inline-block mr-[4px]">&#60;</div> 목록으로 돌아가기</Link>
                     <h2 className='text-[20px] tlg:text-[18px] text-theme-3 dark:text-theme-9 font-medium'>버그 티켓</h2>
                     <div className='text-[12px] text-theme-5 dark:text-theme-6 mt-[4px] mb-[10px] tlg:mb-[8px]'>{timeFormat(issue.issue_created_at) === timeFormat(issue.issue_closed_at) ? timeFormat(issue.issue_created_at) + "에 생성됨" : timeFormat(issue.issue_closed_at) + "에 수정됨"}</div>
-                    <div id="reply-success" className="w-[100%]">
+                    <div id="reply-success" className="w-full">
                         {
                             replySuccess === "success"
-                            ? <div className='w-[100%] h-[40px] px-[10px] mb-[10px] flex flex-row justify-between items-center rounded-[6px] border-[2px] border-theme-yellow dark:border-theme-blue-1/80 text-[12px] text-theme-3 dark:text-theme-9 bg-theme-yellow/40 dark:bg-theme-blue-1/20'>
+                            ? <div className='w-full h-[40px] px-[10px] mb-[10px] flex flex-row justify-between items-center rounded-[6px] border-[2px] border-theme-yellow dark:border-theme-blue-1/80 text-[12px] text-theme-3 dark:text-theme-9 bg-theme-yellow/40 dark:bg-theme-blue-1/20'>
                                 <div className='flex flex-row justify-start items-center'>
                                     <svg className='w-[14px] fill-theme-yellow dark:fill-theme-blue-1/80' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg>
                                     <div className='ml-[6px]'>저장이 완료되었습니다.</div>
@@ -197,7 +197,7 @@ const BugPage = ({params}: any) => {
                                 </div>
                             </div>
                             : replySuccess === "fail"
-                                ? <div className='w-[100%] h-[40px] px-[10px] mb-[10px] flex flex-row justify-between items-center rounded-[6px] border-[2px] border-theme-red/80 text-[12px] text-theme-3 dark:text-theme-9 bg-theme-red/20'>
+                                ? <div className='w-full h-[40px] px-[10px] mb-[10px] flex flex-row justify-between items-center rounded-[6px] border-[2px] border-theme-red/80 text-[12px] text-theme-3 dark:text-theme-9 bg-theme-red/20'>
                                     <div className='flex flex-row justify-start items-center'>
                                         <svg className='w-[14px] fill-theme-red/80' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg>
                                         <div className='ml-[6px]'>저장에 실패했습니다. 잠시 후 다시 시도해 주세요.</div>
@@ -208,30 +208,30 @@ const BugPage = ({params}: any) => {
                                 </div> : <></>
                         }
                     </div>
-                    <div className='w-[100%] p-[20px] rounded-[8px] text-[14px] text-theme-10 dark:text-theme-9 bg-theme-5 dark:bg-theme-3 drop-shadow-default dark:drop-shadow-dark'>
+                    <div className='w-full p-[20px] rounded-[8px] text-[14px] text-theme-10 dark:text-theme-9 bg-theme-5 dark:bg-theme-3 drop-shadow-default dark:drop-shadow-dark'>
                         <label htmlFor="title">제목</label>
-                        <input id="title" defaultValue={issue.issue_title} type="text" disabled className='w-[100%] border-theme-6 dark:border-theme-4 text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] bg-theme-4 dark:bg-theme-2 text-theme-10 dark:text-theme-9 cursor-text'/>
+                        <input id="title" defaultValue={issue.issue_title} type="text" disabled className='w-full border-theme-6 dark:border-theme-4 text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] bg-theme-4 dark:bg-theme-2 text-theme-10 dark:text-theme-9 cursor-text'/>
                         <label htmlFor="email" className="block mt-[20px]">이메일</label>
-                        <input id="email" defaultValue={issue.issue_email} type="text" disabled className='w-[100%] border-theme-6 dark:border-theme-4 text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] bg-theme-4 dark:bg-theme-2 text-theme-10 dark:text-theme-9 cursor-text'/>
+                        <input id="email" defaultValue={issue.issue_email} type="text" disabled className='w-full border-theme-6 dark:border-theme-4 text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] bg-theme-4 dark:bg-theme-2 text-theme-10 dark:text-theme-9 cursor-text'/>
                         <label htmlFor="content" className="block mt-[20px]">내용</label>
-                        <textarea id="content" disabled defaultValue={issue.issue_content} className={`font-edit-textarea w-[100%] h-[196px] resize-none border-theme-6 dark:border-theme-4 bg-theme-4 dark:bg-theme-2 text-theme-10 dark:text-theme-9 text-[12px] mt-[8px] px-[14px] py-[12px] rounded-[8px] border-[2px] cursor-text`}></textarea>
+                        <textarea id="content" disabled defaultValue={issue.issue_content} className={`font-edit-textarea w-full h-[196px] resize-none border-theme-6 dark:border-theme-4 bg-theme-4 dark:bg-theme-2 text-theme-10 dark:text-theme-9 text-[12px] mt-[8px] px-[14px] py-[12px] rounded-[8px] border-[2px] cursor-text`}></textarea>
                         <div className="mt-[20px]">첨부한 이미지</div>
-                        <div className="w-[100%] min-h-[88px] flex items-center px-[16px] mt-[8px] rounded-[8px] border-[2px] border-theme-6 dark:border-theme-4 bg-theme-4 dark:bg-theme-2">
+                        <div className="w-full min-h-[88px] flex items-center px-[16px] mt-[8px] rounded-[8px] border-[2px] border-theme-6 dark:border-theme-4 bg-theme-4 dark:bg-theme-2">
                             {
                                 issue.issue_img_length > 0
-                                ? <div className="w-[100%] flex justify-center items-center gap-x-[10px] my-[16px]">
+                                ? <div className="w-full flex justify-center items-center gap-x-[10px] my-[16px]">
                                     {issue.issue_img_1 !== "null" && <img src={issue.issue_img_1} onClick={handleOnImgFocus} id="img_1" alt="첨부한 이미지 1" className="w-[72px] h-[88px] rounded-[8px] border-[2px] border-theme-6 dark:border-theme-4 object-cover cursor-pointer"/>}
                                     {issue.issue_img_2 !== "null" && <img src={issue.issue_img_2} onClick={handleOnImgFocus} id="img_2" alt="첨부한 이미지 2" className="w-[72px] h-[88px] rounded-[8px] border-[2px] border-theme-6 dark:border-theme-4 object-cover cursor-pointer"/>}
                                     {issue.issue_img_3 !== "null" && <img src={issue.issue_img_3} onClick={handleOnImgFocus} id="img_3" alt="첨부한 이미지 3" className="w-[72px] h-[88px] rounded-[8px] border-[2px] border-theme-6 dark:border-theme-4 object-cover cursor-pointer"/>}
                                     {issue.issue_img_4 !== "null" && <img src={issue.issue_img_4} onClick={handleOnImgFocus} id="img_4" alt="첨부한 이미지 4" className="w-[72px] h-[88px] rounded-[8px] border-[2px] border-theme-6 dark:border-theme-4 object-cover cursor-pointer"/>}
                                     {issue.issue_img_5 !== "null" && <img src={issue.issue_img_5} onClick={handleOnImgFocus} id="img_5" alt="첨부한 이미지 5" className="w-[72px] h-[88px] rounded-[8px] border-[2px] border-theme-6 dark:border-theme-4 object-cover cursor-pointer"/>}
                                 </div> 
-                                : <div className="w-[100%] text-[12px] text-center text-theme-10 dark:text-theme-9 cursor-text">첨부한 이미지가 없습니다.</div>
+                                : <div className="w-full text-[12px] text-center text-theme-10 dark:text-theme-9 cursor-text">첨부한 이미지가 없습니다.</div>
                             }
                         </div>
-                        <div className="w-[100%] h-px my-[28px] bg-theme-8/80 dark:bg-theme-7/80"></div>
+                        <div className="w-full h-px my-[28px] bg-theme-8/80 dark:bg-theme-7/80"></div>
                         <div className="mt-[20px]">해결 여부</div>
-                        <div className="w-content flex items-center text-[12px] mt-[12px] px-[20px] py-[8px] rounded-[8px] bg-theme-4 dark:bg-theme-blue-2">
+                        <div className="w-max flex items-center text-[12px] mt-[12px] px-[20px] py-[8px] rounded-[8px] bg-theme-4 dark:bg-theme-blue-2">
                             <div className={`mr-[4px]`}>해결 중</div>
                             <Switch
                                 checked={issueClosed}
@@ -240,7 +240,7 @@ const BugPage = ({params}: any) => {
                             />
                             <div className={`${issueClosed ? "text-theme-green" : ""} ml-[6px]`}>해결 됨</div>
                         </div>
-                        <button onClick={handleBtnClick} className="w-[100%] h-[34px] rounded-[8px] mt-[20px] font-medium text-[12px] text-theme-3 dark:text-theme-2 bg-theme-yellow/80 hover:bg-theme-yellow dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1">
+                        <button onClick={handleBtnClick} className="w-full h-[34px] rounded-[8px] mt-[20px] font-medium text-[12px] text-theme-3 dark:text-theme-2 bg-theme-yellow/80 hover:bg-theme-yellow dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1">
                             {
                                 isLoading
                                 ? <span className='loader loader-register w-[16px] h-[16px] mt-[2px]'></span>
@@ -254,7 +254,7 @@ const BugPage = ({params}: any) => {
             {/* 이미지 확대 */}
             {
                 isFocused &&
-                <div className="fixed z-40 left-0 top-0 backdrop-blur bg-blur-theme w-[100%] h-[100vh] flex justify-center items-center">
+                <div className="fixed z-40 left-0 top-0 backdrop-blur bg-blur-theme w-full h-[100vh] flex justify-center items-center">
                     <div ref={imgRef} className="relative flex items-center">
                         <button onClick={handleOffImgFocus} className="group w-[40px] tlg:w-[32px] h-[40px] tlg:h-[32px] rounded-full hover:bg-theme-3 tlg:hover:bg-transparent hover:dark:bg-theme-4 tlg:hover:dark:bg-transparent absolute right-[92px] tlg:right-[64px] tsm:right-[40px] top-[-48px] tlg:top-[-40px] flex justify-center items-center">
                             <svg className="w-[28px] tlg:w-[20px] h-[28px] tlg:h-[20px] fill-theme-3 tlg:fill-theme-9 group-hover:fill-theme-9 dark:fill-theme-9" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>
@@ -278,8 +278,8 @@ const BugPage = ({params}: any) => {
 
 export async function getServerSideProps(ctx: any) {
     try {
-        // 필터링 쿠키 체크
-        const cookieTheme = ctx.req.cookies.theme === undefined ? "dark" : ctx.req.cookies.theme;
+        // 쿠키 체크
+        const { theme } = ctx.req.cookies;
 
         // 디바이스 체크
         const userAgent = ctx.req ? ctx.req.headers['user-agent'] : navigator.userAgent;
@@ -301,7 +301,7 @@ export async function getServerSideProps(ctx: any) {
             return {
                 props: {
                     params: {
-                        theme: cookieTheme,
+                        theme: theme ? theme : 'light',
                         userAgent: userAgent,
                         user: session === null ? null : session.user,
                         issue: JSON.parse(JSON.stringify(issue)),

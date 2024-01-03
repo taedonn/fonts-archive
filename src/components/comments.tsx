@@ -495,7 +495,7 @@ export default function Comments (
                 update_reports={updateReports}
             />
 
-            <div className='w-content mb-[12px] flex gap-[8px]'>
+            <div className='w-max mb-[12px] flex gap-[8px]'>
                 <label htmlFor={font.code.toString()} className='cursor-pointer'>
                     {
                         !likedInput
@@ -511,21 +511,21 @@ export default function Comments (
                 </label>
                 <div className="relative">
                     <input onChange={handleShareExpand} type="checkbox" id="share-expand" className="hidden"/>
-                    <label ref={shareExpandBtn} htmlFor="share-expand" className="w-content h-[32px] px-[12px] text-[13px] font-medium flex justify-center items-center cursor-pointer rounded-[6px] selection:bg-transparent text-theme-4 dark:text-theme-9 bg-theme-8 hover:bg-theme-7/80 tlg:hover:bg-theme-8 dark:bg-theme-4/60 hover:dark:bg-theme-4 tlg:dark:hover:bg-theme-4/60">
+                    <label ref={shareExpandBtn} htmlFor="share-expand" className="w-max h-[32px] px-[12px] text-[13px] font-medium flex justify-center items-center cursor-pointer rounded-[6px] selection:bg-transparent text-theme-4 dark:text-theme-9 bg-theme-8 hover:bg-theme-7/80 tlg:hover:bg-theme-8 dark:bg-theme-4/60 hover:dark:bg-theme-4 tlg:dark:hover:bg-theme-4/60">
                         <svg className="w-[12px] mr-[8px] fill-theme-4 dark:fill-theme-9" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M352 224c53 0 96-43 96-96s-43-96-96-96s-96 43-96 96c0 4 .2 8 .7 11.9l-94.1 47C145.4 170.2 121.9 160 96 160c-53 0-96 43-96 96s43 96 96 96c25.9 0 49.4-10.2 66.6-26.9l94.1 47c-.5 3.9-.7 7.8-.7 11.9c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-25.9 0-49.4 10.2-66.6 26.9l-94.1-47c.5-3.9 .7-7.8 .7-11.9s-.2-8-.7-11.9l94.1-47C302.6 213.8 326.1 224 352 224z"/></svg>
                         공유
                     </label>
                     {
                         shareExpand &&
-                        <div ref={shareExpandContent} className="w-content px-[20px] py-[16px] rounded-[8px] absolute left-0 top-[-8px] translate-y-[-100%] bg-theme-8 dark:bg-theme-3">
-                            <div className="w-[100%] rounded-[8px] border-[2px] flex items-center overflow-hidden border-theme-yellow dark:border-theme-blue-1 bg-theme-yellow dark:bg-theme-blue-1">
-                                <input type="text" id="url" defaultValue={`https://fonts.taedonn.com/post/${font.font_family.replaceAll(" ", "+")}`} className="w-[100%] text-[12px] px-[12px] py-[8px] rounded-r-[8px] text-theme-9 dark:text-theme-8 placeholder-theme-7 dark:placeholder-theme-6 bg-theme-3 dark:bg-theme-blue-2 autofill:bg-theme-3 autofill:dark:bg-theme-blue-2"/>
+                        <div ref={shareExpandContent} className="w-max px-[20px] py-[16px] rounded-[8px] absolute left-0 top-[-8px] translate-y-[-100%] bg-theme-8 dark:bg-theme-3">
+                            <div className="w-full rounded-[8px] border-[2px] flex items-center overflow-hidden border-theme-yellow dark:border-theme-blue-1 bg-theme-yellow dark:bg-theme-blue-1">
+                                <input type="text" id="url" defaultValue={`https://fonts.taedonn.com/post/${font.font_family.replaceAll(" ", "+")}`} className="w-full text-[12px] px-[12px] py-[8px] rounded-r-[8px] text-theme-9 dark:text-theme-8 placeholder-theme-7 dark:placeholder-theme-6 bg-theme-3 dark:bg-theme-blue-2 autofill:bg-theme-3 autofill:dark:bg-theme-blue-2"/>
                                 <label onClick={copyUrl} htmlFor="url" className="w-[44px] h-[34px] text-[13px] shrink-0 flex justify-center items-center cursor-pointer font-medium text-theme-3 dark:text-theme-blue-2">
                                     <div className="url_copy_btn selection:bg-transparent">복사</div>
                                     <svg className="url_copy_chk_btn w-[32px] tmd:w-[28px] p-[8px] rounded-[6px] hidden fill-theme-3 dark:fill-theme-blue-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/></svg>
                                 </label>
                             </div>
-                            <div className="w-[100%] h-px bg-theme-5 mt-[10px] mb-[16px]"></div>
+                            <div className="w-full h-px bg-theme-5 mt-[10px] mb-[16px]"></div>
                             <div className="gap-[16px] flex justify-center items-center">
                                 <button onClick={shareKakao} id="share-kakao" className="group text-[11px] flex flex-col justify-center items-center">
                                     <div className="w-[32px] h-[32px] rounded-full overflow-hidden flex justify-center items-center bg-theme-kakao drop-shadow-default dark:drop-shadow-dark">
@@ -541,7 +541,7 @@ export default function Comments (
                                 </button>
                                 <button onClick={shareFacebook} className="group text-[11px] flex flex-col justify-center items-center">
                                     <div className="w-[32px] h-[32px] rounded-full overflow-hidden flex justify-center items-center drop-shadow-default dark:drop-shadow-dark">
-                                        <img src="/logo-facebook.png" alt="페이스북 로고" className="w-[100%]"/>
+                                        <img src="/logo-facebook.png" alt="페이스북 로고" className="w-full"/>
                                     </div>
                                     <div className="w-[42px] mt-[10px] text-center text-theme-5 group-hover:text-theme-3 tlg:group-hover:text-theme-5 dark:text-theme-7 group-hover:dark:text-theme-9 tlg:group-hover:dark:text-theme7">페이스북</div>
                                 </button>
@@ -556,29 +556,29 @@ export default function Comments (
                     }
                 </div>
             </div>
-            <div className="w-[100%] h-px bg-theme-7 dark:bg-theme-5 mb-[20px]"></div>
+            <div className="w-full h-px bg-theme-7 dark:bg-theme-5 mb-[20px]"></div>
             <h2 className="text-[16px] tlg:text-[14px] text-theme-3 dark:text-theme-9 font-medium mb-[16px] tlg:mb-[12px]">댓글 {comments === null ? 0 : comments.length}개</h2>
-            <div className="w-[100%] mb-[38px] tlg:mb-[34px]">
-                <div className="w-[100%] flex">
+            <div className="w-full mb-[38px] tlg:mb-[34px]">
+                <div className="w-full flex">
                     {
                         user === null
                         ? <>
                             <svg className="w-[36px] tlg:w-[32px] h-[36px] tlg:h-[32px] fill-theme-4/80 dark:fill-theme-9/80" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/><path fillRule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/></svg>
-                            <div className="w-[100%] mt-[4px] ml-[16px] tlg:ml-[14px]">
+                            <div className="w-full mt-[4px] ml-[16px] tlg:ml-[14px]">
                                 <div className="text-[14px] text-theme-5 dark:text-theme-6">로그인 후 댓글 이용 가능합니다...</div>
-                                <div className="w-[100%] h-px mt-[4px] bg-theme-7 dark:bg-theme-5"></div>
+                                <div className="w-full h-px mt-[4px] bg-theme-7 dark:bg-theme-5"></div>
                             </div>
                         </>
                         : <>
                             {/* eslint-disable-next-line @next/next/no-img-element */}
                             <img className="w-[40px] tlg:w-[32px] h-[40px] tlg:h-[32px] object-cover rounded-full" src={user.image} referrerPolicy="no-referrer" width={28} height={28} alt="유저 프로필 사진"/>
-                            <div className="w-[100%] flex flex-col mt-[6px] ml-[16px] tlg:ml-[14px]">
-                                <div className={`relative w-[100%] flex items-center pb-[4px] border-b ${commentFocus ? 'border-theme-5 dark:border-theme-7' : 'border-theme-7 dark:border-theme-5'}`}>
-                                    <textarea ref={commentRef} onChange={commentOnChange} onInput={handleHeightChange} onFocus={commentOnFocus} onBlur={commentOnBlur} placeholder="댓글 달기..." className="w-[100%] h-[21px] resize-none text-[14px] tlg:text-[12px] tracking-wide text-theme-5 dark:text-theme-8 placeholder-theme-5 dark:placeholder-theme-6 leading-normal bg-transparent"/>
+                            <div className="w-full flex flex-col mt-[6px] ml-[16px] tlg:ml-[14px]">
+                                <div className={`relative w-full flex items-center pb-[4px] border-b ${commentFocus ? 'border-theme-5 dark:border-theme-7' : 'border-theme-7 dark:border-theme-5'}`}>
+                                    <textarea ref={commentRef} onChange={commentOnChange} onInput={handleHeightChange} onFocus={commentOnFocus} onBlur={commentOnBlur} placeholder="댓글 달기..." className="w-full h-[21px] resize-none text-[14px] tlg:text-[12px] tracking-wide text-theme-5 dark:text-theme-8 placeholder-theme-5 dark:placeholder-theme-6 leading-normal bg-transparent"/>
                                 </div>
                                 {
                                     commentFocus
-                                    ? <div className="flex w-[100%] text-[14px] tlg:text-[12px] text-theme-3 dark:text-theme-9 mt-[12px]">
+                                    ? <div className="flex w-full text-[14px] tlg:text-[12px] text-theme-3 dark:text-theme-9 mt-[12px]">
                                         <button ref={commentBtnRef} onMouseDown={newComment} className={`${commentBtn ? 'comment-enabled text-theme-4 dark:text-theme-blue-2 bg-theme-yellow/80 tlg:bg-theme-yellow hover:bg-theme-yellow dark:bg-theme-blue-1 hover:dark:bg-theme-blue-1/90 tlg:hover:dark:bg-theme-blue-1 cursor-pointer' : 'comment-disabled text-theme-6 bg-theme-8 dark:text-theme-5 dark:bg-theme-3 cursor-default'} w-[56px] tlg:w-[48px] h-[32px] tlg:h-[28px] pb-px rounded-full`}>댓글</button>
                                         <button onMouseDown={commentCancelBtnOnMouseDown} className="w-[56px] tlg:w-[48px] h-[32px] tlg:h-[28px] ml-[8px] rounded-full hover:bg-theme-8 hover:dark:bg-theme-4 tlg:hover:bg-transparent tlg:hover:dark:bg-transparent pb-px">취소</button>
                                     </div> : <></>
@@ -588,15 +588,15 @@ export default function Comments (
                     } 
                 </div>
             </div>
-            <div className="w-[100%] min-h-[120px] mb-[180px] pl-[40px] tlg:pl-0">
+            <div className="w-full min-h-[120px] mb-[180px] pl-[40px] tlg:pl-0">
                 {
                     comments === null || comments.length === 0
-                    ? <div className="w-[100%] text-[14px] text-center text-theme-3 dark:text-theme-8">아직 댓글이 없습니다.</div>
+                    ? <div className="w-full text-[14px] text-center text-theme-3 dark:text-theme-8">아직 댓글이 없습니다.</div>
                     : <>
                         {
                             comments.map((comment: any) => {
                                 return (
-                                    <div key={comment.comment_id} className='w-[100%] text-theme-3 dark:text-theme-10 animate-fontbox-fade-in'>
+                                    <div key={comment.comment_id} className='w-full text-theme-3 dark:text-theme-10 animate-fade-in-fontbox'>
                                         {/* 앵커 포인트 */}
                                         <div id={`c${comment.comment_id}`} className="translate-y-[-80px] tlg:translate-y-[72px]"></div>
                                         
@@ -609,7 +609,7 @@ export default function Comments (
                                             }
                                             {/* eslint-disable-next-line @next/next/no-img-element */}
                                             <img src={comment.user_image} alt="유저 프로필 이미지" className="w-[40px] tlg:w-[32px] h-[40px] tlg:h-[32px] object-cover rounded-full"/>
-                                            <div className="w-[100%] ml-[16px] tlg:ml-[14px]">
+                                            <div className="w-full ml-[16px] tlg:ml-[14px]">
                                                 <div className="flex items-end">
                                                     <div className="text-[15px] tlg:text-[14px] font-medium">{comment.user_auth === "credentials" ? comment.user_name : hideUserName(comment.user_name)}</div>
                                                     {
@@ -650,15 +650,15 @@ export default function Comments (
                                                         ? <div className="text-[14px] tlg:text-[12px] text-theme-6">[삭제된 댓글입니다]</div>
                                                             : comment.is_deleted_by_reports
                                                                 ? <div className="text-[14px] tlg:text-[12px] text-theme-6">[신고로 삭제된 댓글입니다]</div>
-                                                                : <pre style={{fontFamily: "Spoqa Han Sans Neo"}} className="text-[14px] tlg:text-[12px] text-theme-4 dark:text-theme-9">{comment.comment}</pre>
+                                                                : <pre className="font-sans text-[14px] tlg:text-[12px] text-theme-4 dark:text-theme-9">{comment.comment}</pre>
                                                     }
                                                     <input onChange={commentReplyShow} id={`comment-reply-${comment.comment_id}`} type="checkbox" className="hidden peer"/>
                                                     <label htmlFor={`comment-reply-${comment.comment_id}`} className={`${user ? 'block' : 'hidden'} peer-checked:hidden text-[14px] tlg:text-[12px] mt-[12px] tlg:mt-[8px] text-theme-3 dark:text-theme-blue-1 hover:underline tlg:underline hover:dark:text-theme-blue-1 cursor-pointer`}>답글</label>
                                                 </div>
                                                 {/* 댓글 수정 */}
                                                 <div id={`comment-editor-${comment.comment_id}`} className="hidden mt-[8px]">
-                                                    <div className="w-[100%] items-center px-[14px] pt-[10px] pb-[4px] rounded-[8px] bg-theme-8 dark:bg-theme-3">
-                                                        <textarea id={`comment-edit-textarea-${comment.comment_id}`} onChange={commentEditOnChange} onInput={handleHeightChange} onFocus={commentEditOnFocus} placeholder="댓글 수정하기..." defaultValue={comment.comment} className="w-[100%] h-[21px] resize-none text-[14px] tlg:text-[12px] tracking-wide text-theme-4 dark:text-theme-9 placeholder-theme-5 dark:placeholder-theme-6 leading-normal bg-transparent"/>
+                                                    <div className="w-full items-center px-[14px] pt-[10px] pb-[4px] rounded-[8px] bg-theme-8 dark:bg-theme-3">
+                                                        <textarea id={`comment-edit-textarea-${comment.comment_id}`} onChange={commentEditOnChange} onInput={handleHeightChange} onFocus={commentEditOnFocus} placeholder="댓글 수정하기..." defaultValue={comment.comment} className="w-full h-[21px] resize-none text-[14px] tlg:text-[12px] tracking-wide text-theme-4 dark:text-theme-9 placeholder-theme-5 dark:placeholder-theme-6 leading-normal bg-transparent"/>
                                                     </div>
                                                     <div className="flex text-[14px] mt-[12px]">
                                                         <button onClick={editCommentAPIInit} id={`comment-edit-btn-${comment.comment_id}`} className="w-[56px] tlg:w-[48px] h-[32px] tlg:h-[28px] pb-px rounded-full">수정</button>
@@ -669,12 +669,12 @@ export default function Comments (
                                                 {
                                                     user
                                                     ? <div id={`comment-reply-content-${comment.comment_id}`} className="hidden mt-[20px]">
-                                                        <div className="w-[100%] flex">
+                                                        <div className="w-full flex">
                                                             {/* eslint-disable-next-line @next/next/no-img-element */}
                                                             <img src={user.image} alt="유저 프로필 이미지" referrerPolicy="no-referrer" className="w-[40px] tlg:w-[32px] h-[40px] tlg:h-[32px] object-cover rounded-full"/>
-                                                            <div className="w-[100%] ml-[16px] tlg:ml-[14px]">
-                                                                <div className="relative w-[100%] flex items-center pb-[4px] border-b border-theme-5 dark:border-theme-7">
-                                                                    <textarea onInput={handleHeightChange} onChange={commentReplyOnChange} onFocus={commentReplyOnChange} id={`comment-reply-textarea-${comment.comment_id}`} placeholder="답글 달기..." className="w-[100%] h-[21px] resize-none text-[14px] tlg:text-[12px] tracking-wide mt-[6px] text-theme-5 dark:text-theme-8 placeholder-theme-5 dark:placeholder-theme-6 leading-normal bg-transparent"/>
+                                                            <div className="w-full ml-[16px] tlg:ml-[14px]">
+                                                                <div className="relative w-full flex items-center pb-[4px] border-b border-theme-5 dark:border-theme-7">
+                                                                    <textarea onInput={handleHeightChange} onChange={commentReplyOnChange} onFocus={commentReplyOnChange} id={`comment-reply-textarea-${comment.comment_id}`} placeholder="답글 달기..." className="w-full h-[21px] resize-none text-[14px] tlg:text-[12px] tracking-wide mt-[6px] text-theme-5 dark:text-theme-8 placeholder-theme-5 dark:placeholder-theme-6 leading-normal bg-transparent"/>
                                                                 </div>
                                                                 <div className="flex text-[14px] mt-[12px]">
                                                                     <button onClick={replyCommentAPIInit} id={`comment-reply-btn-${comment.comment_id}`} className="edit-btn-disabled w-[56px] tlg:w-[48px] h-[32px] tlg:h-[28px] pb-px rounded-full">답글</button>
@@ -687,7 +687,7 @@ export default function Comments (
                                                 }
                                             </div>
                                         </div>
-                                        <div className="w-[100%] h-px mt-[20px] tlg:mt-[16px] bg-theme-7 dark:bg-theme-5"></div>
+                                        <div className="w-full h-px mt-[20px] tlg:mt-[16px] bg-theme-7 dark:bg-theme-5"></div>
                                     </div>
                                 )
                             })

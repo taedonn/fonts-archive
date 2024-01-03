@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import prisma from '@/libs/client-prisma';
+import prisma from '@/libs/prisma';
 
 export async function FetchComments(code: number) {
     // 댓글 가져오기

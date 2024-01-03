@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import prisma from '@/libs/client-prisma';
+import prisma from '@/libs/prisma';
 
 // SSR 댓글 페이지 수
 export async function FetchCommentsLength(user: any) {

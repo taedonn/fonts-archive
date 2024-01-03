@@ -303,9 +303,9 @@ export default function Header (
 
     return (
         <>
-            <header className="w-[100%]">
-                <div className='interface w-[100%] h-[60px] tlg:h-[52px] px-[32px] tlg:px-[16px] fixed right-0 top-0 z-20 flex flex-row justify-between items-center backdrop-blur bg-theme-9/80 dark:bg-theme-2/80 border-b border-theme-7 dark:border-theme-5'>
-                    <div className="tlg:w-[100%] flex flex-row justify-start items-center">
+            <header className="w-full">
+                <div className='interface w-full h-[60px] tlg:h-[52px] px-[32px] tlg:px-[16px] fixed right-0 top-0 z-20 flex flex-row justify-between items-center backdrop-blur bg-theme-9/80 dark:bg-theme-2/80 border-b border-theme-7 dark:border-theme-5'>
+                    <div className="tlg:w-full flex flex-row justify-start items-center">
                         <Link onClick={reset} href="/" aria-label="logo" className="w-[36px] tlg:w-[32px] h-[36px] tlg:h-[32px] flex flex-row justify-center items-center rounded-[8px] tlg:rounded-[6px] mr-[12px] bg-theme-3 dark:bg-theme-1 hover:drop-shadow-default tlg:hover:drop-shadow-none hover:dark:drop-shadow-dark tlg:hover:dark:drop-shadow-none">
                             <svg className="w-[18px] tlg:w-[16px] pb-px fill-theme-10 dark:fill-theme-9" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="m2.244 13.081.943-2.803H6.66l.944 2.803H8.86L5.54 3.75H4.322L1 13.081h1.244zm2.7-7.923L6.34 9.314H3.51l1.4-4.156h.034zm9.146 7.027h.035v.896h1.128V8.125c0-1.51-1.114-2.345-2.646-2.345-1.736 0-2.59.916-2.666 2.174h1.108c.068-.718.595-1.19 1.517-1.19.971 0 1.518.52 1.518 1.464v.731H12.19c-1.647.007-2.522.8-2.522 2.058 0 1.319.957 2.18 2.345 2.18 1.06 0 1.716-.43 2.078-1.011zm-1.763.035c-.752 0-1.456-.397-1.456-1.244 0-.65.424-1.115 1.408-1.115h1.805v.834c0 .896-.752 1.525-1.757 1.525z"/></svg>
                         </Link>
@@ -313,22 +313,22 @@ export default function Header (
                             page === "index"
                             ? <>
                                 <div className="tlg:w-[calc(100%-56px)] relative group">
-                                    <input onChange={handleTextChange} type='text' placeholder='원하는 문구를 적어보세요...' className="w-[280px] txl:w-[200px] tlg:w-[100%] text-[14px] txl:text-[12px] text-normal placeholder-theme-5 dark:placeholder-theme-6 text-theme-5 dark:text-theme-8 leading-none border rounded-full border-theme-7 dark:border-theme-5 px-[20px] txl:px-[16px] py-[10px] txl:py-[8px] pl-[52px] txl:pl-[38px] bg-transparent group-hover:dark:bg-theme-3/40 tlg:group-hover:bg-transparent focus:dark:bg-theme-3/40 tlg:focus:bg-transparent"/>
+                                    <input onChange={handleTextChange} type='text' placeholder='원하는 문구를 적어보세요...' className="w-[280px] txl:w-[200px] tlg:w-full text-[14px] txl:text-[12px] text-normal placeholder-theme-5 dark:placeholder-theme-6 text-theme-5 dark:text-theme-8 leading-none border rounded-full border-theme-7 dark:border-theme-5 px-[20px] txl:px-[16px] py-[10px] txl:py-[8px] pl-[52px] txl:pl-[38px] bg-transparent group-hover:dark:bg-theme-3/40 tlg:group-hover:bg-transparent focus:dark:bg-theme-3/40 tlg:focus:bg-transparent"/>
                                     <svg className="w-[16px] txl:w-[14px] absolute left-[24px] txl:left-[16px] top-[50%] translate-y-[-50%] fill-theme-5 dark:fill-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="m2.244 13.081.943-2.803H6.66l.944 2.803H8.86L5.54 3.75H4.322L1 13.081h1.244zm2.7-7.923L6.34 9.314H3.51l1.4-4.156h.034zm9.146 7.027h.035v.896h1.128V8.125c0-1.51-1.114-2.345-2.646-2.345-1.736 0-2.59.916-2.666 2.174h1.108c.068-.718.595-1.19 1.517-1.19.971 0 1.518.52 1.518 1.464v.731H12.19c-1.647.007-2.522.8-2.522 2.058 0 1.319.957 2.18 2.345 2.18 1.06 0 1.716-.43 2.078-1.011zm-1.763.035c-.752 0-1.456-.397-1.456-1.244 0-.65.424-1.115 1.408-1.115h1.805v.834c0 .896-.752 1.525-1.757 1.525z"/></svg>
                                 </div>
                             </> : <></>
                         }
                     </div>
-                    <div className='w-content flex flex-row justify-start items-center'>
+                    <div className='w-max flex flex-row justify-start items-center'>
                         {
                             page === "index"
                             ? <>
                                 <div className="flex flex-row justify-end items-center tlg:hidden">
-                                <div className='w-content relative flex flex-row justify-start items-center'>
+                                <div className='w-max relative flex flex-row justify-start items-center'>
                                         <input type='checkbox' id='select-license' onChange={handleLicenseChange} className="select hidden"/>
                                         <label ref={refLicenseSelect} htmlFor='select-license' className="h-[32px] txl:h-[30px] relative flex flex-row justify-center items-center text-[14px] text-theme-3 dark:text-theme-8 leading-none tracking-normal px-[20px] txl:px-[16px] border border-theme-7 dark:border-theme-5 rounded-full cursor-pointer fill-theme-3 dark:fill-theme-8 hover:bg-theme-3 hover:dark:bg-theme-blue-2 hover:border-theme-yellow hover:dark:border-theme-blue-1 hover:text-theme-10 hover:dark:text-theme-9 hover:fill-theme-10 hover:dark:fill-theme-9 hover:drop-shadow-default hover:dark:drop-shadow-dark">
-                                            <div className='w-[100%] h-[100%] absolute z-10'></div>
-                                            <button className="w-[100%] flex flex-row justify-center items-center text-inherit leading-[32px] text-[14px] txl:text-[12px] pt-px">
+                                            <div className='w-full h-full absolute z-10'></div>
+                                            <button className="w-full flex flex-row justify-center items-center text-inherit leading-[32px] text-[14px] txl:text-[12px] pt-px">
                                                 허용 범위
                                                 <svg className="w-[8px] txl:w-[6px] rotate-180 ml-[12px] txl:ml-[8px] fill-inherit" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M7.022 1.566a1.13 1.13 0 0 1 1.96 0l6.857 11.667c.457.778-.092 1.767-.98 1.767H1.144c-.889 0-1.437-.99-.98-1.767L7.022 1.566z"/></svg>
                                             </button>
@@ -400,11 +400,11 @@ export default function Header (
                                             </div>
                                         </div>
                                     </div>
-                                    <div className='w-content relative flex flex-row justify-start items-center ml-[8px] txl:ml-[4px]'>
+                                    <div className='w-max relative flex flex-row justify-start items-center ml-[8px] txl:ml-[4px]'>
                                         <input type='checkbox' id='select-lang' onChange={handleLangChange} className="select hidden"/>
                                         <label ref={refLangSelect} htmlFor='select-lang' className="h-[32px] txl:h-[30px] relative flex flex-row justify-center items-center text-[14px] text-theme-3 dark:text-theme-8 leading-none tracking-normal px-[20px] txl:px-[16px] border border-theme-7 dark:border-theme-5 rounded-full cursor-pointer fill-theme-3 dark:fill-theme-8 hover:bg-theme-3 hover:dark:bg-theme-blue-2 hover:border-theme-yellow hover:dark:border-theme-blue-1 hover:text-theme-10 hover:dark:text-theme-9 hover:fill-theme-10 hover:dark:fill-theme-9 hover:drop-shadow-default hover:dark:drop-shadow-dark">
-                                            <div className='w-[100%] h-[100%] absolute z-10'></div>
-                                            <button className="w-[100%] flex flex-row justify-center items-center text-inherit leading-[32px] text-[14px] txl:text-[12px] pt-px">
+                                            <div className='w-full h-full absolute z-10'></div>
+                                            <button className="w-full flex flex-row justify-center items-center text-inherit leading-[32px] text-[14px] txl:text-[12px] pt-px">
                                                 언어 선택
                                                 <svg className="w-[8px] txl:w-[6px] rotate-180 ml-[12px] txl:ml-[8px] fill-inherit" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M7.022 1.566a1.13 1.13 0 0 1 1.96 0l6.857 11.667c.457.778-.092 1.767-.98 1.767H1.144c-.889 0-1.437-.99-.98-1.767L7.022 1.566z"/></svg>
                                             </button>
@@ -436,11 +436,11 @@ export default function Header (
                                             </div>
                                         </div>
                                     </div>
-                                    <div className='w-content relative flex flex-row justify-start items-center ml-[8px] txl:ml-[4px]'>
+                                    <div className='w-max relative flex flex-row justify-start items-center ml-[8px] txl:ml-[4px]'>
                                         <input type='checkbox' id='select-type' onChange={handleTypeChange} className="select hidden"/>
                                         <label ref={refTypeSelect} htmlFor='select-type' className="h-[32px] txl:h-[30px] relative flex flex-row justify-center items-center text-[14px] text-theme-3 dark:text-theme-8 leading-none px-[20px] txl:px-[16px] border border-theme-7 dark:border-theme-5 rounded-full cursor-pointer fill-theme-3 dark:fill-theme-8 hover:bg-theme-3 hover:dark:bg-theme-blue-2 hover:border-theme-yellow hover:dark:border-theme-blue-1 hover:text-theme-10 hover:dark:text-theme-10/80 hover:fill-theme-10 hover:dark:fill-theme-9 hover:drop-shadow-default hover:dark:drop-shadow-dark">
-                                            <div className='w-[100%] h-[100%] absolute z-10'></div>
-                                            <button className="w-[100%] h-[100%] flex flex-row justify-center items-center text-inherit leading-none text-[14px] txl:text-[12px] pt-px">
+                                            <div className='w-full h-full absolute z-10'></div>
+                                            <button className="w-full h-full flex flex-row justify-center items-center text-inherit leading-none text-[14px] txl:text-[12px] pt-px">
                                                 폰트 형태
                                                 <svg className="w-[8px] txl:w-[6px] rotate-180 ml-[12px] txl:ml-[8px] fill-inherit" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M7.022 1.566a1.13 1.13 0 0 1 1.96 0l6.857 11.667c.457.778-.092 1.767-.98 1.767H1.144c-.889 0-1.437-.99-.98-1.767L7.022 1.566z"/></svg>
                                             </button>
@@ -496,11 +496,11 @@ export default function Header (
                                             </div>
                                         </div>
                                     </div>
-                                    <div className='w-content relative flex flex-row justify-start items-center ml-[8px] txl:ml-[4px]'>
+                                    <div className='w-max relative flex flex-row justify-start items-center ml-[8px] txl:ml-[4px]'>
                                         <input type='checkbox' id='select-sort' onChange={handleSortChange} className="select hidden"/>
                                         <label ref={refSortSelect} htmlFor='select-sort' className="h-[32px] txl:h-[30px] relative flex flex-row justify-center items-center text-[14px] text-theme-3 dark:text-theme-8 leading-none px-[20px] txl:px-[16px] border border-theme-7 dark:border-theme-5 rounded-full cursor-pointer fill-theme-3 dark:fill-theme-8 hover:bg-theme-3 hover:dark:bg-theme-blue-2 hover:border-theme-yellow hover:dark:border-theme-blue-1 hover:text-theme-10 hover:dark:text-theme-9 hover:fill-theme-10 hover:dark:fill-theme-9 hover:drop-shadow-default hover:dark:drop-shadow-dark">
-                                            <div className='w-[100%] h-[100%] absolute z-10'></div>
-                                            <button className="w-[100%] h-[100%] flex flex-row justify-center items-center text-inherit leading-none text-[14px] txl:text-[12px] pt-px">
+                                            <div className='w-full h-full absolute z-10'></div>
+                                            <button className="w-full h-full flex flex-row justify-center items-center text-inherit leading-none text-[14px] txl:text-[12px] pt-px">
                                                 {sort === "like" ? "인기순" : sort === "view" ? "조회순" : sort === "date" ? "최신순" : "이름순"}
                                                 <svg className="w-[8px] txl:w-[6px] rotate-180 ml-[12px] txl:ml-[8px] fill-inherit" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M7.022 1.566a1.13 1.13 0 0 1 1.96 0l6.857 11.667c.457.778-.092 1.767-.98 1.767H1.144c-.889 0-1.437-.99-.98-1.767L7.022 1.566z"/></svg>
                                             </button>
@@ -542,8 +542,8 @@ export default function Header (
                                     </div>
                                     <div className='w-px h-[20px] tlg:h-[16px] rounded-full mx-[10px] tlg:mx-[8px] bg-theme-7 dark:bg-theme-5'></div>
                                 </div>
-                                <div className="group w-content relative tlg:hidden">
-                                    <input onChange={handleSearch} type="text" placeholder="폰트, 회사명을 검색해 보세요..." defaultValue={source} className="w-[280px] txl:w-[200px] tlg:w-[100%] text-[14px] txl:text-[12px] text-normal placeholder-theme-5 dark:placeholder-theme-6 text-theme-5 dark:text-theme-8 leading-none border rounded-full border-theme-7 dark:border-theme-5 px-[20px] txl:px-[16px] py-[10px] txl:py-[8px] pl-[52px] txl:pl-[38px] bg-transparent group-hover:dark:bg-theme-3/40 tlg:group-hover:bg-transparent focus:dark:bg-theme-3/40 tlg:focus:bg-transparent"/>
+                                <div className="group w-max relative tlg:hidden">
+                                    <input onChange={handleSearch} type="text" placeholder="폰트, 회사명을 검색해 보세요..." defaultValue={source} className="w-[280px] txl:w-[200px] tlg:w-full text-[14px] txl:text-[12px] text-normal placeholder-theme-5 dark:placeholder-theme-6 text-theme-5 dark:text-theme-8 leading-none border rounded-full border-theme-7 dark:border-theme-5 px-[20px] txl:px-[16px] py-[10px] txl:py-[8px] pl-[52px] txl:pl-[38px] bg-transparent group-hover:dark:bg-theme-3/40 tlg:group-hover:bg-transparent focus:dark:bg-theme-3/40 tlg:focus:bg-transparent"/>
                                     <svg className="w-[16px] txl:w-[14px] absolute left-[24px] txl:left-[16px] top-[50%] translate-y-[-50%] fill-theme-5 dark:fill-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/></svg>
                                 </div>
                             </> : <></>
@@ -551,7 +551,7 @@ export default function Header (
                         <button onClick={handleFontSearch} className={`${page === "index" ? "hidden tlg:flex" : "flex"} w-[220px] tlg:w-[200px] tmd:w-[32px] h-[32px] tlg:h-[30px] relative text-[14px] tlg:text-[12px] text-normal text-theme-4 dark:text-theme-9 leading-none bg-theme-8 dark:bg-theme-3 flex-start justify-start items-center rounded-[8px] tmd:rounded-[6px] pl-[38px] tlg:pl-[30px] tmd:pl-0 pb-px hover:dark:bg-theme-5 tlg:hover:dark:bg-theme-3 hover:drop-shadow-default hover:dark:drop-shadow-dark tlg:hover:drop-shadow-none tlg:hover:dark:drop-shadow-none`}>
                             <span className="tmd:hidden mt-px">폰트 검색하기...</span>
                             <svg className="w-[12px] tlg:w-[10px] tmd:w-[12px] absolute left-[16px] tlg:left-[12px] tmd:left-[50%] top-[50%] tmd:translate-x-[-50%] translate-y-[-50%] fill-theme-4 dark:fill-theme-9" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/></svg>
-                            <div className="w-content h-[100%] absolute right-[16px] flex flex-row justify-center items-center">
+                            <div className="w-max h-full absolute right-[16px] flex flex-row justify-center items-center">
                                 {
                                     isMac === true
                                     ? <div className="flex flex-row justify-center items-center">
@@ -615,11 +615,11 @@ export default function Header (
                                 {
                                     user === null
                                     ? <>
-                                        <Link href="/user/login" onClick={handleLoginClick} className="w-[100%] h-[28px] flex flex-row justify-center items-center rounded-[8px] mt-[10px] bg-theme-yellow/90 hover:bg-theme-yellow tlg:hover:bg-theme-yellow/90 dark:bg-theme-blue-1/90 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1/90">
+                                        <Link href="/user/login" onClick={handleLoginClick} className="w-full h-[28px] flex flex-row justify-center items-center rounded-[8px] mt-[10px] bg-theme-yellow/90 hover:bg-theme-yellow tlg:hover:bg-theme-yellow/90 dark:bg-theme-blue-1/90 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1/90">
                                             <span className="text-[14px] text-theme-4 dark:text-theme-blue-2 font-medium mt-px">로그인</span>
                                         </Link>
                                     </> : <div className="text-[14px] text-theme-10/80 dark:text-theme-9/80">
-                                        <div className="w-[100%] h-px bg-theme-8/80 dark:bg-theme-7/80 my-[10px]"></div>
+                                        <div className="w-full h-px bg-theme-8/80 dark:bg-theme-7/80 my-[10px]"></div>
                                         <div>{user.name}<span className="text-theme-8/80 dark:text-theme-7/80"> 님,</span></div>
                                         <Link href="/user/info" className="flex flex-row justify-start items-center text-theme-8/80 hover:text-theme-10/80 tlg:hover:text-theme-8/80 dark:text-theme-7/80 hover:dark:text-theme-9/80 tlg:hover:dark:text-theme-7/80 mt-[6px] group">
                                             <svg className="w-[14px] mr-[4px] mb-px fill-theme-8/80 group-hover:fill-theme-10/80 tlg:group-hover:fill-theme-8/80 dark:fill-theme-7/80 group-hover:dark:fill-theme-9/80 tlg:group-hover:dark:fill-theme-7/80" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0ZM8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm0 5.996V14H3s-1 0-1-1 1-4 6-4c.564 0 1.077.038 1.544.107a4.524 4.524 0 0 0-.803.918A10.46 10.46 0 0 0 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h5ZM9 13a1 1 0 0 1 1-1v-1a2 2 0 1 1 4 0v1a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1v-2Zm3-3a1 1 0 0 0-1 1v1h2v-1a1 1 0 0 0-1-1Z"/></svg>
@@ -636,7 +636,7 @@ export default function Header (
                                         {
                                             user.id === 1
                                             ? <>
-                                                <div className="w-[100%] h-px bg-theme-8/80 dark:bg-theme-7/80 my-[10px]"></div>
+                                                <div className="w-full h-px bg-theme-8/80 dark:bg-theme-7/80 my-[10px]"></div>
                                                 <div>관리자<span className="text-theme-8/80 dark:text-theme-7/80"> 기능</span></div>
                                                 <Link href="/admin/font/list" className="flex flex-row justify-start items-center text-theme-8/80 hover:text-theme-10/80 tlg:hover:text-theme-8/80 dark:text-theme-7/80 hover:dark:text-theme-9/80 tlg:hover:dark:text-theme-7/80 mt-[6px] ml-px group">
                                                     <svg className="w-[14px] mr-[4px] mb-px fill-theme-8/80 group-hover:fill-theme-10/80 tlg:group-hover:fill-theme-8/80 dark:fill-theme-7/80 group-hover:dark:fill-theme-9/80 tlg:group-hover:dark:fill-theme-7/80" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="m2.244 13.081.943-2.803H6.66l.944 2.803H8.86L5.54 3.75H4.322L1 13.081h1.244zm2.7-7.923L6.34 9.314H3.51l1.4-4.156h.034zm9.146 7.027h.035v.896h1.128V8.125c0-1.51-1.114-2.345-2.646-2.345-1.736 0-2.59.916-2.666 2.174h1.108c.068-.718.595-1.19 1.517-1.19.971 0 1.518.52 1.518 1.464v.731H12.19c-1.647.007-2.522.8-2.522 2.058 0 1.319.957 2.18 2.345 2.18 1.06 0 1.716-.43 2.078-1.011zm-1.763.035c-.752 0-1.456-.397-1.456-1.244 0-.65.424-1.115 1.408-1.115h1.805v.834c0 .896-.752 1.525-1.757 1.525z"/></svg>
@@ -676,7 +676,7 @@ export default function Header (
                                                 </Link>
                                             </> : <></>
                                         }
-                                        <button onClick={handleLogout} className="w-[100%] h-[28px] flex flex-row justify-center items-center rounded-[8px] mt-[12px] bg-theme-yellow/90 hover:bg-theme-yellow tlg:hover:bg-theme-yellow/90 dark:bg-theme-blue-1/90 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1/90">
+                                        <button onClick={handleLogout} className="w-full h-[28px] flex flex-row justify-center items-center rounded-[8px] mt-[12px] bg-theme-yellow/90 hover:bg-theme-yellow tlg:hover:bg-theme-yellow/90 dark:bg-theme-blue-1/90 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1/90">
                                             <span className="text-theme-3 dark:text-theme-blue-2 font-medium mt-px">로그아웃</span>
                                         </button>
                                     </div>

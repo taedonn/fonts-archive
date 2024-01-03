@@ -225,19 +225,19 @@ const Register = ({params}: any) => {
             />
 
             {/* 메인 */}
-            <div className='w-[100%] flex flex-col justify-center items-center'>
+            <div className='w-full flex flex-col justify-center items-center'>
                 <div className='w-[360px] flex flex-col justify-center items-start my-[100px] tlg:my-[40px]'>
                     <h2 className='text-[20px] tlg:text-[18px] text-theme-3 dark:text-theme-9 font-medium mb-[12px] tlg:mb-[8px]'>회원가입</h2>
-                    <form onSubmit={e => e.preventDefault()} id='register-form' className='w-[100%] p-[20px] rounded-[8px] text-theme-10 dark:text-theme-9 bg-theme-5 dark:bg-theme-3 drop-shadow-default dark:drop-shadow-dark'>
+                    <form onSubmit={e => e.preventDefault()} id='register-form' className='w-full p-[20px] rounded-[8px] text-theme-10 dark:text-theme-9 bg-theme-5 dark:bg-theme-3 drop-shadow-default dark:drop-shadow-dark'>
                         <label htmlFor='name' className='block text-[14px] ml-px'>이름</label>
-                        <input onChange={handleNameChange} type='text' id='name' tabIndex={1} autoComplete='on' placeholder='홍길동' className={`${nameChk === '' ? 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' : 'border-theme-red focus:border-theme-red dark:border-theme-red focus:dark:border-theme-red'} w-[100%] text-[14px] mt-[6px] px-[14px] py-[8px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
+                        <input onChange={handleNameChange} type='text' id='name' tabIndex={1} autoComplete='on' placeholder='홍길동' className={`${nameChk === '' ? 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' : 'border-theme-red focus:border-theme-red dark:border-theme-red focus:dark:border-theme-red'} w-full text-[14px] mt-[6px] px-[14px] py-[8px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
                         {
                             nameChk === ''
                             ? <></>
                             : <span className='block text-[12px] text-theme-red mt-[4px] ml-[16px]'>이름을 입력해 주세요.</span>
                         }
                         <label htmlFor='id' className='block text-[14px] ml-px mt-[24px]'>이메일</label>
-                        <input onChange={handleIdChange} type='text' id='id' tabIndex={2} autoComplete='on' placeholder='example@example.com' className={`${idChk === '' ? 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' : 'border-theme-red focus:border-theme-red dark:border-theme-red focus:dark:border-theme-red'} w-[100%] text-[14px] mt-[6px] px-[14px] py-[8px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
+                        <input onChange={handleIdChange} type='text' id='id' tabIndex={2} autoComplete='on' placeholder='example@example.com' className={`${idChk === '' ? 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' : 'border-theme-red focus:border-theme-red dark:border-theme-red focus:dark:border-theme-red'} w-full text-[14px] mt-[6px] px-[14px] py-[8px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
                         {
                             idChk === ''
                             ? <></>
@@ -252,8 +252,8 @@ const Register = ({params}: any) => {
                                 )
                             )
                         }
-                        <label htmlFor='pw' className='w-[100%] flex flex-row justify-between items-center text-[14px] ml-px mt-[24px]'>비밀번호</label>
-                        <input onChange={handlePwChange} type='password' id='pw' tabIndex={3} autoComplete='on' placeholder='영문, 숫자, 특수문자 포함 8~20자' className={`${pwChk === '' ? 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' : 'border-theme-red focus:border-theme-red dark:border-theme-red focus:dark:border-theme-red'} w-[100%] text-[14px] mt-[6px] px-[14px] py-[8px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2`}/>
+                        <label htmlFor='pw' className='w-full flex flex-row justify-between items-center text-[14px] ml-px mt-[24px]'>비밀번호</label>
+                        <input onChange={handlePwChange} type='password' id='pw' tabIndex={3} autoComplete='on' placeholder='영문, 숫자, 특수문자 포함 8~20자' className={`${pwChk === '' ? 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' : 'border-theme-red focus:border-theme-red dark:border-theme-red focus:dark:border-theme-red'} w-full text-[14px] mt-[6px] px-[14px] py-[8px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2`}/>
                         {
                             pwChk === ''
                             ? <></>
@@ -262,7 +262,7 @@ const Register = ({params}: any) => {
                                 : <span className='block text-[12px] text-theme-red mt-[4px] ml-[16px]'>비밀번호 형식이 올바르지 않습니다.</span>
                             )
                         }
-                        <input onChange={handlePwConfirmChange} type='password' id='pw-confirm' tabIndex={4} autoComplete='on' placeholder='비밀번호 재입력' className={`${pwConfirmChk === '' ? 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' : 'border-theme-red focus:border-theme-red dark:border-theme-red focus:dark:border-theme-red'} w-[100%] text-[14px] mt-[6px] px-[14px] py-[8px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2`}/>
+                        <input onChange={handlePwConfirmChange} type='password' id='pw-confirm' tabIndex={4} autoComplete='on' placeholder='비밀번호 재입력' className={`${pwConfirmChk === '' ? 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' : 'border-theme-red focus:border-theme-red dark:border-theme-red focus:dark:border-theme-red'} w-full text-[14px] mt-[6px] px-[14px] py-[8px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2`}/>
                         {
                             pwConfirmChk === ''
                             ? <></>
@@ -271,10 +271,10 @@ const Register = ({params}: any) => {
                                 : <span className='block text-[12px] text-theme-red mt-[4px] ml-[16px]'>비밀번호가 일치하지 않습니다.</span>
                             )
                         }
-                        <div className='w-[100%] h-px my-[24px] bg-theme-4/80 dark:bg-theme-blue-2/80'></div>
+                        <div className='w-full h-px my-[24px] bg-theme-4/80 dark:bg-theme-blue-2/80'></div>
                         {
                             alertDisplay === true
-                                && <div className='w-[100%] h-[32px] px-[10px] mb-[8px] flex flex-row justify-between items-center rounded-[6px] border-[2px] border-theme-red/80 dark:border-theme-red/60 text-[12px] text-theme-10 dark:text-theme-9 bg-theme-red/20'>
+                                && <div className='w-full h-[32px] px-[10px] mb-[8px] flex flex-row justify-between items-center rounded-[6px] border-[2px] border-theme-red/80 dark:border-theme-red/60 text-[12px] text-theme-10 dark:text-theme-9 bg-theme-red/20'>
                                     <div className='flex flex-row justify-start items-center'>
                                         <svg className='w-[14px] fill-theme-red/80 dark:fill-theme-red/60' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg>
                                         <div className='ml-[6px]'>약관에 동의해 주세요.</div>
@@ -284,8 +284,8 @@ const Register = ({params}: any) => {
                                     </div>
                                 </div>
                         }
-                        <div className='w-[100%] flex flex-col justify-start items-start'>
-                            <div className='w-[100%] flex flex-row justify-between items-center'>
+                        <div className='w-full flex flex-col justify-start items-start'>
+                            <div className='w-full flex flex-row justify-between items-center'>
                                 <div className='flex flex-row justify-start items-center'>
                                     <input onChange={handleTermsChange} type='checkbox' id='terms-check' className='hidden'/>
                                     <label htmlFor='terms-check' className='w-[20px] h-[20px] flex flex-row justify-center items-center cursor-pointer'>
@@ -296,7 +296,7 @@ const Register = ({params}: any) => {
                                 </div>
                                 <Link href="/terms" target='_blank' rel="noopener noreferrer" className='text-[12px] text-theme-6 dark:text-theme-7 flex flex-row justify-center items-center hover:underline tlg:hover:no-underline'>전문보기</Link>
                             </div>
-                            <div className='w-[100%] flex flex-row justify-between items-center mt-[8px]'>
+                            <div className='w-full flex flex-row justify-between items-center mt-[8px]'>
                                 <div className='flex flex-row justify-start items-center'>
                                     <input onChange={handlePrivacyChange} type='checkbox' id='privacy-check' className='hidden'/>
                                     <label htmlFor='privacy-check' className='w-[20px] h-[20px] flex flex-row justify-center items-center cursor-pointer'>
@@ -308,7 +308,7 @@ const Register = ({params}: any) => {
                                 <Link href="/privacy" target='_blank' rel="noopener noreferrer" className='text-[12px] text-theme-6 dark:text-theme-7 flex flex-row justify-center items-center hover:underline tlg:hover:no-underline'>전문보기</Link>
                             </div>
                         </div>
-                        <button onClick={handleOnSubmit} className='w-[100%] h-[40px] rounded-[8px] mt-[24px] flex flex-row justify-center items-center text-[14px] font-medium text-theme-4 dark:text-theme-blue-2 bg-theme-yellow/80 hover:bg-theme-yellow tlg:hover:bg-theme-yellow/80 dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1/80'>
+                        <button onClick={handleOnSubmit} className='w-full h-[40px] rounded-[8px] mt-[24px] flex flex-row justify-center items-center text-[14px] font-medium text-theme-4 dark:text-theme-blue-2 bg-theme-yellow/80 hover:bg-theme-yellow tlg:hover:bg-theme-yellow/80 dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1/80'>
                             {
                                 isLoading === true
                                 ? <span className='loader loader-register w-[18px] h-[18px]'></span>
@@ -327,8 +327,8 @@ const Register = ({params}: any) => {
 
 export async function getServerSideProps(ctx: any) {
     try {
-        // 필터링 쿠키 체크
-        const cookieTheme = ctx.req.cookies.theme === undefined ? "dark" : ctx.req.cookies.theme;
+        // 쿠키 체크
+        const { theme } = ctx.req.cookies;
 
         // 디바이스 체크
         const userAgent = ctx.req ? ctx.req.headers['user-agent'] : navigator.userAgent;
@@ -340,7 +340,7 @@ export async function getServerSideProps(ctx: any) {
             return {
                 props: {
                     params: {
-                        theme: cookieTheme,
+                        theme: theme ? theme : 'light',
                         userAgent: userAgent,
                     }
                 }

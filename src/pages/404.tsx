@@ -13,7 +13,7 @@ export default function Custom404() {
     
     return (
         <>
-            <div className="w-[100%] h-[100%] absolute left-0 top-0 flex flex-col justify-center items-center text-center text-theme-3 dark:text-theme-9">
+            <div className="w-full h-full absolute left-0 top-0 flex flex-col justify-center items-center text-center text-theme-3 dark:text-theme-9">
                 <div className="text-[28px] font-medium">
                     권한이 없거나 <br/>
                     존재하지 않는 페이지입니다.

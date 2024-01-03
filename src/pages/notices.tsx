@@ -97,8 +97,8 @@ const Notices = ({params}: any) => {
             <Tooltip/>
 
             {/* 메인 */}
-            <div className='w-[100%] flex flex-col justify-center items-center py-[60px]'>
-                <div className='notices w-[720px] tmd:w-[100%] flex flex-col justify-center items-start'>
+            <div className='w-full flex flex-col justify-center items-center py-[60px]'>
+                <div className='notices w-[720px] tmd:w-full flex flex-col justify-center items-start'>
                     <div className='flex items-center mb-[16px]'>
                         <h2 className='text-[22px] text-theme-3 dark:text-theme-9 font-medium'>공지사항</h2>
                         <h3 className='text-[14px] ml-[14px] text-theme-5 dark:text-theme-7'>폰트 업데이트 & 소식</h3>
@@ -124,13 +124,13 @@ const Notices = ({params}: any) => {
                     {
                         notices && notices.length > 0
                         ?  notices.map((notice: notices) => {
-                            return <div key={notice.notice_id.toString()} className='notice w-[100%] flex flex-col'>
+                            return <div key={notice.notice_id.toString()} className='notice w-full flex flex-col'>
                                 <input type='checkbox' id={`notice-${notice.notice_id}`} className='hidden peer/expand'/>
                                 <label htmlFor={`notice-${notice.notice_id}`} className='cursor-pointer hover:bg-theme-7/20 hover:dark:bg-theme-5/20'>
-                                    <div className='w-[100%] h-[56px] text-[14px] flex justify-between items-center border-t text-theme-3 dark:text-theme-9 border-theme-7 dark:border-theme-5'>
+                                    <div className='w-full h-[56px] text-[14px] flex justify-between items-center border-t text-theme-3 dark:text-theme-9 border-theme-7 dark:border-theme-5'>
                                         <div className='flex items-center'>
                                             <div className='w-[100px] tlg:w-[80px] shrink-0 flex justify-center items-center'><div className='px-[4px] border-b-[2px] dark:border-theme-blue-1'>{notice.notice_type === "service" ? "서비스" : "폰트"}</div></div>
-                                            <div className='w-[100%] ml-[12px]'><div className='font-size'>{notice.notice_title}</div></div>
+                                            <div className='w-full ml-[12px]'><div className='font-size'>{notice.notice_title}</div></div>
                                         </div>
                                         <div className='flex items-center mr-[20px]'>
                                             <div className='w-[80px] text-theme-5 dark:text-theme-7'>{dateFormat(notice.notice_created_at)}</div>
@@ -138,10 +138,10 @@ const Notices = ({params}: any) => {
                                         </div>
                                     </div>
                                 </label>
-                                <pre className='w-[100%] h-0 whitespace-pre-wrap peer-checked/expand:h-[auto] px-[32px] peer-checked/expand:py-[20px] text-[14px] duration-100 flex items-center overflow-hidden peer-checked/expand:border-t border-theme-7 dark:border-theme-5 text-theme-3 dark:text-theme-9 bg-theme-7/20 dark:bg-theme-5/20'>{notice.notice_content}</pre>
+                                <pre className='w-full h-0 whitespace-pre-wrap peer-checked/expand:h-[auto] px-[32px] peer-checked/expand:py-[20px] text-[14px] duration-100 flex items-center overflow-hidden peer-checked/expand:border-t border-theme-7 dark:border-theme-5 text-theme-3 dark:text-theme-9 bg-theme-7/20 dark:bg-theme-5/20'>{notice.notice_content}</pre>
                             </div>
                         })
-                        : <div className='w-[100%] h-[68px] text-[14px] flex justify-center items-center text-center border-t border-theme-7 dark:border-theme-5 text-theme-3 dark:text-theme-9'>공지사항을 찾을 수 없습니다.</div>
+                        : <div className='w-full h-[68px] text-[14px] flex justify-center items-center text-center border-t border-theme-7 dark:border-theme-5 text-theme-3 dark:text-theme-9'>공지사항을 찾을 수 없습니다.</div>
                     }
                 </div>
             </div>
@@ -154,8 +154,8 @@ const Notices = ({params}: any) => {
 
 export async function getServerSideProps(ctx: any) {
     try {
-        // 필터링 쿠키 체크
-        const cookieTheme = ctx.req.cookies.theme === undefined ? "dark" : ctx.req.cookies.theme;
+        // 쿠키 체크
+        const { theme } = ctx.req.cookies;
 
         // 디바이스 체크
         const userAgent = ctx.req ? ctx.req.headers['user-agent'] : navigator.userAgent;
@@ -169,7 +169,7 @@ export async function getServerSideProps(ctx: any) {
         return {
             props: {
                 params: {
-                    theme: cookieTheme,
+                    theme: theme ? theme : 'light',
                     userAgent: userAgent,
                     user: session === null ? null : session.user,
                     notices: JSON.parse(JSON.stringify(notices)),

@@ -393,17 +393,17 @@ const IssueBug = ({params}: any) => {
             <div style={{width: `${progress}%`}} className="h-[3px] bg-theme-yellow dark:bg-theme-blue-1 fixed z-30 left-0 top-0 duration-300 ease-out"></div>
 
             {/* 메인 */}
-            <div className='w-[100%] flex flex-col justify-center items-center'>
-                <div className='max-w-[720px] w-[100%] flex flex-col justify-center items-start my-[100px] tlg:my-[40px]'>
+            <div className='w-full flex flex-col justify-center items-center'>
+                <div className='max-w-[720px] w-full flex flex-col justify-center items-start my-[100px] tlg:my-[40px]'>
                     <h2 className='text-[20px] tlg:text-[18px] text-theme-3 dark:text-theme-9 font-medium mb-[6px]'>버그 리포트</h2>
                     <h3 className='text-[13px] text-theme-5 dark:text-theme-7 mb-[12px]'>
                         버그를 발견하셨다면 제보해 주세요! 운영에 많은 도움이 됩니다.
                     </h3>
-                    <div id="is-issued" className="w-[100%]">
+                    <div id="is-issued" className="w-full">
                         {
                             isIssued === "success"
                             ? <>
-                                <div className='w-[100%] h-[40px] px-[10px] mb-[10px] flex flex-row justify-between items-center rounded-[6px] border-[2px] border-theme-yellow dark:border-theme-blue-1/80 text-[12px] text-theme-3 dark:text-theme-9 bg-theme-yellow/40 dark:bg-theme-blue-1/20'>
+                                <div className='w-full h-[40px] px-[10px] mb-[10px] flex flex-row justify-between items-center rounded-[6px] border-[2px] border-theme-yellow dark:border-theme-blue-1/80 text-[12px] text-theme-3 dark:text-theme-9 bg-theme-yellow/40 dark:bg-theme-blue-1/20'>
                                     <div className='flex flex-row justify-start items-center'>
                                         <svg className='w-[14px] fill-theme-yellow dark:fill-theme-blue-1/80' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg>
                                         <div className='ml-[6px]'>이상 현상을 제보해주셔서 감사합니다. 빠른 시일 내에 해결할 수 있도록 노력하겠습니다.</div>
@@ -415,7 +415,7 @@ const IssueBug = ({params}: any) => {
                             </>
                             : isIssued === "fail"
                                 ? <>
-                                    <div className='w-[100%] h-[40px] px-[10px] mb-[10px] flex flex-row justify-between items-center rounded-[6px] border-[2px] border-theme-red/80 text-[12px] text-theme-3 dark:text-theme-9 bg-theme-red/20'>
+                                    <div className='w-full h-[40px] px-[10px] mb-[10px] flex flex-row justify-between items-center rounded-[6px] border-[2px] border-theme-red/80 text-[12px] text-theme-3 dark:text-theme-9 bg-theme-red/20'>
                                         <div className='flex flex-row justify-start items-center'>
                                             <svg className='w-[14px] fill-theme-red/80' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg>
                                             <div className='ml-[6px]'>제보에 실패했습니다. 잠시 후 다시 시도해 주세요.</div>
@@ -427,17 +427,17 @@ const IssueBug = ({params}: any) => {
                                 </> : <></>
                         }
                     </div>
-                    <div className='w-[100%] p-[20px] rounded-[8px] text-theme-10 dark:text-theme-9 bg-theme-5 dark:bg-theme-3 drop-shadow-default dark:drop-shadow-dark'>
+                    <div className='w-full p-[20px] rounded-[8px] text-theme-10 dark:text-theme-9 bg-theme-5 dark:bg-theme-3 drop-shadow-default dark:drop-shadow-dark'>
                         <div className="text-[14px] flex flex-col">
                             <label htmlFor="title">제목</label>
-                            <input onChange={handleTitleChange} placeholder="제목을 입력해 주세요." id="title" tabIndex={1} type="text" className={`w-[100%] ${titleAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
+                            <input onChange={handleTitleChange} placeholder="제목을 입력해 주세요." id="title" tabIndex={1} type="text" className={`w-full ${titleAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
                             {
                                 titleAlert
                                 ? <div className="text-[10px] ml-[16px] mt-[6px] text-theme-red">제목을 입력해 주세요.</div>
                                 : <></>
                             }
                             <label htmlFor="email" className="mt-[20px]">이메일</label>
-                            <input onChange={handleEmailChange} placeholder="이메일을 입력해 주세요." id="email" tabIndex={2} type="text" className={`w-[100%] ${emailAlert || emailValid ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
+                            <input onChange={handleEmailChange} placeholder="이메일을 입력해 주세요." id="email" tabIndex={2} type="text" className={`w-full ${emailAlert || emailValid ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
                             {
                                 emailAlert && !emailValid
                                 ? <div className="text-[10px] ml-[16px] mt-[6px] text-theme-red">이메일을 입력해 주세요.</div>
@@ -446,14 +446,14 @@ const IssueBug = ({params}: any) => {
                                     : <></>
                             }
                             <label htmlFor="content" className="mt-[20px]">내용</label>
-                            <textarea onChange={handleContentChange} placeholder="내용은 최대한 자세하게 적어주세요." id="content" tabIndex={3} className={`font-edit-textarea w-[100%] h-[200px] resize-none ${contentAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-[12px] mt-[8px] px-[14px] py-[12px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}></textarea>
+                            <textarea onChange={handleContentChange} placeholder="내용은 최대한 자세하게 적어주세요." id="content" tabIndex={3} className={`font-edit-textarea w-full h-[200px] resize-none ${contentAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-[12px] mt-[8px] px-[14px] py-[12px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}></textarea>
                             {
                                 contentAlert
                                 ? <div className="text-[10px] ml-[16px] mt-[6px] text-theme-red">내용을 입력해 주세요.</div>
                                 : <></>
                             }
                             <div 
-                                className={`${isDragging ? "border-theme-yellow dark:border-theme-blue-1 bg-theme-yellow/20 dark:bg-theme-blue-1/20 duration-100" : "border-theme-7 dark:border-theme-5 bg-transparent dark:bg-transparent duration-0"} w-[100%] mt-[16px] p-[24px] rounded-[8px] flex flex-col justify-center items-center gap-x-[10px] border`}
+                                className={`${isDragging ? "border-theme-yellow dark:border-theme-blue-1 bg-theme-yellow/20 dark:bg-theme-blue-1/20 duration-100" : "border-theme-7 dark:border-theme-5 bg-transparent dark:bg-transparent duration-0"} w-full mt-[16px] p-[24px] rounded-[8px] flex flex-col justify-center items-center gap-x-[10px] border`}
                                 onDragEnter={onDragEnter}
                                 onDragLeave={onDragLeave}
                                 onDragOver={onDragOver}
@@ -465,11 +465,11 @@ const IssueBug = ({params}: any) => {
                                 <div className="text-[12px] mt-[4px] text-theme-9 dark:text-theme-7">또는 첨부할 파일을 드래그해서 추가할 수 있습니다.</div>
                                 {
                                     imgs.length > 0
-                                    ? <div className="w-[100%] mt-[20px] p-[12px] border border-theme-7 dark:border-theme-5 rounded-[8px] flex justify-center gap-x-[10px]">
+                                    ? <div className="w-full mt-[20px] p-[12px] border border-theme-7 dark:border-theme-5 rounded-[8px] flex justify-center gap-x-[10px]">
                                         {
                                             imgs.map((img: any, index: number) => {
                                                 return (
-                                                    <div className="w-content relative" key={img.index}>
+                                                    <div className="w-max relative" key={img.index}>
                                                         {/* eslint-disable-next-line @next/next/no-img-element */}
                                                         <img src={img.src} alt="preview-img" className="w-[72px] h-[88px] rounded-[8px] object-cover"/> 
                                                         <button onClick={() => deleteImg(img.index, index)} className="w-[24px] h-[24px] rounded-full absolute right-[-6px] top-[-6px] flex items-center bg-theme-3 dark:bg-theme-blue-2">
@@ -484,7 +484,7 @@ const IssueBug = ({params}: any) => {
                             </div>
                             {
                                 imgAlert
-                                ? <div className='w-[100%] h-[40px] px-[10px] mt-[10px] flex flex-row justify-between items-center rounded-[6px] border-[2px] border-theme-red text-[12px] text-theme-9 bg-theme-red/20'>
+                                ? <div className='w-full h-[40px] px-[10px] mt-[10px] flex flex-row justify-between items-center rounded-[6px] border-[2px] border-theme-red text-[12px] text-theme-9 bg-theme-red/20'>
                                     <div className='flex flex-row justify-start items-center'>
                                         <svg className='w-[14px] fill-theme-red' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg>
                                         <div className='ml-[6px]'>파일은 최대 5개까지만 올릴 수 있습니다.</div>
@@ -495,16 +495,16 @@ const IssueBug = ({params}: any) => {
                                 </div>
                                 : <></>
                             }
-                            <div className='w-[100%] flex justify-start items-center mt-[12px] text-[12px] text-theme-8 dark:text-theme-7'>
+                            <div className='w-full flex justify-start items-center mt-[12px] text-[12px] text-theme-8 dark:text-theme-7'>
                                 <svg className='w-[12px] mr-[6px] fill-theme-yellow dark:fill-theme-blue-1' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg>
                                 <div>파일은 최대 다섯개까지만 올릴 수 있습니다.</div>
                             </div>
-                            <div className='w-[100%] flex justify-start items-center mt-[4px] text-[12px] text-theme-8 dark:text-theme-7'>
+                            <div className='w-full flex justify-start items-center mt-[4px] text-[12px] text-theme-8 dark:text-theme-7'>
                                 <svg className='w-[12px] mr-[6px] fill-theme-yellow dark:fill-theme-blue-1' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg>
                                 <div>이미지 파일만 첨부 가능합니다.</div>
                             </div>
                         </div>
-                        <button onClick={handleSubmit} className="w-[100%] h-[34px] rounded-[8px] mt-[20px] font-medium text-[12px] text-theme-4 dark:text-theme-3 bg-theme-yellow/80 hover:bg-theme-yellow dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1">
+                        <button onClick={handleSubmit} className="w-full h-[34px] rounded-[8px] mt-[20px] font-medium text-[12px] text-theme-4 dark:text-theme-3 bg-theme-yellow/80 hover:bg-theme-yellow dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1">
                             {
                                 isLoading === true
                                 ? <span className='loader loader-register w-[16px] h-[16px]'></span>
@@ -523,8 +523,8 @@ const IssueBug = ({params}: any) => {
 
 export async function getServerSideProps(ctx: any) {
     try {
-        // 쿠키
-        const cookieTheme = ctx.req.cookies.theme === undefined ? "dark" : ctx.req.cookies.theme;
+        // 쿠키 체크
+        const { theme } = ctx.req.cookies;
 
         // 디바이스 체크
         const userAgent = ctx.req ? ctx.req.headers['user-agent'] : navigator.userAgent;
@@ -535,7 +535,7 @@ export async function getServerSideProps(ctx: any) {
         return {
             props: {
                 params: {
-                    theme: cookieTheme,
+                    theme: theme ? theme : 'light',
                     userAgent: userAgent,
                     user: session === null ? null : session.user,
                 }

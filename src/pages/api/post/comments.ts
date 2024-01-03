@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import prisma from '@/libs/client-prisma';
+import prisma from '@/libs/prisma';
 import { FetchComments } from './fetchcomments';
 import { FetchReports } from './fetchreports';
   

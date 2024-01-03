@@ -155,13 +155,13 @@ export default function ReportCommentModal(
         <>
             {
                 display === true
-                ? <div className="w-[100%] h-[100vh] fixed left-0 top-0 z-40 flex flex-col justify-start items-center pt-[12vh] tlg:pt-[10vh] tmd:pt-[60px] backdrop-blur bg-blur-theme dark:border-theme-4">
+                ? <div className="w-full h-[100vh] fixed left-0 top-0 z-40 flex flex-col justify-start items-center pt-[12vh] tlg:pt-[10vh] tmd:pt-[60px] backdrop-blur bg-blur-theme dark:border-theme-4">
                     <div ref={thisModal} className="overflow-hidden w-[400px] tmd:w-[calc(100%-24px)] rounded-[12px] border border-theme-7 dark:border-theme-3 bg-theme-9 dark:bg-theme-2 animate-zoom-in">
-                        <div className="relative w-[100%] h-[52px] flex flex-row justify-between items-center px-[20px]">
+                        <div className="relative w-full h-[52px] flex flex-row justify-between items-center px-[20px]">
                             <div className="text-[14px] text-theme-5 dark:text-theme-7 mt-px">신고하기</div>
                             <button onClick={close} className="w-[36px] h-[24px] rounded-[6px] absolute right-[16px] tmd:right-[12px] top-[50%] translate-y-[-50%] text-[10px] leading-none text-theme-4 dark:text-theme-8 bg-theme-8 dark:bg-theme-3/80 hover:dark:bg-theme-4/60 tlg:hover:dark:bg-theme-3/80 hover:drop-shadow-default hover:dark:drop-shadow-dark tlg:hover:drop-shadow-none tlg:hover:dark:drop-shadow-none">ESC</button>
                         </div>
-                        <div className="w-[100%] p-[20px] bg-theme-4 dark:bg-theme-blue-2">
+                        <div className="w-full p-[20px] bg-theme-4 dark:bg-theme-blue-2">
                             <h2 className="font-bold text-[16px] text-theme-9 mb-[16px]">어떤 사유로 신고하시는지 알려주세요.</h2>
                             <div>
                                 <label htmlFor="report-nickname" className="flex items-start fill-theme-yellow dark:fill-theme-blue-1 text-theme-8 dark:text-theme-7 cursor-pointer">
@@ -220,7 +220,7 @@ export default function ReportCommentModal(
                                     </div>
                                 </label>
                                 <div className="text-[14px] ml-[22px] text-theme-6 dark:text-theme-5">자세한 사유는 상세 입력칸에 적어주세요.</div>
-                                <textarea onChange={reportTextChk} id="report-textarea" placeholder="사유는 최대한 자세하게 기입해주세요..." className="w-[100%] h-[80px] resize-none mt-[12px] px-[12px] py-[8px] text-[14px] border rounded-[6px] border-theme-6 focus:border-theme-8 hover:border-theme-8 tlg:hover:border-theme-6 dark:border-theme-4 focus:dark:border-theme-6 hover:dark:border-theme-6 tlg:hover:dark:border-theme-4 bg-transparent dark:bg-theme-2 text-theme-8 dark:text-theme-7 placeholder-theme-6 dark:placeholder-theme-5"></textarea>
+                                <textarea onChange={reportTextChk} id="report-textarea" placeholder="사유는 최대한 자세하게 기입해주세요..." className="w-full h-[80px] resize-none mt-[12px] px-[12px] py-[8px] text-[14px] border rounded-[6px] border-theme-6 focus:border-theme-8 hover:border-theme-8 tlg:hover:border-theme-6 dark:border-theme-4 focus:dark:border-theme-6 hover:dark:border-theme-6 tlg:hover:dark:border-theme-4 bg-transparent dark:bg-theme-2 text-theme-8 dark:text-theme-7 placeholder-theme-6 dark:placeholder-theme-5"></textarea>
                             </div>
                             {
                                 reportWarning
@@ -230,7 +230,7 @@ export default function ReportCommentModal(
                                 </div>
                                 : <div className="mt-[10px]"></div>
                             }
-                            <div className="w-[100%] h-px bg-theme-5 mt-[6px] mb-[16px]"></div>
+                            <div className="w-full h-px bg-theme-5 mt-[6px] mb-[16px]"></div>
                             <div className="flex justify-between mt-[12px]">
                                 <button onClick={reportClose} className='w-[calc(50%-5px)] h-[40px] pt-px rounded-[8px] flex flex-row justify-center items-center text-[14px] font-medium text-theme-10 dark:text-theme-8 bg-theme-5/80 hover:bg-theme-5 tlg:hover:bg-theme-5/80 dark:bg-theme-3/80 hover:dark:bg-theme-3 tlg:hover:dark:bg-theme-3/80'>취소</button>
                                 <button onClick={reportComment} className='w-[calc(50%-5px)] h-[40px] pt-px rounded-[8px] flex flex-row justify-center items-center text-[14px] font-medium text-theme-4 dark:text-theme-blue-2 bg-theme-yellow/80 hover:bg-theme-yellow tlg:hover:bg-theme-yellow/80 dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1/80'>

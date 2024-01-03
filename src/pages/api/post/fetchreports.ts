@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import prisma from '@/libs/client-prisma';
+import prisma from '@/libs/prisma';
 
 export async function FetchReports(email: string, provider: string, code: number) {
     // 유저가 신고한 리포트 전부 가져오기

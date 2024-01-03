@@ -1,4 +1,4 @@
-import prisma from '@/libs/client-prisma';
+import prisma from '@/libs/prisma';
 
 export async function FetchUserInfo(id: string, provider: string) {
     const user = await prisma.fontsUser.findFirst({

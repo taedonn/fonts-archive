@@ -38,7 +38,7 @@ function KakaoAdFitTopBanner(props: any) {
         adRef.current = true;
     }, [props.marginTop]);
 
-    return <aside className="aside__kakaoAdFit_top flex w-[100%] relative"></aside>
+    return <aside className="aside__kakaoAdFit_top flex w-full relative"></aside>
 }
 
 export default React.memo(KakaoAdFitTopBanner);

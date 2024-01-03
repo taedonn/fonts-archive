@@ -141,10 +141,10 @@ const Comments = ({params}: any) => {
             />
 
             {/* 메인 */}
-            <form onSubmit={e => e.preventDefault()} className='w-[100%] flex flex-col justify-center items-center'>
-                <div className='w-[720px] tmd:w-[100%] flex flex-col justify-center items-start my-[100px] tlg:my-[40px]'>
+            <form onSubmit={e => e.preventDefault()} className='w-full flex flex-col justify-center items-center'>
+                <div className='w-[720px] tmd:w-full flex flex-col justify-center items-start my-[100px] tlg:my-[40px]'>
                     <h2 className='text-[20px] tlg:text-[18px] text-theme-3 dark:text-theme-9 font-medium mb-[16px] tlg:mb-[12px]'>내 댓글 목록</h2>
-                    <div className='w-content flex items-center p-[6px] mb-[12px] tlg:mb-[8px] rounded-[6px] text-theme-10 dark:text-theme-9 bg-theme-5 dark:bg-theme-3'>
+                    <div className='w-max flex items-center p-[6px] mb-[12px] tlg:mb-[8px] rounded-[6px] text-theme-10 dark:text-theme-9 bg-theme-5 dark:bg-theme-3'>
                         <select ref={selectRef} className='w-[80px] h-[32px] tlg:h-[28px] text-[12px] pt-px px-[14px] bg-transparent rounded-[6px] outline-none border border-theme-6 dark:border-theme-5 cursor-pointer'>
                             <option value='all' defaultChecked>전체</option>
                             <option value='font'>폰트</option>
@@ -153,7 +153,7 @@ const Comments = ({params}: any) => {
                         <input ref={textRef} type='textbox' placeholder='폰트/댓글' className='w-[200px] tlg:w-[160px] h-[32px] tlg:h-[28px] ml-[8px] px-[12px] text-[12px] bg-transparent border rounded-[6px] border-theme-6 dark:border-theme-5'/>
                         <button onClick={handleClick} className='w-[68px] h-[32px] tlg:h-[28px] ml-[8px] text-[12px] border rounded-[6px] bg-theme-6/40 hover:bg-theme-6/60 tlg:hover:bg-theme-6/40 dark:bg-theme-4 hover:dark:bg-theme-5 tlg:hover:dark:bg-theme-4'>검색</button>
                     </div>
-                    <div className='w-[100%] rounded-[8px] overflow-hidden overflow-x-auto'>
+                    <div className='w-full rounded-[8px] overflow-hidden overflow-x-auto'>
                         <table className='w-[720px] text-[12px] text-theme-10 dark:text-theme-9 bg-theme-4 dark:bg-theme-4'>
                             <thead className='text-left bg-theme-5 dark:bg-theme-3'>
                                 <tr>
@@ -179,7 +179,7 @@ const Comments = ({params}: any) => {
                                                         <td className='pl-[16px] py-[10px]'>{timeFormat(comment.created_at)}</td>
                                                         <td className='py-[10px] text-center'>{comment.reported_politics + comment.reported_swearing + comment.reported_etc}</td>
                                                         <td className='py-[10px] relative'>
-                                                            <div className='absolute w-[100%] h-[100%] left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] flex justify-center items-center'>
+                                                            <div className='absolute w-full h-full left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] flex justify-center items-center'>
                                                                 <button onClick={deleteCommentModalOpen} data-font={comment.font_id} data-comment={comment.comment_id} className='group w-[20px] h-[20px] flex justify-center items-center'>
                                                                     <svg className='w-[14px] fill-theme-10 group-hover:fill-theme-yellow tlg:group-hover:fill-theme-10 dark:fill-theme-9 group-hover:dark:fill-theme-blue-1 tlg:group-hover:dark:fill-theme-9' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/><path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/></svg>
                                                                 </button>
@@ -197,7 +197,7 @@ const Comments = ({params}: any) => {
                             </tbody>
                         </table>
                     </div>
-                    <div className='w-[100%] flex justify-center mt-[12px]'>
+                    <div className='w-full flex justify-center mt-[12px]'>
                         <Pagination count={count} page={page} onChange={handleChange} shape='rounded' showFirstButton showLastButton/>
                     </div>
                 </div>
@@ -211,8 +211,8 @@ const Comments = ({params}: any) => {
 
 export async function getServerSideProps(ctx: any) {
     try {
-        // 필터링 쿠키 체크
-        const cookieTheme = ctx.req.cookies.theme === undefined ? "dark" : ctx.req.cookies.theme;
+        // 체크
+        const { theme } = ctx.req.cookies;
 
         // 디바이스 체크
         const userAgent = ctx.req ? ctx.req.headers['user-agent'] : navigator.userAgent;
@@ -238,7 +238,7 @@ export async function getServerSideProps(ctx: any) {
             return {
                 props: {
                     params: {
-                        theme: cookieTheme,
+                        theme: theme ? theme : 'light',
                         userAgent: userAgent,
                         user: session === null ? null : session.user,
                         count: count,
