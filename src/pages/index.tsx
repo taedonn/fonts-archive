@@ -145,12 +145,13 @@ const Index = ({params}: any) => {
 
 export async function getServerSideProps(ctx: any) {
     try {
-        // 필터링 쿠키 체크
+        // 쿠키 가져오기
+        const { theme } = ctx.req.cookies;
         const license = ctx.req.cookies.license === undefined ? "all" : ctx.req.cookies.license;
         const lang = ctx.req.cookies.lang === undefined ? "all" : ctx.req.cookies.lang;
         const type = ctx.req.cookies.type === undefined ? "all" : ctx.req.cookies.type;
         const sort = ctx.req.cookies.sort === undefined ? "date" : ctx.req.cookies.sort;
-        const theme = ctx.req.cookies.theme === undefined ? "dark" : ctx.req.cookies.theme;
+        // const theme = ctx.req.cookies.theme === undefined ? "dark" : ctx.req.cookies.theme;
 
         // 파라미터 가져오기
         const source = ctx.query.search === undefined ? "" : ctx.query.search;
@@ -174,7 +175,7 @@ export async function getServerSideProps(ctx: any) {
                     lang: lang,
                     type: type,
                     sort: sort,
-                    theme: theme,
+                    theme: theme ? theme : 'light',
                     source: source,
                     filter: filter,
                     userAgent: userAgent,
