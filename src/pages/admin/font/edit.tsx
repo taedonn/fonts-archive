@@ -1,10 +1,10 @@
-// react hooks
+// react
 import { useEffect, useRef, useState } from "react";
 import { useQuery } from "react-query";
 import { debounce } from "lodash";
 import { Switch } from "@mui/material";
 
-// next hooks
+// next
 import { NextSeo } from "next-seo";
 
 // next-auth
@@ -14,22 +14,25 @@ import { authOptions } from '@/pages/api/auth/[...nextauth]';
 // api
 import { FetchFont } from "@/pages/api/admin/font";
 
+// libraries
+import axios from "axios";
+
 // components
 import Header from "@/components/header";
 import Footer from "@/components/footer";
-import axios from "axios";
 
 const Edit = ({params}: any) => {
+    const { theme, userAgent, user, font } = params;
+    const defaultFont = font;
+
     // 디바이스 체크
-    const isMac: boolean = params.userAgent.includes("Mac OS") ? true : false
+    const isMac: boolean = userAgent.includes("Mac OS") ? true : false
 
-    // 파라미터에서 폰트 조회
-    const defaultFont = params.font;
-
-    // 검색 키워드 디폴트: 빈 문자열
+    // states
     const [keyword, setKeyword] = useState<string>("");
     const [data, setData] = useState<any>([]);
     const [focus, setFocus] = useState<boolean>(false);
+    const [showType, setShowType] = useState(defaultFont !== null ? defaultFont.show_type : false);
 
     // useQuery를 이용한 데이터 파싱
     const {
@@ -151,7 +154,6 @@ const Edit = ({params}: any) => {
     }
 
     // 폰트 보임/숨김 change
-    const [showType, setShowType] = useState(defaultFont !== null ? defaultFont.show_type : false);
     const handleToggleChange = (e: React.ChangeEvent<HTMLInputElement>) => { setShowType(e.target.checked); }
 
     // 수정하기 state
@@ -314,8 +316,8 @@ const Edit = ({params}: any) => {
             {/* 헤더 */}
             <Header
                 isMac={isMac}
-                theme={params.theme}
-                user={params.user}
+                theme={theme}
+                user={user}
             />
 
             {/* 메인 */}

@@ -1,4 +1,4 @@
-// next hooks
+// next
 import Link from 'next/link';
 import { NextSeo } from 'next-seo';
 
@@ -6,29 +6,32 @@ import { NextSeo } from 'next-seo';
 import { getServerSession } from "next-auth";
 import { authOptions } from '@/pages/api/auth/[...nextauth]';
 
-// react hooks
+// react
 import React, { useState, useRef, useEffect } from 'react';
 
 // api
-import axios from 'axios';
-
 import { FetchUsers, FetchUsersLength } from '@/pages/api/admin/user';
+
+// libraries
+import axios from 'axios';
+import { Pagination } from '@mui/material';
 
 // components
 import Header from "@/components/header";
 import Footer from '@/components/footer';
-import { Pagination } from '@mui/material';
 
 // common
 import { timeFormat } from '@/libs/common';
 
 const UserList = ({params}: any) => {
+    const { theme, userAgent, user, list, count } = params;
+
     // 디바이스 체크
-    const isMac: boolean = params.userAgent.includes("Mac OS") ? true : false;
+    const isMac: boolean = userAgent.includes("Mac OS") ? true : false;
 
     // 유저 목록 state
-    const [list, setList] = useState(params.list);
-    const [count, setCount] = useState<number>(params.count);
+    const [thisList, setList] = useState(list);
+    const [thisCount, setCount] = useState<number>(count);
     const [filter, setFilter] = useState<string>('all');
     const [text, setText] = useState<string>('');
 
@@ -89,59 +92,59 @@ const UserList = ({params}: any) => {
             {/* 헤더 */}
             <Header
                 isMac={isMac}
-                theme={params.theme}
-                user={params.user}
+                theme={theme}
+                user={user}
             />
 
             {/* 메인 */}
             <form onSubmit={e => e.preventDefault()} className='w-full flex flex-col justify-center items-center'>
-                <div className='w-[720px] tmd:w-full flex flex-col justify-center items-start my-[100px] tlg:my-[40px]'>
-                    <h2 className='text-[20px] tlg:text-[18px] text-theme-3 dark:text-theme-9 font-medium mb-[16px] tlg:mb-[12px]'>유저 목록</h2>
-                    <div className='w-max flex items-center p-[6px] mb-[12px] tlg:mb-[8px] rounded-[6px] text-theme-10 dark:text-theme-9 bg-theme-5 dark:bg-theme-3'>
-                        <select ref={selectRef} className='w-[80px] h-[32px] tlg:h-[28px] text-[12px] pt-px px-[10px] bg-transparent rounded-[6px] outline-none border border-theme-6 dark:border-theme-5 cursor-pointer'>
+                <div className='w-[720px] tmd:w-full flex flex-col justify-center items-start my-[100px] tlg:my-10'>
+                    <h2 className='text-xl tlg:text-lg text-theme-3 dark:text-theme-9 font-medium mb-4 tlg:mb-3'>유저 목록</h2>
+                    <div className='w-max flex items-center p-1.5 mb-3 tlg:mb-2 rounded-md text-theme-10 dark:text-theme-9 bg-theme-5 dark:bg-theme-3'>
+                        <select ref={selectRef} className='w-[80px] h-8 tlg:h-7 text-xs pt-px px-2.5 bg-transparent rounded-md outline-none border border-theme-6 dark:border-theme-5 cursor-pointer'>
                             <option value='all' defaultChecked>전체</option>
                             <option value='email-confirmed'>확인된 이메일만</option>
                             <option value='nickname-reported'>닉네임 신고 많은 순</option>
                         </select>
-                        <input ref={textRef} type='textbox' placeholder='유저명/유저 아이디' className='w-[200px] tlg:w-[160px] h-[32px] tlg:h-[28px] ml-[8px] px-[12px] text-[12px] bg-transparent border rounded-[6px] border-theme-6 dark:border-theme-5'/>
-                        <button onClick={handleClick} className='w-[68px] h-[32px] tlg:h-[28px] ml-[8px] text-[12px] border rounded-[6px] bg-theme-6/40 hover:bg-theme-6/60 tlg:hover:bg-theme-6/40 dark:bg-theme-4 hover:dark:bg-theme-5 tlg:hover:dark:bg-theme-4'>검색</button>
+                        <input ref={textRef} type='textbox' placeholder='유저명/유저 아이디' className='w-[200px] tlg:w-40 h-8 tlg:h-7 ml-2 px-3 text-xs bg-transparent border rounded-md border-theme-6 dark:border-theme-5'/>
+                        <button onClick={handleClick} className='w-[68px] h-8 tlg:h-7 ml-2 text-xs border rounded-md bg-theme-6/40 hover:bg-theme-6/60 tlg:hover:bg-theme-6/40 dark:bg-theme-4 hover:dark:bg-theme-5 tlg:hover:dark:bg-theme-4'>검색</button>
                     </div>
-                    <div className='w-full rounded-[8px] overflow-hidden overflow-x-auto'>
-                        <table className='w-[720px] text-[12px] text-theme-10 dark:text-theme-9 bg-theme-4 dark:bg-theme-4'>
+                    <div className='w-full rounded-lg overflow-hidden overflow-x-auto'>
+                        <table className='w-[720px] text-xs text-theme-10 dark:text-theme-9 bg-theme-4 dark:bg-theme-4'>
                             <thead className='text-left bg-theme-5 dark:bg-theme-3'>
                                 <tr>
-                                    <th className='h-[40px] tlg:h-[34px] w-[52px] pl-[16px]'>번호</th>
-                                    <th className='w-[80px] pl-[16px]'>유저명</th>
-                                    <th className='pl-[16px]'>유저 아이디</th>
-                                    <th className='w-[100px] pl-[16px]'>수정 날짜</th>
-                                    <th className='w-[100px] pl-[16px]'>생성 날짜</th>
-                                    <th className='w-[80px] text-center'>닉네임 신고</th>
-                                    <th className='w-[100px] pl-[16px]'>이메일 확인</th>
+                                    <th className='h-10 tlg:h-8 w-[52px] pl-4'>번호</th>
+                                    <th className='w-20 pl-4'>유저명</th>
+                                    <th className='pl-4'>유저 아이디</th>
+                                    <th className='w-[100px] pl-4'>수정 날짜</th>
+                                    <th className='w-[100px] pl-4'>생성 날짜</th>
+                                    <th className='w-16 text-center'>닉네임 신고</th>
+                                    <th className='w-[100px] pl-4'>이메일 확인</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {
-                                    list && list.length > 0
+                                    thisList && thisList.length > 0
                                     ? <>
                                         {
-                                            list.map((user: any) => {
+                                            thisList.map((user: any) => {
                                                 return (
                                                     <tr key={user.user_no} className='border-t border-theme-5 dark:border-theme-3'>
-                                                        <td className='h-[40px] tlg:h-[34px] pl-[16px] py-[10px]'>{user.user_no}</td>
-                                                        <td className='pl-[16px] py-[10px] break-all'><Link href={`/admin/user/${user.user_no}`} className='font-size text-theme-yellow dark:text-theme-blue-1 focus:underline hover:underline tlg:hover:no-underline'>{user.user_name}</Link></td>
-                                                        <td className='pl-[16px] py-[10px] break-all'><div className='font-size'>{user.user_id}</div></td>
-                                                        <td className='pl-[16px] py-[10px]'>{timeFormat(user.updated_at)}</td>
-                                                        <td className='pl-[16px] py-[10px]'>{timeFormat(user.created_at)}</td>
-                                                        <td className='py-[10px] break-keep text-center'>{user.nickname_reported}</td>
-                                                        <td className='pl-[16px] py-[10px] break-keep'>
+                                                        <td className='h-10 tlg:h-8 pl-4 py-2.5'>{user.user_no}</td>
+                                                        <td className='pl-4 py-2.5 break-all'><Link href={`/admin/user/${user.user_no}`} className='font-size text-theme-yellow dark:text-theme-blue-1 focus:underline hover:underline tlg:hover:no-underline'>{user.user_name}</Link></td>
+                                                        <td className='pl-4 py-2.5 break-all'><div className='font-size'>{user.user_id}</div></td>
+                                                        <td className='pl-4 py-2.5'>{timeFormat(user.updated_at)}</td>
+                                                        <td className='pl-4 py-2.5'>{timeFormat(user.created_at)}</td>
+                                                        <td className='py-4 break-keep text-center'>{user.nickname_reported}</td>
+                                                        <td className='pl-4 py-2.5 break-keep'>
                                                             {
                                                                 user.user_email_confirm
                                                                 ? <>
                                                                     <span className='text-theme-green'>확인 됨</span>
-                                                                    <svg className='inline-block w-[8px] ml-[4px] mb-px fill-theme-green' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></svg>
+                                                                    <svg className='inline-block w-2 ml-1 mb-px fill-theme-green' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></svg>
                                                                 </> : <>
                                                                     <span className='text-theme-red'>확인 안됨</span>
-                                                                    <svg className='inline-block w-[8px] ml-[4px] mb-px fill-theme-red' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>
+                                                                    <svg className='inline-block w-2 ml-1 mb-px fill-theme-red' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>
                                                                 </>
                                                             }
                                                         </td>
@@ -157,8 +160,8 @@ const UserList = ({params}: any) => {
                             </tbody>
                         </table>
                     </div>
-                    <div className='w-full flex justify-center mt-[12px]'>
-                        <Pagination count={count} page={page} onChange={handleChange} shape='rounded' showFirstButton showLastButton/>
+                    <div className='w-full flex justify-center mt-3'>
+                        <Pagination count={thisCount} page={page} onChange={handleChange} shape='rounded' showFirstButton showLastButton/>
                     </div>
                 </div>
             </form>

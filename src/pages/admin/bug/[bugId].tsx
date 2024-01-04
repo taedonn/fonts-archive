@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-// next hooks
+// next
 import Link from "next/link";
 import { NextSeo } from "next-seo";
 
@@ -7,37 +7,38 @@ import { NextSeo } from "next-seo";
 import { getServerSession } from "next-auth";
 import { authOptions } from '@/pages/api/auth/[...nextauth]';
 
-// react hooks
+// react
 import { useState, useEffect, useRef } from "react";
 
 // api
 import { FetchBug } from "@/pages/api/admin/bug";
+
+// libraries
 import axios from "axios";
+import { Switch } from "@mui/material";
 
 // components
 import Header from "@/components/header";
 import Footer from "@/components/footer";
-import { Switch } from "@mui/material";
 
 // common
 import { timeFormat } from "@/libs/common";
 
 const BugPage = ({params}: any) => {
+    const { theme, userAgent, user, issue } = params;
+
     // 디바이스 체크
-    const isMac: boolean = params.userAgent.includes("Mac OS") ? true : false;
+    const isMac: boolean = userAgent.includes("Mac OS") ? true : false;
 
-    // 유저 정보
-    const issue = params.issue;
-
-    // ref
-    const imgRef = useRef<HTMLDivElement>(null);
-
-    // state
+    // states
     const [replySuccess, setReplySuccess] = useState<string>("");
     const [isFocused, setIsFocused] = useState<boolean>(false);
     const [focusedImg, setFocusedImg] = useState<string>("");
     const [issueClosed, setIssueClosed] = useState<boolean>(issue.issue_closed);
     const [isLoading, setIsLoading] = useState<boolean>(false);
+
+    // refs
+    const imgRef = useRef<HTMLDivElement>(null);
 
     /** 이미지 영역 확대 */
     const handleOnImgFocus = (e: React.MouseEvent<HTMLImageElement>) => {
@@ -173,8 +174,8 @@ const BugPage = ({params}: any) => {
             {/* 헤더 */}
             <Header
                 isMac={isMac}
-                theme={params.theme}
-                user={params.user}
+                theme={theme}
+                user={user}
             />
 
             {/* 메인 */}

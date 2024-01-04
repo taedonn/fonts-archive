@@ -1,4 +1,4 @@
-// next hooks
+// next
 import Link from 'next/link';
 import { NextSeo } from 'next-seo';
 
@@ -6,11 +6,12 @@ import { NextSeo } from 'next-seo';
 import { getServerSession } from "next-auth";
 import { authOptions } from '@/pages/api/auth/[...nextauth]';
 
-// react hooks
+// react
 import React, { useState, useRef, useEffect } from 'react';
 
-// api
+// libraries
 import axios from 'axios';
+import { Pagination } from '@mui/material';
 
 import { FetchCommentsLength } from '@/pages/api/admin/comment';
 import { FetchComments } from '@/pages/api/admin/comment';
@@ -19,27 +20,31 @@ import { FetchComments } from '@/pages/api/admin/comment';
 import Header from "@/components/header";
 import Footer from '@/components/footer';
 import AdminDeleteCommentModal from '@/components/admindeletecommentmodal';
-import { Pagination } from '@mui/material';
 
 // common
 import { timeFormat } from '@/libs/common';
 
 const CommentList = ({params}: any) => {
-    // 디바이스 체크
-    const isMac: boolean = params.userAgent.includes("Mac OS") ? true : false;
+    const { theme, userAgent, user, comments, count } = params;
 
-    // 댓글 목록 state
-    const [comments, setComments] = useState(JSON.parse(params.comments));
-    const [count, setCount] = useState<number>(params.count);
+    // 디바이스 체크
+    const isMac: boolean = userAgent.includes("Mac OS") ? true : false;
+
+    // states
+    const [thisComments, setComments] = useState(JSON.parse(comments));
+    const [thisCount, setCount] = useState<number>(count);
     const [text, setText] = useState<string>('');
     const [filter, setFilter] = useState<string>('');
+    const [page, setPage] = useState<number>(1);
+    const [fontId, setFontId] = useState<number>(0);
+    const [commentId, setCommentId] = useState<number>(0);
+    const [deleteModalDisplay, setDeleteModalDisplay] = useState<boolean>(false);
 
-    // 댓글 목록 ref
+    // refs
     const selectRef = useRef<HTMLSelectElement>(null);
     const textRef = useRef<HTMLInputElement>(null);
 
     // 댓글 목록 페이지 변경
-    const [page, setPage] = useState<number>(1);
     const handleChange = (e: React.ChangeEvent<unknown>, value: number) => {
         setPage(value);
     };
@@ -88,11 +93,6 @@ const CommentList = ({params}: any) => {
         }
     }
 
-    // 댓글 삭제
-    const [fontId, setFontId] = useState<number>(0);
-    const [commentId, setCommentId] = useState<number>(0);
-    const [deleteModalDisplay, setDeleteModalDisplay] = useState<boolean>(false);
-
      /** 댓글 삭제 모달창 열기 */
      const deleteCommentModalOpen = (e: React.MouseEvent<HTMLButtonElement>) => {
         setDeleteModalDisplay(true);
@@ -121,8 +121,8 @@ const CommentList = ({params}: any) => {
             {/* 헤더 */}
             <Header
                 isMac={isMac}
-                theme={params.theme}
-                user={params.user}
+                theme={theme}
+                user={user}
             />
 
             {/* 댓글 삭제 모달 */}
@@ -167,10 +167,10 @@ const CommentList = ({params}: any) => {
                             </thead>
                             <tbody>
                                 {
-                                    comments && comments.length > 0
+                                    thisComments && thisComments.length > 0
                                     ? <>
                                         {
-                                            comments.map((comment: any) => {
+                                            thisComments.map((comment: any) => {
                                                 return (
                                                     <tr key={comment.comment_id} className='border-t border-theme-5 dark:border-theme-3'>
                                                         <td className='h-[40px] tlg:h-[34px] pl-[16px] py-[10px]'>{comment.comment_id}</td>
@@ -199,7 +199,7 @@ const CommentList = ({params}: any) => {
                         </table>
                     </div>
                     <div className='w-full flex justify-center mt-[12px]'>
-                        <Pagination count={count} page={page} onChange={handleChange} shape='rounded' showFirstButton showLastButton/>
+                        <Pagination count={thisCount} page={page} onChange={handleChange} shape='rounded' showFirstButton showLastButton/>
                     </div>
                 </div>
             </form>

@@ -1,4 +1,4 @@
-// next hooks
+// next
 import Link from 'next/link';
 import { NextSeo } from 'next-seo';
 
@@ -6,38 +6,42 @@ import { NextSeo } from 'next-seo';
 import { getServerSession } from "next-auth";
 import { authOptions } from '@/pages/api/auth/[...nextauth]';
 
-// react hooks
+// react
 import React, { useState, useRef, useEffect } from 'react';
 
 // api
-import axios from 'axios';
 import { FetchBugs } from '@/pages/api/admin/bug';
 import { FetchBugsLength } from '@/pages/api/admin/bug';
+
+// libraries
+import axios from 'axios';
+import { Pagination } from '@mui/material';
 
 // components
 import Header from "@/components/header";
 import Footer from '@/components/footer';
-import { Pagination } from '@mui/material';
 
 // common
 import { timeFormat } from '@/libs/common';
 
 const BugList = ({params}: any) => {
-    // 디바이스 체크
-    const isMac: boolean = params.userAgent.includes("Mac OS") ? true : false;
+    const { theme, userAgent, user, list, count } = params;
 
-    // 유저 목록 state
-    const [list, setList] = useState(params.list);
-    const [count, setCount] = useState<number>(params.count);
+    // 디바이스 체크
+    const isMac: boolean = userAgent.includes("Mac OS") ? true : false;
+
+    // states
+    const [thisList, setList] = useState(list);
+    const [thisCount, setCount] = useState<number>(count);
     const [filter, setFilter] = useState<string>('all');
     const [text, setText] = useState<string>('');
+    const [page, setPage] = useState<number>(1);
 
-    // 유저 목록 ref
+    // refs
     const selectRef = useRef<HTMLSelectElement>(null);
     const textRef = useRef<HTMLInputElement>(null);
 
     // 유저 목록 페이지 변경
-    const [page, setPage] = useState<number>(1);
     const handleChange = (e: React.ChangeEvent<unknown>, value: number) => { setPage(value); };
 
     // 페이지 변경 시 데이터 다시 불러오기
@@ -89,8 +93,8 @@ const BugList = ({params}: any) => {
             {/* 헤더 */}
             <Header
                 isMac={isMac}
-                theme={params.theme}
-                user={params.user}
+                theme={theme}
+                user={user}
             />
 
             {/* 메인 */}
@@ -119,10 +123,10 @@ const BugList = ({params}: any) => {
                             </div>
                             <div>
                                 {
-                                    list && list.length > 0
+                                    thisList && thisList.length > 0
                                     ? <>
                                         {
-                                            list.map((issue: any) => {
+                                            thisList.map((issue: any) => {
                                                 return (
                                                     <div key={issue.issue_id} className='h-[40px] tlg:h-[34px] relative flex items-center border-t border-theme-5 dark:border-theme-3 hover:bg-theme-yellow/20 tlg:hover:bg-transparent hover:dark:bg-theme-blue-1/20 tlg:hover:dark:bg-transparent cursor-pointer'>
                                                         <Link href={`/admin/bug/${issue.issue_id}`} className='w-full h-full absolute z-10 left-0 top-0'></Link>
@@ -153,7 +157,7 @@ const BugList = ({params}: any) => {
                         </div>
                     </div>
                     <div className='w-full flex justify-center mt-[12px]'>
-                        <Pagination count={count} page={page} onChange={handleChange} shape='rounded' showFirstButton showLastButton/>
+                        <Pagination count={thisCount} page={page} onChange={handleChange} shape='rounded' showFirstButton showLastButton/>
                     </div>
                 </div>
             </form>

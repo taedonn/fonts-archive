@@ -7,7 +7,6 @@ import { useEffect, useState } from "react";
 import type { AppProps } from "next/app";
 import { useRouter } from "next/router";
 import { DefaultSeo } from 'next-seo';
-import NextNProgress from 'nextjs-progressbar';
 
 // next-auth
 import { SessionProvider } from "next-auth/react";
@@ -15,6 +14,9 @@ import { SessionProvider } from "next-auth/react";
 // react-query
 import { QueryClientProvider, QueryClient } from "react-query";
 const queryClient = new QueryClient();
+
+// libraries
+import NextNProgress from 'nextjs-progressbar';
 
 // styles
 import '@/styles/globals.css';

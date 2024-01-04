@@ -1,13 +1,13 @@
-// next hooks
+// next
 import Link from "next/link";
 
 // next-auth
 import { signOut } from "next-auth/react";
 
-// react hooks
+// react
 import { useEffect, useRef, useState } from "react";
 
-// hooks
+// libraries
 import { useCookies } from "react-cookie";
 import { throttle } from "lodash";
 
@@ -68,12 +68,24 @@ export default function Header (
         handleSortOptionChange=defaultHeader.handleSortOptionChange,
         handleSearch=defaultHeader.handleSearch,
     }: Header) {
-    // 쿠키 훅
+    // states
     const [, setCookie] = useCookies<string>([]);
+    const [thisTheme, setTheme] = useState(theme);
+    const [searchDisplay, setSearchDisplay] = useState("hide");
 
-    // 셀렉트 박스 - "허용 범위" 영역
+    // refs
     const refLicenseSelect = useRef<HTMLLabelElement>(null);
     const refLicenseOption = useRef<HTMLDivElement>(null);
+    const refLangSelect = useRef<HTMLLabelElement>(null);
+    const refLangOption = useRef<HTMLDivElement>(null);
+    const refTypeSelect = useRef<HTMLLabelElement>(null);
+    const refTypeOption = useRef<HTMLDivElement>(null);
+    const refSortSelect = useRef<HTMLLabelElement>(null);
+    const refSortOption = useRef<HTMLDivElement>(null);
+    const refThemeLabel = useRef<HTMLLabelElement>(null);
+    const refThemeDiv = useRef<HTMLDivElement>(null);
+    const refAccountLabel = useRef<HTMLLabelElement>(null);
+    const refAccountDiv = useRef<HTMLDivElement>(null);
 
     // 셀렉트 박스 - "허용 범위" 외 영역 클릭
     useEffect(() => {
@@ -95,10 +107,6 @@ export default function Header (
             setTimeout(function() { option.classList.remove('animate-fade-in'); },600);
         }
     }
-    
-    // 셀렉트 박스 - "언어 선택" 영역
-    const refLangSelect = useRef<HTMLLabelElement>(null);
-    const refLangOption = useRef<HTMLDivElement>(null);
 
     // 셀렉트 박스 - "언어 선택" 외 영역 클릭
     useEffect(() => {
@@ -121,10 +129,6 @@ export default function Header (
         }
     }
 
-    // 셀렉트 박스 - "폰트 형태" 영역
-    const refTypeSelect = useRef<HTMLLabelElement>(null);
-    const refTypeOption = useRef<HTMLDivElement>(null);
-
     // 셀렉트 박스 - "폰트 형태" 외 영역 클릭
     useEffect(() => {
         function handleTypeOutside(e:Event) {
@@ -145,10 +149,6 @@ export default function Header (
             setTimeout(function() { option.classList.remove('animate-fade-in'); },600);
         }
     }
-
-    // 셀렉트 박스 - "정렬순" 영역
-    const refSortSelect = useRef<HTMLLabelElement>(null);
-    const refSortOption = useRef<HTMLDivElement>(null);
 
     // 셀렉트 박스 - 정렬순" 외 영역 클릭
     useEffect(() => {
@@ -171,10 +171,6 @@ export default function Header (
         }
     }
 
-    // 컬러 테마 영역
-    const refThemeLabel = useRef<HTMLLabelElement>(null);
-    const refThemeDiv = useRef<HTMLDivElement>(null);
-
     // 컬러 테마 영역 외 클릭
     useEffect(() => {
         function handleThemeOutside(e:Event) {
@@ -195,9 +191,6 @@ export default function Header (
             setTimeout(function() { colorTheme.classList.remove('animate-fade-in'); },600);
         }
     }
-
-    // 컬러 테마 디폴트: 나잇 모드
-    const [thisTheme, setTheme] = useState(theme);
 
     /** 컬러 테마 변경 */
     const handleColorThemeChange = (e:React.ChangeEvent<HTMLInputElement>) => {
@@ -220,10 +213,6 @@ export default function Header (
         themeInput.checked = false;
     }
 
-    // 계정 영역
-    const refAccountLabel = useRef<HTMLLabelElement>(null);
-    const refAccountDiv = useRef<HTMLDivElement>(null);
-
     // 계정 영역 외 클릭
     useEffect(() => {
         function handleAccountOutside(e:Event) {
@@ -240,8 +229,8 @@ export default function Header (
     const handleAccount = (e:React.ChangeEvent<HTMLInputElement>) => {
         const accountSelect = document.getElementById("account-select") as HTMLDivElement;
         if (e.target.checked) {
-            accountSelect.classList.add("animate-account-fade-in");
-            setTimeout(function() { accountSelect.classList.remove('animate-account-fade-in'); },600);
+            accountSelect.classList.add("animate-fade-in-account");
+            setTimeout(function() { accountSelect.classList.remove('animate-fade-in-account'); },600);
         }
     }
 
@@ -274,9 +263,6 @@ export default function Header (
         window.addEventListener('scroll', throttledScroll);
         return () => { window.removeEventListener('scroll', throttledScroll); }
     });
-
-    // 폰트 검색 디폴트: 숨김
-    const [searchDisplay, setSearchDisplay] = useState("hide");
 
     /** 폰트 검색 버튼 클릭 */
     const handleFontSearch = () => {

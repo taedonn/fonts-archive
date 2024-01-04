@@ -1,7 +1,5 @@
-// react hooks
+// react
 import { useState } from "react";
-import { useCookies } from 'react-cookie';
-import { debounce } from "lodash";
 
 // next-auth
 import { getServerSession } from "next-auth";
@@ -10,6 +8,10 @@ import { authOptions } from "./api/auth/[...nextauth]";
 // api
 import { FetchUserLike } from "./api/user/fetchuserlike";
 
+// libraries
+import { useCookies } from 'react-cookie';
+import { debounce } from "lodash";
+
 // components
 import Header from "@/components/header";
 import TooltipIndex from "@/components/tooltipIndex";
@@ -17,20 +19,19 @@ import FontBox from "@/components/fontbox";
 import KakaoAdFitTopBanner from "@/components/kakaoAdFitTopBanner";
 
 const Index = ({params}: any) => {
-    // 쿠키 훅
-    const [, setCookie] = useCookies<string>([]);
-
-    // 디바이스 체크
-    const isMac: boolean = params.userAgent.includes("Mac OS") ? true : false
+    const { license, lang, type, sort, theme, source, filter, userAgent, user, like } = params;
 
     // states
-    const { theme, source, filter, user, like } = params;
-    const [license, setLicense] = useState<string>(params.license);
-    const [lang, setLang] = useState<string>(params.lang);
-    const [type, setType] = useState<string>(params.type);
-    const [sort, setSort] = useState<string>(params.sort);
+    const [, setCookie] = useCookies<string>([]);
+    const [thisLicense, setLicense] = useState<string>(license);
+    const [thisLang, setLang] = useState<string>(lang);
+    const [thisType, setType] = useState<string>(type);
+    const [thisSort, setSort] = useState<string>(sort);
     const [text, setText] = useState<string>("");
     const [searchword, setSearchword] = useState<string>(source);
+
+    // 디바이스 체크
+    const isMac: boolean = userAgent.includes("Mac OS") ? true : false
 
     /** 옵션 - "허용 범위" 클릭 */
     const handleLicenseOptionChange = (e:React.ChangeEvent<HTMLInputElement>) => {
@@ -98,10 +99,10 @@ const Index = ({params}: any) => {
                 theme={theme}
                 user={user}
                 page={"index"}
-                license={license}
-                lang={lang}
-                type={type}
-                sort={sort}
+                license={thisLicense}
+                lang={thisLang}
+                type={thisType}
+                sort={thisSort}
                 source={source}
                 handleTextChange={handleTextChange}
                 handleLicenseOptionChange={handleLicenseOptionChange}
@@ -120,10 +121,10 @@ const Index = ({params}: any) => {
             
             {/* 메인 */}
             <FontBox 
-                license={license}
-                lang={lang}
-                type={type}
-                sort={sort}
+                license={thisLicense}
+                lang={thisLang}
+                type={thisType}
+                sort={thisSort}
                 user={user}
                 like={like}
                 filter={filter}

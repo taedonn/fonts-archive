@@ -1,13 +1,13 @@
-// react hooks
+// react
 import React, { useEffect, useRef, useState } from "react";
 import { useQuery } from "react-query";
 import { debounce } from "lodash";
 
-// next hooks
+// next
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-// hooks
+// libraries
 import axios from "axios";
 
 export default function FontSearch(
@@ -26,21 +26,16 @@ export default function FontSearch(
 ) {
     const router = useRouter();
 
-    // 검색 키워드 디폴트: 빈 문자열
+    // states
     const [keyword, setKeyword] = useState<string>("");
-
-    // active 상태 체크 디폴트: 0
     const [activeEl, setActiveEl] = useState<number>(0);
-
-    // 전체 검색 결과 디폴트: 0
     const [totalEl, setTotalEl] = useState<number>(0);
+    const [isKeyDown, setIsKeyDown] = useState<boolean>(false);
 
-    // 검색 결과 스크롤 위치 디폴트: null
+    // refs
     const parentRef = useRef<HTMLDivElement>(null);
     const activeRef = useRef<HTMLAnchorElement>(null);
-
-    // 키 다운 state
-    const [isKeyDown, setIsKeyDown] = useState<boolean>(false);
+    const refSearchOutside = useRef<HTMLDivElement>(null);
     
     // 키 다운 이벤트
     useEffect(() => {
@@ -101,9 +96,6 @@ export default function FontSearch(
 
     // showBtn, closeBtn 함수가 실행될 때 keyword를 빈칸으로 변경
     useEffect(() => { setKeyword(""); }, [showBtn, closeBtn]);
-
-    // 검색 영역 외 클릭 시
-    const refSearchOutside = useRef<HTMLDivElement>(null);
 
     // 셀렉트 박스 - "검색 선택" 외 영역 클릭
     useEffect(() => {

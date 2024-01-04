@@ -7,7 +7,7 @@ module.exports = {
     darkMode: "class",
     theme: {
         fontFamily: {
-            'sans': ['Noto Sans KR', 'sans-serif']
+            'sans': ['Spoqa Han Sans Neo', 'sans-serif']
         },
         extend: {
             screens: {
@@ -18,7 +18,6 @@ module.exports = {
                 "txs": { "max": "480px" },
             },
             colors: {
-                "transparent": "transparent",
                 "theme-1": "#000000",
                 "theme-2": "#202124",
                 "theme-3": "#35363A",
@@ -42,6 +41,7 @@ module.exports = {
                 "zoom-in-fontbox": "zoom-in-fontbox 0.2s 1 both",
                 "fade-in": "fade-in 0.2s 1 both",
                 "fade-in-fontbox": "fade-in-fontbox 0.4s 1 both",
+                "fade-in-account": "fade-in-fontbox 0.2s 1 both",
             },
             keyframes: {
                 "zoom-in": {

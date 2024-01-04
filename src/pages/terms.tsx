@@ -11,8 +11,10 @@ import Footer from '@/components/footer';
 import Tooltip from '@/components/tooltip';
 
 const Terms = ({params}: any) => {
+    const { theme, userAgent, user } = params;
+
     // 디바이스 체크
-    const isMac: boolean = params.userAgent.includes("Mac OS") ? true : false;
+    const isMac: boolean = userAgent.includes("Mac OS") ? true : false;
 
     return (
         <>
@@ -25,8 +27,8 @@ const Terms = ({params}: any) => {
             {/* 헤더 */}
             <Header
                 isMac={isMac}
-                theme={params.theme}
-                user={params.user}
+                theme={theme}
+                user={user}
             />
 
             {/* 고정 메뉴 */}
@@ -35,9 +37,9 @@ const Terms = ({params}: any) => {
             {/* 메인 */}
             <div className='w-full flex flex-col justify-center items-center'>
                 <div className='w-[720px] tmd:w-full flex flex-col justify-center items-start my-16 tmd:my-12'>
-                    <h2 className='text-7 tmd:text-5 text-theme-3 dark:text-theme-9 font-medium'>서비스 이용약관</h2>
+                    <h2 className='text-3xl tmd:text-xl text-theme-3 dark:text-theme-9 font-medium'>서비스 이용약관</h2>
                     <div className='w-full h-px bg-theme-7 dark:bg-theme-5 my-4 tmd:my-3'></div>
-<pre className='font-sans whitespace-pre-wrap text-3.5 text-theme-5 dark:text-theme-8 leading-loose'>{
+<pre className='font-sans whitespace-pre-wrap text-sm text-theme-5 dark:text-theme-8 leading-loose'>{
 `제1조(목적) 이 약관은 "태돈" 회사(전자상거래 사업자)가 운영하는 "폰트 아카이브" 사이버 몰(이하 “폰트 아카이브”가라 한다)에서 제공하는 인터넷 관련 서비스(이하 “서비스”라 한다)를 이용함에 있어 사이버 몰과 이용자의 권리․의무 및 책임사항을 규정함을 목적으로 합니다.
 
 ※「PC통신, 무선 등을 이용하는 전자상거래에 대해서도 그 성질에 반하지 않는 한 이 약관을 준용합니다.」

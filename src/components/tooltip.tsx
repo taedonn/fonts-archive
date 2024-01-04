@@ -1,4 +1,4 @@
-// react hooks
+// react
 import { useEffect, useRef } from "react";
 
 export default function Tooltip() {

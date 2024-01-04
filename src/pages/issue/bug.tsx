@@ -1,34 +1,39 @@
-// react hooks
+// react
 import { useState } from "react";
 
-// next hooks
+// next
 import { NextSeo } from "next-seo";
 
 // next-auth
 import { getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]";
 
-// hooks
-import imageCompression from 'browser-image-compression';
-
-// api
+// libraries
 import axios, { AxiosProgressEvent } from "axios";
+import imageCompression from 'browser-image-compression';
 
 // components
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 
 const IssueBug = ({params}: any) => {
-    // 디바이스 체크
-    const isMac: boolean = params.userAgent.includes("Mac OS") ? true : false
+    const { theme, userAgent, user } = params;
 
-    // state
+    // 디바이스 체크
+    const isMac: boolean = userAgent.includes("Mac OS") ? true : false
+
+    // states
     const [titleAlert, setTitleAlert] = useState<boolean>(false);
     const [emailAlert, setEmailAlert] = useState<boolean>(false);
     const [emailValid, setEmailValid] = useState<boolean>(false);
     const [contentAlert, setContentAlert] = useState<boolean>(false);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [isIssued, setIsIssued] = useState<string>("");
+    const [imgs, setImgs] = useState<any>([]);
+    const [imgNo, setImgNo] = useState<number>(0);
+    const [imgAlert, setImgAlert] = useState<boolean>(false);
+    const [progress, setProgress] = useState<number>(0);
+    const [isDragging, setIsDragging] = useState<boolean>(false);
 
     // onChange
     const handleTitleChange = () => { setTitleAlert(false); }
@@ -214,11 +219,6 @@ const IssueBug = ({params}: any) => {
         setImgs([]);
     }
 
-    // 이미지 URL을 저장할 state
-    const [imgs, setImgs] = useState<any>([]);
-    const [imgNo, setImgNo] = useState<number>(0);
-    const [imgAlert, setImgAlert] = useState<boolean>(false);
-
     // 이미지 알럿 닫기
     const imgAlertClose = () => { setImgAlert(false); }
 
@@ -300,12 +300,6 @@ const IssueBug = ({params}: any) => {
         setIsIssued("");
     }
 
-    // Progress Bar
-    const [progress, setProgress] = useState<number>(0);
-
-    // 드래그 이벤트
-    const [isDragging, setIsDragging] = useState<boolean>(false);
-
     const onDragEnter = (e: React.DragEvent<HTMLDivElement>) => {
         e.preventDefault();
         e.stopPropagation();
@@ -385,8 +379,8 @@ const IssueBug = ({params}: any) => {
             {/* 헤더 */}
             <Header
                 isMac={isMac}
-                theme={params.theme}
-                user={params.user}
+                theme={theme}
+                user={user}
             />
 
             {/* Progress Bar */}
@@ -394,19 +388,19 @@ const IssueBug = ({params}: any) => {
 
             {/* 메인 */}
             <div className='w-full flex flex-col justify-center items-center'>
-                <div className='max-w-[720px] w-full flex flex-col justify-center items-start my-[100px] tlg:my-[40px]'>
-                    <h2 className='text-[20px] tlg:text-[18px] text-theme-3 dark:text-theme-9 font-medium mb-[6px]'>버그 리포트</h2>
-                    <h3 className='text-[13px] text-theme-5 dark:text-theme-7 mb-[12px]'>
+                <div className='max-w-[720px] w-full flex flex-col justify-center items-start my-[100px] tlg:my-10'>
+                    <h2 className='text-xl tlg:text-lg text-theme-3 dark:text-theme-9 font-medium mb-1.5'>버그 리포트</h2>
+                    <h3 className='text-sm text-theme-5 dark:text-theme-7 mb-3'>
                         버그를 발견하셨다면 제보해 주세요! 운영에 많은 도움이 됩니다.
                     </h3>
                     <div id="is-issued" className="w-full">
                         {
                             isIssued === "success"
                             ? <>
-                                <div className='w-full h-[40px] px-[10px] mb-[10px] flex flex-row justify-between items-center rounded-[6px] border-[2px] border-theme-yellow dark:border-theme-blue-1/80 text-[12px] text-theme-3 dark:text-theme-9 bg-theme-yellow/40 dark:bg-theme-blue-1/20'>
+                                <div className='w-full h-10 px-2.5 mb-2.5 flex flex-row justify-between items-center rounded-md border-2 border-theme-yellow dark:border-theme-blue-1/80 text-xs text-theme-3 dark:text-theme-9 bg-theme-yellow/40 dark:bg-theme-blue-1/20'>
                                     <div className='flex flex-row justify-start items-center'>
-                                        <svg className='w-[14px] fill-theme-yellow dark:fill-theme-blue-1/80' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg>
-                                        <div className='ml-[6px]'>이상 현상을 제보해주셔서 감사합니다. 빠른 시일 내에 해결할 수 있도록 노력하겠습니다.</div>
+                                        <svg className='w-3.5 fill-theme-yellow dark:fill-theme-blue-1/80' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg>
+                                        <div className='ml-1.5'>이상 현상을 제보해주셔서 감사합니다. 빠른 시일 내에 해결할 수 있도록 노력하겠습니다.</div>
                                     </div>
                                     <div onClick={handleIssueClose} className='flex flex-row justify-center items-center cursor-pointer'>
                                         <svg className='w-[18px] fill-theme-3 dark:fill-theme-9' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg>
@@ -415,10 +409,10 @@ const IssueBug = ({params}: any) => {
                             </>
                             : isIssued === "fail"
                                 ? <>
-                                    <div className='w-full h-[40px] px-[10px] mb-[10px] flex flex-row justify-between items-center rounded-[6px] border-[2px] border-theme-red/80 text-[12px] text-theme-3 dark:text-theme-9 bg-theme-red/20'>
+                                    <div className='w-full h-10 px-2.5 mb-2.5 flex flex-row justify-between items-center rounded-md border-2 border-theme-red/80 text-xs text-theme-3 dark:text-theme-9 bg-theme-red/20'>
                                         <div className='flex flex-row justify-start items-center'>
-                                            <svg className='w-[14px] fill-theme-red/80' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg>
-                                            <div className='ml-[6px]'>제보에 실패했습니다. 잠시 후 다시 시도해 주세요.</div>
+                                            <svg className='w-3.5 fill-theme-red/80' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg>
+                                            <div className='ml-1.5'>제보에 실패했습니다. 잠시 후 다시 시도해 주세요.</div>
                                         </div>
                                         <div onClick={handleIssueClose} className='flex flex-row justify-center items-center cursor-pointer'>
                                             <svg className='w-[18px] fill-theme-3 dark:fill-theme-9' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg>
@@ -427,53 +421,53 @@ const IssueBug = ({params}: any) => {
                                 </> : <></>
                         }
                     </div>
-                    <div className='w-full p-[20px] rounded-[8px] text-theme-10 dark:text-theme-9 bg-theme-5 dark:bg-theme-3 drop-shadow-default dark:drop-shadow-dark'>
-                        <div className="text-[14px] flex flex-col">
+                    <div className='w-full p-5 rounded-lg text-theme-10 dark:text-theme-9 bg-theme-5 dark:bg-theme-3 drop-shadow-default dark:drop-shadow-dark'>
+                        <div className="text-sm flex flex-col">
                             <label htmlFor="title">제목</label>
-                            <input onChange={handleTitleChange} placeholder="제목을 입력해 주세요." id="title" tabIndex={1} type="text" className={`w-full ${titleAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
+                            <input onChange={handleTitleChange} placeholder="제목을 입력해 주세요." id="title" tabIndex={1} type="text" className={`w-full ${titleAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-xs mt-2 px-3.5 py-2 rounded-lg border-2 placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
                             {
                                 titleAlert
-                                ? <div className="text-[10px] ml-[16px] mt-[6px] text-theme-red">제목을 입력해 주세요.</div>
+                                ? <div className="text-xs ml-4 mt-1.5 text-theme-red">제목을 입력해 주세요.</div>
                                 : <></>
                             }
-                            <label htmlFor="email" className="mt-[20px]">이메일</label>
-                            <input onChange={handleEmailChange} placeholder="이메일을 입력해 주세요." id="email" tabIndex={2} type="text" className={`w-full ${emailAlert || emailValid ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
+                            <label htmlFor="email" className="mt-10">이메일</label>
+                            <input onChange={handleEmailChange} placeholder="이메일을 입력해 주세요." id="email" tabIndex={2} type="text" className={`w-full ${emailAlert || emailValid ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-xs mt-2 px-3.5 py-2 rounded-lg border-2 placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
                             {
                                 emailAlert && !emailValid
-                                ? <div className="text-[10px] ml-[16px] mt-[6px] text-theme-red">이메일을 입력해 주세요.</div>
+                                ? <div className="text-xs ml-4 mt-1.5 text-theme-red">이메일을 입력해 주세요.</div>
                                 : emailValid
-                                    ? <div className="text-[10px] ml-[16px] mt-[6px] text-theme-red">올바른 형식의 이메일이 아닙니다.</div>
+                                    ? <div className="text-xs ml-4 mt-1.5 text-theme-red">올바른 형식의 이메일이 아닙니다.</div>
                                     : <></>
                             }
-                            <label htmlFor="content" className="mt-[20px]">내용</label>
-                            <textarea onChange={handleContentChange} placeholder="내용은 최대한 자세하게 적어주세요." id="content" tabIndex={3} className={`font-edit-textarea w-full h-[200px] resize-none ${contentAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-[12px] mt-[8px] px-[14px] py-[12px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}></textarea>
+                            <label htmlFor="content" className="mt-10">내용</label>
+                            <textarea onChange={handleContentChange} placeholder="내용은 최대한 자세하게 적어주세요." id="content" tabIndex={3} className={`font-edit-textarea w-full h-[200px] resize-none ${contentAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-xs mt-2 px-3.5 py-3 rounded-lg border-2 placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}></textarea>
                             {
                                 contentAlert
-                                ? <div className="text-[10px] ml-[16px] mt-[6px] text-theme-red">내용을 입력해 주세요.</div>
+                                ? <div className="text-xs ml-4 mt-1.5 text-theme-red">내용을 입력해 주세요.</div>
                                 : <></>
                             }
                             <div 
-                                className={`${isDragging ? "border-theme-yellow dark:border-theme-blue-1 bg-theme-yellow/20 dark:bg-theme-blue-1/20 duration-100" : "border-theme-7 dark:border-theme-5 bg-transparent dark:bg-transparent duration-0"} w-full mt-[16px] p-[24px] rounded-[8px] flex flex-col justify-center items-center gap-x-[10px] border`}
+                                className={`${isDragging ? "border-theme-yellow dark:border-theme-blue-1 bg-theme-yellow/20 dark:bg-theme-blue-1/20 duration-100" : "border-theme-7 dark:border-theme-5 bg-transparent dark:bg-transparent duration-0"} w-full mt-4 p-6 rounded-lg flex flex-col justify-center items-center gap-x-2.5 border`}
                                 onDragEnter={onDragEnter}
                                 onDragLeave={onDragLeave}
                                 onDragOver={onDragOver}
                                 onDrop={onDrop}
                             >
-                                <svg className="w-[28px] fill-theme-9 dark:fill-theme-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M6.502 7a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/><path d="M14 14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h5.5L14 4.5V14zM4 1a1 1 0 0 0-1 1v10l2.224-2.224a.5.5 0 0 1 .61-.075L8 11l2.157-3.02a.5.5 0 0 1 .76-.063L13 10V4.5h-2A1.5 1.5 0 0 1 9.5 3V1H4z"/></svg>
-                                <label htmlFor="file" className="text-[14px] mt-[12px] text-theme-yellow dark:text-theme-blue-1 font-medium hover:underline tlg:hover:no-underline cursor-pointer">파일 추가</label>
+                                <svg className="w-7 fill-theme-9 dark:fill-theme-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M6.502 7a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/><path d="M14 14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h5.5L14 4.5V14zM4 1a1 1 0 0 0-1 1v10l2.224-2.224a.5.5 0 0 1 .61-.075L8 11l2.157-3.02a.5.5 0 0 1 .76-.063L13 10V4.5h-2A1.5 1.5 0 0 1 9.5 3V1H4z"/></svg>
+                                <label htmlFor="file" className="text-sm mt-3 text-theme-yellow dark:text-theme-blue-1 font-medium hover:underline tlg:hover:no-underline cursor-pointer">파일 추가</label>
                                 <input onChange={uploadImg} accept='image/*' id="file" type="file" multiple className="hidden"/>
-                                <div className="text-[12px] mt-[4px] text-theme-9 dark:text-theme-7">또는 첨부할 파일을 드래그해서 추가할 수 있습니다.</div>
+                                <div className="text-xs mt-1 text-theme-9 dark:text-theme-7">또는 첨부할 파일을 드래그해서 추가할 수 있습니다.</div>
                                 {
                                     imgs.length > 0
-                                    ? <div className="w-full mt-[20px] p-[12px] border border-theme-7 dark:border-theme-5 rounded-[8px] flex justify-center gap-x-[10px]">
+                                    ? <div className="w-full mt-5 p-3 border border-theme-7 dark:border-theme-5 rounded-lg flex justify-center gap-x-2.5">
                                         {
                                             imgs.map((img: any, index: number) => {
                                                 return (
                                                     <div className="w-max relative" key={img.index}>
                                                         {/* eslint-disable-next-line @next/next/no-img-element */}
-                                                        <img src={img.src} alt="preview-img" className="w-[72px] h-[88px] rounded-[8px] object-cover"/> 
-                                                        <button onClick={() => deleteImg(img.index, index)} className="w-[24px] h-[24px] rounded-full absolute right-[-6px] top-[-6px] flex items-center bg-theme-3 dark:bg-theme-blue-2">
-                                                            <svg className="w-[12px] mx-auto fill-theme-yellow dark:fill-theme-blue-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>
+                                                        <img src={img.src} alt="preview-img" className="w-[72px] h-[88px] rounded-lg object-cover"/> 
+                                                        <button onClick={() => deleteImg(img.index, index)} className="w-6 h-6 rounded-full absolute -right-1.5 -top-1.5 flex items-center bg-theme-3 dark:bg-theme-blue-2">
+                                                            <svg className="w-3 mx-auto fill-theme-yellow dark:fill-theme-blue-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>
                                                         </button>
                                                     </div>
                                                 )
@@ -484,10 +478,10 @@ const IssueBug = ({params}: any) => {
                             </div>
                             {
                                 imgAlert
-                                ? <div className='w-full h-[40px] px-[10px] mt-[10px] flex flex-row justify-between items-center rounded-[6px] border-[2px] border-theme-red text-[12px] text-theme-9 bg-theme-red/20'>
+                                ? <div className='w-full h-5 px-2.5 mt-2.5 flex flex-row justify-between items-center rounded-md border-2 border-theme-red text-xs text-theme-9 bg-theme-red/20'>
                                     <div className='flex flex-row justify-start items-center'>
-                                        <svg className='w-[14px] fill-theme-red' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg>
-                                        <div className='ml-[6px]'>파일은 최대 5개까지만 올릴 수 있습니다.</div>
+                                        <svg className='w-3.5 fill-theme-red' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg>
+                                        <div className='ml-1.5'>파일은 최대 5개까지만 올릴 수 있습니다.</div>
                                     </div>
                                     <div onClick={imgAlertClose} className='flex flex-row justify-center items-center cursor-pointer'>
                                         <svg className='w-[18px] fill-theme-9' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg>
@@ -495,19 +489,19 @@ const IssueBug = ({params}: any) => {
                                 </div>
                                 : <></>
                             }
-                            <div className='w-full flex justify-start items-center mt-[12px] text-[12px] text-theme-8 dark:text-theme-7'>
-                                <svg className='w-[12px] mr-[6px] fill-theme-yellow dark:fill-theme-blue-1' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg>
+                            <div className='w-full flex justify-start items-center mt-3 text-xs text-theme-8 dark:text-theme-7'>
+                                <svg className='w-3 mr-1.5 fill-theme-yellow dark:fill-theme-blue-1' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg>
                                 <div>파일은 최대 다섯개까지만 올릴 수 있습니다.</div>
                             </div>
-                            <div className='w-full flex justify-start items-center mt-[4px] text-[12px] text-theme-8 dark:text-theme-7'>
-                                <svg className='w-[12px] mr-[6px] fill-theme-yellow dark:fill-theme-blue-1' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg>
+                            <div className='w-full flex justify-start items-center mt-1 text-xs text-theme-8 dark:text-theme-7'>
+                                <svg className='w-3 mr-1.5 fill-theme-yellow dark:fill-theme-blue-1' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg>
                                 <div>이미지 파일만 첨부 가능합니다.</div>
                             </div>
                         </div>
-                        <button onClick={handleSubmit} className="w-full h-[34px] rounded-[8px] mt-[20px] font-medium text-[12px] text-theme-4 dark:text-theme-3 bg-theme-yellow/80 hover:bg-theme-yellow dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1">
+                        <button onClick={handleSubmit} className="w-full h-8 rounded-lg mt-5 font-medium text-xs text-theme-4 dark:text-theme-blue-2 bg-theme-yellow/80 hover:bg-theme-yellow dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1">
                             {
                                 isLoading === true
-                                ? <span className='loader loader-register w-[16px] h-[16px]'></span>
+                                ? <span className='loader loader-register w-4 h-4'></span>
                                 : '제출하기'
                             }
                         </button>

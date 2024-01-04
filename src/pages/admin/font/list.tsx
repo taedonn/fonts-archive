@@ -1,4 +1,4 @@
-// next hooks
+// next
 import Link from 'next/link';
 import { NextSeo } from 'next-seo';
 
@@ -6,33 +6,37 @@ import { NextSeo } from 'next-seo';
 import { getServerSession } from "next-auth";
 import { authOptions } from '@/pages/api/auth/[...nextauth]';
 
-// react hooks
+// react
 import React, { useEffect, useState, useRef } from 'react';
 
 // api
-import axios from 'axios';
 import { FetchFontsLength } from '@/pages/api/admin/font';
 import { FetchFonts } from '@/pages/api/admin/font';
+
+// libraries
+import axios from 'axios';
+import { Pagination } from '@mui/material';
 
 // components
 import Header from "@/components/header";
 import Footer from '@/components/footer';
-import { Pagination } from '@mui/material';
 
 // common
 import { timeFormat } from '@/libs/common';
 
 const FontsList = ({params}: any) => {
-    // 디바이스 체크
-    const isMac: boolean = params.userAgent.includes("Mac OS") ? true : false;
+    const { theme, userAgent, user, count, fonts } = params;
 
-    // 목록 state
-    const [fonts, setFonts] = useState(params.fonts);
-    const [count, setCount] = useState<number>(params.count);
+    // 디바이스 체크
+    const isMac: boolean = userAgent.includes("Mac OS") ? true : false;
+
+    // states
+    const [thisFonts, setFonts] = useState(fonts);
+    const [thisCount, setCount] = useState<number>(count);
     const [filter, setFilter] = useState<string>('all');
     const [text, setText] = useState<string>('');
 
-    // 목록 ref
+    // refs
     const selectRef = useRef<HTMLSelectElement>(null);
     const textRef = useRef<HTMLInputElement>(null);
 
@@ -126,8 +130,8 @@ const FontsList = ({params}: any) => {
             {/* 헤더 */}
             <Header
                 isMac={isMac}
-                theme={params.theme}
-                user={params.user}
+                theme={theme}
+                user={user}
             />
 
             {/* 메인 */}
@@ -162,10 +166,10 @@ const FontsList = ({params}: any) => {
                             </div>
                             <div>
                                 {
-                                    fonts && fonts.length > 0
+                                    thisFonts && thisFonts.length > 0
                                     ? <>
                                         {
-                                            fonts.map((font: any) => {
+                                            thisFonts.map((font: any) => {
                                                 return (
                                                     <div key={font.code} className='h-[40px] tlg:h-[34px] relative flex items-center border-t border-theme-5 dark:border-theme-3 hover:bg-theme-yellow/20 tlg:hover:bg-transparent hover:dark:bg-theme-blue-1/20 tlg:hover:dark:bg-transparent'>
                                                         <Link href={`/admin/font/edit?code=${font.code}`} className='w-full h-full block absolute z-10 left-0 top-0'></Link>
@@ -191,7 +195,7 @@ const FontsList = ({params}: any) => {
                         </div>
                     </div>
                     <div className='w-full flex justify-center mt-[12px]'>
-                        <Pagination count={count} page={page} onChange={handleChange} shape='rounded' showFirstButton showLastButton/>
+                        <Pagination count={thisCount} page={page} onChange={handleChange} shape='rounded' showFirstButton showLastButton/>
                     </div>
                 </div>
             </form>

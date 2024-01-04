@@ -1,7 +1,7 @@
-// react hooks
+// react
 import React, { useEffect, useRef } from "react";
 
-// hooks
+// libraries
 import axios from "axios";
 
 export default function AdminDeleteCommentModal(
@@ -28,7 +28,7 @@ export default function AdminDeleteCommentModal(
         filter: string,
     }
 ) {
-    // 댓글 삭제 Ref
+    // refs
     const thisModal = useRef<HTMLDivElement>(null);
 
     // 모달창 외 영역 클릭 시 모달창 닫기

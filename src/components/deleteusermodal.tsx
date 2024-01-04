@@ -1,10 +1,10 @@
-// react hooks
+// react
 import React, { useEffect, useRef, useState } from "react";
 
 // next-auth
 import { signOut } from "next-auth/react";
 
-// hooks
+// libraries
 import axios from "axios";
 
 interface User {
@@ -33,7 +33,12 @@ export default function DeleteUserModal(
         user: User,
     }
 ) {
-    // 모달창 영역 Ref
+    // states
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [inputVal, setInputVal] = useState<string>('');
+    const [inputChk, setInputChk] = useState<string>('');
+
+    // refs
     const refSearchOutside = useRef<HTMLDivElement>(null);
 
     // 모달창 외 영역 클릭 시 모달창 닫기
@@ -71,11 +76,6 @@ export default function DeleteUserModal(
             window.removeEventListener("keyup", handleKeyup);
         }
     });
-
-    // 회원 탈퇴 인풋 state
-    const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [inputVal, setInputVal] = useState<string>('');
-    const [inputChk, setInputChk] = useState<string>('');
 
     /** 회원 탈퇴 인풋 value */
     const handleDeleteValChange = (e: React.ChangeEvent<HTMLInputElement>) => {

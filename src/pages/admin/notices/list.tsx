@@ -1,4 +1,4 @@
-// next hooks
+// next
 import Link from 'next/link';
 import { NextSeo } from 'next-seo';
 
@@ -6,33 +6,37 @@ import { NextSeo } from 'next-seo';
 import { getServerSession } from "next-auth";
 import { authOptions } from '@/pages/api/auth/[...nextauth]';
 
-// react hooks
+// react
 import React, { useState, useRef, useEffect } from 'react';
 
 // api
-import axios from 'axios';
 import { FetchNoticesLength } from '@/pages/api/admin/notices';
 import { FetchNotices } from '@/pages/api/admin/notices';
+
+// libraries
+import axios from 'axios';
+import { Pagination } from '@mui/material';
 
 // components
 import Header from "@/components/header";
 import Footer from '@/components/footer';
-import { Pagination } from '@mui/material';
 
 // common
 import { timeFormat } from '@/libs/common';
 
 const NoticeList = ({params}: any) => {
-    // 디바이스 체크
-    const isMac: boolean = params.userAgent.includes("Mac OS") ? true : false;
+    const { theme, userAgent, user, list, count } = params;
 
-    // state
-    const [list, setList] = useState(params.list);
-    const [count, setCount] = useState<number>(params.count);
+    // 디바이스 체크
+    const isMac: boolean = userAgent.includes("Mac OS") ? true : false;
+
+    // states
+    const [thisList, setList] = useState(list);
+    const [thisCount, setCount] = useState<number>(count);
     const [filter, setFilter] = useState<string>('all');
     const [text, setText] = useState<string>('');
 
-    // ref
+    // refs
     const selectRef = useRef<HTMLSelectElement>(null);
     const textRef = useRef<HTMLInputElement>(null);
 
@@ -93,58 +97,58 @@ const NoticeList = ({params}: any) => {
             {/* 헤더 */}
             <Header
                 isMac={isMac}
-                theme={params.theme}
-                user={params.user}
+                theme={theme}
+                user={user}
             />
 
             {/* 메인 */}
             <form onSubmit={e => e.preventDefault()} className='w-full flex flex-col justify-center items-center'>
-                <div className='w-[720px] tmd:w-full flex flex-col justify-center items-start my-[100px] tlg:my-[40px]'>
-                    <h2 className='text-[20px] tlg:text-[18px] text-theme-3 dark:text-theme-9 font-medium mb-[16px] tlg:mb-[12px]'>공지 목록</h2>
-                    <div className='w-max flex items-center p-[6px] mb-[12px] tlg:mb-[8px] rounded-[6px] text-theme-10 dark:text-theme-9 bg-theme-5 dark:bg-theme-3'>
-                        <select ref={selectRef} className='w-[80px] h-[32px] tlg:h-[28px] text-[12px] pt-px px-[10px] bg-transparent rounded-[6px] outline-none border border-theme-6 dark:border-theme-5 cursor-pointer'>
+                <div className='w-[720px] tmd:w-full flex flex-col justify-center items-start my-[100px] tlg:my-10'>
+                    <h2 className='text-xl tlg:text-lg text-theme-3 dark:text-theme-9 font-medium mb-4 tlg:mb-3'>공지 목록</h2>
+                    <div className='w-max flex items-center p-1.5 mb-3 tlg:mb-2 rounded-md text-theme-10 dark:text-theme-9 bg-theme-5 dark:bg-theme-3'>
+                        <select ref={selectRef} className='w-20 h-8 tlg:h-7 text-xs pt-px px-2.5 bg-transparent rounded-md outline-none border border-theme-6 dark:border-theme-5 cursor-pointer'>
                             <option value='all' defaultChecked>전체</option>
                             <option value='service'>서비스</option>
                             <option value='font'>폰트</option>
                         </select>
-                        <input ref={textRef} type='textbox' placeholder='제목/내용' className='w-[200px] tlg:w-[160px] h-[32px] tlg:h-[28px] ml-[8px] px-[12px] text-[12px] bg-transparent border rounded-[6px] border-theme-6 dark:border-theme-5'/>
-                        <button onClick={handleClick} className='w-[68px] h-[32px] tlg:h-[28px] ml-[8px] text-[12px] border rounded-[6px] bg-theme-6/40 hover:bg-theme-6/60 tlg:hover:bg-theme-6/40 dark:bg-theme-4 hover:dark:bg-theme-5 tlg:hover:dark:bg-theme-4'>검색</button>
+                        <input ref={textRef} type='textbox' placeholder='제목/내용' className='w-[200px] tlg:w-40 h-8 tlg:h-7 ml-2 px-3 text-xs bg-transparent border rounded-md border-theme-6 dark:border-theme-5'/>
+                        <button onClick={handleClick} className='w-[68px] h-8 tlg:h-7 ml-2 text-3 border rounded-md bg-theme-6/40 hover:bg-theme-6/60 tlg:hover:bg-theme-6/40 dark:bg-theme-4 hover:dark:bg-theme-5 tlg:hover:dark:bg-theme-4'>검색</button>
                     </div>
-                    <div className='w-full rounded-[8px] overflow-hidden overflow-x-auto'>
-                        <div className='w-[720px] text-[12px] text-theme-10 dark:text-theme-9 bg-theme-4 dark:bg-theme-4'>
+                    <div className='w-full rounded-lg overflow-hidden overflow-x-auto'>
+                        <div className='w-[720px] text-xs text-theme-10 dark:text-theme-9 bg-theme-4 dark:bg-theme-4'>
                             <div className='text-left bg-theme-5 dark:bg-theme-3'>
-                                <div className='h-[40px] tlg:h-[34px] flex items-center'>
-                                    <div className='w-[48px] pl-[16px] shrink-0'>번호</div>
-                                    <div className='w-[60px] pl-[16px] shrink-0'>유형</div>
-                                    <div className='w-[120px] pl-[16px] shrink-0'>제목</div>
-                                    <div className='w-full pl-[16px]'>내용</div>
-                                    <div className='w-[80px] pl-[16px] shrink-0'>숨김 여부</div>
-                                    <div className='w-[120px] pl-[16px] shrink-0'>생성 날짜</div>
-                                    <div className='w-[120px] pl-[16px] shrink-0'>수정 날짜</div>
+                                <div className='h-10 tlg:h-9 flex items-center'>
+                                    <div className='w-12 pl-4 shrink-0'>번호</div>
+                                    <div className='w-[60px] pl-4 shrink-0'>유형</div>
+                                    <div className='w-[120px] pl-4 shrink-0'>제목</div>
+                                    <div className='w-full pl-4'>내용</div>
+                                    <div className='w-20 pl-4 shrink-0'>숨김 여부</div>
+                                    <div className='w-[120px] pl-4 shrink-0'>생성 날짜</div>
+                                    <div className='w-[120px] pl-4 shrink-0'>수정 날짜</div>
                                 </div>
                             </div>
                             <div>
                                 {
-                                    list && list.length > 0
+                                    thisList && thisList.length > 0
                                     ? <>
                                         {
-                                            list.map((notice: any) => {
+                                            thisList.map((notice: any) => {
                                                 return (
-                                                    <div key={notice.notice_id} className='h-[40px] tlg:h-[34px] relative flex items-center border-t border-theme-5 dark:border-theme-3 hover:bg-theme-yellow/20 tlg:hover:bg-transparent hover:dark:bg-theme-blue-1/20 tlg:hover:dark:bg-transparent cursor-pointer'>
+                                                    <div key={notice.notice_id} className='h-10 tlg:h-9 relative flex items-center border-t border-theme-5 dark:border-theme-3 hover:bg-theme-yellow/20 tlg:hover:bg-transparent hover:dark:bg-theme-blue-1/20 tlg:hover:dark:bg-transparent cursor-pointer'>
                                                         <Link href={`/admin/notices/${notice.notice_id}`} className='w-full h-full absolute z-10 left-0 top-0'></Link>
-                                                        <div className='w-[48px] pl-[16px] py-[10px] shrink-0'>{notice.notice_id}</div>
-                                                        <div className='w-[60px] pl-[16px] py-[10px] shrink-0'>{notice.notice_type === "service" ? "서비스" : "폰트"}</div>
-                                                        <div className='w-[120px] pl-[16px] py-[10px] shrink-0'><div className='font-size'>{notice.notice_title}</div></div>
-                                                        <div className='w-full pl-[16px] py-[10px] overflow-hidden'><div className='font-size'>{notice.notice_content}</div></div>
-                                                        <div className='w-[80px] py-[10px] shrink-0 text-center text-theme-green'>
+                                                        <div className='w-12 pl-4 py-2.5 shrink-0'>{notice.notice_id}</div>
+                                                        <div className='w-[60px] pl-4 py-2.5 shrink-0'>{notice.notice_type === "service" ? "서비스" : "폰트"}</div>
+                                                        <div className='w-[120px] pl-4 py-2.5 shrink-0'><div className='font-size'>{notice.notice_title}</div></div>
+                                                        <div className='w-full pl-4 py-2.5 overflow-hidden'><div className='font-size'>{notice.notice_content}</div></div>
+                                                        <div className='w-20 py-2.5 shrink-0 text-center text-theme-green'>
                                                             {
                                                                 notice.notice_show_type
                                                                 ? <span>보임</span> 
                                                                 : <span>숨김</span>
                                                             }
                                                         </div>
-                                                        <div className='w-[120px] pl-[16px] py-[10px] shrink-0'>{timeFormat(notice.notice_created_at)}</div>
-                                                        <div className='w-[120px] pl-[16px] py-[10px] shrink-0'>{timeFormat(notice.notice_updated_at)}</div>
+                                                        <div className='w-[120px] pl-4 py-2.5 shrink-0'>{timeFormat(notice.notice_created_at)}</div>
+                                                        <div className='w-[120px] pl-4 py-2.5 shrink-0'>{timeFormat(notice.notice_updated_at)}</div>
                                                     </div>
                                                 )
                                             })
@@ -155,8 +159,8 @@ const NoticeList = ({params}: any) => {
                             </div>
                         </div>
                     </div>
-                    <div className='w-full flex justify-center mt-[12px]'>
-                        <Pagination count={count} page={page} onChange={handleChange} shape='rounded' showFirstButton showLastButton/>
+                    <div className='w-full flex justify-center mt-3'>
+                        <Pagination count={thisCount} page={page} onChange={handleChange} shape='rounded' showFirstButton showLastButton/>
                     </div>
                 </div>
             </form>

@@ -27,7 +27,7 @@ class MyDocument extends Document {
         return (
             <Html lang="ko">
                 <Head>
-                    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" type="text/css"></link>
+                    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fonts-archive/SpoqaHanSansNeo/SpoqaHanSansNeo.css" type="text/css"/>
                 </Head>
                 <script dangerouslySetInnerHTML={{ __html: themeInitializerScript }}/>
                 <body className="font-sans absolute w-full min-h-full px-8 tlg:px-4 pt-[60px] tlg:pt-[52px] pb-[76px]">

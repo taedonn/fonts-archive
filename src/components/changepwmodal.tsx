@@ -1,7 +1,7 @@
-// react hooks
+// react
 import React, { useEffect, useRef, useState } from "react";
 
-// hooks
+// libraries
 import axios from "axios";
 
 export default function ChangePwModal(
@@ -20,7 +20,16 @@ export default function ChangePwModal(
         auth: string,
     }
 ) {
-    // 모달창 영역 Ref
+    // states
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [currentPwVal, setCurrentPwVal] = useState<string>('');
+    const [currentPwChk, setCurrentPwChk] = useState<string>('');
+    const [newPwVal, setNewPwVal] = useState<string>('');
+    const [newPwChk, setNewPwChk] = useState<string>('');
+    const [newPwConfirmVal, setNewPwConfirmVal] = useState<string>('');
+    const [newPwConfirmChk, setNewPwConfirmChk] = useState<string>('');
+
+    // refs
     const refSearchOutside = useRef<HTMLDivElement>(null);
 
     // 모달창 외 영역 클릭 시 모달창 닫기
@@ -66,15 +75,6 @@ export default function ChangePwModal(
             window.removeEventListener("keyup", handleKeyup);
         }
     });
-
-    // 인풋 state
-    const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [currentPwVal, setCurrentPwVal] = useState<string>('');
-    const [currentPwChk, setCurrentPwChk] = useState<string>('');
-    const [newPwVal, setNewPwVal] = useState<string>('');
-    const [newPwChk, setNewPwChk] = useState<string>('');
-    const [newPwConfirmVal, setNewPwConfirmVal] = useState<string>('');
-    const [newPwConfirmChk, setNewPwConfirmChk] = useState<string>('');
 
     /** 현재 비밀번호 인풋 Change Event */
     const handleCurrentPwChange = (e: React.ChangeEvent<HTMLInputElement>) => {

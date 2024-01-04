@@ -1,21 +1,25 @@
-// react hooks
+// react
 import React, { useEffect, useState } from 'react';
 import { useInfiniteQuery } from 'react-query';
 import { useInView } from 'react-intersection-observer';
 
-// next hooks
+// next
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-// hooks
+// libraries
 import axios from 'axios';
 import { throttle } from 'lodash';
 
-// 컴포넌트
+// components
 import DummyText from "./dummytext";
 import SkeletonBox from './skeletonbox';
 
 export default function FontBox ({license, lang, type, sort, user, like, filter, searchword, text, num}:{license: string, lang: string, type: string, sort: string, user: any, like: any, filter: string, searchword: string, text: string, num: number}) {        
+    // states
+    const [alertDisplay, setAlertDisplay] = useState<boolean>(false);
+    const [hoverDisplay, setHoverDisplay] = useState<boolean>(true);
+    
     // react-intersection-observer 훅
     const { ref, inView } = useInView();
 
@@ -69,10 +73,6 @@ export default function FontBox ({license, lang, type, sort, user, like, filter,
             router.events.off("routeChangeError", start);
         }
     }, [router]);
-
-    // 좋아요 state
-    const [alertDisplay, setAlertDisplay] = useState<boolean>(false);
-    const [hoverDisplay, setHoverDisplay] = useState<boolean>(true);
 
     /** 로그인 중이 아닐 때 좋아요 클릭 방지 */
     const handleLikeClick = (e: React.MouseEvent<HTMLInputElement>) => {

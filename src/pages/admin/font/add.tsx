@@ -1,36 +1,27 @@
-// react hooks
+// react
 import { useState } from "react";
 
-// next hooks
+// next
 import { NextSeo } from "next-seo";
 
 // next-auth
 import { getServerSession } from "next-auth";
 import { authOptions } from '@/pages/api/auth/[...nextauth]';
 
+// libraries
+import axios from "axios";
+
 // components
 import Header from "@/components/header";
 import Footer from "@/components/footer";
-import axios from "axios";
 
 const Add = ({params}: any) => {
+    const { theme, userAgent, user } = params;
+
     // 디바이스 체크
-    const isMac: boolean = params.userAgent.includes("Mac OS") ? true : false
+    const isMac: boolean = userAgent.includes("Mac OS") ? true : false;
 
-    /** 예시 복사하기 버튼 클릭 이벤트 */
-    const copyOnClick = (e: any) => {
-        const btn = document.getElementById(e.target.id) as HTMLButtonElement;
-        const copyBtn = btn.getElementsByClassName("copy_btn")[0] as SVGSVGElement;
-
-        window.navigator.clipboard.writeText(btn.value);
-
-        copyBtn.style.display = 'block';
-        setTimeout(function() {
-            copyBtn.style.display = 'none';
-        },1000);
-    }
-
-    // 추가하기 state
+    // states
     const [addBtnLoading, setAddBtnLoading] = useState<boolean>(false);
     const [addBtnSuccess, setAddBtnSuccess] = useState<string>("");
     const [fontNameAlert, setFontNameAlert] = useState<boolean>(false);
@@ -49,6 +40,19 @@ const Add = ({params}: any) => {
     const [fontCdnUrlAlert, setFontCdnUrlAlert] = useState<boolean>(false);
     const [fontLicenseAlert, setFontLicenseAlert] = useState<boolean>(false);
     const [fontLicenseTextAlert, setFontLicenseTextAlert] = useState<boolean>(false);
+
+    /** 예시 복사하기 버튼 클릭 이벤트 */
+    const copyOnClick = (e: any) => {
+        const btn = document.getElementById(e.target.id) as HTMLButtonElement;
+        const copyBtn = btn.getElementsByClassName("copy_btn")[0] as SVGSVGElement;
+
+        window.navigator.clipboard.writeText(btn.value);
+
+        copyBtn.style.display = 'block';
+        setTimeout(function() {
+            copyBtn.style.display = 'none';
+        },1000);
+    }
 
     /** 추가하기 버튼 클릭 */
     const addBtnClick = async () => {
@@ -187,8 +191,8 @@ const Add = ({params}: any) => {
             {/* 헤더 */}
             <Header
                 isMac={isMac}
-                theme={params.theme}
-                user={params.user}
+                theme={theme}
+                user={user}
             />
 
             {/* 메인 */}

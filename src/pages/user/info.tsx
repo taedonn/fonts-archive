@@ -1,4 +1,4 @@
-// next hooks
+// next
 import { NextSeo } from 'next-seo';
 
 // next-auth
@@ -6,10 +6,10 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '../api/auth/[...nextauth]';
 import { FetchUserInfo } from '../api/auth/auth';
 
-// react hooks
+// react
 import React, { useState, useEffect, useRef, ChangeEvent } from 'react';
 
-// hooks
+// libraries
 import axios from 'axios';
 import imageCompression from 'browser-image-compression';
 
@@ -23,12 +23,13 @@ import DeleteUserModal from '@/components/deleteusermodal';
 import { timeFormat } from '@/libs/common';
 
 const Info = ({params}: any) => {
+    const { theme, userAgent, info } = params;
+    const user = info;
+
     // 디바이스 체크
-    const isMac: boolean = params.userAgent.includes("Mac OS") ? true : false;
+    const isMac: boolean = userAgent.includes("Mac OS") ? true : false;
 
-    const user = params.info;
-
-    // 폼 state
+    // states
     const [userName, setUserName] = useState<string>(user.user_name);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [profileImg, setProfileImg] = useState<string>(user.profile_img);
@@ -253,33 +254,33 @@ const Info = ({params}: any) => {
             {/* 헤더 */}
             <Header
                 isMac={isMac}
-                theme={params.theme}
+                theme={theme}
                 user={params.user}
             />
 
             {/* 메인 */}
             <form onSubmit={e => e.preventDefault()} className='w-full flex flex-col justify-center items-center'>
-                <div className='w-[360px] flex flex-col justify-center items-start my-[100px] tlg:my-[40px]'>
-                    <h2 className='text-[20px] tlg:text-[18px] mb-[4px] text-theme-3 dark:text-theme-9 font-medium'>프로필 정보</h2>
+                <div className='w-[360px] flex flex-col justify-center items-start my-[100px] tlg:my-10'>
+                    <h2 className='text-xl tlg:text-lg mb-1 text-theme-3 dark:text-theme-9 font-medium'>프로필 정보</h2>
                     {
                         user.auth !== "credentials"
-                            && <div className='text-[12px] p-[4px] px-[12px] mb-[8px] flex items-center rounded-[6px] border-[2px] text-theme-3 dark:text-theme-9 border-theme-yellow dark:border-theme-blue-1/80 bg-theme-yellow/40 dark:bg-theme-blue-1/20'>
-                                <div className='mr-[2px] font-medium text-theme-3 dark:text-theme-9'>{user.auth === "google" ? "Google" : user.auth === "kakao" ? "카카오" : user.auth === "github" ? "GitHub" : user.auth === "naver" ? "네이버" : ""}</div>에서 연동 중
+                            && <div className='text-xs p-1 px-3 mb-2 flex items-center rounded-md border-2 text-theme-3 dark:text-theme-9 border-theme-yellow dark:border-theme-blue-1/80 bg-theme-yellow/40 dark:bg-theme-blue-1/20'>
+                                <div className='mr-0.5 font-medium text-theme-3 dark:text-theme-9'>{user.auth === "google" ? "Google" : user.auth === "kakao" ? "카카오" : user.auth === "github" ? "GitHub" : user.auth === "naver" ? "네이버" : ""}</div>에서 연동 중
                             </div>
                     }
                     {
                         user.auth === "credentials"
-                            ? <div className='text-[12px] text-theme-5 dark:text-theme-7 mb-[10px] tlg:mb-[8px]'>{timeFormat(user.updated_at)}에 마지막으로 수정됨</div>
-                            : <div className='text-[12px] text-theme-5 dark:text-theme-7 mb-[10px] tlg:mb-[8px]'>{timeFormat(user.created_at)}에 생성됨</div>
+                            ? <div className='text-xs text-theme-5 dark:text-theme-7 mb-2.5 tlg:mb-2'>{timeFormat(user.updated_at)}에 마지막으로 수정됨</div>
+                            : <div className='text-xs text-theme-5 dark:text-theme-7 mb-2.5 tlg:mb-2'>{timeFormat(user.created_at)}에 생성됨</div>
                     }
                     {
                         alertDisplay === true
                         ? alert === 'name'
                             ? <>
-                                <div className='w-full h-[40px] px-[10px] mb-[10px] flex flex-row justify-between items-center rounded-[6px] border-[2px] border-theme-yellow dark:border-theme-blue-1/80 text-[12px] text-theme-3 dark:text-theme-9 bg-theme-yellow/40 dark:bg-theme-blue-1/20'>
+                                <div className='w-full h-10 px-2.5 mb-2.5 flex flex-row justify-between items-center rounded-md border-2 border-theme-yellow dark:border-theme-blue-1/80 text-xs text-theme-3 dark:text-theme-9 bg-theme-yellow/40 dark:bg-theme-blue-1/20'>
                                     <div className='flex flex-row justify-start items-center'>
-                                        <svg className='w-[14px] fill-theme-yellow dark:fill-theme-blue-1/80' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg>
-                                        <div className='ml-[6px]'>이름이 변경되었습니다.</div>
+                                        <svg className='w-3.5 fill-theme-yellow dark:fill-theme-blue-1/80' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg>
+                                        <div className='ml-1.5'>이름이 변경되었습니다.</div>
                                     </div>
                                     <div onClick={handleAlertClose} className='flex flex-row justify-center items-center cursor-pointer'>
                                         <svg className='w-[18px] fill-theme-3 dark:fill-theme-9' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg>
@@ -288,10 +289,10 @@ const Info = ({params}: any) => {
                             </>
                             : alert === 'pw'
                                 ? <>
-                                    <div className='w-full h-[40px] px-[10px] mb-[10px] flex flex-row justify-between items-center rounded-[6px] border-[2px] border-theme-yellow dark:border-theme-blue-1/80 text-[12px] text-theme-3 dark:text-theme-9 bg-theme-yellow/40 dark:bg-theme-blue-1/20'>
+                                    <div className='w-full h-10 px-2.5 mb-2.5 flex flex-row justify-between items-center rounded-md border-2 border-theme-yellow dark:border-theme-blue-1/80 text-xs text-theme-3 dark:text-theme-9 bg-theme-yellow/40 dark:bg-theme-blue-1/20'>
                                         <div className='flex flex-row justify-start items-center'>
-                                            <svg className='w-[14px] fill-theme-yellow dark:fill-theme-blue-1/80' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg>
-                                            <div className='ml-[6px]'>비밀번호가 변경되었습니다.</div>
+                                            <svg className='w-3.5 fill-theme-yellow dark:fill-theme-blue-1/80' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg>
+                                            <div className='ml-1.5'>비밀번호가 변경되었습니다.</div>
                                         </div>
                                         <div onClick={handleAlertClose} className='flex flex-row justify-center items-center cursor-pointer'>
                                             <svg className='w-[18px] fill-theme-3 dark:fill-theme-9' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg>
@@ -300,7 +301,7 @@ const Info = ({params}: any) => {
                                 </> : <></>
                         : <></>
                     }
-                    <div className='w-full p-[20px] rounded-[8px] text-theme-10 dark:text-theme-9 bg-theme-5 dark:bg-theme-3 drop-shadow-default dark:drop-shadow-dark'>
+                    <div className='w-full p-5 rounded-lg text-theme-10 dark:text-theme-9 bg-theme-5 dark:bg-theme-3 drop-shadow-default dark:drop-shadow-dark'>
                         <div className='flex items-center'>
                             <div ref={refImg} className='relative'>
                                 <input className='peer hidden' id='profile-img' type='checkbox'/>
@@ -315,29 +316,29 @@ const Info = ({params}: any) => {
                                     }
                                     {
                                         user.auth === "credentials"
-                                            && <div className='w-[20px] h-[18px] flex justify-center items-center bg-theme-4 dark:bg-theme-blue-2 border border-theme-yellow dark:border-theme-blue-1 absolute z-10 left-[2px] bottom-[2px] rounded-[6px]'>
-                                                <svg className='w-[10px] fill-theme-yellow dark:fill-theme-blue-1' xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16"><path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/></svg>
+                                            && <div className='w-5 h-[18px] flex justify-center items-center bg-theme-4 dark:bg-theme-blue-2 border border-theme-yellow dark:border-theme-blue-1 absolute z-10 left-0.5 bottom-0.5 rounded-md'>
+                                                <svg className='w-2.5 fill-theme-yellow dark:fill-theme-blue-1' xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16"><path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/></svg>
                                             </div>
                                     }
                                 </label>
                                 {
                                     user.auth === "credentials"
-                                        && <div ref={refImgPopup} className='w-max hidden peer-checked:block absolute left-[50%] bottom-[-8px] translate-x-[-50%] translate-y-[100%] rounded-[8px] bg-theme-4 dark:bg-theme-blue-2 drop-shadow-dark dark:drop-shadow-dark after:content-[""] after:w-[8px] after:h-[8px] after:absolute after:left-[25%] after:top-[-4px] after:translate-x-[-50%] after:rotate-45 after:bg-theme-4 after:dark:bg-theme-blue-2'>
+                                        && <div ref={refImgPopup} className='w-max hidden peer-checked:block absolute left-1/2 bottom-2 -translate-x-1/2 translate-y-full rounded-lg bg-theme-4 dark:bg-theme-blue-2 drop-shadow-dark dark:drop-shadow-dark after:content-[""] after:w-2 after:h-2 after:absolute after:left-1/4 after:-top-1 after:-translate-x-1/2 after:rotate-45 after:bg-theme-4 after:dark:bg-theme-blue-2'>
                                             <div className='flex'>
                                                 <input onChange={changeImg} className='hidden' type='file' accept='image/*' id='profile-img-upload'/>
-                                                <label className='w-full relative z-[2] text-[12px] leading-none dark:text-theme-7 rounded-t-[8px] pl-[12px] pr-[14px] pt-[10px] pb-[8px] hover:bg-theme-yellow hover:dark:bg-theme-blue-1 hover:text-theme-2 hover:dark:text-theme-blue-2 cursor-pointer' htmlFor='profile-img-upload'>사진 변경</label>
+                                                <label className='w-full relative z-[2] text-xs leading-none dark:text-theme-7 rounded-t-lg pl-3 pr-3.5 pt-2.5 pb-2 hover:bg-theme-yellow hover:dark:bg-theme-blue-1 hover:text-theme-2 hover:dark:text-theme-blue-2 cursor-pointer' htmlFor='profile-img-upload'>사진 변경</label>
                                             </div>
-                                            <button onClick={deleteImg} className='w-full text-[12px] leading-none dark:text-theme-7 rounded-b-[8px] pl-[12px] pr-[14px] pb-[10px] pt-[8px] hover:bg-theme-yellow hover:dark:bg-theme-blue-1 hover:text-theme-2 hover:dark:text-theme-blue-2'>사진 제거</button>
+                                            <button onClick={deleteImg} className='w-full text-[12px] leading-none dark:text-theme-7 rounded-b-lg pl-3 pr-3.5 pt-2 pb-2.5 hover:bg-theme-yellow hover:dark:bg-theme-blue-1 hover:text-theme-2 hover:dark:text-theme-blue-2'>사진 제거</button>
                                         </div>
                                 }
                             </div>
-                            <div className='ml-[16px]'>
-                                <h2 className='mr-[1px] text-[14px] text-theme-10 dark:text-theme-9 font-bold'>프로필 이미지</h2>
-                                <div className='text-[11px] font-normal leading-none break-keep text-theme-8 dark:text-theme-7 mt-[6px]'>
+                            <div className='ml-4'>
+                                <h2 className='mr-px text-sm text-theme-10 dark:text-theme-9 font-bold'>프로필 이미지</h2>
+                                <div className='text-[11px] font-normal leading-none break-keep text-theme-8 dark:text-theme-7 mt-1.5'>
                                     {
                                         user.auth === "credentials"
                                             ? <>
-                                                <h3 className='flex items-center mb-[4px]'><div className='w-[3px] h-[3px] mr-[5px] mt-px rounded-full bg-theme-8 dark:bg-theme-7'></div>500px보다 큰 이미지는 축소되어 업로드 됩니다.</h3>
+                                                <h3 className='flex items-center mb-1'><div className='w-[3px] h-[3px] mr-[5px] mt-px rounded-full bg-theme-8 dark:bg-theme-7'></div>500px보다 큰 이미지는 축소되어 업로드 됩니다.</h3>
                                                 <h3 className='flex items-start leading-normal'><div className='w-[3px] h-[3px] mr-[5px] mt-[7px] shrink-0 rounded-full bg-theme-8 dark:bg-theme-7'></div>업로드된 이미지는 다음 로그인부터 적용 됩니다.</h3>
                                             </> : <h3 className='flex items-start leading-normal'><div className='w-[3px] h-[3px] mr-[5px] mt-[7px] shrink-0 rounded-full bg-theme-8 dark:bg-theme-7'></div>SNS로 로그인한 계정은 SNS 계정의 프로필 이미지가 표시됩니다.</h3>
                                     }
@@ -346,64 +347,64 @@ const Info = ({params}: any) => {
                         </div>
                         {
                             isImgError
-                            ? <span className='block text-[12px] text-theme-red mt-[12px]'>이미지 업로드에 실패했습니다. 잠시 후 다시 시도해 주세요.</span>
+                            ? <span className='block text-xs text-theme-red mt-3'>이미지 업로드에 실패했습니다. 잠시 후 다시 시도해 주세요.</span>
                             : <></>
                         }
-                        <div className='w-full h-px bg-theme-6 dark:bg-theme-5 my-[20px]'></div>
-                        <label htmlFor='name' className='block text-[14px] ml-px'>이름</label>
+                        <div className='w-full h-px bg-theme-6 dark:bg-theme-5 my-5'></div>
+                        <label htmlFor='name' className='block text-sm ml-px'>이름</label>
                         {
                             user.auth === "credentials"
-                                ? <div className='w-full flex flex-row justify-between items-center mt-[6px]'>
-                                    <input onChange={handleNameChange} onKeyDown={handleNameEnter} type='text' id='name' tabIndex={1} autoComplete='on' defaultValue={user.user_name} placeholder='홍길동' className={`${nameChk === '' ? 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' : 'border-theme-red focus:border-theme-red dark:border-theme-red focus:dark:border-theme-red'} w-[calc(100%-84px)] text-[14px] px-[14px] py-[8px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
-                                    <button onClick={handleNameClick} className='w-[76px] h-[39px] flex flex-row justify-center items-center rounded-[8px] font-medium text-[14px] text-theme-4 dark:text-theme-blue-2 bg-theme-yellow/80 hover:bg-theme-yellow tlg:hover:bg-theme-yellow/80 dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1/80'>
+                                ? <div className='w-full flex flex-row justify-between items-center mt-1.5'>
+                                    <input onChange={handleNameChange} onKeyDown={handleNameEnter} type='text' id='name' tabIndex={1} autoComplete='on' defaultValue={user.user_name} placeholder='홍길동' className={`${nameChk === '' ? 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' : 'border-theme-red focus:border-theme-red dark:border-theme-red focus:dark:border-theme-red'} w-[calc(100%-84px)] text-sm px-3.5 py-2 rounded-lg border-2 placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
+                                    <button onClick={handleNameClick} className='w-[76px] h-10 flex flex-row justify-center items-center rounded-lg font-medium text-sm text-theme-4 dark:text-theme-blue-2 bg-theme-yellow/80 hover:bg-theme-yellow tlg:hover:bg-theme-yellow/80 dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1/80'>
                                         {
                                             isLoading === true
                                             ? <span className='loader loader-register w-[18px] h-[18px]'></span>
                                             : <span className='pt-px'>변경하기</span>
                                         }
                                     </button>
-                                </div> : <div className='w-full text-[14px] mt-[6px] px-[14px] py-[8px] rounded-[8px] border-[2px] text-theme-8 dark:text-theme-7 border-theme-6 dark:border-theme-4 bg-theme-4 dark:bg-theme-blue-2/60 cursor-default'>{user.user_name}</div>
+                                </div> : <div className='w-full text-sm mt-1.5 px-3.5 py-2 rounded-lg border-2 text-theme-8 dark:text-theme-7 border-theme-6 dark:border-theme-4 bg-theme-4 dark:bg-theme-blue-2/60 cursor-default'>{user.user_name}</div>
                         }
                         {
                             nameChk === 'empty'
-                            ? <span className='block text-[12px] text-theme-red mt-[4px] ml-[16px]'>이름을 입력해 주세요.</span>
+                            ? <span className='block text-xs text-theme-red mt-1 ml-4'>이름을 입력해 주세요.</span>
                             : ( nameChk === 'exists'
-                                ? <span className='block text-[12px] text-theme-red mt-[4px] ml-[16px]'>이미 사용중인 이름입니다.</span>
+                                ? <span className='block text-xs text-theme-red mt-1 ml-4'>이미 사용중인 이름입니다.</span>
                                 : <></>
                             )
                         }
-                        <div className='block text-[14px] mt-[18px] ml-px'>아이디</div>
-                        <div className='w-full text-[14px] mt-[6px] px-[14px] py-[8px] rounded-[8px] border-[2px] text-theme-8 dark:text-theme-7 border-theme-6 dark:border-theme-4 bg-theme-4 dark:bg-theme-blue-2/60 cursor-default'>{user.user_id}</div>
+                        <div className='block text-sm mt-[18px] ml-px'>아이디</div>
+                        <div className='w-full text-sm mt-1.5 px-3.5 py-2 rounded-lg border-2 text-theme-8 dark:text-theme-7 border-theme-6 dark:border-theme-4 bg-theme-4 dark:bg-theme-blue-2/60 cursor-default'>{user.user_id}</div>
                         {
                             user.auth === "credentials" && 
                             <>
-                                <div className='w-full h-px bg-theme-6 dark:bg-theme-5 my-[20px]'></div>
-                                <h2 className="font-bold text-[16px] text-theme-10 dark:text-theme-9 mb-[8px]">비밀번호 변경</h2>
-                                <div className='w-full flex flex-row justify-start items-start mb-[4px] text-[12px] text-theme-8 dark:text-theme-7'>
-                                    <svg className='w-[12px] mt-[3px] mr-[6px] fill-theme-yellow dark:fill-theme-blue-1' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg>
+                                <div className='w-full h-px bg-theme-6 dark:bg-theme-5 my-5'></div>
+                                <h2 className="font-bold text-base text-theme-10 dark:text-theme-9 mb-2">비밀번호 변경</h2>
+                                <div className='w-full flex flex-row justify-start items-start mb-1 text-xs text-theme-8 dark:text-theme-7'>
+                                    <svg className='w-3 mt-[3px] mr-1.5 fill-theme-yellow dark:fill-theme-blue-1' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg>
                                     <div>영문, 숫자, 특수문자 포함 8~20자를 조합해 만들어 주세요.</div>
                                 </div>
-                                <div className='w-full flex flex-row justify-start items-start mb-[12px] text-[12px] text-theme-8 dark:text-theme-7'>
-                                    <svg className='w-[12px] mt-[3px] mr-[6px] fill-theme-yellow dark:fill-theme-blue-1' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg>
+                                <div className='w-full flex flex-row justify-start items-start mb-3 text-xs text-theme-8 dark:text-theme-7'>
+                                    <svg className='w-3 mt-[3px] mr-1.5 fill-theme-yellow dark:fill-theme-blue-1' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg>
                                     <div>비밀번호 변경 완료 시, 비밀번호는 즉시 변경됩니다.</div>
                                 </div>
-                                <div className='w-full flex flex-row justify-between items-center mt-[6px]'>
-                                    <input type='password' id='pw' tabIndex={2} autoComplete='on' defaultValue={user.user_pw} disabled className='text-theme-8 dark:text-theme-7 border-theme-6 dark:border-theme-4 w-[calc(100%-84px)] text-[14px] px-[14px] py-[8px] rounded-[8px] border-[2px] bg-theme-4 dark:bg-theme-blue-2/60'/>
-                                    <button onClick={handleChangePwModalClick} className='w-[76px] h-[39px] pt-px rounded-[8px] font-medium text-[14px] text-theme-4 dark:text-theme-blue-2 bg-theme-yellow/80 hover:bg-theme-yellow tlg:hover:bg-theme-yellow/80 dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1/80'>변경하기</button>
+                                <div className='w-full flex flex-row justify-between items-center mt-1.5'>
+                                    <input type='password' id='pw' tabIndex={2} autoComplete='on' defaultValue={user.user_pw} disabled className='text-theme-8 dark:text-theme-7 border-theme-6 dark:border-theme-4 w-[calc(100%-84px)] text-sm px-3.5 py-2 rounded-lg border-2 bg-theme-4 dark:bg-theme-blue-2/60'/>
+                                    <button onClick={handleChangePwModalClick} className='w-[76px] h-10 pt-px rounded-lg font-medium text-sm text-theme-4 dark:text-theme-blue-2 bg-theme-yellow/80 hover:bg-theme-yellow tlg:hover:bg-theme-yellow/80 dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1/80'>변경하기</button>
                                 </div>
                             </>
                         }
-                        <div className='w-full h-px bg-theme-6 dark:bg-theme-5 my-[20px]'></div>
-                        <h2 className="font-bold text-[16px] text-theme-10 dark:text-theme-9 mb-[8px]">회원 탈퇴</h2>
-                        <div className='w-full flex flex-row justify-start items-start mb-[4px] text-[12px] text-theme-8 dark:text-theme-7'>
-                            <svg className='w-[12px] mt-[3px] mr-[6px] fill-theme-red' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg>
+                        <div className='w-full h-px bg-theme-6 dark:bg-theme-5 my-5'></div>
+                        <h2 className="font-bold text-base text-theme-10 dark:text-theme-9 mb-2">회원 탈퇴</h2>
+                        <div className='w-full flex flex-row justify-start items-start mb-1 text-xs text-theme-8 dark:text-theme-7'>
+                            <svg className='w-3 mt-[3px] mr-1.5 fill-theme-red' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg>
                             <div>탈퇴 시 계정의 모든 정보는 삭제됩니다.</div>
                         </div>
-                        <div className='w-full flex flex-row justify-start items-start mb-[12px] text-[12px] text-theme-8 dark:text-theme-7'>
-                            <svg className='w-[12px] mt-[3px] mr-[6px] fill-theme-red' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg>
+                        <div className='w-full flex flex-row justify-start items-start mb-3 text-xs text-theme-8 dark:text-theme-7'>
+                            <svg className='w-3 mt-[3px] mr-1.5 fill-theme-red' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg>
                             <div>재가입 시에도 삭제된 정보는 복구되지 않습니다.</div>
                         </div>
-                        <button onClick={handleDeleteUserModalClick} className='w-full h-[40px] rounded-[8px] flex flex-row justify-center items-center text-[14px] font-medium text-theme-10 dark:text-theme-9 bg-theme-red/80 hover:bg-theme-red tlg:hover:bg-theme-red/80'>회원 탈퇴하기</button>
+                        <button onClick={handleDeleteUserModalClick} className='w-full h-10 rounded-lg flex flex-row justify-center items-center text-sm font-medium text-theme-10 dark:text-theme-9 bg-theme-red/80 hover:bg-theme-red tlg:hover:bg-theme-red/80'>회원 탈퇴하기</button>
                     </div>
                 </div>
             </form>

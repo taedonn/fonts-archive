@@ -1,11 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
-// react hooks
+// react
 import { useRef, useState, useEffect } from "react";
 
-// next hooks
+// next
 import Script from "next/script";
 
-// api
+// libraries
 import axios from "axios";
 
 // components
@@ -36,7 +36,7 @@ export default function Comments (
         likedNum: number
     }
 ) {
-    // 댓글 state
+    // states
     const [comments, setComments] = useState(comment);
     const [commentFocus, setCommentFocus] = useState<boolean>(false);
     const [commentBtn, setCommentBtn] = useState<boolean>(false);
@@ -44,6 +44,13 @@ export default function Comments (
     const [reportModalDisplay, setReportModalDisplay] = useState<boolean>(false);
     const [commentId, setCommentId] = useState<number>(0);
     const [reports, setReports] = useState(report);
+    const [shareExpand, setShareExpand] = useState<boolean>(false);
+
+    // refs
+    const commentRef = useRef<HTMLTextAreaElement>(null);
+    const commentBtnRef = useRef<HTMLButtonElement>(null);
+    const shareExpandBtn = useRef<HTMLLabelElement>(null);
+    const shareExpandContent = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         setComments(comment);
@@ -55,10 +62,6 @@ export default function Comments (
         e.target.style.height = 0;
         e.target.style.height = (e.target.scrollHeight)+"px";
     }
-
-    // 댓글 ref
-    const commentRef = useRef<HTMLTextAreaElement>(null);
-    const commentBtnRef = useRef<HTMLButtonElement>(null);
 
     /** 댓글 포커스 시 */
     const commentOnFocus = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -361,13 +364,6 @@ export default function Comments (
     const reportCommentModalClose = () => {
         setReportModalDisplay(false);
     }
-
-    // 공유 state
-    const [shareExpand, setShareExpand] = useState<boolean>(false);
-
-    // 공유 ref
-    const shareExpandBtn = useRef<HTMLLabelElement>(null);
-    const shareExpandContent = useRef<HTMLDivElement>(null);
 
     // 공유 버튼 클릭
     const handleShareExpand = (e: React.ChangeEvent<HTMLInputElement>) => {

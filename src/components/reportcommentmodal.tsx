@@ -1,7 +1,7 @@
-// react hooks
+// react
 import React, { useState, useEffect, useRef } from "react";
 
-// hooks
+// libraries
 import axios from "axios";
 
 export default function ReportCommentModal(
@@ -24,7 +24,7 @@ export default function ReportCommentModal(
         update_reports: any
     }
 ) {
-    // 신고 모달창 state
+    // states
     const [reportNickname, setReportNickname] = useState<boolean>(false);
     const [reportPolitics, setReportPolitics] = useState<boolean>(false);
     const [reportSwearing, setReportSwearing] = useState<boolean>(false);
@@ -32,6 +32,9 @@ export default function ReportCommentModal(
     const [reportText, setReportText] = useState<string>('');
     const [reportWarning, setReportWarning] = useState<boolean>(false);
     const [isLoading, setIsLoading] = useState<boolean>(false);
+
+    // refs
+    const thisModal = useRef<HTMLDivElement>(null);
 
     /** 신고 모달창 닫기 */
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -47,9 +50,6 @@ export default function ReportCommentModal(
         // 모달창 닫기
         close();
     }
-
-    // 댓글 삭제 Ref
-    const thisModal = useRef<HTMLDivElement>(null);
 
     // 모달창 외 영역 클릭 시 모달창 닫기
     useEffect(() => {

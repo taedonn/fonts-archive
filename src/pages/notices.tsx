@@ -1,13 +1,15 @@
-// react hooks
+// react
 import { useState } from 'react';
 
-// next hooks
+// next
 import { NextSeo } from 'next-seo';
 
 // api
 import { getServerSession } from 'next-auth';
 import { authOptions } from './api/auth/[...nextauth]';
 import { FetchAllNotices } from './api/notices';
+
+// libraries
 import axios from 'axios';
 
 // components
@@ -22,20 +24,22 @@ import { dateFormat } from '@/libs/common';
 import { notices } from '@/libs/global';
 
 const Notices = ({params}: any) => {
+    const { theme, userAgent, user, notices } = params;
+
     // 디바이스 체크
-    const isMac: boolean = params.userAgent.includes("Mac OS") ? true : false;
+    const isMac: boolean = userAgent.includes("Mac OS") ? true : false;
 
     // 공지 - 목록
-    const [notices, setNotices] = useState(params.notices);
+    const [noticesList, setNoticesList] = useState(notices);
 
     // 공지 - 전체
-    const [all, setAll] = useState(params.notices);
+    const [all, setAll] = useState(notices);
 
     // 공지 - 서비스
-    const [services, setServices] = useState(params.notices.filter((notice: notices) => notice.notice_type === "service"));
+    const [services, setServices] = useState(notices.filter((notice: notices) => notice.notice_type === "service"));
     
     // 공지 - 폰트
-    const [fonts, setFonts] = useState(params.notices.filter((notice: notices) => notice.notice_type === "font"));
+    const [fonts, setFonts] = useState(notices.filter((notice: notices) => notice.notice_type === "font"));
 
     // 공지 타입 저장
     const [type, setType] = useState<string>("all");
@@ -43,15 +47,15 @@ const Notices = ({params}: any) => {
     /** 서비스 유형 선택 시 */
     const handleTypeOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.id === "all") {
-            setNotices(all);
+            setNoticesList(all);
             setType("all");
         }
         else if (e.target.id === "service") {
-            setNotices(services);
+            setNoticesList(services);
             setType("service");
         }
         else {
-            setNotices(fonts);
+            setNoticesList(fonts);
             setType("font");
         }
     }
@@ -70,9 +74,9 @@ const Notices = ({params}: any) => {
                 setServices(res.data.notices.filter((notice: notices) => notice.notice_type === "service"));
                 setFonts(res.data.notices.filter((notice: notices) => notice.notice_type === "font"));
 
-                if (type === "all") { setNotices(res.data.notices); }
-                else if (type === "service") { setNotices(res.data.notices.filter((notice: notices) => notice.notice_type === "service")); }
-                else { setNotices(res.data.notices.filter((notice: notices) => notice.notice_type === "font")); }
+                if (type === "all") { setNoticesList(res.data.notices); }
+                else if (type === "service") { setNoticesList(res.data.notices.filter((notice: notices) => notice.notice_type === "service")); }
+                else { setNoticesList(res.data.notices.filter((notice: notices) => notice.notice_type === "font")); }
             })
             .catch(err => console.log(err));
         }
@@ -89,8 +93,8 @@ const Notices = ({params}: any) => {
             {/* 헤더 */}
             <Header
                 isMac={isMac}
-                theme={params.theme}
-                user={params.user}
+                theme={theme}
+                user={user}
             />
 
             {/* 고정 메뉴 */}
@@ -99,49 +103,49 @@ const Notices = ({params}: any) => {
             {/* 메인 */}
             <div className='w-full flex flex-col justify-center items-center py-[60px]'>
                 <div className='notices w-[720px] tmd:w-full flex flex-col justify-center items-start'>
-                    <div className='flex items-center mb-[16px]'>
+                    <div className='flex items-center mb-4'>
                         <h2 className='text-[22px] text-theme-3 dark:text-theme-9 font-medium'>공지사항</h2>
-                        <h3 className='text-[14px] ml-[14px] text-theme-5 dark:text-theme-7'>폰트 업데이트 & 소식</h3>
+                        <h3 className='text-sm ml-3.5 text-theme-5 dark:text-theme-7'>폰트 업데이트 & 소식</h3>
                     </div>
-                    <div className='relative mb-[36px]'>
-                        <svg className='w-[14px] absolute left-[18px] top-[50%] translate-y-[-50%] fill-theme-5 dark:fill-theme-7' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/></svg>
-                        <input onKeyUp={handleKeyUp} type="text" id="search" placeholder="검색어 입력" className="w-[300px] h-[40px] text-[14px] pl-[40px] pr-[20px] border rounded-full border-theme-7 dark:border-theme-5 text-theme-5 dark:text-theme-7 placeholder:text-theme-5 dark:placeholder:text-theme-7 bg-transparent"/>
+                    <div className='relative mb-9'>
+                        <svg className='w-3.5 absolute left-[18px] top-1/2 -translate-y-1/2 fill-theme-5 dark:fill-theme-7' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/></svg>
+                        <input onKeyUp={handleKeyUp} type="text" id="search" placeholder="검색어 입력" className="w-[300px] h-10 text-sm pl-10 pr-5 border rounded-full border-theme-7 dark:border-theme-5 text-theme-5 dark:text-theme-7 placeholder:text-theme-5 dark:placeholder:text-theme-7 bg-transparent"/>
                     </div>
-                    <div className='flex items-center gap-[6px] mb-[16px]'>
+                    <div className='flex items-center gap-1.5 mb-4'>
                         <div>
                             <input onChange={handleTypeOnChange} type="radio" id="all" name="type" className="hidden peer" defaultChecked/>
-                            <label htmlFor='all' className='w-[80px] h-[32px] text-[14px] pt-px flex justify-center items-center cursor-pointer border rounded-full border-theme-7 dark:border-theme-5 peer-checked:border-theme-yellow peer-checked:dark:border-theme-blue-1 text-theme-5 dark:text-theme-7 peer-checked:text-theme-3 peer-checked:dark:text-theme-blue-2 peer-checked:bg-theme-yellow peer-checked:dark:bg-theme-blue-1'>전체<div className='text-[13px] ml-[2px]'>({all.length})</div></label>
+                            <label htmlFor='all' className='w-20 h-8 text-sm pt-px flex justify-center items-center cursor-pointer border rounded-full border-theme-7 dark:border-theme-5 peer-checked:border-theme-yellow peer-checked:dark:border-theme-blue-1 text-theme-5 dark:text-theme-7 peer-checked:text-theme-3 peer-checked:dark:text-theme-blue-2 peer-checked:bg-theme-yellow peer-checked:dark:bg-theme-blue-1'>전체<div className='text-[13px] ml-0.5'>({all.length})</div></label>
                         </div>
                         <div>
                             <input onChange={handleTypeOnChange} type="radio" id="service" name="type" className="hidden peer"/>
-                            <label htmlFor='service' className='w-[80px] h-[32px] text-[14px] pt-px flex justify-center items-center cursor-pointer border rounded-full border-theme-7 dark:border-theme-5 peer-checked:border-theme-yellow peer-checked:dark:border-theme-blue-1 text-theme-5 dark:text-theme-7 peer-checked:text-theme-3 peer-checked:dark:text-theme-blue-2 peer-checked:bg-theme-yellow peer-checked:dark:bg-theme-blue-1'>서비스<div className='text-[13px] ml-[2px]'>({services.length})</div></label>
+                            <label htmlFor='service' className='w-20 h-8 text-sm pt-px flex justify-center items-center cursor-pointer border rounded-full border-theme-7 dark:border-theme-5 peer-checked:border-theme-yellow peer-checked:dark:border-theme-blue-1 text-theme-5 dark:text-theme-7 peer-checked:text-theme-3 peer-checked:dark:text-theme-blue-2 peer-checked:bg-theme-yellow peer-checked:dark:bg-theme-blue-1'>서비스<div className='text-[13px] ml-0.5'>({services.length})</div></label>
                         </div>
                         <div>
                             <input onChange={handleTypeOnChange} type="radio" id="font" name="type" className="hidden peer"/>
-                            <label htmlFor='font' className='w-[80px] h-[32px] text-[14px] pt-px flex justify-center items-center cursor-pointer border rounded-full border-theme-7 dark:border-theme-5 peer-checked:border-theme-yellow peer-checked:dark:border-theme-blue-1 text-theme-5 dark:text-theme-7 peer-checked:text-theme-3 peer-checked:dark:text-theme-blue-2 peer-checked:bg-theme-yellow peer-checked:dark:bg-theme-blue-1'>폰트<div className='text-[13px] ml-[2px]'>({fonts.length})</div></label>
+                            <label htmlFor='font' className='w-20 h-8 text-sm pt-px flex justify-center items-center cursor-pointer border rounded-full border-theme-7 dark:border-theme-5 peer-checked:border-theme-yellow peer-checked:dark:border-theme-blue-1 text-theme-5 dark:text-theme-7 peer-checked:text-theme-3 peer-checked:dark:text-theme-blue-2 peer-checked:bg-theme-yellow peer-checked:dark:bg-theme-blue-1'>폰트<div className='text-[13px] ml-0.5'>({fonts.length})</div></label>
                         </div>
                     </div>
                     {
-                        notices && notices.length > 0
-                        ?  notices.map((notice: notices) => {
+                        noticesList && noticesList.length > 0
+                        ?  noticesList.map((notice: notices) => {
                             return <div key={notice.notice_id.toString()} className='notice w-full flex flex-col'>
                                 <input type='checkbox' id={`notice-${notice.notice_id}`} className='hidden peer/expand'/>
                                 <label htmlFor={`notice-${notice.notice_id}`} className='cursor-pointer hover:bg-theme-7/20 hover:dark:bg-theme-5/20'>
-                                    <div className='w-full h-[56px] text-[14px] flex justify-between items-center border-t text-theme-3 dark:text-theme-9 border-theme-7 dark:border-theme-5'>
+                                    <div className='w-full h-14 text-sm flex justify-between items-center border-t text-theme-3 dark:text-theme-9 border-theme-7 dark:border-theme-5'>
                                         <div className='flex items-center'>
-                                            <div className='w-[100px] tlg:w-[80px] shrink-0 flex justify-center items-center'><div className='px-[4px] border-b-[2px] dark:border-theme-blue-1'>{notice.notice_type === "service" ? "서비스" : "폰트"}</div></div>
+                                            <div className='w-[100px] tlg:w-20 shrink-0 flex justify-center items-center'><div className='px-[4px] border-b-2 dark:border-theme-blue-1'>{notice.notice_type === "service" ? "서비스" : "폰트"}</div></div>
                                             <div className='w-full ml-[12px]'><div className='font-size'>{notice.notice_title}</div></div>
                                         </div>
                                         <div className='flex items-center mr-[20px]'>
-                                            <div className='w-[80px] text-theme-5 dark:text-theme-7'>{dateFormat(notice.notice_created_at)}</div>
-                                            <svg className='w-[8px] ml-[20px] fill-theme-5 dark:fill-theme-7 duration-100' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg>
+                                            <div className='w-20 text-theme-5 dark:text-theme-7'>{dateFormat(notice.notice_created_at)}</div>
+                                            <svg className='w-2 ml-5 fill-theme-5 dark:fill-theme-7 duration-100' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg>
                                         </div>
                                     </div>
                                 </label>
-                                <pre className='w-full h-0 whitespace-pre-wrap peer-checked/expand:h-[auto] px-[32px] peer-checked/expand:py-[20px] text-[14px] duration-100 flex items-center overflow-hidden peer-checked/expand:border-t border-theme-7 dark:border-theme-5 text-theme-3 dark:text-theme-9 bg-theme-7/20 dark:bg-theme-5/20'>{notice.notice_content}</pre>
+                                <pre className='w-full h-0 whitespace-pre-wrap peer-checked/expand:h-[auto] px-8 peer-checked/expand:py-5 text-sm duration-100 flex items-center overflow-hidden peer-checked/expand:border-t border-theme-7 dark:border-theme-5 text-theme-3 dark:text-theme-9 bg-theme-7/20 dark:bg-theme-5/20'>{notice.notice_content}</pre>
                             </div>
                         })
-                        : <div className='w-full h-[68px] text-[14px] flex justify-center items-center text-center border-t border-theme-7 dark:border-theme-5 text-theme-3 dark:text-theme-9'>공지사항을 찾을 수 없습니다.</div>
+                        : <div className='w-full h-[68px] text-sm flex justify-center items-center text-center border-t border-theme-7 dark:border-theme-5 text-theme-3 dark:text-theme-9'>공지사항을 찾을 수 없습니다.</div>
                     }
                 </div>
             </div>
