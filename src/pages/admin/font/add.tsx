@@ -197,16 +197,16 @@ const Add = ({params}: any) => {
 
             {/* 메인 */}
             <div className='w-full flex flex-col justify-center items-center'>
-                <div className='max-w-[720px] w-full flex flex-col justify-center items-start my-[100px] tlg:my-[40px]'>
-                    <h2 className='text-[20px] tlg:text-[18px] text-theme-3 dark:text-theme-9 font-medium mb-[12px] tlg:mb-[8px]'>폰트 추가</h2>
+                <div className='max-w-[720px] w-full flex flex-col justify-center items-start my-[100px] tlg:my-10'>
+                    <h2 className='text-xl tlg:text-lg text-theme-3 dark:text-theme-9 font-medium mb-3 tlg:mb-2'>폰트 추가</h2>
                     <div id="add-btn-success" className="w-full">
                         {
                             addBtnSuccess === "success"
                             ? <>
-                                <div className='w-full h-[40px] px-[10px] mb-[10px] flex flex-row justify-between items-center rounded-[6px] border-[2px] border-theme-yellow dark:border-theme-blue-1/80 text-[12px] text-theme-3 dark:text-theme-9 bg-theme-yellow/40 dark:bg-theme-blue-1/20'>
+                                <div className='w-full h-5 px-2.5 mb-2.5 flex flex-row justify-between items-center rounded-md border-2 border-theme-yellow dark:border-theme-blue-1/80 text-xs text-theme-3 dark:text-theme-9 bg-theme-yellow/40 dark:bg-theme-blue-1/20'>
                                     <div className='flex flex-row justify-start items-center'>
-                                        <svg className='w-[14px] fill-theme-yellow dark:fill-theme-blue-1/80' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg>
-                                        <div className='ml-[6px]'>폰트가 추가되었습니다.</div>
+                                        <svg className='w-3.5 fill-theme-yellow dark:fill-theme-blue-1/80' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg>
+                                        <div className='ml-1.5'>폰트가 추가되었습니다.</div>
                                     </div>
                                     <div onClick={handleAddBtnClose} className='flex flex-row justify-center items-center cursor-pointer'>
                                         <svg className='w-[18px] fill-theme-3 dark:fill-theme-9' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg>
@@ -215,10 +215,10 @@ const Add = ({params}: any) => {
                             </>
                             : addBtnSuccess === "fail"
                                 ? <>
-                                    <div className='w-full h-[40px] px-[10px] mb-[10px] flex flex-row justify-between items-center rounded-[6px] border-[2px] border-theme-red/80 text-[12px] text-theme-3 dark:text-theme-9 bg-theme-red/20'>
+                                    <div className='w-full h-10 px-2.5 mb-2.5 flex flex-row justify-between items-center rounded-md border-2 border-theme-red/80 text-xs text-theme-3 dark:text-theme-9 bg-theme-red/20'>
                                         <div className='flex flex-row justify-start items-center'>
-                                            <svg className='w-[14px] fill-theme-red/80' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg>
-                                            <div className='ml-[6px]'>폰트를 추가하는데 실패했습니다.</div>
+                                            <svg className='w-3.5 fill-theme-red/80' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg>
+                                            <div className='ml-1.5'>폰트를 추가하는데 실패했습니다.</div>
                                         </div>
                                         <div onClick={handleAddBtnClose} className='flex flex-row justify-center items-center cursor-pointer'>
                                             <svg className='w-[18px] fill-theme-3 dark:fill-theme-9' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg>
@@ -227,124 +227,124 @@ const Add = ({params}: any) => {
                                 </> : <></>
                         }
                     </div>
-                    <div className='w-full p-[20px] rounded-[8px] text-theme-10 dark:text-theme-9 bg-theme-5 dark:bg-theme-3 drop-shadow-default dark:drop-shadow-dark'>
-                        <div className="text-[14px] flex flex-col">
+                    <div className='w-full p-5 rounded-lg text-theme-10 dark:text-theme-9 bg-theme-5 dark:bg-theme-3 drop-shadow-default dark:drop-shadow-dark'>
+                        <div className="text-sm flex flex-col">
                             <label htmlFor="font-name">폰트 이름</label>
-                            <input onChange={handleFontNameChange} tabIndex={1} type="text" id="font-name" placeholder="나눔 스퀘어" className={`w-full ${fontNameAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
+                            <input onChange={handleFontNameChange} tabIndex={1} type="text" id="font-name" placeholder="나눔 스퀘어" className={`w-full ${fontNameAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-xs mt-2 px-3.5 py-2 rounded-lg border-2 placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
                             {
                                 fontNameAlert
-                                ? <div className="text-[10px] ml-[16px] mt-[6px] text-theme-red">폰트명을 올바르게 입력해 주세요.</div>
+                                ? <div className="text-xs ml-4 mt-1.5 text-theme-red">폰트명을 올바르게 입력해 주세요.</div>
                                 : <></>
                             }
-                            <label htmlFor="font-lang" className="mt-[20px]">
+                            <label htmlFor="font-lang" className="mt-5">
                                 <div className="inline-block mr-[6px]">폰트 언어</div>
-                                <div className="inline-block leading-loose text-[12px] text-theme-yellow dark:text-theme-blue-1 cursor-text">[KR, EN]</div>
+                                <div className="inline-block leading-loose text-xs text-theme-yellow dark:text-theme-blue-1 cursor-text">[KR, EN]</div>
                             </label>
-                            <input onChange={handleFontLangChange} tabIndex={2} type="text" id="font-lang" placeholder="KR" maxLength={2} className={`w-full ${fontLangAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
+                            <input onChange={handleFontLangChange} tabIndex={2} type="text" id="font-lang" placeholder="KR" maxLength={2} className={`w-full ${fontLangAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-xs mt-2 px-3.5 py-2 rounded-lg border-2 placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
                             {
                                 fontLangAlert
-                                ? <div className="text-[10px] ml-[16px] mt-[6px] text-theme-red">폰트 언어를 올바르게 입력해 주세요.</div>
+                                ? <div className="text-xs ml-4 mt-1.5 text-theme-red">폰트 언어를 올바르게 입력해 주세요.</div>
                                 : <></>
                             }
-                            <label htmlFor="font-date" className="mt-[20px]">폰트 생성 날짜</label>
-                            <input onChange={handleFontDateChange} tabIndex={3} type="text" id="font-date" placeholder="99.01.01" className={`w-full ${fontDateAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
+                            <label htmlFor="font-date" className="mt-5">폰트 생성 날짜</label>
+                            <input onChange={handleFontDateChange} tabIndex={3} type="text" id="font-date" placeholder="99.01.01" className={`w-full ${fontDateAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-xs mt-2 px-3.5 py-2 rounded-lg border-2 placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
                             {
                                 fontDateAlert
-                                ? <div className="text-[10px] ml-[16px] mt-[6px] text-theme-red">폰트 생성 날짜를 올바르게 입력해 주세요.</div>
+                                ? <div className="text-xs ml-4 mt-1.5 text-theme-red">폰트 생성 날짜를 올바르게 입력해 주세요.</div>
                                 : <></>
                             }
-                            <label htmlFor="font-family" className="mt-[20px]">폰트체</label>
-                            <input onChange={handleFontFamilyChange} tabIndex={4} type="text" id="font-family" placeholder="Nanum Square" className={`w-full ${fontFamilyAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
+                            <label htmlFor="font-family" className="mt-5">폰트체</label>
+                            <input onChange={handleFontFamilyChange} tabIndex={4} type="text" id="font-family" placeholder="Nanum Square" className={`w-full ${fontFamilyAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-xs mt-2 px-3.5 py-2 rounded-lg border-2 placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
                             {
                                 fontFamilyAlert
-                                ? <div className="text-[10px] ml-[16px] mt-[6px] text-theme-red">폰트체를 올바르게 입력해 주세요.</div>
+                                ? <div className="text-xs ml-4 mt-1.5 text-theme-red">폰트체를 올바르게 입력해 주세요.</div>
                                 : <></>
                             }
-                            <label htmlFor="font-type" className="mt-[20px]">
-                                <div className="inline-block mr-[6px]">폰트 형태</div>
-                                <div className="inline-block leading-loose text-[12px] text-theme-yellow dark:text-theme-blue-1 cursor-text">[Sans Serif, Serif, Hand Writing, Display, Pixel]</div>
+                            <label htmlFor="font-type" className="mt-5">
+                                <div className="inline-block mr-1.5">폰트 형태</div>
+                                <div className="inline-block leading-loose text-xs text-theme-yellow dark:text-theme-blue-1 cursor-text">[Sans Serif, Serif, Hand Writing, Display, Pixel]</div>
                             </label>
-                            <input onChange={handleFontTypeChange} tabIndex={5} type="text" id="font-type" placeholder="Sans Serif" className={`w-full ${fontTypeAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
+                            <input onChange={handleFontTypeChange} tabIndex={5} type="text" id="font-type" placeholder="Sans Serif" className={`w-full ${fontTypeAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-xs mt-2 px-3.5 py-2 rounded-lg border-2 placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
                             {
                                 fontTypeAlert
-                                ? <div className="text-[10px] ml-[16px] mt-[6px] text-theme-red">폰트 형태를 올바르게 입력해 주세요.</div>
+                                ? <div className="text-xs ml-4 mt-1.5 text-theme-red">폰트 형태를 올바르게 입력해 주세요.</div>
                                 : <></>
                             }
-                            <label htmlFor="font-weight" className="mt-[20px]">폰트 두께</label>
-                            <input onChange={handleFontWeightChange} tabIndex={6} type="text" id="font-weight" placeholder="NNNYNNNNN" className={`w-full ${fontWeightAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
+                            <label htmlFor="font-weight" className="mt-5">폰트 두께</label>
+                            <input onChange={handleFontWeightChange} tabIndex={6} type="text" id="font-weight" placeholder="NNNYNNNNN" className={`w-full ${fontWeightAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-xs mt-2 px-3.5 py-2 rounded-lg border-2 placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
                             {
                                 fontWeightAlert
-                                ? <div className="text-[10px] ml-[16px] mt-[6px] text-theme-red">폰트 두께를 올바르게 입력해 주세요.</div>
+                                ? <div className="text-xs ml-4 mt-1.5 text-theme-red">폰트 두께를 올바르게 입력해 주세요.</div>
                                 : <></>
                             }
-                            <label htmlFor="font-source" className="mt-[20px]">폰트 출처</label>
-                            <input onChange={handleFontSourceChange} tabIndex={7} type="text" id="font-source" placeholder="네이버" className={`w-full ${fontSourceAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
+                            <label htmlFor="font-source" className="mt-5">폰트 출처</label>
+                            <input onChange={handleFontSourceChange} tabIndex={7} type="text" id="font-source" placeholder="네이버" className={`w-full ${fontSourceAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-xs mt-2 px-3.5 py-2 rounded-lg border-2 placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
                             {
                                 fontSourceAlert
-                                ? <div className="text-[10px] ml-[16px] mt-[6px] text-theme-red">폰트 출처를 올바르게 입력해 주세요.</div>
+                                ? <div className="text-xs ml-4 mt-1.5 text-theme-red">폰트 출처를 올바르게 입력해 주세요.</div>
                                 : <></>
                             }
-                            <label htmlFor="font-source-link" className="mt-[20px]">폰트 출처 링크</label>
-                            <input onChange={handleFontSourceLinkChange} tabIndex={8} type="text" id="font-source-link" placeholder="https://hangeul.naver.com/font" className={`w-full ${fontSourceLinkAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
+                            <label htmlFor="font-source-link" className="mt-5">폰트 출처 링크</label>
+                            <input onChange={handleFontSourceLinkChange} tabIndex={8} type="text" id="font-source-link" placeholder="https://hangeul.naver.com/font" className={`w-full ${fontSourceLinkAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-xs mt-2 px-3.5 py-2 rounded-lg border-2 placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
                             {
                                 fontSourceLinkAlert
-                                ? <div className="text-[10px] ml-[16px] mt-[6px] text-theme-red">폰트 출처 링크를 올바르게 입력해 주세요.</div>
+                                ? <div className="text-xs ml-4 mt-1.5 text-theme-red">폰트 출처 링크를 올바르게 입력해 주세요.</div>
                                 : <></>
                             }
-                            <label htmlFor="font-download-link" className="mt-[20px]">
-                                <div className="inline-block mr-[6px]">다운로드 링크</div>
-                                <button id="font-download-link-copy" onClick={copyOnClick} value="https://github.com/fonts-archive/NanumSquare/archive/refs/heads/main.zip" className="inline-flex items-center leading-loose text-[12px] text-theme-yellow dark:text-theme-blue-1 hover:underline tlg:hover:no-underline">
+                            <label htmlFor="font-download-link" className="mt-5">
+                                <div className="inline-block mr-1.5">다운로드 링크</div>
+                                <button id="font-download-link-copy" onClick={copyOnClick} value="https://github.com/fonts-archive/NanumSquare/archive/refs/heads/main.zip" className="inline-flex items-center leading-loose text-xs text-theme-yellow dark:text-theme-blue-1 hover:underline tlg:hover:no-underline">
                                     예시 복사하기
-                                    <svg className="copy_btn hidden w-[18px] ml-[2px] fill-theme-yellow dark:fill-theme-blue-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/></svg>
+                                    <svg className="copy_btn hidden w-[18px] ml-0.5 fill-theme-yellow dark:fill-theme-blue-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/></svg>
                                 </button>
                             </label>
-                            <input onChange={handleFontDownloadLinkChange} tabIndex={9} type="text" id="font-download-link" placeholder="https://github.com/fonts-archive/NanumSquare/archive/refs/heads/main.zip" className={`w-full ${fontDownloadLinkAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
+                            <input onChange={handleFontDownloadLinkChange} tabIndex={9} type="text" id="font-download-link" placeholder="https://github.com/fonts-archive/NanumSquare/archive/refs/heads/main.zip" className={`w-full ${fontDownloadLinkAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-xs mt-2 px-3.5 py-2 rounded-lg border-2 placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
                             {
                                 fontDownloadLinkAlert
-                                ? <div className="text-[10px] ml-[16px] mt-[6px] text-theme-red">폰트 다운로드 링크를 올바르게 입력해 주세요.</div>
+                                ? <div className="text-xs ml-4 mt-1.5 text-theme-red">폰트 다운로드 링크를 올바르게 입력해 주세요.</div>
                                 : <></>
                             }
-                            <label htmlFor="font-cdn-css" className="mt-[20px]">
-                                <div className="inline-block mr-[6px]">CSS 설정하기</div>
-                                <button id="font-cdn-css-copy" onClick={copyOnClick} value="font-family: 'Nanum Square';" className="inline-flex items-center leading-loose text-[12px] text-theme-yellow dark:text-theme-blue-1 hover:underline tlg:hover:no-underline">
+                            <label htmlFor="font-cdn-css" className="mt-5">
+                                <div className="inline-block mr-1.5">CSS 설정하기</div>
+                                <button id="font-cdn-css-copy" onClick={copyOnClick} value="font-family: 'Nanum Square';" className="inline-flex items-center leading-loose text-xs text-theme-yellow dark:text-theme-blue-1 hover:underline tlg:hover:no-underline">
                                     예시 복사하기
-                                    <svg className="copy_btn hidden w-[18px] ml-[2px] fill-theme-yellow dark:fill-theme-blue-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/></svg>
+                                    <svg className="copy_btn hidden w-[18px] ml-0.5 fill-theme-yellow dark:fill-theme-blue-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/></svg>
                                 </button>
                             </label>
-                            <input onChange={handleFontCdnCssChange} tabIndex={10} type="text" id="font-cdn-css" placeholder="font-family: 'Nanum Square';" className={`w-full ${fontCdnCssAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
+                            <input onChange={handleFontCdnCssChange} tabIndex={10} type="text" id="font-cdn-css" placeholder="font-family: 'Nanum Square';" className={`w-full ${fontCdnCssAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-xs mt-2 px-3.5 py-2 rounded-lg border-2 placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
                             {
                                 fontCdnCssAlert
-                                ? <div className="text-[10px] ml-[16px] mt-[6px] text-theme-red">폰트 CSS 설정을 올바르게 입력해 주세요.</div>
+                                ? <div className="text-xs ml-4 mt-1.5 text-theme-red">폰트 CSS 설정을 올바르게 입력해 주세요.</div>
                                 : <></>
                             }
-                            <label htmlFor="font-cdn-link" className="mt-[20px]">
-                                <div className="inline-block mr-[6px]">Link 방식</div>
-                                <button id="font-cdn-link-copy" onClick={copyOnClick} value='<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fonts-archive/NanumSquare/NanumSquare.css" type="text/css"/>' className="inline-flex items-center leading-loose text-[12px] text-theme-yellow dark:text-theme-blue-1 hover:underline tlg:hover:no-underline">
+                            <label htmlFor="font-cdn-link" className="mt-5">
+                                <div className="inline-block mr-1.5">Link 방식</div>
+                                <button id="font-cdn-link-copy" onClick={copyOnClick} value='<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fonts-archive/NanumSquare/NanumSquare.css" type="text/css"/>' className="inline-flex items-center leading-loose text-xs text-theme-yellow dark:text-theme-blue-1 hover:underline tlg:hover:no-underline">
                                     예시 복사하기
-                                    <svg className="copy_btn hidden w-[18px] ml-[2px] fill-theme-yellow dark:fill-theme-blue-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/></svg>
+                                    <svg className="copy_btn hidden w-[18px] ml-0.5 fill-theme-yellow dark:fill-theme-blue-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/></svg>
                                 </button>
                             </label>
-                            <input onChange={handleFontCdnLinkChange} tabIndex={11} type="text" id="font-cdn-link" placeholder='<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fonts-archive/NanumSquare/NanumSquare.css" type="text/css"/>' className={`w-full ${fontCdnLinkAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
+                            <input onChange={handleFontCdnLinkChange} tabIndex={11} type="text" id="font-cdn-link" placeholder='<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fonts-archive/NanumSquare/NanumSquare.css" type="text/css"/>' className={`w-full ${fontCdnLinkAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-xs mt-2 px-3.5 py-2 rounded-lg border-2 placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
                             {
                                 fontCdnLinkAlert
-                                ? <div className="text-[10px] ml-[16px] mt-[6px] text-theme-red">폰트 Link 설정을 올바르게 입력해 주세요.</div>
+                                ? <div className="text-xs ml-4 mt-1.5 text-theme-red">폰트 Link 설정을 올바르게 입력해 주세요.</div>
                                 : <></>
                             }
-                            <label htmlFor="font-cdn-import" className="mt-[20px]">
-                                <div className="inline-block mr-[6px]">Import 방식</div>
-                                <button id="font-cdn-import-copy" onClick={copyOnClick} value="@import url('https://cdn.jsdelivr.net/gh/fonts-archive/NanumSquare/NanumSquare.css');" className="inline-flex items-center leading-loose text-[12px] text-theme-yellow dark:text-theme-blue-1 hover:underline tlg:hover:no-underline">
+                            <label htmlFor="font-cdn-import" className="mt-5">
+                                <div className="inline-block mr-1.5">Import 방식</div>
+                                <button id="font-cdn-import-copy" onClick={copyOnClick} value="@import url('https://cdn.jsdelivr.net/gh/fonts-archive/NanumSquare/NanumSquare.css');" className="inline-flex items-center leading-loose text-xs text-theme-yellow dark:text-theme-blue-1 hover:underline tlg:hover:no-underline">
                                     예시 복사하기
-                                    <svg className="copy_btn hidden w-[18px] ml-[2px] fill-theme-yellow dark:fill-theme-blue-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/></svg>
+                                    <svg className="copy_btn hidden w-[18px] ml-0.5 fill-theme-yellow dark:fill-theme-blue-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/></svg>
                                 </button>
                             </label>
-                            <input onChange={handleFontCdnImportChange} tabIndex={12} type="text" id="font-cdn-import" placeholder="@import url('https://cdn.jsdelivr.net/gh/fonts-archive/NanumSquare/NanumSquare.css');" className={`w-full ${fontCdnImportAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
+                            <input onChange={handleFontCdnImportChange} tabIndex={12} type="text" id="font-cdn-import" placeholder="@import url('https://cdn.jsdelivr.net/gh/fonts-archive/NanumSquare/NanumSquare.css');" className={`w-full ${fontCdnImportAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-xs mt-2 px-3.5 py-2 rounded-lg border-2 placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
                             {
                                 fontCdnImportAlert
-                                ? <div className="text-[10px] ml-[16px] mt-[6px] text-theme-red">폰트 Import 설정을 올바르게 입력해 주세요.</div>
+                                ? <div className="text-xs ml-4 mt-1.5 text-theme-red">폰트 Import 설정을 올바르게 입력해 주세요.</div>
                                 : <></>
                             }
-                            <label htmlFor="font-cdn-font-face" className="mt-[20px]">
-                                <div className="inline-block mr-[6px]">font-face 방식</div>
+                            <label htmlFor="font-cdn-font-face" className="mt-5">
+                                <div className="inline-block mr-1.5">font-face 방식</div>
                                 <button 
                                     id="font-cdn-font-face-copy" 
                                     onClick={copyOnClick} 
@@ -359,9 +359,9 @@ const Add = ({params}: any) => {
             url('https://cdn.jsdelivr.net/gh/fonts-archive/NanumSquare/NanumSquare.otf') format('opentype'),
             url('https://cdn.jsdelivr.net/gh/fonts-archive/NanumSquare/NanumSquare.ttf') format('truetype');
 }`} 
-                                    className="inline-flex items-center leading-loose text-[12px] text-theme-yellow dark:text-theme-blue-1 hover:underline tlg:hover:no-underline">
+                                    className="inline-flex items-center leading-loose text-xs text-theme-yellow dark:text-theme-blue-1 hover:underline tlg:hover:no-underline">
                                     예시 복사하기
-                                    <svg className="copy_btn hidden w-[18px] ml-[2px] fill-theme-yellow dark:fill-theme-blue-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/></svg>
+                                    <svg className="copy_btn hidden w-[18px] ml-0.5 fill-theme-yellow dark:fill-theme-blue-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/></svg>
                                 </button>
                             </label>
                             <textarea 
@@ -379,34 +379,34 @@ const Add = ({params}: any) => {
             url('https://cdn.jsdelivr.net/gh/fonts-archive/NanumSquare/NanumSquare.otf') format('opentype'),
             url('https://cdn.jsdelivr.net/gh/fonts-archive/NanumSquare/NanumSquare.ttf') format('truetype');
 }`} 
-                                className={`font-edit-textarea w-full h-[196px] resize-none ${fontCdnFontFaceAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}>
+                                className={`font-edit-textarea w-full h-48 resize-none ${fontCdnFontFaceAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-xs mt-2 px-3.5 py-3 rounded-lg border-2 placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}>
                             </textarea>
                             {
                                 fontCdnFontFaceAlert
-                                ? <div className="text-[10px] ml-[16px] mt-[6px] text-theme-red">폰트 font-face 설정을 올바르게 입력해 주세요.</div>
+                                ? <div className="text-xs ml-4 mt-1.5 text-theme-red">폰트 font-face 설정을 올바르게 입력해 주세요.</div>
                                 : <></>
                             }
-                            <label htmlFor="font-cdn-url" className="mt-[20px]">
+                            <label htmlFor="font-cdn-url" className="mt-5">
                                 <div className="inline-block mr-[6px]">CDN 주소</div>
-                                <button id="font-cdn-url-copy" onClick={copyOnClick} value="https://cdn.jsdelivr.net/gh/fonts-archive/NanumSquare/NanumSquare.css" className="inline-flex items-center leading-loose text-[12px] text-theme-yellow dark:text-theme-blue-1 hover:underline tlg:hover:no-underline">
+                                <button id="font-cdn-url-copy" onClick={copyOnClick} value="https://cdn.jsdelivr.net/gh/fonts-archive/NanumSquare/NanumSquare.css" className="inline-flex items-center leading-loose text-xs text-theme-yellow dark:text-theme-blue-1 hover:underline tlg:hover:no-underline">
                                     예시 복사하기
-                                    <svg className="copy_btn hidden w-[18px] ml-[2px] fill-theme-yellow dark:fill-theme-blue-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/></svg>
+                                    <svg className="copy_btn hidden w-[18px] ml-0.5 fill-theme-yellow dark:fill-theme-blue-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/></svg>
                                 </button>
                             </label>
-                            <input onChange={handleFontCdnUrlChange} tabIndex={14} type="text" id="font-cdn-url" placeholder="https://cdn.jsdelivr.net/gh/fonts-archive/NanumSquare/NanumSquare.css" className={`w-full ${fontCdnUrlAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
+                            <input onChange={handleFontCdnUrlChange} tabIndex={14} type="text" id="font-cdn-url" placeholder="https://cdn.jsdelivr.net/gh/fonts-archive/NanumSquare/NanumSquare.css" className={`w-full ${fontCdnUrlAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-xs mt-2 px-3.5 py-2 rounded-lg border-2 placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
                             {
                                 fontCdnUrlAlert
-                                ? <div className="text-[10px] ml-[16px] mt-[6px] text-theme-red">CDN 주소를 올바르게 입력해 주세요.</div>
+                                ? <div className="text-xs ml-4 mt-1.5 text-theme-red">CDN 주소를 올바르게 입력해 주세요.</div>
                                 : <></>
                             }
-                            <label htmlFor="font-license" className="mt-[20px]">라이센스 사용 범위</label>
-                            <input onChange={handleFontLicenseChange} tabIndex={15} type="text" id="font-license" placeholder="HHHHHHNNN" className={`w-full ${fontLicenseAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
+                            <label htmlFor="font-license" className="mt-5">라이센스 사용 범위</label>
+                            <input onChange={handleFontLicenseChange} tabIndex={15} type="text" id="font-license" placeholder="HHHHHHNNN" className={`w-full ${fontLicenseAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-xs mt-2 px-3.5 py-2 rounded-lg border-2 placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
                             {
                                 fontLicenseAlert
-                                ? <div className="text-[10px] ml-[16px] mt-[6px] text-theme-red">폰트 라이센스 사용 범위를 올바르게 입력해 주세요.</div>
+                                ? <div className="text-xs ml-4 mt-1.5 text-theme-red">폰트 라이센스 사용 범위를 올바르게 입력해 주세요.</div>
                                 : <></>
                             }
-                            <label htmlFor="font-license-text" className="mt-[20px]">라이센스 본문</label>
+                            <label htmlFor="font-license-text" className="mt-5">라이센스 본문</label>
                             <textarea 
                                 onChange={handleFontLicenseTextChange}
                                 id="font-license-text" 
@@ -417,18 +417,18 @@ const Add = ({params}: any) => {
 
 네이버 글꼴은 본 저작권 안내와 라이선스 전문을 포함해서 다른 소프트웨어와 번들하거나 재배포 또는 판매가 가능하고 자유롭게 수정, 재배포하실 수 있습니다.
 네이버 글꼴 라이선스 전문을 포함하기 어려울 경우 출처 표기를 권장합니다. 예) 이 페이지에는 네이버에서 제공한 나눔 고딕 글꼴이 적용되어 있습니다.`} 
-                                className={`font-edit-textarea w-full h-[196px] resize-none ${fontLicenseTextAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}>
+                                className={`font-edit-textarea w-full h-48 resize-none ${fontLicenseTextAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-xs mt-2 px-3.5 py-3 rounded-lg border-2 placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}>
                             </textarea>
                             {
                                 fontLicenseTextAlert
-                                ? <div className="text-[10px] ml-[16px] mt-[6px] text-theme-red">폰트 라이센스 본문을 올바르게 입력해 주세요.</div>
+                                ? <div className="text-xs ml-4 mt-1.5 text-theme-red">폰트 라이센스 본문을 올바르게 입력해 주세요.</div>
                                 : <></>
                             }
                         </div>
-                        <button onClick={addBtnClick} className="w-full h-[34px] rounded-[8px] mt-[20px] font-medium text-[12px] text-theme-5 dark:text-theme-3 bg-theme-yellow/80 hover:bg-theme-yellow dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1">
+                        <button onClick={addBtnClick} className="w-full h-9 rounded-lg mt-5 font-medium text-xs text-theme-5 dark:text-theme-blue-2 bg-theme-yellow/80 hover:bg-theme-yellow dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1">
                             {
                                 addBtnLoading
-                                ? <span className='loader loader-register w-[16px] h-[16px] mt-[2px]'></span>
+                                ? <span className='loader loader-register w-4 h-4 mt-0.5'></span>
                                 : <>추가하기</>
                             }
                         </button>

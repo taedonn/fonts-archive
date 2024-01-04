@@ -136,32 +136,32 @@ const FontsList = ({params}: any) => {
 
             {/* 메인 */}
             <form onSubmit={e => e.preventDefault()} className='w-full flex flex-col justify-center items-center'>
-                <div className='w-[720px] tmd:w-full flex flex-col justify-center items-start my-[100px] tlg:my-[40px]'>
-                    <h2 className='text-[20px] tlg:text-[18px] text-theme-3 dark:text-theme-9 font-medium mb-[16px] tlg:mb-[12px]'>폰트 목록</h2>
-                    <div className='w-max flex items-center p-[6px] mb-[12px] tlg:mb-[8px] rounded-[6px] text-theme-10 dark:text-theme-9 bg-theme-5 dark:bg-theme-3'>
-                        <select ref={selectRef} className='w-[80px] h-[32px] tlg:h-[28px] text-[12px] pt-px px-[14px] bg-transparent rounded-[6px] outline-none border border-theme-6 dark:border-theme-5 cursor-pointer'>
+                <div className='w-[720px] tmd:w-full flex flex-col justify-center items-start my-[100px] tlg:my-10'>
+                    <h2 className='text-xl tlg:text-lg text-theme-3 dark:text-theme-9 font-medium mb-4 tlg:mb-3'>폰트 목록</h2>
+                    <div className='w-max flex items-center p-1.5 mb-3 tlg:mb-2 rounded-md text-theme-10 dark:text-theme-9 bg-theme-5 dark:bg-theme-3'>
+                        <select ref={selectRef} className='w-20 h-8 tlg:h-7 text-xs pt-px px-3.5 bg-transparent rounded-md outline-none border border-theme-6 dark:border-theme-5 cursor-pointer'>
                             <option value='all' defaultChecked>전체</option>
                             <option value='kr'>한글</option>
                             <option value='en'>영문</option>
                             <option value='show'>보임</option>
                             <option value='hide'>숨김</option>
                         </select>
-                        <input ref={textRef} type='textbox' placeholder='폰트명 입력' className='w-[200px] tlg:w-[160px] h-[32px] tlg:h-[28px] ml-[8px] px-[12px] text-[12px] bg-transparent border rounded-[6px] border-theme-6 dark:border-theme-5'/>
-                        <button onClick={handleClick} className='w-[68px] h-[32px] tlg:h-[28px] ml-[8px] text-[12px] border rounded-[6px] bg-theme-6/40 hover:bg-theme-6/60 tlg:hover:bg-theme-6/40 dark:bg-theme-4 hover:dark:bg-theme-5 tlg:hover:dark:bg-theme-4'>검색</button>
+                        <input ref={textRef} type='textbox' placeholder='폰트명 입력' className='w-[200px] tlg:w-40 h-8 tlg:h-7 ml-2 px-3 text-xs bg-transparent border rounded-md border-theme-6 dark:border-theme-5'/>
+                        <button onClick={handleClick} className='w-[68px] h-8 tlg:h-7 ml-2 text-xs border rounded-md bg-theme-6/40 hover:bg-theme-6/60 tlg:hover:bg-theme-6/40 dark:bg-theme-4 hover:dark:bg-theme-5 tlg:hover:dark:bg-theme-4'>검색</button>
                     </div>
-                    <div className='w-full rounded-[8px] overflow-hidden overflow-x-auto'>
-                    <div className='w-[720px] text-[12px] text-theme-10 dark:text-theme-9 bg-theme-4 dark:bg-theme-4'>
+                    <div className='w-full rounded-lg overflow-hidden overflow-x-auto'>
+                        <div className='w-[720px] text-xs text-theme-10 dark:text-theme-9 bg-theme-4 dark:bg-theme-4'>
                             <div className='text-left bg-theme-5 dark:bg-theme-3'>
-                                <div className='h-[40px] tlg:h-[34px] flex items-center'>
-                                    <div className='w-[60px] pl-[12px] shrink-0'>코드</div>
-                                    <div className='w-full pl-[12px]'>폰트명</div>
-                                    <div className='w-[60px] pl-[12px] shrink-0'>조회수</div>
-                                    <div className='w-[60px] pl-[12px] shrink-0'>좋아요</div>
-                                    <div className='w-[60px] pl-[12px] shrink-0'>언어</div>
-                                    <div className='w-[60px] pl-[12px] shrink-0'>타입</div>
-                                    <div className='w-[60px] pl-[12px] shrink-0'>보임</div>
-                                    <div className='w-[112px] pl-[12px] shrink-0'>생성 날짜</div>
-                                    <div className='w-[112px] pl-[12px] shrink-0'>수정 날짜</div>
+                                <div className='h-10 tlg:h-9 flex items-center'>
+                                    <div className='w-[60px] pl-3 shrink-0'>코드</div>
+                                    <div className='w-full pl-3'>폰트명</div>
+                                    <div className='w-[60px] pl-3 shrink-0'>조회수</div>
+                                    <div className='w-[60px] pl-3 shrink-0'>좋아요</div>
+                                    <div className='w-[60px] pl-3 shrink-0'>언어</div>
+                                    <div className='w-[60px] pl-3 shrink-0'>타입</div>
+                                    <div className='w-[60px] pl-3 shrink-0'>보임</div>
+                                    <div className='w-28 pl-3 shrink-0'>생성 날짜</div>
+                                    <div className='w-28 pl-3 shrink-0'>수정 날짜</div>
                                 </div>
                             </div>
                             <div>
@@ -171,17 +171,17 @@ const FontsList = ({params}: any) => {
                                         {
                                             thisFonts.map((font: any) => {
                                                 return (
-                                                    <div key={font.code} className='h-[40px] tlg:h-[34px] relative flex items-center border-t border-theme-5 dark:border-theme-3 hover:bg-theme-yellow/20 tlg:hover:bg-transparent hover:dark:bg-theme-blue-1/20 tlg:hover:dark:bg-transparent'>
+                                                    <div key={font.code} className='h-10 tlg:h-9 relative flex items-center border-t border-theme-5 dark:border-theme-3 hover:bg-theme-yellow/20 tlg:hover:bg-transparent hover:dark:bg-theme-blue-1/20 tlg:hover:dark:bg-transparent'>
                                                         <Link href={`/admin/font/edit?code=${font.code}`} className='w-full h-full block absolute z-10 left-0 top-0'></Link>
-                                                        <div className='w-[60px] pl-[12px] shrink-0'>{font.code}</div>
-                                                        <div className='w-full pl-[12px] overflow-hidden'><div className='font-size'>{font.name}</div></div>
-                                                        <div className='w-[60px] pl-[12px] shrink-0'>{formatNumber(font.view)}</div>
-                                                        <div className='w-[60px] pl-[12px] shrink-0'>{formatNumber(font.like)}</div>
-                                                        <div className='w-[60px] pl-[12px] shrink-0'>{font.lang}</div>
-                                                        <div className='w-[60px] pl-[12px] shrink-0'>{formatType(font.font_type)}</div>
-                                                        <div className='w-[60px] pl-[12px] shrink-0 text-theme-green'>{font.show_type ? "보임" : "숨김"}</div>
-                                                        <div className='w-[112px] pl-[12px] shrink-0'>{timeFormat(font.created_at)}</div>
-                                                        <div className='w-[112px] pl-[12px] shrink-0'>{timeFormat(font.updated_at)}</div>
+                                                        <div className='w-[60px] pl-3 shrink-0'>{font.code}</div>
+                                                        <div className='w-full pl-3 overflow-hidden'><div className='font-size'>{font.name}</div></div>
+                                                        <div className='w-[60px] pl-3 shrink-0'>{formatNumber(font.view)}</div>
+                                                        <div className='w-[60px] pl-3 shrink-0'>{formatNumber(font.like)}</div>
+                                                        <div className='w-[60px] pl-3 shrink-0'>{font.lang}</div>
+                                                        <div className='w-[60px] pl-3 shrink-0'>{formatType(font.font_type)}</div>
+                                                        <div className='w-[60px] pl-3 shrink-0 text-theme-green'>{font.show_type ? "보임" : "숨김"}</div>
+                                                        <div className='w-28 pl-3 shrink-0'>{timeFormat(font.created_at)}</div>
+                                                        <div className='w-28 pl-3 shrink-0'>{timeFormat(font.updated_at)}</div>
                                                     </div>
                                                 )
                                             })
@@ -194,7 +194,7 @@ const FontsList = ({params}: any) => {
                             </div>
                         </div>
                     </div>
-                    <div className='w-full flex justify-center mt-[12px]'>
+                    <div className='w-full flex justify-center mt-3'>
                         <Pagination count={thisCount} page={page} onChange={handleChange} shape='rounded' showFirstButton showLastButton/>
                     </div>
                 </div>

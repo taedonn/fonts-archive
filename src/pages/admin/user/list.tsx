@@ -110,33 +110,33 @@ const UserList = ({params}: any) => {
                         <button onClick={handleClick} className='w-[68px] h-8 tlg:h-7 ml-2 text-xs border rounded-md bg-theme-6/40 hover:bg-theme-6/60 tlg:hover:bg-theme-6/40 dark:bg-theme-4 hover:dark:bg-theme-5 tlg:hover:dark:bg-theme-4'>검색</button>
                     </div>
                     <div className='w-full rounded-lg overflow-hidden overflow-x-auto'>
-                        <table className='w-[720px] text-xs text-theme-10 dark:text-theme-9 bg-theme-4 dark:bg-theme-4'>
-                            <thead className='text-left bg-theme-5 dark:bg-theme-3'>
-                                <tr>
-                                    <th className='h-10 tlg:h-8 w-[52px] pl-4'>번호</th>
-                                    <th className='w-20 pl-4'>유저명</th>
-                                    <th className='pl-4'>유저 아이디</th>
-                                    <th className='w-[100px] pl-4'>수정 날짜</th>
-                                    <th className='w-[100px] pl-4'>생성 날짜</th>
-                                    <th className='w-16 text-center'>닉네임 신고</th>
-                                    <th className='w-[100px] pl-4'>이메일 확인</th>
-                                </tr>
-                            </thead>
-                            <tbody>
+                        <div className='w-[720px] text-xs text-theme-10 dark:text-theme-9 bg-theme-4 dark:bg-theme-4'>
+                            <div className='text-left bg-theme-5 dark:bg-theme-3'>
+                                <div className='h-10 tlg:h-9 flex items-center'>
+                                    <div className='w-[52px] pl-3 shrink-0'>번호</div>
+                                    <div className='w-20 pl-3 shrink-0'>유저명</div>
+                                    <div className='w-full pl-3'>유저 아이디</div>
+                                    <div className='w-[100px] pl-3 shrink-0'>수정 날짜</div>
+                                    <div className='w-[100px] pl-3 shrink-0'>생성 날짜</div>
+                                    <div className='w-20 pl-3 shrink-0'>닉네임 신고</div>
+                                    <div className='w-24 pl-3 shrink-0'>이메일 확인</div>
+                                </div>
+                            </div>
+                            <div>
                                 {
                                     thisList && thisList.length > 0
                                     ? <>
                                         {
                                             thisList.map((user: any) => {
                                                 return (
-                                                    <tr key={user.user_no} className='border-t border-theme-5 dark:border-theme-3'>
-                                                        <td className='h-10 tlg:h-8 pl-4 py-2.5'>{user.user_no}</td>
-                                                        <td className='pl-4 py-2.5 break-all'><Link href={`/admin/user/${user.user_no}`} className='font-size text-theme-yellow dark:text-theme-blue-1 focus:underline hover:underline tlg:hover:no-underline'>{user.user_name}</Link></td>
-                                                        <td className='pl-4 py-2.5 break-all'><div className='font-size'>{user.user_id}</div></td>
-                                                        <td className='pl-4 py-2.5'>{timeFormat(user.updated_at)}</td>
-                                                        <td className='pl-4 py-2.5'>{timeFormat(user.created_at)}</td>
-                                                        <td className='py-4 break-keep text-center'>{user.nickname_reported}</td>
-                                                        <td className='pl-4 py-2.5 break-keep'>
+                                                    <div key={user.code} className='h-10 tlg:h-9 relative flex items-center border-t border-theme-5 dark:border-theme-3 hover:bg-theme-yellow/20 tlg:hover:bg-transparent hover:dark:bg-theme-blue-1/20 tlg:hover:dark:bg-transparent'>
+                                                        <div className='w-[52px] pl-3 shrink-0'>{user.user_no}</div>
+                                                        <div className='w-20 pl-3 shrink-0'><Link href={`/admin/user/${user.user_no}`} className='font-size text-theme-yellow dark:text-theme-blue-1 focus:underline hover:underline tlg:hover:no-underline'>{user.user_name}</Link></div>
+                                                        <div className='w-full pl-3 overflow-hidden'><div className='font-size'>{user.user_id}</div></div>
+                                                        <div className='w-[100px] pl-3 shrink-0'>{timeFormat(user.updated_at)}</div>
+                                                        <div className='w-[100px] pl-3 shrink-0'>{timeFormat(user.created_at)}</div>
+                                                        <div className='w-20 shrink-0 text-center'>{user.nickname_reported}</div>
+                                                        <div className='w-24 pl-3 shrink-0'>
                                                             {
                                                                 user.user_email_confirm
                                                                 ? <>
@@ -147,18 +147,18 @@ const UserList = ({params}: any) => {
                                                                     <svg className='inline-block w-2 ml-1 mb-px fill-theme-red' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>
                                                                 </>
                                                             }
-                                                        </td>
-                                                    </tr> 
+                                                        </div>
+                                                    </div>
                                                 )
                                             })
                                         }
                                     </>
-                                    : <tr className='h-[60px]'>
-                                        <td colSpan={7} className='text-center'>유저가 없습니다.</td>
-                                    </tr>
+                                    : <div className='h-[60px]'>
+                                        <div className='leading-[60px] text-center'>유저가 없습니다.</div>
+                                    </div>
                                 }
-                            </tbody>
-                        </table>
+                            </div>
+                        </div>
                     </div>
                     <div className='w-full flex justify-center mt-3'>
                         <Pagination count={thisCount} page={page} onChange={handleChange} shape='rounded' showFirstButton showLastButton/>

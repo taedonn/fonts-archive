@@ -99,26 +99,26 @@ const BugList = ({params}: any) => {
 
             {/* 메인 */}
             <form onSubmit={e => e.preventDefault()} className='w-full flex flex-col justify-center items-center'>
-                <div className='w-[720px] tmd:w-full flex flex-col justify-center items-start my-[100px] tlg:my-[40px]'>
-                    <h2 className='text-[20px] tlg:text-[18px] text-theme-3 dark:text-theme-9 font-medium mb-[16px] tlg:mb-[12px]'>버그 제보 목록</h2>
-                    <div className='w-max flex items-center p-[6px] mb-[12px] tlg:mb-[8px] rounded-[6px] text-theme-10 dark:text-theme-9 bg-theme-5 dark:bg-theme-3'>
-                        <select ref={selectRef} className='w-[80px] h-[32px] tlg:h-[28px] text-[12px] pt-px px-[10px] bg-transparent rounded-[6px] outline-none border border-theme-6 dark:border-theme-5 cursor-pointer'>
+                <div className='w-[720px] tmd:w-full flex flex-col justify-center items-start my-[100px] tlg:my-10'>
+                    <h2 className='text-xl tlg:text-lg text-theme-3 dark:text-theme-9 font-medium mb-4 tlg:mb-3'>버그 제보 목록</h2>
+                    <div className='w-max flex items-center p-1.5 mb-3 tlg:mb-2 rounded-md text-theme-10 dark:text-theme-9 bg-theme-5 dark:bg-theme-3'>
+                        <select ref={selectRef} className='w-20 h-8 tlg:h-7 text-xs pt-px px-2.5 bg-transparent rounded-md outline-none border border-theme-6 dark:border-theme-5 cursor-pointer'>
                             <option value='all' defaultChecked>전체</option>
                             <option value='issue_opened'>해결중</option>
                         </select>
-                        <input ref={textRef} type='textbox' placeholder='제목/이메일' className='w-[200px] tlg:w-[160px] h-[32px] tlg:h-[28px] ml-[8px] px-[12px] text-[12px] bg-transparent border rounded-[6px] border-theme-6 dark:border-theme-5'/>
-                        <button onClick={handleClick} className='w-[68px] h-[32px] tlg:h-[28px] ml-[8px] text-[12px] border rounded-[6px] bg-theme-6/40 hover:bg-theme-6/60 tlg:hover:bg-theme-6/40 dark:bg-theme-4 hover:dark:bg-theme-5 tlg:hover:dark:bg-theme-4'>검색</button>
+                        <input ref={textRef} type='textbox' placeholder='제목/이메일' className='w-[200px] tlg:w-40 h-8 tlg:h-7 ml-2 px-3 text-xs bg-transparent border rounded-md border-theme-6 dark:border-theme-5'/>
+                        <button onClick={handleClick} className='w-[68px] h-8 tlg:h-7 ml-2 text-xs border rounded-md bg-theme-6/40 hover:bg-theme-6/60 tlg:hover:bg-theme-6/40 dark:bg-theme-4 hover:dark:bg-theme-5 tlg:hover:dark:bg-theme-4'>검색</button>
                     </div>
-                    <div className='w-full rounded-[8px] overflow-hidden overflow-x-auto'>
-                        <div className='w-[720px] text-[12px] text-theme-10 dark:text-theme-9 bg-theme-4 dark:bg-theme-4'>
+                    <div className='w-full rounded-lg overflow-hidden overflow-x-auto'>
+                        <div className='w-[720px] text-xs text-theme-10 dark:text-theme-9 bg-theme-4 dark:bg-theme-4'>
                             <div className='text-left bg-theme-5 dark:bg-theme-3'>
-                                <div className='h-[40px] tlg:h-[34px] flex items-center'>
-                                    <div className='w-[48px] pl-[16px] shrink-0'>번호</div>
-                                    <div className='w-[120px] pl-[16px] shrink-0'>제목</div>
-                                    <div className='w-full pl-[16px]'>이메일</div>
-                                    <div className='w-[112px] pl-[16px] shrink-0'>생성 날짜</div>
-                                    <div className='w-[112px] pl-[16px] shrink-0'>종료 날짜</div>
-                                    <div className='w-[88px] pl-[16px] shrink-0'>해결 여부</div>
+                                <div className='h-10 tlg:h-9 flex items-center'>
+                                    <div className='w-12 pl-4 shrink-0'>번호</div>
+                                    <div className='w-[120px] pl-4 shrink-0'>제목</div>
+                                    <div className='w-full pl-4'>이메일</div>
+                                    <div className='w-28 pl-4 shrink-0'>생성 날짜</div>
+                                    <div className='w-28 pl-4 shrink-0'>종료 날짜</div>
+                                    <div className='w-[88px] pl-4 shrink-0'>해결 여부</div>
                                 </div>
                             </div>
                             <div>
@@ -128,19 +128,19 @@ const BugList = ({params}: any) => {
                                         {
                                             thisList.map((issue: any) => {
                                                 return (
-                                                    <div key={issue.issue_id} className='h-[40px] tlg:h-[34px] relative flex items-center border-t border-theme-5 dark:border-theme-3 hover:bg-theme-yellow/20 tlg:hover:bg-transparent hover:dark:bg-theme-blue-1/20 tlg:hover:dark:bg-transparent cursor-pointer'>
+                                                    <div key={issue.issue_id} className='h-10 tlg:h-9 relative flex items-center border-t border-theme-5 dark:border-theme-3 hover:bg-theme-yellow/20 tlg:hover:bg-transparent hover:dark:bg-theme-blue-1/20 tlg:hover:dark:bg-transparent cursor-pointer'>
                                                         <Link href={`/admin/bug/${issue.issue_id}`} className='w-full h-full absolute z-10 left-0 top-0'></Link>
-                                                        <div className='w-[48px] pl-[16px] py-[10px] shrink-0'>{issue.issue_id}</div>
-                                                        <div className='w-[120px] pl-[16px] py-[10px] shrink-0'><div className='font-size'>{issue.issue_title}</div></div>
-                                                        <div className='w-full pl-[16px] py-[10px] overflow-hidden'><div className='font-size'>{issue.issue_email}</div></div>
-                                                        <div className='w-[112px] pl-[16px] py-[10px] shrink-0'>{timeFormat(issue.issue_created_at)}</div>
-                                                        <div className='w-[112px] pl-[16px] py-[10px] shrink-0'>{timeFormat(issue.issue_closed_at)}</div>
-                                                        <div className='w-[88px] pl-[16px] py-[10px] shrink-0'>
+                                                        <div className='w-12 pl-4 py-2.5 shrink-0'>{issue.issue_id}</div>
+                                                        <div className='w-[120px] pl-4 py-2.5 shrink-0'><div className='font-size'>{issue.issue_title}</div></div>
+                                                        <div className='w-full pl-4 py-2.5 overflow-hidden'><div className='font-size'>{issue.issue_email}</div></div>
+                                                        <div className='w-28 pl-4 py-2.5 shrink-0'>{timeFormat(issue.issue_created_at)}</div>
+                                                        <div className='w-28 pl-4 py-2.5 shrink-0'>{timeFormat(issue.issue_closed_at)}</div>
+                                                        <div className='w-[88px] pl-4 py-2.5 shrink-0'>
                                                             {
                                                                 issue.issue_closed
                                                                 ? <>
                                                                     <span className='text-theme-green'>해결 됨</span>
-                                                                    <svg className='inline-block w-[8px] ml-[4px] mb-px fill-theme-green' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></svg>
+                                                                    <svg className='inline-block w-2 ml-1 mb-px fill-theme-green' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></svg>
                                                                 </> : <>
                                                                     <span className='text-theme-9'>해결 중...</span>
                                                                 </>
@@ -156,7 +156,7 @@ const BugList = ({params}: any) => {
                             </div>
                         </div>
                     </div>
-                    <div className='w-full flex justify-center mt-[12px]'>
+                    <div className='w-full flex justify-center mt-3'>
                         <Pagination count={thisCount} page={page} onChange={handleChange} shape='rounded' showFirstButton showLastButton/>
                     </div>
                 </div>
