@@ -1,6 +1,6 @@
 // next
 import Link from "next/link";
-import { NextSeo } from "next-seo";
+import Image from "next/image";
 
 // next-auth
 import { getServerSession } from "next-auth";
@@ -13,6 +13,7 @@ import { useState } from "react";
 import { FetchUser } from "@/pages/api/admin/user";
 
 // libraries
+import { NextSeo } from "next-seo";
 import axios from "axios";
 import { Switch } from "@mui/material";
 
@@ -202,8 +203,9 @@ const UserDetailPage = ({params}: any) => {
                     <div className='w-full p-10 rounded-lg text-sm text-theme-10 dark:text-theme-9 bg-theme-5 dark:bg-theme-3 drop-shadow-default dark:drop-shadow-dark'>
                         <div className="flex items-center">
                             <div className="relative mr-7">
-                                {/* eslint-disable-next-line @next/next/no-img-element */}
-                                <img src={profileImg} alt="프로필 이미지" className="w-20 h-20 rounded-full"/>
+                                <div className="w-20 h-20">
+                                    <Image src={profileImg} alt="Profile image" fill sizes="100%" priority className="object-cover rounded-full"/>
+                                </div>
                                 <button onClick={changeProfileImg} className="group flex justify-center items-center absolute top-0 -right-1 w-7 h-7 rounded-full bg-theme-3 dark:bg-theme-blue-2">
                                     <svg className="w-3.5 fill-theme-yellow dark:fill-theme-blue-1 duration-200 group-hover:rotate-90" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M142.9 142.9c62.2-62.2 162.7-62.5 225.3-1L327 183c-6.9 6.9-8.9 17.2-5.2 26.2s12.5 14.8 22.2 14.8H463.5c0 0 0 0 0 0H472c13.3 0 24-10.7 24-24V72c0-9.7-5.8-18.5-14.8-22.2s-19.3-1.7-26.2 5.2L413.4 96.6c-87.6-86.5-228.7-86.2-315.8 1C73.2 122 55.6 150.7 44.8 181.4c-5.9 16.7 2.9 34.9 19.5 40.8s34.9-2.9 40.8-19.5c7.7-21.8 20.2-42.3 37.8-59.8zM16 312v7.6 .7V440c0 9.7 5.8 18.5 14.8 22.2s19.3 1.7 26.2-5.2l41.6-41.6c87.6 86.5 228.7 86.2 315.8-1c24.4-24.4 42.1-53.1 52.9-83.7c5.9-16.7-2.9-34.9-19.5-40.8s-34.9 2.9-40.8 19.5c-7.7 21.8-20.2 42.3-37.8 59.8c-62.2 62.2-162.7 62.5-225.3 1L185 329c6.9-6.9 8.9-17.2 5.2-26.2s-12.5-14.8-22.2-14.8H48.4h-.7H40c-13.3 0-24 10.7-24 24z"/></svg>
                                     <div className="same-source w-max absolute z-10 left-1/2 top-[-38px] text-xs font-medium leading-none px-2.5 py-2 rounded-md hidden group-hover:block tlg:group-hover:hidden group-hover:animate-zoom-in-fontbox bg-theme-yellow dark:bg-theme-blue-1 text-theme-3 dark:text-theme-blue-2">이미지 랜덤 변경하기</div>
@@ -270,7 +272,7 @@ const UserDetailPage = ({params}: any) => {
                             ? <div className="text-xs ml-4 mt-1.5 text-theme-red">이메일 토큰을 올바르게 입력해 주세요.</div>
                             : <></>
                         }
-                        <button onClick={saveUserInfo} className="w-full h-9 rounded-lg mt-5 font-medium text-xs text-theme-4 dark:text-theme-blue-2 bg-theme-yellow/80 hover:bg-theme-yellow tlg:bg-theme-yellow dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:dark:bg-theme-blue-1">
+                        <button onClick={saveUserInfo} className="w-full h-9 rounded-lg mt-5 font-medium text-sm text-theme-4 dark:text-theme-blue-2 bg-theme-yellow/80 hover:bg-theme-yellow tlg:bg-theme-yellow dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:dark:bg-theme-blue-1">
                             {
                                 isLoading
                                 ? <span className='loader loader-register w-4 h-4 mt-0.5'></span>

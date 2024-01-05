@@ -425,7 +425,7 @@ const Add = ({params}: any) => {
                                 : <></>
                             }
                         </div>
-                        <button onClick={addBtnClick} className="w-full h-9 rounded-lg mt-5 font-medium text-xs text-theme-5 dark:text-theme-blue-2 bg-theme-yellow/80 hover:bg-theme-yellow dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1">
+                        <button onClick={addBtnClick} className="w-full h-9 rounded-lg mt-5 font-medium text-sm text-theme-5 dark:text-theme-blue-2 bg-theme-yellow/80 hover:bg-theme-yellow dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1">
                             {
                                 addBtnLoading
                                 ? <span className='loader loader-register w-4 h-4 mt-0.5'></span>

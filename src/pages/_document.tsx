@@ -28,6 +28,7 @@ class MyDocument extends Document {
             <Html lang="ko">
                 <Head>
                     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fonts-archive/SpoqaHanSansNeo/SpoqaHanSansNeo.css" type="text/css"/>
+                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" type="text/css"/>
                 </Head>
                 <script dangerouslySetInnerHTML={{ __html: themeInitializerScript }}/>
                 <body className="font-sans absolute w-full min-h-full px-8 tlg:px-4 pt-[60px] tlg:pt-[52px] pb-[76px]">

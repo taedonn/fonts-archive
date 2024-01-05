@@ -691,29 +691,27 @@ function DetailPage({params}: any) {
                     <div className="mb-20 tlg:mb-[60px] tmd:mb-12">
                         <div className="w-full flex flex-row tlg:flex-col justify-between items-stretch tlg:items-start">
                             <div className="tlg:w-full tlg:mb-4 border border-theme-7 dark:border-theme-5">
-                                <table className="tlg:w-full text-left">
-                                    <thead className="relative">
-                                        <tr className="text-[15px] text-theme-3 dark:text-theme-9 font-medium">
-                                            <th className="w-[120px] h-14 tlg:w-[100px] text-center">카테고리</th>
-                                            <th className="w-[450px] tlg:w-[auto]">사용 범위</th>
-                                            <th className="w-[100px] tmd:w-20 pr-7 tlg:pr-6 tmd:pr-5 text-right">허용 여부</th>
-                                            <th className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[calc(100%-40px)] tlg:w-[calc(100%-32px)] tmd:w-[calc(100%-24px)] h-px bg-theme-7 dark:bg-theme-5"></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody className="text-[13px] leading-tight text-theme-3 dark:text-theme-8 fill-theme-3 dark:fill-theme-8 text-left font-normal">
-                                        <tr className="relative">
-                                            <td className="h-[68px] flex flex-col justify-center items-center text-theme-3 dark:text-theme-9 fill-theme-3 dark:fill-theme-9">
+                                <div className="w-[670px] tlg:w-full px-5 text-sm">
+                                    <div className="w-full h-14 flex items-center text-theme-3 dark:text-theme-9 font-medium">
+                                        <div className="w-28 shrink-0 text-center">카테고리</div>
+                                        <div className="w-full">사용 범위</div>
+                                        <div className="w-24 shrink-0 text-center">허용 여부</div>
+                                    </div>
+                                    <div className="w-full h-px bg-theme-7 dark:bg-theme-5"></div>
+                                    <div className="w-full text-theme-4 dark:text-theme-8 fill-theme-4 dark:fill-theme-8">
+                                        <div className="w-full h-[72px] flex items-center border-b border-theme-7 dark:border-theme-5">
+                                            <div className="w-28 shrink-0 flex flex-col justify-center items-center">
                                                 <svg className="w-5 mb-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M2.5 8a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z"/><path d="M5 1a2 2 0 0 0-2 2v2H2a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h1v1a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1h1a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1V3a2 2 0 0 0-2-2H5zM4 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2H4V3zm1 5a2 2 0 0 0-2 2v1H2a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v-1a2 2 0 0 0-2-2H5zm7 2v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1z"/></svg>
                                                 <div>인쇄물</div>
-                                            </td>
-                                            <td>
+                                            </div>
+                                            <div className="w-full">
                                                 {
                                                     font.license_print === "Y"
-                                                    ? <span>브로슈어, 카탈로그, 전단지, 책, 신문 등 출판용 인쇄물</span>
-                                                    : <span className="text-theme-red/80 line-through">브로슈어, 포스터, 책, 잡지, 간판 등 출판용 인쇄물</span>
+                                                    ? <span className="font-size">브로슈어, 카탈로그, 전단지, 책, 신문 등 출판용 인쇄물</span>
+                                                    : <span className="font-size text-theme-red/80 line-through">브로슈어, 포스터, 책, 잡지, 간판 등 출판용 인쇄물</span>
                                                 }
-                                            </td>
-                                            <td className="pr-7 tlg:pr-6 tmd:pr-5 translate-y-2 flex flex-row justify-end items-center">
+                                            </div>
+                                            <div className="w-24 shrink-0 flex justify-center">
                                                 {
                                                     font.license_print === "Y"
                                                     ? <svg className="w-3.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
@@ -725,22 +723,21 @@ function DetailPage({params}: any) {
                                                         )
                                                     )
                                                 }
-                                            </td>
-                                            <td className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[calc(100%-40px)] tlg:w-[calc(100%-32px)] tmd:w-[calc(100%-24px)] h-px bg-theme-7 dark:bg-theme-5"></td>
-                                        </tr>
-                                        <tr className="relative">
-                                            <td className="h-[68px] flex flex-col justify-center items-center text-theme-3 dark:text-theme-9 fill-theme-3 dark:fill-theme-9">
+                                            </div>
+                                        </div>
+                                        <div className="w-full h-[72px] flex items-center border-b border-theme-7 dark:border-theme-5">
+                                            <div className="w-28 shrink-0 flex flex-col justify-center items-center">
                                                 <svg className="w-5 mb-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 1a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V1Zm1 13.5a.5.5 0 1 0 1 0 .5.5 0 0 0-1 0Zm2 0a.5.5 0 1 0 1 0 .5.5 0 0 0-1 0ZM9.5 1a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5ZM9 3.5a.5.5 0 0 0 .5.5h5a.5.5 0 0 0 0-1h-5a.5.5 0 0 0-.5.5ZM1.5 2A1.5 1.5 0 0 0 0 3.5v7A1.5 1.5 0 0 0 1.5 12H6v2h-.5a.5.5 0 0 0 0 1H7v-4H1.5a.5.5 0 0 1-.5-.5v-7a.5.5 0 0 1 .5-.5H7V2H1.5Z"/></svg>
                                                 <div>웹 서비스</div>
-                                            </td>
-                                            <td>
+                                            </div>
+                                            <div className="w-full">
                                                 {
                                                     font.license_web === "Y"
-                                                    ? <span>웹페이지, 광고 배너, 메일, E-브로슈어, 웹서버용 폰트 등</span>
-                                                    : <span className="text-theme-red/80 line-through">웹페이지, 광고 배너, 메일, E-브로슈어, 웹서버용 폰트 등</span>
+                                                    ? <span className="font-size">웹페이지, 광고 배너, 메일, E-브로슈어, 웹서버용 폰트 등</span>
+                                                    : <span className="font-size text-theme-red/80 line-through">웹페이지, 광고 배너, 메일, E-브로슈어, 웹서버용 폰트 등</span>
                                                 }
-                                            </td>
-                                            <td className="pr-7 tlg:pr-6 tmd:pr-5 translate-y-2 flex flex-row justify-end items-center">
+                                            </div>
+                                            <div className="w-24 shrink-0 flex justify-center">
                                                 {
                                                     font.license_web === "Y"
                                                     ? <svg className="w-3.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
@@ -752,22 +749,21 @@ function DetailPage({params}: any) {
                                                         )
                                                     )
                                                 }
-                                            </td>
-                                            <td className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[calc(100%-40px)] tlg:w-[calc(100%-32px)] tmd:w-[calc(100%-24px)] h-px bg-theme-7 dark:bg-theme-5"></td>
-                                        </tr>
-                                        <tr className="relative">
-                                            <td className="h-[68px] flex flex-col justify-center items-center text-theme-3 dark:text-theme-9 fill-theme-3 dark:fill-theme-9">
+                                            </div>
+                                        </div>
+                                        <div className="w-full h-[72px] flex items-center border-b border-theme-7 dark:border-theme-5">
+                                            <div className="w-28 shrink-0 flex flex-col justify-center items-center">
                                                 <svg className="w-5 mb-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M6 3a3 3 0 1 1-6 0 3 3 0 0 1 6 0zM1 3a2 2 0 1 0 4 0 2 2 0 0 0-4 0z"/><path d="M9 6h.5a2 2 0 0 1 1.983 1.738l3.11-1.382A1 1 0 0 1 16 7.269v7.462a1 1 0 0 1-1.406.913l-3.111-1.382A2 2 0 0 1 9.5 16H2a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h7zm6 8.73V7.27l-3.5 1.555v4.35l3.5 1.556zM1 8v6a1 1 0 0 0 1 1h7.5a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1z"/><path d="M9 6a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM7 3a2 2 0 1 1 4 0 2 2 0 0 1-4 0z"/></svg>
                                                 <div>영상물</div>
-                                            </td>
-                                            <td>
+                                            </div>
+                                            <div className="w-full">
                                                 {
                                                     font.license_video === "Y"
-                                                    ? <span>방송 및 영상물 자막, 영상 광고, 영화 오프닝/엔딩크레딧 자막 등</span>
-                                                    : <span className="text-theme-red/80 line-through">방송 및 영상물 자막, 영상 광고, 영화 오프닝/엔딩크레딧 자막 등</span>
+                                                    ? <span className="font-size">방송 및 영상물 자막, 영상 광고, 영화 오프닝/엔딩크레딧 자막 등</span>
+                                                    : <span className="font-size text-theme-red/80 line-through">방송 및 영상물 자막, 영상 광고, 영화 오프닝/엔딩크레딧 자막 등</span>
                                                 }
-                                            </td>
-                                            <td className="pr-7 tlg:pr-6 tmd:pr-5 translate-y-2 flex flex-row justify-end items-center">
+                                            </div>
+                                            <div className="w-24 shrink-0 flex justify-center">
                                                 {
                                                     font.license_video === "Y"
                                                     ? <svg className="w-3.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
@@ -779,22 +775,21 @@ function DetailPage({params}: any) {
                                                         )
                                                     )
                                                 }
-                                            </td>
-                                            <td className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[calc(100%-40px)] tlg:w-[calc(100%-32px)] tmd:w-[calc(100%-24px)] h-px bg-theme-7 dark:bg-theme-5"></td>
-                                        </tr>
-                                        <tr className="relative">
-                                            <td className="h-[68px] flex flex-col justify-center items-center text-theme-3 dark:text-theme-9 fill-theme-3 dark:fill-theme-9">
+                                            </div>
+                                        </div>
+                                        <div className="w-full h-[72px] flex items-center border-b border-theme-7 dark:border-theme-5">
+                                            <div className="w-28 shrink-0 flex flex-col justify-center items-center">
                                                 <svg className="w-5 mb-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8.186 1.113a.5.5 0 0 0-.372 0L1.846 3.5l2.404.961L10.404 2l-2.218-.887zm3.564 1.426L5.596 5 8 5.961 14.154 3.5l-2.404-.961zm3.25 1.7-6.5 2.6v7.922l6.5-2.6V4.24zM7.5 14.762V6.838L1 4.239v7.923l6.5 2.6zM7.443.184a1.5 1.5 0 0 1 1.114 0l7.129 2.852A.5.5 0 0 1 16 3.5v8.662a1 1 0 0 1-.629.928l-7.185 2.874a.5.5 0 0 1-.372 0L.63 13.09a1 1 0 0 1-.63-.928V3.5a.5.5 0 0 1 .314-.464L7.443.184z"/></svg>
                                                 <div>포장지</div>
-                                            </td>
-                                            <td>
+                                            </div>
+                                            <div className="w-full">
                                                 {
                                                     font.license_package === "Y"
-                                                    ? <span>판매용 상품의 패키지</span>
-                                                    : <span className="text-theme-red/80 line-through">판매용 상품의 패키지</span>
+                                                    ? <span className="font-size">판매용 상품의 패키지</span>
+                                                    : <span className="font-size text-theme-red/80 line-through">판매용 상품의 패키지</span>
                                                 }
-                                            </td>
-                                            <td className="pr-7 tlg:pr-6 tmd:pr-5 translate-y-2 flex flex-row justify-end items-center">
+                                            </div>
+                                            <div className="w-24 shrink-0 flex justify-center">
                                                 {
                                                     font.license_package === "Y"
                                                     ? <svg className="w-3.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
@@ -806,22 +801,21 @@ function DetailPage({params}: any) {
                                                         )
                                                     )
                                                 }
-                                            </td>
-                                            <td className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[calc(100%-40px)] tlg:w-[calc(100%-32px)] tmd:w-[calc(100%-24px)] h-px bg-theme-7 dark:bg-theme-5"></td>
-                                        </tr>
-                                        <tr className="relative">
-                                            <td className="h-[68px] flex flex-col justify-center items-center text-theme-3 dark:text-theme-9 fill-theme-3 dark:fill-theme-9">
+                                            </div>
+                                        </div>
+                                        <div className="w-full h-[72px] flex items-center border-b border-theme-7 dark:border-theme-5">
+                                            <div className="w-28 shrink-0 flex flex-col justify-center items-center">
                                                 <svg className="w-5 mb-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M10.478 1.647a.5.5 0 1 0-.956-.294l-4 13a.5.5 0 0 0 .956.294l4-13zM4.854 4.146a.5.5 0 0 1 0 .708L1.707 8l3.147 3.146a.5.5 0 0 1-.708.708l-3.5-3.5a.5.5 0 0 1 0-.708l3.5-3.5a.5.5 0 0 1 .708 0zm6.292 0a.5.5 0 0 0 0 .708L14.293 8l-3.147 3.146a.5.5 0 0 0 .708.708l3.5-3.5a.5.5 0 0 0 0-.708l-3.5-3.5a.5.5 0 0 0-.708 0z"/></svg>
                                                 <div>임베딩</div>
-                                            </td>
-                                            <td>
+                                            </div>
+                                            <div className="w-full">
                                                 {
                                                     font.license_embed === "Y"
-                                                    ? <span>웹사이트 및 프로그램 서버 내 폰트 탑재, E-book 제작</span>
-                                                    : <span className="text-theme-red/80 line-through">웹사이트 및 프로그램 서버 내 폰트 탑재, E-book 제작</span>
+                                                    ? <span className="font-size">웹사이트 및 프로그램 서버 내 폰트 탑재, E-book 제작</span>
+                                                    : <span className="font-size text-theme-red/80 line-through">웹사이트 및 프로그램 서버 내 폰트 탑재, E-book 제작</span>
                                                 }
-                                            </td>
-                                            <td className="pr-7 tlg:pr-6 tmd:pr-5 translate-y-2 flex flex-row justify-end items-center">
+                                            </div>
+                                            <div className="w-24 shrink-0 flex justify-center">
                                                 {
                                                     font.license_embed === "Y"
                                                     ? <svg className="w-3.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
@@ -833,22 +827,21 @@ function DetailPage({params}: any) {
                                                         )
                                                     )
                                                 }
-                                            </td>
-                                            <td className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[calc(100%-40px)] tlg:w-[calc(100%-32px)] tmd:w-[calc(100%-24px)] h-px bg-theme-7 dark:bg-theme-5"></td>
-                                        </tr>
-                                        <tr className="relative">
-                                            <td className="h-[68px] flex flex-col justify-center items-center text-theme-3 dark:text-theme-9 fill-theme-3 dark:fill-theme-9">
+                                            </div>
+                                        </div>
+                                        <div className="w-full h-[72px] flex items-center border-b border-theme-7 dark:border-theme-5">
+                                            <div className="w-28 shrink-0 flex flex-col justify-center items-center">
                                                 <svg className="w-5 mb-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4 2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1Zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1Zm3.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1ZM4 5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1ZM7.5 5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Zm2.5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1ZM4.5 8a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Zm2.5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1Zm3.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Z"/><path d="M2 1a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V1Zm11 0H3v14h3v-2.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5V15h3V1Z"/></svg>
                                                 <div>BI/CI</div>
-                                            </td>
-                                            <td>
+                                            </div>
+                                            <div className="w-full">
                                                 {
                                                     font.license_bici === "Y"
-                                                    ? <span>회사명, 브랜드명, 상품명, 로고, 마크, 슬로건, 캐치프레이즈</span>
-                                                    : <span className="text-theme-red/80 line-through">회사명, 브랜드명, 상품명, 로고, 마크, 슬로건, 캐치프레이즈</span>
+                                                    ? <span className="font-size">회사명, 브랜드명, 상품명, 로고, 마크, 슬로건, 캐치프레이즈</span>
+                                                    : <span className="font-size text-theme-red/80 line-through">회사명, 브랜드명, 상품명, 로고, 마크, 슬로건, 캐치프레이즈</span>
                                                 }
-                                            </td>
-                                            <td className="pr-7 tlg:pr-6 tmd:pr-5 translate-y-2 flex flex-row justify-end items-center">
+                                            </div>
+                                            <div className="w-24 shrink-0 flex justify-center">
                                                 {
                                                     font.license_bici === "Y"
                                                     ? <svg className="w-3.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
@@ -860,74 +853,71 @@ function DetailPage({params}: any) {
                                                         )
                                                     )
                                                 }
-                                            </td>
-                                            <td className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[calc(100%-40px)] tlg:w-[calc(100%-32px)] tmd:w-[calc(100%-24px)] h-px bg-theme-7 dark:bg-theme-5"></td>
-                                        </tr>
-                                        <tr className="relative">
-                                            <td className="h-[68px] flex flex-col justify-center items-center text-theme-3 dark:text-theme-9 fill-theme-3 dark:fill-theme-9">
+                                            </div>
+                                        </div>
+                                        <div className="w-full h-[72px] flex items-center border-b border-theme-7 dark:border-theme-5">
+                                            <div className="w-28 shrink-0 flex flex-col justify-center items-center">
                                                 <svg className="w-5 mb-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M9.669.864 8 0 6.331.864l-1.858.282-.842 1.68-1.337 1.32L2.6 6l-.306 1.854 1.337 1.32.842 1.68 1.858.282L8 12l1.669-.864 1.858-.282.842-1.68 1.337-1.32L13.4 6l.306-1.854-1.337-1.32-.842-1.68L9.669.864zm1.196 1.193.684 1.365 1.086 1.072L12.387 6l.248 1.506-1.086 1.072-.684 1.365-1.51.229L8 10.874l-1.355-.702-1.51-.229-.684-1.365-1.086-1.072L3.614 6l-.25-1.506 1.087-1.072.684-1.365 1.51-.229L8 1.126l1.356.702 1.509.229z"/><path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z"/></svg>
                                                 <div>OFL</div>
-                                            </td>
-                                            <td>
+                                            </div>
+                                            <div className="w-full">
                                                 {
                                                     font.license_ofl === "Y"
-                                                    ? <span>폰트 파일의 수정, 편집 및 재배포 가능. 폰트 파일의 유료 판매는 금지</span>
-                                                    : <span className="text-theme-red/80 line-through">폰트 파일의 수정, 편집 재배포 및 유료 판매 금지</span>
+                                                    ? <span className="font-size">폰트 파일의 수정, 편집 및 재배포 가능. 폰트 파일의 유료 판매는 금지</span>
+                                                    : <span className="font-size text-theme-red/80 line-through">폰트 파일의 수정, 편집 재배포 및 유료 판매 금지</span>
                                                 }
-                                            </td>
-                                            <td className="h-[42px] pr-7 tlg:pr-6 tmd:pr-5 translate-y-2 flex flex-row justify-end items-center">
+                                            </div>
+                                            <div className="w-24 shrink-0 flex justify-center">
                                                 {
                                                     font.license_ofl === "Y"
                                                     ? <svg className="w-3.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
                                                     : <svg className="w-[26px] translate-x-1.5 translate-y-1.5 fill-theme-red/80" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg>
                                                 }
-                                            </td>
-                                            <td className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[calc(100%-40px)] tlg:w-[calc(100%-32px)] tmd:w-[calc(100%-24px)] h-px bg-theme-7 dark:bg-theme-5"></td>
-                                        </tr>
-                                        <tr className="relative">
-                                            <td className="h-[68px] flex flex-col justify-center items-center text-theme-3 dark:text-theme-9 fill-theme-3 dark:fill-theme-9">
+                                            </div>
+                                        </div>
+                                        <div className="w-full h-[72px] flex items-center border-b border-theme-7 dark:border-theme-5">
+                                            <div className="w-28 shrink-0 flex flex-col justify-center items-center">
                                                 <svg className="w-5 mb-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1h8Zm-7.978-1A.261.261 0 0 1 7 12.996c.001-.264.167-1.03.76-1.72C8.312 10.629 9.282 10 11 10c1.717 0 2.687.63 3.24 1.276.593.69.758 1.457.76 1.72l-.008.002a.274.274 0 0 1-.014.002H7.022ZM11 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0ZM6.936 9.28a5.88 5.88 0 0 0-1.23-.247A7.35 7.35 0 0 0 5 9c-4 0-5 3-5 4 0 .667.333 1 1 1h4.216A2.238 2.238 0 0 1 5 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816ZM4.92 10A5.493 5.493 0 0 0 4 13H1c0-.26.164-1.03.76-1.724.545-.636 1.492-1.256 3.16-1.275ZM1.5 5.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0Zm3-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4Z"/></svg>
                                                 <div>용도</div>
-                                            </td>
-                                            <td>
+                                            </div>
+                                            <div className="w-full">
                                                 {
                                                     font.license_purpose === "Y"
-                                                    ? <span>개인적, 상업적 용도 모두 사용 가능</span>
-                                                    : <span className="text-theme-red/80 line-through">개인적 용도 사용 가능, 상업적 용도 사용 금지</span>
+                                                    ? <span className="font-size">개인적, 상업적 용도 모두 사용 가능</span>
+                                                    : <span className="font-size text-theme-red/80 line-through">개인적 용도 사용 가능, 상업적 용도 사용 금지</span>
                                                 }
-                                            </td>
-                                            <td className="h-[42px] pr-7 tlg:pr-6 tmd:pr-5 translate-y-2 flex flex-row justify-end items-center">
+                                            </div>
+                                            <div className="w-24 shrink-0 flex justify-center">
                                                 {
                                                     font.license_purpose === "Y"
                                                     ? <svg className="w-3.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
                                                     : <svg className="w-3.5 fill-theme-red/80" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.146.146 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.163.163 0 0 1-.054.06.116.116 0 0 1-.066.017H1.146a.115.115 0 0 1-.066-.017.163.163 0 0 1-.054-.06.176.176 0 0 1 .002-.183L7.884 2.073a.147.147 0 0 1 .054-.057zm1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566z"/></svg>
                                                 }
-                                            </td>
-                                            <td className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[calc(100%-40px)] tlg:w-[calc(100%-32px)] tmd:w-[calc(100%-24px)] h-px bg-theme-7 dark:bg-theme-5"></td>
-                                        </tr>
-                                        <tr className="relative">
-                                            <td className="h-[68px] flex flex-col justify-center items-center text-theme-3 dark:text-theme-9 fill-theme-3 dark:fill-theme-9">
+                                            </div>
+                                        </div>
+                                        <div className="w-full h-[72px] flex items-center">
+                                            <div className="w-28 shrink-0 flex flex-col justify-center items-center">
                                                 <svg className="w-4 mb-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M13.5 1a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.499 2.499 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5zm-8.5 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm11 5.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z"/></svg>
                                                 <div>출처</div>
-                                            </td>
-                                            <td>출처 표시</td>
-                                            <td className="pr-7 tlg:pr-6 tmd:pr-5 translate-y-2 flex flex-row justify-end items-center">
+                                            </div>
+                                            <div className="w-full">출처 표시</div>
+                                            <div className="w-24 shrink-0 flex justify-center">
                                                 {
                                                     font.license_source === "Y"
                                                     ? <svg className="w-3.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/></svg>
                                                     : <span>권장</span>
                                                 }
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div className="w-[calc(100%-690px)] tlg:w-full h-[calc(100%-56px)] tlg:h-auto border border-theme-7 dark:border-theme-5">
+                            <div className="w-[calc(100%-690px)] tlg:w-full flex flex-col border border-theme-7 dark:border-theme-5">
                                 <h2 className="relative h-14 flex flex-row justify-start items-center text-[15px] text-theme-3 dark:text-theme-9 font-normal leading-none pl-7 tlg:pl-6 tmd:pl-5">
                                     라이센스 본문
                                     <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[calc(100%-40px)] tlg:w-[calc(100%-32px)] tmd:w-[calc(100%-24px)] h-px bg-theme-7 dark:bg-theme-5"></div>
                                 </h2>
-                                <div className="license-wrap w-full h-[612px] tlg:h-[auto] overflow-hidden overflow-y-auto px-7 tlg:px-6 tmd:px-5 py-3 tlg:py-4">
+                                <div className="license-wrap w-full h-[calc(707px-56px)] tlg:h-[auto] overflow-hidden overflow-y-auto px-7 tlg:px-6 tmd:px-5 py-3 tlg:py-4">
                                     <pre id="license" className="font-sans text-[15px] tlg:text-[13px] text-theme-3 dark:text-theme-8 leading-loose whitespace-pre-wrap"></pre>
                                 </div>
                             </div>

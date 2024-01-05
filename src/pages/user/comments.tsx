@@ -155,48 +155,46 @@ const Comments = ({params}: any) => {
                         <button onClick={handleClick} className='w-[68px] h-8 tlg:h-7 ml-2 text-xs border rounded-md bg-theme-6/40 hover:bg-theme-6/60 tlg:hover:bg-theme-6/40 dark:bg-theme-4 hover:dark:bg-theme-5 tlg:hover:dark:bg-theme-4'>검색</button>
                     </div>
                     <div className='w-full rounded-lg overflow-hidden overflow-x-auto'>
-                        <table className='w-[720px] text-xs text-theme-10 dark:text-theme-9 bg-theme-4 dark:bg-theme-4'>
-                            <thead className='text-left bg-theme-5 dark:bg-theme-3'>
-                                <tr>
-                                    <th className='w-[120px] h-10 tlg:h-8 pl-4'>폰트</th>
-                                    <th className='pl-4'>댓글</th>
-                                    <th className='w-[120px] pl-4'>수정 날짜</th>
-                                    <th className='w-[120px] pl-4'>작성 날짜</th>
-                                    <th className='w-[52px] text-center'>신고수</th>
-                                    <th className='w-[88px] text-center'>댓글 삭제</th>
-                                </tr>
-                            </thead>
-                            <tbody>
+                        <div className='w-[720px] text-xs text-theme-10 dark:text-theme-9 bg-theme-4 dark:bg-theme-4'>
+                            <div className='text-left bg-theme-5 dark:bg-theme-3'>
+                                <div className='h-10 tlg:h-9 flex items-center'>
+                                    <div className='w-[120px] pl-4 shrink-0'>폰트</div>
+                                    <div className='w-full pl-4'>댓글</div>
+                                    <div className='w-[120px] pl-4 shrink-0'>수정 날짜</div>
+                                    <div className='w-[120px] pl-4 shrink-0'>작성 날짜</div>
+                                    <div className='w-[52px] text-center shrink-0'>신고수</div>
+                                    <div className='w-[88px] text-center shrink-0'>댓글 삭제</div>
+                                </div>
+                            </div>
+                            <div>
                                 {
                                     thisComments && thisComments.length > 0
                                     ? <>
                                         {
                                             thisComments.map((comment: any) => {
                                                 return (
-                                                    <tr key={comment.comment_id} className='border-t border-theme-5 dark:border-theme-3'>
-                                                        <td className='h-10 tlg:h-8 pl-4 py-2.5 overflow-hidden'><Link href={`/post/${comment.font_family.replaceAll(" ", "+")}`} className='font-size text-theme-yellow dark:text-theme-blue-1 focus:underline hover:underline tlg:hover:no-underline'>{comment.font_name}</Link></td>
-                                                        <td className='pl-4 py-2.5 overflow-hidden'><Link href={`/post/${comment.font_family.replaceAll(" ", "+")}#c${comment.comment_id}`} className='font-size focus:underline hover:underline tlg:hover:no-underline'>{comment.comment}</Link></td>
-                                                        <td className='pl-4 py-2.5'>{timeFormat(comment.updated_at)}</td>
-                                                        <td className='pl-4 py-2.5'>{timeFormat(comment.created_at)}</td>
-                                                        <td className='py-4 text-center'>{comment.reported_politics + comment.reported_swearing + comment.reported_etc}</td>
-                                                        <td className='py-4 relative'>
-                                                            <div className='absolute w-full h-full left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex justify-center items-center'>
-                                                                <button onClick={deleteCommentModalOpen} data-font={comment.font_id} data-comment={comment.comment_id} className='group w-5 h-5 flex justify-center items-center'>
-                                                                    <svg className='w-3.5 fill-theme-10 group-hover:fill-theme-yellow tlg:group-hover:fill-theme-10 dark:fill-theme-9 group-hover:dark:fill-theme-blue-1 tlg:group-hover:dark:fill-theme-9' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/><path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/></svg>
-                                                                </button>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
+                                                    <div key={comment.comment_id} className='h-10 tlg:h-9 relative flex items-center border-t border-theme-5 dark:border-theme-3'>
+                                                        <div className='w-[120px] pl-4 shrink-0'><Link href={`/post/${comment.font_family.replaceAll(" ", "+")}`} className='font-size text-theme-yellow dark:text-theme-blue-1 focus:underline hover:underline tlg:hover:no-underline'>{comment.font_name}</Link></div>
+                                                        <div className='w-full pl-4'><Link href={`/post/${comment.font_family.replaceAll(" ", "+")}#c${comment.comment_id}`} className='font-size focus:underline hover:underline tlg:hover:no-underline'>{comment.comment}</Link></div>
+                                                        <div className='w-[120px] pl-4 shrink-0'>{timeFormat(comment.updated_at)}</div>
+                                                        <div className='w-[120px] pl-4 shrink-0'>{timeFormat(comment.created_at)}</div>
+                                                        <div className='w-[52px] shrink-0 flex justify-center'>{comment.reported_politics + comment.reported_swearing + comment.reported_etc}</div>
+                                                        <div className='w-[88px] shrink-0 relative flex justify-center'>
+                                                            <button onClick={deleteCommentModalOpen} data-font={comment.font_id} data-comment={comment.comment_id} className='group w-5 h-5 flex justify-center items-center'>
+                                                                <svg className='w-3.5 fill-theme-10 group-hover:fill-theme-yellow tlg:group-hover:fill-theme-10 dark:fill-theme-9 group-hover:dark:fill-theme-blue-1 tlg:group-hover:dark:fill-theme-9' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/><path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/></svg>
+                                                            </button>
+                                                        </div>
+                                                    </div>
                                                 )
                                             })
                                         }
                                     </>
-                                    : <tr className='h-[60px]'>
-                                        <td colSpan={6} className='text-center'>댓글이 없습니다.</td>
-                                    </tr>
+                                    : <div className='h-[60px]'>
+                                        <div className='leading-[60px] text-center'>유저가 없습니다.</div>
+                                    </div>
                                 }
-                            </tbody>
-                        </table>
+                            </div>
+                        </div>
                     </div>
                     <div className='w-full flex justify-center mt-3'>
                         <Pagination count={thisCount} page={page} onChange={handleChange} shape='rounded' showFirstButton showLastButton/>

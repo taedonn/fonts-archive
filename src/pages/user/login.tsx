@@ -26,7 +26,7 @@ const Login = ({params}: any) => {
 
     // states
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [alertDisplay, setAlertDisplay] = useState<boolean>(false);
+    const [alertDisplay, setAlertDisplay] = useState<boolean>(true);
     const [idVal, setIdVal] = useState<string>('');
     const [idChk, setIdChk] = useState<string>('');
     const [pwVal, setPwVal] = useState<string>('');
@@ -121,12 +121,12 @@ const Login = ({params}: any) => {
                     {
                         alertDisplay &&
                             <div className='w-full h-8 px-2.5 mb-2 flex flex-row justify-between items-center rounded-lg border-2 border-theme-red/80 dark:border-theme-red/60 text-xs text-theme-10 dark:text-theme-9 bg-theme-red/20'>
-                                <div className='flex flex-row justify-start items-center'>
-                                    <svg className='w-3.5 fill-theme-red/80 dark:fill-theme-red/60' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg>
-                                    <div className='ml-1.5'>로그인에 실패했습니다.</div>
+                                <div className='flex flex-row justify-start items-center text-theme-3 dark:text-theme-9'>
+                                    <i className="text-sm fa-solid fa-land-mine-on"></i>
+                                    <div className='ml-2'>로그인에 실패했습니다.</div>
                                 </div>
                                 <div onClick={handleAlertClose} className='flex flex-row justify-center items-center cursor-pointer'>
-                                    <svg className='w-[18px] fill-theme-10 dark:fill-theme-9' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg>
+                                    <i className="text-sm text-theme-3 dark:text-theme-9 fa-solid fa-xmark"></i>
                                 </div>
                             </div>
                     }
@@ -174,7 +174,7 @@ const Login = ({params}: any) => {
                             <div className="login-method login-github w-max absolute z-10 left-1/2 -top-9 text-xs font-medium leading-none px-3 py-1.5 rounded-md hidden group-hover:block tlg:group-hover:hidden group-hover:animate-zoom-in-fontbox bg-theme-1 dark:bg-theme-10 text-theme-10 dark:text-theme-3">깃허브로 로그인</div>
                         </div>
                     </div>
-                    <div className='w-full h-[52px] text-3.5 rounded-lg flex flex-row justify-center items-center border border-theme-7 dark:border-theme-4'>
+                    <div className='w-full h-[52px] text-sm rounded-lg flex flex-row justify-center items-center border border-theme-7 dark:border-theme-4'>
                         <span className='text-theme-4 dark:text-theme-9 mr-3'>처음 방문하셨나요?</span>
                         <Link href="/user/register" className='text-theme-yellow dark:text-theme-blue-1 hover:underline tlg:hover:no-underline'>회원가입하기</Link>
                     </div>

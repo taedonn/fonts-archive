@@ -2,13 +2,14 @@
 import { useState } from "react";
 
 // next
-import { NextSeo } from "next-seo";
+import Image from "next/image";
 
 // next-auth
 import { getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]";
 
 // libraries
+import { NextSeo } from "next-seo";
 import axios, { AxiosProgressEvent } from "axios";
 import imageCompression from 'browser-image-compression';
 
@@ -430,7 +431,7 @@ const IssueBug = ({params}: any) => {
                                 ? <div className="text-xs ml-4 mt-1.5 text-theme-red">제목을 입력해 주세요.</div>
                                 : <></>
                             }
-                            <label htmlFor="email" className="mt-10">이메일</label>
+                            <label htmlFor="email" className="mt-5">이메일</label>
                             <input onChange={handleEmailChange} placeholder="이메일을 입력해 주세요." id="email" tabIndex={2} type="text" className={`w-full ${emailAlert || emailValid ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-xs mt-2 px-3.5 py-2 rounded-lg border-2 placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
                             {
                                 emailAlert && !emailValid
@@ -439,7 +440,7 @@ const IssueBug = ({params}: any) => {
                                     ? <div className="text-xs ml-4 mt-1.5 text-theme-red">올바른 형식의 이메일이 아닙니다.</div>
                                     : <></>
                             }
-                            <label htmlFor="content" className="mt-10">내용</label>
+                            <label htmlFor="content" className="mt-5">내용</label>
                             <textarea onChange={handleContentChange} placeholder="내용은 최대한 자세하게 적어주세요." id="content" tabIndex={3} className={`font-edit-textarea w-full h-[200px] resize-none ${contentAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-xs mt-2 px-3.5 py-3 rounded-lg border-2 placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}></textarea>
                             {
                                 contentAlert
@@ -464,8 +465,9 @@ const IssueBug = ({params}: any) => {
                                             imgs.map((img: any, index: number) => {
                                                 return (
                                                     <div className="w-max relative" key={img.index}>
-                                                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                                                        <img src={img.src} alt="preview-img" className="w-[72px] h-[88px] rounded-lg object-cover"/> 
+                                                        <div className="w-[72px] h-[88px]">
+                                                            <Image src={img.src} alt="Preview image" fill sizes="100%" priority referrerPolicy="no-referrer" className="object-cover rounded-lg"/>
+                                                        </div>
                                                         <button onClick={() => deleteImg(img.index, index)} className="w-6 h-6 rounded-full absolute -right-1.5 -top-1.5 flex items-center bg-theme-3 dark:bg-theme-blue-2">
                                                             <svg className="w-3 mx-auto fill-theme-yellow dark:fill-theme-blue-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>
                                                         </button>
@@ -498,7 +500,7 @@ const IssueBug = ({params}: any) => {
                                 <div>이미지 파일만 첨부 가능합니다.</div>
                             </div>
                         </div>
-                        <button onClick={handleSubmit} className="w-full h-8 rounded-lg mt-5 font-medium text-xs text-theme-4 dark:text-theme-blue-2 bg-theme-yellow/80 hover:bg-theme-yellow dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1">
+                        <button onClick={handleSubmit} className="w-full h-9 rounded-lg mt-5 font-medium text-sm text-theme-4 dark:text-theme-blue-2 bg-theme-yellow/80 hover:bg-theme-yellow dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1">
                             {
                                 isLoading === true
                                 ? <span className='loader loader-register w-4 h-4'></span>

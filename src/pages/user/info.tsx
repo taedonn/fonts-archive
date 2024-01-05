@@ -1,5 +1,6 @@
 // next
 import { NextSeo } from 'next-seo';
+import Image from 'next/image';
 
 // next-auth
 import { getServerSession } from 'next-auth';
@@ -308,10 +309,7 @@ const Info = ({params}: any) => {
                                 <label className='w-[60px] h-[60px] block relative cursor-pointer overflow-hidden' htmlFor='profile-img'>
                                     {
                                         !isImgLoading
-                                        ? <>
-                                            {/* eslint-disable-next-line @next/next/no-img-element */}
-                                            <img className='w-full h-full object-cover rounded-full' src={profileImg} width={60} height={60} alt='유저 프로필 사진' referrerPolicy="no-referrer"/>
-                                        </>
+                                        ? <Image src={profileImg} alt='Profile image' fill sizes='100%' priority referrerPolicy='no-referrer' className='object-cover rounded-full'/>
                                         : <div className='w-full h-full rounded-full flex items-center bg-theme-4 dark:bg-theme-blue-2/60'><div className='img-loader'></div></div>
                                     }
                                     {

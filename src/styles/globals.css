@@ -654,7 +654,7 @@ html.dark .notices .notice:last-of-type label > div {
 html.dark .notices .notice:last-of-type input:checked ~ pre {
     border-bottom: 1px solid #646568;
 }
-.notice input:checked + label svg {
+.notice input:checked + label i {
     transform: rotate(90deg);
 }
 

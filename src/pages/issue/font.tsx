@@ -2,13 +2,14 @@
 import { useState } from "react";
 
 // next
-import { NextSeo } from "next-seo";
+import Image from "next/image";
 
 // next-auth
 import { getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]";
 
 // libraries
+import { NextSeo } from "next-seo";
 import axios, { AxiosProgressEvent } from "axios";
 import imageCompression from 'browser-image-compression';
 
@@ -463,8 +464,9 @@ const IssueFont = ({params}: any) => {
                                             imgs.map((img: any, index: number) => {
                                                 return (
                                                     <div className="w-max relative" key={img.index}>
-                                                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                                                        <img src={img.src} alt="preview-img" className="w-[72px] h-[88px] rounded-lg object-cover"/> 
+                                                        <div className="w-[72px] h-[88px]">
+                                                            <Image src={img.src} alt='Preview image' fill sizes="100%" priority referrerPolicy="no-referrer" className="object-cover rounded-lg"/>
+                                                        </div>
                                                         <button onClick={() => deleteImg(img.index, index)} className="w-6 h-6 rounded-full absolute -right-1.5 -top-1.5 flex items-center bg-theme-3 dark:bg-theme-blue-2">
                                                             <svg className="w-3 mx-auto fill-theme-yellow dark:fill-theme-blue-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>
                                                         </button>
@@ -488,7 +490,7 @@ const IssueFont = ({params}: any) => {
                                 </div>
                                 : <></>
                             }
-                            <div className='w-full flex justify-start items-center mt-3 text-sm text-theme-8 dark:text-theme-7'>
+                            <div className='w-full flex justify-start items-center mt-3 text-xs text-theme-8 dark:text-theme-7'>
                                 <svg className='w-3 mr-1.5 fill-theme-yellow dark:fill-theme-blue-1' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg>
                                 <div>파일은 최대 다섯개까지만 올릴 수 있습니다.</div>
                             </div>
@@ -497,7 +499,7 @@ const IssueFont = ({params}: any) => {
                                 <div>이미지 파일만 첨부 가능합니다.</div>
                             </div>
                         </div>
-                        <button onClick={handleSubmit} className="w-full h-8 rounded-lg mt-5 font-medium text-xs text-theme-4 dark:text-theme-blue-2 bg-theme-yellow/80 hover:bg-theme-yellow dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1">
+                        <button onClick={handleSubmit} className="w-full h-9 rounded-lg mt-5 font-medium text-sm text-theme-4 dark:text-theme-blue-2 bg-theme-yellow/80 hover:bg-theme-yellow dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1">
                             {
                                 isLoading === true
                                 ? <span className='loader loader-register w-4 h-4'></span>

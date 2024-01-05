@@ -108,7 +108,7 @@ const Notices = ({params}: any) => {
                         <h3 className='text-sm ml-3.5 text-theme-5 dark:text-theme-7'>폰트 업데이트 & 소식</h3>
                     </div>
                     <div className='relative mb-9'>
-                        <svg className='w-3.5 absolute left-[18px] top-1/2 -translate-y-1/2 fill-theme-5 dark:fill-theme-7' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/></svg>
+                        <i className="text-sm absolute left-[18px] top-1/2 -translate-y-1/2 text-theme-5 dark:text-theme-7 fa-solid fa-magnifying-glass"></i>
                         <input onKeyUp={handleKeyUp} type="text" id="search" placeholder="검색어 입력" className="w-[300px] h-10 text-sm pl-10 pr-5 border rounded-full border-theme-7 dark:border-theme-5 text-theme-5 dark:text-theme-7 placeholder:text-theme-5 dark:placeholder:text-theme-7 bg-transparent"/>
                     </div>
                     <div className='flex items-center gap-1.5 mb-4'>
@@ -138,7 +138,7 @@ const Notices = ({params}: any) => {
                                         </div>
                                         <div className='flex items-center mr-[20px]'>
                                             <div className='w-20 text-theme-5 dark:text-theme-7'>{dateFormat(notice.notice_created_at)}</div>
-                                            <svg className='w-2 ml-5 fill-theme-5 dark:fill-theme-7 duration-100' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg>
+                                            <i className="text-xs ml-5 text-theme-5 dark:text-theme-7 duration-100 fa-solid fa-angle-right"></i>
                                         </div>
                                     </div>
                                 </label>

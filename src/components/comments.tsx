@@ -1,9 +1,9 @@
-/* eslint-disable @next/next/no-img-element */
 // react
 import { useRef, useState, useEffect } from "react";
 
 // next
 import Script from "next/script";
+import Image from "next/image";
 
 // libraries
 import axios from "axios";
@@ -525,25 +525,31 @@ export default function Comments (
                             <div className="gap-4 flex justify-center items-center">
                                 <button onClick={shareKakao} id="share-kakao" className="group text-[11px] flex flex-col justify-center items-center">
                                     <div className="w-8 h-8 rounded-full overflow-hidden flex justify-center items-center bg-theme-kakao drop-shadow-default dark:drop-shadow-dark">
-                                        <img src="/logo-kakaotalk.svg" alt="카카오톡 로고" className="w-6"/>
+                                        <div className="w-6 h-6 relative">
+                                            <Image src="/logo-kakaotalk.svg" alt="카카오톡 로고" fill sizes="100%" referrerPolicy="no-referrer"/>
+                                        </div>
                                     </div>
                                     <div className="w-[42px] mt-2.5 text-center text-theme-5 group-hover:text-theme-3 tlg:group-hover:text-theme-5 dark:text-theme-7 group-hover:dark:text-theme-9 tlg:group-hover:dark:text-theme7">카카오톡</div>
                                 </button>
                                 <button onClick={shareLine} className="group text-[11px] flex flex-col justify-center items-center">
                                     <div className="w-8 h-8 rounded-full overflow-hidden flex justify-center items-center bg-theme-naver drop-shadow-default dark:drop-shadow-dark">
-                                        <img src="/logo-line.svg" alt="라인 로고" className="w-[26px]"/>
+                                        <div className="w-7 h-7 relative">
+                                            <Image src="/logo-line.svg" alt="라인 로고" fill sizes="100%" referrerPolicy="no-referrer"/>
+                                        </div>
                                     </div>
                                     <div className="w-[42px] mt-2.5 text-center text-theme-5 group-hover:text-theme-3 tlg:group-hover:text-theme-5 dark:text-theme-7 group-hover:dark:text-theme-9 tlg:group-hover:dark:text-theme7">라인</div>
                                 </button>
                                 <button onClick={shareFacebook} className="group text-[11px] flex flex-col justify-center items-center">
-                                    <div className="w-8 h-8 rounded-full overflow-hidden flex justify-center items-center drop-shadow-default dark:drop-shadow-dark">
-                                        <img src="/logo-facebook.png" alt="페이스북 로고" className="w-full"/>
+                                    <div className="w-8 h-8 relative rounded-full overflow-hidden flex justify-center items-center drop-shadow-default dark:drop-shadow-dark">
+                                        <Image src="/logo-facebook.png" alt="페이스북 로고" fill sizes="100%" referrerPolicy="no-referrer"/>
                                     </div>
                                     <div className="w-[42px] mt-2.5 text-center text-theme-5 group-hover:text-theme-3 tlg:group-hover:text-theme-5 dark:text-theme-7 group-hover:dark:text-theme-9 tlg:group-hover:dark:text-theme7">페이스북</div>
                                 </button>
                                 <button onClick={shareTwitter} className="group text-[11px] flex flex-col justify-center items-center">
                                     <div className="w-8 h-8 rounded-full overflow-hidden flex justify-center items-center bg-theme-1 drop-shadow-default dark:drop-shadow-dark">
-                                        <img src="/logo-x.svg" alt="엑스(트위터) 로고" className="w-4"/>
+                                        <div className="w-4 h-4 relative">
+                                            <Image src="/logo-x.svg" alt="엑스(트위터) 로고" fill sizes="100%" referrerPolicy="no-referrer"/>
+                                        </div>
                                     </div>
                                     <div className="w-[42px] mt-2.5 text-center text-theme-5 group-hover:text-theme-3 tlg:group-hover:text-theme-5 dark:text-theme-7 group-hover:dark:text-theme-9 tlg:group-hover:dark:text-theme7">엑스</div>
                                 </button>
@@ -566,8 +572,9 @@ export default function Comments (
                             </div>
                         </>
                         : <>
-                            {/* eslint-disable-next-line @next/next/no-img-element */}
-                            <img className="w-10 tlg:w-8 h-10 tlg:h-8 object-cover rounded-full" src={user.image} referrerPolicy="no-referrer" width={28} height={28} alt="유저 프로필 사진"/>
+                            <div className="w-10 tlg:w-8 h-10 tlg:h-8 relative object-cover rounded-full overflow-hidden">
+                                <Image src={user.image} alt="유저 프로필 사진" fill sizes="100%" referrerPolicy="no-referrer"/>
+                            </div>
                             <div className="w-full flex flex-col mt-1.5 ml-4 tlg:ml-3.5">
                                 <div className={`relative w-full flex items-center pb-1 border-b ${commentFocus ? 'border-theme-5 dark:border-theme-7' : 'border-theme-7 dark:border-theme-5'}`}>
                                     <textarea ref={commentRef} onChange={commentOnChange} onInput={handleHeightChange} onFocus={commentOnFocus} onBlur={commentOnBlur} placeholder="댓글 달기..." className="w-full h-[21px] resize-none text-sm tlg:text-xs tracking-wide text-theme-5 dark:text-theme-8 placeholder-theme-5 dark:placeholder-theme-6 leading-normal bg-transparent"/>
@@ -603,8 +610,9 @@ export default function Comments (
                                                     <path d="M5.921 11.9 1.353 8.62a.719.719 0 0 1 0-1.238L5.921 4.1A.716.716 0 0 1 7 4.719V6c1.5 0 6 0 7 8-2.5-4.5-7-4-7-4v1.281c0 .56-.606.898-1.079.62z"/>
                                                 </svg> : <></>
                                             }
-                                            {/* eslint-disable-next-line @next/next/no-img-element */}
-                                            <img src={comment.user_image} alt="유저 프로필 이미지" className="w-10 tlg:w-8 h-10 tlg:h-8 object-cover rounded-full"/>
+                                            <div className="w-10 tlg:w-8 h-10 tlg:h-8 relative object-cover rounded-full overflow-hidden">
+                                                <Image src={comment.user_image} alt="유저 프로필 사진" fill sizes="100%" referrerPolicy="no-referrer"/>
+                                            </div>
                                             <div className="w-full ml-4 tlg:ml-3.5">
                                                 <div className="flex items-end">
                                                     <div className="text-[15px] tlg:text-sm font-medium">{comment.user_auth === "credentials" ? comment.user_name : hideUserName(comment.user_name)}</div>
@@ -666,8 +674,9 @@ export default function Comments (
                                                     user
                                                     ? <div id={`comment-reply-content-${comment.comment_id}`} className="hidden mt-5">
                                                         <div className="w-full flex">
-                                                            {/* eslint-disable-next-line @next/next/no-img-element */}
-                                                            <img src={user.image} alt="유저 프로필 이미지" referrerPolicy="no-referrer" className="w-10 tlg:w-8 h-10 tlg:h-8 object-cover rounded-full"/>
+                                                            <div className="w-10 tlg:w-8 h-10 tlg:h-8 relative object-cover rounded-full overflow-hidden">
+                                                                <Image src={user.image} alt="유저 프로필 사진" fill sizes="100%" referrerPolicy="no-referrer"/>
+                                                            </div>
                                                             <div className="w-full ml-4 tlg:ml-3.5">
                                                                 <div className="relative w-full flex items-center pb-1 border-b border-theme-5 dark:border-theme-7">
                                                                     <textarea onInput={handleHeightChange} onChange={commentReplyOnChange} onFocus={commentReplyOnChange} id={`comment-reply-textarea-${comment.comment_id}`} placeholder="답글 달기..." className="w-full h-[21px] resize-none text-sm tlg:text-xs tracking-wide mt-1.5 text-theme-5 dark:text-theme-8 placeholder-theme-5 dark:placeholder-theme-6 leading-normal bg-transparent"/>

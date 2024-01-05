@@ -1,5 +1,6 @@
 // next
 import Link from "next/link";
+import Image from "next/image";
 
 // next-auth
 import { signOut } from "next-auth/react";
@@ -577,8 +578,9 @@ export default function Header (
                                 {
                                     user === null
                                     ? <svg className="w-[22px] fill-theme-4/80 hover:fill-theme-4 tlg:hover:fill-theme-4/80 dark:fill-theme-9/80 hover:dark:fill-theme-9 tlg:hover:dark:fill-theme-9/80" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/><path fillRule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/></svg>
-                                    // eslint-disable-next-line @next/next/no-img-element
-                                    : <img className="w-7 h-7 object-cover rounded-full" src={user.image} width={28} height={28} alt="유저 프로필 사진" referrerPolicy="no-referrer"/>
+                                    : <div className="w-7 h-7 relative">
+                                        <Image src={user.image} alt="유저 프로필 사진" fill sizes="100%" referrerPolicy="no-referrer" className="object-cover rounded-full"/>
+                                    </div>
                                 }
                             </label>
                             <div ref={refAccountDiv} id="account-select" className="account-select w-[136px] absolute right-0 top-10 rounded-lg px-4 py-3 bg-theme-3 dark:bg-theme-blue-2 drop-shadow-default dark:drop-shadow-dark cursor-default">

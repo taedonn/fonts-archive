@@ -278,11 +278,11 @@ const Register = ({params}: any) => {
                             alertDisplay === true
                                 && <div className='w-full h-8 px-2.5 mb-2 flex flex-row justify-between items-center rounded-lg border-2 border-theme-red/80 dark:border-theme-red/60 text-xs text-theme-10 dark:text-theme-9 bg-theme-red/20'>
                                     <div className='flex flex-row justify-start items-center'>
-                                        <svg className='w-3.5 fill-theme-red/80 dark:fill-theme-red/60' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg>
-                                        <div className='ml-1.5'>약관에 동의해 주세요.</div>
+                                        <i className="text-sm text-theme-10 dark:text-theme-9 fa-solid fa-land-mine-on"></i>
+                                        <div className='ml-2'>약관에 동의해 주세요.</div>
                                     </div>
                                     <div onClick={handleAlertClose} className='flex flex-row justify-center items-center cursor-pointer'>
-                                        <svg className='w-[18px] fill-theme-10 dark:fill-theme-9' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg>
+                                        <i className="text-sm text-theme-10 dark:text-theme-9 fa-solid fa-xmark"></i>
                                     </div>
                                 </div>
                         }
@@ -291,8 +291,8 @@ const Register = ({params}: any) => {
                                 <div className='flex flex-row justify-start items-center'>
                                     <input onChange={handleTermsChange} type='checkbox' id='terms-check' className='hidden'/>
                                     <label htmlFor='terms-check' className='w-5 h-5 flex flex-row justify-center items-center cursor-pointer'>
-                                        <svg className='uncheck w-4 fill-theme-yellow dark:fill-theme-blue-1' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.235.235 0 0 1 .02-.022z"/></svg>
-                                        <svg className='check w-4 fill-theme-yellow dark:fill-theme-blue-1' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm10.03 4.97a.75.75 0 0 1 .011 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.75.75 0 0 1 1.08-.022z"/></svg>
+                                        <i className="uncheck text-lg text-theme-yellow dark:text-theme-blue-1 fa-regular fa-square-check"></i>
+                                        <i className="check text-lg text-theme-yellow dark:text-theme-blue-1 fa-solid fa-square-check"></i>
                                     </label>
                                     <p className='text-[13px] text-theme-10 dark:text-theme-9 mt-px ml-1.5'>서비스 이용약관 (필수)</p>
                                 </div>
@@ -302,8 +302,8 @@ const Register = ({params}: any) => {
                                 <div className='flex flex-row justify-start items-center'>
                                     <input onChange={handlePrivacyChange} type='checkbox' id='privacy-check' className='hidden'/>
                                     <label htmlFor='privacy-check' className='w-5 h-5 flex flex-row justify-center items-center cursor-pointer'>
-                                        <svg className='uncheck w-4 fill-theme-yellow dark:fill-theme-blue-1' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.235.235 0 0 1 .02-.022z"/></svg>
-                                        <svg className='check w-4 fill-theme-yellow dark:fill-theme-blue-1' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm10.03 4.97a.75.75 0 0 1 .011 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.75.75 0 0 1 1.08-.022z"/></svg>
+                                        <i className="uncheck text-lg text-theme-yellow dark:text-theme-blue-1 fa-regular fa-square-check"></i>
+                                        <i className="check text-lg text-theme-yellow dark:text-theme-blue-1 fa-solid fa-square-check"></i>
                                     </label>
                                     <p className='text-[13px] text-theme-10 dark:text-theme-9 mt-px ml-1.5'>개인정보 처리방침 (필수)</p>
                                 </div>
