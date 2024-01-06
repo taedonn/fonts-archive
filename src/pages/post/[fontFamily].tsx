@@ -382,7 +382,7 @@ function DetailPage({params}: any) {
                                 <i className="text-2xl text-theme-4 dark:text-theme-7 fa-regular fa-heart"></i>
                                 <i className="text-2xl text-theme-red fa-solid fa-heart"></i>
                             </label>
-                            <div className={`${hoverDisplay === true ? 'group-hover:block' : 'group-hover:hidden'} like-btn w-max absolute z-20 left-1/2 -top-10 text-sm font-medium leading-none px-3 py-2 rounded-md hidden tlg:group-hover:hidden group-hover:animate-zoom-in-fontbox bg-theme-red text-theme-2`}>{liked === true ? "좋아요 해제" : "좋아요"}</div>
+                            <div className={`${hoverDisplay === true ? 'group-hover:block' : 'group-hover:hidden'} like-btn w-max absolute z-20 left-1/2 -top-10 text-sm font-medium leading-none px-3 py-2 origin-bottom rounded-md hidden tlg:group-hover:hidden group-hover:animate-zoom-in-fontbox bg-theme-red text-theme-2`}>{liked === true ? "좋아요 해제" : "좋아요"}</div>
                         </div>
                     </div>
                     <div className="flex flex-row justify-start items-center">
@@ -390,7 +390,7 @@ function DetailPage({params}: any) {
                             <span className={`${font.lang === 'KR' ? '' : 'font-sans'}`}>제작</span>
                             <Link href={{pathname: "/", query: {search: font.source}}} className="relative group text-theme-yellow dark:text-theme-blue-1 border-b border-theme-yellow dark:border-theme-blue-1 ml-2 tlg:ml-1.5">
                                 {font.source}
-                                <div className="same-source w-max absolute z-10 left-1/2 -top-10 text-sm font-medium leading-none px-3 py-2 rounded-md hidden group-hover:block tlg:group-hover:hidden group-hover:animate-zoom-in-fontbox bg-theme-yellow dark:bg-theme-blue-1 text-theme-3 dark:text-theme-blue-2">제작사의 다른 폰트 보기</div>
+                                <div className="same-source w-max absolute z-10 left-1/2 -top-11 text-sm font-medium leading-none px-3 py-2 origin-bottom rounded-md hidden group-hover:block tlg:group-hover:hidden group-hover:animate-zoom-in-fontbox bg-theme-yellow dark:bg-theme-blue-1 text-theme-3 dark:text-theme-blue-2">제작사의 다른 폰트 보기</div>
                             </Link>
                         </div>
                         <div className={`${font.lang === 'KR' ? '' : 'font-sans'} text-base tmd:text-xs leading-tight text-theme-3 dark:text-theme-9 mr-3.5 tmd:mr-3`}>형태<span className="text-theme-5 dark:text-theme-7 ml-1.5">{font.font_type === "Sans Serif" ? "고딕" : (font.font_type === "Serif" ? "명조" : (font.font_type === "Hand Writing" ? "손글씨" : (font.font_type === "Display" ? "장식체" : "픽셀체")))}</span></div>
@@ -566,9 +566,9 @@ function DetailPage({params}: any) {
                                     <div className="relative z-10">
                                         <input onChange={handleTextColorPickerDisplay} id="text-color-picker" type="checkbox" className="peer hidden"/>
                                         <label htmlFor="text-color-picker" ref={textColorPickerBtn} className="w-7 h-7 rounded-md relative group flex flex-col justify-center items-center cursor-pointer bg-theme-yellow/80 hover:bg-theme-yellow tlg:hover:bg-theme-yellow/80 dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1/80 hover:drop-shadow-dark tlg:hover:drop-shadow-none">
-                                            <svg className="w-3 fill-theme-3 dark:fill-theme-blue-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M254 52.8C249.3 40.3 237.3 32 224 32s-25.3 8.3-30 20.8L57.8 416H32c-17.7 0-32 14.3-32 32s14.3 32 32 32h96c17.7 0 32-14.3 32-32s-14.3-32-32-32h-1.8l18-48H303.8l18 48H320c-17.7 0-32 14.3-32 32s14.3 32 32 32h96c17.7 0 32-14.3 32-32s-14.3-32-32-32H390.2L254 52.8zM279.8 304H168.2L224 155.1 279.8 304z"/></svg>
-                                            <div style={{background: textColor.hex}} className="w-4 h-0.5 mt-0.5"></div>
-                                            <div className="same-source w-max absolute left-1/2 top-[-38px] text-[13px] font-medium leading-none px-3.5 py-2 rounded-md hidden group-hover:block tlg:group-hover:hidden group-hover:animate-zoom-in-fontbox bg-theme-yellow dark:bg-theme-blue-1 text-theme-3 dark:text-theme-blue-2 selection:bg-transparent">폰트색 변경</div>
+                                            <i className="text-sm text-theme-3 dark:text-theme-blue-2 fa-solid fa-a"></i>
+                                            <div style={{background: textColor.hex}} className="w-4 h-0.5 mb-0.5"></div>
+                                            <div className="same-source w-max absolute left-1/2 -top-11 text-sm font-medium leading-none px-3 py-2 origin-bottom rounded-md hidden group-hover:block tlg:group-hover:hidden group-hover:animate-zoom-in-fontbox bg-theme-yellow dark:bg-theme-blue-1 text-theme-3 dark:text-theme-blue-2 selection:bg-transparent">폰트색 변경</div>
                                         </label>
                                         <div ref={textColorPicker} className="drop-shadow-dark absolute left-0 -top-2 -translate-y-full">
                                             {
@@ -580,9 +580,9 @@ function DetailPage({params}: any) {
                                     <div className="relative">
                                         <input onChange={handlebgColorPickerDisplay} id="bg-color-picker" type="checkbox" className="peer hidden"/>
                                         <label htmlFor="bg-color-picker" ref={bgColorPickerBtn} className="w-7 h-7 rounded-md relative group flex flex-col justify-center items-center cursor-pointer bg-theme-yellow/80 hover:bg-theme-yellow tlg:hover:bg-theme-yellow/80 dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1/80 hover:drop-shadow-dark tlg:hover:drop-shadow-none">
-                                            <svg className="w-3.5 fill-theme-3 dark:fill-theme-blue-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M86.6 9.4C74.1-3.1 53.9-3.1 41.4 9.4s-12.5 32.8 0 45.3L122.7 136 30.6 228.1c-37.5 37.5-37.5 98.3 0 135.8L148.1 481.4c37.5 37.5 98.3 37.5 135.8 0L474.3 290.9c28.1-28.1 28.1-73.7 0-101.8L322.9 37.7c-28.1-28.1-73.7-28.1-101.8 0L168 90.7 86.6 9.4zM168 181.3l49.4 49.4c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L213.3 136l53.1-53.1c3.1-3.1 8.2-3.1 11.3 0L429.1 234.3c3.1 3.1 3.1 8.2 0 11.3L386.7 288H67.5c1.4-5.4 4.2-10.4 8.4-14.6L168 181.3z"/></svg>
-                                            <div style={{background: bgColor.hex}} className="w-4 h-0.5 mt-0.5"></div>
-                                            <div className="same-source w-max absolute left-1/2 top-[-38px] text-[13px] font-medium leading-none px-3.5 py-2 rounded-md hidden group-hover:block tlg:group-hover:hidden group-hover:animate-zoom-in-fontbox bg-theme-yellow dark:bg-theme-blue-1 text-theme-3 dark:text-theme-blue-2 selection:bg-transparent">배경색 변경</div>
+                                            <i className="text-sm text-theme-3 dark:text-theme-blue-2 fa-solid fa-fill"></i>
+                                            <div style={{background: bgColor.hex}} className="w-4 h-0.5 mb-0.5"></div>
+                                            <div className="same-source w-max absolute left-1/2 -top-11 text-sm font-medium leading-none px-3 py-2 origin-bottom rounded-md hidden group-hover:block tlg:group-hover:hidden group-hover:animate-zoom-in-fontbox bg-theme-yellow dark:bg-theme-blue-1 text-theme-3 dark:text-theme-blue-2 selection:bg-transparent">배경색 변경</div>
                                         </label>
                                         <div ref={bgColorPicker} className="drop-shadow-dark absolute left-0 -top-2 -translate-y-full">
                                             {
@@ -592,8 +592,8 @@ function DetailPage({params}: any) {
                                         </div>
                                     </div>
                                     <button onClick={resetColorPicker} className="w-7 h-7 rounded-md relative z-20 group flex flex-col justify-center items-center bg-theme-yellow/80 hover:bg-theme-yellow tlg:hover:bg-theme-yellow/80 dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1/80 hover:drop-shadow-dark tlg:hover:drop-shadow-none">
-                                        <svg className="w-3.5 group-hover:rotate-45 tlg:group-hover:rotate-0 duration-100" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M142.9 142.9c62.2-62.2 162.7-62.5 225.3-1L327 183c-6.9 6.9-8.9 17.2-5.2 26.2s12.5 14.8 22.2 14.8H463.5c0 0 0 0 0 0H472c13.3 0 24-10.7 24-24V72c0-9.7-5.8-18.5-14.8-22.2s-19.3-1.7-26.2 5.2L413.4 96.6c-87.6-86.5-228.7-86.2-315.8 1C73.2 122 55.6 150.7 44.8 181.4c-5.9 16.7 2.9 34.9 19.5 40.8s34.9-2.9 40.8-19.5c7.7-21.8 20.2-42.3 37.8-59.8zM16 312v7.6 .7V440c0 9.7 5.8 18.5 14.8 22.2s19.3 1.7 26.2-5.2l41.6-41.6c87.6 86.5 228.7 86.2 315.8-1c24.4-24.4 42.1-53.1 52.9-83.7c5.9-16.7-2.9-34.9-19.5-40.8s-34.9 2.9-40.8 19.5c-7.7 21.8-20.2 42.3-37.8 59.8c-62.2 62.2-162.7 62.5-225.3 1L185 329c6.9-6.9 8.9-17.2 5.2-26.2s-12.5-14.8-22.2-14.8H48.4h-.7H40c-13.3 0-24 10.7-24 24z"/></svg>
-                                        <div className="same-source w-max absolute left-1/2 top-[-38px] text-[13px] font-medium leading-none px-3.5 py-2 rounded-md hidden group-hover:block tlg:group-hover:hidden group-hover:animate-zoom-in-fontbox bg-theme-yellow dark:bg-theme-blue-1 text-theme-3 dark:text-theme-blue-2 selection:bg-transparent">컬러 리셋하기</div>
+                                        <i className="text-sm group-hover:rotate-45 tlg:group-hover:rotate-0 duration-100 fa-solid fa-rotate"></i>
+                                        <div className="same-source w-max absolute left-1/2 -top-11 text-sm font-medium leading-none px-3 py-2 origin-bottom rounded-md hidden group-hover:block tlg:group-hover:hidden group-hover:animate-zoom-in-fontbox bg-theme-yellow dark:bg-theme-blue-1 text-theme-3 dark:text-theme-blue-2 selection:bg-transparent">컬러 리셋하기</div>
                                     </button>
                                 </div>
                             </div>
