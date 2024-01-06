@@ -278,7 +278,7 @@ const Register = ({params}: any) => {
                             alertDisplay === true
                                 && <div className='w-full h-8 px-2.5 mb-2 flex flex-row justify-between items-center rounded-lg border-2 border-theme-red/80 dark:border-theme-red/60 text-xs text-theme-10 dark:text-theme-9 bg-theme-red/20'>
                                     <div className='flex flex-row justify-start items-center'>
-                                        <i className="text-sm text-theme-10 dark:text-theme-9 fa-solid fa-land-mine-on"></i>
+                                        <i className="text-sm text-theme-red fa-regular fa-bell"></i>
                                         <div className='ml-2'>약관에 동의해 주세요.</div>
                                     </div>
                                     <div onClick={handleAlertClose} className='flex flex-row justify-center items-center cursor-pointer'>

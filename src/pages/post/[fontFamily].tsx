@@ -36,6 +36,33 @@ function DetailPage({params}: any) {
     // 디바이스 체크
     const isMac: boolean = userAgent.includes("Mac OS") ? true : false;
 
+    // states
+    const [comments, setComments] = useState(null);
+    const [reports, setReports] = useState(null);
+    const [alertDisplay, setAlertDisplay] = useState<boolean>(false);
+    const [hoverDisplay, setHoverDisplay] = useState<boolean>(true);
+    const [liked, setLiked] = useState<boolean>(like === null ? false : true);
+    const [likedInput, setLikedInput] = useState<boolean>(like === null ? false : true);
+    const [likedNum, setLikedNum] = useState<number>(font.like);
+    const [webFont, setWebFont] = useState("CSS");
+    const [text, setText] = useState("");
+    const [fontSize, setFontSize] = useState<number>(20);
+    const [lineHeight, setLineHeight] = useState<number>(1.5);
+    const [letterSpacing, setLetterSpacing] = useState<number>(0);
+    const [fontUnit, setFontUnit] = useState<string>("px");
+    const [lineHeightUnit, setLineHeightUnit] = useState<string>("em");
+    const [letterSpacingUnit, setLetterSpacingUnit] = useState<string>("em");
+    const [textColor, setTextColor] = useColor("#E9EAEE");
+    const [displayTextColorPicker, setDisplayTextColorPicker] = useState<boolean>(false);
+    const [bgColor, setBgColor] = useColor(params.theme === "dark" ? "#17181B" : "#35363A");
+    const [displaybgColorPicker, setDisplaybgColorPicker] = useState<boolean>(false);
+
+    // refs
+    const textColorPickerBtn = useRef<HTMLLabelElement>(null);
+    const textColorPicker = useRef<HTMLDivElement>(null);
+    const bgColorPickerBtn = useRef<HTMLLabelElement>(null);
+    const bgColorPicker = useRef<HTMLDivElement>(null);
+
     /** 조회수 업데이트 */
     useEffect(() => {
         const viewUpdate = async () => {
@@ -47,8 +74,6 @@ function DetailPage({params}: any) {
     }, [font]);
 
     // 댓글 가져오기
-    const [comments, setComments] = useState(null);
-    const [reports, setReports] = useState(null);
     useEffect(() => {
         const fetchComments = async () => {
             await axios.get("/api/post/fetchcomments", {
@@ -78,13 +103,6 @@ function DetailPage({params}: any) {
         }
         fetchReports();
     }, [font.code, user]);
-
-    // state
-    const [alertDisplay, setAlertDisplay] = useState<boolean>(false);
-    const [hoverDisplay, setHoverDisplay] = useState<boolean>(true);
-    const [liked, setLiked] = useState<boolean>(like === null ? false : true);
-    const [likedInput, setLikedInput] = useState<boolean>(like === null ? false : true);
-    const [likedNum, setLikedNum] = useState<number>(font.like);
 
     /** 로그인 중이 아닐 때 좋아요 클릭 방지 */
     const handleLikeClick = (e: React.MouseEvent<HTMLInputElement>) => {
@@ -161,9 +179,6 @@ function DetailPage({params}: any) {
         return n.toString();
     }
 
-    // 웹 폰트 사용하기 디폴트: CSS 설정하기
-    const [webFont, setWebFont] = useState("CSS");
-
     /** 웹 폰트 클릭 시 코드 변경 */
     const handleWebFont = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.value === "CSS") { setWebFont("CSS"); }
@@ -194,9 +209,6 @@ function DetailPage({params}: any) {
         },1000);
     }
 
-    // 폰트 미리보기 디폴트: 빈 문자열
-    const [text, setText] = useState("");
-
     /** 폰트 미리보기 텍스트 체인지 이벤트 */
     const handleFontWeightChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         setText(e.target.value);
@@ -208,21 +220,13 @@ function DetailPage({params}: any) {
         license.innerHTML = font.license;
     }, [font.license]);
 
-    // 폰트 미리보기 state
-    const [fontSize, setFontSize] = useState<number>(20);
-    const [lineHeight, setLineHeight] = useState<number>(1.5);
-    const [letterSpacing, setLetterSpacing] = useState<number>(0);
-
     /** MUI TextArea 줄바꿈 시 높이 변경 */
     const handleHeightChange = (e: any) => {
         e.target.style.height = 0;
         e.target.style.height = (e.target.scrollHeight)+"px";
     }
 
-    // 단위 변경 state
-    const [fontUnit, setFontUnit] = useState<string>("px");
-    const [lineHeightUnit, setLineHeightUnit] = useState<string>("em");
-    const [letterSpacingUnit, setLetterSpacingUnit] = useState<string>("em");
+    // 단위 변경
     const convertedFontSize = fontUnit === "px" ? fontSize : fontSize * 0.75;
 
     /** 폰트 단위 변경 */
@@ -245,20 +249,12 @@ function DetailPage({params}: any) {
         setLetterSpacingUnit(e.target.value);
         setLetterSpacing(0);
     };
-
-    // 폰트 color picker state
-    const [textColor, setTextColor] = useColor("#E9EAEE");
-    const [displayTextColorPicker, setDisplayTextColorPicker] = useState<boolean>(false);
     
     /** 폰트 color picker 보임/숨김 */
     const handleTextColorPickerDisplay = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.checked) { setDisplayTextColorPicker(true); }
         else { setDisplayTextColorPicker(false); }
     }
-
-    // 폰트 color picker 영역
-    const textColorPickerBtn = useRef<HTMLLabelElement>(null);
-    const textColorPicker = useRef<HTMLDivElement>(null);
 
     // 폰트 color picker 영역 외 클릭
     useEffect(() => {
@@ -272,20 +268,12 @@ function DetailPage({params}: any) {
         document.addEventListener("mouseup", handleOutside);
         return () => document.removeEventListener("mouseup", handleOutside);
     }, [textColorPicker, textColorPickerBtn]);
-
-    // 배경 color picker state
-    const [bgColor, setBgColor] = useColor(params.theme === "dark" ? "#17181B" : "#35363A");
-    const [displaybgColorPicker, setDisplaybgColorPicker] = useState<boolean>(false);
     
     /** 배경 color picker 보임/숨김 */
     const handlebgColorPickerDisplay = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.checked) { setDisplaybgColorPicker(true); }
         else { setDisplaybgColorPicker(false); }
     }
-
-    // 배경 color picker 영역
-    const bgColorPickerBtn = useRef<HTMLLabelElement>(null);
-    const bgColorPicker = useRef<HTMLDivElement>(null);
 
     // 배경 color picker 영역 외 클릭
     useEffect(() => {
@@ -368,16 +356,16 @@ function DetailPage({params}: any) {
             {/* 로그인 중이 아닐 때 좋아요 alert창 팝업 */}
             {
                 alertDisplay === true
-                ? <div className='fixed z-20 top-6 tlg:top-5 right-8 tlg:right-7 w-max h-[60px] tlg:h-14 px-3 flex flex-row justify-between items-center rounded-lg border border-theme-yellow dark:border-theme-blue-1 text-sm text-theme-10/80 dark:text-theme-9/80 bg-theme-4 dark:bg-theme-blue-2'>
+                ? <div className='fixed z-20 top-6 tlg:top-5 right-8 tlg:right-7 w-max h-[60px] tlg:h-14 px-4 flex flex-row justify-between items-center rounded-lg border border-theme-yellow dark:border-theme-blue-1 text-sm text-theme-10 dark:text-theme-9 bg-theme-4 dark:bg-theme-blue-2'>
                     <div className='flex flex-row justify-start items-center'>
-                        <svg className='w-5 fill-theme-8 dark:fill-theme-9/80' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M7.657 6.247c.11-.33.576-.33.686 0l.645 1.937a2.89 2.89 0 0 0 1.829 1.828l1.936.645c.33.11.33.576 0 .686l-1.937.645a2.89 2.89 0 0 0-1.828 1.829l-.645 1.936a.361.361 0 0 1-.686 0l-.645-1.937a2.89 2.89 0 0 0-1.828-1.828l-1.937-.645a.361.361 0 0 1 0-.686l1.937-.645a2.89 2.89 0 0 0 1.828-1.828l.645-1.937zM3.794 1.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387A1.734 1.734 0 0 0 4.593 5.69l-.387 1.162a.217.217 0 0 1-.412 0L3.407 5.69A1.734 1.734 0 0 0 2.31 4.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387A1.734 1.734 0 0 0 3.407 2.31l.387-1.162zM10.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732L9.1 2.137a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L10.863.1z"/></svg>
-                        <div className='ml-2'>
+                        <i className="text-lg text-theme-10 dark:text-theme-9 fa-solid fa-star-and-crescent"></i>
+                        <div className='ml-3'>
                             좋아요 기능은 로그인 시 이용 가능합니다. <br/>
                             <Link href="/user/login" className='text-theme-yellow dark:text-theme-blue-1 hover:underline tlg:hover:no-underline'>로그인 하러 가기</Link>
                         </div>
                     </div>
-                    <div onClick={handleAlertClose} className='flex flex-row justify-center items-center ml-2 cursor-pointer'>
-                        <svg className='w-5 fill-theme-10/80 dark:fill-theme-9' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg>
+                    <div onClick={handleAlertClose} className='flex flex-row justify-center items-center ml-3 cursor-pointer'>
+                        <i className="text-sm text-theme-10 dark:text-theme-9 fa-solid fa-xmark"></i>
                     </div>
                 </div> : <></>
             }
@@ -391,10 +379,10 @@ function DetailPage({params}: any) {
                         <div className='group relative ml-3.5 tmd:ml-2.5 mb-0.5'>
                             <input onClick={handleLikeClick} onChange={handleLikeChange} type="checkbox" id={font.code.toString()} className='like hidden' defaultChecked={like === null ? false : true}/>
                             <label htmlFor={font.code.toString()} className='cursor-pointer'>
-                                <svg className='w-[26px] tmd:w-[22px] fill-theme-4 dark:fill-theme-6' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M225.8 468.2l-2.5-2.3L48.1 303.2C17.4 274.7 0 234.7 0 192.8v-3.3c0-70.4 50-130.8 119.2-144C158.6 37.9 198.9 47 231 69.6c9 6.4 17.4 13.8 25 22.3c4.2-4.8 8.7-9.2 13.5-13.3c3.7-3.2 7.5-6.2 11.5-9c0 0 0 0 0 0C313.1 47 353.4 37.9 392.8 45.4C462 58.6 512 119.1 512 189.5v3.3c0 41.9-17.4 81.9-48.1 110.4L288.7 465.9l-2.5 2.3c-8.2 7.6-19 11.9-30.2 11.9s-22-4.2-30.2-11.9zM239.1 145c-.4-.3-.7-.7-1-1.1l-17.8-20c0 0-.1-.1-.1-.1c0 0 0 0 0 0c-23.1-25.9-58-37.7-92-31.2C81.6 101.5 48 142.1 48 189.5v3.3c0 28.5 11.9 55.8 32.8 75.2L256 430.7 431.2 268c20.9-19.4 32.8-46.7 32.8-75.2v-3.3c0-47.3-33.6-88-80.1-96.9c-34-6.5-69 5.4-92 31.2c0 0 0 0-.1 .1s0 0-.1 .1l-17.8 20c-.3 .4-.7 .7-1 1.1c-4.5 4.5-10.6 7-16.9 7s-12.4-2.5-16.9-7z"/></svg>
-                                <svg className='w-[26px] tmd:w-[22px] fill-theme-red' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9L464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96 244 84c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z"/></svg>
+                                <i className="text-2xl text-theme-4 dark:text-theme-7 fa-regular fa-heart"></i>
+                                <i className="text-2xl text-theme-red fa-solid fa-heart"></i>
                             </label>
-                            <div className={`${hoverDisplay === true ? 'group-hover:block' : 'group-hover:hidden'} like-btn w-max absolute z-20 left-1/2 top-[-42px] text-[13px] font-medium leading-none px-3.5 py-2 rounded-md hidden tlg:group-hover:hidden group-hover:animate-zoom-in-fontbox bg-theme-red text-theme-2`}>{liked === true ? "좋아요 해제" : "좋아요"}</div>
+                            <div className={`${hoverDisplay === true ? 'group-hover:block' : 'group-hover:hidden'} like-btn w-max absolute z-20 left-1/2 -top-10 text-sm font-medium leading-none px-3 py-2 rounded-md hidden tlg:group-hover:hidden group-hover:animate-zoom-in-fontbox bg-theme-red text-theme-2`}>{liked === true ? "좋아요 해제" : "좋아요"}</div>
                         </div>
                     </div>
                     <div className="flex flex-row justify-start items-center">
@@ -402,7 +390,7 @@ function DetailPage({params}: any) {
                             <span className={`${font.lang === 'KR' ? '' : 'font-sans'}`}>제작</span>
                             <Link href={{pathname: "/", query: {search: font.source}}} className="relative group text-theme-yellow dark:text-theme-blue-1 border-b border-theme-yellow dark:border-theme-blue-1 ml-2 tlg:ml-1.5">
                                 {font.source}
-                                <div className="same-source w-max absolute z-10 left-1/2 top-[-38px] text-[13px] font-medium leading-none px-3.5 py-2 rounded-md hidden group-hover:block tlg:group-hover:hidden group-hover:animate-zoom-in-fontbox bg-theme-yellow dark:bg-theme-blue-1 text-theme-3 dark:text-theme-blue-2">제작사의 다른 폰트 보기</div>
+                                <div className="same-source w-max absolute z-10 left-1/2 -top-10 text-sm font-medium leading-none px-3 py-2 rounded-md hidden group-hover:block tlg:group-hover:hidden group-hover:animate-zoom-in-fontbox bg-theme-yellow dark:bg-theme-blue-1 text-theme-3 dark:text-theme-blue-2">제작사의 다른 폰트 보기</div>
                             </Link>
                         </div>
                         <div className={`${font.lang === 'KR' ? '' : 'font-sans'} text-base tmd:text-xs leading-tight text-theme-3 dark:text-theme-9 mr-3.5 tmd:mr-3`}>형태<span className="text-theme-5 dark:text-theme-7 ml-1.5">{font.font_type === "Sans Serif" ? "고딕" : (font.font_type === "Serif" ? "명조" : (font.font_type === "Hand Writing" ? "손글씨" : (font.font_type === "Display" ? "장식체" : "픽셀체")))}</span></div>
@@ -449,31 +437,31 @@ function DetailPage({params}: any) {
                                     ? <div className="w-full relative pl-6 tmd:pl-4 pr-[60px] overflow-hidden">
                                         <div className="cdn_pre w-full h-[60px] tmd:h-12 flex flex-row justify-start items-center overflow-x-auto"><pre className="font-sans text-[14px] tmd:text-[12px] text-theme-9">{font.cdn_css}</pre></div>
                                         <div className="absolute z-10 right-4 tmd:right-3 top-1/2 -translate-y-1/2 rounded-md cursor-pointer">
-                                            <svg onClick={copyOnClick} className="copy_btn w-8 tmd:w-7 p-2 rounded-md hover:bg-theme-yellow/10 tlg:hover:bg-transparent hover:dark:bg-theme-blue-1/10 tlg:hover:dark:bg-transparent fill-theme-9 hover:fill-theme-yellow tlg:hover:fill-theme-9 dark:fill-theme-7 hover:dark:fill-theme-blue-1 tlg:hover:dark:fill-theme-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/><path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/></svg>
-                                            <svg className="copy_chk_btn w-8 tmd:w-7 p-2 rounded-md bg-theme-yellow/10 dark:bg-theme-blue-1/10 fill-theme-yellow dark:fill-theme-blue-1 hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/></svg>
+                                            <i onClick={copyOnClick} className="copy_btn text-base px-2 py-1 rounded-md hover:bg-theme-yellow/10 tlg:hover:bg-transparent hover:dark:bg-theme-blue-1/10 tlg:hover:dark-bg-transparent text-theme-yellow dark:text-theme-blue-1 fa-regular fa-copy"></i>
+                                            <i className="copy_chk_btn text-base px-2 py-1 rounded-md bg-theme-yellow/10 dark:bg-theme-blue-1/10 text-theme-yellow dark:text-theme-blue-1 hidden fa-solid fa-check"></i>
                                         </div>
                                     </div>
                                     : ( webFont === "link"
                                         ? <div className="w-full relative pl-6 tmd:pl-4 pr-[60px] overflow-hidden">
                                             <div className="cdn_pre w-full h-[60px] tmd:h-12 flex flex-row justify-start items-center overflow-x-auto"><pre className="font-sans text-sm tmd:text-xs text-theme-9">{font.cdn_link}</pre></div>
                                             <div className="absolute z-10 right-4 tmd:right-[12px] top-1/2 -translate-y-1/2 cursor-pointer">
-                                                <svg onClick={copyOnClick} className="copy_btn w-8 tmd:w-7 p-2 rounded-md hover:bg-theme-yellow/10 tlg:hover:bg-transparent hover:dark:bg-theme-blue-1/10 tlg:hover:dark:bg-transparent fill-theme-9 hover:fill-theme-yellow tlg:hover:fill-theme-9 dark:fill-theme-7 hover:dark:fill-theme-blue-1 tlg:hover:dark:fill-theme-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/><path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/></svg>
-                                                <svg className="copy_chk_btn w-8 tmd:w-7 p-2 rounded-md bg-theme-yellow/10 dark:bg-theme-blue-1/10 fill-theme-yellow dark:fill-theme-blue-1 hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/></svg>
+                                                <i onClick={copyOnClick} className="copy_btn text-base px-2 py-1 rounded-md hover:bg-theme-yellow/10 tlg:hover:bg-transparent hover:dark:bg-theme-blue-1/10 tlg:hover:dark-bg-transparent text-theme-yellow dark:text-theme-blue-1 fa-regular fa-copy"></i>
+                                                <i className="copy_chk_btn text-base px-2 py-1 rounded-md bg-theme-yellow/10 dark:bg-theme-blue-1/10 text-theme-yellow dark:text-theme-blue-1 hidden fa-solid fa-check"></i>
                                             </div>
                                         </div>
                                         : ( webFont === "import"
                                             ? <div className="w-full relative pl-6 tmd:pl-4 pr-[60px] overflow-hidden">
                                                 <div className="cdn_pre w-full h-[60px] tmd:h-12 flex flex-row justify-start items-center overflow-x-auto"><pre className="font-sans text-sm tmd:text-xs text-theme-9">{font.cdn_import}</pre></div>
                                                 <div className="absolute z-10 right-4 tmd:right-3 top-1/2 -translate-y-1/2 cursor-pointer">
-                                                    <svg onClick={copyOnClick} className="copy_btn w-8 tmd:w-7 p-2 rounded-md hover:bg-theme-yellow/10 tlg:hover:bg-transparent hover:dark:bg-theme-blue-1/10 tlg:hover:dark:bg-transparent fill-theme-9 hover:fill-theme-yellow tlg:hover:fill-theme-9 dark:fill-theme-7 hover:dark:fill-theme-blue-1 tlg:hover:dark:fill-theme-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/><path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/></svg>
-                                                    <svg className="copy_chk_btn w-8 tmd:w-7 p-2 rounded-md bg-theme-yellow/10 dark:bg-theme-blue-1/10 fill-theme-yellow dark:fill-theme-blue-1 hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/></svg>
+                                                    <i onClick={copyOnClick} className="copy_btn text-base px-2 py-1 rounded-md hover:bg-theme-yellow/10 tlg:hover:bg-transparent hover:dark:bg-theme-blue-1/10 tlg:hover:dark-bg-transparent text-theme-yellow dark:text-theme-blue-1 fa-regular fa-copy"></i>
+                                                    <i className="copy_chk_btn text-base px-2 py-1 rounded-md bg-theme-yellow/10 dark:bg-theme-blue-1/10 text-theme-yellow dark:text-theme-blue-1 hidden fa-solid fa-check"></i>
                                                 </div>
                                             </div>
                                             : <div className="w-full relative pl-6 tmd:pl-4 pr-[60px] overflow-hidden">
                                                 <div className="cdn_pre w-full h-[auto] py-5 tmd:py-[15px] flex flex-row justify-start items-center overflow-auto whitespace-nowrap"><pre id="cdn-font-face" style={{tabSize: 8}} className="font-sans font-face text-sm tmd:text-xs text-theme-9">{font.cdn_font_face}</pre></div>
                                                 <div className="absolute z-10 right-4 tmd:right-3 top-[30px] tmd:top-6 -translate-y-1/2 cursor-pointer">
-                                                    <svg onClick={copyOnClick} className="copy_btn w-8 tmd:w-7 p-2 rounded-md hover:bg-theme-yellow/10 tlg:hover:bg-transparent hover:dark:bg-theme-blue-1/10 tlg:hover:dark:bg-transparent fill-theme-9 hover:fill-theme-yellow tlg:hover:fill-theme-9 dark:fill-theme-7 hover:dark:fill-theme-blue-1 tlg:hover:dark:fill-theme-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/><path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/></svg>
-                                                    <svg className="copy_chk_btn w-8 tmd:w-7 p-2 rounded-md bg-theme-yellow/10 dark:bg-theme-blue-1/10 fill-theme-yellow dark:fill-theme-blue-1 hidden" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/></svg>
+                                                    <i onClick={copyOnClick} className="copy_btn text-base px-2 py-1 rounded-md hover:bg-theme-yellow/10 tlg:hover:bg-transparent hover:dark:bg-theme-blue-1/10 tlg:hover:dark-bg-transparent text-theme-yellow dark:text-theme-blue-1 fa-regular fa-copy"></i>
+                                                    <i className="copy_chk_btn text-base px-2 py-1 rounded-md bg-theme-yellow/10 dark:bg-theme-blue-1/10 text-theme-yellow dark:text-theme-blue-1 hidden fa-solid fa-check"></i>
                                                 </div>
                                             </div>
                                         )

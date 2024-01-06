@@ -280,11 +280,11 @@ const Info = ({params}: any) => {
                             ? <>
                                 <div className='w-full h-10 px-2.5 mb-2.5 flex flex-row justify-between items-center rounded-md border-2 border-theme-yellow dark:border-theme-blue-1/80 text-xs text-theme-3 dark:text-theme-9 bg-theme-yellow/40 dark:bg-theme-blue-1/20'>
                                     <div className='flex flex-row justify-start items-center'>
-                                        <svg className='w-3.5 fill-theme-yellow dark:fill-theme-blue-1/80' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg>
-                                        <div className='ml-1.5'>이름이 변경되었습니다.</div>
+                                        <i className='text-sm text-theme-yellow dark:text-theme-blue-1 fa-regular fa-bell'></i>
+                                        <div className='ml-2'>이름이 변경되었습니다.</div>
                                     </div>
                                     <div onClick={handleAlertClose} className='flex flex-row justify-center items-center cursor-pointer'>
-                                        <svg className='w-[18px] fill-theme-3 dark:fill-theme-9' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg>
+                                        <i className="text-sm text-theme-3 dark:text-theme-9 fa-solid fa-xmark"></i>
                                     </div>
                                 </div>
                             </>
@@ -292,11 +292,11 @@ const Info = ({params}: any) => {
                                 ? <>
                                     <div className='w-full h-10 px-2.5 mb-2.5 flex flex-row justify-between items-center rounded-md border-2 border-theme-yellow dark:border-theme-blue-1/80 text-xs text-theme-3 dark:text-theme-9 bg-theme-yellow/40 dark:bg-theme-blue-1/20'>
                                         <div className='flex flex-row justify-start items-center'>
-                                            <svg className='w-3.5 fill-theme-yellow dark:fill-theme-blue-1/80' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg>
-                                            <div className='ml-1.5'>비밀번호가 변경되었습니다.</div>
+                                            <i className='text-sm text-theme-yellow dark:text-theme-blue-1 fa-regular fa-bell'></i>
+                                            <div className='ml-2'>비밀번호가 변경되었습니다.</div>
                                         </div>
                                         <div onClick={handleAlertClose} className='flex flex-row justify-center items-center cursor-pointer'>
-                                            <svg className='w-[18px] fill-theme-3 dark:fill-theme-9' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg>
+                                            <i className="text-sm text-theme-3 dark:text-theme-9 fa-solid fa-xmark"></i>
                                         </div>
                                     </div>
                                 </> : <></>
@@ -315,7 +315,7 @@ const Info = ({params}: any) => {
                                     {
                                         user.auth === "credentials"
                                             && <div className='w-5 h-[18px] flex justify-center items-center bg-theme-4 dark:bg-theme-blue-2 border border-theme-yellow dark:border-theme-blue-1 absolute z-10 left-0.5 bottom-0.5 rounded-md'>
-                                                <svg className='w-2.5 fill-theme-yellow dark:fill-theme-blue-1' xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16"><path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/></svg>
+                                                <i className="text-[8px] text-theme-yellow dark:text-theme-blue-1 fa-solid fa-pen"></i>
                                             </div>
                                     }
                                 </label>
@@ -379,11 +379,11 @@ const Info = ({params}: any) => {
                                 <div className='w-full h-px bg-theme-6 dark:bg-theme-5 my-5'></div>
                                 <h2 className="font-bold text-base text-theme-10 dark:text-theme-9 mb-2">비밀번호 변경</h2>
                                 <div className='w-full flex flex-row justify-start items-start mb-1 text-xs text-theme-8 dark:text-theme-7'>
-                                    <svg className='w-3 mt-[3px] mr-1.5 fill-theme-yellow dark:fill-theme-blue-1' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg>
+                                    <i className="text-xs mr-2 text-theme-yellow dark:text-theme-blue-1 fa-regular fa-bell"></i>
                                     <div>영문, 숫자, 특수문자 포함 8~20자를 조합해 만들어 주세요.</div>
                                 </div>
                                 <div className='w-full flex flex-row justify-start items-start mb-3 text-xs text-theme-8 dark:text-theme-7'>
-                                    <svg className='w-3 mt-[3px] mr-1.5 fill-theme-yellow dark:fill-theme-blue-1' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg>
+                                    <i className="text-xs mr-2 text-theme-yellow dark:text-theme-blue-1 fa-regular fa-bell"></i>
                                     <div>비밀번호 변경 완료 시, 비밀번호는 즉시 변경됩니다.</div>
                                 </div>
                                 <div className='w-full flex flex-row justify-between items-center mt-1.5'>
@@ -395,11 +395,11 @@ const Info = ({params}: any) => {
                         <div className='w-full h-px bg-theme-6 dark:bg-theme-5 my-5'></div>
                         <h2 className="font-bold text-base text-theme-10 dark:text-theme-9 mb-2">회원 탈퇴</h2>
                         <div className='w-full flex flex-row justify-start items-start mb-1 text-xs text-theme-8 dark:text-theme-7'>
-                            <svg className='w-3 mt-[3px] mr-1.5 fill-theme-red' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg>
+                            <i className="text-xs mr-2 text-theme-red fa-regular fa-bell"></i>
                             <div>탈퇴 시 계정의 모든 정보는 삭제됩니다.</div>
                         </div>
                         <div className='w-full flex flex-row justify-start items-start mb-3 text-xs text-theme-8 dark:text-theme-7'>
-                            <svg className='w-3 mt-[3px] mr-1.5 fill-theme-red' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg>
+                            <i className="text-xs mr-2 text-theme-red fa-regular fa-bell"></i>
                             <div>재가입 시에도 삭제된 정보는 복구되지 않습니다.</div>
                         </div>
                         <button onClick={handleDeleteUserModalClick} className='w-full h-10 rounded-lg flex flex-row justify-center items-center text-sm font-medium text-theme-10 dark:text-theme-9 bg-theme-red/80 hover:bg-theme-red tlg:hover:bg-theme-red/80'>회원 탈퇴하기</button>

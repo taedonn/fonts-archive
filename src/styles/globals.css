@@ -188,10 +188,10 @@ html.dark .select:checked + label {
 .option-input:checked + div svg:last-of-type { display: block; }
 
 /* 즐겨찾기 버튼 */
-.like + label > svg:first-of-type { display: block; }
-.like + label > svg:last-of-type { display: none; }
-.like:checked + label > svg:first-of-type { display: none; }
-.like:checked + label > svg:last-of-type { display: block; }
+.like + label > i:first-of-type { display: block; }
+.like + label > i:last-of-type { display: none; }
+.like:checked + label > i:first-of-type { display: none; }
+.like:checked + label > i:last-of-type { display: block; }
 
 /* 폰트 박스 맨 앞 3개 마진 0으로 설정 */
 @media screen and (min-width: 1024px) {
