@@ -30,7 +30,7 @@ export default function ReportCommentModal(
     const [reportSwearing, setReportSwearing] = useState<boolean>(false);
     const [reportEtc, setReportEtc] = useState<boolean>(false);
     const [reportText, setReportText] = useState<string>('');
-    const [reportWarning, setReportWarning] = useState<boolean>(false);
+    const [reportWarning, setReportWarning] = useState<boolean>(true);
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
     // refs
@@ -164,15 +164,10 @@ export default function ReportCommentModal(
                         <div className="w-full p-5 bg-theme-4 dark:bg-theme-blue-2">
                             <h2 className="font-bold text-base text-theme-9 mb-4">어떤 사유로 신고하시는지 알려주세요.</h2>
                             <div>
-                                <label htmlFor="report-nickname" className="flex items-start fill-theme-yellow dark:fill-theme-blue-1 text-theme-8 dark:text-theme-7 cursor-pointer">
+                                <label htmlFor="report-nickname" className="flex items-start text-theme-8 dark:text-theme-7 cursor-pointer">
                                     <input onChange={reportNicknameChk} type="checkbox" id="report-nickname" className="peer hidden"/>
-                                    <svg className="block peer-checked:hidden w-4 mt-0.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
-                                        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
-                                        <path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.235.235 0 0 1 .02-.022z"/>
-                                    </svg>
-                                    <svg className="hidden peer-checked:block w-4 mt-0.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
-                                        <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm10.03 4.97a.75.75 0 0 1 .011 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.75.75 0 0 1 1.08-.022z"/>
-                                    </svg>
+                                    <i className="block text-lg leading-5 peer-checked:hidden text-theme-yellow dark:text-theme-blue-1 fa-regular fa-square-check"></i>
+                                    <i className="hidden text-lg leading-5 peer-checked:block text-theme-yellow dark:text-theme-blue-1 fa-solid fa-square-check"></i>
                                     <div className="text-sm ml-1.5">
                                         <div>부적절한 닉네임</div>
                                     </div>
@@ -180,13 +175,8 @@ export default function ReportCommentModal(
                                 <div className="text-sm ml-[22px] text-theme-6 dark:text-theme-5">선정적이거나, 폭력적인 뜻이 내포된 닉네임 사용</div>
                                 <label htmlFor="report-propaganda" className="flex items-center mt-2.5 fill-theme-yellow dark:fill-theme-blue-1 text-theme-8 dark:text-theme-7 cursor-pointer">
                                     <input onChange={reportPoliticsChk} type="checkbox" id="report-propaganda" className="peer hidden"/>
-                                    <svg className="block peer-checked:hidden w-4 mt-0.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
-                                        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
-                                        <path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.235.235 0 0 1 .02-.022z"/>
-                                    </svg>
-                                    <svg className="hidden peer-checked:block w-4 mt-0.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
-                                        <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm10.03 4.97a.75.75 0 0 1 .011 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.75.75 0 0 1 1.08-.022z"/>
-                                    </svg>
+                                    <i className="block text-lg leading-5 peer-checked:hidden text-theme-yellow dark:text-theme-blue-1 fa-regular fa-square-check"></i>
+                                    <i className="hidden text-lg leading-5 peer-checked:block text-theme-yellow dark:text-theme-blue-1 fa-solid fa-square-check"></i>
                                     <div className="text-sm ml-1.5">
                                         <div>선동적인 발언</div>
                                     </div>
@@ -194,13 +184,8 @@ export default function ReportCommentModal(
                                 <div className="text-sm ml-[22px] text-theme-6 dark:text-theme-5">정치적, 문화적으로 편향된 발언</div>
                                 <label htmlFor="report-lang" className="flex items-start mt-2.5 fill-theme-yellow dark:fill-theme-blue-1 text-theme-8 dark:text-theme-7 cursor-pointer">
                                     <input onChange={reportSwearingChk} type="checkbox" id="report-lang" className="peer hidden"/>
-                                    <svg className="block peer-checked:hidden w-4 mt-0.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
-                                        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
-                                        <path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.235.235 0 0 1 .02-.022z"/>
-                                    </svg>
-                                    <svg className="hidden peer-checked:block w-4 mt-0.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
-                                        <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm10.03 4.97a.75.75 0 0 1 .011 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.75.75 0 0 1 1.08-.022z"/>
-                                    </svg>
+                                    <i className="block text-lg leading-5 peer-checked:hidden text-theme-yellow dark:text-theme-blue-1 fa-regular fa-square-check"></i>
+                                    <i className="hidden text-lg leading-5 peer-checked:block text-theme-yellow dark:text-theme-blue-1 fa-solid fa-square-check"></i>
                                     <div className="text-sm ml-1.5">
                                         <div>욕설</div>
                                     </div>
@@ -208,13 +193,8 @@ export default function ReportCommentModal(
                                 <div className="text-sm ml-[22px] text-theme-6 dark:text-theme-5">공격적, 폭력적인 언어 사용</div>
                                 <label htmlFor="report-etc" className="flex items-start mt-2.5 fill-theme-yellow dark:fill-theme-blue-1 text-theme-8 dark:text-theme-7 cursor-pointer">
                                     <input onChange={reportEtcChk} type="checkbox" id="report-etc" className="peer hidden"/>
-                                    <svg className="block peer-checked:hidden w-4 mt-0.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
-                                        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
-                                        <path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.235.235 0 0 1 .02-.022z"/>
-                                    </svg>
-                                    <svg className="hidden peer-checked:block w-4 mt-0.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
-                                        <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm10.03 4.97a.75.75 0 0 1 .011 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.75.75 0 0 1 1.08-.022z"/>
-                                    </svg>
+                                    <i className="block text-lg leading-5 peer-checked:hidden text-theme-yellow dark:text-theme-blue-1 fa-regular fa-square-check"></i>
+                                    <i className="hidden text-lg leading-5 peer-checked:block text-theme-yellow dark:text-theme-blue-1 fa-solid fa-square-check"></i>
                                     <div className="text-sm ml-1.5">
                                         <div>기타</div>
                                     </div>
@@ -225,8 +205,12 @@ export default function ReportCommentModal(
                             {
                                 reportWarning
                                 ? <div className="mt-2.5 flex">
-                                    <svg className='w-3.5 mb-px mr-1.5 fill-theme-red' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg>
-                                    <div className="text-xs text-theme-red">신고 사유를 하나 이상 선택해주세요.</div>
+                                    <div className='w-full h-10 px-2.5 mb-2 flex flex-row justify-between items-center rounded-lg border-2 border-theme-red/80 dark:border-theme-red/60 text-xs bg-theme-red/20'>
+                                        <div className='flex flex-row justify-start items-center text-theme-10'>
+                                            <i className="text-sm text-theme-red fa-regular fa-bell"></i>
+                                            <div className='ml-2'>신고 사유를 하나 이상 선택해주세요.</div>
+                                        </div>
+                                    </div>
                                 </div>
                                 : <div className="mt-2.5"></div>
                             }

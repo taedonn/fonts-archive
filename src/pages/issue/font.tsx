@@ -397,25 +397,25 @@ const IssueFont = ({params}: any) => {
                         {
                             isIssued === "success"
                             ? <>
-                                <div className='w-full h-10 px-2.5 mb-2.5 flex flex-row justify-between items-center rounded-md border-2 border-theme-yellow dark:border-theme-blue-1/80 text-xs text-theme-3 dark:text-theme-9 bg-theme-yellow/40 dark:bg-theme-blue-1/20'>
+                                <div className='w-full h-10 px-3 mb-2.5 flex flex-row justify-between items-center rounded-md border-2 border-theme-yellow dark:border-theme-blue-1/80 text-xs text-theme-3 dark:text-theme-9 bg-theme-yellow/40 dark:bg-theme-blue-1/20'>
                                     <div className='flex flex-row justify-start items-center'>
-                                        <svg className='w-3.5 fill-theme-yellow dark:fill-theme-blue-1/80' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg>
-                                        <div className='ml-1.5'>폰트를 제보해주셔서 감사합니다. 빠른 시일내에 답변 드리겠습니다.</div>
+                                        <i className="text-sm text-theme-yellow dark:text-theme-blue-1 fa-regular fa-bell"></i>
+                                        <div className='ml-2'>폰트를 제보해주셔서 감사합니다. 빠른 시일내에 답변 드리겠습니다.</div>
                                     </div>
                                     <div onClick={handleIssueClose} className='flex flex-row justify-center items-center cursor-pointer'>
-                                        <svg className='w-[18px] fill-theme-3 dark:fill-theme-9' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg>
+                                        <i className="text-sm text-theme-3 dark:text-theme-9 fa-solid fa-xmark"></i>
                                     </div>
                                 </div>
                             </>
                             : isIssued === "fail"
                                 ? <>
-                                    <div className='w-full h-10 px-2.5 mb-2.5 flex flex-row justify-between items-center rounded-md border-2 border-theme-red/80 text-xs text-theme-3 dark:text-theme-9 bg-theme-red/20'>
+                                    <div className='w-full h-10 px-3 mb-2.5 flex flex-row justify-between items-center rounded-md border-2 border-theme-red/80 text-xs text-theme-3 dark:text-theme-9 bg-theme-red/20'>
                                         <div className='flex flex-row justify-start items-center'>
-                                            <svg className='w-3.5 fill-theme-red/80' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg>
-                                            <div className='ml-1.5'>폰트 제보에 실패했습니다. 다시 시도해 주세요.</div>
+                                            <i className="text-sm text-theme-red fa-regular fa-bell"></i>
+                                            <div className='ml-2'>폰트 제보에 실패했습니다. 다시 시도해 주세요.</div>
                                         </div>
                                         <div onClick={handleIssueClose} className='flex flex-row justify-center items-center cursor-pointer'>
-                                            <svg className='w-[18px] fill-theme-3 dark:fill-theme-9' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg>
+                                            <i className="text-sm text-theme-3 dark:text-theme-9 fa-solid fa-xmark"></i>
                                         </div>
                                     </div>
                                 </> : <></>
@@ -453,8 +453,8 @@ const IssueFont = ({params}: any) => {
                                 onDragOver={onDragOver}
                                 onDrop={onDrop}
                             >
-                                <svg className="w-7 fill-theme-9 dark:fill-theme-7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M6.502 7a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/><path d="M14 14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h5.5L14 4.5V14zM4 1a1 1 0 0 0-1 1v10l2.224-2.224a.5.5 0 0 1 .61-.075L8 11l2.157-3.02a.5.5 0 0 1 .76-.063L13 10V4.5h-2A1.5 1.5 0 0 1 9.5 3V1H4z"/></svg>
-                                <label htmlFor="file" className="text-sm mt-3 text-theme-yellow dark:text-theme-blue-1 font-medium hover:underline tlg:hover:no-underline cursor-pointer">파일 추가</label>
+                                <i className="text-3xl text-theme-9 dark:text-theme-7 fa-regular fa-image"></i>
+                                <label htmlFor="file" className="text-sm mt-2 text-theme-yellow dark:text-theme-blue-1 font-medium hover:underline tlg:hover:no-underline cursor-pointer">파일 추가</label>
                                 <input onChange={uploadImg} accept='image/*' id="file" type="file" multiple className="hidden"/>
                                 <div className="text-xs mt-1 text-theme-9 dark:text-theme-7">또는 첨부할 파일을 드래그해서 추가할 수 있습니다.</div>
                                 {
@@ -467,8 +467,8 @@ const IssueFont = ({params}: any) => {
                                                         <div className="w-[72px] h-[88px]">
                                                             <Image src={img.src} alt='Preview image' fill sizes="100%" priority referrerPolicy="no-referrer" className="object-cover rounded-lg"/>
                                                         </div>
-                                                        <button onClick={() => deleteImg(img.index, index)} className="w-6 h-6 rounded-full absolute -right-1.5 -top-1.5 flex items-center bg-theme-3 dark:bg-theme-blue-2">
-                                                            <svg className="w-3 mx-auto fill-theme-yellow dark:fill-theme-blue-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>
+                                                        <button onClick={() => deleteImg(img.index, index)} className="w-6 h-6 rounded-full absolute -right-1.5 -top-1.5 flex justify-center items-center bg-theme-3 dark:bg-theme-blue-2">
+                                                            <i className="text-sm text-theme-yellow dark:text-theme-blue-1 fa-solid fa-xmark"></i>
                                                         </button>
                                                     </div>
                                                 )
@@ -479,23 +479,23 @@ const IssueFont = ({params}: any) => {
                             </div>
                             {
                                 imgAlert
-                                ? <div className='w-full h-10 px-2.5 mt-2.5 flex flex-row justify-between items-center rounded-md border-2 border-theme-red text-xs text-theme-9 bg-theme-red/20'>
+                                ? <div className='w-full h-10 px-3 mt-2.5 flex flex-row justify-between items-center rounded-md border-2 border-theme-red text-xs text-theme-10 bg-theme-red/20'>
                                     <div className='flex flex-row justify-start items-center'>
-                                        <svg className='w-3.5 fill-theme-red' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg>
-                                        <div className='ml-1.5'>파일은 최대 5개까지만 올릴 수 있습니다.</div>
+                                        <i className="text-sm text-theme-red fa-regular fa-bell"></i>
+                                        <div className='ml-2'>파일은 최대 5개까지만 올릴 수 있습니다.</div>
                                     </div>
                                     <div onClick={imgAlertClose} className='flex flex-row justify-center items-center cursor-pointer'>
-                                        <svg className='w-[18px] fill-theme-9' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg>
+                                        <i className="text-sm text-theme-10 fa-solid fa-xmark"></i>
                                     </div>
                                 </div>
                                 : <></>
                             }
                             <div className='w-full flex justify-start items-center mt-3 text-xs text-theme-8 dark:text-theme-7'>
-                                <svg className='w-3 mr-1.5 fill-theme-yellow dark:fill-theme-blue-1' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg>
+                                <i className="text-xs mr-2 text-theme-yellow dark:text-theme-blue-1 fa-regular fa-bell"></i>
                                 <div>파일은 최대 다섯개까지만 올릴 수 있습니다.</div>
                             </div>
                             <div className='w-full flex justify-start items-center mt-1 text-xs text-theme-8 dark:text-theme-7'>
-                                <svg className='w-3 mr-1.5 fill-theme-yellow dark:fill-theme-blue-1' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg>
+                                <i className="text-xs mr-2 text-theme-yellow dark:text-theme-blue-1 fa-regular fa-bell"></i>
                                 <div>이미지 파일만 첨부 가능합니다.</div>
                             </div>
                         </div>

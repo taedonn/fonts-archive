@@ -14,7 +14,7 @@ import { debounce } from "lodash";
 
 // components
 import Header from "@/components/header";
-import TooltipIndex from "@/components/tooltipIndex";
+import Tooltip from "@/components/tooltip";
 import FontBox from "@/components/fontbox";
 import KakaoAdFitTopBanner from "@/components/kakaoAdFitTopBanner";
 
@@ -134,7 +134,7 @@ const Index = ({params}: any) => {
             />
 
             {/* 고정 메뉴 */}
-            <TooltipIndex/>
+            <Tooltip page='index'/>
         </>
     );
 }

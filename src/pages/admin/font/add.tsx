@@ -42,8 +42,8 @@ const Add = ({params}: any) => {
     const [fontLicenseTextAlert, setFontLicenseTextAlert] = useState<boolean>(false);
 
     /** 예시 복사하기 버튼 클릭 이벤트 */
-    const copyOnClick = (e: any) => {
-        const btn = document.getElementById(e.target.id) as HTMLButtonElement;
+    const copyOnClick = (e: React.MouseEvent) => {
+        const btn = document.getElementById(e.currentTarget.id) as HTMLButtonElement;
         const copyBtn = btn.getElementsByClassName("copy_btn")[0] as SVGSVGElement;
 
         window.navigator.clipboard.writeText(btn.value);
@@ -203,25 +203,25 @@ const Add = ({params}: any) => {
                         {
                             addBtnSuccess === "success"
                             ? <>
-                                <div className='w-full h-5 px-2.5 mb-2.5 flex flex-row justify-between items-center rounded-md border-2 border-theme-yellow dark:border-theme-blue-1/80 text-xs text-theme-3 dark:text-theme-9 bg-theme-yellow/40 dark:bg-theme-blue-1/20'>
+                                <div className='w-full h-10 px-3 mb-2.5 flex flex-row justify-between items-center rounded-md border-2 border-theme-yellow dark:border-theme-blue-1/80 text-xs text-theme-3 dark:text-theme-9 bg-theme-yellow/40 dark:bg-theme-blue-1/20'>
                                     <div className='flex flex-row justify-start items-center'>
-                                        <svg className='w-3.5 fill-theme-yellow dark:fill-theme-blue-1/80' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg>
-                                        <div className='ml-1.5'>폰트가 추가되었습니다.</div>
+                                        <i className="text-sm text-theme-yellow dark:text-theme-blue-1 fa-regular fa-bell"></i>
+                                        <div className='ml-2'>폰트가 추가되었습니다.</div>
                                     </div>
                                     <div onClick={handleAddBtnClose} className='flex flex-row justify-center items-center cursor-pointer'>
-                                        <svg className='w-[18px] fill-theme-3 dark:fill-theme-9' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg>
+                                        <i className="text-sm text-theme-3 dark:text-theme-9 fa-solid fa-xmark"></i>
                                     </div>
                                 </div>
                             </>
                             : addBtnSuccess === "fail"
                                 ? <>
-                                    <div className='w-full h-10 px-2.5 mb-2.5 flex flex-row justify-between items-center rounded-md border-2 border-theme-red/80 text-xs text-theme-3 dark:text-theme-9 bg-theme-red/20'>
+                                    <div className='w-full h-10 px-3 mb-2.5 flex flex-row justify-between items-center rounded-md border-2 border-theme-red/80 text-xs text-theme-3 dark:text-theme-9 bg-theme-red/20'>
                                         <div className='flex flex-row justify-start items-center'>
-                                            <svg className='w-3.5 fill-theme-red/80' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg>
-                                            <div className='ml-1.5'>폰트를 추가하는데 실패했습니다.</div>
+                                            <i className="text-sm text-theme-red fa-regular fa-bell"></i>
+                                            <div className='ml-2'>폰트를 추가하는데 실패했습니다.</div>
                                         </div>
                                         <div onClick={handleAddBtnClose} className='flex flex-row justify-center items-center cursor-pointer'>
-                                            <svg className='w-[18px] fill-theme-3 dark:fill-theme-9' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg>
+                                            <i className="text-sm text-theme-3 dark:text-theme-9 fa-solid fa-xmark"></i>
                                         </div>
                                     </div>
                                 </> : <></>
@@ -293,9 +293,9 @@ const Add = ({params}: any) => {
                             }
                             <label htmlFor="font-download-link" className="mt-5">
                                 <div className="inline-block mr-1.5">다운로드 링크</div>
-                                <button id="font-download-link-copy" onClick={copyOnClick} value="https://github.com/fonts-archive/NanumSquare/archive/refs/heads/main.zip" className="inline-flex items-center leading-loose text-xs text-theme-yellow dark:text-theme-blue-1 hover:underline tlg:hover:no-underline">
-                                    예시 복사하기
-                                    <svg className="copy_btn hidden w-[18px] ml-0.5 fill-theme-yellow dark:fill-theme-blue-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/></svg>
+                                <button id="font-download-link-copy" onClick={copyOnClick} value="https://github.com/fonts-archive/NanumSquare/archive/refs/heads/main.zip" className="inline-flex items-center leading-loose text-xs text-theme-yellow dark:text-theme-blue-1">
+                                    <span className="hover:underline tlg:hover:no-underline">예시 복사하기</span>
+                                    <i className="copy_btn hidden ml-1 fa-solid fa-check"></i>
                                 </button>
                             </label>
                             <input onChange={handleFontDownloadLinkChange} tabIndex={9} type="text" id="font-download-link" placeholder="https://github.com/fonts-archive/NanumSquare/archive/refs/heads/main.zip" className={`w-full ${fontDownloadLinkAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-xs mt-2 px-3.5 py-2 rounded-lg border-2 placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
@@ -306,9 +306,9 @@ const Add = ({params}: any) => {
                             }
                             <label htmlFor="font-cdn-css" className="mt-5">
                                 <div className="inline-block mr-1.5">CSS 설정하기</div>
-                                <button id="font-cdn-css-copy" onClick={copyOnClick} value="font-family: 'Nanum Square';" className="inline-flex items-center leading-loose text-xs text-theme-yellow dark:text-theme-blue-1 hover:underline tlg:hover:no-underline">
-                                    예시 복사하기
-                                    <svg className="copy_btn hidden w-[18px] ml-0.5 fill-theme-yellow dark:fill-theme-blue-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/></svg>
+                                <button id="font-cdn-css-copy" onClick={copyOnClick} value="font-family: 'Nanum Square';" className="inline-flex items-center leading-loose text-xs text-theme-yellow dark:text-theme-blue-1">
+                                    <span className="hover:underline tlg:hover:no-underline">예시 복사하기</span>
+                                    <i className="copy_btn hidden ml-1 fa-solid fa-check"></i>
                                 </button>
                             </label>
                             <input onChange={handleFontCdnCssChange} tabIndex={10} type="text" id="font-cdn-css" placeholder="font-family: 'Nanum Square';" className={`w-full ${fontCdnCssAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-xs mt-2 px-3.5 py-2 rounded-lg border-2 placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
@@ -319,9 +319,9 @@ const Add = ({params}: any) => {
                             }
                             <label htmlFor="font-cdn-link" className="mt-5">
                                 <div className="inline-block mr-1.5">Link 방식</div>
-                                <button id="font-cdn-link-copy" onClick={copyOnClick} value='<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fonts-archive/NanumSquare/NanumSquare.css" type="text/css"/>' className="inline-flex items-center leading-loose text-xs text-theme-yellow dark:text-theme-blue-1 hover:underline tlg:hover:no-underline">
-                                    예시 복사하기
-                                    <svg className="copy_btn hidden w-[18px] ml-0.5 fill-theme-yellow dark:fill-theme-blue-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/></svg>
+                                <button id="font-cdn-link-copy" onClick={copyOnClick} value='<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fonts-archive/NanumSquare/NanumSquare.css" type="text/css"/>' className="inline-flex items-center leading-loose text-xs text-theme-yellow dark:text-theme-blue-1">
+                                    <span className="hover:underline tlg:hover:no-underline">예시 복사하기</span>
+                                    <i className="copy_btn hidden ml-1 fa-solid fa-check"></i>
                                 </button>
                             </label>
                             <input onChange={handleFontCdnLinkChange} tabIndex={11} type="text" id="font-cdn-link" placeholder='<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fonts-archive/NanumSquare/NanumSquare.css" type="text/css"/>' className={`w-full ${fontCdnLinkAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-xs mt-2 px-3.5 py-2 rounded-lg border-2 placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
@@ -332,9 +332,9 @@ const Add = ({params}: any) => {
                             }
                             <label htmlFor="font-cdn-import" className="mt-5">
                                 <div className="inline-block mr-1.5">Import 방식</div>
-                                <button id="font-cdn-import-copy" onClick={copyOnClick} value="@import url('https://cdn.jsdelivr.net/gh/fonts-archive/NanumSquare/NanumSquare.css');" className="inline-flex items-center leading-loose text-xs text-theme-yellow dark:text-theme-blue-1 hover:underline tlg:hover:no-underline">
-                                    예시 복사하기
-                                    <svg className="copy_btn hidden w-[18px] ml-0.5 fill-theme-yellow dark:fill-theme-blue-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/></svg>
+                                <button id="font-cdn-import-copy" onClick={copyOnClick} value="@import url('https://cdn.jsdelivr.net/gh/fonts-archive/NanumSquare/NanumSquare.css');" className="inline-flex items-center leading-loose text-xs text-theme-yellow dark:text-theme-blue-1">
+                                    <span className="hover:underline tlg:hover:no-underline">예시 복사하기</span>
+                                    <i className="copy_btn hidden ml-1 fa-solid fa-check"></i>
                                 </button>
                             </label>
                             <input onChange={handleFontCdnImportChange} tabIndex={12} type="text" id="font-cdn-import" placeholder="@import url('https://cdn.jsdelivr.net/gh/fonts-archive/NanumSquare/NanumSquare.css');" className={`w-full ${fontCdnImportAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-xs mt-2 px-3.5 py-2 rounded-lg border-2 placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
@@ -359,9 +359,9 @@ const Add = ({params}: any) => {
             url('https://cdn.jsdelivr.net/gh/fonts-archive/NanumSquare/NanumSquare.otf') format('opentype'),
             url('https://cdn.jsdelivr.net/gh/fonts-archive/NanumSquare/NanumSquare.ttf') format('truetype');
 }`} 
-                                    className="inline-flex items-center leading-loose text-xs text-theme-yellow dark:text-theme-blue-1 hover:underline tlg:hover:no-underline">
-                                    예시 복사하기
-                                    <svg className="copy_btn hidden w-[18px] ml-0.5 fill-theme-yellow dark:fill-theme-blue-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/></svg>
+                                    className="inline-flex items-center leading-loose text-xs text-theme-yellow dark:text-theme-blue-1">
+                                    <span className="hover:underline tlg:hover:no-underline">예시 복사하기</span>
+                                    <i className="copy_btn hidden ml-1 fa-solid fa-check"></i>
                                 </button>
                             </label>
                             <textarea 
@@ -388,9 +388,9 @@ const Add = ({params}: any) => {
                             }
                             <label htmlFor="font-cdn-url" className="mt-5">
                                 <div className="inline-block mr-[6px]">CDN 주소</div>
-                                <button id="font-cdn-url-copy" onClick={copyOnClick} value="https://cdn.jsdelivr.net/gh/fonts-archive/NanumSquare/NanumSquare.css" className="inline-flex items-center leading-loose text-xs text-theme-yellow dark:text-theme-blue-1 hover:underline tlg:hover:no-underline">
-                                    예시 복사하기
-                                    <svg className="copy_btn hidden w-[18px] ml-0.5 fill-theme-yellow dark:fill-theme-blue-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/></svg>
+                                <button id="font-cdn-url-copy" onClick={copyOnClick} value="https://cdn.jsdelivr.net/gh/fonts-archive/NanumSquare/NanumSquare.css" className="inline-flex items-center leading-loose text-xs text-theme-yellow dark:text-theme-blue-1">
+                                    <span className="hover:underline tlg:hover:no-underline">예시 복사하기</span>
+                                    <i className="copy_btn hidden ml-1 fa-solid fa-check"></i>
                                 </button>
                             </label>
                             <input onChange={handleFontCdnUrlChange} tabIndex={14} type="text" id="font-cdn-url" placeholder="https://cdn.jsdelivr.net/gh/fonts-archive/NanumSquare/NanumSquare.css" className={`w-full ${fontCdnUrlAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-xs mt-2 px-3.5 py-2 rounded-lg border-2 placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
