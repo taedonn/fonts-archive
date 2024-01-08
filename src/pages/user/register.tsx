@@ -289,23 +289,23 @@ const Register = ({params}: any) => {
                         <div className='w-full flex flex-col justify-start items-start'>
                             <div className='w-full flex flex-row justify-between items-center'>
                                 <div className='flex flex-row justify-start items-center'>
-                                    <input onChange={handleTermsChange} type='checkbox' id='terms-check' className='hidden'/>
-                                    <label htmlFor='terms-check' className='w-5 h-5 flex flex-row justify-center items-center cursor-pointer'>
-                                        <i className="uncheck text-lg text-theme-yellow dark:text-theme-blue-1 fa-regular fa-square-check"></i>
-                                        <i className="check text-lg text-theme-yellow dark:text-theme-blue-1 fa-solid fa-square-check"></i>
+                                    <input onChange={handleTermsChange} type='checkbox' id='terms-check' className='peer hidden'/>
+                                    <label htmlFor='terms-check' className='group w-5 h-5 flex flex-row justify-center items-center cursor-pointer'>
+                                        <i className="block peer-checked:group-[]:hidden text-lg text-theme-yellow dark:text-theme-blue-1 fa-regular fa-square-check"></i>
+                                        <i className="hidden peer-checked:group-[]:block text-lg text-theme-yellow dark:text-theme-blue-1 fa-solid fa-square-check"></i>
                                     </label>
-                                    <p className='text-[13px] text-theme-10 dark:text-theme-9 mt-px ml-1.5'>서비스 이용약관 (필수)</p>
+                                    <p className='text-[13px] text-theme-10 dark:text-theme-9 ml-1.5'>서비스 이용약관 (필수)</p>
                                 </div>
                                 <Link href="/terms" target='_blank' rel="noopener noreferrer" className='text-xs text-theme-6 dark:text-theme-7 flex flex-row justify-center items-center hover:underline tlg:hover:no-underline'>전문보기</Link>
                             </div>
                             <div className='w-full flex flex-row justify-between items-center mt-2'>
                                 <div className='flex flex-row justify-start items-center'>
-                                    <input onChange={handlePrivacyChange} type='checkbox' id='privacy-check' className='hidden'/>
-                                    <label htmlFor='privacy-check' className='w-5 h-5 flex flex-row justify-center items-center cursor-pointer'>
-                                        <i className="uncheck text-lg text-theme-yellow dark:text-theme-blue-1 fa-regular fa-square-check"></i>
-                                        <i className="check text-lg text-theme-yellow dark:text-theme-blue-1 fa-solid fa-square-check"></i>
+                                    <input onChange={handlePrivacyChange} type='checkbox' id='privacy-check' className='peer hidden'/>
+                                    <label htmlFor='privacy-check' className='group w-5 h-5 flex flex-row justify-center items-center cursor-pointer'>
+                                        <i className="block peer-checked:group-[]:hidden text-lg text-theme-yellow dark:text-theme-blue-1 fa-regular fa-square-check"></i>
+                                        <i className="hidden peer-checked:group-[]:block text-lg text-theme-yellow dark:text-theme-blue-1 fa-solid fa-square-check"></i>
                                     </label>
-                                    <p className='text-[13px] text-theme-10 dark:text-theme-9 mt-px ml-1.5'>개인정보 처리방침 (필수)</p>
+                                    <p className='text-[13px] text-theme-10 dark:text-theme-9 ml-1.5'>개인정보 처리방침 (필수)</p>
                                 </div>
                                 <Link href="/privacy" target='_blank' rel="noopener noreferrer" className='text-xs text-theme-6 dark:text-theme-7 flex flex-row justify-center items-center hover:underline tlg:hover:no-underline'>전문보기</Link>
                             </div>

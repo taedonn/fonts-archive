@@ -345,10 +345,10 @@ html.dark .animated-mail .letter .letter-stamp {
     html.dark #active .when-active-3 { color: #17181B; }
     html.dark #active .when-active-4 { color: #35363A; }
     html.dark #active .when-active-5 { color: #35363A; }
-    html.dark #active .when-active-6 { color: #17181B; }
+    html.dark #active .wㄴhen-active-6 { color: #17181B; }
 }
 
-/* 같은 제작사의 다른 폰트 호버 이벤트 */
+/* 툴팁 호버 이벤트 */
 .tooltip { font-family: "Spoqa Han Sans Neo", sans-serif; }
 .tooltip::after {
     content: "";
@@ -364,75 +364,8 @@ html.dark .animated-mail .letter .letter-stamp {
 /* 라이센스 본문 링크 */
 #license a { text-decoration: underline; }
 
-/* 약관 동의 */
-#terms-check ~ label .uncheck { display: block; }
-#terms-check ~ label .check { display: none; }
-#terms-check:checked ~ label .uncheck { display: none; }
-#terms-check:checked ~ label .check { display: block; }
-
-#privacy-check ~ label .uncheck { display: block; }
-#privacy-check ~ label .check { display: none; }
-#privacy-check:checked ~ label .uncheck { display: none; }
-#privacy-check:checked ~ label .check { display: block; }
-
 /* 댓글 활성화 */
-.edit-btn-enabled {
-    background-color: #FCBE11CC;
-    color: #4C4D50;
-    cursor: pointer
-}
-.edit-btn-enabled:hover {
-    background-color: #FCBE11;
-}
-@media screen and (max-width: 1024px) {
-    .edit-btn-enabled {
-        background-color: #FCBE11;
-    }
-    .edit-btn-enabled:hover {
-        background-color: #FCBE11;
-    }
-}
-html.dark .edit-btn-enabled {
-    background-color: #8AB4F8;
-    color: #202124;
-}
-html.dark .edit-btn-enabled:hover {
-    background-color: #8AB4F8E6;
-}
-@media screen and (max-width: 1024px) {
-    html.dark .edit-btn-enabled {
-        background-color: #8AB4F8;
-    }
-    html.dark .edit-btn-enabled:hover {
-        background-color: #8AB4F8;
-    }
-}
-
-/* 댓글 비활성화 */
-.edit-btn-disabled {
-    background-color: #CDCED2;
-    color: #97989C;
-    cursor: default;
-}
-html.dark .edit-btn-disabled {
-    background-color: #35363A;
-    color: #646568;
-}
-
-/* 공지사항 */
-.notices .notice:last-of-type label > div {
-    border-bottom: 1px solid #B1B2B6;
-}
-html.dark .notices .notice:last-of-type label > div {
-    border-bottom: 1px solid #646568;
-}
-.notices .notice:last-of-type input:checked ~ pre {
-    border-top: none;
-    border-bottom: 1px solid #B1B2B6;
-}
-html.dark .notices .notice:last-of-type input:checked ~ pre {
-    border-bottom: 1px solid #646568;
-}
-.notice input:checked + label i {
-    transform: rotate(90deg);
-}
+.edit-btn-enabled { background-color: #FCBE11CC; color: #4C4D50; cursor: pointer }
+.edit-btn-enabled:hover { background-color: #FCBE11; }
+html.dark .edit-btn-enabled { background-color: #8AB4F8; color: #202124; }
+html.dark .edit-btn-enabled:hover { background-color: #8AB4F8E6; }

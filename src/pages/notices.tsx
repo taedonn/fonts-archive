@@ -128,21 +128,21 @@ const Notices = ({params}: any) => {
                     {
                         noticesList && noticesList.length > 0
                         ?  noticesList.map((notice: notices) => {
-                            return <div key={notice.notice_id.toString()} className='notice w-full flex flex-col'>
+                            return <div key={notice.notice_id.toString()} className='notice group w-full flex flex-col'>
                                 <input type='checkbox' id={`notice-${notice.notice_id}`} className='hidden peer/expand'/>
-                                <label htmlFor={`notice-${notice.notice_id}`} className='cursor-pointer hover:bg-theme-7/20 hover:dark:bg-theme-5/20'>
-                                    <div className='w-full h-14 text-sm flex justify-between items-center border-t text-theme-3 dark:text-theme-9 border-theme-7 dark:border-theme-5'>
+                                <label htmlFor={`notice-${notice.notice_id}`} className='group/label cursor-pointer hover:bg-theme-7/20 hover:dark:bg-theme-5/20'>
+                                    <div className='w-full h-14 text-sm flex justify-between items-center border-t text-theme-3 dark:text-theme-9 border-theme-7 dark:border-theme-5 group-last:border-b'>
                                         <div className='flex items-center'>
                                             <div className='w-[100px] tlg:w-20 shrink-0 flex justify-center items-center'><div className='px-[4px] border-b-2 dark:border-theme-blue-1'>{notice.notice_type === "service" ? "서비스" : "폰트"}</div></div>
                                             <div className='w-full ml-[12px]'><div className='ellipsed-text'>{notice.notice_title}</div></div>
                                         </div>
                                         <div className='flex items-center mr-[20px]'>
                                             <div className='w-20 text-theme-5 dark:text-theme-7'>{dateFormat(notice.notice_created_at)}</div>
-                                            <i className="text-xs ml-5 text-theme-5 dark:text-theme-7 duration-100 fa-solid fa-angle-right"></i>
+                                            <i className="text-xs ml-5 text-theme-5 dark:text-theme-7 duration-100 peer-checked/expand:group-[]/label:rotate-90 fa-solid fa-angle-right"></i>
                                         </div>
                                     </div>
                                 </label>
-                                <pre className='w-full h-0 whitespace-pre-wrap peer-checked/expand:h-[auto] px-8 peer-checked/expand:py-5 text-sm duration-100 flex items-center overflow-hidden peer-checked/expand:border-t border-theme-7 dark:border-theme-5 text-theme-3 dark:text-theme-9 bg-theme-7/20 dark:bg-theme-5/20'>{notice.notice_content}</pre>
+                                <pre className='w-full h-0 whitespace-pre-wrap peer-checked/expand:h-[auto] px-8 peer-checked/expand:py-5 text-sm duration-100 flex items-center overflow-hidden peer-checked/expand:border-t border-theme-7 dark:border-theme-5 text-theme-3 dark:text-theme-9 bg-theme-7/20 dark:bg-theme-5/20 group-last:peer-checked/expand:border-t-0 group-last:peer-checked/expand:border-b'>{notice.notice_content}</pre>
                             </div>
                         })
                         : <div className='w-full h-[68px] text-sm flex justify-center items-center text-center border-t border-theme-7 dark:border-theme-5 text-theme-3 dark:text-theme-9'>공지사항을 찾을 수 없습니다.</div>

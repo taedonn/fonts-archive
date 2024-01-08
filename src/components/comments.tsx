@@ -616,15 +616,15 @@ export default function Comments (
                                                     <div className="text-[15px] tlg:text-sm font-medium">{comment.user_auth === "credentials" ? comment.user_name : hideUserName(comment.user_name)}</div>
                                                     {
                                                         comment.user_id === 1
-                                                        ? <div className="text-xs leading-none px-1.5 pt-1 pb-[3px] ml-1.5 mb-0.5 border rounded-full border-theme-blue-1 text-theme-blue-1">Manager</div>
-                                                        : <div className="text-xs leading-none px-1.5 pt-1 pb-[3px] ml-1.5 mb-0.5 border rounded-full border-theme-green text-theme-green">User</div>
+                                                        ? <div className="text-xs leading-none px-1.5 pt-1 pb-[3px] ml-1.5 mb-px border rounded-full border-theme-blue-1 text-theme-blue-1">Manager</div>
+                                                        : <div className="text-xs leading-none px-1.5 pt-1 pb-[3px] ml-1.5 mb-px border rounded-full border-theme-green text-theme-green">User</div>
                                                     }
                                                     <div className="text-[13px] tlg:text-[11px] ml-2.5 text-theme-5 dark:text-theme-7">{commentsDateFormat(comment.created_at)}</div>
                                                     {
                                                         user
                                                         ? comment.user_id !== user.id && !comment.is_deleted_with_reply
                                                             ? reports === null || !reports.some((report: any) => report.comment_id === comment.comment_id)
-                                                                ? <button id={`report-comment-${comment.comment_id}`} onClick={reportCommentModalOpen} className="flex items-center ml-3 mb-0.5 cursor-pointer text-theme-5 hover:text-theme-yellow dark:text-theme-8 hover:dark:text-theme-blue-1">
+                                                                ? <button id={`report-comment-${comment.comment_id}`} onClick={reportCommentModalOpen} className="flex items-center ml-3 mb-px cursor-pointer text-theme-5 hover:text-theme-yellow dark:text-theme-8 hover:dark:text-theme-blue-1">
                                                                     <i className="text-xs mb-px fa-regular fa-bell"></i>
                                                                     <div className="text-xs leading-none ml-1">신고</div>
                                                                 </button>
@@ -680,7 +680,7 @@ export default function Comments (
                                                                     <textarea onInput={handleHeightChange} onChange={commentReplyOnChange} onFocus={commentReplyOnChange} id={`comment-reply-textarea-${comment.comment_id}`} placeholder="답글 달기..." className="w-full h-[21px] resize-none text-sm tlg:text-xs tracking-wide mt-1.5 text-theme-5 dark:text-theme-8 placeholder-theme-5 dark:placeholder-theme-6 leading-normal bg-transparent"/>
                                                                 </div>
                                                                 <div className="flex text-sm mt-3">
-                                                                    <button onClick={replyCommentAPIInit} id={`comment-reply-btn-${comment.comment_id}`} className="edit-btn-disabled w-14 tlg:w-12 h-8 tlg:h-7 pb-px rounded-full">답글</button>
+                                                                    <button onClick={replyCommentAPIInit} id={`comment-reply-btn-${comment.comment_id}`} className="edit-btn-disabled w-14 tlg:w-12 h-8 tlg:h-7 pb-px rounded-full bg-theme-8 dark:bg-theme-3 text-theme-6 dark:text-theme-5 cursor-default">답글</button>
                                                                     <button onClick={commentReplyCancelBtnOnClick} id={`comment-reply-cancel-${comment.comment_id}`} className="w-14 tlg:w-12 h-8 tlg:h-7 pb-px rounded-full text-theme-3 dark:text-theme-9 hover:bg-theme-8 hover:dark:bg-theme-4 tlg:hover:dark:bg-transparent ml-1.5">취소</button>
                                                                 </div>
                                                             </div>
