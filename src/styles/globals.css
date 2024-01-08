@@ -68,7 +68,7 @@ html.dark .custom-sm-scrollbar::-webkit-scrollbar-thumb { background-color: #B1B
     overflow: hidden;
 }
 
-/* 로딩 스피너 - 그레이 */
+/* Loading spinner */
 .loader {
     border-radius: 50%;
     display: inline-block;
@@ -80,7 +80,7 @@ html.dark .custom-sm-scrollbar::-webkit-scrollbar-thumb { background-color: #B1B
     100% { transform: rotate(360deg); }
 }  
 
-/* Loading spinner - 이미지 */
+/* Loading spinner - image */
 .img-loader {
     width: 3px;
     height: 15px;
