@@ -2,43 +2,35 @@
 @tailwind components;
 @tailwind utilities;
 
+/* 리셋 */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
-
-input {
-    outline: none;
-}
-
+input,
 textarea {
     outline: none;
 }
-
 a {
     text-decoration: none;
     outline: none;
 }
-
 button {
     border: none;
     outline: none;
     background-color: transparent;
     line-height: 1;
 }
-
 body {
     background-color: #E9EAEE;
 }
 html.dark body {
     background-color: #202124;
 }
-
 tr, th, td {
     font-weight: 400;
 }
-
 select {
     appearance: none;
     background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23B1B2B6' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
@@ -46,12 +38,10 @@ select {
     background-position: right 0.75em center;
     background-size: 1em;
 }
-
 option {
     color: #E9EAEE;
     background-color: #35363A;
 }
-
 html.dark option {
     color: #E9EAEE;
     background-color: #202124;
@@ -170,8 +160,9 @@ html.dark .font-edit-textarea::-webkit-scrollbar-thumb {
     fill: #FFFFFF;
     filter: drop-shadow(1px 2px 4px #97989C);
 }
-.select:checked + label svg {
-    transform: rotate(0deg);
+.select:checked + label i {
+    transform: rotate(180deg);
+    margin-bottom: 0;
 }
 html.dark .select:checked + label {
     background-color: #17181B;
@@ -182,10 +173,10 @@ html.dark .select:checked + label {
 }
 
 /* 셀렉트 박스 - 옵션 클릭 */
-.option-input + div svg:first-of-type { display: block; }
-.option-input + div svg:last-of-type { display: none; }
-.option-input:checked + div svg:first-of-type { display: none; }
-.option-input:checked + div svg:last-of-type { display: block; }
+.option-input + div i:first-of-type { display: block; }
+.option-input + div i:last-of-type { display: none; }
+.option-input:checked + div i:first-of-type { display: none; }
+.option-input:checked + div i:last-of-type { display: block; }
 
 /* 즐겨찾기 버튼 */
 .like + label > i:first-of-type { display: block; }
@@ -370,18 +361,18 @@ html.dark .search-list::-webkit-scrollbar-track { background-color: #35363A; }
 @media (hover: hover) and (pointer: fine) {
     #active { background-color: #FCBE11; }
     #active .when-active-1 { background-color: #35363A; border-color: #35363A; }
-    #active .when-active-2 { fill: #FCBE11; }
+    #active .when-active-2 { color: #FCBE11; }
     #active .when-active-3 { color: #35363A; }
     #active .when-active-4 { color: #4C4D50; }
     #active .when-active-5 { color: #4C4D50; }
-    #active .when-active-6 { fill: #35363A; }
+    #active .when-active-6 { color: #35363A; }
     html.dark #active { background-color: #8AB4F8; }
     html.dark #active .when-active-1 { background-color: #17181B; border-color: #17181B; }
-    html.dark #active .when-active-2 { fill: #8AB4F8; }
+    html.dark #active .when-active-2 { color: #8AB4F8; }
     html.dark #active .when-active-3 { color: #17181B; }
     html.dark #active .when-active-4 { color: #35363A; }
     html.dark #active .when-active-5 { color: #35363A; }
-    html.dark #active .when-active-6 { fill: #17181B; }
+    html.dark #active .when-active-6 { color: #17181B; }
 }
 
 /* 웹 폰트 적용하기 */
@@ -409,49 +400,6 @@ html.dark .cdn input:checked + label { background-color: #35363A; }
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
     overflow: hidden;
-}
-
-/* 컬러 테마 */
-#color-theme ~ .color-theme-select { display: none; }
-#color-theme:checked ~ .color-theme-select { display: block; }
-
-.light-label {
-    display: block;
-    fill: #FCBE11;
-}
-.light-svg {
-    fill: #FCBE11;
-}
-.light-txt {
-    color: #FCBE11;
-}
-html.dark .light-label {
-    display: none;
-}
-html.dark .light-svg {
-    fill: #E9EAEECC;
-}
-html.dark .light-txt {
-    color: #E9EAEECC;
-}
-.dark-label {
-    display: none;
-}
-.dark-svg {
-    fill: #FFFFFFCC;
-}
-.dark-txt {
-    color: #FFFFFFCC;
-}
-html.dark .dark-label {
-    display: block;
-    fill: #8AB4F8;
-}
-html.dark .dark-svg {
-    fill: #8AB4F8;
-}
-html.dark .dark-txt {
-    color: #8AB4F8;
 }
 
 /* Material UI */
@@ -548,13 +496,6 @@ html.dark .like-btn::after {
 
 /* 라이센스 본문 링크 */
 #license a { text-decoration: underline; }
-
-/* 계정 정보 */
-#account ~ .account-select { display: none; }
-#account:checked ~ .account-select { display: block; }
-
-#account:checked + label svg { fill: #4C4D50; }
-html.dark #account:checked + label svg { fill: #E9EAEE; }
 
 /* 약관 동의 */
 #terms-check ~ label .uncheck { display: block; }

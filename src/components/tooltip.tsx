@@ -6,7 +6,7 @@ const defaultTooltip = {
 }
 
 interface Tooltip {
-    page: string,
+    page?: string,
 }
 
 export default function Tooltip({

@@ -356,7 +356,7 @@ function DetailPage({params}: any) {
             {/* 로그인 중이 아닐 때 좋아요 alert창 팝업 */}
             {
                 alertDisplay === true
-                ? <div className='fixed z-20 top-6 tlg:top-5 right-8 tlg:right-7 w-max h-[60px] tlg:h-14 px-4 flex flex-row justify-between items-center rounded-lg border border-theme-yellow dark:border-theme-blue-1 text-sm text-theme-10 dark:text-theme-9 bg-theme-4 dark:bg-theme-blue-2'>
+                ? <div className='fixed z-20 top-6 tlg:top-5 right-8 tlg:right-7 w-max h-[60px] tlg:h-14 px-4 flex justify-between items-center rounded-lg border border-theme-yellow dark:border-theme-blue-1 text-sm text-theme-10 dark:text-theme-9 bg-theme-4 dark:bg-theme-blue-2'>
                     <div className='flex flex-row justify-start items-center'>
                         <i className="text-lg text-theme-10 dark:text-theme-9 fa-solid fa-star-and-crescent"></i>
                         <div className='ml-3'>
@@ -364,7 +364,7 @@ function DetailPage({params}: any) {
                             <Link href="/user/login" className='text-theme-yellow dark:text-theme-blue-1 hover:underline tlg:hover:no-underline'>로그인 하러 가기</Link>
                         </div>
                     </div>
-                    <div onClick={handleAlertClose} className='flex flex-row justify-center items-center ml-3 cursor-pointer'>
+                    <div onClick={handleAlertClose} className='flex justify-center items-center ml-3 cursor-pointer'>
                         <i className="text-sm text-theme-10 dark:text-theme-9 fa-solid fa-xmark"></i>
                     </div>
                 </div> : <></>

@@ -158,16 +158,16 @@ export default function FontBox ({license, lang, type, sort, user, like, filter,
                     {/* 로그인 중이 아닐 때 좋아요 alert창 팝업 */}
                     {
                         alertDisplay === true
-                        ? <div className='fixed z-20 top-6 tlg:top-5 right-8 tlg:right-7 w-max h-[60px] tlg:h-14 px-3 flex flex-row justify-between items-center rounded-lg border border-theme-yellow dark:border-theme-blue-1 text-xs text-theme-10/80 dark:text-theme-9/80 bg-theme-4 dark:bg-theme-blue-2'>
+                        ? <div className='fixed z-20 top-6 tlg:top-5 right-8 tlg:right-7 w-max h-[60px] tlg:h-14 px-4 flex justify-between items-center rounded-lg border border-theme-yellow dark:border-theme-blue-1 text-sm text-theme-10 dark:text-theme-9 bg-theme-4 dark:bg-theme-blue-2'>
                             <div className='flex flex-row justify-start items-center'>
-                                <svg className='w-6 tlg:w-5 fill-theme-8 dark:fill-theme-9/80' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M7.657 6.247c.11-.33.576-.33.686 0l.645 1.937a2.89 2.89 0 0 0 1.829 1.828l1.936.645c.33.11.33.576 0 .686l-1.937.645a2.89 2.89 0 0 0-1.828 1.829l-.645 1.936a.361.361 0 0 1-.686 0l-.645-1.937a2.89 2.89 0 0 0-1.828-1.828l-1.937-.645a.361.361 0 0 1 0-.686l1.937-.645a2.89 2.89 0 0 0 1.828-1.828l.645-1.937zM3.794 1.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387A1.734 1.734 0 0 0 4.593 5.69l-.387 1.162a.217.217 0 0 1-.412 0L3.407 5.69A1.734 1.734 0 0 0 2.31 4.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387A1.734 1.734 0 0 0 3.407 2.31l.387-1.162zM10.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732L9.1 2.137a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L10.863.1z"/></svg>
-                                <div className='ml-2'>
+                                <i className="text-lg text-theme-10 dark:text-theme-9 fa-solid fa-star-and-crescent"></i>
+                                <div className='ml-3'>
                                     좋아요 기능은 로그인 시 이용 가능합니다. <br/>
                                     <Link href="/user/login" className='text-theme-yellow dark:text-theme-blue-1 hover:underline tlg:hover:no-underline'>로그인 하러 가기</Link>
                                 </div>
                             </div>
-                            <div onClick={handleAlertClose} className='flex flex-row justify-center items-center ml-2 cursor-pointer'>
-                                <svg className='w-5 fill-theme-10/80 dark:fill-theme-9' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg>
+                            <div onClick={handleAlertClose} className='flex justify-center items-center ml-3 cursor-pointer'>
+                                <i className="text-sm text-theme-10 dark:text-theme-9 fa-solid fa-xmark"></i>
                             </div>
                         </div> : <></>
                     }
@@ -258,12 +258,12 @@ export default function FontBox ({license, lang, type, sort, user, like, filter,
                     {/* 폰트가 없을 때 */}
                     {
                         data && data.pages[0].fonts.length === 0
-                            && <div className='w-full pt-[40px] absolute top-0 left-0 flex flex-col justify-center items-center'>
+                            && <div className='w-full pt-[40px] absolute top-0 left-0 flex flex-col justify-center items-center text-theme-4 dark:text-theme-7'>
                                 <svg className='w-[120px] fill-theme-4 dark:fill-theme-7' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
                                     <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
                                     <path d="M6.831 11.43A3.1 3.1 0 0 1 8 11.196c.916 0 1.607.408 2.25.826.212.138.424-.069.282-.277-.564-.83-1.558-2.049-2.532-2.049-.53 0-1.066.361-1.536.824.083.179.162.36.232.535.045.115.092.241.135.373ZM6 11.333C6 12.253 5.328 13 4.5 13S3 12.254 3 11.333c0-.706.882-2.29 1.294-2.99a.238.238 0 0 1 .412 0c.412.7 1.294 2.284 1.294 2.99M7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5m4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5m-1.5-3A.5.5 0 0 1 10 3c1.162 0 2.35.584 2.947 1.776a.5.5 0 1 1-.894.448C11.649 4.416 10.838 4 10 4a.5.5 0 0 1-.5-.5M7 3.5a.5.5 0 0 0-.5-.5c-1.162 0-2.35.584-2.947 1.776a.5.5 0 1 0 .894.448C4.851 4.416 5.662 4 6.5 4a.5.5 0 0 0 .5-.5"/>
                                 </svg>
-                                <div className='text-[24px] mt-[24px] text-center font-medium text-theme-4 dark:text-theme-7'>찾으시는 폰트가 없습니다.</div>
+                                <div className='text-[24px] mt-[24px] text-center font-medium'>찾으시는 폰트가 없습니다.</div>
                             </div>
                     }
 

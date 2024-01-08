@@ -130,12 +130,12 @@ export default function DeleteUserModal(
                         </div>
                         <div className="w-full p-5 bg-theme-8 dark:bg-theme-blue-2">
                             <h2 className="font-bold text-base text-theme-4 dark:text-theme-9 mb-2">회원 탈퇴 시 유의사항</h2>
-                            <div className='w-full flex flex-row justify-start items-start mb-1 text-xs text-theme-5 dark:text-theme-7'>
-                                <svg className='w-3 mt-[3px] mr-1.5 fill-theme-red' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg>
+                            <div className='w-full flex flex-row justify-start items-start mb-1.5 text-xs text-theme-5 dark:text-theme-7'>
+                                <i className="text-xs mr-1.5 text-theme-red fa-regular fa-bell"></i>
                                 <div>탈퇴 시 계정의 모든 정보는 삭제됩니다.</div>
                             </div>
                             <div className='w-full flex flex-row justify-start items-start text-xs text-theme-5 dark:text-theme-7'>
-                                <svg className='w-3 mt-[3px] mr-1.5 fill-theme-red' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg>
+                                <i className="text-xs mr-1.5 text-theme-red fa-regular fa-bell"></i>
                                 <div>재가입 시에도 삭제된 정보는 복구되지 않습니다.</div>
                             </div>
                             <div className="w-full h-px bg-theme-5 mt-4"></div>

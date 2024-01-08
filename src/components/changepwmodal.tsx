@@ -214,11 +214,11 @@ export default function ChangePwModal(
                             <div className="w-full h-px bg-theme-6 dark:bg-theme-5 mt-4"></div>
                             <h2 className="font-bold text-base text-theme-4 dark:text-theme-9 mt-8">비밀번호 변경 시 유의사항</h2>
                             <div className='w-full flex flex-row justify-start items-start text-xs text-theme-5 dark:text-theme-7 mt-1'>
-                                <svg className='w-3 mt-[3px] mr-1.5 fill-theme-yellow dark:fill-theme-blue-1' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg>
+                                <i className="text-xs mr-1.5 text-theme-yellow dark:text-theme-blue-1 fa-regular fa-bell"></i>
                                 <div>영문, 숫자, 특수문자 포함 8~20자를 조합해 만들어 주세요.</div>
                             </div>
                             <div className='w-full flex flex-row justify-start items-start text-xs text-theme-5 dark:text-theme-7 mt-1'>
-                                <svg className='w-3 mt-[3px] mr-1.5 fill-theme-yellow dark:fill-theme-blue-1' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg>
+                                <i className="text-xs mr-1.5 text-theme-yellow dark:text-theme-blue-1 fa-regular fa-bell"></i>
                                 <div>비밀번호 변경 완료 시, 비밀번호는 즉시 변경됩니다.</div>
                             </div>
                             <button onClick={handlePwChangeClick} className='w-full h-10 flex flex-row justify-center items-center rounded-lg mt-3.5 text-sm font-medium text-theme-4 dark:text-theme-blue-2 bg-theme-yellow/80 hover:bg-theme-yellow tlg:hover:bg-theme-yellow/80 dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1/80'>
