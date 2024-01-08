@@ -261,7 +261,7 @@ export default function Header (
     return (
         <>
             <header className="w-full">
-                <div className='interface w-full h-[60px] tlg:h-[52px] px-8 tlg:px-4 fixed right-0 top-0 z-20 flex flex-row justify-between items-center backdrop-blur bg-theme-9/80 dark:bg-theme-2/80 border-b border-theme-7 dark:border-theme-5'>
+                <div className='interface w-full h-[60px] tlg:h-[52px] px-8 tlg:px-4 fixed right-0 top-0 z-20 flex flex-row justify-between items-center backdrop-blur bg-theme-10/80 dark:bg-theme-2/80 border-b border-theme-7 dark:border-theme-5'>
                     <div className="tlg:w-full flex flex-row justify-start items-center">
                         <Link onClick={reset} href="/" aria-label="logo" className="w-9 tlg:w-8 h-9 tlg:h-8 flex flex-row justify-center items-center rounded-lg tlg:rounded-md mr-3 bg-theme-2 dark:bg-theme-1">
                             <i className="text-lg text-theme-10 fa-solid fa-a"></i>
