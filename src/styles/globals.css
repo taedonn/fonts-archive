@@ -31,6 +31,8 @@ html.dark body {
 tr, th, td {
     font-weight: 400;
 }
+
+/* 셀렉트박스 */
 select {
     appearance: none;
     background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23B1B2B6' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
@@ -47,169 +49,62 @@ html.dark option {
     background-color: #202124;
 }
 
-/* 스크롤바 */
-body::-webkit-scrollbar {
+/* 큰 사이즈 스크롤바 */
+.custom-lg-scrollbar::-webkit-scrollbar {
     width: 16px;
 }
-body::-webkit-scrollbar-thumb {
+.custom-lg-scrollbar::-webkit-scrollbar-thumb {
     border-radius: 8px;
     background-color: #B1B2B6;
 }
-body::-webkit-scrollbar-thumb:hover {
+.custom-lg-scrollbar::-webkit-scrollbar-thumb:hover {
     border-radius: 8px;
     background-color: #97989C;
 }
-body::-webkit-scrollbar-track {
+.custom-lg-scrollbar::-webkit-scrollbar-track {
     background-color: #CDCED2;
 }
-html.dark body::-webkit-scrollbar-thumb {
+html.dark .custom-lg-scrollbar::-webkit-scrollbar-thumb {
     background-color: #4C4D50;
 }
-html.dark body::-webkit-scrollbar-thumb:hover {
+html.dark .custom-lg-scrollbar::-webkit-scrollbar-thumb:hover {
     background-color: #646568;
 }
-html.dark body::-webkit-scrollbar-track {
+html.dark .custom-lg-scrollbar::-webkit-scrollbar-track {
     background-color: #35363A;
 }
 
-/* 텍스트 에리어 스크롤바 */
-#report-textarea::-webkit-scrollbar {
-    width: 4px;
-}
-#report-textarea::-webkit-scrollbar-thumb {
-    border-radius: 8px;
-    background-color: #CDCED2;
-}
-html.dark #report-textarea::-webkit-scrollbar-thumb {
-    background-color: #B1B2B6;
-}
-
-/* 라이센스 스크롤바 */
-.license-wrap::-webkit-scrollbar {
+/* 중간 사이즈 스크롤바 */
+.custom-md-scrollbar::-webkit-scrollbar {
     width: 12px;
 }
-.license-wrap::-webkit-scrollbar-thumb {
+.custom-md-scrollbar::-webkit-scrollbar-thumb {
     border-radius: 6px;
     background-color: #B1B2B6;
 }
-.license-wrap::-webkit-scrollbar-thumb:hover {
+.custom-md-scrollbar::-webkit-scrollbar-thumb:hover {
     border-radius: 6px;
     background-color: #97989C;
 }
-.license-wrap::-webkit-scrollbar-track {
-    background-color: #CDCED2;
-}
-html.dark .license-wrap::-webkit-scrollbar-thumb {
+html.dark .custom-md-scrollbar::-webkit-scrollbar-thumb {
     border-radius: 6px;
     background-color: #4C4D50;
 }
-html.dark .license-wrap::-webkit-scrollbar-thumb:hover {
+html.dark .custom-md-scrollbar::-webkit-scrollbar-thumb:hover {
     border-radius: 6px;
     background-color: #646568;
 }
-html.dark .license-wrap::-webkit-scrollbar-track {
-    background-color: #35363A;
-}
 
-/* 폰트 수정 스크롤바 */
-.edit-font-search::-webkit-scrollbar {
-    width: 12px;
-}
-.edit-font-search::-webkit-scrollbar-thumb {
-    border-radius: 6px;
-    background-color: #B1B2B6;
-}
-.edit-font-search::-webkit-scrollbar-thumb:hover {
-    border-radius: 6px;
-    background-color: #97989C;
-}
-.edit-font-search::-webkit-scrollbar-track {
-    background-color: transparent;
-}
-html.dark .edit-font-search::-webkit-scrollbar-thumb {
-    background-color: #8AB4F8CC;
-}
-html.dark .edit-font-search::-webkit-scrollbar-thumb:hover {
-    background-color: #8AB4F8;
-}
-html.dark .edit-font-search::-webkit-scrollbar-track {
-    background-color: transparent;
-}
-
-/* 폰트 수정 텍스트 에리어 스크롤바 */
-.font-edit-textarea::-webkit-scrollbar {
+/* 작은 사이즈 스크롤바 */
+.custom-sm-scrollbar::-webkit-scrollbar {
     width: 4px;
 }
-.font-edit-textarea::-webkit-scrollbar-thumb {
+.custom-sm-scrollbar::-webkit-scrollbar-thumb {
     border-radius: 8px;
     background-color: #CDCED2;
 }
-html.dark .font-edit-textarea::-webkit-scrollbar-thumb {
+html.dark .custom-sm-scrollbar::-webkit-scrollbar-thumb {
     background-color: #B1B2B6;
-}
-
-/* 셀렉트 박스 클릭 */
-.select ~ .option { display: none; }
-.select:checked ~ .option { display: flex; }
-
-/* 셀렉트 박스 클릭 시 스타일 변경 */
-.select:checked + label {
-    background-color: #35363A;
-    border-color: #FCBE11;
-    color: #FFFFFF;
-    fill: #FFFFFF;
-    filter: drop-shadow(1px 2px 4px #97989C);
-}
-.select:checked + label i {
-    transform: rotate(180deg);
-    margin-bottom: 0;
-}
-html.dark .select:checked + label {
-    background-color: #17181B;
-    border-color: #8AB4F8;
-    color: #E9EAEE;
-    fill: #E9EAEE;
-    filter: drop-shadow(1px 2px 4px #101010);
-}
-
-/* 셀렉트 박스 - 옵션 클릭 */
-.option-input + div i:first-of-type { display: block; }
-.option-input + div i:last-of-type { display: none; }
-.option-input:checked + div i:first-of-type { display: none; }
-.option-input:checked + div i:last-of-type { display: block; }
-
-/* 즐겨찾기 버튼 */
-.like + label > i:first-of-type { display: block; }
-.like + label > i:last-of-type { display: none; }
-.like:checked + label > i:first-of-type { display: none; }
-.like:checked + label > i:last-of-type { display: block; }
-
-/* 폰트 박스 맨 앞 3개 마진 0으로 설정 */
-@media screen and (min-width: 1024px) {
-    .main-menu > a:nth-of-type(1), 
-    .main-menu > a:nth-of-type(2), 
-    .main-menu > a:nth-of-type(3),
-    .main-menu > a:nth-of-type(4) { 
-        margin-top: 0; 
-    }
-}
-@media screen and (max-width: 1024px) {
-    .main-menu > a:nth-of-type(1), 
-    .main-menu > a:nth-of-type(2), 
-    .main-menu > a:nth-of-type(3) { 
-        margin-top: 0; 
-    }
-}
-@media screen and (max-width: 768px) {
-    .main-menu > a:nth-of-type(1), 
-    .main-menu > a:nth-of-type(2) { 
-        margin-top: 0; 
-    }
-    .main-menu > a:nth-of-type(3) { margin-top: 10px; }
-}
-@media screen and (max-width: 480px) {
-    .main-menu > a:nth-of-type(1) { margin-top: 0; }
-    .main-menu > a:nth-of-type(2) { margin-top: 10px; }
 }
 
 /* 스켈레톤 박스 맨 앞 3개 마진 0으로 설정 */
@@ -268,7 +163,7 @@ html.dark .skeleton-gradient {
     -webkit-box-orient: vertical;
 }
 
-/* 로딩 스피너 */
+/* 로딩 스피너 - 그레이 */
 .loader {
     border: 2px solid #CDCED2;
     border-bottom-color: #97989C;
@@ -286,7 +181,7 @@ html.dark .loader {
     100% { transform: rotate(360deg); }
 }  
 
-/* 로딩 스피너 - 회원가입 페이지 */
+/* 로딩 스피너 - 메인 컬러 */
 .loader.loader-register {
     border: 2px solid #FFC800;
     border-bottom-color: #FFEA17;

@@ -565,7 +565,7 @@ export default function Comments (
                     {
                         user === null
                         ? <>
-                            <i className="text-4xl text-theme-3 dark:text-theme-8 fa-regular fa-circle-user"></i>
+                            <i className="text-4xl text-theme-5 dark:text-theme-8 fa-solid fa-circle-user"></i>
                             <div className="w-full mt-1 ml-4 tlg:ml-3.5">
                                 <div className="text-sm text-theme-5 dark:text-theme-7">로그인 후 댓글 이용 가능합니다...</div>
                                 <div className="w-full h-px mt-1 bg-theme-7 dark:bg-theme-5"></div>

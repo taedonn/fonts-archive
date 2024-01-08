@@ -30,7 +30,7 @@ export default function ReportCommentModal(
     const [reportSwearing, setReportSwearing] = useState<boolean>(false);
     const [reportEtc, setReportEtc] = useState<boolean>(false);
     const [reportText, setReportText] = useState<string>('');
-    const [reportWarning, setReportWarning] = useState<boolean>(true);
+    const [reportWarning, setReportWarning] = useState<boolean>(false);
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
     // refs
@@ -200,7 +200,7 @@ export default function ReportCommentModal(
                                     </div>
                                 </label>
                                 <div className="text-sm ml-[22px] text-theme-6 dark:text-theme-5">자세한 사유는 상세 입력칸에 적어주세요.</div>
-                                <textarea onChange={reportTextChk} id="report-textarea" placeholder="사유는 최대한 자세하게 기입해주세요..." className="w-full h-20 resize-none mt-3 px-3 py-2 text-sm border rounded-md border-theme-6 focus:border-theme-8 hover:border-theme-8 tlg:hover:border-theme-6 dark:border-theme-4 focus:dark:border-theme-6 hover:dark:border-theme-6 tlg:hover:dark:border-theme-4 bg-transparent dark:bg-theme-2 text-theme-8 dark:text-theme-7 placeholder-theme-6 dark:placeholder-theme-5"></textarea>
+                                <textarea onChange={reportTextChk} placeholder="사유는 최대한 자세하게 기입해주세요..." className="custom-sm-scrollbar w-full h-20 resize-none mt-3 px-3 py-2 text-sm border rounded-md border-theme-6 focus:border-theme-8 hover:border-theme-8 tlg:hover:border-theme-6 dark:border-theme-4 focus:dark:border-theme-6 hover:dark:border-theme-6 tlg:hover:dark:border-theme-4 bg-transparent dark:bg-theme-2 text-theme-8 dark:text-theme-7 placeholder-theme-6 dark:placeholder-theme-5"></textarea>
                             </div>
                             {
                                 reportWarning

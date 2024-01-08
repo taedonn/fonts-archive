@@ -377,10 +377,10 @@ function DetailPage({params}: any) {
                     <div className="mb-3 tlg:mb-2 flex items-center">
                         <div style={{fontFamily:'"'+font.font_family+'"'}} className="text-4xl tlg:text-3xl tmd:text-2xl text-theme-3 dark:text-theme-9 font-medium leading-tight">{font.name}</div>
                         <div className='group relative ml-3.5 tmd:ml-2.5 mb-0.5'>
-                            <input onClick={handleLikeClick} onChange={handleLikeChange} type="checkbox" id={font.code.toString()} className='like hidden' defaultChecked={like === null ? false : true}/>
-                            <label htmlFor={font.code.toString()} className='cursor-pointer'>
-                                <i className="text-2xl text-theme-4 dark:text-theme-7 fa-regular fa-heart"></i>
-                                <i className="text-2xl text-theme-red fa-solid fa-heart"></i>
+                            <input onClick={handleLikeClick} onChange={handleLikeChange} type="checkbox" id={font.code.toString()} className='peer hidden' defaultChecked={like === null ? false : true}/>
+                            <label htmlFor={font.code.toString()} className='group cursor-pointer'>
+                                <i className="block peer-checked:group-[]:hidden text-2xl text-theme-4 dark:text-theme-7 fa-regular fa-heart"></i>
+                                <i className="hidden peer-checked:group-[]:block text-2xl text-theme-red fa-solid fa-heart"></i>
                             </label>
                             <div className={`${hoverDisplay === true ? 'group-hover:block' : 'group-hover:hidden'} like-btn w-max absolute z-20 left-1/2 -top-10 text-sm font-medium leading-none px-3 py-2 origin-bottom rounded-md hidden tlg:group-hover:hidden group-hover:animate-zoom-in-fontbox bg-theme-red text-theme-2`}>{liked === true ? "좋아요 해제" : "좋아요"}</div>
                         </div>
@@ -905,7 +905,7 @@ function DetailPage({params}: any) {
                                     라이센스 본문
                                     <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[calc(100%-40px)] tlg:w-[calc(100%-32px)] tmd:w-[calc(100%-24px)] h-px bg-theme-7 dark:bg-theme-5"></div>
                                 </h2>
-                                <div className="license-wrap w-full h-[calc(707px-56px)] tlg:h-[auto] overflow-hidden overflow-y-auto px-7 tlg:px-6 tmd:px-5 py-3 tlg:py-4">
+                                <div className="custom-md-scrollbar w-full h-[calc(707px-56px)] tlg:h-[auto] overflow-hidden overflow-y-auto px-7 tlg:px-6 tmd:px-5 py-3 tlg:py-4">
                                     <pre id="license" className="font-sans text-[15px] tlg:text-[13px] text-theme-3 dark:text-theme-8 leading-loose whitespace-pre-wrap"></pre>
                                 </div>
                             </div>

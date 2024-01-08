@@ -190,7 +190,7 @@ const NoticePage = ({params}: any) => {
                             <div className="text-xs ml-4 mt-1.5 text-theme-red">제목을 입력해 주세요.</div>
                         }
                         <label htmlFor="content" className="block mt-7">내용</label>
-                        <textarea id="content" tabIndex={4} onChange={handleContentChange} placeholder="내용을 입력해 주세요." defaultValue={notice.notice_content} className={`font-edit-textarea w-full h-[200px] resize-none ${contentAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-xs mt-2.5 px-3.5 py-3 rounded-lg border-2 placeholder:text-theme-7 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}></textarea>
+                        <textarea id="content" tabIndex={4} onChange={handleContentChange} placeholder="내용을 입력해 주세요." defaultValue={notice.notice_content} className={`custom-sm-scrollbar w-full h-[200px] resize-none ${contentAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-xs mt-2.5 px-3.5 py-3 rounded-lg border-2 placeholder:text-theme-7 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}></textarea>
                         {
                             contentAlert &&
                             <div className="text-xs ml-4 text-theme-red">내용을 입력해 주세요.</div>

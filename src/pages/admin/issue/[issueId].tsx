@@ -249,7 +249,7 @@ const IssuePage = ({params}: any) => {
                         <label htmlFor="email" className="block mt-5">이메일</label>
                         <input id="email" defaultValue={issue.issue_email} type="text" disabled className='w-full border-theme-6 dark:border-theme-4 text-xs mt-2 px-3.5 py-2.5 rounded-lg border-2 bg-theme-4 dark:bg-theme-2 text-theme-10 dark:text-theme-9 cursor-text'/>
                         <label htmlFor="content" className="block mt-5">내용</label>
-                        <textarea id="content" disabled defaultValue={issue.issue_content} className={`font-edit-textarea w-full h-48 resize-none border-theme-6 dark:border-theme-4 bg-theme-4 dark:bg-theme-2 text-theme-10 dark:text-theme-9 text-xs mt-2 px-3.5 py-3 rounded-lg border-2 cursor-text`}></textarea>
+                        <textarea id="content" disabled defaultValue={issue.issue_content} className={`custom-sm-scrollbar w-full h-48 resize-none border-theme-6 dark:border-theme-4 bg-theme-4 dark:bg-theme-2 text-theme-10 dark:text-theme-9 text-xs mt-2 px-3.5 py-3 rounded-lg border-2 cursor-text`}></textarea>
                         <div className="mt-5">첨부한 이미지</div>
                         <div className="w-full min-h-[88px] flex items-center px-4 mt-2 rounded-lg border-2 border-theme-6 dark:border-theme-4 bg-theme-4 dark:bg-theme-2">
                             {
@@ -276,7 +276,7 @@ const IssuePage = ({params}: any) => {
                             <div className={`${issueClosed ? "text-theme-green" : ""} ml-1.5`}>답변 완료</div>
                         </div>
                         <div className="mt-7">답변</div>
-                        <textarea onChange={handleTextAreaOnChange} defaultValue={issue.issue_reply} id="answer" placeholder="답변을 입력해 주세요." className={`font-edit-textarea w-full h-48 resize-none ${txtAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-xs mt-2 px-3.5 py-3 rounded-lg border-2 placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}></textarea>
+                        <textarea onChange={handleTextAreaOnChange} defaultValue={issue.issue_reply} id="answer" placeholder="답변을 입력해 주세요." className={`custom-sm-scrollbar w-full h-48 resize-none ${txtAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-xs mt-2 px-3.5 py-3 rounded-lg border-2 placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}></textarea>
                         {
                             txtAlert &&
                             <div className="text-xs ml-4 mt-1.5 text-theme-red">답변 내용이 없습니다.</div>

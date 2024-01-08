@@ -153,7 +153,7 @@ export default function FontBox ({license, lang, type, sort, user, like, filter,
     return (
         <>
             <div className='w-full flex flex-col justify-start items-end'>
-                <div className="main-menu w-full relative flex flex-wrap flex-row justify-between items-stretch">
+                <div className="w-full gap-2.5 tlg:gap-2 mt-3 tlg:mt-2.5 relative flex flex-wrap justify-between items-stretch">
                     
                     {/* 로그인 중이 아닐 때 좋아요 alert창 팝업 */}
                     {
@@ -186,14 +186,14 @@ export default function FontBox ({license, lang, type, sort, user, like, filter,
                                     font_type: string
                                     cdn_url: string
                                 }) => (
-                                    <div aria-label="font-link" key={font.code} className="relative block w-[calc(20%-8px)] tlg:w-[calc(33.3%-6px)] tmd:w-[calc(50%-4px)] txs:w-full h-[18vw] tlg:h-[30vw] tmd:h-[46vw] txs:h-[82vw] p-[1.04vw] tlg:p-[1.95vw] tmd:p-[2.6vw] txs:p-[4.17vw] mt-3 tlg:mt-2.5 rounded-lg border border-theme-7 dark:border-theme-5 hover:bg-theme-8/60 tlg:hover:bg-transparent hover:dark:bg-theme-3/40 tlg:hover:dark:bg-transparent animate-fade-in-fontbox cursor-pointer">
+                                    <div aria-label="font-link" key={font.code} className=" relative block w-[calc(20%-8px)] tlg:w-[calc(33.3%-6px)] tmd:w-[calc(50%-4px)] txs:w-full h-[18vw] tlg:h-[30vw] tmd:h-[46vw] txs:h-[82vw] p-[1.04vw] tlg:p-[1.95vw] tmd:p-[2.6vw] txs:p-[4.17vw] rounded-lg border border-theme-7 dark:border-theme-5 hover:bg-theme-8/60 tlg:hover:bg-transparent hover:dark:bg-theme-3/40 tlg:hover:dark:bg-transparent animate-fade-in-fontbox cursor-pointer">
                                         <Link href={`/post/${font.font_family.replaceAll(" ", "+")}`} className='w-full h-full absolute left-0 top-0'></Link>
                                         <link href={font.cdn_url} rel="stylesheet" type="text/css" itemProp="url"></link>
                                         <div className='group absolute z-20 top-[1.46vw] tlg:top-[2.73vw] tmd:top-[3.65vw] txs:top-[5.83vw] right-[1.25vw] tlg:right-[1.95vw] tmd:right-[2.6vw] txs:right-[4.17vw]'>
-                                            <input onClick={handleLikeClick} onChange={handleLikeChange} type="checkbox" id={font.code.toString()} className='like hidden' defaultChecked={handleDefaultLike(font.code)}/>
-                                            <label htmlFor={font.code.toString()} className='cursor-pointer'>
-                                                <i className="text-[1.25vw] tlg:text-[2.34vw] tmd:text-[3.13vw] txs:text-[5vw] text-theme-4 dark:text-theme-7 fa-regular fa-heart"></i>
-                                                <i className="text-[1.25vw] tlg:text-[2.34vw] tmd:text-[3.13vw] txs:text-[5vw] text-theme-red fa-solid fa-heart"></i>
+                                            <input onClick={handleLikeClick} onChange={handleLikeChange} type="checkbox" id={font.code.toString()} className='peer hidden' defaultChecked={handleDefaultLike(font.code)}/>
+                                            <label htmlFor={font.code.toString()} className='group cursor-pointer'>
+                                                <i className="block peer-checked:group-[]:hidden text-[1.25vw] tlg:text-[2.34vw] tmd:text-[3.13vw] txs:text-[5vw] text-theme-4 dark:text-theme-7 fa-regular fa-heart"></i>
+                                                <i className="hidden peer-checked:group-[]:block text-[1.25vw] tlg:text-[2.34vw] tmd:text-[3.13vw] txs:text-[5vw] text-theme-red fa-solid fa-heart"></i>
                                             </label>
                                             <div className={`${hoverDisplay === true ? 'group-hover:block' : 'group-hover:hidden'} like-btn w-max absolute z-20 left-1/2 top-[-2.4vw] text-[0.73vw] font-medium leading-none px-[0.63vw] py-[0.42vw] origin-bottom rounded-[0.21vw] hidden tlg:group-hover:hidden group-hover:animate-zoom-in-fontbox bg-theme-red text-theme-2 after:w-[0.42vw] after:h-[0.42vw] after:bottom-[-0.21vw]`}>{like === null || like.some((likedFont: any) => likedFont.font_id === font.code) === false ? '좋아요' : '좋아요 해제'}</div>
                                         </div>
