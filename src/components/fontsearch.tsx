@@ -167,10 +167,10 @@ export default function FontSearch(
                             <input onChange={handleSearch} type="text" placeholder="폰트 검색하기..." autoFocus className="w-[calc(100%-108px)] tmd:w-[calc(100%-84px)] h-full text-sm tmd:text-xs leading-none text-theme-4 dark:text-theme-9 placeholder-theme-5 dark:placeholder-theme-8 bg-transparent"/>
                             <button onClick={handleCloseBtn} className="w-9 h-6 rounded-md absolute right-4 tmd:right-3 top-1/2 -translate-y-1/2 text-xs leading-none text-theme-4 dark:text-theme-9 bg-theme-8 dark:bg-theme-3 hover:dark:bg-theme-4 tlg:hover:dark:bg-theme-3 hover:drop-shadow-default hover:dark:drop-shadow-dark tlg:hover:drop-shadow-none tlg:hover:dark:drop-shadow-none">ESC</button>
                         </div>
-                        <div ref={parentRef} className="search-list w-full min-h-[150px] tmd:min-h-[120px] max-h-[500px] relative overflow-auto">
+                        <div ref={parentRef} className="custom-md-scrollbar w-full min-h-[150px] tmd:min-h-[120px] max-h-[500px] relative overflow-auto">
                             {/* 로딩 바 */}
-                            {isLoading ? <div className="w-full h-full absolute left-0 top-0 flex flex-row justify-center items-center"><span className="loaderw-10 tlg:w-9 h-[40px] tlg:h-9"></span></div> : <></>}
-                            {isRefetching ? <div className="w-full h-full absolute left-0 top-0 flex flex-row justify-center items-center"><span className="loaderw-10 tlg:w-9 h-[40px] tlg:h-9"></span></div> : <></>}
+                            {isLoading && <div className="w-full h-full absolute left-0 top-0 flex flex-row justify-center items-center"><span className="loader border-2 border-theme-8 border-b-theme-6 dark:border-theme-5 dark:border-b-theme-10 w-10 tlg:w-9 h-10 tlg:h-9"></span></div>}
+                            {isRefetching && <div className="w-full h-full absolute left-0 top-0 flex flex-row justify-center items-center"><span className="loader border-2 border-theme-8 border-b-theme-6 dark:border-theme-5 dark:border-b-theme-10 w-10 tlg:w-9 h-10 tlg:h-9"></span></div>}
 
                             {/* 검색 결과 */}
                             {isSuccess && !isLoading && !isRefetching
@@ -184,7 +184,7 @@ export default function FontSearch(
                                             font_family: string,
                                         }, idx: number) => {
                                             return (
-                                                <Link aria-label="search-result-link" onMouseOver={() => handleLinkMouseOver(idx)} id={activeEl === idx ? "active" : ""} ref={activeEl === idx ? activeRef : null} href={`/post/${font.font_family.replaceAll(" ", "+")}`} key={font.code} className="search-link w-full h-[60px] tmd:h-12 relative px-4 mt-2 flex flex-row justify-start items-center rounded-lg bg-theme-8 dark:bg-theme-3 cursor-pointer">
+                                                <Link aria-label="search-result-link" onMouseOver={() => handleLinkMouseOver(idx)} id={activeEl === idx ? "active" : ""} ref={activeEl === idx ? activeRef : null} href={`/post/${font.font_family.replaceAll(" ", "+")}`} key={font.code} className="px-4 mt-2 first:mt-0 last:mb-7 last:tmd:mb-6 w-full h-[60px] tmd:h-12 relative flex justify-start items-center rounded-lg bg-theme-8 dark:bg-theme-3 cursor-pointer">
                                                     <div className="w-6 tmd:w-5 h-6 tmd:h-5 border rounded-md tmd:rounded-sm flex flex-row justify-center items-center mr-3 bg-theme-7 dark:bg-theme-4 border-theme-7 dark:border-theme-4 when-active-1">
                                                         <i className="when-active-2 text-sm text-theme-10 fa-solid fa-hashtag"></i>
                                                     </div>

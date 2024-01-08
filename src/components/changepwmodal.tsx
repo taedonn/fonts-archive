@@ -224,7 +224,7 @@ export default function ChangePwModal(
                             <button onClick={handlePwChangeClick} className='w-full h-10 flex flex-row justify-center items-center rounded-lg mt-3.5 text-sm font-medium text-theme-4 dark:text-theme-blue-2 bg-theme-yellow/80 hover:bg-theme-yellow tlg:hover:bg-theme-yellow/80 dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1/80'>
                                 {
                                     isLoading === true
-                                    ? <span className='loader loader-register w-[18px] h-[18px]'></span>
+                                    ? <span className='loader border-2 border-theme-5 border-b-theme-yellow dark:border-b-theme-blue-1 w-[18px] h-[18px]'></span>
                                     : '비밀번호 변경하기'
                                 }
                             </button>

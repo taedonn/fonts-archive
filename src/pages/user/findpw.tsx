@@ -147,7 +147,7 @@ const FindPw = ({params}: any) => {
                         <button onClick={handleOnSubmit} className='w-full h-10 rounded-lg mt-3.5 text-sm font-medium text-theme-4 dark:text-theme-blue-2 bg-theme-yellow/80 hover:bg-theme-yellow tlg:hover:bg-theme-yellow/80 dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1/80'>
                             {
                                 isLoading === true
-                                ? <span className='loader loader-register w-[18px] h-[18px] mt-1'></span>
+                                ? <span className='loader border-2 border-theme-5 border-b-theme-yellow dark:border-b-theme-blue-1 w-[18px] h-[18px] mt-1'></span>
                                 : '다음'
                             }
                         </button>

@@ -208,7 +208,7 @@ const UserDetailPage = ({params}: any) => {
                                 </div>
                                 <button onClick={changeProfileImg} className="group flex justify-center items-center absolute top-0 -right-1 w-7 h-7 rounded-full bg-theme-3 dark:bg-theme-blue-2">
                                     <i className="text-sm text-theme-yellow dark:text-theme-blue-1 duration-200 group-hover:rotate-90 fa-solid fa-rotate"></i>
-                                    <div className="same-source w-max absolute z-10 left-1/2 -top-10 text-xs font-medium leading-none px-3 py-2 rounded-md hidden group-hover:block tlg:group-hover:hidden group-hover:animate-zoom-in-fontbox bg-theme-yellow dark:bg-theme-blue-1 text-theme-3 dark:text-theme-blue-2">이미지 랜덤 변경하기</div>
+                                    <div className="tooltip w-max absolute z-10 left-1/2 -top-10 text-xs font-medium leading-none px-3 py-2 rounded-md hidden group-hover:block tlg:group-hover:hidden group-hover:animate-zoom-in-fontbox bg-theme-yellow dark:bg-theme-blue-1 text-theme-3 dark:text-theme-blue-2">이미지 랜덤 변경하기</div>
                                 </button>
                             </div>
                             <div className="w-[calc(100%-100px)]">
@@ -263,7 +263,7 @@ const UserDetailPage = ({params}: any) => {
                         <div className="relative mt-2">
                             <button onClick={regenerateToken} className="group w-[22px] h-[22px] flex justify-center items-center absolute z-10 right-2 top-1/2 -translate-y-1/2 cursor-pointer">
                                 <i className="text-sm text-theme-yellow dark:text-theme-blue-1 duration-200 group-hover:rotate-90 fa-solid fa-rotate"></i>
-                                <div className="same-source w-max absolute z-10 left-1/2 -top-10 text-xs font-medium leading-none px-3 py-2 rounded-md hidden group-hover:block tlg:group-hover:hidden group-hover:animate-zoom-in-fontbox bg-theme-yellow dark:bg-theme-blue-1 text-theme-3 dark:text-theme-blue-2">토큰 재생성하기</div>
+                                <div className="tooltip w-max absolute z-10 left-1/2 -top-10 text-xs font-medium leading-none px-3 py-2 rounded-md hidden group-hover:block tlg:group-hover:hidden group-hover:animate-zoom-in-fontbox bg-theme-yellow dark:bg-theme-blue-1 text-theme-3 dark:text-theme-blue-2">토큰 재생성하기</div>
                             </button>
                             <input onChange={handleUserEmailTokenChange} id="user-email-token" tabIndex={4} defaultValue={user.user_email_token} type="text" placeholder="이메일 토큰" className={`w-full ${userEmailTokenAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-xs px-3.5 py-2 rounded-lg border-2 placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
                         </div>
@@ -275,7 +275,7 @@ const UserDetailPage = ({params}: any) => {
                         <button onClick={saveUserInfo} className="w-full h-9 rounded-lg mt-5 font-medium text-sm text-theme-4 dark:text-theme-blue-2 bg-theme-yellow/80 hover:bg-theme-yellow tlg:bg-theme-yellow dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:dark:bg-theme-blue-1">
                             {
                                 isLoading
-                                ? <span className='loader loader-register w-4 h-4 mt-0.5'></span>
+                                ? <span className='loader border-2 border-theme-5 border-b-theme-yellow dark:border-b-theme-blue-1 w-4 h-4 mt-0.5'></span>
                                 : <>저장하기</>
                             }
                         </button>

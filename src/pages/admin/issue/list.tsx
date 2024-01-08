@@ -133,8 +133,8 @@ const IssueList = ({params}: any) => {
                                                             {issue.issue_id}
                                                             <Link href={`/admin/issue/${issue.issue_id}`} className='w-full h-full absolute z-10 left-0 top-0'></Link>
                                                         </div>
-                                                        <div className='w-[120px] pl-4 py-2.5 shrink-0'><div className='font-size'>{issue.issue_title}</div></div>
-                                                        <div className='w-full pl-4 py-2.5 overflow-hidden'><div className='font-size'>{issue.issue_email}</div></div>
+                                                        <div className='w-[120px] pl-4 py-2.5 shrink-0'><div className='ellipsed-text'>{issue.issue_title}</div></div>
+                                                        <div className='w-full pl-4 py-2.5 overflow-hidden'><div className='ellipsed-text'>{issue.issue_email}</div></div>
                                                         <div className='w-28 pl-4 py-2.5 shrink-0'>{timeFormat(issue.issue_created_at)}</div>
                                                         <div className='w-28 pl-4 py-2.5 shrink-0'>{timeFormat(issue.issue_closed_at)}</div>
                                                         <div className='w-[100px] pl-4 py-2.5 shrink-0'>

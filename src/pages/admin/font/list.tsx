@@ -174,7 +174,7 @@ const FontsList = ({params}: any) => {
                                                     <div key={font.code} className='h-10 tlg:h-9 relative flex items-center border-t border-theme-5 dark:border-theme-3 hover:bg-theme-yellow/20 tlg:hover:bg-transparent hover:dark:bg-theme-blue-1/20 tlg:hover:dark:bg-transparent'>
                                                         <Link href={`/admin/font/edit?code=${font.code}`} className='w-full h-full block absolute z-10 left-0 top-0'></Link>
                                                         <div className='w-[60px] pl-3 shrink-0'>{font.code}</div>
-                                                        <div className='w-full pl-3 overflow-hidden'><div className='font-size'>{font.name}</div></div>
+                                                        <div className='w-full pl-3 overflow-hidden'><div className='ellipsed-text'>{font.name}</div></div>
                                                         <div className='w-[60px] pl-3 shrink-0'>{formatNumber(font.view)}</div>
                                                         <div className='w-[60px] pl-3 shrink-0'>{formatNumber(font.like)}</div>
                                                         <div className='w-[60px] pl-3 shrink-0'>{font.lang}</div>

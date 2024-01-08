@@ -535,7 +535,7 @@ export default function Header (
                             <label ref={refAccountLabel} htmlFor="account" className="w-8 h-8 flex justify-center items-center cursor-pointer text-theme-3 hover:text-theme-5 peer-checked:text-theme-5 tlg:hover:text-theme-3 dark:text-theme-9 hover:dark:text-theme-7 peer-checked:dark:text-theme-7 tlg:hover:dark:text-theme-9">
                                 {
                                     user === null
-                                    ? <i className="text-2xl fa-solid fa-circle-user"></i>
+                                    ? <i className="text-xl fa-regular fa-face-smile"></i>
                                     : <div className="w-7 h-7 relative">
                                         <Image src={user.image} alt="유저 프로필 사진" fill sizes="100%" referrerPolicy="no-referrer" className="object-cover rounded-full"/>
                                     </div>

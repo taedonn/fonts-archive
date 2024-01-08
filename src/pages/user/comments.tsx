@@ -174,8 +174,8 @@ const Comments = ({params}: any) => {
                                             thisComments.map((comment: any) => {
                                                 return (
                                                     <div key={comment.comment_id} className='h-10 tlg:h-9 relative flex items-center border-t border-theme-5 dark:border-theme-3'>
-                                                        <div className='w-[120px] pl-4 shrink-0'><Link href={`/post/${comment.font_family.replaceAll(" ", "+")}`} className='font-size text-theme-yellow dark:text-theme-blue-1 focus:underline hover:underline tlg:hover:no-underline'>{comment.font_name}</Link></div>
-                                                        <div className='w-full pl-4'><Link href={`/post/${comment.font_family.replaceAll(" ", "+")}#c${comment.comment_id}`} className='font-size focus:underline hover:underline tlg:hover:no-underline'>{comment.comment}</Link></div>
+                                                        <div className='w-[120px] pl-4 shrink-0'><Link href={`/post/${comment.font_family.replaceAll(" ", "+")}`} className='ellipsed-text text-theme-yellow dark:text-theme-blue-1 focus:underline hover:underline tlg:hover:no-underline'>{comment.font_name}</Link></div>
+                                                        <div className='w-full pl-4'><Link href={`/post/${comment.font_family.replaceAll(" ", "+")}#c${comment.comment_id}`} className='ellipsed-text focus:underline hover:underline tlg:hover:no-underline'>{comment.comment}</Link></div>
                                                         <div className='w-[120px] pl-4 shrink-0'>{timeFormat(comment.updated_at)}</div>
                                                         <div className='w-[120px] pl-4 shrink-0'>{timeFormat(comment.created_at)}</div>
                                                         <div className='w-[52px] shrink-0 flex justify-center'>{comment.reported_politics + comment.reported_swearing + comment.reported_etc}</div>

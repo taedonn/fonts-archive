@@ -507,7 +507,7 @@ export default function Comments (
                 </label>
                 <div className="relative">
                     <input onChange={handleShareExpand} type="checkbox" id="share-expand" className="peer hidden"/>
-                    <label ref={shareExpandBtn} htmlFor="share-expand" className="w-max h-8 px-3 text-[13px] font-medium flex justify-center items-center cursor-pointer rounded-md selection:bg-transparent text-theme-3 dark:text-theme-10 bg-theme-8 hover:bg-theme-7 tlg:hover:bg-theme-8 dark:bg-theme-3 hover:dark:bg-theme-4 tlg:hover:dark:bg-theme-3">
+                    <label ref={shareExpandBtn} htmlFor="share-expand" className="w-max h-8 px-3 text-[13px] font-medium flex justify-center items-center cursor-pointer rounded-md selection:bg-transparent text-theme-3 dark:text-theme-10 bg-theme-8 hover:bg-theme-7 tlg:hover:bg-theme-8 peer-checked:bg-theme-7 dark:bg-theme-3 hover:dark:bg-theme-4 tlg:hover:dark:bg-theme-3 peer-checked:dark:bg-theme-4">
                         <i className="text-sm mr-2 fa-solid fa-share-nodes"></i>
                         공유
                     </label>
@@ -565,7 +565,7 @@ export default function Comments (
                     {
                         user === null
                         ? <>
-                            <i className="text-4xl text-theme-5 dark:text-theme-8 fa-solid fa-circle-user"></i>
+                            <i className="text-4xl text-theme-5 dark:text-theme-8 fa-regular fa-face-smile"></i>
                             <div className="w-full mt-1 ml-4 tlg:ml-3.5">
                                 <div className="text-sm text-theme-5 dark:text-theme-7">로그인 후 댓글 이용 가능합니다...</div>
                                 <div className="w-full h-px mt-1 bg-theme-7 dark:bg-theme-5"></div>

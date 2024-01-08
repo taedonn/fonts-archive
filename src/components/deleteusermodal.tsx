@@ -155,7 +155,7 @@ export default function DeleteUserModal(
                             <button onClick={handleDeleteBtnClick} className='w-full h-10 mt-2.5 rounded-lg flex flex-row justify-center items-center text-sm font-medium text-theme-10 dark:text-theme-9 bg-theme-red/80 hover:bg-theme-red tlg:hover:bg-theme-red/80'>
                                 {
                                     isLoading === true
-                                    ? <span className='loader loader-red w-[18px] h-[18px]'></span>
+                                    ? <span className='loader border-2 border-theme-5 dark:border-theme-3 border-b-theme-red dark:border-b-theme-red w-[18px] h-[18px]'></span>
                                     : '회원 탈퇴하기'
                                 }
                             </button>

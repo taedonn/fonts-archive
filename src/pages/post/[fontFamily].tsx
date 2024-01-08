@@ -195,8 +195,8 @@ function DetailPage({params}: any) {
 
     /** 웹 폰트 적용하기 복사 버튼 클릭 이벤트 */
     const copyOnClick = () => {
-        const pre = document.getElementsByClassName("cdn_pre")[0] as HTMLPreElement;
-        const copyBtn = document.getElementsByClassName("copy_btn")[0] as SVGSVGElement;
+        const pre = document.getElementsByClassName("cdn-pre")[0] as HTMLPreElement;
+        const copyBtn = document.getElementsByClassName("copy_btn")[0] as HTMLLIElement;
         const copyChkBtn = document.getElementsByClassName("copy_chk_btn")[0] as SVGSVGElement;
 
         window.navigator.clipboard.writeText(pre.innerText);
@@ -382,7 +382,7 @@ function DetailPage({params}: any) {
                                 <i className="block peer-checked:group-[]:hidden text-2xl text-theme-4 dark:text-theme-7 fa-regular fa-heart"></i>
                                 <i className="hidden peer-checked:group-[]:block text-2xl text-theme-red fa-solid fa-heart"></i>
                             </label>
-                            <div className={`${hoverDisplay === true ? 'group-hover:block' : 'group-hover:hidden'} like-btn w-max absolute z-20 left-1/2 -top-10 text-sm font-medium leading-none px-3 py-2 origin-bottom rounded-md hidden tlg:group-hover:hidden group-hover:animate-zoom-in-fontbox bg-theme-red text-theme-2`}>{liked === true ? "좋아요 해제" : "좋아요"}</div>
+                            <div className={`${hoverDisplay === true ? 'group-hover:block' : 'group-hover:hidden'} tooltip after:bg-theme-red w-max absolute z-20 left-1/2 -top-10 text-sm font-medium leading-none px-3 py-2 origin-bottom rounded-md hidden tlg:group-hover:hidden group-hover:animate-zoom-in-fontbox bg-theme-red text-theme-2`}>{liked === true ? "좋아요 해제" : "좋아요"}</div>
                         </div>
                     </div>
                     <div className="flex flex-row justify-start items-center">
@@ -390,7 +390,7 @@ function DetailPage({params}: any) {
                             <span className={`${font.lang === 'KR' ? '' : 'font-sans'}`}>제작</span>
                             <Link href={{pathname: "/", query: {search: font.source}}} className="relative group text-theme-yellow dark:text-theme-blue-1 border-b border-theme-yellow dark:border-theme-blue-1 ml-2 tlg:ml-1.5">
                                 {font.source}
-                                <div className="same-source w-max absolute z-10 left-1/2 -top-11 text-sm font-medium leading-none px-3 py-2 origin-bottom rounded-md hidden group-hover:block tlg:group-hover:hidden group-hover:animate-zoom-in-fontbox bg-theme-yellow dark:bg-theme-blue-1 text-theme-3 dark:text-theme-blue-2">제작사의 다른 폰트 보기</div>
+                                <div className="tooltip after:bg-theme-yellow after:dark:bg-theme-blue-1 w-max absolute z-10 left-1/2 -top-11 text-sm font-medium leading-none px-3 py-2 origin-bottom rounded-md hidden group-hover:block tlg:group-hover:hidden group-hover:animate-zoom-in-fontbox bg-theme-yellow dark:bg-theme-blue-1 text-theme-3 dark:text-theme-blue-2">제작사의 다른 폰트 보기</div>
                             </Link>
                         </div>
                         <div className={`${font.lang === 'KR' ? '' : 'font-sans'} text-base tmd:text-xs leading-tight text-theme-3 dark:text-theme-9 mr-3.5 tmd:mr-3`}>형태<span className="text-theme-5 dark:text-theme-7 ml-1.5">{font.font_type === "Sans Serif" ? "고딕" : (font.font_type === "Serif" ? "명조" : (font.font_type === "Hand Writing" ? "손글씨" : (font.font_type === "Display" ? "장식체" : "픽셀체")))}</span></div>
@@ -422,20 +422,20 @@ function DetailPage({params}: any) {
                         <div className="flex flex-col justify-start items-start mb-[60px] tmd:mb-12">
                             <h2 className="text-xl tmd:text-lg text-theme-3 dark:text-theme-9 font-medium mb-3.5">웹 폰트 사용하기</h2>
                             <div className="cdn w-[916px] tlg:w-full h-12 tmd:h-10 overflow-hidden border-x border-t border-b border-theme-4 dark:border-theme-3/80 rounded-t-lg flex flex-row justify-start items-center">
-                                <input onChange={handleWebFont} type="radio" id="cdn_css" name="cdn" value="CSS" className="hidden" defaultChecked/>
-                                <label htmlFor="cdn_css" className="w-1/4 h-full border-r border-theme-8 dark:border-theme-3/80 flex flex-row justify-center items-center text-sm tmd:text-xs text-theme-3 focused:text-theme-9 dark:text-theme-9 leading-none cursor-pointer">CSS 설정하기</label>
-                                <input onChange={handleWebFont} type="radio" id="cdn_link" name="cdn" value="link" className="hidden"/>
-                                <label htmlFor="cdn_link" className="w-1/4 h-full border-r border-theme-8 dark:border-theme-3/80 flex flex-row justify-center items-center text-sm tmd:text-xs text-theme-3 dark:text-theme-9 leading-none cursor-pointer">link 방식</label>
-                                <input onChange={handleWebFont} type="radio" id="cdn_import" name="cdn" value="import" className="hidden"/>
-                                <label htmlFor="cdn_import" className="w-1/4 h-full border-r border-theme-8 dark:border-theme-3/80 flex flex-row justify-center items-center text-sm tmd:text-xs text-theme-3 dark:text-theme-9 leading-none cursor-pointer">import 방식</label>
-                                <input onChange={handleWebFont} type="radio" id="cdn_font_face" name="cdn" value="font-face" className="hidden"/>
-                                <label htmlFor="cdn_font_face" className="w-1/4 h-full flex flex-row justify-center items-center text-sm tmd:text-xs text-theme-3 dark:text-theme-9 leading-none cursor-pointer">font-face 방식</label>
+                                <input onChange={handleWebFont} type="radio" id="cdn_css" name="cdn" value="CSS" className="peer/css hidden" defaultChecked/>
+                                <label htmlFor="cdn_css" className="peer-checked/css:bg-theme-4 peer-checked/css:dark:bg-theme-3 hover:bg-theme-6/20 hover:dark:bg-theme-3/40 peer-checked/css:text-theme-9 w-1/4 h-full border-r border-theme-8 dark:border-theme-3/80 flex flex-row justify-center items-center text-sm tmd:text-xs text-theme-3 focused:text-theme-9 dark:text-theme-9 leading-none cursor-pointer">CSS 설정하기</label>
+                                <input onChange={handleWebFont} type="radio" id="cdn_link" name="cdn" value="link" className="peer/link hidden"/>
+                                <label htmlFor="cdn_link" className="peer-checked/link:bg-theme-4 peer-checked/link:dark:bg-theme-3 hover:bg-theme-6/20 hover:dark:bg-theme-3/40 peer-checked/link:text-theme-9 w-1/4 h-full border-r border-theme-8 dark:border-theme-3/80 flex flex-row justify-center items-center text-sm tmd:text-xs text-theme-3 dark:text-theme-9 leading-none cursor-pointer">link 방식</label>
+                                <input onChange={handleWebFont} type="radio" id="cdn_import" name="cdn" value="import" className="peer/import hidden"/>
+                                <label htmlFor="cdn_import" className="peer-checked/import:bg-theme-4 peer-checked/import:dark:bg-theme-3 hover:bg-theme-6/20 hover:dark:bg-theme-3/40 peer-checked/import:text-theme-9 w-1/4 h-full border-r border-theme-8 dark:border-theme-3/80 flex flex-row justify-center items-center text-sm tmd:text-xs text-theme-3 dark:text-theme-9 leading-none cursor-pointer">import 방식</label>
+                                <input onChange={handleWebFont} type="radio" id="cdn_font_face" name="cdn" value="font-face" className="peer/font-face hidden"/>
+                                <label htmlFor="cdn_font_face" className="peer-checked/font-face:bg-theme-4 peer-checked/font-face:dark:bg-theme-3 hover:bg-theme-6/20 hover:dark:bg-theme-3/40 peer-checked/font-face:text-theme-9 w-1/4 h-full flex flex-row justify-center items-center text-sm tmd:text-xs text-theme-3 dark:text-theme-9 leading-none cursor-pointer">font-face 방식</label>
                             </div>
                             <div className="w-[916px] tlg:w-full border-x border-b rounded-b-lg border-theme-4 dark:border-theme-blue-2 bg-theme-3 dark:bg-theme-blue-2">
                                 {
                                     webFont === "CSS"
                                     ? <div className="w-full relative pl-6 tmd:pl-4 pr-[60px] overflow-hidden">
-                                        <div className="cdn_pre w-full h-[60px] tmd:h-12 flex flex-row justify-start items-center overflow-x-auto"><pre className="font-sans text-[14px] tmd:text-[12px] text-theme-9">{font.cdn_css}</pre></div>
+                                        <div className="cdn-pre no-scrollbar w-full h-[60px] tmd:h-12 flex flex-row justify-start items-center overflow-x-auto"><pre className="font-sans text-[14px] tmd:text-[12px] text-theme-9">{font.cdn_css}</pre></div>
                                         <div className="absolute z-10 right-4 tmd:right-3 top-1/2 -translate-y-1/2 rounded-md cursor-pointer">
                                             <i onClick={copyOnClick} className="copy_btn text-base px-2 py-1 rounded-md hover:bg-theme-yellow/10 tlg:hover:bg-transparent hover:dark:bg-theme-blue-1/10 tlg:hover:dark-bg-transparent text-theme-yellow dark:text-theme-blue-1 fa-regular fa-copy"></i>
                                             <i className="copy_chk_btn text-base px-2 py-1 rounded-md bg-theme-yellow/10 dark:bg-theme-blue-1/10 text-theme-yellow dark:text-theme-blue-1 hidden fa-solid fa-check"></i>
@@ -443,7 +443,7 @@ function DetailPage({params}: any) {
                                     </div>
                                     : ( webFont === "link"
                                         ? <div className="w-full relative pl-6 tmd:pl-4 pr-[60px] overflow-hidden">
-                                            <div className="cdn_pre w-full h-[60px] tmd:h-12 flex flex-row justify-start items-center overflow-x-auto"><pre className="font-sans text-sm tmd:text-xs text-theme-9">{font.cdn_link}</pre></div>
+                                            <div className="cdn-pre no-scrollbar w-full h-[60px] tmd:h-12 flex flex-row justify-start items-center overflow-x-auto"><pre className="font-sans text-sm tmd:text-xs text-theme-9">{font.cdn_link}</pre></div>
                                             <div className="absolute z-10 right-4 tmd:right-[12px] top-1/2 -translate-y-1/2 cursor-pointer">
                                                 <i onClick={copyOnClick} className="copy_btn text-base px-2 py-1 rounded-md hover:bg-theme-yellow/10 tlg:hover:bg-transparent hover:dark:bg-theme-blue-1/10 tlg:hover:dark-bg-transparent text-theme-yellow dark:text-theme-blue-1 fa-regular fa-copy"></i>
                                                 <i className="copy_chk_btn text-base px-2 py-1 rounded-md bg-theme-yellow/10 dark:bg-theme-blue-1/10 text-theme-yellow dark:text-theme-blue-1 hidden fa-solid fa-check"></i>
@@ -451,14 +451,14 @@ function DetailPage({params}: any) {
                                         </div>
                                         : ( webFont === "import"
                                             ? <div className="w-full relative pl-6 tmd:pl-4 pr-[60px] overflow-hidden">
-                                                <div className="cdn_pre w-full h-[60px] tmd:h-12 flex flex-row justify-start items-center overflow-x-auto"><pre className="font-sans text-sm tmd:text-xs text-theme-9">{font.cdn_import}</pre></div>
+                                                <div className="cdn-pre no-scrollbar w-full h-[60px] tmd:h-12 flex flex-row justify-start items-center overflow-x-auto"><pre className="font-sans text-sm tmd:text-xs text-theme-9">{font.cdn_import}</pre></div>
                                                 <div className="absolute z-10 right-4 tmd:right-3 top-1/2 -translate-y-1/2 cursor-pointer">
                                                     <i onClick={copyOnClick} className="copy_btn text-base px-2 py-1 rounded-md hover:bg-theme-yellow/10 tlg:hover:bg-transparent hover:dark:bg-theme-blue-1/10 tlg:hover:dark-bg-transparent text-theme-yellow dark:text-theme-blue-1 fa-regular fa-copy"></i>
                                                     <i className="copy_chk_btn text-base px-2 py-1 rounded-md bg-theme-yellow/10 dark:bg-theme-blue-1/10 text-theme-yellow dark:text-theme-blue-1 hidden fa-solid fa-check"></i>
                                                 </div>
                                             </div>
                                             : <div className="w-full relative pl-6 tmd:pl-4 pr-[60px] overflow-hidden">
-                                                <div className="cdn_pre w-full h-[auto] py-5 tmd:py-[15px] flex flex-row justify-start items-center overflow-auto whitespace-nowrap"><pre id="cdn-font-face" style={{tabSize: 8}} className="font-sans font-face text-sm tmd:text-xs text-theme-9">{font.cdn_font_face}</pre></div>
+                                                <div className="cdn-pre no-scrollbar w-full h-[auto] py-5 tmd:py-[15px] flex flex-row justify-start items-center overflow-auto whitespace-nowrap"><pre id="cdn-font-face" style={{tabSize: 8}} className="font-sans font-face text-sm tmd:text-xs text-theme-9">{font.cdn_font_face}</pre></div>
                                                 <div className="absolute z-10 right-4 tmd:right-3 top-[30px] tmd:top-6 -translate-y-1/2 cursor-pointer">
                                                     <i onClick={copyOnClick} className="copy_btn text-base px-2 py-1 rounded-md hover:bg-theme-yellow/10 tlg:hover:bg-transparent hover:dark:bg-theme-blue-1/10 tlg:hover:dark-bg-transparent text-theme-yellow dark:text-theme-blue-1 fa-regular fa-copy"></i>
                                                     <i className="copy_chk_btn text-base px-2 py-1 rounded-md bg-theme-yellow/10 dark:bg-theme-blue-1/10 text-theme-yellow dark:text-theme-blue-1 hidden fa-solid fa-check"></i>
@@ -476,7 +476,7 @@ function DetailPage({params}: any) {
                     <div className="w-full px-4 py-2 mb-4 border-b border-theme-7 dark:border-theme-5">
                         <textarea onChange={handleFontWeightChange} onInput={handleHeightChange} placeholder="원하는 문구를 적어보세요..." className="w-full h-[18px] resize-none text-sm text-theme-5 dark:text-theme-8 placeholder-theme-5 dark:placeholder-theme-6 leading-tight bg-transparent"/>
                     </div>
-                    <div className="font-preview-wrap max-w-full rounded-lg pt-7 bg-theme-3 dark:bg-theme-blue-2">
+                    <div className="max-w-full rounded-lg pt-7 bg-theme-3 dark:bg-theme-blue-2">
                         <div className="w-full px-5 flex flex-row flex-wrap justify-start items-center">
                             <div className="flex flex-col justify-center items-start mr-[40px] mb-4">
                                 <div className="flex items-center mb-2">
@@ -568,7 +568,7 @@ function DetailPage({params}: any) {
                                         <label htmlFor="text-color-picker" ref={textColorPickerBtn} className="w-7 h-7 rounded-md relative group flex flex-col justify-center items-center cursor-pointer bg-theme-yellow/80 hover:bg-theme-yellow tlg:hover:bg-theme-yellow/80 dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1/80 hover:drop-shadow-dark tlg:hover:drop-shadow-none">
                                             <i className="text-sm text-theme-3 dark:text-theme-blue-2 fa-solid fa-a"></i>
                                             <div style={{background: textColor.hex}} className="w-4 h-0.5 mb-0.5"></div>
-                                            <div className="same-source w-max absolute left-1/2 -top-11 text-sm font-medium leading-none px-3 py-2 origin-bottom rounded-md hidden group-hover:block tlg:group-hover:hidden group-hover:animate-zoom-in-fontbox bg-theme-yellow dark:bg-theme-blue-1 text-theme-3 dark:text-theme-blue-2 selection:bg-transparent">폰트색 변경</div>
+                                            <div className="tooltip after:bg-theme-yellow after:dark:bg-theme-blue-1 w-max absolute left-1/2 -top-11 text-sm font-medium leading-none px-3 py-2 origin-bottom rounded-md hidden group-hover:block tlg:group-hover:hidden group-hover:animate-zoom-in-fontbox bg-theme-yellow dark:bg-theme-blue-1 text-theme-3 dark:text-theme-blue-2 selection:bg-transparent">폰트색 변경</div>
                                         </label>
                                         <div ref={textColorPicker} className="drop-shadow-dark absolute left-0 -top-2 -translate-y-full">
                                             {
@@ -582,7 +582,7 @@ function DetailPage({params}: any) {
                                         <label htmlFor="bg-color-picker" ref={bgColorPickerBtn} className="w-7 h-7 rounded-md relative group flex flex-col justify-center items-center cursor-pointer bg-theme-yellow/80 hover:bg-theme-yellow tlg:hover:bg-theme-yellow/80 dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1/80 hover:drop-shadow-dark tlg:hover:drop-shadow-none">
                                             <i className="text-sm text-theme-3 dark:text-theme-blue-2 fa-solid fa-fill"></i>
                                             <div style={{background: bgColor.hex}} className="w-4 h-0.5 mb-0.5"></div>
-                                            <div className="same-source w-max absolute left-1/2 -top-11 text-sm font-medium leading-none px-3 py-2 origin-bottom rounded-md hidden group-hover:block tlg:group-hover:hidden group-hover:animate-zoom-in-fontbox bg-theme-yellow dark:bg-theme-blue-1 text-theme-3 dark:text-theme-blue-2 selection:bg-transparent">배경색 변경</div>
+                                            <div className="tooltip after:bg-theme-yellow after:dark:bg-theme-blue-1 w-max absolute left-1/2 -top-11 text-sm font-medium leading-none px-3 py-2 origin-bottom rounded-md hidden group-hover:block tlg:group-hover:hidden group-hover:animate-zoom-in-fontbox bg-theme-yellow dark:bg-theme-blue-1 text-theme-3 dark:text-theme-blue-2 selection:bg-transparent">배경색 변경</div>
                                         </label>
                                         <div ref={bgColorPicker} className="drop-shadow-dark absolute left-0 -top-2 -translate-y-full">
                                             {
@@ -593,7 +593,7 @@ function DetailPage({params}: any) {
                                     </div>
                                     <button onClick={resetColorPicker} className="w-7 h-7 rounded-md relative z-20 group flex flex-col justify-center items-center bg-theme-yellow/80 hover:bg-theme-yellow tlg:hover:bg-theme-yellow/80 dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1/80 hover:drop-shadow-dark tlg:hover:drop-shadow-none">
                                         <i className="text-sm group-hover:rotate-45 tlg:group-hover:rotate-0 duration-100 fa-solid fa-rotate"></i>
-                                        <div className="same-source w-max absolute left-1/2 -top-11 text-sm font-medium leading-none px-3 py-2 origin-bottom rounded-md hidden group-hover:block tlg:group-hover:hidden group-hover:animate-zoom-in-fontbox bg-theme-yellow dark:bg-theme-blue-1 text-theme-3 dark:text-theme-blue-2 selection:bg-transparent">컬러 리셋하기</div>
+                                        <div className="tooltip after:bg-theme-yellow after:dark:bg-theme-blue-1 w-max absolute left-1/2 -top-11 text-sm font-medium leading-none px-3 py-2 origin-bottom rounded-md hidden group-hover:block tlg:group-hover:hidden group-hover:animate-zoom-in-fontbox bg-theme-yellow dark:bg-theme-blue-1 text-theme-3 dark:text-theme-blue-2 selection:bg-transparent">컬러 리셋하기</div>
                                     </button>
                                 </div>
                             </div>
@@ -603,7 +603,7 @@ function DetailPage({params}: any) {
                                 font.font_weight[0] === "Y"
                                 ? <>
                                     <div style={{color: textColor.hex, opacity: "0.8"}} className="text-xs leading-none mb-3">Thin 100</div>
-                                    <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"100", color: textColor.hex}} className="font-preview w-full pb-4 tlg:pb-3.5 mb-5 tlg:mb-4"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
+                                    <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"100", color: textColor.hex}} className="w-full pb-4 tlg:pb-3.5 mb-5 tlg:mb-4 last:mb-0"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
                                 </>
                                 : <></>
                             }
@@ -611,7 +611,7 @@ function DetailPage({params}: any) {
                                 font.font_weight[1] === "Y"
                                 ? <>
                                     <div style={{color: textColor.hex, opacity: "0.8"}} className="text-xs leading-none mb-3">ExtraLight 200</div>
-                                    <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"200", color: textColor.hex}} className="font-preview w-full pb-4 tlg:pb-3.5 mb-5 tlg:mb-4"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
+                                    <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"200", color: textColor.hex}} className="w-full pb-4 tlg:pb-3.5 mb-5 tlg:mb-4 last:mb-0"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
                                 </>
                                 : <></>
                             }
@@ -619,7 +619,7 @@ function DetailPage({params}: any) {
                                 font.font_weight[2] === "Y"
                                 ? <>
                                     <div style={{color: textColor.hex, opacity: "0.8"}} className="text-xs leading-none mb-3">Light 300</div>
-                                    <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"300", color: textColor.hex}} className="font-preview w-full pb-4 tlg:pb-3.5 mb-5 tlg:mb-4"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
+                                    <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"300", color: textColor.hex}} className="w-full pb-4 tlg:pb-3.5 mb-5 tlg:mb-4 last:mb-0"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
                                 </>
                                 : <></>
                             }
@@ -627,7 +627,7 @@ function DetailPage({params}: any) {
                                 font.font_weight[3] === "Y"
                                 ? <>
                                     <div style={{color: textColor.hex, opacity: "0.8"}} className="text-xs leading-none mb-3">Regular 400</div>
-                                    <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"400", color: textColor.hex}} className="font-preview w-full pb-4 tlg:pb-3.5 mb-5 tlg:mb-4"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
+                                    <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"400", color: textColor.hex}} className="w-full pb-4 tlg:pb-3.5 mb-5 tlg:mb-4 last:mb-0"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
                                 </>
                                 : <></>
                             }
@@ -635,7 +635,7 @@ function DetailPage({params}: any) {
                                 font.font_weight[4] === "Y"
                                 ? <>
                                     <div style={{color: textColor.hex, opacity: "0.8"}} className="text-xs leading-none mb-3">Medium 500</div>
-                                    <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"500", color: textColor.hex}} className="font-preview w-full pb-4 tlg:pb-3.5 mb-5 tlg:mb-4"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
+                                    <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"500", color: textColor.hex}} className="w-full pb-4 tlg:pb-3.5 mb-5 tlg:mb-4 last:mb-0"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
                                 </>
                                 : <></>
                             }
@@ -643,7 +643,7 @@ function DetailPage({params}: any) {
                                 font.font_weight[5] === "Y"
                                 ? <>
                                     <div style={{color: textColor.hex, opacity: "0.8"}} className="text-xs leading-none mb-3">SemiBold 600</div>
-                                    <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"600", color: textColor.hex}} className="font-preview w-full pb-4 tlg:pb-3.5 mb-5 tlg:mb-4"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
+                                    <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"600", color: textColor.hex}} className="w-full pb-4 tlg:pb-3.5 mb-5 tlg:mb-4 last:mb-0"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
                                 </>
                                 : <></>
                             }
@@ -651,7 +651,7 @@ function DetailPage({params}: any) {
                                 font.font_weight[6] === "Y"
                                 ? <>
                                     <div style={{color: textColor.hex, opacity: "0.8"}} className="text-xs leading-none mb-3">Bold 700</div>
-                                    <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"700", color: textColor.hex}} className="font-preview w-full pb-4 tlg:pb-3.5 mb-5 tlg:mb-4"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
+                                    <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"700", color: textColor.hex}} className="w-full pb-4 tlg:pb-3.5 mb-5 tlg:mb-4 last:mb-0"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
                                 </>
                                 : <></>
                             }
@@ -659,7 +659,7 @@ function DetailPage({params}: any) {
                                 font.font_weight[7] === "Y"
                                 ? <>
                                     <div style={{color: textColor.hex, opacity: "0.8"}} className="text-xs leading-none mb-3">Heavy 800</div>
-                                    <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"800", color: textColor.hex}} className="font-preview w-full pb-4 tlg:pb-3.5 mb-5 tlg:mb-4"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
+                                    <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"800", color: textColor.hex}} className="w-full pb-4 tlg:pb-3.5 mb-5 tlg:mb-4 last:mb-0"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
                                 </>
                                 : <></>
                             }
@@ -667,7 +667,7 @@ function DetailPage({params}: any) {
                                 font.font_weight[8] === "Y"
                                 ? <>
                                     <div style={{color: textColor.hex, opacity: "0.8"}} className="text-xs leading-none mb-3">Black 900</div>
-                                    <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"900", color: textColor.hex}} className="font-preview w-full pb-4 tlg:pb-3.5 mb-5 tlg:mb-4"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
+                                    <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"900", color: textColor.hex}} className="w-full pb-4 tlg:pb-3.5 mb-5 tlg:mb-4 last:mb-0"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
                                 </>
                                 : <></>
                             }
@@ -681,25 +681,25 @@ function DetailPage({params}: any) {
                             <div className="tlg:w-full tlg:mb-4 border border-theme-7 dark:border-theme-5">
                                 <div className="w-[670px] tlg:w-full px-5 text-sm">
                                     <div className="w-full h-14 flex items-center text-theme-3 dark:text-theme-9 font-medium">
-                                        <div className="w-28 shrink-0 text-center">카테고리</div>
+                                        <div className="w-28 tlg:w-24 shrink-0 text-center">카테고리</div>
                                         <div className="w-full">사용 범위</div>
-                                        <div className="w-24 shrink-0 text-center">허용 여부</div>
+                                        <div className="w-24 tlg:w-20 shrink-0 text-center">허용 여부</div>
                                     </div>
                                     <div className="w-full h-px bg-theme-7 dark:bg-theme-5"></div>
                                     <div className="w-full text-theme-4 dark:text-theme-8">
                                         <div className="w-full h-[72px] flex items-center border-b border-theme-7 dark:border-theme-5">
-                                            <div className="w-28 shrink-0 flex flex-col justify-center items-center">
+                                            <div className="w-28 tlg:w-24 shrink-0 flex flex-col justify-center items-center">
                                                 <i className="text-lg mb-0.5 fa-solid fa-print"></i>
                                                 <div>인쇄물</div>
                                             </div>
                                             <div className="w-full">
                                                 {
                                                     font.license_print === "Y"
-                                                    ? <span className="font-size">브로슈어, 카탈로그, 전단지, 책, 신문 등 출판용 인쇄물</span>
-                                                    : <span className="font-size text-theme-red/80 line-through">브로슈어, 포스터, 책, 잡지, 간판 등 출판용 인쇄물</span>
+                                                    ? <span className="ellipsed-text">브로슈어, 카탈로그, 전단지, 책, 신문 등 출판용 인쇄물</span>
+                                                    : <span className="ellipsed-text text-theme-red/80 line-through">브로슈어, 포스터, 책, 잡지, 간판 등 출판용 인쇄물</span>
                                                 }
                                             </div>
-                                            <div className="w-24 shrink-0 flex justify-center">
+                                            <div className="w-24 tlg:w-20 shrink-0 flex justify-center">
                                                 {
                                                     font.license_print === "Y"
                                                     ? <i className="text-sm fa-regular fa-circle"></i>
@@ -714,18 +714,18 @@ function DetailPage({params}: any) {
                                             </div>
                                         </div>
                                         <div className="w-full h-[72px] flex items-center border-b border-theme-7 dark:border-theme-5">
-                                            <div className="w-28 shrink-0 flex flex-col justify-center items-center">
+                                            <div className="w-28 tlg:w-24 shrink-0 flex flex-col justify-center items-center">
                                                 <i className="text-lg fa-solid fa-laptop"></i>
                                                 <div>웹 서비스</div>
                                             </div>
                                             <div className="w-full">
                                                 {
                                                     font.license_web === "Y"
-                                                    ? <span className="font-size">웹페이지, 광고 배너, 메일, E-브로슈어, 웹서버용 폰트 등</span>
-                                                    : <span className="font-size text-theme-red/80 line-through">웹페이지, 광고 배너, 메일, E-브로슈어, 웹서버용 폰트 등</span>
+                                                    ? <span className="ellipsed-text">웹페이지, 광고 배너, 메일, E-브로슈어, 웹서버용 폰트 등</span>
+                                                    : <span className="ellipsed-text text-theme-red/80 line-through">웹페이지, 광고 배너, 메일, E-브로슈어, 웹서버용 폰트 등</span>
                                                 }
                                             </div>
-                                            <div className="w-24 shrink-0 flex justify-center">
+                                            <div className="w-24 tlg:w-20 shrink-0 flex justify-center">
                                                 {
                                                     font.license_web === "Y"
                                                     ? <i className="text-sm fa-regular fa-circle"></i>
@@ -740,18 +740,18 @@ function DetailPage({params}: any) {
                                             </div>
                                         </div>
                                         <div className="w-full h-[72px] flex items-center border-b border-theme-7 dark:border-theme-5">
-                                            <div className="w-28 shrink-0 flex flex-col justify-center items-center">
+                                            <div className="w-28 tlg:w-24 shrink-0 flex flex-col justify-center items-center">
                                                 <i className="text-lg fa-solid fa-film"></i>
                                                 <div>영상물</div>
                                             </div>
                                             <div className="w-full">
                                                 {
                                                     font.license_video === "Y"
-                                                    ? <span className="font-size">방송 및 영상물 자막, 영상 광고, 영화 오프닝/엔딩크레딧 자막 등</span>
-                                                    : <span className="font-size text-theme-red/80 line-through">방송 및 영상물 자막, 영상 광고, 영화 오프닝/엔딩크레딧 자막 등</span>
+                                                    ? <span className="ellipsed-text">방송 및 영상물 자막, 영상 광고, 영화 오프닝/엔딩크레딧 자막 등</span>
+                                                    : <span className="ellipsed-text text-theme-red/80 line-through">방송 및 영상물 자막, 영상 광고, 영화 오프닝/엔딩크레딧 자막 등</span>
                                                 }
                                             </div>
-                                            <div className="w-24 shrink-0 flex justify-center">
+                                            <div className="w-24 tlg:w-20 shrink-0 flex justify-center">
                                                 {
                                                     font.license_video === "Y"
                                                     ? <i className="text-sm fa-regular fa-circle"></i>
@@ -766,18 +766,18 @@ function DetailPage({params}: any) {
                                             </div>
                                         </div>
                                         <div className="w-full h-[72px] flex items-center border-b border-theme-7 dark:border-theme-5">
-                                            <div className="w-28 shrink-0 flex flex-col justify-center items-center">
+                                            <div className="w-28 tlg:w-24 shrink-0 flex flex-col justify-center items-center">
                                                 <i className="text-lg fa-solid fa-cube"></i>
                                                 <div>포장지</div>
                                             </div>
                                             <div className="w-full">
                                                 {
                                                     font.license_package === "Y"
-                                                    ? <span className="font-size">판매용 상품의 패키지</span>
-                                                    : <span className="font-size text-theme-red/80 line-through">판매용 상품의 패키지</span>
+                                                    ? <span className="ellipsed-text">판매용 상품의 패키지</span>
+                                                    : <span className="ellipsed-text text-theme-red/80 line-through">판매용 상품의 패키지</span>
                                                 }
                                             </div>
-                                            <div className="w-24 shrink-0 flex justify-center">
+                                            <div className="w-24 tlg:w-20 shrink-0 flex justify-center">
                                                 {
                                                     font.license_package === "Y"
                                                     ? <i className="text-sm fa-regular fa-circle"></i>
@@ -792,18 +792,18 @@ function DetailPage({params}: any) {
                                             </div>
                                         </div>
                                         <div className="w-full h-[72px] flex items-center border-b border-theme-7 dark:border-theme-5">
-                                            <div className="w-28 shrink-0 flex flex-col justify-center items-center">
+                                            <div className="w-28 tlg:w-24 shrink-0 flex flex-col justify-center items-center">
                                                 <i className="text-lg mb-0.5 fa-solid fa-code"></i>
                                                 <div>임베딩</div>
                                             </div>
                                             <div className="w-full">
                                                 {
                                                     font.license_embed === "Y"
-                                                    ? <span className="font-size">웹사이트 및 프로그램 서버 내 폰트 탑재, E-book 제작</span>
-                                                    : <span className="font-size text-theme-red/80 line-through">웹사이트 및 프로그램 서버 내 폰트 탑재, E-book 제작</span>
+                                                    ? <span className="ellipsed-text">웹사이트 및 프로그램 서버 내 폰트 탑재, E-book 제작</span>
+                                                    : <span className="ellipsed-text text-theme-red/80 line-through">웹사이트 및 프로그램 서버 내 폰트 탑재, E-book 제작</span>
                                                 }
                                             </div>
-                                            <div className="w-24 shrink-0 flex justify-center">
+                                            <div className="w-24 tlg:w-20 shrink-0 flex justify-center">
                                                 {
                                                     font.license_embed === "Y"
                                                     ? <i className="text-sm fa-regular fa-circle"></i>
@@ -818,18 +818,18 @@ function DetailPage({params}: any) {
                                             </div>
                                         </div>
                                         <div className="w-full h-[72px] flex items-center border-b border-theme-7 dark:border-theme-5">
-                                            <div className="w-28 shrink-0 flex flex-col justify-center items-center">
+                                            <div className="w-28 tlg:w-24 shrink-0 flex flex-col justify-center items-center">
                                                 <i className="text-lg fa-regular fa-building"></i>
                                                 <div>BI/CI</div>
                                             </div>
                                             <div className="w-full">
                                                 {
                                                     font.license_bici === "Y"
-                                                    ? <span className="font-size">회사명, 브랜드명, 상품명, 로고, 마크, 슬로건, 캐치프레이즈</span>
-                                                    : <span className="font-size text-theme-red/80 line-through">회사명, 브랜드명, 상품명, 로고, 마크, 슬로건, 캐치프레이즈</span>
+                                                    ? <span className="ellipsed-text">회사명, 브랜드명, 상품명, 로고, 마크, 슬로건, 캐치프레이즈</span>
+                                                    : <span className="ellipsed-text text-theme-red/80 line-through">회사명, 브랜드명, 상품명, 로고, 마크, 슬로건, 캐치프레이즈</span>
                                                 }
                                             </div>
-                                            <div className="w-24 shrink-0 flex justify-center">
+                                            <div className="w-24 tlg:w-20 shrink-0 flex justify-center">
                                                 {
                                                     font.license_bici === "Y"
                                                     ? <i className="text-sm fa-regular fa-circle"></i>
@@ -844,18 +844,18 @@ function DetailPage({params}: any) {
                                             </div>
                                         </div>
                                         <div className="w-full h-[72px] flex items-center border-b border-theme-7 dark:border-theme-5">
-                                            <div className="w-28 shrink-0 flex flex-col justify-center items-center">
+                                            <div className="w-28 tlg:w-24 shrink-0 flex flex-col justify-center items-center">
                                                 <i className="text-lg fa-solid fa-lock-open"></i>
                                                 <div>OFL</div>
                                             </div>
                                             <div className="w-full">
                                                 {
                                                     font.license_ofl === "Y"
-                                                    ? <span className="font-size">폰트 파일의 수정, 편집 및 재배포 가능. 폰트 파일의 유료 판매는 금지</span>
-                                                    : <span className="font-size text-theme-red/80 line-through">폰트 파일의 수정, 편집 재배포 및 유료 판매 금지</span>
+                                                    ? <span className="ellipsed-text">폰트 파일의 수정, 편집 및 재배포 가능. 폰트 파일의 유료 판매는 금지</span>
+                                                    : <span className="ellipsed-text text-theme-red/80 line-through">폰트 파일의 수정, 편집 재배포 및 유료 판매 금지</span>
                                                 }
                                             </div>
-                                            <div className="w-24 shrink-0 flex justify-center">
+                                            <div className="w-24 tlg:w-20 shrink-0 flex justify-center">
                                                 {
                                                     font.license_ofl === "Y"
                                                     ? <i className="text-sm fa-regular fa-circle"></i>
@@ -864,18 +864,18 @@ function DetailPage({params}: any) {
                                             </div>
                                         </div>
                                         <div className="w-full h-[72px] flex items-center border-b border-theme-7 dark:border-theme-5">
-                                            <div className="w-28 shrink-0 flex flex-col justify-center items-center">
+                                            <div className="w-28 tlg:w-24 shrink-0 flex flex-col justify-center items-center">
                                                 <i className="text-lg fa-solid fa-user-check"></i>
                                                 <div>용도</div>
                                             </div>
                                             <div className="w-full">
                                                 {
                                                     font.license_purpose === "Y"
-                                                    ? <span className="font-size">개인적, 상업적 용도 모두 사용 가능</span>
-                                                    : <span className="font-size text-theme-red/80 line-through">개인적 용도 사용 가능, 상업적 용도 사용 금지</span>
+                                                    ? <span className="ellipsed-text">개인적, 상업적 용도 모두 사용 가능</span>
+                                                    : <span className="ellipsed-text text-theme-red/80 line-through">개인적 용도 사용 가능, 상업적 용도 사용 금지</span>
                                                 }
                                             </div>
-                                            <div className="w-24 shrink-0 flex justify-center">
+                                            <div className="w-24 tlg:w-20 shrink-0 flex justify-center">
                                                 {
                                                     font.license_purpose === "Y"
                                                     ? <i className="text-sm fa-regular fa-circle"></i>
@@ -884,12 +884,12 @@ function DetailPage({params}: any) {
                                             </div>
                                         </div>
                                         <div className="w-full h-[72px] flex items-center">
-                                            <div className="w-28 shrink-0 flex flex-col justify-center items-center">
+                                            <div className="w-28 tlg:w-24 shrink-0 flex flex-col justify-center items-center">
                                                 <i className="text-lg fa-solid fa-share-nodes"></i>
                                                 <div>출처</div>
                                             </div>
                                             <div className="w-full">출처 표시</div>
-                                            <div className="w-24 shrink-0 flex justify-center">
+                                            <div className="w-24 tlg:w-20 shrink-0 flex justify-center">
                                                 {
                                                     font.license_source === "Y"
                                                     ? <i className="text-sm fa-regular fa-circle"></i>

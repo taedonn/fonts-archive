@@ -195,7 +195,7 @@ export default function FontBox ({license, lang, type, sort, user, like, filter,
                                                 <i className="block peer-checked:group-[]:hidden text-[1.25vw] tlg:text-[2.34vw] tmd:text-[3.13vw] txs:text-[5vw] text-theme-4 dark:text-theme-7 fa-regular fa-heart"></i>
                                                 <i className="hidden peer-checked:group-[]:block text-[1.25vw] tlg:text-[2.34vw] tmd:text-[3.13vw] txs:text-[5vw] text-theme-red fa-solid fa-heart"></i>
                                             </label>
-                                            <div className={`${hoverDisplay === true ? 'group-hover:block' : 'group-hover:hidden'} like-btn w-max absolute z-20 left-1/2 top-[-2.4vw] text-[0.73vw] font-medium leading-none px-[0.63vw] py-[0.42vw] origin-bottom rounded-[0.21vw] hidden tlg:group-hover:hidden group-hover:animate-zoom-in-fontbox bg-theme-red text-theme-2 after:w-[0.42vw] after:h-[0.42vw] after:bottom-[-0.21vw]`}>{like === null || like.some((likedFont: any) => likedFont.font_id === font.code) === false ? '좋아요' : '좋아요 해제'}</div>
+                                            <div className={`${hoverDisplay === true ? 'group-hover:block' : 'group-hover:hidden'} tooltip after:bg-theme-red w-max absolute z-20 left-1/2 top-[-2.4vw] text-[0.73vw] font-medium leading-none px-[0.63vw] py-[0.42vw] origin-bottom rounded-[0.21vw] hidden tlg:group-hover:hidden group-hover:animate-zoom-in-fontbox bg-theme-red text-theme-2 after:w-[0.42vw] after:h-[0.42vw] after:bottom-[-0.21vw]`}>{like === null || like.some((likedFont: any) => likedFont.font_id === font.code) === false ? '좋아요' : '좋아요 해제'}</div>
                                         </div>
                                         <div style={{fontFamily:"'"+font.font_family+"'"}} className="text-[1.04vw] tlg:text-[1.95vw] tmd:text-[2.6vw] txs:text-[4.17vw] mb-[0.42vw] tlg:mb-[0.78vw] tmd:mb-[1.04vw] txs:mb-[1.67vw] text-normal leading-tight text-theme-3 dark:text-theme-8">{font.name}</div>
                                         <div className="flex flex-row justify-start items-center">
@@ -203,7 +203,7 @@ export default function FontBox ({license, lang, type, sort, user, like, filter,
                                         </div>
                                         <div className="w-full h-px my-[0.83vw] tlg:my-[1.56vw] tmd:my-[2.08vw] txs:my-[3.33vw] bg-theme-7 dark:bg-theme-5"></div>
                                         <div style={{fontFamily:"'"+font.font_family+"'"}} className="text-[1.67vw] tlg:text-[3.52vw] tmd:text-[4.69vw] txs:text-[7.5vw] text-normal leading-normal overflow-hidden">
-                                            <p className={`${font.code + '-text'} textbox ellipsed-text text-theme-3/60 dark:text-theme-8/60`}><DummyText lang={font.lang} text={text} num={num}/></p>
+                                            <p className={`${font.code + '-text'} textbox ellipsed-text-3 text-theme-3/60 dark:text-theme-8/60`}><DummyText lang={font.lang} text={text} num={num}/></p>
                                         </div>
                                     </div>
                                 ))}
@@ -220,7 +220,7 @@ export default function FontBox ({license, lang, type, sort, user, like, filter,
                     {/* 로딩 스켈레톤 */}
                     {
                         isLoading 
-                        ? <div className='w-full flex flex-wrap flex-row justify-between items-start'>
+                        ? <div className='w-full gap-2.5 tlg:gap-2 mt-3 tlg:mt-2.5 flex flex-wrap justify-between items-start'>
                             <SkeletonBox/>
                             <SkeletonBox/>
                             <SkeletonBox/>
@@ -271,7 +271,7 @@ export default function FontBox ({license, lang, type, sort, user, like, filter,
                     <span className="w-full" ref={ref}></span>
 
                     {/* 로딩 바 */}
-                    {hasNextPage ? <div className="w-full py-[20px] absolute left-0 bottom-[-76px] flex flex-row justify-center items-center"><span className="loader w-[36px] h-[36px]"></span></div> : null}
+                    {hasNextPage ? <div className="w-full py-5 absolute left-0 -bottom-16 flex flex-row justify-center items-center"><span className="loader border-2 border-theme-8 border-b-theme-6 dark:border-theme-5 dark:border-b-theme-10 w-9 h-9"></span></div> : null}
                 </div>
             </div>
         </>

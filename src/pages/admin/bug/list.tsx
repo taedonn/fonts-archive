@@ -131,8 +131,8 @@ const BugList = ({params}: any) => {
                                                     <div key={issue.issue_id} className='h-10 tlg:h-9 relative flex items-center border-t border-theme-5 dark:border-theme-3 hover:bg-theme-yellow/20 tlg:hover:bg-transparent hover:dark:bg-theme-blue-1/20 tlg:hover:dark:bg-transparent cursor-pointer'>
                                                         <Link href={`/admin/bug/${issue.issue_id}`} className='w-full h-full absolute z-10 left-0 top-0'></Link>
                                                         <div className='w-12 pl-4 py-2.5 shrink-0'>{issue.issue_id}</div>
-                                                        <div className='w-[120px] pl-4 py-2.5 shrink-0'><div className='font-size'>{issue.issue_title}</div></div>
-                                                        <div className='w-full pl-4 py-2.5 overflow-hidden'><div className='font-size'>{issue.issue_email}</div></div>
+                                                        <div className='w-[120px] pl-4 py-2.5 shrink-0'><div className='ellipsed-text'>{issue.issue_title}</div></div>
+                                                        <div className='w-full pl-4 py-2.5 overflow-hidden'><div className='ellipsed-text'>{issue.issue_email}</div></div>
                                                         <div className='w-28 pl-4 py-2.5 shrink-0'>{timeFormat(issue.issue_created_at)}</div>
                                                         <div className='w-28 pl-4 py-2.5 shrink-0'>{timeFormat(issue.issue_closed_at)}</div>
                                                         <div className='w-[88px] pl-4 py-2.5 shrink-0'>

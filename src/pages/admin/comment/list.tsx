@@ -174,9 +174,9 @@ const CommentList = ({params}: any) => {
                                                 return (
                                                     <tr key={comment.comment_id} className='border-t border-theme-5 dark:border-theme-3'>
                                                         <td className='h-10 tlg:h-9 pl-4 py-2.5'>{comment.comment_id}</td>
-                                                        <td className='pl-4 py-2.5 break-keep'><Link href={`/post/${comment.font_family.replaceAll(" ", "+")}`} className='font-size text-theme-yellow dark:text-theme-blue-1 focus:underline hover:underline tlg:hover:no-underline'>{comment.font_name}</Link></td>
-                                                        <td className='pl-4 py-2.5 break-keep'><Link href={`/admin/user/${comment.user_id}`} className='font-size focus:underline hover:underline tlg:hover:no-underline'>{comment.user_name}</Link></td>
-                                                        <td className='pl-4 py-2.5 break-keep'><Link href={`/post/${comment.font_family.replaceAll(" ", "+")}#c${comment.comment_id}`} className='font-size focus:underline hover:underline tlg:hover:no-underline'>{comment.comment}</Link></td>
+                                                        <td className='pl-4 py-2.5 break-keep'><Link href={`/post/${comment.font_family.replaceAll(" ", "+")}`} className='ellipsed-text text-theme-yellow dark:text-theme-blue-1 focus:underline hover:underline tlg:hover:no-underline'>{comment.font_name}</Link></td>
+                                                        <td className='pl-4 py-2.5 break-keep'><Link href={`/admin/user/${comment.user_id}`} className='ellipsed-text focus:underline hover:underline tlg:hover:no-underline'>{comment.user_name}</Link></td>
+                                                        <td className='pl-4 py-2.5 break-keep'><Link href={`/post/${comment.font_family.replaceAll(" ", "+")}#c${comment.comment_id}`} className='ellipsed-text focus:underline hover:underline tlg:hover:no-underline'>{comment.comment}</Link></td>
                                                         <td className='pl-4 py-2.5'>{timeFormat(comment.updated_at)}</td>
                                                         <td className='pl-4 py-2.5'>{timeFormat(comment.created_at)}</td>
                                                         <td className='py-2.5 relative'>

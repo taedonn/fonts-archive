@@ -42,6 +42,14 @@ module.exports = {
                 "fade-in": "fade-in 0.2s 1 both",
                 "fade-in-fontbox": "fade-in-fontbox 0.4s 1 both",
                 "fade-in-account": "fade-in-fontbox 0.2s 1 both",
+                "skeleton-anim": "skeleton-anim 2s infinite"
+            },
+            backgroundImage: {
+                "gradient": "linear-gradient(90deg, #CDCED2, #B1B2B6, #CDCED2)",
+                "gradient-dark": "linear-gradient(90deg, #35363A, #4C4D50, #35363A)"
+            },
+            backgroundSize: {
+                "gradient-size": "200% 100%"
             },
             keyframes: {
                 "zoom-in": {
@@ -60,6 +68,10 @@ module.exports = {
                     "0%": { opacity: "0", transform: "translateY(12px)" },
                     "100%": { opacity: "1", transform: "translateY(0)" }
                 },
+                "skeleton-anim": {
+                    "0%": { backgroundPosition: "200% center" },
+                    "100%": { backgroundPosition: "0% center" }
+                }
             },
             dropShadow: {
                 "default": "1px 2px 4px #97989C",

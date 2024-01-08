@@ -131,8 +131,8 @@ const UserList = ({params}: any) => {
                                                 return (
                                                     <div key={user.code} className='h-10 tlg:h-9 relative flex items-center border-t border-theme-5 dark:border-theme-3'>
                                                         <div className='w-[52px] pl-3 shrink-0'>{user.user_no}</div>
-                                                        <div className='w-20 pl-3 shrink-0'><Link href={`/admin/user/${user.user_no}`} className='font-size text-theme-yellow dark:text-theme-blue-1 focus:underline hover:underline tlg:hover:no-underline'>{user.user_name}</Link></div>
-                                                        <div className='w-full pl-3 overflow-hidden'><div className='font-size'>{user.user_id}</div></div>
+                                                        <div className='w-20 pl-3 shrink-0'><Link href={`/admin/user/${user.user_no}`} className='ellipsed-text text-theme-yellow dark:text-theme-blue-1 focus:underline hover:underline tlg:hover:no-underline'>{user.user_name}</Link></div>
+                                                        <div className='w-full pl-3 overflow-hidden'><div className='ellipsed-text'>{user.user_id}</div></div>
                                                         <div className='w-[100px] pl-3 shrink-0'>{timeFormat(user.updated_at)}</div>
                                                         <div className='w-[100px] pl-3 shrink-0'>{timeFormat(user.created_at)}</div>
                                                         <div className='w-20 shrink-0 text-center'>{user.nickname_reported}</div>
