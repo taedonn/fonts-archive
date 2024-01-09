@@ -15,8 +15,8 @@ import { debounce } from "lodash";
 // components
 import Header from "@/components/header";
 import Tooltip from "@/components/tooltip";
+import Sidemenu from "@/components/sidemenu";
 import FontBox from "@/components/fontbox";
-import KakaoAdFitTopBanner from "@/components/kakaoAdFitTopBanner";
 
 const Index = ({params}: any) => {
     const { license, lang, type, sort, theme, source, filter, userAgent, user, like } = params;
@@ -34,10 +34,10 @@ const Index = ({params}: any) => {
     const isMac: boolean = userAgent.includes("Mac OS") ? true : false
 
     /** 옵션 - "허용 범위" 클릭 */
-    const handleLicenseOptionChange = (e:React.ChangeEvent<HTMLInputElement>) => {
-        // 쿠키 유효 기간 1년으로 설정
+    const handleLicenseOptionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        // 쿠키 유효 기간 1달
         const expires = new Date();
-        expires.setFullYear(expires.getFullYear() + 1);
+        expires.setMonth(expires.getMonth() + 1);
 
         if (e.target.checked) {
             setCookie('license', e.target.value, {path:'/', expires: expires, secure: true, sameSite: 'strict'});
@@ -46,10 +46,10 @@ const Index = ({params}: any) => {
     }
 
     /** 옵션 - "언어 선택" 클릭 */
-    const handleLangOptionChange = (e:React.ChangeEvent<HTMLInputElement>) => {
-        // 쿠키 유효 기간 1년으로 설정
+    const handleLangOptionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        // 쿠키 유효 기간 1달
         const expires = new Date();
-        expires.setFullYear(expires.getFullYear() + 1);
+        expires.setMonth(expires.getMonth() + 1);
 
         if (e.target.checked) {
             setCookie('lang', e.target.value, {path:'/', expires: expires, secure: true, sameSite: 'strict'});
@@ -58,10 +58,10 @@ const Index = ({params}: any) => {
     }
 
     /** 옵션 - "폰트 형태" 클릭 */
-    const handleTypeOptionChange = (e:React.ChangeEvent<HTMLInputElement>) => {
-        // 쿠키 유효 기간 1년으로 설정
+    const handleTypeOptionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        // 쿠키 유효 기간 1달
         const expires = new Date();
-        expires.setFullYear(expires.getFullYear() + 1);
+        expires.setMonth(expires.getMonth() + 1);
 
         if (e.target.checked) {
             setCookie('type', e.target.value, {path:'/', expires: expires, secure: true, sameSite: 'strict'});
@@ -70,10 +70,10 @@ const Index = ({params}: any) => {
     }
 
     /** 옵션 - "정렬순" 클릭 */
-    const handleSortOptionChange = (e:React.ChangeEvent<HTMLInputElement>) => {
-        // 쿠키 유효 기간 1년으로 설정
+    const handleSortOptionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        // 쿠키 유효 기간 1달
         const expires = new Date();
-        expires.setFullYear(expires.getFullYear() + 1);
+        expires.setMonth(expires.getMonth() + 1);
 
         if (e.target.checked) {
             setCookie('sort', e.target.value, {path:'/', expires: expires, secure: true, sameSite: 'strict'});
@@ -82,9 +82,9 @@ const Index = ({params}: any) => {
     }
 
     // 텍스트 입력칸
-    const handleTextChange = (e:React.ChangeEvent<HTMLInputElement>) => { setText(e.target.value); }
+    const handleTextChange = (e: React.ChangeEvent<HTMLInputElement>) => { setText(e.target.value); }
 
-    // 폰트 검색 기능
+    /** 폰트 검색 기능 */
     const debouncedSearch = debounce((e) => {
         if (e.target) setSearchword(e.target.value);
         else setSearchword("");
@@ -99,39 +99,37 @@ const Index = ({params}: any) => {
                 theme={theme}
                 user={user}
                 page={"index"}
-                license={thisLicense}
-                lang={thisLang}
-                type={thisType}
-                sort={thisSort}
-                source={source}
-                handleTextChange={handleTextChange}
-                handleLicenseOptionChange={handleLicenseOptionChange}
-                handleLangOptionChange={handleLangOptionChange}
-                handleTypeOptionChange={handleTypeOptionChange}
-                handleSortOptionChange={handleSortOptionChange}
                 handleSearch={handleSearch}
             />
-
-            {/* 카카오 애드핏 상단 띠배너 */}
-            <div>
-                <KakaoAdFitTopBanner
-                    marginTop={12}
-                />
-            </div>
             
             {/* 메인 */}
-            <FontBox 
-                license={thisLicense}
-                lang={thisLang}
-                type={thisType}
-                sort={thisSort}
-                user={user}
-                like={like}
-                filter={filter}
-                searchword={searchword}
-                text={text}
-                num={999}
-            />
+            <div className="w-full flex gap-4">
+                <Sidemenu
+                    lang={thisLang}
+                    license={thisLicense}
+                    type={thisType}
+                    sort={thisSort}
+                    source={source}
+                    handleTextChange={handleTextChange}
+                    handleLangOptionChange={handleLangOptionChange}
+                    handleLicenseOptionChange={handleLicenseOptionChange}
+                    handleTypeOptionChange={handleTypeOptionChange}
+                    handleSortOptionChange={handleSortOptionChange}
+                    handleSearch={handleSearch}
+                />
+                <FontBox 
+                    license={thisLicense}
+                    lang={thisLang}
+                    type={thisType}
+                    sort={thisSort}
+                    user={user}
+                    like={like}
+                    filter={filter}
+                    searchword={searchword}
+                    text={text}
+                    num={999}
+                />
+            </div>
 
             {/* 고정 메뉴 */}
             <Tooltip page='index'/>

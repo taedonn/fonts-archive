@@ -13,23 +13,13 @@ import { useCookies } from "react-cookie";
 import { throttle } from "lodash";
 
 // components
-import FontSearch from "./fontsearch";
+import FontSearch from "@/components/fontsearch";
 
 // 빈 함수
 const emptyFn = () => { return; }
 
 const defaultHeader = {
     page: "",
-    license: "",
-    lang: "",
-    type: "",
-    sort: "",
-    source: "",
-    handleTextChange: emptyFn,
-    handleLicenseOptionChange: emptyFn,
-    handleLangOptionChange: emptyFn,
-    handleTypeOptionChange: emptyFn,
-    handleSortOptionChange: emptyFn,
     handleSearch: emptyFn,
 }
 
@@ -38,16 +28,6 @@ interface Header {
     theme: string,
     user: any,
     page?: string,
-    license?: string,
-    lang?: string,
-    type?: string,
-    sort?: string,
-    source?: string,
-    handleTextChange?: any,
-    handleLicenseOptionChange?: any,
-    handleLangOptionChange?: any,
-    handleTypeOptionChange?: any,
-    handleSortOptionChange?: any,
     handleSearch?: any,
 }
 
@@ -57,118 +37,17 @@ export default function Header (
         theme,
         user,
         page=defaultHeader.page,
-        license=defaultHeader.license,
-        lang=defaultHeader.lang,
-        type=defaultHeader.type,
-        sort=defaultHeader.sort,
-        source=defaultHeader.source,
-        handleTextChange=defaultHeader.handleTextChange,
-        handleLicenseOptionChange=defaultHeader.handleLangOptionChange,
-        handleLangOptionChange=defaultHeader.handleLangOptionChange,
-        handleTypeOptionChange=defaultHeader.handleTypeOptionChange,
-        handleSortOptionChange=defaultHeader.handleSortOptionChange,
         handleSearch=defaultHeader.handleSearch,
     }: Header) {
+        
     // states
     const [, setCookie] = useCookies<string>([]);
     const [thisTheme, setTheme] = useState(theme);
     const [searchDisplay, setSearchDisplay] = useState("hide");
 
     // refs
-    const refLicenseSelect = useRef<HTMLLabelElement>(null);
-    const refLicenseOption = useRef<HTMLDivElement>(null);
-    const refLangSelect = useRef<HTMLLabelElement>(null);
-    const refLangOption = useRef<HTMLDivElement>(null);
-    const refTypeSelect = useRef<HTMLLabelElement>(null);
-    const refTypeOption = useRef<HTMLDivElement>(null);
-    const refSortSelect = useRef<HTMLLabelElement>(null);
-    const refSortOption = useRef<HTMLDivElement>(null);
     const refAccountLabel = useRef<HTMLLabelElement>(null);
     const refAccountDiv = useRef<HTMLDivElement>(null);
-
-    // 셀렉트 박스 - "허용 범위" 외 영역 클릭
-    useEffect(() => {
-        function handleLicenseOutside(e:Event) {
-            const selectInput = document.getElementById("select-license") as HTMLInputElement;
-            if (refLicenseSelect?.current && !refLicenseSelect.current.contains(e.target as Node) && refLicenseOption.current && !refLicenseOption.current.contains(e.target as Node)) {
-                selectInput.checked = false;
-            }
-        }
-        document.addEventListener("mouseup", handleLicenseOutside);
-        return () => document.removeEventListener("mouseup", handleLicenseOutside);
-    },[refLicenseOption]);
-
-    /** 셀렉트 박스 - "언어 선택" 클릭 */
-    const handleLicenseChange = (e:React.ChangeEvent<HTMLInputElement>) => {
-        const option = document.getElementById("option-license") as HTMLDivElement;
-        if (e.target.checked) {
-            option.classList.add("animate-fade-in");
-            setTimeout(function() { option.classList.remove('animate-fade-in'); },600);
-        }
-    }
-
-    // 셀렉트 박스 - "언어 선택" 외 영역 클릭
-    useEffect(() => {
-        function handleLangOutside(e:Event) {
-            const selectInput = document.getElementById("select-lang") as HTMLInputElement;
-            if (refLangSelect?.current && !refLangSelect.current.contains(e.target as Node) && refLangOption.current && !refLangOption.current.contains(e.target as Node)) {
-                selectInput.checked = false;
-            }
-        }
-        document.addEventListener("mouseup", handleLangOutside);
-        return () => document.removeEventListener("mouseup", handleLangOutside);
-    },[refLangOption]);
-
-    /** 셀렉트 박스 - "언어 선택" 클릭 */
-    const handleLangChange = (e:React.ChangeEvent<HTMLInputElement>) => {
-        const option = document.getElementById("option-lang") as HTMLDivElement;
-        if (e.target.checked) {
-            option.classList.add("animate-fade-in");
-            setTimeout(function() { option.classList.remove('animate-fade-in'); },600);
-        }
-    }
-
-    // 셀렉트 박스 - "폰트 형태" 외 영역 클릭
-    useEffect(() => {
-        function handleTypeOutside(e:Event) {
-            const selectInput = document.getElementById("select-type") as HTMLInputElement;
-            if (refTypeSelect?.current && !refTypeSelect.current.contains(e.target as Node) && refTypeOption.current && !refTypeOption.current.contains(e.target as Node)) {
-                selectInput.checked = false;
-            }
-        }
-        document.addEventListener("mouseup", handleTypeOutside);
-        return () => document.removeEventListener("mouseup", handleTypeOutside);
-    },[refTypeOption]);
-
-    /** 셀렉트 박스 - "폰트 형태" 클릭 */
-    const handleTypeChange = (e:React.ChangeEvent<HTMLInputElement>) => {
-        const option = document.getElementById("option-type") as HTMLDivElement;
-        if (e.target.checked) {
-            option.classList.add("animate-fade-in");
-            setTimeout(function() { option.classList.remove('animate-fade-in'); },600);
-        }
-    }
-
-    // 셀렉트 박스 - 정렬순" 외 영역 클릭
-    useEffect(() => {
-        function handleSortOutside(e:Event) {
-            const selectInput = document.getElementById("select-sort") as HTMLInputElement;
-            if (refSortSelect?.current && !refSortSelect.current.contains(e.target as Node) && refSortOption.current && !refSortOption.current.contains(e.target as Node)) {
-                selectInput.checked = false;
-            }
-        }
-        document.addEventListener("mouseup", handleSortOutside);
-        return () => document.removeEventListener("mouseup", handleSortOutside);
-    },[refSortOption]);
-
-    /** 셀렉트 박스 - "정렬순" 클릭 */
-    const handleSortChange = (e:React.ChangeEvent<HTMLInputElement>) => {
-        const option = document.getElementById("option-sort") as HTMLDivElement;
-        if (e.target.checked) {
-            option.classList.add("animate-fade-in");
-            setTimeout(function() { option.classList.remove('animate-fade-in'); },600);
-        }
-    }
 
     /** 컬러 테마 변경 */
     const handleColorThemeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -188,7 +67,7 @@ export default function Header (
         }
     }
 
-    // 계정 영역 외 클릭
+    /** 계정 영역 외 클릭 */
     useEffect(() => {
         function handleAccountOutside(e: Event) {
             const account = document.getElementById("account") as HTMLInputElement;
@@ -211,25 +90,10 @@ export default function Header (
 
     /** lodash/throttle을 이용해 스크롤 제어 */
     const handleScroll = () => {
-        if (page === "index") {
-            const inputLicense = document.getElementById("select-license") as HTMLInputElement;
-            const inputLang = document.getElementById("select-lang") as HTMLInputElement;
-            const inputType = document.getElementById("select-type") as HTMLInputElement;
-            const inputSort = document.getElementById("select-sort") as HTMLInputElement;
-            const inputAccount = document.getElementById("account") as HTMLInputElement;
-            inputLicense.checked = false;
-            inputLang.checked = false;
-            inputType.checked = false;
-            inputSort.checked = false;
-            inputAccount.checked = false;
-        } else {
-            const inputAccount = document.getElementById("account") as HTMLInputElement;
-            inputAccount.checked = false;
-        }
+        const inputAccount = document.getElementById("account") as HTMLInputElement;
+        inputAccount.checked = false;
     }
     const throttledScroll = throttle(handleScroll,500);
-
-    // lodash/throttle을 이용해 스크롤
     useEffect(() => {
         window.addEventListener('scroll', throttledScroll);
         return () => { window.removeEventListener('scroll', throttledScroll); }
@@ -251,9 +115,7 @@ export default function Header (
     const handleLogout = () => { signOut(); }
 
     /** 로그인 버튼 클릭 */
-    const handleLoginClick = () => {
-        sessionStorage.setItem('login_history', location.href);
-    }
+    const handleLoginClick = () => { sessionStorage.setItem('login_history', location.href); }
 
     /** 로고 클릭 시 searchword, filter 초기화 */
     const reset = () => { handleSearch(""); }
@@ -261,250 +123,21 @@ export default function Header (
     return (
         <>
             <header className="w-full">
-                <div className='interface w-full h-[60px] tlg:h-[52px] px-8 tlg:px-4 fixed right-0 top-0 z-20 flex flex-row justify-between items-center backdrop-blur bg-theme-10/80 dark:bg-theme-2/80 border-b border-theme-7 dark:border-theme-5'>
+                <div className='interface w-full h-16 tlg:h-[52px] px-8 tlg:px-4 fixed right-0 top-0 z-20 flex flex-row justify-between items-center bg-theme-10 dark:bg-theme-2'>
                     <div className="tlg:w-full flex flex-row justify-start items-center">
-                        <Link onClick={reset} href="/" aria-label="logo" className="w-9 tlg:w-8 h-9 tlg:h-8 flex flex-row justify-center items-center rounded-lg tlg:rounded-md mr-3 bg-theme-2 dark:bg-theme-1">
-                            <i className="text-lg text-theme-10 fa-solid fa-a"></i>
+                        <Link
+                            onClick={reset}
+                            href="/"
+                            aria-label="logo"
+                            className="flex items-center gap-3 text-lg"
+                        >
+                            <div className="w-9 h-9 flex justify-center items-center rounded-lg bg-l-main-1">
+                                <i className="text-white fa-solid fa-a"></i>
+                            </div>
+                            <div className="font-bold text-l-2">폰트 아카이브</div>
                         </Link>
-                        {
-                            page === "index"
-                            ? <>
-                                <div className="tlg:w-[calc(100%-56px)] relative group">
-                                    <input onChange={handleTextChange} type='text' placeholder='원하는 문구를 적어보세요...' className="w-[280px] txl:w-[200px] tlg:w-full text-sm txl:text-xs text-normal placeholder-theme-5 dark:placeholder-theme-6 text-theme-5 dark:text-theme-8 leading-none border rounded-full border-theme-7 dark:border-theme-5 px-4 py-2.5 txl:py-2 pl-10 bg-transparent group-hover:dark:bg-theme-3/40 tlg:group-hover:bg-transparent focus:dark:bg-theme-3/40 tlg:focus:bg-transparent"/>
-                                    <i className="text-xs absolute left-5 top-1/2 -translate-y-1/2 text-theme-5 dark:text-theme-8 fa-solid fa-a"></i>
-                                </div>
-                            </> : <></>
-                        }
                     </div>
                     <div className='w-max flex flex-row justify-start items-center'>
-                        {
-                            page === "index"
-                            ? <>
-                                <div className="flex flex-row justify-end items-center tlg:hidden">
-                                <div className='w-max relative flex flex-row justify-start items-center'>
-                                        <input type='checkbox' id='select-license' onChange={handleLicenseChange} className="peer hidden"/>
-                                        <label ref={refLicenseSelect} htmlFor='select-license' className="group h-8 txl:h-[30px] px-5 txl:px-4 relative flex justify-center items-center text-sm leading-none border rounded-full cursor-pointer text-theme-3 peer-checked:text-theme-10 dark:text-theme-8 border-theme-7 dark:border-theme-5 hover:bg-theme-3 peer-checked:bg-theme-3 hover:dark:bg-theme-blue-2 peer-checked:dark:bg-theme-blue-2 hover:border-theme-yellow peer-checked:border-theme-yellow hover:dark:border-theme-blue-1 peer-checked:dark:border-theme-blue-1 hover:text-theme-10 hover:dark:text-theme-9 hover:drop-shadow-default peer-checked:drop-shadow-default hover:dark:drop-shadow-dark peer-checked:dark:drop-shadow-dark">
-                                            <div className='w-full h-full absolute z-10'></div>
-                                            <button className="w-full flex justify-center items-center text-sm txl:text-xs">
-                                                허용 범위
-                                                <i className="ml-2 mb-0.5 peer-checked:group-[]:rotate-180 peer-checked:group-[]:mb-0 fa-solid fa-caret-down"></i>
-                                            </button>
-                                        </label>
-                                        <div ref={refLicenseOption} id="option-license" className='hidden peer-checked:flex w-32 txl:w-[104px] absolute z-2 left-1/2 top-10 txl:top-9 -translate-x-1/2 border border-theme-yellow dark:border-theme-blue-1 rounded-lg flex-col justify-start items-start gap-1 px-4 py-3.5 txl:p-3.5 txl:py-3 bg-theme-3 dark:bg-theme-blue-2 drop-shadow-default dark:drop-shadow-dark'>
-                                            <input onChange={handleLicenseOptionChange} type='radio' id="option-license-all" name="option-license" value="all" className="peer/all hidden" defaultChecked={license === "all" ? true : false}/>
-                                            <div className='group flex justify-start items-center'>
-                                                <label htmlFor='option-license-all' className="cursor-pointer">
-                                                    <i className="block peer-checked/all:group-[]:hidden text-lg txl:text-base mr-2.5 txl:mr-2 text-theme-yellow dark:text-theme-blue-1 fa-regular fa-square-check"></i>
-                                                    <i className="hidden peer-checked/all:group-[]:block text-lg txl:text-base mr-2.5 txl:mr-2 text-theme-yellow dark:text-theme-blue-1 fa-solid fa-square-check"></i>
-                                                </label>
-                                                <span className="text-sm txl:text-xs text-theme-10 dark:text-theme-9 leading-tight txl:pb-px">전체</span>
-                                            </div>
-                                            <input onChange={handleLicenseOptionChange} type='radio' id="option-license-print" name="option-license" value="print" className="peer/print hidden" defaultChecked={license === "print" ? true : false}/>
-                                            <div className='group flex justify-start items-center'>
-                                                <label htmlFor='option-license-print' className="cursor-pointer">
-                                                    <i className="block peer-checked/print:group-[]:hidden text-lg txl:text-base mr-2.5 txl:mr-2 text-theme-yellow dark:text-theme-blue-1 fa-regular fa-square-check"></i>
-                                                    <i className="hidden peer-checked/print:group-[]:block text-lg txl:text-base mr-2.5 txl:mr-2 text-theme-yellow dark:text-theme-blue-1 fa-solid fa-square-check"></i>
-                                                </label>
-                                                <span className="text-sm txl:text-xs text-theme-10 dark:text-theme-9 leading-tight txl:pb-px">인쇄물</span>
-                                            </div>
-                                            <input onChange={handleLicenseOptionChange} type='radio' id="option-license-web" name="option-license" value="web" className="peer/web hidden" defaultChecked={license === "web" ? true : false}/>
-                                            <div className='group flex justify-start items-center'>
-                                                <label htmlFor='option-license-web' className="cursor-pointer">
-                                                    <i className="block peer-checked/web:group-[]:hidden text-lg txl:text-base mr-2.5 txl:mr-2 text-theme-yellow dark:text-theme-blue-1 fa-regular fa-square-check"></i>
-                                                    <i className="hidden peer-checked/web:group-[]:block text-lg txl:text-base mr-2.5 txl:mr-2 text-theme-yellow dark:text-theme-blue-1 fa-solid fa-square-check"></i>
-                                                </label>
-                                                <span className="text-sm txl:text-xs text-theme-10 dark:text-theme-9 leading-tight txl:pb-px">웹 서비스</span>
-                                            </div>
-                                            <input onChange={handleLicenseOptionChange} type='radio' id="option-license-video" name="option-license" value="video" className="peer/video hidden" defaultChecked={license === "video" ? true : false}/>
-                                            <div className='group flex justify-start items-center'>
-                                                <label htmlFor='option-license-video' className="cursor-pointer">
-                                                    <i className="block peer-checked/video:group-[]:hidden text-lg txl:text-base mr-2.5 txl:mr-2 text-theme-yellow dark:text-theme-blue-1 fa-regular fa-square-check"></i>
-                                                    <i className="hidden peer-checked/video:group-[]:block text-lg txl:text-base mr-2.5 txl:mr-2 text-theme-yellow dark:text-theme-blue-1 fa-solid fa-square-check"></i>
-                                                </label>
-                                                <span className="text-sm txl:text-xs text-theme-10 dark:text-theme-9 leading-tight txl:pb-px">영상물</span>
-                                            </div>
-                                            <input onChange={handleLicenseOptionChange} type='radio' id="option-license-package" name="option-license" value="package" className="peer/package hidden" defaultChecked={license === "package" ? true : false}/>
-                                            <div className='group flex justify-start items-center'>
-                                                <label htmlFor='option-license-package' className="cursor-pointer">
-                                                    <i className="block peer-checked/package:group-[]:hidden text-lg txl:text-base mr-2.5 txl:mr-2 text-theme-yellow dark:text-theme-blue-1 fa-regular fa-square-check"></i>
-                                                    <i className="hidden peer-checked/package:group-[]:block text-lg txl:text-base mr-2.5 txl:mr-2 text-theme-yellow dark:text-theme-blue-1 fa-solid fa-square-check"></i>
-                                                </label>
-                                                <span className="text-sm txl:text-xs text-theme-10 dark:text-theme-9 leading-tight txl:pb-px">포장지</span>
-                                            </div>
-                                            <input onChange={handleLicenseOptionChange} type='radio' id="option-license-embed" name="option-license" value="embed" className="peer/embed hidden" defaultChecked={license === "embed" ? true : false}/>
-                                            <div className='group flex justify-start items-center'>
-                                                <label htmlFor='option-license-embed' className="cursor-pointer">
-                                                    <i className="block peer-checked/embed:group-[]:hidden text-lg txl:text-base mr-2.5 txl:mr-2 text-theme-yellow dark:text-theme-blue-1 fa-regular fa-square-check"></i>
-                                                    <i className="hidden peer-checked/embed:group-[]:block text-lg txl:text-base mr-2.5 txl:mr-2 text-theme-yellow dark:text-theme-blue-1 fa-solid fa-square-check"></i>
-                                                </label>
-                                                <span className="text-sm txl:text-xs text-theme-10 dark:text-theme-9 leading-tight txl:pb-px">임베딩</span>
-                                            </div>
-                                            <input onChange={handleLicenseOptionChange} type='radio' id="option-license-bici" name="option-license" value="bici" className="peer/bici hidden" defaultChecked={license === "bici" ? true : false}/>
-                                            <div className='group flex justify-start items-center'>
-                                                <label htmlFor='option-license-bici' className="cursor-pointer">
-                                                    <i className="block peer-checked/bici:group-[]:hidden text-lg txl:text-base mr-2.5 txl:mr-2 text-theme-yellow dark:text-theme-blue-1 fa-regular fa-square-check"></i>
-                                                    <i className="hidden peer-checked/bici:group-[]:block text-lg txl:text-base mr-2.5 txl:mr-2 text-theme-yellow dark:text-theme-blue-1 fa-solid fa-square-check"></i>
-                                                </label>
-                                                <span className="text-sm txl:text-xs text-theme-10 dark:text-theme-9 leading-tight txl:pb-px">BI/CI</span>
-                                            </div>
-                                            <input onChange={handleLicenseOptionChange} type='radio' id="option-license-ofl" name="option-license" value="ofl" className="peer/ofl hidden" defaultChecked={license === "ofl" ? true : false}/>
-                                            <div className='group flex justify-start items-center'>
-                                                <label htmlFor='option-license-ofl' className="cursor-pointer">
-                                                    <i className="block peer-checked/ofl:group-[]:hidden text-lg txl:text-base mr-2.5 txl:mr-2 text-theme-yellow dark:text-theme-blue-1 fa-regular fa-square-check"></i>
-                                                    <i className="hidden peer-checked/ofl:group-[]:block text-lg txl:text-base mr-2.5 txl:mr-2 text-theme-yellow dark:text-theme-blue-1 fa-solid fa-square-check"></i>
-                                                </label>
-                                                <span className="text-sm txl:text-xs text-theme-10 dark:text-theme-9 leading-tight txl:pb-px">OFL</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className='w-max relative flex flex-row justify-start items-center ml-2 txl:ml-1'>
-                                        <input type='checkbox' id='select-lang' onChange={handleLangChange} className="peer hidden"/>
-                                        <label ref={refLangSelect} htmlFor='select-lang' className="group h-8 txl:h-[30px] px-5 txl:px-4 relative flex justify-center items-center text-sm leading-none border rounded-full cursor-pointer text-theme-3 peer-checked:text-theme-10 dark:text-theme-8 border-theme-7 dark:border-theme-5 hover:bg-theme-3 peer-checked:bg-theme-3 hover:dark:bg-theme-blue-2 peer-checked:dark:bg-theme-blue-2 hover:border-theme-yellow peer-checked:border-theme-yellow hover:dark:border-theme-blue-1 peer-checked:dark:border-theme-blue-1 hover:text-theme-10 hover:dark:text-theme-9 hover:drop-shadow-default peer-checked:drop-shadow-default hover:dark:drop-shadow-dark peer-checked:dark:drop-shadow-dark">
-                                            <div className='w-full h-full absolute z-10'></div>
-                                            <button className="w-full flex justify-center items-center text-sm txl:text-xs">
-                                                언어 선택
-                                                <i className="ml-2 mb-0.5 peer-checked:group-[]:rotate-180 peer-checked:group-[]:mb-0 fa-solid fa-caret-down"></i>
-                                            </button>
-                                        </label>
-                                        <div ref={refLangOption} id="option-lang" className='hidden peer-checked:flex w-32 txl:w-[104px] absolute z-2 left-1/2 top-10 txl:top-9 -translate-x-1/2 border border-theme-yellow dark:border-theme-blue-1 rounded-lg flex-col justify-start items-start gap-1 px-4 py-3.5 txl:p-3.5 txl:py-3 bg-theme-3 dark:bg-theme-blue-2 drop-shadow-default dark:drop-shadow-dark'>
-                                            <input onChange={handleLangOptionChange} type='radio' id="option-lang-all" name="option-lang" value="all" className="peer/all hidden" defaultChecked={lang === "all" ? true : false}/>
-                                            <div className='group flex justify-start items-center'>
-                                                <label htmlFor='option-lang-all' className="cursor-pointer">
-                                                    <i className="block peer-checked/all:group-[]:hidden text-lg txl:text-base mr-2.5 txl:mr-2 text-theme-yellow dark:text-theme-blue-1 fa-regular fa-square-check"></i>
-                                                    <i className="hidden peer-checked/all:group-[]:block text-lg txl:text-base mr-2.5 txl:mr-2 text-theme-yellow dark:text-theme-blue-1 fa-solid fa-square-check"></i>
-                                                </label>
-                                                <span className="text-sm txl:text-xs text-theme-10 dark:text-theme-9 leading-tight txl:pb-px">전체</span>
-                                            </div>
-                                            <input onChange={handleLangOptionChange} type='radio' id="option-lang-kr" name="option-lang" value="kr" className="peer/kr hidden" defaultChecked={lang === "kr" ? true : false}/>
-                                            <div className='group flex justify-start items-center'>
-                                                <label htmlFor='option-lang-kr' className="cursor-pointer">
-                                                    <i className="block peer-checked/kr:group-[]:hidden text-lg txl:text-base mr-2.5 txl:mr-2 text-theme-yellow dark:text-theme-blue-1 fa-regular fa-square-check"></i>
-                                                    <i className="hidden peer-checked/kr:group-[]:block text-lg txl:text-base mr-2.5 txl:mr-2 text-theme-yellow dark:text-theme-blue-1 fa-solid fa-square-check"></i>
-                                                </label>
-                                                <span className="text-sm txl:text-xs text-theme-10 dark:text-theme-9 leading-tight txl:pb-px">한국어</span>
-                                            </div>
-                                            <input onChange={handleLangOptionChange} type='radio' id="option-lang-en" name="option-lang" value="en" className="peer/en hidden" defaultChecked={lang === "en" ? true : false}/>
-                                            <div className='group flex justify-start items-center'>
-                                                <label htmlFor='option-lang-en' className="cursor-pointer">
-                                                    <i className="block peer-checked/en:group-[]:hidden text-lg txl:text-base mr-2.5 txl:mr-2 text-theme-yellow dark:text-theme-blue-1 fa-regular fa-square-check"></i>
-                                                    <i className="hidden peer-checked/en:group-[]:block text-lg txl:text-base mr-2.5 txl:mr-2 text-theme-yellow dark:text-theme-blue-1 fa-solid fa-square-check"></i>
-                                                </label>
-                                                <span className="text-sm txl:text-xs text-theme-10 dark:text-theme-9 leading-tight txl:pb-px">영어</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className='w-max relative flex flex-row justify-start items-center ml-2 txl:ml-1'>
-                                        <input type='checkbox' id='select-type' onChange={handleTypeChange} className="peer hidden"/>
-                                        <label ref={refTypeSelect} htmlFor='select-type' className="group h-8 txl:h-[30px] px-5 txl:px-4 relative flex justify-center items-center text-sm leading-none border rounded-full cursor-pointer text-theme-3 peer-checked:text-theme-10 dark:text-theme-8 border-theme-7 dark:border-theme-5 hover:bg-theme-3 peer-checked:bg-theme-3 hover:dark:bg-theme-blue-2 peer-checked:dark:bg-theme-blue-2 hover:border-theme-yellow peer-checked:border-theme-yellow hover:dark:border-theme-blue-1 peer-checked:dark:border-theme-blue-1 hover:text-theme-10 hover:dark:text-theme-9 hover:drop-shadow-default peer-checked:drop-shadow-default hover:dark:drop-shadow-dark peer-checked:dark:drop-shadow-dark">
-                                            <div className='w-full h-full absolute z-10'></div>
-                                            <button className="w-full flex justify-center items-center text-sm txl:text-xs">
-                                                폰트 형태
-                                                <i className="ml-2 mb-0.5 peer-checked:group-[]:rotate-180 peer-checked:group-[]:mb-0 fa-solid fa-caret-down"></i>
-                                            </button>
-                                        </label>
-                                        <div ref={refTypeOption} id="option-type" className='hidden peer-checked:flex w-32 txl:w-[104px] absolute z-2 left-1/2 top-10 txl:top-9 -translate-x-1/2 border border-theme-yellow dark:border-theme-blue-1 rounded-lg flex-col justify-start items-start gap-1 px-4 py-3.5 txl:p-3.5 txl:py-3 bg-theme-3 dark:bg-theme-blue-2 drop-shadow-default dark:drop-shadow-dark'>
-                                            <input onChange={handleTypeOptionChange} type='radio' id="option-type-all" name="option-type" value="all" className="peer/all hidden" defaultChecked={type === "all" ? true : false}/>
-                                            <div className='group flex justify-start items-center'>
-                                                <label htmlFor='option-type-all' className="cursor-pointer">
-                                                    <i className="block peer-checked/all:group-[]:hidden text-lg txl:text-base mr-2.5 txl:mr-2 text-theme-yellow dark:text-theme-blue-1 fa-regular fa-square-check"></i>
-                                                    <i className="hidden peer-checked/all:group-[]:block text-lg txl:text-base mr-2.5 txl:mr-2 text-theme-yellow dark:text-theme-blue-1 fa-solid fa-square-check"></i>
-                                                </label>
-                                                <span className="text-sm txl:text-xs txl:pb-px text-theme-10 dark:text-theme-9 leading-tight">전체</span>
-                                            </div>
-                                            <input onChange={handleTypeOptionChange} type='radio' id="option-type-sans-serif" name="option-type" value="sans-serif" className="peer/sans-serif hidden" defaultChecked={type === "sans-serif" ? true : false}/>
-                                            <div className='group flex justify-start items-center'>
-                                                <label htmlFor='option-type-sans-serif' className="cursor-pointer">
-                                                    <i className="block peer-checked/sans-serif:group-[]:hidden text-lg txl:text-base mr-2.5 txl:mr-2 text-theme-yellow dark:text-theme-blue-1 fa-regular fa-square-check"></i>
-                                                    <i className="hidden peer-checked/sans-serif:group-[]:block text-lg txl:text-base mr-2.5 txl:mr-2 text-theme-yellow dark:text-theme-blue-1 fa-solid fa-square-check"></i>
-                                                </label>
-                                                <span className="text-sm txl:text-xs txl:pb-px text-theme-10 dark:text-theme-9 leading-tight">고딕</span>
-                                            </div>
-                                            <input onChange={handleTypeOptionChange} type='radio' id="option-type-serif" name="option-type" value="serif" className="peer/serif hidden" defaultChecked={type === "serif" ? true : false}/>
-                                            <div className='group flex justify-start items-center'>
-                                                <label htmlFor='option-type-serif' className="cursor-pointer">
-                                                    <i className="block peer-checked/serif:group-[]:hidden text-lg txl:text-base mr-2.5 txl:mr-2 text-theme-yellow dark:text-theme-blue-1 fa-regular fa-square-check"></i>
-                                                    <i className="hidden peer-checked/serif:group-[]:block text-lg txl:text-base mr-2.5 txl:mr-2 text-theme-yellow dark:text-theme-blue-1 fa-solid fa-square-check"></i>
-                                                </label>
-                                                <span className="text-sm txl:text-xs txl:pb-px text-theme-10 dark:text-theme-9 leading-tight">명조</span>
-                                            </div>
-                                            <input onChange={handleTypeOptionChange} type='radio' id="option-type-hand-writing" name="option-type" value="hand-writing" className="peer/hand-writing hidden" defaultChecked={type === "hand-writing" ? true : false}/>
-                                            <div className='group flex justify-start items-center'>
-                                                <label htmlFor='option-type-hand-writing' className="cursor-pointer">
-                                                    <i className="block peer-checked/hand-writing:group-[]:hidden text-lg txl:text-base mr-2.5 txl:mr-2 text-theme-yellow dark:text-theme-blue-1 fa-regular fa-square-check"></i>
-                                                    <i className="hidden peer-checked/hand-writing:group-[]:block text-lg txl:text-base mr-2.5 txl:mr-2 text-theme-yellow dark:text-theme-blue-1 fa-solid fa-square-check"></i>
-                                                </label>
-                                                <span className="text-sm txl:text-xs txl:pb-px text-theme-10 dark:text-theme-9 leading-tight">손글씨</span>
-                                            </div>
-                                            <input onChange={handleTypeOptionChange} type='radio' id="option-type-display" name="option-type" value="display" className="peer/display hidden" defaultChecked={type === "display" ? true : false}/>
-                                            <div className='group flex justify-start items-center'>
-                                                <label htmlFor='option-type-display' className="cursor-pointer">
-                                                    <i className="block peer-checked/display:group-[]:hidden text-lg txl:text-base mr-2.5 txl:mr-2 text-theme-yellow dark:text-theme-blue-1 fa-regular fa-square-check"></i>
-                                                    <i className="hidden peer-checked/display:group-[]:block text-lg txl:text-base mr-2.5 txl:mr-2 text-theme-yellow dark:text-theme-blue-1 fa-solid fa-square-check"></i>
-                                                </label>
-                                                <span className="text-sm txl:text-xs txl:pb-px text-theme-10 dark:text-theme-9 leading-tight">장식체</span>
-                                            </div>
-                                            <input onChange={handleTypeOptionChange} type='radio' id="option-type-pixel" name="option-type" value="pixel" className="peer/pixel hidden" defaultChecked={type === "pixel" ? true : false}/>
-                                            <div className='group flex justify-start items-center'>
-                                                <label htmlFor='option-type-pixel' className="cursor-pointer">
-                                                    <i className="block peer-checked/pixel:group-[]:hidden text-lg txl:text-base mr-2.5 txl:mr-2 text-theme-yellow dark:text-theme-blue-1 fa-regular fa-square-check"></i>
-                                                    <i className="hidden peer-checked/pixel:group-[]:block text-lg txl:text-base mr-2.5 txl:mr-2 text-theme-yellow dark:text-theme-blue-1 fa-solid fa-square-check"></i>
-                                                </label>
-                                                <span className="text-sm txl:text-xs txl:pb-px text-theme-10 dark:text-theme-9 leading-tight">픽셀체</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className='w-max relative flex flex-row justify-start items-center ml-2 txl:ml-1'>
-                                        <input type='checkbox' id='select-sort' onChange={handleSortChange} className="peer hidden"/>
-                                        <label ref={refSortSelect} htmlFor='select-sort' className="group h-8 txl:h-[30px] px-5 txl:px-4 relative flex justify-center items-center text-sm leading-none border rounded-full cursor-pointer text-theme-3 peer-checked:text-theme-10 dark:text-theme-8 border-theme-7 dark:border-theme-5 hover:bg-theme-3 peer-checked:bg-theme-3 hover:dark:bg-theme-blue-2 peer-checked:dark:bg-theme-blue-2 hover:border-theme-yellow peer-checked:border-theme-yellow hover:dark:border-theme-blue-1 peer-checked:dark:border-theme-blue-1 hover:text-theme-10 hover:dark:text-theme-9 hover:drop-shadow-default peer-checked:drop-shadow-default hover:dark:drop-shadow-dark peer-checked:dark:drop-shadow-dark">
-                                            <div className='w-full h-full absolute z-10'></div>
-                                            <button className="w-full flex justify-center items-center text-sm txl:text-xs">
-                                                {sort === "like" ? "인기순" : sort === "view" ? "조회순" : sort === "date" ? "최신순" : "이름순"}
-                                                <i className="ml-2 mb-0.5 peer-checked:group-[]:rotate-180 peer-checked:group-[]:mb-0 fa-solid fa-caret-down"></i>
-                                            </button>
-                                        </label>
-                                        <div ref={refSortOption} id="option-sort" className='hidden peer-checked:flex w-28 txl:w-[100px] absolute z-2 left-1/2 top-10 txl:top-9 -translate-x-1/2 border border-theme-yellow dark:border-theme-blue-1 rounded-lg flex-col justify-start items-start gap-1 px-4 py-3.5 txl:p-3.5 txl:py-3 bg-theme-3 dark:bg-theme-blue-2 drop-shadow-default dark:drop-shadow-dark'>
-                                            <input onChange={handleSortOptionChange} type='radio' id="option-sort-view" name="option-sort" value="view" className="peer/view hidden" defaultChecked={sort === "view" ? true : false}/>
-                                            <div className='group flex justify-start items-center'>
-                                                <label htmlFor='option-sort-view' className="cursor-pointer">
-                                                    <i className="block peer-checked/view:group-[]:hidden text-lg txl:text-base mr-2.5 txl:mr-2 text-theme-yellow dark:text-theme-blue-1 fa-regular fa-square-check"></i>
-                                                    <i className="hidden peer-checked/view:group-[]:block text-lg txl:text-base mr-2.5 txl:mr-2 text-theme-yellow dark:text-theme-blue-1 fa-solid fa-square-check"></i>
-                                                </label>
-                                                <span className="text-sm txl:text-xs txl:pb-px text-theme-10 dark:text-theme-9 leading-tight">조회순</span>
-                                            </div>
-                                            <input onChange={handleSortOptionChange} type='radio' id="option-sort-like" name="option-sort" value="like" className="peer/like hidden" defaultChecked={sort === "like" ? true : false}/>
-                                            <div className='group flex justify-start items-center'>
-                                                <label htmlFor='option-sort-like' className="cursor-pointer">
-                                                    <i className="block peer-checked/like:group-[]:hidden text-lg txl:text-base mr-2.5 txl:mr-2 text-theme-yellow dark:text-theme-blue-1 fa-regular fa-square-check"></i>
-                                                    <i className="hidden peer-checked/like:group-[]:block text-lg txl:text-base mr-2.5 txl:mr-2 text-theme-yellow dark:text-theme-blue-1 fa-solid fa-square-check"></i>
-                                                </label>
-                                                <span className="text-sm txl:text-xs txl:pb-px text-theme-10 dark:text-theme-9 leading-tight">인기순</span>
-                                            </div>
-                                            <input onChange={handleSortOptionChange} type='radio' id="option-sort-latest" name="option-sort" value="date" className="peer/date hidden" defaultChecked={sort === "date" ? true : false}/>
-                                            <div className='group flex justify-start items-center'>
-                                                <label htmlFor='option-sort-latest' className="cursor-pointer">
-                                                    <i className="block peer-checked/date:group-[]:hidden text-lg txl:text-base mr-2.5 txl:mr-2 text-theme-yellow dark:text-theme-blue-1 fa-regular fa-square-check"></i>
-                                                    <i className="hidden peer-checked/date:group-[]:block text-lg txl:text-base mr-2.5 txl:mr-2 text-theme-yellow dark:text-theme-blue-1 fa-solid fa-square-check"></i>
-                                                </label>
-                                                <span className="text-sm txl:text-xs txl:pb-px text-theme-10 dark:text-theme-9 leading-tight">최신순</span>
-                                            </div>
-                                            <input onChange={handleSortOptionChange} type='radio' id="option-sort-name" name="option-sort" value="name" className="peer-checked/name hidden" defaultChecked={sort === "name" ? true : false}/>
-                                            <div className='group flex justify-start items-center'>
-                                                <label htmlFor='option-sort-name' className="cursor-pointer">
-                                                    <i className="block peer-checked/name:group-[]:hidden text-lg txl:text-base mr-2.5 txl:mr-2 text-theme-yellow dark:text-theme-blue-1 fa-regular fa-square-check"></i>
-                                                    <i className="hidden peer-checked/name:group-[]:block text-lg txl:text-base mr-2.5 txl:mr-2 text-theme-yellow dark:text-theme-blue-1 fa-solid fa-square-check"></i>
-                                                </label>
-                                                <span className="text-sm txl:text-xs txl:pb-px text-theme-10 dark:text-theme-9 leading-tight">이름순</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className='w-px h-5 tlg:h-4 rounded-full mx-2.5 tlg:mx-2 bg-theme-7 dark:bg-theme-5'></div>
-                                </div>
-                                <div className="group w-max relative tlg:hidden">
-                                    <input onChange={handleSearch} type="text" placeholder="폰트, 회사명을 검색해 보세요..." defaultValue={source} className="w-[280px] txl:w-[200px] tlg:w-full text-sm txl:text-xs text-normal placeholder-theme-5 dark:placeholder-theme-6 text-theme-5 dark:text-theme-8 leading-none border rounded-full border-theme-7 dark:border-theme-5 px-4 py-2.5 txl:py-2 pl-10 bg-transparent group-hover:dark:bg-theme-3/40 tlg:group-hover:bg-transparent focus:dark:bg-theme-3/40 tlg:focus:bg-transparent"/>
-                                    <i className="text-xs absolute left-5 top-1/2 -translate-y-1/2 text-theme-5 dark:text-theme-8 fa-solid fa-magnifying-glass"></i>
-                                </div>
-                            </> : <></>
-                        }
                         <button onClick={handleFontSearch} className={`${page === "index" ? "hidden tlg:flex" : "flex"} w-[220px] tlg:w-[200px] tmd:w-8 h-8 tlg:h-[30px] relative text-sm tlg:text-xs text-normal text-theme-4 dark:text-theme-9 leading-none bg-theme-8 dark:bg-theme-3 flex-start justify-start items-center rounded-lg tmd:rounded-md pl-[38px] tlg:pl-[30px] tmd:pl-0 pb-px hover:dark:bg-theme-5 tlg:hover:dark:bg-theme-3 hover:drop-shadow-default hover:dark:drop-shadow-dark tlg:hover:drop-shadow-none tlg:hover:dark:drop-shadow-none`}>
                             <span className="tmd:hidden mt-px">폰트 검색하기...</span>
                             <i className="text-xs absolute left-3.5 tlg:left-3 tmd:left-1/2 top-1/2 tmd:-translate-x-1/2 -translate-y-1/2 text-theme-4 dark:text-theme-9 fa-solid fa-magnifying-glass"></i>
@@ -522,21 +155,20 @@ export default function Header (
                                 }
                             </div>
                         </button>
-                        <div className='w-px h-5 tlg:h-4 rounded-full mx-2.5 tlg:mx-2 mr-1.5 tlg:mr-1 bg-theme-7 dark:bg-theme-5'></div>
-                        <div className="relative mx-2">
-                            <label htmlFor="color-theme" className="w-7 h-7 flex flex-row justify-center items-center cursor-pointer">
+                        <div className="relative mr-3">
+                            <label htmlFor="color-theme" className="w-10 h-10 pb-0.5 text-2xl flex justify-center items-center rounded-full cursor-pointer text-l-main-1 hover:bg-l-e">
                                 <input onChange={handleColorThemeChange} defaultChecked={thisTheme === 'dark' ? true : false} type="checkbox" id="color-theme" className="hidden peer"/>
-                                <i className='block peer-checked:hidden text-theme-yellow text-lg fa-solid fa-cloud-sun'></i>
-                                <i className='hidden peer-checked:block text-theme-blue-1 text-lg fa-solid fa-cloud-moon'></i>
+                                <i className='block peer-checked:hidden bi bi-cloud-sun'></i>
+                                <i className='hidden peer-checked:block bi bi-cloud-moon'></i>
                             </label>
                         </div>
                         <div className="relative flex flex-row justify-center items-center cursor-pointer">
                             <input onChange={handleAccount} type="checkbox" id="account" className="peer hidden"/>
-                            <label ref={refAccountLabel} htmlFor="account" className="w-8 h-8 flex justify-center items-center cursor-pointer text-theme-3 hover:text-theme-5 peer-checked:text-theme-5 tlg:hover:text-theme-3 dark:text-theme-9 hover:dark:text-theme-7 peer-checked:dark:text-theme-7 tlg:hover:dark:text-theme-9">
+                            <label ref={refAccountLabel} htmlFor="account" className="w-8 h-8 flex justify-center items-center cursor-pointer text-l-5">
                                 {
                                     user === null
-                                    ? <i className="text-2xl fa-regular fa-face-smile"></i>
-                                    : <div className="w-7 h-7 relative">
+                                    ? <i className="text-3xl bi bi-person-circle"></i>
+                                    : <div className="w-8 h-8 relative">
                                         <Image src={user.image} alt="유저 프로필 사진" fill sizes="100%" referrerPolicy="no-referrer" className="object-cover rounded-full"/>
                                     </div>
                                 }

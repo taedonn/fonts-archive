@@ -12,8 +12,9 @@ import axios from 'axios';
 import { throttle } from 'lodash';
 
 // components
-import DummyText from "./dummytext";
-import SkeletonBox from './skeletonbox';
+import DummyText from '@/components/dummytext';
+import SkeletonBox from '@/components/skeletonbox';
+import kakaoAdFitTopBanner from '@/components/kakaoAdFitTopBanner';
 
 export default function FontBox ({license, lang, type, sort, user, like, filter, searchword, text, num}:{license: string, lang: string, type: string, sort: string, user: any, like: any, filter: string, searchword: string, text: string, num: number}) {        
     // states
@@ -152,8 +153,11 @@ export default function FontBox ({license, lang, type, sort, user, like, filter,
 
     return (
         <>
-            <div className='w-full flex flex-col justify-start items-end'>
-                <div className="w-full gap-2.5 tlg:gap-2 mt-3 tlg:mt-2.5 relative flex flex-wrap justify-between items-stretch">
+            <div className='w-full pt-16 pr-8 flex flex-col justify-start items-end'>
+                {/* <KakaoAdFitTopBanner
+                    marginTop={12}
+                /> */}
+                <div className="w-full gap-2.5 tlg:gap-2 relative flex flex-wrap justify-between items-stretch">
                     
                     {/* 로그인 중이 아닐 때 좋아요 alert창 팝업 */}
                     {
@@ -186,7 +190,7 @@ export default function FontBox ({license, lang, type, sort, user, like, filter,
                                     font_type: string
                                     cdn_url: string
                                 }) => (
-                                    <div aria-label="font-link" key={font.code} className=" relative block w-[calc(20%-8px)] tlg:w-[calc(33.3%-6px)] tmd:w-[calc(50%-4px)] txs:w-full h-[18vw] tlg:h-[30vw] tmd:h-[46vw] txs:h-[82vw] p-[1.04vw] tlg:p-[1.95vw] tmd:p-[2.6vw] txs:p-[4.17vw] rounded-lg border border-theme-7 dark:border-theme-5 hover:bg-theme-8/60 tlg:hover:bg-transparent hover:dark:bg-theme-3/40 tlg:hover:dark:bg-transparent animate-fade-in-fontbox cursor-pointer">
+                                    <div aria-label="font-link" key={font.code} className=" relative block w-[calc(25%-8px)] tlg:w-[calc(33.3%-6px)] tmd:w-[calc(50%-4px)] txs:w-full h-[18vw] tlg:h-[30vw] tmd:h-[46vw] txs:h-[82vw] p-[1.04vw] tlg:p-[1.95vw] tmd:p-[2.6vw] txs:p-[4.17vw] rounded-lg border border-theme-7 dark:border-theme-5 hover:bg-theme-8/60 tlg:hover:bg-transparent hover:dark:bg-theme-3/40 tlg:hover:dark:bg-transparent animate-fade-in-fontbox cursor-pointer">
                                         <Link href={`/post/${font.font_family.replaceAll(" ", "+")}`} className='w-full h-full absolute left-0 top-0'></Link>
                                         <link href={font.cdn_url} rel="stylesheet" type="text/css" itemProp="url"></link>
                                         <div className='group absolute z-20 top-[1.46vw] tlg:top-[2.73vw] tmd:top-[3.65vw] txs:top-[5.83vw] right-[1.25vw] tlg:right-[1.95vw] tmd:right-[2.6vw] txs:right-[4.17vw]'>
@@ -211,22 +215,10 @@ export default function FontBox ({license, lang, type, sort, user, like, filter,
                         )
                     })}
 
-                    {/* 정렬 맞추기 위한 빈 div */}
-                    <div className="w-[calc(20%-8px)] tlg:w-[calc(33.3%-6px)] tmd:w-[calc(50%-4px)] txs:w-full"></div>
-                    <div className="w-[calc(20%-8px)] tlg:w-[calc(33.3%-6px)] tmd:w-[calc(50%-4px)] txs:w-full"></div>
-                    <div className="w-[calc(20%-8px)] tlg:w-[calc(33.3%-6px)] tmd:w-[calc(50%-4px)] txs:w-full"></div>
-                    <div className="w-[calc(20%-8px)] tlg:w-[calc(33.3%-6px)] tmd:w-[calc(50%-4px)] txs:w-full"></div>
-
                     {/* 로딩 스켈레톤 */}
                     {
                         isLoading 
-                        ? <div className='w-full gap-2.5 tlg:gap-2 mt-3 tlg:mt-2.5 flex flex-wrap justify-between items-start'>
-                            <SkeletonBox/>
-                            <SkeletonBox/>
-                            <SkeletonBox/>
-                            <SkeletonBox/>
-                            <SkeletonBox/>
-                            <SkeletonBox/>
+                        ? <div className='w-full gap-2.5 tlg:gap-2 flex flex-wrap justify-between items-start'>
                             <SkeletonBox/>
                             <SkeletonBox/>
                             <SkeletonBox/>
@@ -254,6 +246,12 @@ export default function FontBox ({license, lang, type, sort, user, like, filter,
                         </div>
                         : null
                     }
+
+                    {/* 정렬 맞추기 위한 빈 div */}
+                    <div className="w-[calc(25%-8px)] tlg:w-[calc(33.3%-6px)] tmd:w-[calc(50%-4px)] txs:w-full"></div>
+                    <div className="w-[calc(25%-8px)] tlg:w-[calc(33.3%-6px)] tmd:w-[calc(50%-4px)] txs:w-full"></div>
+                    <div className="w-[calc(25%-8px)] tlg:w-[calc(33.3%-6px)] tmd:w-[calc(50%-4px)] txs:w-full"></div>
+                    <div className="w-[calc(25%-8px)] tlg:w-[calc(33.3%-6px)] tmd:w-[calc(50%-4px)] txs:w-full"></div>
 
                     {/* 폰트가 없을 때 */}
                     {

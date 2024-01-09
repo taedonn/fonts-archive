@@ -35,6 +35,15 @@ module.exports = {
                 "theme-green": "#40E0D0",
                 "theme-naver": "#03C75A",
                 "theme-kakao": "#FFE812",
+                l: {
+                    "2": "#202124",
+                    "5": "#5F6368",
+                    "b": "#BDC1C6",
+                    "e": "#E9EAEE",
+                    "main-1": "#1B73E7",
+                    "main-e": "#E9F0FE",
+                    "main-f": "#F9FAFD",
+                }
             },
             animation: {
                 "zoom-in": "zoom-in 0.2s 1 both",
