@@ -122,8 +122,8 @@ export default function Header (
 
     return (
         <>
-            <header className="w-full">
-                <div className='interface w-full h-16 tlg:h-[52px] px-8 tlg:px-4 fixed right-0 top-0 z-20 flex flex-row justify-between items-center bg-theme-10 dark:bg-theme-2'>
+            <header className="w-full h-16">
+                <div className='interface w-full h-16 px-8 tlg:px-4 fixed right-0 top-0 z-20 flex flex-row justify-between items-center bg-theme-10 dark:bg-theme-2'>
                     <div className="tlg:w-full flex flex-row justify-start items-center">
                         <Link
                             onClick={reset}
@@ -131,7 +131,7 @@ export default function Header (
                             aria-label="logo"
                             className="flex items-center gap-3 text-lg"
                         >
-                            <div className="w-9 h-9 flex justify-center items-center rounded-lg bg-l-main-1">
+                            <div className="w-9 h-9 flex justify-center items-center rounded-lg bg-h-1">
                                 <i className="text-white fa-solid fa-a"></i>
                             </div>
                             <div className="font-bold text-l-2">폰트 아카이브</div>
@@ -156,7 +156,7 @@ export default function Header (
                             </div>
                         </button>
                         <div className="relative mr-3">
-                            <label htmlFor="color-theme" className="w-10 h-10 pb-0.5 text-2xl flex justify-center items-center rounded-full cursor-pointer text-l-main-1 hover:bg-l-e">
+                            <label htmlFor="color-theme" className="w-10 h-10 pb-px text-2xl flex justify-center items-center rounded-full cursor-pointer text-h-1 hover:bg-l-e">
                                 <input onChange={handleColorThemeChange} defaultChecked={thisTheme === 'dark' ? true : false} type="checkbox" id="color-theme" className="hidden peer"/>
                                 <i className='block peer-checked:hidden bi bi-cloud-sun'></i>
                                 <i className='hidden peer-checked:block bi bi-cloud-moon'></i>

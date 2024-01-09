@@ -35,14 +35,17 @@ module.exports = {
                 "theme-green": "#40E0D0",
                 "theme-naver": "#03C75A",
                 "theme-kakao": "#FFE812",
+                h: {
+                    "0": "#006AE2",
+                    "1": "#1B73E7",
+                    "e": "#E9F0FE",
+                    "f": "#F9FAFD",
+                },
                 l: {
                     "2": "#202124",
                     "5": "#5F6368",
                     "b": "#BDC1C6",
                     "e": "#E9EAEE",
-                    "main-1": "#1B73E7",
-                    "main-e": "#E9F0FE",
-                    "main-f": "#F9FAFD",
                 }
             },
             animation: {

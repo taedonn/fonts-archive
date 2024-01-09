@@ -91,6 +91,27 @@ const Index = ({params}: any) => {
     }, 500);
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => { debouncedSearch(e); }
 
+    // 필터 초기화하기
+    const resetFilter = () => {
+        // 쿠키 유효 기간 삭제
+        const expires = new Date();
+        expires.setMonth(expires.getMonth() - 1);
+
+        // 상태 리셋
+        setLicense("all");
+        setLang("all");
+        setType("all");
+        setSort("date");
+        setText("");
+        setSearchword("");
+
+        // 쿠키 리셋
+        setCookie('license', "all", {path:'/', expires: expires, secure: true, sameSite: 'strict'});
+        setCookie('lang', "all", {path:'/', expires: expires, secure: true, sameSite: 'strict'});
+        setCookie('type', "all", {path:'/', expires: expires, secure: true, sameSite: 'strict'});
+        setCookie('sort', "date", {path:'/', expires: expires, secure: true, sameSite: 'strict'});
+    }
+
     return (
         <>
             {/* 헤더 */}
@@ -103,19 +124,22 @@ const Index = ({params}: any) => {
             />
             
             {/* 메인 */}
-            <div className="w-full flex gap-4">
+            <div className="w-full flex">
                 <Sidemenu
                     lang={thisLang}
                     license={thisLicense}
                     type={thisType}
                     sort={thisSort}
                     source={source}
+                    text={text}
+                    searchword={searchword}
                     handleTextChange={handleTextChange}
                     handleLangOptionChange={handleLangOptionChange}
                     handleLicenseOptionChange={handleLicenseOptionChange}
                     handleTypeOptionChange={handleTypeOptionChange}
                     handleSortOptionChange={handleSortOptionChange}
                     handleSearch={handleSearch}
+                    resetFilter={resetFilter}
                 />
                 <FontBox 
                     license={thisLicense}
