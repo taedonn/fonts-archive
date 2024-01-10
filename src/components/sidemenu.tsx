@@ -53,8 +53,8 @@ export default function Sidemenu ({
     }
 
     return (
-        <div className={`${expand ? "w-80 mr-4" : "w-0 mr-8"} shrink-0 duration-200`}>
-            <div className={`${expand ? "w-[calc(100%-320px)] pl-4" : "w-full pl-8"} h-16 fixed z-10 top-16 right-0 flex items-center duration-200 bg-white`}>
+        <div className={`${expand ? "w-80 mr-4" : "w-0 mr-8"} tlg:w-0 tlg:mr-4 shrink-0 duration-200`}>
+            <div className={`${expand ? "w-[calc(100%-320px)] pl-4" : "w-full pl-8"} tlg:w-full tlg:pl-4 h-16 fixed z-10 top-16 right-0 flex items-center duration-200 bg-white`}>
                 <input
                     type="checkbox"
                     id="expand-filter"
@@ -62,7 +62,7 @@ export default function Sidemenu ({
                     onChange={handleExpand}
                     checked={expand}
                 />
-                <label htmlFor="expand-filter" className="px-4 py-1.5 text-sm font-medium rounded-full cursor-pointer border border-h-1 peer-checked:hover:border-h-0 hover:bg-h-1/10 peer-checked:bg-h-1 peer-checked:hover:bg-h-0 text-h-1 peer-checked:text-white">
+                <label htmlFor="expand-filter" className="px-4 py-1.5 text-sm font-medium rounded-full cursor-pointer bg-h-e hover:bg-h-1 peer-checked:bg-h-1 peer-checked:hover:bg-h-0 text-h-1 hover:text-white peer-checked:text-white">
                     <i className="mr-1.5 bi bi-sliders2"></i>
                     필터
                 </label>

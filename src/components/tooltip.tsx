@@ -46,9 +46,9 @@ export default function Tooltip({
 
     return (
         <>
-            <div ref={tooltip} className="fixed z-20 right-4 bottom-4 flex flex-col justify-start items-start">
-                <div onClick={goUp} className="w-10 h-10 rounded-full relative flex flex-row justify-center items-center mt-2 tlg:mt-1.5 cursor-pointer bg-theme-3 dark:bg-theme-1 drop-default-tooltip">
-                    <i className="text-lg text-theme-10 fa-solid fa-angle-up"></i>
+            <div ref={tooltip} className="group fixed z-10 right-4 bottom-4 flex flex-col justify-start items-start">
+                <div onClick={goUp} className="w-10 h-10 rounded-full relative flex flex-row justify-center items-center mt-2 tlg:mt-1.5 cursor-pointer bg-h-e group-hover:bg-h-1 drop-default-tooltip">
+                    <i className="text-lg text-h-1 group-hover:text-white fa-solid fa-angle-up"></i>
                 </div>
             </div>
         </>

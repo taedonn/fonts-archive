@@ -14,6 +14,7 @@ import { throttle } from "lodash";
 
 // components
 import FontSearch from "@/components/fontsearch";
+import ButtonLink from "@/components/buttonlink";
 
 // 빈 함수
 const emptyFn = () => { return; }
@@ -123,7 +124,7 @@ export default function Header (
     return (
         <>
             <header className="w-full h-16">
-                <div className='interface w-full h-16 px-8 tlg:px-4 fixed right-0 top-0 z-20 flex flex-row justify-between items-center bg-theme-10 dark:bg-theme-2'>
+                <div className='interface w-full h-16 px-8 tlg:px-4 fixed right-0 top-0 z-20 flex flex-row justify-between items-center bg-white'>
                     <div className="tlg:w-full flex flex-row justify-start items-center">
                         <Link
                             onClick={reset}
@@ -138,7 +139,7 @@ export default function Header (
                         </Link>
                     </div>
                     <div className='w-max flex flex-row justify-start items-center'>
-                        <button onClick={handleFontSearch} className={`${page === "index" ? "hidden tlg:flex" : "flex"} w-[220px] tlg:w-[200px] tmd:w-8 h-8 tlg:h-[30px] relative text-sm tlg:text-xs text-normal text-theme-4 dark:text-theme-9 leading-none bg-theme-8 dark:bg-theme-3 flex-start justify-start items-center rounded-lg tmd:rounded-md pl-[38px] tlg:pl-[30px] tmd:pl-0 pb-px hover:dark:bg-theme-5 tlg:hover:dark:bg-theme-3 hover:drop-shadow-default hover:dark:drop-shadow-dark tlg:hover:drop-shadow-none tlg:hover:dark:drop-shadow-none`}>
+                        <button onClick={handleFontSearch} className={`${page === "index" ? "hidden" : "flex"} w-[220px] tlg:w-[200px] tmd:w-8 h-8 tlg:h-[30px] relative text-sm tlg:text-xs text-normal text-theme-4 dark:text-theme-9 leading-none bg-theme-8 dark:bg-theme-3 flex-start justify-start items-center rounded-lg tmd:rounded-md pl-[38px] tlg:pl-[30px] tmd:pl-0 pb-px hover:dark:bg-theme-5 tlg:hover:dark:bg-theme-3 hover:drop-shadow-default hover:dark:drop-shadow-dark tlg:hover:drop-shadow-none tlg:hover:dark:drop-shadow-none`}>
                             <span className="tmd:hidden mt-px">폰트 검색하기...</span>
                             <i className="text-xs absolute left-3.5 tlg:left-3 tmd:left-1/2 top-1/2 tmd:-translate-x-1/2 -translate-y-1/2 text-theme-4 dark:text-theme-9 fa-solid fa-magnifying-glass"></i>
                             <div className="w-max h-full absolute right-4 flex flex-row justify-center items-center">
@@ -156,7 +157,7 @@ export default function Header (
                             </div>
                         </button>
                         <div className="relative mr-3">
-                            <label htmlFor="color-theme" className="w-10 h-10 pb-px text-2xl flex justify-center items-center rounded-full cursor-pointer text-h-1 hover:bg-l-e">
+                            <label htmlFor="color-theme" className="w-10 h-10 text-2xl flex justify-center items-center rounded-full cursor-pointer text-h-1 hover:bg-h-e">
                                 <input onChange={handleColorThemeChange} defaultChecked={thisTheme === 'dark' ? true : false} type="checkbox" id="color-theme" className="hidden peer"/>
                                 <i className='block peer-checked:hidden bi bi-cloud-sun'></i>
                                 <i className='hidden peer-checked:block bi bi-cloud-moon'></i>
@@ -164,7 +165,7 @@ export default function Header (
                         </div>
                         <div className="relative flex flex-row justify-center items-center cursor-pointer">
                             <input onChange={handleAccount} type="checkbox" id="account" className="peer hidden"/>
-                            <label ref={refAccountLabel} htmlFor="account" className="w-8 h-8 flex justify-center items-center cursor-pointer text-l-5">
+                            <label ref={refAccountLabel} htmlFor="account" className="w-8 h-8 flex justify-center items-center cursor-pointer text-l-5 hover:text-l-2 peer-checked:text-l-2">
                                 {
                                     user === null
                                     ? <i className="text-3xl bi bi-person-circle"></i>
@@ -173,30 +174,27 @@ export default function Header (
                                     </div>
                                 }
                             </label>
-                            <div ref={refAccountDiv} id="account-select" className="hidden peer-checked:block w-[136px] absolute right-0 top-10 rounded-lg px-4 py-3 bg-theme-3 dark:bg-theme-blue-2 drop-shadow-default dark:drop-shadow-dark cursor-default">
-                                <Link href="https://github.com/fonts-archive" target="_blank" rel="noopener noreferrer" className="flex justify-start items-center text-theme-10/80 hover:text-theme-10 tlg:hover:text-theme-10/80">
-                                    <i className="text-sm fa-brands fa-github"></i>
-                                    <span className="text-[13px] ml-1.5">깃허브</span>
+                            <div ref={refAccountDiv} id="account-select" className="hidden peer-checked:block w-[136px] absolute right-0 top-10 px-4 py-3 rounded-lg drop-shadow-default cursor-default bg-l-e">
+                                <Link href="https://github.com/fonts-archive" target="_blank" rel="noopener noreferrer" className="flex justify-start items-center text-sm text-l-2 hover:text-l-5 selection:bg-transparent">
+                                    <i className="fa-brands fa-github"></i>
+                                    <span className="ml-1.5">깃허브</span>
                                 </Link>
-                                <Link href="/notices" className="flex justify-start items-center mt-1 text-theme-10/80 hover:text-theme-10 tlg:hover:text-theme-10/80">
-                                    <i className="text-[13px] ml-px fa-regular fa-flag"></i>
-                                    <span className="text-[13px] ml-[7px]">공지사항</span>
+                                <Link href="/notices" className="flex justify-start items-center mt-1.5 text-sm text-l-2 hover:text-l-5 selection:bg-transparent">
+                                    <i className="fa-solid fa-bell-concierge"></i>
+                                    <span className="ml-1.5">공지사항</span>
                                 </Link>
-                                <Link href="/issue/font" className="flex justify-start items-center mt-1 text-theme-10/80 hover:text-theme-10 tlg:hover:text-theme-10/80">
-                                    <i className="text-xs ml-px text-theme-yellow fa-solid fa-bullhorn"></i>
-                                    <span className="text-[13px] ml-[7px]">폰트 제보하기</span>
+                                <Link href="/issue/font" className="flex justify-start items-center mt-1.5 text-sm text-l-2 hover:text-l-5 selection:bg-transparent">
+                                    <i className="ml-px mr-px text-xs fa-regular fa-paper-plane"></i>
+                                    <span className="ml-1.5">폰트 제보하기</span>
                                 </Link>
-                                <Link href="/issue/bug" className="flex justify-start items-center mt-1 text-theme-10/80 hover:text-theme-10 tlg:hover:text-theme-10/80">
-                                    <i className="text-[13px] ml-px text-theme-red fa-solid fa-bug"></i>
-                                    <span className="text-[13px] ml-[7px]">버그 리포트</span>
+                                <Link href="/issue/bug" className="flex justify-start items-center mt-1.5 text-sm text-l-2 hover:text-l-5 selection:bg-transparent">
+                                    <i className="ml-px fa-solid fa-virus"></i>
+                                    <span className="ml-1.5">버그 리포트</span>
                                 </Link>
                                 {
                                     user === null
-                                    ? <>
-                                        <Link href="/user/login" onClick={handleLoginClick} className="w-full h-7 flex justify-center items-center rounded-lg mt-2.5 bg-theme-yellow/90 hover:bg-theme-yellow tlg:hover:bg-theme-yellow/90 dark:bg-theme-blue-1/90 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1/90">
-                                            <span className="text-sm text-theme-3 dark:text-theme-blue-2 font-medium mt-px">로그인</span>
-                                        </Link>
-                                    </> : <div className="text-sm text-theme-7">
+                                    ? <ButtonLink href="/user/login" onClick={handleLoginClick} marginTop={10}>로그인</ButtonLink>
+                                    : <div className="text-sm text-theme-7">
                                         <div className="w-full h-px bg-theme-7 my-2.5"></div>
                                         <div className="text-theme-10">{user.name}<span className="text-theme-7"> 님,</span></div>
                                         <Link href="/user/info" className="flex justify-start items-centerå mt-1.5 hover:text-theme-10 tlg:hover:text-theme-7">

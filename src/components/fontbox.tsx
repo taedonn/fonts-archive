@@ -153,7 +153,7 @@ export default function FontBox ({license, lang, type, sort, user, like, filter,
 
     return (
         <>
-            <div className='w-full pt-16 pr-8 flex flex-col justify-start items-end'>
+            <div className='w-full pt-16 pr-8 tlg:pr-4 flex flex-col justify-start items-end'>
                 {/* <KakaoAdFitTopBanner
                     marginTop={12}
                 /> */}

@@ -43,10 +43,25 @@ export default function SelectBox ({
 
     /** 셀렉트 박스 클릭 */
     const handleChange = (e:React.ChangeEvent<HTMLInputElement>) => {
+        const label = document.getElementById(`label-${value}`) as HTMLLabelElement;
         const option = document.getElementById(`option-${value}-wrap`) as HTMLDivElement;
+
+        // 넓이 계산 후 팝업 펼치기/접기
+        const labelBottom = label.getBoundingClientRect().top + label.offsetHeight;
+        const optionHeight = option.offsetHeight + 4;
+
         if (e.target.checked) {
-            option.classList.add("animate-fade-in-account");
-            setTimeout(function() { option.classList.remove('animate-fade-in-account'); },600);
+            if (window.innerHeight <= (labelBottom + optionHeight)) {
+                option.classList.remove("top-16");
+                option.classList.add("animate-fade-in-from-top", "bottom-[68px]");
+                setTimeout(function() {
+                    option.classList.remove("animate-fade-in-from-top");
+                }, 600);
+            } else {
+                option.classList.remove("bottom-[68px]");
+                option.classList.add("animate-fade-in-account", "top-16");
+                setTimeout(function() { option.classList.remove("animate-fade-in-account"); }, 600);
+            }
         }
     }
 
@@ -77,7 +92,7 @@ export default function SelectBox ({
                 onChange={handleChange}
                 className="peer hidden"
             />
-            <label ref={refSelect} htmlFor={`select-${value}`} className="group p-4 flex justify-between items-center rounded-lg border-2 cursor-pointer text-l-2 hover:bg-l-e tlg:hover:bg-transparent peer-checked:hover:bg-transparent border-transparent peer-checked:border-h-1">
+            <label ref={refSelect} htmlFor={`select-${value}`} id={`label-${value}`} className="group p-4 flex justify-between items-center rounded-lg border-2 cursor-pointer text-l-2 hover:bg-l-e tlg:hover:bg-transparent peer-checked:hover:bg-transparent border-transparent peer-checked:border-h-1">
                 <div className="flex items-center gap-3">
                     <i className={`text-lg bi ${icon}`}></i>
                     <span className="font-medium selection:bg-transparent">
@@ -91,7 +106,7 @@ export default function SelectBox ({
                 ref={refOption}
                 id={`option-${value}-wrap`}
                 style={{ height: options.length >= 5 ? '216px' : (options.length * 40 + 16) + 'px' }}
-                className="custom-sm-scrollbar hidden peer-checked:block h-0 peer-checked:h-max w-full absolute z-10 left-0 top-16 mt-1 py-2 rounded-lg overflow-y-auto duration-100 bg-white drop-shadow-default"
+                className="custom-sm-scrollbar hidden peer-checked:block h-0 peer-checked:h-max w-full absolute z-10 left-0 mt-1 py-2 rounded-lg overflow-y-auto duration-100 bg-white drop-shadow-default"
             >
                 {
                     options && options.map((option: Option) => {

@@ -68,7 +68,7 @@ export default function App({Component, pageProps: { session, ...pageProps }}: A
                 />
                 <main>
                     <NextNProgress
-                        color={theme === "dark" ? "#8AB4F8" : "#FCBE11"}
+                        color={theme === "dark" ? "#8AB4F8" : "#1B73E7"}
                     />
                     <Component {...pageProps}/>
                 </main>
