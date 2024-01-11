@@ -24,7 +24,7 @@ export default function Button ({
                 marginTop: marginTop + "px",
                 marginBottom: marginBottom + "px",
             }}
-            className="w-full flex justify-center items-center rounded-lg text-sm bg-h-1 hover:bg-h-0 text-white selection:bg-transparent"
+            className="w-full flex justify-center items-center rounded-lg text-sm bg-h-1 dark:bg-f-8  hover:bg-h-0 hover:dark:bg-f-9 text-white dark:text-d-2 selection:bg-transparent"
         >
             {children}
         </div>

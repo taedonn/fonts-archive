@@ -49,7 +49,7 @@ export default function Sidemenu ({
 
     return (
         <div className={`${expand ? "w-80" : "w-0"} tlg:w-0 shrink-0 duration-200`}>
-            <div className={`${expand ? "w-[calc(100%-320px)]" : "w-full"} tlg:w-full pl-8 tlg:pl-4 h-16 fixed z-10 top-16 right-0 flex items-center duration-200 bg-white`}>
+            <div className={`${expand ? "w-[calc(100%-320px)]" : "w-full"} tlg:w-full pl-8 tlg:pl-4 h-16 fixed z-10 top-16 right-0 flex items-center duration-200 bg-white dark:bg-d-2`}>
                 <input
                     type="checkbox"
                     id="expand-filter"
@@ -57,26 +57,27 @@ export default function Sidemenu ({
                     onChange={handleExpand}
                     checked={expand}
                 />
-                <label htmlFor="expand-filter" className="px-4 py-1.5 text-sm font-medium rounded-full cursor-pointer bg-h-e hover:bg-h-1 peer-checked:bg-h-1 peer-checked:hover:bg-h-0 text-h-1 hover:text-white peer-checked:text-white">
+                <label htmlFor="expand-filter" className="px-4 py-1.5 text-sm font-medium rounded-full cursor-pointer duration-200 bg-h-e dark:bg-d-3 hover:bg-h-1 hover:dark:bg-d-4 peer-checked:bg-h-1 peer-checked:dark:bg-f-8 peer-checked:hover:bg-h-0 peer-checked:hover:dark:bg-f-9 text-h-1 dark:text-f-8 hover:text-white peer-checked:text-white peer-checked:dark:text-d-2">
                     <i className="mr-1.5 bi bi-sliders2"></i>
                     필터
                 </label>
                 <button onClick={handleResetFilter} className={`${
                     license === "all" && lang === "all" && type === "all" && sort === "date" && text === "" && searchword === ""
-                        ? "text-l-b hover:bg-transparent cursor-default"
-                        : "text-h-1 hover:bg-h-e"
+                        ? "text-l-b dark:text-d-6 hover:bg-transparent cursor-default"
+                        : "text-h-1 dark:text-f-8 hover:bg-h-e hover:dark:bg-d-3"
                     } ml-1.5 px-3 py-2 rounded-lg text-sm`}>
                     <i className="mr-2 fa-solid fa-rotate-right"></i>
                     필터 초기화
                 </button>
-                <div className="w-full h-4 absolute left-0 -bottom-4 bg-gradient-to-b from-white"></div>
+                <div className="opacity-100 dark:opacity-0 w-full h-4 absolute left-0 -bottom-4 bg-gradient-to-b duration-200 from-white"></div>
+                <div className="opacity-0 dark:opacity-100 w-full h-4 absolute left-0 -bottom-4 bg-gradient-to-b duration-200 from-d-2"></div>
             </div>
-            <div className={`${expand ? "left-0" : "-left-80"} w-80 custom-sm-scrollbar h-full pt-32 p-8 fixed z-10 top-0 duration-200 bg-h-f`}>
+            <div className={`${expand ? "left-0" : "-left-80"} w-80 custom-sm-scrollbar h-full pt-32 p-8 fixed z-10 top-0 duration-200 bg-h-f dark:bg-d-3`}>
                 <div className="absolute right-8 top-[76px] flex items-center">
                     <button onClick={handleResetFilter} className={`${
                             license === "all" && lang === "all" && type === "all" && sort === "date" && text === "" && searchword === ""
-                            ? "text-l-b hover:bg-transparent cursor-default"
-                            : "text-h-1 hover:bg-h-e"
+                            ? "text-l-b dark:text-d-6 hover:bg-transparent cursor-default"
+                            : "text-h-1 dark:text-f-8 hover:bg-h-e hover:dark:bg-d-4"
                         } mr-1 mt-0.5 px-3 py-2 rounded-lg text-sm`}>
                         <i className="mr-2 fa-solid fa-rotate-right"></i>
                         필터 초기화

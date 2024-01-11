@@ -5,7 +5,6 @@ import { useInView } from 'react-intersection-observer';
 
 // next
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 
 // libraries
 import axios from 'axios';
@@ -46,6 +45,14 @@ export default function FontBox ({
     // states
     const [alertDisplay, setAlertDisplay] = useState<boolean>(false);
     const [hoverDisplay, setHoverDisplay] = useState<boolean>(true);
+
+    /** 스켈레톤 박스 반복문 */
+    const skeletonLoop = () => {
+        const limit = 20;
+        const arr = [];
+        for (let i = 0; i < limit; i++) arr.push(<SkeletonBox key={i}/>);
+        return arr;
+    }
     
     // react-intersection-observer 훅
     const { ref, inView } = useInView();
@@ -74,9 +81,6 @@ export default function FontBox ({
     // react-intersection-observer 사용해 ref를 지정한 요소가 viewport에 있을 때 fetchNextPage 함수 실행
     useEffect(() => {
         if (inView && hasNextPage) { fetchNextPage(); }
-
-        if (!hasNextPage) document.body.style.paddingBottom = 16 + "px";
-        else document.body.style.paddingBottom = 76 + "px";
     }, [inView, hasNextPage, fetchNextPage]);
 
     // 폰트 검색 필터링 값 변경 시 기존 데이터 지우고 useInfiniteQuery 재실행
@@ -85,21 +89,6 @@ export default function FontBox ({
         refetch();
         window.scrollTo(0, 0);
     }, [license, lang, type, sort, searchword, filter, remove, refetch]);
-
-    // 다음 페이지가 없으면 패딩 변경
-    const router = useRouter();
-    
-    useEffect(() => {
-        const start = () => {
-            document.body.style.paddingBottom = 76 + "px";
-        }
-        router.events.on("routeChangeStart", start);
-        router.events.on("routeChangeError", start);
-        return () => {
-            router.events.off("routeChangeStart", start);
-            router.events.off("routeChangeError", start);
-        }
-    }, [router]);
 
     /** 로그인 중이 아닐 때 좋아요 클릭 방지 */
     const handleLikeClick = (e: React.MouseEvent<HTMLInputElement>) => {
@@ -180,7 +169,7 @@ export default function FontBox ({
     return (
         <>
             <div className={`${expand ? "w-[calc(100%-320px)] tlg:w-full" : "w-full"} pt-16 px-8 tlg:px-4 duration-200`}>
-                <div className="w-full mt-8 relative flex flex-col">
+                <div className="w-full mt-8 mb-32 relative flex flex-col">
                     {/* <KakaoAdFitTopBanner
                         marginTop={12}
                     /> */}
@@ -249,32 +238,7 @@ export default function FontBox ({
                     {/* 로딩 스켈레톤 */}
                     {
                         isLoading 
-                        && <div className='w-full gap-2.5 tlg:gap-2 flex flex-wrap justify-between items-start'>
-                            <SkeletonBox/>
-                            <SkeletonBox/>
-                            <SkeletonBox/>
-                            <SkeletonBox/>
-                            <SkeletonBox/>
-                            <SkeletonBox/>
-                            <SkeletonBox/>
-                            <SkeletonBox/>
-                            <SkeletonBox/>
-                            <SkeletonBox/>
-                            <SkeletonBox/>
-                            <SkeletonBox/>
-                            <SkeletonBox/>
-                            <SkeletonBox/>
-                            <SkeletonBox/>
-                            <SkeletonBox/>
-                            <SkeletonBox/>
-                            <SkeletonBox/>
-                            <SkeletonBox/>
-                            <SkeletonBox/>
-                            <SkeletonBox/>
-                            <SkeletonBox/>
-                            <SkeletonBox/>
-                            <SkeletonBox/>
-                        </div>
+                        && <div className="w-full">{ skeletonLoop() }</div>
                     }
 
                     {/* 폰트가 없을 때 */}
@@ -290,7 +254,7 @@ export default function FontBox ({
                     <span className="w-full" ref={ref}></span>
 
                     {/* 로딩 바 */}
-                    {hasNextPage && <div className="w-full py-5 absolute left-0 -bottom-16 flex justify-center items-center"><span className="loader w-9 h-9 border-2 border-h-1 border-b-h-e"></span></div>}
+                    {hasNextPage && <div className="w-full h-20 absolute left-0 bottom-0 translate-y-full flex justify-center items-center"><span className="loader w-9 h-9 border-2 border-h-e border-b-h-1"></span></div>}
                 </div>
             </div>
         </>

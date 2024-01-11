@@ -47,6 +47,18 @@ module.exports = {
                     "5": "#5F6368",
                     "b": "#BDC1C6",
                     "e": "#E9EAEE",
+                },
+                f: {
+                    "1": "#17181B",
+                    "8": "#8AB4F8",
+                    "9": "#9FBCF2",
+                },
+                d: {
+                    "2": "#202124",
+                    "3": "#35363A",
+                    "4": "#4C4D50",
+                    "6": "#646568",
+                    "c": "#CDCED2",
                 }
             },
             animation: {
@@ -59,7 +71,7 @@ module.exports = {
                 "skeleton-anim": "skeleton-anim 2s infinite"
             },
             backgroundImage: {
-                "gradient": "linear-gradient(90deg, #CDCED2, #B1B2B6, #CDCED2)",
+                "gradient": "linear-gradient(90deg, #E9F0FE, #F9FAFD, #E9F0FE)",
                 "gradient-dark": "linear-gradient(90deg, #35363A, #4C4D50, #35363A)"
             },
             backgroundSize: {
