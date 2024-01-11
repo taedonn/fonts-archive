@@ -381,6 +381,7 @@ const IssueFont = ({params}: any) => {
                 isMac={isMac}
                 theme={theme}
                 user={user}
+                page="issue"
             />
 
             {/* Progress Bar */}

@@ -32,8 +32,7 @@ class MyDocument extends Document {
                     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" type="text/css"/>
                 </Head>
                 <script dangerouslySetInnerHTML={{ __html: themeInitializerScript }}/>
-                {/* <body className="custom-lg-scrollbar font-sans absolute w-full min-h-full px-8 tlg:px-4 pt-[60px] tlg:pt-[52px] pb-[76px]"> */}
-                <body className="custom-lg-scrollbar font-sans absolute w-full min-h-full">
+                <body className="custom-md-scrollbar font-sans absolute w-full min-h-full">
                     <Main/>
                     <NextScript/>
                 </body>

@@ -21,6 +21,10 @@ import FontBox from "@/components/fontbox";
 const Index = ({params}: any) => {
     const { license, lang, type, sort, theme, source, filter, userAgent, user, like } = params;
 
+    // 디바이스 체크
+    const isMac: boolean = userAgent.includes("Mac OS") ? true : false;
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(userAgent);
+
     // states
     const [, setCookie] = useCookies<string>([]);
     const [thisLicense, setLicense] = useState<string>(license);
@@ -29,9 +33,7 @@ const Index = ({params}: any) => {
     const [thisSort, setSort] = useState<string>(sort);
     const [text, setText] = useState<string>("");
     const [searchword, setSearchword] = useState<string>(source);
-
-    // 디바이스 체크
-    const isMac: boolean = userAgent.includes("Mac OS") ? true : false
+    const [expand, setExpand] = useState<boolean>(isMobile ? false : true);
 
     /** 옵션 - "허용 범위" 클릭 */
     const handleLicenseOptionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -112,6 +114,9 @@ const Index = ({params}: any) => {
         setCookie('sort', "date", {path:'/', expires: expires, secure: true, sameSite: 'strict'});
     }
 
+    /** 사이드 메뉴 펼치기/접기 */
+    const handleExpand = (e: React.ChangeEvent<HTMLInputElement>) => { setExpand(e.target.checked); }
+
     return (
         <>
             {/* 헤더 */}
@@ -126,6 +131,8 @@ const Index = ({params}: any) => {
             {/* 메인 */}
             <div className="w-full flex">
                 <Sidemenu
+                    expand={expand}
+                    handleExpand={handleExpand}
                     lang={thisLang}
                     license={thisLicense}
                     type={thisType}
@@ -142,6 +149,7 @@ const Index = ({params}: any) => {
                     resetFilter={resetFilter}
                 />
                 <FontBox 
+                    expand={expand}
                     license={thisLicense}
                     lang={thisLang}
                     type={thisType}

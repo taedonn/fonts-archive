@@ -95,6 +95,7 @@ const Notices = ({params}: any) => {
                 isMac={isMac}
                 theme={theme}
                 user={user}
+                page="notices"
             />
 
             {/* 고정 메뉴 */}

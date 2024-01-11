@@ -1,10 +1,9 @@
-// react
-import { useState } from "react"
-
 // components
 import SelectBox from "@/components/selectbox"
 
 interface Sidemenu {
+    expand: boolean,
+    handleExpand: any,
     lang: string,
     license: string,
     type: string,
@@ -22,6 +21,8 @@ interface Sidemenu {
 }
 
 export default function Sidemenu ({
+    expand,
+    handleExpand,
     lang,
     license,
     type,
@@ -37,12 +38,6 @@ export default function Sidemenu ({
     handleSearch,
     resetFilter,
 }: Sidemenu) {
-    // states
-    const [expand, setExpand] = useState<boolean>(true);
-
-    /** 사이드 메뉴 펼치기/접기 */
-    const handleExpand = (e: React.ChangeEvent<HTMLInputElement>) => { setExpand(e.target.checked); }
-
     /** 필터 초기화하기 */
     const handleResetFilter = () => {
         const textP = document.getElementById("text-p") as HTMLTextAreaElement;
@@ -53,8 +48,8 @@ export default function Sidemenu ({
     }
 
     return (
-        <div className={`${expand ? "w-80 mr-4" : "w-0 mr-8"} tlg:w-0 tlg:mr-4 shrink-0 duration-200`}>
-            <div className={`${expand ? "w-[calc(100%-320px)] pl-4" : "w-full pl-8"} tlg:w-full tlg:pl-4 h-16 fixed z-10 top-16 right-0 flex items-center duration-200 bg-white`}>
+        <div className={`${expand ? "w-80" : "w-0"} tlg:w-0 shrink-0 duration-200`}>
+            <div className={`${expand ? "w-[calc(100%-320px)]" : "w-full"} tlg:w-full pl-8 tlg:pl-4 h-16 fixed z-10 top-16 right-0 flex items-center duration-200 bg-white`}>
                 <input
                     type="checkbox"
                     id="expand-filter"
@@ -68,12 +63,13 @@ export default function Sidemenu ({
                 </label>
                 <button onClick={handleResetFilter} className={`${
                     license === "all" && lang === "all" && type === "all" && sort === "date" && text === "" && searchword === ""
-                    ? "text-l-b hover:bg-transparent cursor-default"
-                    : "text-h-1 hover:bg-h-e"
-                } ml-1.5 px-3 py-2 rounded-lg text-sm`}>
-                <i className="mr-2 fa-solid fa-rotate-right"></i>
-                필터 초기화
-            </button>
+                        ? "text-l-b hover:bg-transparent cursor-default"
+                        : "text-h-1 hover:bg-h-e"
+                    } ml-1.5 px-3 py-2 rounded-lg text-sm`}>
+                    <i className="mr-2 fa-solid fa-rotate-right"></i>
+                    필터 초기화
+                </button>
+                <div className="w-full h-4 absolute left-0 -bottom-4 bg-gradient-to-b from-white"></div>
             </div>
             <div className={`${expand ? "left-0" : "-left-80"} w-80 custom-sm-scrollbar h-full pt-32 p-8 fixed z-10 top-0 duration-200 bg-h-f`}>
                 <div className="absolute right-8 top-[76px] flex items-center">

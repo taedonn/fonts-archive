@@ -9,7 +9,6 @@ interface Button {
     height?: number,
     marginTop?: number,
     marginBottom?: number,
-    onClick: Function,
 }
 
 export default function Button ({
@@ -17,11 +16,9 @@ export default function Button ({
     height=defaultButton.height,
     marginTop=defaultButton.marginTop,
     marginBottom=defaultButton.marginBottom,
-    onClick,
 }: Button) {
     return (
-        <button
-            onClick={onClick()}
+        <div
             style={{
                 height: height + "px",
                 marginTop: marginTop + "px",
@@ -30,6 +27,6 @@ export default function Button ({
             className="w-full flex justify-center items-center rounded-lg text-sm bg-h-1 hover:bg-h-0 text-white selection:bg-transparent"
         >
             {children}
-        </button>
+        </div>
     )
 }

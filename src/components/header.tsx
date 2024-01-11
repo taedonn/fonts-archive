@@ -14,7 +14,7 @@ import { throttle } from "lodash";
 
 // components
 import FontSearch from "@/components/fontsearch";
-import ButtonLink from "@/components/buttonlink";
+import Button from "@/components/button";
 
 // 빈 함수
 const emptyFn = () => { return; }
@@ -124,39 +124,48 @@ export default function Header (
     return (
         <>
             <header className="w-full h-16">
-                <div className='interface w-full h-16 px-8 tlg:px-4 fixed right-0 top-0 z-20 flex flex-row justify-between items-center bg-white'>
-                    <div className="tlg:w-full flex flex-row justify-start items-center">
+                <div className='interface w-full h-16 px-8 tlg:px-4 fixed right-0 top-0 z-20 flex justify-between items-center bg-white'>
+                    <div className="flex justify-start items-center text-l-2">
                         <Link
                             onClick={reset}
                             href="/"
                             aria-label="logo"
-                            className="flex items-center gap-3 text-lg"
+                            className="relative flex items-center gap-3 shrink-0 text-lg"
                         >
                             <div className="w-9 h-9 flex justify-center items-center rounded-lg bg-h-1">
                                 <i className="text-white fa-solid fa-a"></i>
                             </div>
-                            <div className="font-bold text-l-2">폰트 아카이브</div>
+                            <div className="font-bold tlg:hidden">폰트 아카이브</div>
+                            <div className="hidden tlg:block w-4 h-full absolute -right-8 top-0 bg-gradient-to-r from-white"></div>
                         </Link>
+                        <div className={`${page === "index" ? "tlg:w-[calc(100vw-196px)]" : "tlg:w-[calc(100vw-236px)]"} mx-6 tlg:mx-4 overflow-x-auto no-scrollbar`}>
+                            <div className="w-max flex gap-2 tlg:gap-0.5 items-center">
+                                <Link href="/" className={`${page === "index" ? "text-h-1 bg-h-e" : ""} px-3 py-1.5 rounded-lg tlg:text-sm font-medium hover:text-h-1`}>모든 폰트</Link>
+                                <Link href="/issue/font" className={`${page === "issue" ? "text-h-1 bg-h-e" : ""} px-3 py-1.5 rounded-lg tlg:text-sm font-medium hover:text-h-1`}>폰트 제보하기</Link>
+                                <Link href="/notices" className={`${page === "notices" ? "text-h-1 bg-h-e" : ""} px-3 py-1.5 rounded-lg tlg:text-sm font-medium hover:text-h-1`}>공지사항</Link>
+                            </div>
+                        </div>
                     </div>
-                    <div className='w-max flex flex-row justify-start items-center'>
-                        <button onClick={handleFontSearch} className={`${page === "index" ? "hidden" : "flex"} w-[220px] tlg:w-[200px] tmd:w-8 h-8 tlg:h-[30px] relative text-sm tlg:text-xs text-normal text-theme-4 dark:text-theme-9 leading-none bg-theme-8 dark:bg-theme-3 flex-start justify-start items-center rounded-lg tmd:rounded-md pl-[38px] tlg:pl-[30px] tmd:pl-0 pb-px hover:dark:bg-theme-5 tlg:hover:dark:bg-theme-3 hover:drop-shadow-default hover:dark:drop-shadow-dark tlg:hover:drop-shadow-none tlg:hover:dark:drop-shadow-none`}>
-                            <span className="tmd:hidden mt-px">폰트 검색하기...</span>
-                            <i className="text-xs absolute left-3.5 tlg:left-3 tmd:left-1/2 top-1/2 tmd:-translate-x-1/2 -translate-y-1/2 text-theme-4 dark:text-theme-9 fa-solid fa-magnifying-glass"></i>
-                            <div className="w-max h-full absolute right-4 flex flex-row justify-center items-center">
+                    <div className='w-max relative flex justify-start shrink-0 items-center'>
+                        <div className="hidden tlg:block w-4 h-full absolute -left-8 top-0 bg-gradient-to-l from-white"></div>
+                        <button onClick={handleFontSearch} className={`${page === "index" ? "hidden" : "flex"} w-56 tlg:w-8 h-8 pl-10 tlg:p-0 mr-3 tlg:mr-2 relative text-sm flex-start justify-start items-center rounded-lg text-h-1 hover:text-white bg-h-e hover:bg-h-1`}>
+                            <span className="tlg:hidden">폰트 검색하기...</span>
+                            <i className="text-xs absolute left-4 tlg:left-1/2 top-1/2 tlg:-translate-x-1/2 -translate-y-1/2 fa-solid fa-magnifying-glass"></i>
+                            <div className="tlg:hidden w-max h-full absolute right-4 flex flex-row justify-center items-center">
                                 {
-                                    isMac === true
-                                    ? <div className="flex flex-row justify-center items-center">
-                                        <svg className="tmd:hidden w-[11px] fill-theme-4 dark:fill-theme-8 mr-px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.5 2A1.5 1.5 0 0 1 5 3.5V5H3.5a1.5 1.5 0 1 1 0-3zM6 5V3.5A2.5 2.5 0 1 0 3.5 6H5v4H3.5A2.5 2.5 0 1 0 6 12.5V11h4v1.5a2.5 2.5 0 1 0 2.5-2.5H11V6h1.5A2.5 2.5 0 1 0 10 3.5V5H6zm4 1v4H6V6h4zm1-1V3.5A1.5 1.5 0 1 1 12.5 5H11zm0 6h1.5a1.5 1.5 0 1 1-1.5 1.5V11zm-6 0v1.5A1.5 1.5 0 1 1 3.5 11H5z"/></svg>
-                                        <span className="tmd:hidden text-xs leading-none pt-px">K</span>
+                                    isMac
+                                    ? <div className="flex justify-center items-center">
+                                        <i className="text-xs bi bi-command"></i>
+                                        <span className="text-[13px] ml-px">K</span>
                                     </div>
-                                    : ( isMac === false
-                                        ? <span className="tmd:hidden mt-px text-xs leading-none">Ctrl + K</span>
+                                    : ( !isMac
+                                        ? <span className="text-[13px]">Ctrl + K</span>
                                         : <></>
                                     )
                                 }
                             </div>
                         </button>
-                        <div className="relative mr-3">
+                        <div className="relative mr-3 tlg:mr-2">
                             <label htmlFor="color-theme" className="w-10 h-10 text-2xl flex justify-center items-center rounded-full cursor-pointer text-h-1 hover:bg-h-e">
                                 <input onChange={handleColorThemeChange} defaultChecked={thisTheme === 'dark' ? true : false} type="checkbox" id="color-theme" className="hidden peer"/>
                                 <i className='block peer-checked:hidden bi bi-cloud-sun'></i>
@@ -193,68 +202,70 @@ export default function Header (
                                 </Link>
                                 {
                                     user === null
-                                    ? <ButtonLink href="/user/login" onClick={handleLoginClick} marginTop={10}>로그인</ButtonLink>
-                                    : <div className="text-sm text-theme-7">
-                                        <div className="w-full h-px bg-theme-7 my-2.5"></div>
-                                        <div className="text-theme-10">{user.name}<span className="text-theme-7"> 님,</span></div>
-                                        <Link href="/user/info" className="flex justify-start items-centerå mt-1.5 hover:text-theme-10 tlg:hover:text-theme-7">
-                                            <i className="text-xs mr-1 fa-solid fa-user-lock"></i>
+                                    ? <Button marginTop={10}>
+                                        <Link href="/user/login" onClick={handleLoginClick} className="w-full h-full flex justify-center items-center">로그인</Link>
+                                    </Button>
+                                    : <div className="text-sm text-l-2">
+                                        <div className="w-full h-px bg-l-b my-2.5"></div>
+                                        <div className="text-l-2">{user.name}<span className="text-l-5"> 님,</span></div>
+                                        <Link href="/user/info" className="flex justify-start items-center mt-1.5 hover:text-l-5">
+                                            <i className="text-base mr-1 bi bi-person-fill-gear"></i>
                                             프로필 정보
                                         </Link>
-                                        <Link onClick={reset} href="/?filter=liked" className="flex justify-start items-center mt-0.5 hover:text-theme-10 tlg:hover:text-theme-7">
-                                            <i className="text-sm mr-1.5 fa-regular fa-heart"></i>
+                                        <Link onClick={reset} href="/?filter=liked" className="flex justify-start items-center mt-0.5 hover:text-l-5">
+                                            <i className="ml-px mr-1.5 fa-regular fa-heart"></i>
                                             좋아요 목록
                                         </Link>
-                                        <Link href="/user/comments" className="flex justify-start items-center mt-0.5 ml-px hover:text-theme-10 tlg:hover:text-theme-7">
-                                            <i className="text-[13px] mr-1.5 fa-regular fa-comment"></i>
+                                        <Link href="/user/comments" className="flex justify-start items-center mt-1 hover:text-l-5">
+                                            <i className="ml-px mr-1.5 fa-regular fa-comment"></i>
                                             댓글 목록
                                         </Link>
                                         {
                                             user.id === 1
                                             ? <>
-                                                <div className="w-full h-px bg-theme-7 my-2.5"></div>
-                                                <div className="text-theme-10">관리자<span className="text-theme-7"> 기능</span></div>
-                                                <Link href="/admin/font/list" className="flex justify-start items-center mt-1.5 ml-px hover:text-theme-10 tlg:hover:text-theme-7">
-                                                    <i className="text-sm mr-2 fa-solid fa-a"></i>
+                                                <div className="w-full h-px bg-l-b my-2.5"></div>
+                                                <div className="text-l-2">관리자<span className="text-l-5"> 기능</span></div>
+                                                <Link href="/admin/font/list" className="flex justify-start items-center mt-1.5 hover:text-l-5">
+                                                    <i className="ml-px mr-2 fa-solid fa-a"></i>
                                                     폰트 목록
                                                 </Link>
-                                                <Link href="/admin/font/add" className="flex justify-start items-center mt-0.5 ml-px hover:text-theme-10 tlg:hover:text-theme-7">
-                                                    <i className="text-sm mr-2 fa-solid fa-a"></i>
+                                                <Link href="/admin/font/add" className="flex justify-start items-center mt-0.5 hover:text-l-5">
+                                                    <i className="ml-px mr-2 fa-solid fa-a"></i>
                                                     폰트 추가
                                                 </Link>
-                                                <Link href="/admin/font/edit" className="flex justify-start items-center mt-0.5 ml-px hover:text-theme-10 tlg:hover:text-theme-7">
-                                                    <i className="text-sm mr-2 fa-solid fa-a"></i>
+                                                <Link href="/admin/font/edit" className="flex justify-start items-center mt-0.5 hover:text-l-5">
+                                                    <i className="ml-px mr-2 fa-solid fa-a"></i>
                                                     폰트 수정
                                                 </Link>
-                                                <Link href="/admin/user/list" className="flex justify-start items-center mt-0.5 ml-px hover:text-theme-10 tlg:hover:text-theme-7">
-                                                    <i className="text-xs mr-1 fa-solid fa-user-lock"></i>
+                                                <Link href="/admin/user/list" className="flex justify-start items-center mt-0.5 hover:text-l-5">
+                                                    <i className="mr-1 text-base bi bi-person-fill-gear"></i>
                                                     유저 목록
                                                 </Link>
-                                                <Link href="/admin/comment/list" className="flex justify-start items-center mt-0.5 ml-0.5 hover:text-theme-10 tlg:hover:text-theme-7">
-                                                    <i className="text-xs mr-1.5 fa-regular fa-comment"></i>
+                                                <Link href="/admin/comment/list" className="flex justify-start items-center mt-0.5 hover:text-l-5">
+                                                    <i className="ml-px mr-1.5 fa-regular fa-comment"></i>
                                                     댓글 목록
                                                 </Link>
-                                                <Link href="/admin/issue/list" className="flex justify-start items-center mt-0.5 ml-0.5 hover:text-theme-10 tlg:hover:text-theme-7">
-                                                    <i className="text-xs mr-1.5 fa-regular fa-paper-plane"></i>
+                                                <Link href="/admin/issue/list" className="flex justify-start items-center mt-0.5 hover:text-l-5">
+                                                    <i className="ml-px mr-2 text-xs fa-regular fa-paper-plane"></i>
                                                     폰트 제보
                                                 </Link>
-                                                <Link href="/admin/bug/list" className="flex justify-start items-center mt-0.5 ml-0.5 hover:text-theme-10 tlg:hover:text-theme-7">
-                                                    <i className="text-xs mr-1.5 fa-regular fa-paper-plane"></i>
+                                                <Link href="/admin/bug/list" className="flex justify-start items-center mt-0.5 hover:text-l-5">
+                                                    <i className="ml-px mr-2 text-xs fa-regular fa-paper-plane"></i>
                                                     버그 제보
                                                 </Link>
-                                                <Link href="/admin/notices/add" className="flex justify-start items-center mt-0.5 ml-0.5 hover:text-theme-10 tlg:hover:text-theme-7">
-                                                    <i className="text-xs mr-1.5 ml-px fa-regular fa-flag"></i>
+                                                <Link href="/admin/notices/add" className="flex justify-start items-center mt-0.5 hover:text-l-5">
+                                                    <i className="ml-0.5 mr-2 text-xs fa-regular fa-flag"></i>
                                                     공지 추가
                                                 </Link>
-                                                <Link href="/admin/notices/list" className="flex justify-start items-center ml-0.5 hover:text-theme-10 tlg:hover:text-theme-7">
-                                                    <i className="text-xs mr-1.5 ml-px fa-regular fa-flag"></i>
+                                                <Link href="/admin/notices/list" className="flex justify-start items-center mt-0.5 hover:text-l-5">
+                                                    <i className="ml-0.5 mr-2 text-xs fa-regular fa-flag"></i>
                                                     공지 목록
                                                 </Link>
                                             </> : <></>
                                         }
-                                        <button onClick={handleLogout} className="w-full h-7 flex flex-row justify-center items-center rounded-lg mt-3 bg-theme-yellow/90 hover:bg-theme-yellow tlg:hover:bg-theme-yellow/90 dark:bg-theme-blue-1/90 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1/90">
-                                            <span className="text-theme-3 dark:text-theme-blue-2 font-medium mt-px">로그아웃</span>
-                                        </button>
+                                        <Button marginTop={12}>
+                                            <button onClick={handleLogout} className="w-full h-full flex justify-center items-center">로그아웃</button>
+                                        </Button>
                                     </div>
                                 }
                             </div>

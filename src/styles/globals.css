@@ -28,19 +28,10 @@ html.dark option {
     background-color: #202124;
 }
 
-/* 큰 사이즈 스크롤바 */
-.custom-lg-scrollbar::-webkit-scrollbar { width: 16px; }
-.custom-lg-scrollbar::-webkit-scrollbar-thumb { border-radius: 8px; background-color: #B1B2B6; }
-.custom-lg-scrollbar::-webkit-scrollbar-thumb:hover { border-radius: 8px; background-color: #97989C; }
-.custom-lg-scrollbar::-webkit-scrollbar-track { background-color: #CDCED2; }
-html.dark .custom-lg-scrollbar::-webkit-scrollbar-thumb { background-color: #4C4D50; }
-html.dark .custom-lg-scrollbar::-webkit-scrollbar-thumb:hover { background-color: #646568; }
-html.dark .custom-lg-scrollbar::-webkit-scrollbar-track { background-color: #35363A; }
-
 /* 중간 사이즈 스크롤바 */
 .custom-md-scrollbar::-webkit-scrollbar { width: 12px; }
-.custom-md-scrollbar::-webkit-scrollbar-thumb { border-radius: 6px; background-color: #B1B2B6; }
-.custom-md-scrollbar::-webkit-scrollbar-thumb:hover { border-radius: 6px; background-color: #97989C; }
+.custom-md-scrollbar::-webkit-scrollbar-thumb { border-radius: 6px; background-color: #BDC1C6; }
+.custom-md-scrollbar::-webkit-scrollbar-thumb:hover { border-radius: 6px; background-color: #BDC1C6CC; }
 html.dark .custom-md-scrollbar::-webkit-scrollbar-thumb { border-radius: 6px; background-color: #4C4D50; }
 html.dark .custom-md-scrollbar::-webkit-scrollbar-thumb:hover { border-radius: 6px; background-color: #646568; }
 
@@ -57,13 +48,6 @@ html.dark .custom-sm-scrollbar::-webkit-scrollbar-thumb { background-color: #B1B
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-}
-.ellipsed-text-3 {
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
