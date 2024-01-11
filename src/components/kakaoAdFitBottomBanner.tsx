@@ -1,6 +1,19 @@
 import React, { useEffect, useRef } from 'react';
 
-function KakaoAdFitBottomBanner(props: any) {
+const defaultKakaoAdFitBottomBanner = {
+    marginTop: 0,
+    marginBottom: 0,
+}
+
+interface KakaoAdFitBottomBanner {
+    marginTop?: number,
+    marginBottom?: number,
+}
+
+function KakaoAdFitBottomBanner({
+    marginTop=defaultKakaoAdFitBottomBanner.marginTop,
+    marginBottom=defaultKakaoAdFitBottomBanner.marginBottom,
+}: KakaoAdFitBottomBanner) {
     // 최초 1회만 광고를 불러오기 위한 변수
     const adRef = useRef<boolean>(false);
 
@@ -19,12 +32,14 @@ function KakaoAdFitBottomBanner(props: any) {
             ins.setAttribute('data-ad-width', '320');
             ins.setAttribute('data-ad-height', '100');
             ins.setAttribute('data-ad-unit', 'DAN-i74cAINlzifEFWxH');
-            ins.setAttribute('style', `margin-top: ${props.marginTop}px`);
+            ins.setAttribute('style', `margin-top: ${marginTop}px`);
+            ins.setAttribute('style', `margin-bottom: ${marginBottom}px`);
         } else {
             ins.setAttribute('data-ad-width', '728');
             ins.setAttribute('data-ad-height', '90');
             ins.setAttribute('data-ad-unit', 'DAN-RGGxOLqLPc0Xouyi');
-            ins.setAttribute('style', `margin-top: ${props.marginTop}px`);
+            ins.setAttribute('style', `margin-top: ${marginTop}px`);
+            ins.setAttribute('style', `margin-bottom: ${marginBottom}px`);
         }
 
         script.async = true;
@@ -36,7 +51,7 @@ function KakaoAdFitBottomBanner(props: any) {
         
         // 광고 로딩 여부 상태 변경
         adRef.current = true;
-    }, [props.marginTop]);
+    }, [marginTop, marginBottom]);
 
     return <aside className="aside__kakaoAdFit_bottom flex w-full relative"></aside>
 }

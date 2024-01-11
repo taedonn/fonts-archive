@@ -35,11 +35,11 @@ const Privacy = ({params}: any) => {
             <Tooltip/>
 
             {/* 메인 */}
-            <div className='w-full flex flex-col justify-center items-center'>
-                <div className='w-[720px] tmd:w-full flex flex-col justify-center items-start my-16 tmd:my-12'>
-                    <h2 className='text-3xl tmd:text-xl text-theme-3 dark:text-theme-9 font-medium'>개인정보처리방침</h2>
-                    <div className='w-full h-px bg-theme-7 dark:bg-theme-5 my-4 tmd:my-3'></div>
-<pre className='font-sans whitespace-pre-wrap text-sm text-theme-5 dark:text-theme-8 leading-loose'>{
+            <div className='w-full px-4 flex flex-col justify-center items-center'>
+                <div className='w-[720px] tmd:w-full flex flex-col justify-center items-start mt-16 mb-32 tmd:mt-12 tmd:mb-24'>
+                    <h2 className='text-3xl tmd:text-2xl text-h-2 dark:text-white font-bold'>개인정보처리방침</h2>
+                    <div className='w-full h-px bg-l-b dark:bg-d-6 my-6 tmd:my-4'></div>
+<pre className='font-sans whitespace-pre-wrap text-sm text-l-5 dark:text-d-c leading-loose'>{
 `< 태돈 >('https://fonts.taedonn.com'이하 '폰트 아카이브')은(는) 「개인정보 보호법」 제30조에 따라 정보주체의 개인정보를 보호하고 이와 관련한 고충을 신속하고 원활하게 처리할 수 있도록 하기 위하여 다음과 같이 개인정보 처리방침을 수립·공개합니다.
 
 ○ 이 개인정보처리방침은 2023년 12월 1부터 적용됩니다.

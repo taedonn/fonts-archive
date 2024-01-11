@@ -13,7 +13,7 @@ import { throttle } from 'lodash';
 // components
 import DummyText from '@/components/dummytext';
 import SkeletonBox from '@/components/skeletonbox';
-import kakaoAdFitTopBanner from '@/components/kakaoAdFitTopBanner';
+import KakaoAdFitTopBanner from '@/components/kakaoAdFitTopBanner';
 
 interface FontBox {
     expand: boolean,
@@ -170,19 +170,17 @@ export default function FontBox ({
         <>
             <div className={`${expand ? "w-[calc(100%-320px)] tlg:w-full" : "w-full"} pt-16 px-8 tlg:px-4 duration-200`}>
                 <div className="w-full mt-8 mb-32 relative flex flex-col">
-                    {/* <KakaoAdFitTopBanner
-                        marginTop={12}
-                    /> */}
+                    <KakaoAdFitTopBanner marginBottom={16}/>
                     
                     {/* 로그인 중이 아닐 때 좋아요 alert창 팝업 */}
                     {
                         alertDisplay
-                        && <div className='fixed z-20 top-6 right-8 tlg:right-4 w-max h-16 px-4 flex justify-between items-center rounded-lg text-sm text-l-2 bg-l-e'>
+                        && <div className='fixed z-20 top-6 right-8 tlg:right-4 w-max h-16 px-4 flex justify-between items-center rounded-lg text-sm text-l-2 dark:text-white bg-l-e dark:bg-d-4'>
                             <div className='flex flex-row justify-start items-center'>
-                                <i className="text-lg text-h-1 bi bi-stars"></i>
+                                <i className="text-lg text-h-1 dark:text-f-8 bi bi-stars"></i>
                                 <div className='ml-3'>
                                     좋아요 기능은 로그인 시 이용 가능합니다. <br/>
-                                    <Link href="/user/login" className='text-h-1 hover:underline'>로그인 하러 가기</Link>
+                                    <Link href="/user/login" className='text-h-1 dark:text-f-8 hover:underline'>로그인 하러 가기</Link>
                                 </div>
                             </div>
                             <div onClick={handleAlertClose} className='flex justify-center items-center ml-3 cursor-pointer'>
@@ -206,27 +204,27 @@ export default function FontBox ({
                                         font_type: string
                                         cdn_url: string
                                     }) => (
-                                        <div aria-label="font-link" key={font.code} className="w-full group/wrap relative py-8 hover:rounded-lg border-t first:border-t-0 last:border-b border-l-b [&+div]:hover:border-t-transparent hover:border-transparent hover:bg-l-e text-l-2 animate-fade-in-fontbox cursor-pointer">
+                                        <div aria-label="font-link" key={font.code} className="w-full group/wrap relative py-8 hover:rounded-lg border-t first:border-t-0 last:border-b border-l-b dark:border-d-4 [&+div]:hover:border-transparent hover:border-transparent hover:bg-l-e hover:dark:bg-d-4 text-l-2 dark:text-white animate-fade-in-fontbox cursor-pointer">
                                             <Link href={`/post/${font.font_family.replaceAll(" ", "+")}`} className='w-full h-full absolute z-10 left-0 top-0'></Link>
                                             <link href={font.cdn_url} rel="stylesheet" type="text/css" itemProp="url"></link>
                                             <div className='w-max pl-8 mb-6 relative flex items-center'>
                                                 <div className="text-xl">{font.name}</div>
-                                                <div className='w-px h-4 mx-3 bg-l-b'></div>
-                                                <div className="text-l-5"><span className="text-l-5">by</span> {font.source}</div>
+                                                <div className='w-px h-4 mx-3 bg-l-b dark:bg-d-9'></div>
+                                                <div className="text-l-5 dark:text-d-9">by {font.source}</div>
                                                 <div className='group absolute z-20 -right-4 top-1/2 translate-x-full -translate-y-1/2'>
                                                     <input onClick={handleLikeClick} onChange={handleLikeChange} type="checkbox" id={font.code.toString()} className='peer hidden' defaultChecked={handleDefaultLike(font.code)}/>
                                                     <label htmlFor={font.code.toString()} className='group cursor-pointer'>
                                                         <i className="block peer-checked:group-[]:hidden text-xl bi bi-heart"></i>
                                                         <i className="hidden peer-checked:group-[]:block text-xl text-h-r bi bi-heart-fill"></i>
                                                     </label>
-                                                    <div className={`${hoverDisplay === true ? 'group-hover:block' : 'group-hover:hidden'} tooltip w-max absolute left-1/2 -top-10 px-3 pt-2.5 pb-2 text-sm font-medium leading-none origin-bottom rounded-lg hidden group-hover:animate-zoom-in-fontbox after:bg-h-r bg-h-r text-white`}>{like === null || like.some((likedFont: any) => likedFont.font_id === font.code) === false ? '좋아요' : '좋아요 해제'}</div>
+                                                    <div className={`${hoverDisplay === true ? 'group-hover:block' : 'group-hover:hidden'} tooltip w-max absolute left-1/2 -top-10 px-3 pt-2 pb-2 text-sm font-medium leading-none origin-bottom rounded-lg hidden group-hover:animate-zoom-in-fontbox after:bg-h-r bg-h-r text-white`}>{like === null || like.some((likedFont: any) => likedFont.font_id === font.code) === false ? '좋아요' : '좋아요 해제'}</div>
                                                 </div>
                                             </div>
                                             <div className="w-full relative overflow-hidden">
                                                 <div style={{fontFamily:"'"+font.font_family+"'"}} className="w-full pl-8 text-4xl text-normal">
-                                                    <p className={`${font.code + '-text'} whitespace-nowrap text-l-b`}><DummyText lang={font.lang} text={text} num={num}/></p>
+                                                    <p className={`${font.code + '-text'} whitespace-nowrap text-l-b dark:text-white`}><DummyText lang={font.lang} text={text} num={num}/></p>
                                                 </div>
-                                                <div className='w-40 h-full absolute right-0 top-0 bg-gradient-to-l from-white from-25% group-hover/wrap:from-l-e'></div>
+                                                <div className='w-40 h-full absolute right-0 top-0 bg-gradient-to-l from-white dark:from-d-2 from-25% group-hover/wrap:from-l-e group-hover/wrap:dark:from-d-4'></div>
                                             </div>
                                         </div>
                                     ))}
@@ -244,7 +242,7 @@ export default function FontBox ({
                     {/* 폰트가 없을 때 */}
                     {
                         data && data.pages[0].fonts.length === 0
-                            && <div className='w-full py-14 absolute top-0 left-0 flex flex-col justify-center items-center rounded-lg text-h-1 bg-h-e'>
+                            && <div className='w-full py-14 absolute top-0 left-0 flex flex-col justify-center items-center rounded-lg text-h-1 dark:text-white bg-h-e dark:bg-d-3'>
                                 <i className="text-[100px] leading-none bi bi-emoji-tear"></i>
                                 <div className='text-xl mt-6 text-center font-bold'>찾으시는 폰트가 없습니다.</div>
                             </div>
@@ -254,7 +252,7 @@ export default function FontBox ({
                     <span className="w-full" ref={ref}></span>
 
                     {/* 로딩 바 */}
-                    {hasNextPage && <div className="w-full h-20 absolute left-0 bottom-0 translate-y-full flex justify-center items-center"><span className="loader w-9 h-9 border-2 border-h-e border-b-h-1"></span></div>}
+                    {hasNextPage && <div className="w-full h-20 absolute left-0 bottom-0 translate-y-full flex justify-center items-center"><span className="loader w-9 h-9 border-2 border-h-e dark:border-d-6 border-b-h-1 dark:border-b-f-8"></span></div>}
                 </div>
             </div>
         </>

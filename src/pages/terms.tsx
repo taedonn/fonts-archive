@@ -35,11 +35,11 @@ const Terms = ({params}: any) => {
             <Tooltip/>
 
             {/* 메인 */}
-            <div className='w-full flex flex-col justify-center items-center'>
-                <div className='w-[720px] tmd:w-full flex flex-col justify-center items-start my-16 tmd:my-12'>
-                    <h2 className='text-3xl tmd:text-xl text-theme-3 dark:text-theme-9 font-medium'>서비스 이용약관</h2>
-                    <div className='w-full h-px bg-theme-7 dark:bg-theme-5 my-4 tmd:my-3'></div>
-<pre className='font-sans whitespace-pre-wrap text-sm text-theme-5 dark:text-theme-8 leading-loose'>{
+            <div className='w-full px-4 flex flex-col justify-center items-center'>
+                <div className='w-[720px] tmd:w-full flex flex-col justify-center items-start mt-16 mb-32 tmd:mt-12 tmd:mb-24'>
+                    <h2 className='text-3xl tmd:text-2xl text-h-2 dark:text-white font-bold'>서비스 이용약관</h2>
+                    <div className='w-full h-px bg-l-b dark:bg-d-6 my-6 tmd:my-4'></div>
+<pre className='font-sans whitespace-pre-wrap text-sm text-l-5 dark:text-d-c leading-loose'>{
 `제1조(목적) 이 약관은 "태돈" 회사(전자상거래 사업자)가 운영하는 "폰트 아카이브" 사이버 몰(이하 “폰트 아카이브”가라 한다)에서 제공하는 인터넷 관련 서비스(이하 “서비스”라 한다)를 이용함에 있어 사이버 몰과 이용자의 권리․의무 및 책임사항을 규정함을 목적으로 합니다.
 
 ※「PC통신, 무선 등을 이용하는 전자상거래에 대해서도 그 성질에 반하지 않는 한 이 약관을 준용합니다.」

@@ -92,12 +92,12 @@ export default function SelectBox ({
                 onChange={handleChange}
                 className="peer hidden"
             />
-            <label ref={refSelect} htmlFor={`select-${value}`} id={`label-${value}`} className="group p-4 flex justify-between items-center rounded-lg border-2 cursor-pointer text-l-2 hover:bg-l-e tlg:hover:bg-transparent peer-checked:hover:bg-transparent border-transparent peer-checked:border-h-1">
+            <label ref={refSelect} htmlFor={`select-${value}`} id={`label-${value}`} className="group p-4 flex justify-between items-center rounded-lg border-2 cursor-pointer text-l-2 dark:text-white hover:bg-l-e hover:dark:bg-d-4 peer-checked:hover:bg-transparent border-transparent peer-checked:border-h-1 peer-checked:dark:border-f-8">
                 <div className="flex items-center gap-3">
                     <i className={`text-lg bi ${icon}`}></i>
                     <span className="font-medium selection:bg-transparent">
                         {title}
-                        <span className="ml-1 font-normal text-h-1">[{fetchOptionName(select)}]</span>
+                        <span className="ml-1 font-normal text-h-1 dark:text-f-8">[{fetchOptionName(select)}]</span>
                     </span>
                 </div>
                 <i className="peer-checked:group-[]:rotate-180 duration-100 fa-solid fa-angle-down"></i>
@@ -106,7 +106,7 @@ export default function SelectBox ({
                 ref={refOption}
                 id={`option-${value}-wrap`}
                 style={{ height: options.length >= 5 ? '216px' : (options.length * 40 + 16) + 'px' }}
-                className="custom-sm-scrollbar hidden peer-checked:block h-0 peer-checked:h-max w-full absolute z-10 left-0 mt-1 py-2 rounded-lg overflow-y-auto duration-100 bg-white drop-shadow-default"
+                className="custom-sm-scrollbar hidden peer-checked:block h-0 peer-checked:h-max w-full absolute z-10 left-0 mt-1 py-2 rounded-lg overflow-y-auto duration-100 bg-white dark:bg-d-4 drop-shadow-default dark:drop-shadow-dark"
             >
                 {
                     options && options.map((option: Option) => {
@@ -126,7 +126,7 @@ export default function SelectBox ({
                                 />
                                 <label
                                     htmlFor={`option-${value}-${option.value}`}
-                                    className="w-full px-5 py-2.5 block selection:bg-transparent cursor-pointer hover:bg-l-e peer-checked:bg-h-e text-l-2"
+                                    className="w-full px-5 py-2.5 block selection:bg-transparent cursor-pointer hover:bg-l-e hover:dark:bg-d-6 peer-checked:bg-h-e peer-checked:dark:bg-f-8 text-l-2 dark:text-white peer-checked:dark:text-d-2"
                                 >
                                     {option.name}
                                 </label>

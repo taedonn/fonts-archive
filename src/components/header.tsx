@@ -123,8 +123,11 @@ export default function Header (
 
     return (
         <>
-            <header className="w-full h-16">
-                <div className='interface w-full h-16 px-8 tlg:px-4 fixed right-0 top-0 z-20 flex justify-between items-center duration-200 bg-white dark:bg-d-2'>
+            <header className="w-full h-16 relative">
+                {/* 메인 페이지가 아닐 때 헤더 아래 그라데이션 */}
+                { page !== "index" && <div className="w-full h-4 absolute left-0 -bottom-4 bg-gradient-to-b from-white dark:from-d-2"></div> }
+                
+                <div className='interface w-full h-16 px-8 tlg:px-4 fixed right-0 top-0 z-20 flex justify-between items-center bg-white dark:bg-d-2'>
                     <div className="flex justify-start items-center text-l-2 dark:text-white">
                         <Link
                             onClick={reset}
@@ -136,7 +139,7 @@ export default function Header (
                                 <i className="text-white fa-solid fa-a"></i>
                             </div>
                             <div className="font-bold tlg:hidden">폰트 아카이브</div>
-                            <div className="hidden tlg:block w-4 h-full absolute -right-8 top-0 bg-gradient-to-r from-white"></div>
+                            <div className="hidden tlg:block w-4 h-full absolute -right-8 top-0 bg-gradient-to-r from-white dark:from-d-2"></div>
                         </Link>
                         <div className={`${page === "index" ? "tlg:w-[calc(100vw-196px)]" : "tlg:w-[calc(100vw-236px)]"} mx-6 tlg:mx-4 overflow-x-auto no-scrollbar`}>
                             <div className="w-max flex gap-2 tlg:gap-0.5 items-center">
@@ -148,7 +151,7 @@ export default function Header (
                     </div>
                     <div className='w-max relative flex justify-start shrink-0 items-center'>
                         <div className="hidden tlg:block w-4 h-full absolute -left-8 top-0 bg-gradient-to-l from-white dark:from-d-2"></div>
-                        <button onClick={handleFontSearch} className={`${page === "index" ? "hidden" : "flex"} w-56 tlg:w-8 h-8 pl-10 tlg:p-0 mr-3 tlg:mr-2 relative text-sm flex-start justify-start items-center rounded-lg text-h-1 dark:text-white hover:text-white hover:dark:text-f-8 bg-h-e dark:bg-d-3 hover:bg-h-1`}>
+                        <button onClick={handleFontSearch} className={`${page === "index" ? "hidden" : "flex"} w-56 tlg:w-8 h-8 pl-10 tlg:p-0 mr-3 tlg:mr-2 relative text-sm flex-start justify-start items-center rounded-lg text-h-1 dark:text-white hover:text-white hover:dark:text-f-8 bg-h-e dark:bg-d-4 hover:bg-h-1`}>
                             <span className="tlg:hidden">폰트 검색하기...</span>
                             <i className="text-xs absolute left-4 tlg:left-1/2 top-1/2 tlg:-translate-x-1/2 -translate-y-1/2 fa-solid fa-magnifying-glass"></i>
                             <div className="tlg:hidden w-max h-full absolute right-4 flex flex-row justify-center items-center">
