@@ -41,11 +41,13 @@ module.exports = {
                     "e": "#E9F0FE",
                     "f": "#F9FAFD",
                     "r": "#FF033E",
+                    "r-h": "#FF3F55",
                 },
                 l: {
                     "2": "#202124",
                     "5": "#5F6368",
                     "b": "#BDC1C6",
+                    "d": "#D2D4DC",
                     "e": "#E9EAEE",
                 },
                 f: {

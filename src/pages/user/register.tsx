@@ -16,6 +16,7 @@ import axios from 'axios';
 // components
 import Header from "@/components/header";
 import Footer from '@/components/footer';
+import Button from '@/components/button';
 
 const Register = ({params}: any) => {
     const { theme, userAgent } = params;
@@ -228,95 +229,98 @@ const Register = ({params}: any) => {
 
             {/* 메인 */}
             <div className='w-full flex flex-col justify-center items-center'>
-                <div className='w-[360px] flex flex-col justify-center items-start my-[100px] tlg:my-10'>
-                    <h2 className='text-xl tlg:text-lg text-theme-3 dark:text-theme-9 font-medium mb-3 tlg:mb-2'>회원가입</h2>
-                    <form onSubmit={e => e.preventDefault()} id='register-form' className='w-full p-5 rounded-lg text-theme-10 dark:text-theme-9 bg-theme-5 dark:bg-theme-3 drop-shadow-default dark:drop-shadow-dark'>
-                        <label htmlFor='name' className='block text-sm ml-px'>이름</label>
-                        <input onChange={handleNameChange} type='text' id='name' tabIndex={1} autoComplete='on' placeholder='홍길동' className={`${nameChk === '' ? 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' : 'border-theme-red focus:border-theme-red dark:border-theme-red focus:dark:border-theme-red'} w-full text-sm mt-1.5 px-3.5 py-2 rounded-lg border-2 placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
+                <div className='w-[360px] flex flex-col justify-center items-start my-[100px] tlg:my-16'>
+                    <h2 className='text-2xl tlg:text-xl text-l-2 dark:text-white font-bold mb-4'>회원가입</h2>
+                    <form onSubmit={e => e.preventDefault()} id='register-form' className='w-full p-5 rounded-lg text-l-2 dark:text-white bg-l-e dark:bg-d-3 drop-shadow-default dark:drop-shadow-dark'>
+                        <label htmlFor='name' className='block font-medium ml-px'>이름</label>
+                        <input onChange={handleNameChange} type='text' id='name' tabIndex={1} autoComplete='on' placeholder='홍길동' className={`${nameChk === '' ? 'focus:border-h-1 focus:dark:border-f-8' : 'border-h-r focus:border-h-r'} border-transparent w-full text-sm mt-2 px-3.5 py-3 rounded-lg border-2 placeholder-l-5 dark:placeholder-d-c bg-l-d dark:bg-d-4`}/>
                         {
                             nameChk === ''
                             ? <></>
-                            : <span className='block text-xs text-theme-red mt-1 ml-4'>이름을 입력해 주세요.</span>
+                            : <span className='block text-xs text-h-r mt-2 ml-4'>이름을 입력해 주세요.</span>
                         }
-                        <label htmlFor='id' className='block text-sm ml-px mt-6'>이메일</label>
-                        <input onChange={handleIdChange} type='text' id='id' tabIndex={2} autoComplete='on' placeholder='example@example.com' className={`${idChk === '' ? 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' : 'border-theme-red focus:border-theme-red dark:border-theme-red focus:dark:border-theme-red'} w-full text-sm mt-1.5 px-3.5 py-2 rounded-lg border-2 placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
+                        <label htmlFor='id' className='block font-medium ml-px mt-8'>이메일</label>
+                        <input onChange={handleIdChange} type='text' id='id' tabIndex={2} autoComplete='on' placeholder='example@example.com' className={`${idChk === '' ? 'focus:border-h-1 focus:dark:border-f-8' : 'border-h-r focus:border-h-r'} border-transparent w-full text-sm mt-2 px-3.5 py-3 rounded-lg border-2 placeholder-l-5 dark:placeholder-d-c bg-l-d dark:bg-d-4`}/>
                         {
                             idChk === ''
                             ? <></>
                             : ( idChk === 'empty'
-                                ? <span className='block text-xs text-theme-red mt-1 ml-4'>이메일을 입력해 주세요.</span>
+                                ? <span className='block text-xs text-h-r mt-2 ml-4'>이메일을 입력해 주세요.</span>
                                 : ( idChk === 'wrong-pattern'
-                                    ? <span className='block text-xs text-theme-red mt-1 ml-4'>이메일 형식이 올바르지 않습니다.</span>
+                                    ? <span className='block text-xs text-h-r mt-2 ml-4'>이메일 형식이 올바르지 않습니다.</span>
                                     : ( idChk === 'is-used'
-                                        ? <span className='block text-xs text-theme-red mt-1 ml-4'>이미 등록된 이메일입니다.</span>
+                                        ? <span className='block text-xs text-h-r mt-2 ml-4'>이미 등록된 이메일입니다.</span>
                                         : <></>
                                     )
                                 )
                             )
                         }
-                        <label htmlFor='pw' className='w-full flex flex-row justify-between items-center text-sm ml-px mt-6'>비밀번호</label>
-                        <input onChange={handlePwChange} type='password' id='pw' tabIndex={3} autoComplete='on' placeholder='영문, 숫자, 특수문자 포함 8~20자' className={`${pwChk === '' ? 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' : 'border-theme-red focus:border-theme-red dark:border-theme-red focus:dark:border-theme-red'} w-full text-sm mt-1.5 px-3.5 py-2 rounded-lg border-2 placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2`}/>
+                        <label htmlFor='pw' className='w-full flex justify-between items-center font-medium ml-px mt-8'>비밀번호</label>
+                        <input onChange={handlePwChange} type='password' id='pw' tabIndex={3} autoComplete='on' placeholder='영문, 숫자, 특수문자 포함 8~20자' className={`${pwChk === '' ? 'focus:border-h-1 focus:dark:border-f-8' : 'border-h-r focus:border-h-r'} border-transparent w-full text-sm mt-2 px-3.5 py-3 rounded-lg border-2 placeholder-l-5 dark:placeholder-d-c bg-l-d dark:bg-d-4`}/>
                         {
                             pwChk === ''
                             ? <></>
                             : ( pwChk === 'empty'
-                                ? <span className='block text-xs text-theme-red mt-1 ml-4'>비밀번호를 입력해 주세요.</span>
-                                : <span className='block text-xs text-theme-red mt-1 ml-4'>비밀번호 형식이 올바르지 않습니다.</span>
+                                ? <span className='block text-xs text-h-r mt-2 ml-4'>비밀번호를 입력해 주세요.</span>
+                                : <span className='block text-xs text-h-r mt-2 ml-4'>비밀번호 형식이 올바르지 않습니다.</span>
                             )
                         }
-                        <input onChange={handlePwConfirmChange} type='password' id='pw-confirm' tabIndex={4} autoComplete='on' placeholder='비밀번호 재입력' className={`${pwConfirmChk === '' ? 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' : 'border-theme-red focus:border-theme-red dark:border-theme-red focus:dark:border-theme-red'} w-full text-sm mt-1.5 px-3.5 py-2 rounded-lg border-2 placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2`}/>
+                        <input onChange={handlePwConfirmChange} type='password' id='pw-confirm' tabIndex={4} autoComplete='on' placeholder='비밀번호 재입력' className={`${pwConfirmChk === '' ? 'focus:border-h-1 focus:dark:border-f-8' : 'border-h-r focus:border-h-r'} border-transparent w-full text-sm mt-3 px-3.5 py-3 rounded-lg border-2 placeholder-l-5 dark:placeholder-d-c bg-l-d dark:bg-d-4`}/>
                         {
                             pwConfirmChk === ''
                             ? <></>
                             : ( pwConfirmChk === 'empty'
-                                ? <span className='block text-xs text-theme-red mt-1 ml-4'>비밀번호를 다시 입력해 주세요.</span>
-                                : <span className='block text-xs text-theme-red mt-1 ml-4'>비밀번호가 일치하지 않습니다.</span>
+                                ? <span className='block text-xs text-h-r mt-2 ml-4'>비밀번호를 다시 입력해 주세요.</span>
+                                : <span className='block text-xs text-h-r mt-2 ml-4'>비밀번호가 일치하지 않습니다.</span>
                             )
                         }
-                        <div className='w-full h-px my-6 bg-theme-4/80 dark:bg-theme-blue-2/80'></div>
+                        <div className='w-full h-px my-6 bg-l-b dark:bg-d-6'></div>
                         {
                             alertDisplay === true
-                                && <div className='w-full h-8 px-2.5 mb-2 flex flex-row justify-between items-center rounded-lg border-2 border-theme-red/80 dark:border-theme-red/60 text-xs text-theme-10 dark:text-theme-9 bg-theme-red/20'>
-                                    <div className='flex flex-row justify-start items-center'>
-                                        <i className="text-sm text-theme-red fa-regular fa-bell"></i>
+                                && <div className='w-full h-10 px-2.5 mb-3 flex justify-between items-center rounded-lg border-2 border-h-r text-xs text-l-2 dark:text-white bg-h-r/20'>
+                                    <div className='flex justify-start items-center'>
+                                        <i className="text-sm text-h-r fa-regular fa-bell"></i>
                                         <div className='ml-2'>약관에 동의해 주세요.</div>
                                     </div>
-                                    <div onClick={handleAlertClose} className='flex flex-row justify-center items-center cursor-pointer'>
-                                        <i className="text-sm text-theme-10 dark:text-theme-9 fa-solid fa-xmark"></i>
+                                    <div onClick={handleAlertClose} className='flex justify-center items-center cursor-pointer'>
+                                        <i className="text-sm fa-solid fa-xmark"></i>
                                     </div>
                                 </div>
                         }
                         <div className='w-full flex flex-col justify-start items-start'>
-                            <div className='w-full flex flex-row justify-between items-center'>
-                                <div className='flex flex-row justify-start items-center'>
+                            <div className='w-full flex justify-between items-center'>
+                                <div className='flex justify-start items-center'>
                                     <input onChange={handleTermsChange} type='checkbox' id='terms-check' className='peer hidden'/>
-                                    <label htmlFor='terms-check' className='group w-5 h-5 flex flex-row justify-center items-center cursor-pointer'>
-                                        <i className="block peer-checked:group-[]:hidden text-lg text-theme-yellow dark:text-theme-blue-1 fa-regular fa-square-check"></i>
-                                        <i className="hidden peer-checked:group-[]:block text-lg text-theme-yellow dark:text-theme-blue-1 fa-solid fa-square-check"></i>
+                                    <label htmlFor='terms-check' className='group w-5 h-5 text-lg flex justify-center items-center cursor-pointer'>
+                                        <i className="block peer-checked:group-[]:hidden text-h-1 dark:text-f-8 fa-regular fa-square-check"></i>
+                                        <i className="hidden peer-checked:group-[]:block text-h-1 dark:text-f-8 fa-solid fa-square-check"></i>
                                     </label>
-                                    <p className='text-[13px] text-theme-10 dark:text-theme-9 ml-1.5'>서비스 이용약관 (필수)</p>
+                                    <p className='text-sm text-l-2 dark:text-white ml-1.5'>서비스 이용약관 (필수)</p>
                                 </div>
-                                <Link href="/terms" target='_blank' rel="noopener noreferrer" className='text-xs text-theme-6 dark:text-theme-7 flex flex-row justify-center items-center hover:underline tlg:hover:no-underline'>전문보기</Link>
+                                <Link href="/terms" target='_blank' rel="noopener noreferrer" className='text-xs text-l-6 dark:text-d-c flex justify-center items-center hover:underline'>전문보기</Link>
                             </div>
-                            <div className='w-full flex flex-row justify-between items-center mt-2'>
-                                <div className='flex flex-row justify-start items-center'>
+                            <div className='w-full flex justify-between items-center mt-2'>
+                                <div className='flex justify-start items-center'>
                                     <input onChange={handlePrivacyChange} type='checkbox' id='privacy-check' className='peer hidden'/>
-                                    <label htmlFor='privacy-check' className='group w-5 h-5 flex flex-row justify-center items-center cursor-pointer'>
-                                        <i className="block peer-checked:group-[]:hidden text-lg text-theme-yellow dark:text-theme-blue-1 fa-regular fa-square-check"></i>
-                                        <i className="hidden peer-checked:group-[]:block text-lg text-theme-yellow dark:text-theme-blue-1 fa-solid fa-square-check"></i>
+                                    <label htmlFor='privacy-check' className='group w-5 h-5 text-lg flex justify-center items-center cursor-pointer'>
+                                        <i className="block peer-checked:group-[]:hidden text-h-1 dark:text-f-8 fa-regular fa-square-check"></i>
+                                        <i className="hidden peer-checked:group-[]:block text-h-1 dark:text-f-8 fa-solid fa-square-check"></i>
                                     </label>
-                                    <p className='text-[13px] text-theme-10 dark:text-theme-9 ml-1.5'>개인정보 처리방침 (필수)</p>
+                                    <p className='text-sm text-l-2 dark:text-white ml-1.5'>개인정보 처리방침 (필수)</p>
                                 </div>
-                                <Link href="/privacy" target='_blank' rel="noopener noreferrer" className='text-xs text-theme-6 dark:text-theme-7 flex flex-row justify-center items-center hover:underline tlg:hover:no-underline'>전문보기</Link>
+                                <Link href="/privacy" target='_blank' rel="noopener noreferrer" className='text-xs text-l-6 dark:text-d-c flex justify-center items-center hover:underline'>전문보기</Link>
                             </div>
                         </div>
-                        <button onClick={handleOnSubmit} className='w-full h-10 rounded-lg mt-6 flex flex-row justify-center items-center text-sm font-medium text-theme-4 dark:text-theme-blue-2 bg-theme-yellow/80 hover:bg-theme-yellow tlg:hover:bg-theme-yellow/80 dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1/80'>
-                            {
-                                isLoading === true
-                                ? <span className='loader border-2 border-theme-5 border-b-theme-yellow dark:border-b-theme-blue-1 w-[18px] h-[18px]'></span>
-                                : '이메일 인증 후 가입하기'
-                            }
-                        </button>
+                        
+                        <Button marginTop={16}>
+                            <button onClick={handleOnSubmit} className='w-full h-full flex justify-center items-center'>
+                                {
+                                    isLoading
+                                    ? <span className='loader border-2 border-h-e dark:border-d-6 border-b-h-1 dark:border-b-f-8 w-4 h-4'></span>
+                                    : '이메일 인증 후 가입하기'
+                                }
+                            </button>
+                        </Button>
                     </form>
                 </div>
             </div>

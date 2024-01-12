@@ -109,44 +109,43 @@ const Notices = ({params}: any) => {
                         <h3 className='ml-4 text-l-5 dark:text-d-c'>폰트 업데이트 & 소식</h3>
                     </div>
                     <div className='relative mb-10 text-l-2 dark:text-white'>
-                        <i className="text-sm absolute left-5 top-1/2 -translate-y-1/2 fa-solid fa-magnifying-glass"></i>
-                        <input onKeyUp={handleKeyUp} type="text" id="search" placeholder="검색어 입력" className="w-80 h-10 text-sm pl-12 pr-6 rounded-full border-2 border-transparent focus:border-h-1 focus:dark:border-f-8 text-l-2 dark:text-white placeholder:text-l-5 dark:placeholder:text-d-c bg-l-e dark:bg-d-4"/>
+                        <input onKeyUp={handleKeyUp} type="text" id="search" placeholder="검색어 입력" className="w-80 px-3.5 py-3 text-sm rounded-lg border-2 border-transparent focus:border-h-1 focus:dark:border-f-8 text-l-2 dark:text-white placeholder:text-l-5 dark:placeholder:text-d-c bg-l-e dark:bg-d-4"/>
                     </div>
                     <div className='flex items-center gap-1.5 mb-4'>
                         <div>
                             <input onChange={handleTypeOnChange} type="radio" id="all" name="type" className="hidden peer" defaultChecked/>
-                            <label htmlFor='all' className='w-20 h-8 text-sm flex justify-center items-center cursor-pointer border rounded-full border-l-b dark:border-d-6 peer-checked:border-h-1 peer-checked:dark:border-f-8 text-l-5 dark:text-d-c peer-checked:text-white peer-checked:dark:text-d-2 peer-checked:bg-h-1 peer-checked:dark:bg-f-8'>전체<div className='text-[13px] ml-1'>({all.length})</div></label>
+                            <label htmlFor='all' className='w-24 h-9 flex justify-center items-center cursor-pointer rounded-lg text-l-5 dark:text-d-c peer-checked:text-white peer-checked:dark:text-d-2 peer-checked:bg-h-1 peer-checked:dark:bg-f-8'>전체<div className='text-[13px] ml-1'>({all.length})</div></label>
                         </div>
                         <div>
                             <input onChange={handleTypeOnChange} type="radio" id="service" name="type" className="hidden peer"/>
-                            <label htmlFor='service' className='w-20 h-8 text-sm flex justify-center items-center cursor-pointer border rounded-full border-l-b dark:border-d-6 peer-checked:border-h-1 peer-checked:dark:border-f-8 text-l-5 dark:text-d-c peer-checked:text-white peer-checked:dark:text-d-2 peer-checked:bg-h-1 peer-checked:dark:bg-f-8'>서비스<div className='text-[13px] ml-1'>({services.length})</div></label>
+                            <label htmlFor='service' className='w-24 h-9 flex justify-center items-center cursor-pointer rounded-lg text-l-5 dark:text-d-c peer-checked:text-white peer-checked:dark:text-d-2 peer-checked:bg-h-1 peer-checked:dark:bg-f-8'>서비스<div className='text-[13px] ml-1'>({services.length})</div></label>
                         </div>
                         <div>
                             <input onChange={handleTypeOnChange} type="radio" id="font" name="type" className="hidden peer"/>
-                            <label htmlFor='font' className='w-20 h-8 text-sm flex justify-center items-center cursor-pointer border rounded-full border-l-b dark:border-d-6 peer-checked:border-h-1 peer-checked:dark:border-f-8 text-l-5 dark:text-d-c peer-checked:text-white peer-checked:dark:text-d-2 peer-checked:bg-h-1 peer-checked:dark:bg-f-8'>폰트<div className='text-[13px] ml-1'>({fonts.length})</div></label>
+                            <label htmlFor='font' className='w-24 h-9 flex justify-center items-center cursor-pointer rounded-lg text-l-5 dark:text-d-c peer-checked:text-white peer-checked:dark:text-d-2 peer-checked:bg-h-1 peer-checked:dark:bg-f-8'>폰트<div className='text-[13px] ml-1'>({fonts.length})</div></label>
                         </div>
                     </div>
                     {
                         noticesList && noticesList.length > 0
                         ?  noticesList.map((notice: notices) => {
-                            return <div key={notice.notice_id.toString()} className='notice group w-full flex flex-col'>
+                            return <div key={notice.notice_id.toString()} className='notice group w-full flex flex-col gap-3'>
                                 <input type='checkbox' id={`notice-${notice.notice_id}`} className='hidden peer/expand'/>
-                                <label htmlFor={`notice-${notice.notice_id}`} className='group/label cursor-pointer hover:bg-l-e hover:dark:bg-d-4'>
-                                    <div className='w-full h-14 text-sm flex justify-between items-center border-t text-l-2 dark:text-white border-l-b dark:border-d-6 group-last:border-b'>
+                                <label htmlFor={`notice-${notice.notice_id}`} className='group/label rounded-lg cursor-pointer border-2 border-transparent text-l-2 dark:text-white bg-l-e dark:bg-d-4 hover:border-h-1 hover:dark:border-f-8 peer-checked/expand:border-h-1 peer-checked/expand:dark:border-f-8 peer-checked/expand:bg-transparent'>
+                                    <div className='w-full h-14 text-sm flex justify-between items-center'>
                                         <div className='flex items-center'>
                                             <div className='w-[100px] tlg:w-20 shrink-0 flex justify-center items-center'><div className='px-1 border-b-2 border-h-1 dark:border-f-8 selection:bg-transparent'>{notice.notice_type === "service" ? "서비스" : "폰트"}</div></div>
                                             <div className='w-full ml-3 selection:bg-transparent'><div className='ellipsed-text'>{notice.notice_title}</div></div>
                                         </div>
                                         <div className='flex items-center mr-5 text-l-5 dark:text-d-c'>
-                                            <div className='w-20'>{dateFormat(notice.notice_created_at)}</div>
+                                            <div className='w-20 selection:bg-transparent'>{dateFormat(notice.notice_created_at)}</div>
                                             <i className="text-xs ml-5 duration-100 peer-checked/expand:group-[]/label:rotate-90 fa-solid fa-angle-right"></i>
                                         </div>
                                     </div>
                                 </label>
-                                <pre className='font-sans w-full h-0 whitespace-pre-wrap peer-checked/expand:h-[auto] px-8 peer-checked/expand:py-6 text-sm leading-6 duration-100 flex items-center overflow-hidden peer-checked/expand:border-t border-l-b dark:border-d-6 text-l-2 dark:text-white hover:bg-l-e hover:dark:bg-d-4 group-last:peer-checked/expand:border-t-0 group-last:peer-checked/expand:border-b'>{notice.notice_content}</pre>
+                                <pre className='font-sans w-full h-0 whitespace-pre-wrap peer-checked/expand:h-[auto] px-8 peer-checked/expand:py-6 peer-checked/expand:mb-3 text-sm leading-6 duration-100 flex items-center rounded-lg overflow-hidden bg-l-e dark:bg-d-4 text-l-2 dark:text-white'>{notice.notice_content}</pre>
                             </div>
                         })
-                        : <div className='w-full h-[68px] text-sm flex justify-center items-center text-center border-t border-l-b dark:border-d-6 text-l-2 dark:text-white'>공지사항을 찾을 수 없습니다.</div>
+                        : <div className='w-full h-20 flex justify-center items-center text-sm text-center border-t border-l-b dark:border-d-6 text-l-2 dark:text-white'>공지사항을 찾을 수 없습니다.</div>
                     }
                 </div>
             </div>

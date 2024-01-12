@@ -13,14 +13,14 @@ export default function Custom404() {
     
     return (
         <>
-            <div className="w-full h-full absolute left-0 top-0 flex flex-col justify-center items-center text-center text-theme-3 dark:text-theme-9">
-                <div className="text-[28px] font-medium">
+            <div className="w-full h-full absolute left-0 top-0 flex flex-col justify-center items-center text-center text-l-2 dark:text-white">
+                <div className="text-3xl leading-normal font-medium">
                     권한이 없거나 <br/>
                     존재하지 않는 페이지입니다.
                 </div>
-                <div style={{fontFamily: "Intel One Mono"}} className="w-[340px] h-[60px] mt-4 flex justify-center items-center rounded-lg text-sm text-theme-3 dark:text-theme-9 bg-theme-red/20 dark:bg-theme-blue-1/20 border border-dashed border-theme-red dark:border-theme-blue-1">404: Page Not Found</div>
+                <div style={{fontFamily: "Intel One Mono"}} className="w-[340px] h-[60px] mt-4 flex justify-center items-center rounded-lg text-sm bg-h-1/20 dark:bg-f-8/20 border border-dashed border-h-1 dark:border-f-8">404: Page Not Found</div>
                 <div className="flex items-center mt-[40px]">
-                    <Link href="/" className="flex justify-center items-center w-[132px] h-9 rounded-full text-[13px] border border-theme-8 hover:border-theme-3 dark:border-theme-blue-1/40 hover:bg-theme-3 hover:dark:bg-theme-blue-1 text-theme-3 hover:text-theme-9 dark:text-theme-blue-1 hover:dark:text-theme-blue-2 cursor-pointer duration-100">메인 페이지</Link>
+                    <Link href="/" className="flex justify-center items-center w-[132px] h-9 rounded-full text-[13px] border border-h-1 dark:border-f-8 hover:bg-h-1 hover:dark:bg-f-8 text-h-1 hover:text-white dark:text-f-8 hover:dark:text-d-2 cursor-pointer duration-100">메인 페이지</Link>
                 </div>
             </div>
         </>

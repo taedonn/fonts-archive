@@ -14,6 +14,7 @@ import { useState, useEffect } from 'react';
 // components
 import Header from "@/components/header";
 import Footer from '@/components/footer';
+import Button from '@/components/button';
 
 const Login = ({params}: any) => {
     const { theme, userAgent } = params;
@@ -116,72 +117,74 @@ const Login = ({params}: any) => {
 
             {/* 메인 */}
             <div className='w-full flex flex-col justify-center items-center'>
-                <div className='w-[360px] flex flex-col justify-center items-start my-[100px] tlg:my-10'>
-                    <h2 className='text-xl tlg:text-lg text-theme-3 dark:text-theme-9 font-medium mb-3 tlg:mb-2'>로그인</h2>
+                <div className='w-[360px] flex flex-col justify-center items-start my-[100px] tlg:my-16'>
+                    <h2 className='text-2xl tlg:text-xl text-l-2 dark:text-white font-bold mb-4'>로그인</h2>
                     {
                         alertDisplay &&
-                            <div className='w-full h-8 px-2.5 mb-2 flex flex-row justify-between items-center rounded-lg border-2 border-theme-red/80 dark:border-theme-red/60 text-xs text-theme-10 dark:text-theme-9 bg-theme-red/20'>
-                                <div className='flex flex-row justify-start items-center text-theme-3 dark:text-theme-9'>
-                                    <i className="text-sm text-theme-red fa-regular fa-bell"></i>
+                            <div className='w-full h-10 px-2.5 mb-3 flex justify-between items-center rounded-lg border-2 border-h-r text-xs text-l-2 dark:text-white bg-h-r/20'>
+                                <div className='flex justify-start items-center'>
+                                    <i className="text-sm text-h-r fa-regular fa-bell"></i>
                                     <div className='ml-2'>로그인에 실패했습니다.</div>
                                 </div>
-                                <div onClick={handleAlertClose} className='flex flex-row justify-center items-center cursor-pointer'>
-                                    <i className="text-sm text-theme-3 dark:text-theme-9 fa-solid fa-xmark"></i>
+                                <div onClick={handleAlertClose} className='flex justify-center items-center cursor-pointer'>
+                                    <i className="text-sm fa-solid fa-xmark"></i>
                                 </div>
                             </div>
                     }
-                    <form onSubmit={e => e.preventDefault()} className='w-full p-5 mb-4 rounded-lg text-theme-10 dark:text-theme-9 bg-theme-5 dark:bg-theme-3 drop-shadow-default dark:drop-shadow-dark'>
-                        <label htmlFor='id' className='block text-sm ml-px'>아이디</label>
-                        <input onChange={handleIdChange} type='text' id='id' tabIndex={1} autoComplete='on' placeholder='이메일을 입력해 주세요.' className={`${idChk === '' ? 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' : 'border-theme-red focus:border-theme-red dark:border-theme-red focus:dark:border-theme-red'} w-full text-sm mt-1.5 px-3.5 py-2 rounded-lg border-2 placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
+                    <form onSubmit={e => e.preventDefault()} className='w-full p-5 mb-4 rounded-lg text-l-2 dark:text-white bg-l-e dark:bg-d-3 drop-shadow-default dark:drop-shadow-dark'>
+                        <label htmlFor='id' className='block font-medium ml-px'>아이디</label>
+                        <input onChange={handleIdChange} type='text' id='id' tabIndex={1} autoComplete='on' placeholder='이메일을 입력해 주세요.' className={`${idChk === '' ? 'focus:border-h-1 focus:dark:border-f-8' : 'border-h-r focus:border-h-r'} border-transparent w-full text-sm mt-2 px-3.5 py-3 rounded-lg border-2 placeholder-l-5 dark:placeholder-d-c bg-l-d dark:bg-d-4`}/>
                         {
                             idChk === ''
                             ? <></>
-                            : <span className='block text-xs text-theme-red mt-1 ml-4'>아이디를 입력해 주세요.</span>
+                            : <span className='block text-xs text-h-r mt-2 ml-4'>아이디를 입력해 주세요.</span>
                         }
-                        <label htmlFor='pw' className='w-full flex flex-row justify-between items-center text-sm ml-px mt-[18px]'>
+                        <label htmlFor='pw' className='w-full font-medium flex justify-between items-center ml-px mt-5'>
                             <span>비밀번호</span>
-                            <Link href="/user/findpw" className='text-xs text-theme-yellow dark:text-theme-blue-1 hover:underline tlg:hover:no-underline'>비밀번호를 잊으셨나요?</Link>
+                            <Link href="/user/findpw" className='text-sm font-normal text-h-1 dark:text-f-8 hover:underline'>비밀번호를 잊으셨나요?</Link>
                         </label>
-                        <input onChange={handlePwChange} type='password' id='pw' tabIndex={2} autoComplete='on' placeholder='비밀번호를 입력해 주세요.' className={`${pwChk === '' ? 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' : 'border-theme-red focus:border-theme-red dark:border-theme-red focus:dark:border-theme-red'} w-full text-sm mt-1.5 px-3.5 py-2 rounded-lg border-2 placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2`}/>
+                        <input onChange={handlePwChange} type='password' id='pw' tabIndex={2} autoComplete='on' placeholder='비밀번호를 입력해 주세요.' className={`${pwChk === '' ? 'focus:border-h-1 focus:dark:border-f-8' : 'border-h-r focus:border-h-r'} border-transparent w-full text-sm mt-2 px-3.5 py-3 rounded-lg border-2 placeholder-l-5 dark:placeholder-d-c bg-l-d dark:bg-d-4`}/>
                         {
                             pwChk === ''
                             ? <></>
-                            : <span className='block text-xs text-theme-red mt-1 ml-4'>비밀번호를 입력해 주세요.</span>
+                            : <span className='block text-xs text-h-r mt-2 ml-4'>비밀번호를 입력해 주세요.</span>
                         }
-                        <button onClick={handleLogin} className='w-full h-10 flex flex-row justify-center items-center rounded-[8px] mt-4 text-sm font-medium text-theme-4 dark:text-theme-blue-2 bg-theme-yellow/80 hover:bg-theme-yellow tlg:hover:bg-theme-yellow/80 dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1/80'>
-                            {
-                                isLoading
-                                ? <span className='loader border-2 border-theme-5 border-b-theme-yellow dark:border-b-theme-blue-1 w-[18px] h-[18px]'></span>
-                                : '로그인'
-                            }
-                        </button>
+                        <Button marginTop={16}>
+                            <button onClick={handleLogin} className='w-full h-full flex justify-center items-center'>
+                                {
+                                    isLoading
+                                    ? <span className='loader border-2 border-h-e dark:border-d-6 border-b-h-1 dark:border-b-f-8 w-4 h-4'></span>
+                                    : '로그인'
+                                }
+                            </button>
+                        </Button>
                     </form>
-                    <div className='w-full h-[52px] text-sm rounded-lg mb-2 gap-2 flex justify-center items-center border border-theme-7 dark:border-theme-4'>
-                        <div onClick={naverLogin} className='w-7 h-7 rounded-md group relative flex justify-center items-center cursor-pointer bg-theme-naver'>
-                            <svg className='w-3.5 fill-theme-10' viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.273 12.845 7.376 0H0v24h7.726V11.156L16.624 24H24V0h-7.727v12.845Z"/></svg>
-                            <div className="tooltip after:bg-theme-naver w-max absolute z-10 left-1/2 -top-9 text-xs font-medium leading-none px-3 py-1.5 rounded-md hidden group-hover:block tlg:group-hover:hidden group-hover:animate-zoom-in-fontbox bg-theme-naver text-theme-3">네이버로 로그인</div>
+                    <div className='w-full h-14 text-sm rounded-lg mb-2.5 gap-2 flex justify-center items-center border border-l-b dark:border-d-6'>
+                        <div onClick={naverLogin} className='w-8 h-8 rounded-md group relative flex justify-center items-center cursor-pointer bg-theme-naver'>
+                            <svg className='w-3.5 fill-white' viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.273 12.845 7.376 0H0v24h7.726V11.156L16.624 24H24V0h-7.727v12.845Z"/></svg>
+                            <div className="tooltip after:bg-theme-naver w-max absolute z-10 left-1/2 -top-11 text-sm font-medium leading-none px-3 py-2 rounded-md hidden group-hover:block tlg:group-hover:hidden group-hover:animate-zoom-in-fontbox bg-theme-naver text-l-2">네이버로 로그인</div>
                         </div>
-                        <div onClick={kakaoLogin} className='w-7 h-7 rounded-md group relative flex justify-center items-center cursor-pointer bg-theme-kakao'>
-                            <svg className='w-5 fill-theme-1' viewBox="0 0 512 512" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M255.5 48C299.345 48 339.897 56.5332 377.156 73.5996C414.415 90.666 443.871 113.873 465.522 143.22C487.174 172.566 498 204.577 498 239.252C498 273.926 487.174 305.982 465.522 335.42C443.871 364.857 414.46 388.109 377.291 405.175C340.122 422.241 299.525 430.775 255.5 430.775C241.607 430.775 227.262 429.781 212.467 427.795C148.233 472.402 114.042 494.977 109.892 495.518C107.907 496.241 106.012 496.15 104.208 495.248C103.486 494.706 102.945 493.983 102.584 493.08C102.223 492.177 102.043 491.365 102.043 490.642V489.559C103.126 482.515 111.335 453.169 126.672 401.518C91.8486 384.181 64.1974 361.2 43.7185 332.575C23.2395 303.951 13 272.843 13 239.252C13 204.577 23.8259 172.566 45.4777 143.22C67.1295 113.873 96.5849 90.666 133.844 73.5996C171.103 56.5332 211.655 48 255.5 48Z"></path></svg>
-                            <div className="tooltip after:bg-theme-kakao w-max absolute z-10 left-1/2 -top-9 text-xs font-medium leading-none px-3 py-1.5 rounded-md hidden group-hover:block tlg:group-hover:hidden group-hover:animate-zoom-in-fontbox bg-theme-kakao text-theme-3">카카오로 로그인</div>
+                        <div onClick={kakaoLogin} className='w-8 h-8 rounded-md group relative flex justify-center items-center cursor-pointer bg-theme-kakao'>
+                            <svg className='w-5 fill-black' viewBox="0 0 512 512" version="1.1" xmlns="http://www.w3.org/2000/svg"><path d="M255.5 48C299.345 48 339.897 56.5332 377.156 73.5996C414.415 90.666 443.871 113.873 465.522 143.22C487.174 172.566 498 204.577 498 239.252C498 273.926 487.174 305.982 465.522 335.42C443.871 364.857 414.46 388.109 377.291 405.175C340.122 422.241 299.525 430.775 255.5 430.775C241.607 430.775 227.262 429.781 212.467 427.795C148.233 472.402 114.042 494.977 109.892 495.518C107.907 496.241 106.012 496.15 104.208 495.248C103.486 494.706 102.945 493.983 102.584 493.08C102.223 492.177 102.043 491.365 102.043 490.642V489.559C103.126 482.515 111.335 453.169 126.672 401.518C91.8486 384.181 64.1974 361.2 43.7185 332.575C23.2395 303.951 13 272.843 13 239.252C13 204.577 23.8259 172.566 45.4777 143.22C67.1295 113.873 96.5849 90.666 133.844 73.5996C171.103 56.5332 211.655 48 255.5 48Z"></path></svg>
+                            <div className="tooltip after:bg-theme-kakao w-max absolute z-10 left-1/2 -top-11 text-sm font-medium leading-none px-3 py-2 rounded-md hidden group-hover:block tlg:group-hover:hidden group-hover:animate-zoom-in-fontbox bg-theme-kakao text-l-2">카카오로 로그인</div>
                         </div>
-                        <div onClick={googleLogin} className='w-7 h-7 rounded-md group relative flex justify-center items-center cursor-pointer bg-theme-10'>
-                            <svg className='w-5 fill-theme-10' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/><path d="M1 1h22v22H1z" fill="none"/></svg>
-                            <div className="tooltip after:bg-theme-10 w-max absolute z-10 left-1/2 -top-9 text-xs font-medium leading-none px-3 py-1.5 rounded-md hidden group-hover:block tlg:group-hover:hidden group-hover:animate-zoom-in-fontbox bg-theme-10 text-theme-3">구글로 로그인</div>
+                        <div onClick={googleLogin} className='w-8 h-8 rounded-md group relative flex justify-center items-center cursor-pointer bg-black dark:bg-white'>
+                            <svg className='w-5 fill-white' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/><path d="M1 1h22v22H1z" fill="none"/></svg>
+                            <div className="tooltip after:bg-black after:dark:bg-white w-max absolute z-10 left-1/2 -top-11 text-sm font-medium leading-none px-3 py-2 rounded-md hidden group-hover:block tlg:group-hover:hidden group-hover:animate-zoom-in-fontbox bg-black dark:bg-white text-white dark:text-black">구글로 로그인</div>
                         </div>
-                        <div onClick={githubLogin} className='w-7 h-7 rounded-md group relative flex justify-center items-center cursor-pointer bg-theme-1 dark:bg-theme-10'>
-                            <svg className='w-5 fill-theme-10 dark:fill-theme-1' viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
-                            <div className="tooltip after:bg-theme-1 after:dark:bg-theme-10 w-max absolute z-10 left-1/2 -top-9 text-xs font-medium leading-none px-3 py-1.5 rounded-md hidden group-hover:block tlg:group-hover:hidden group-hover:animate-zoom-in-fontbox bg-theme-1 dark:bg-theme-10 text-theme-10 dark:text-theme-3">깃허브로 로그인</div>
+                        <div onClick={githubLogin} className='w-8 h-8 rounded-md group relative flex justify-center items-center cursor-pointer bg-black dark:bg-white'>
+                            <svg className='w-5 fill-white dark:fill-black' viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+                            <div className="tooltip after:bg-black after:dark:bg-white w-max absolute z-10 left-1/2 -top-11 text-sm font-medium leading-none px-3 py-2 rounded-md hidden group-hover:block tlg:group-hover:hidden group-hover:animate-zoom-in-fontbox bg-black dark:bg-white text-white dark:text-black">깃허브로 로그인</div>
                         </div>
                     </div>
-                    <div className='w-full h-[52px] text-sm rounded-lg flex flex-row justify-center items-center border border-theme-7 dark:border-theme-4'>
-                        <span className='text-theme-4 dark:text-theme-9 mr-3'>처음 방문하셨나요?</span>
-                        <Link href="/user/register" className='text-theme-yellow dark:text-theme-blue-1 hover:underline tlg:hover:no-underline'>회원가입하기</Link>
+                    <div className='w-full h-14 rounded-lg flex justify-center items-center border border-l-b dark:border-d-6'>
+                        <span className='text-l-5 dark:text-d-c mr-3'>처음 방문하셨나요?</span>
+                        <Link href="/user/register" className='text-h-1 dark:text-f-8 hover:underline'>회원가입하기</Link>
                     </div>
-                    <div className='w-full flex flex-row justify-center items-center text-xs mt-3'>
-                        <Link href="/terms" target="_blank" rel="noopener noreferrer" className='text-theme-5 dark:text-theme-6 hover:underline tlg:hover:underline'>서비스 이용약관</Link>
-                        <div className='text-theme-5 dark:text-theme-6 mx-1'>·</div>
-                        <Link href="/privacy" target="_blank" rel="noopener noreferrer" className='text-theme-5 dark:text-theme-6 hover:underline tlg:hover:underline'>개인정보처리방침</Link>
+                    <div className='w-full flex justify-center items-center text-sm mt-4 text-l-5 dark:text-d-c'>
+                        <Link href="/terms" target="_blank" rel="noopener noreferrer" className='hover:underline'>서비스 이용약관</Link>
+                        <div className='mx-1'>·</div>
+                        <Link href="/privacy" target="_blank" rel="noopener noreferrer" className='hover:underline'>개인정보처리방침</Link>
                     </div>
                 </div>
             </div>

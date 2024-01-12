@@ -35,21 +35,23 @@ const Confirm = ({params}: any) => {
     
     return (
         <>
-            <div className="w-full h-full absolute left-0 top-0 flex flex-col justify-center items-center text-center text-theme-3 dark:text-theme-9">
-                <div className="text-[28px] font-medium">
-                    환영합니다 {user.user_name}님!
-                </div>
-                <div className="text-sm mt-2 leading-relaxed">
-                    폰트 아카이브의 회원이 되어주셔서 감사합니다. <br/>
-                    앞으로 다양한 기능이 추가될 예정이니 자주 방문해 주세요!
-                </div>
-                <div style={{fontFamily: "Intel One Mono"}} className="w-[340px] px-7 py-4 mt-4 text-left leading-loose rounded-lg text-sm text-theme-3 dark:text-theme-9 bg-theme-red/20 dark:bg-theme-blue-1/20 border border-dashed border-theme-red dark:border-theme-blue-1">
-                    이름: {user.user_name} <br/>
-                    이메일: {user.user_id} <br/>
-                    가입일: {dateFormat(user.created_at)}
-                </div>
-                <div className="flex items-center mt-10">
-                    <Link href="/" className="flex justify-center items-center w-[132px] h-9 rounded-full text-[13px] border border-theme-8 hover:border-theme-3 dark:border-theme-blue-1/40 hover:bg-theme-3 hover:dark:bg-theme-blue-1 text-theme-3 hover:text-theme-9 dark:text-theme-blue-1 hover:dark:text-theme-blue-2 cursor-pointer duration-100">메인 페이지</Link>
+            <div className="w-full h-full absolute left-0 top-0 flex justify-center items-center text-center text-l-2 dark:text-white">
+                <div className="w-[360px]">
+                    <div className="text-3xl font-medium">
+                        환영합니다 {user.user_name}님!
+                    </div>
+                    <div className="text-sm mt-2.5 leading-relaxed">
+                        폰트 아카이브의 회원이 되어주셔서 감사합니다. <br/>
+                        앞으로 다양한 기능이 추가될 예정이니 자주 방문해 주세요!
+                    </div>
+                    <div style={{fontFamily: "Intel One Mono"}} className="w-full px-7 py-4 mt-5 text-left leading-loose rounded-lg text-sm bg-h-1/20 dark:bg-f-8/20 border border-dashed border-h-1 dark:border-f-8">
+                        이름: {user.user_name} <br/>
+                        이메일: {user.user_id} <br/>
+                        가입일: {dateFormat(user.created_at)}
+                    </div>
+                    <div className="flex justify-center items-center mt-10">
+                        <Link href="/" className="flex justify-center items-center w-[132px] h-9 rounded-lg text-sm border border-h-1 dark:border-f-8 hover:bg-h-1 hover:dark:bg-f-8 text-h-1 hover:text-white dark:text-f-8 hover:dark:text-d-2 cursor-pointer duration-100">메인 페이지</Link>
+                    </div>
                 </div>
             </div>
         </>

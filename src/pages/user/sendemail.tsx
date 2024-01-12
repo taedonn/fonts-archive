@@ -49,16 +49,16 @@ const SendEmail = ({params}: any) => {
             />
 
             {/* 메인 */}
-            <div className='w-full mb-[60px] flex flex-col justify-start items-center'>
-                <div className='w-full text-sm tlg:text-xs text-theme-6 dark:text-theme-7 flex flex-col justify-center items-center'>
+            <div className='w-full mb-32 tmd:mb-24 flex flex-col justify-start items-center'>
+                <div className='w-full px-4 text-l-5 dark:text-d-c relative flex flex-col justify-center items-center tlg:text-sm'>
                     <MailAnimation/>
-                    <h2 className='text-center leading-relaxed break-keep'>
-                        인증 메일이 <span className='text-theme-5 dark:text-theme-9 font-medium'>[{user.user_id}]</span>(으)로 전송되었습니다. <br className='txs:hidden'/>
-                        받으신 이메일의 링크를 클릭하면 가입이 완료됩니다.
+                    <h2 className='mt-12 text-center leading-relaxed break-keep'>
+                        <span className='text-l-2 dark:text-white font-bold'>[{user.user_id}]</span>(으)로 메일이 전송되었습니다. <br className='txs:hidden'/>
+                        받으신 이메일의 링크를 클릭하시면 가입이 완료됩니다.
                     </h2>
-                    <h3 className='mt-7 tlg:mt-5 flex flex-row justify-center items-center'>
+                    <h3 className='mt-7 text-sm flex flex-row justify-center items-center'>
                         이메일을 확인할 수 없나요?
-                        <div onClick={resendEmail} className='text-theme-yellow dark:text-theme-blue-1 hover:underline tlg:hover:no-underline ml-2 cursor-pointer'>인증 메일 다시 보내기</div>
+                        <div onClick={resendEmail} className='text-h-1 dark:text-f-8 hover:underline ml-2 cursor-pointer'>인증 메일 다시 보내기</div>
                     </h3>
                 </div>
             </div>
