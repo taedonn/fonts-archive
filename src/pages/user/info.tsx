@@ -272,12 +272,6 @@ const Info = ({params}: any) => {
                     <h2 className='text-2xl tlg:text-xl mb-4 font-bold text-l-2 dark:text-white'>프로필 정보</h2>
                     <div className='w-full flex items-end gap-3 mb-2.5'>
                         {
-                            user.auth !== "credentials"
-                                && <div className='text-sm tlg:text-xs h-10 tlg:h-8 px-3 flex items-center rounded-lg border-2 text-l-2 dark:text-white border-h-1 dark:border-f-8 bg-h-1/20 dark:bg-f-8/20'>
-                                    <div className='mr-0.5 font-bold text-l-2 dark:text-white'>[{user.auth === "google" ? "Google" : user.auth === "kakao" ? "카카오" : user.auth === "github" ? "GitHub" : user.auth === "naver" ? "네이버" : ""}]</div>에서 연동 중
-                                </div>
-                        }
-                        {
                             user.auth === "credentials"
                                 ? <div className='text-sm tlg:text-xs text-l-5 dark:text-d-c'>{timeFormat(user.updated_at)}에 마지막으로 수정됨</div>
                                 : <div className='text-sm tlg:text-xs text-l-5 dark:text-d-c'>{timeFormat(user.created_at)}에 생성됨</div>
@@ -310,6 +304,12 @@ const Info = ({params}: any) => {
                         : <></>
                     }
                     <div className='w-full p-5 rounded-lg text-l-2 dark:text-white bg-l-e dark:bg-d-3 drop-shadow-default dark:drop-shadow-dark'>
+                        {
+                            user.auth !== "credentials"
+                                && <div className='text-sm tlg:text-xs h-10 tlg:h-8 px-3 mb-4 flex items-center rounded-lg border-2 text-l-2 dark:text-white border-h-1 dark:border-f-8 bg-h-1/20 dark:bg-f-8/20'>
+                                    <div className='mr-0.5 font-bold text-l-2 dark:text-white'>[{user.auth === "google" ? "Google" : user.auth === "kakao" ? "카카오" : user.auth === "github" ? "GitHub" : user.auth === "naver" ? "네이버" : ""}]</div>에서 연동 중
+                                </div>
+                        }
                         <div className='flex items-center'>
                             <div ref={refImg} className='relative'>
                                 <input className='peer hidden' id='profile-img' type='checkbox'/>
@@ -360,7 +360,7 @@ const Info = ({params}: any) => {
                         {
                             user.auth === "credentials"
                                 ? <div className='w-full flex justify-between items-center mt-2'>
-                                    <input onChange={handleNameChange} onKeyDown={handleNameEnter} type='text' id='name' tabIndex={1} autoComplete='on' defaultValue={user.user_name} placeholder='홍길동' className={`${nameChk === '' ? 'focus:border-h-1 focus:dark:border-f-8' : 'border-h-r focus:border-h-r'} border-transparent w-[calc(100%-84px)] text-sm px-3.5 py-3 rounded-lg border-2 placeholder-l-5 dark:placeholder-d-c bg-l-d dark:bg-d-4`}/>
+                                    <input onChange={handleNameChange} onKeyDown={handleNameEnter} type='text' id='name' tabIndex={1} autoComplete='on' defaultValue={user.user_name} placeholder='홍길동' className={`${nameChk === '' ? 'border-l-d dark:border-d-4 focus:border-h-1 focus:dark:border-f-8' : 'border-h-r focus:border-h-r'} w-[calc(100%-84px)] text-sm px-3.5 py-3 rounded-lg border-2 placeholder-l-5 dark:placeholder-d-c bg-l-d dark:bg-d-4`}/>
                                     <div className='w-[76px]'>
                                         <Button>
                                             <button onClick={handleNameClick} className='w-full h-full flex justify-center items-center text-sm'>

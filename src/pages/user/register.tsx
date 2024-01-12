@@ -233,14 +233,14 @@ const Register = ({params}: any) => {
                     <h2 className='text-2xl tlg:text-xl text-l-2 dark:text-white font-bold mb-4'>회원가입</h2>
                     <form onSubmit={e => e.preventDefault()} id='register-form' className='w-full p-5 rounded-lg text-l-2 dark:text-white bg-l-e dark:bg-d-3 drop-shadow-default dark:drop-shadow-dark'>
                         <label htmlFor='name' className='block font-medium ml-px'>이름</label>
-                        <input onChange={handleNameChange} type='text' id='name' tabIndex={1} autoComplete='on' placeholder='홍길동' className={`${nameChk === '' ? 'focus:border-h-1 focus:dark:border-f-8' : 'border-h-r focus:border-h-r'} border-transparent w-full text-sm mt-2 px-3.5 py-3 rounded-lg border-2 placeholder-l-5 dark:placeholder-d-c bg-l-d dark:bg-d-4`}/>
+                        <input onChange={handleNameChange} type='text' id='name' tabIndex={1} autoComplete='on' placeholder='홍길동' className={`${nameChk === '' ? 'border-l-d dark:border-d-4 focus:border-h-1 focus:dark:border-f-8' : 'border-h-r focus:border-h-r'} w-full text-sm mt-2 px-3.5 py-3 rounded-lg border-2 placeholder-l-5 dark:placeholder-d-c bg-l-d dark:bg-d-4`}/>
                         {
                             nameChk === ''
                             ? <></>
                             : <span className='block text-xs text-h-r mt-2 ml-4'>이름을 입력해 주세요.</span>
                         }
                         <label htmlFor='id' className='block font-medium ml-px mt-8'>이메일</label>
-                        <input onChange={handleIdChange} type='text' id='id' tabIndex={2} autoComplete='on' placeholder='example@example.com' className={`${idChk === '' ? 'focus:border-h-1 focus:dark:border-f-8' : 'border-h-r focus:border-h-r'} border-transparent w-full text-sm mt-2 px-3.5 py-3 rounded-lg border-2 placeholder-l-5 dark:placeholder-d-c bg-l-d dark:bg-d-4`}/>
+                        <input onChange={handleIdChange} type='text' id='id' tabIndex={2} autoComplete='on' placeholder='example@example.com' className={`${idChk === '' ? 'border-l-d dark:border-d-4 focus:border-h-1 focus:dark:border-f-8' : 'border-h-r focus:border-h-r'} w-full text-sm mt-2 px-3.5 py-3 rounded-lg border-2 placeholder-l-5 dark:placeholder-d-c bg-l-d dark:bg-d-4`}/>
                         {
                             idChk === ''
                             ? <></>
@@ -256,7 +256,7 @@ const Register = ({params}: any) => {
                             )
                         }
                         <label htmlFor='pw' className='w-full flex justify-between items-center font-medium ml-px mt-8'>비밀번호</label>
-                        <input onChange={handlePwChange} type='password' id='pw' tabIndex={3} autoComplete='on' placeholder='영문, 숫자, 특수문자 포함 8~20자' className={`${pwChk === '' ? 'focus:border-h-1 focus:dark:border-f-8' : 'border-h-r focus:border-h-r'} border-transparent w-full text-sm mt-2 px-3.5 py-3 rounded-lg border-2 placeholder-l-5 dark:placeholder-d-c bg-l-d dark:bg-d-4`}/>
+                        <input onChange={handlePwChange} type='password' id='pw' tabIndex={3} autoComplete='on' placeholder='영문, 숫자, 특수문자 포함 8~20자' className={`${pwChk === '' ? 'border-l-d dark:border-d-4 focus:border-h-1 focus:dark:border-f-8' : 'border-h-r focus:border-h-r'} w-full text-sm mt-2 px-3.5 py-3 rounded-lg border-2 placeholder-l-5 dark:placeholder-d-c bg-l-d dark:bg-d-4`}/>
                         {
                             pwChk === ''
                             ? <></>
@@ -265,7 +265,7 @@ const Register = ({params}: any) => {
                                 : <span className='block text-xs text-h-r mt-2 ml-4'>비밀번호 형식이 올바르지 않습니다.</span>
                             )
                         }
-                        <input onChange={handlePwConfirmChange} type='password' id='pw-confirm' tabIndex={4} autoComplete='on' placeholder='비밀번호 재입력' className={`${pwConfirmChk === '' ? 'focus:border-h-1 focus:dark:border-f-8' : 'border-h-r focus:border-h-r'} border-transparent w-full text-sm mt-3 px-3.5 py-3 rounded-lg border-2 placeholder-l-5 dark:placeholder-d-c bg-l-d dark:bg-d-4`}/>
+                        <input onChange={handlePwConfirmChange} type='password' id='pw-confirm' tabIndex={4} autoComplete='on' placeholder='비밀번호 재입력' className={`${pwConfirmChk === '' ? 'border-l-d dark:border-d-4 focus:border-h-1 focus:dark:border-f-8' : 'border-h-r focus:border-h-r'} w-full text-sm mt-3 px-3.5 py-3 rounded-lg border-2 placeholder-l-5 dark:placeholder-d-c bg-l-d dark:bg-d-4`}/>
                         {
                             pwConfirmChk === ''
                             ? <></>

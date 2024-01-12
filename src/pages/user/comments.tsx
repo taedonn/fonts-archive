@@ -21,6 +21,7 @@ import { Pagination } from '@mui/material';
 import Header from "@/components/header";
 import Footer from '@/components/footer';
 import AdminDeleteCommentModal from '@/components/admindeletecommentmodal';
+import SelectBox from '@/components/selectbox';
 
 // common
 import { timeFormat } from '@/libs/common';
@@ -113,6 +114,8 @@ const Comments = ({params}: any) => {
         setComments(comments);
     }
 
+    const emptyFn = () => { return; }
+
     return (
         <>
             {/* Head 부분*/}
@@ -143,16 +146,31 @@ const Comments = ({params}: any) => {
 
             {/* 메인 */}
             <form onSubmit={e => e.preventDefault()} className='w-full flex flex-col justify-center items-center'>
-                <div className='w-[720px] tmd:w-full flex flex-col justify-center items-start my-[100px] tlg:my-10'>
-                    <h2 className='text-xl tlg:text-lg text-theme-3 dark:text-theme-9 font-medium mb-4 tlg:mb-3'>내 댓글 목록</h2>
-                    <div className='w-max flex items-center p-1.5 mb-3 tlg:mb-2 rounded-md text-theme-10 dark:text-theme-9 bg-theme-5 dark:bg-theme-3'>
-                        <select ref={selectRef} className='w-[80px] h-8 tlg:h-7 text-xs pt-px px-3.5 bg-transparent rounded-md outline-none border border-theme-6 dark:border-theme-5 cursor-pointer'>
+                <div className='w-[720px] tmd:w-full flex flex-col justify-center items-start my-[100px] tlg:my-16'>
+                    <h2 className='text-2xl tlg:text-xl text-l-2 dark:text-white font-bold mb-4'>내 댓글 목록</h2>
+                    <div className='flex items-center mb-8'>
+                        {/* <select ref={selectRef} className='w-[80px] h-8 tlg:h-7 text-xs pt-px px-3.5 bg-transparent rounded-md outline-none border border-theme-6 dark:border-theme-5 cursor-pointer'>
                             <option value='all' defaultChecked>전체</option>
                             <option value='font'>폰트</option>
                             <option value='comment'>댓글</option>
-                        </select>
-                        <input ref={textRef} type='textbox' placeholder='폰트/댓글' className='w-[200px] tlg:w-40 h-8 tlg:h-7 ml-2 px-3 text-xs bg-transparent border rounded-md border-theme-6 dark:border-theme-5'/>
-                        <button onClick={handleClick} className='w-[68px] h-8 tlg:h-7 ml-2 text-xs border rounded-md bg-theme-6/40 hover:bg-theme-6/60 tlg:hover:bg-theme-6/40 dark:bg-theme-4 hover:dark:bg-theme-5 tlg:hover:dark:bg-theme-4'>검색</button>
+                        </select> */}
+                        {/* <input ref={textRef} type='textbox' placeholder='폰트/댓글' className='w-[200px] tlg:w-40 h-8 tlg:h-7 ml-2 px-3 text-xs bg-transparent border rounded-md border-theme-6 dark:border-theme-5'/>
+                        <button onClick={handleClick} className='w-[68px] h-8 tlg:h-7 ml-2 text-xs border rounded-md bg-theme-6/40 hover:bg-theme-6/60 tlg:hover:bg-theme-6/40 dark:bg-theme-4 hover:dark:bg-theme-5 tlg:hover:dark:bg-theme-4'>검색</button> */}
+                        <div className="w-44 rounded-lg bg-l-e">
+                            <SelectBox
+                                height={48}
+                                title="필터"
+                                icon="bi-globe2"
+                                value="filter"
+                                select={filter}
+                                options={[
+                                    { value: "all", name: "전체" },
+                                    { value: "kr", name: "폰트" },
+                                    { value: "en", name: "댓글" },
+                                ]}
+                                optionChange={emptyFn}
+                            />
+                        </div>
                     </div>
                     <div className='w-full rounded-lg overflow-hidden overflow-x-auto'>
                         <div className='w-[720px] text-xs text-theme-10 dark:text-theme-9 bg-theme-4 dark:bg-theme-4'>

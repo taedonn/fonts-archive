@@ -4,7 +4,12 @@ import { useEffect, useRef } from "react";
 // libraries
 import { throttle } from "lodash";
 
+const defaultSelectBox = {
+    height: 64
+}
+
 interface SelectBox {
+    height?: number,
     title: string,
     icon: string,
     value: string,
@@ -19,6 +24,7 @@ interface Option {
 }
 
 export default function SelectBox ({
+    height=defaultSelectBox.height,
     title,
     icon,
     value,
@@ -92,7 +98,7 @@ export default function SelectBox ({
                 onChange={handleChange}
                 className="peer hidden"
             />
-            <label ref={refSelect} htmlFor={`select-${value}`} id={`label-${value}`} className="group p-4 flex justify-between items-center rounded-lg border-2 cursor-pointer text-l-2 dark:text-white hover:bg-l-e hover:dark:bg-d-4 peer-checked:hover:bg-transparent border-transparent peer-checked:border-h-1 peer-checked:dark:border-f-8">
+            <label ref={refSelect} htmlFor={`select-${value}`} id={`label-${value}`} style={{height: height + "px"}} className="group px-4 flex justify-between items-center rounded-lg border-2 cursor-pointer text-l-2 dark:text-white hover:bg-l-e hover:dark:bg-d-4 peer-checked:hover:bg-transparent border-transparent peer-checked:border-h-1 peer-checked:dark:border-f-8">
                 <div className="flex items-center gap-3">
                     <i className={`text-lg bi ${icon}`}></i>
                     <span className="font-medium selection:bg-transparent">

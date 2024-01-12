@@ -133,7 +133,7 @@ const Login = ({params}: any) => {
                     }
                     <form onSubmit={e => e.preventDefault()} className='w-full p-5 mb-4 rounded-lg text-l-2 dark:text-white bg-l-e dark:bg-d-3 drop-shadow-default dark:drop-shadow-dark'>
                         <label htmlFor='id' className='block font-medium ml-px'>아이디</label>
-                        <input onChange={handleIdChange} type='text' id='id' tabIndex={1} autoComplete='on' placeholder='이메일을 입력해 주세요.' className={`${idChk === '' ? 'focus:border-h-1 focus:dark:border-f-8' : 'border-h-r focus:border-h-r'} border-transparent w-full text-sm mt-2 px-3.5 py-3 rounded-lg border-2 placeholder-l-5 dark:placeholder-d-c bg-l-d dark:bg-d-4`}/>
+                        <input onChange={handleIdChange} type='text' id='id' tabIndex={1} autoComplete='on' placeholder='이메일을 입력해 주세요.' className={`${idChk === '' ? 'border-l-d dark:border-d-4 focus:border-h-1 focus:dark:border-f-8' : 'border-h-r focus:border-h-r'} w-full text-sm mt-2 px-3.5 py-3 rounded-lg border-2 placeholder-l-5 dark:placeholder-d-c bg-l-d dark:bg-d-4`}/>
                         {
                             idChk === ''
                             ? <></>
@@ -143,7 +143,7 @@ const Login = ({params}: any) => {
                             <span>비밀번호</span>
                             <Link href="/user/findpw" className='text-sm font-normal text-h-1 dark:text-f-8 hover:underline'>비밀번호를 잊으셨나요?</Link>
                         </label>
-                        <input onChange={handlePwChange} type='password' id='pw' tabIndex={2} autoComplete='on' placeholder='비밀번호를 입력해 주세요.' className={`${pwChk === '' ? 'focus:border-h-1 focus:dark:border-f-8' : 'border-h-r focus:border-h-r'} border-transparent w-full text-sm mt-2 px-3.5 py-3 rounded-lg border-2 placeholder-l-5 dark:placeholder-d-c bg-l-d dark:bg-d-4`}/>
+                        <input onChange={handlePwChange} type='password' id='pw' tabIndex={2} autoComplete='on' placeholder='비밀번호를 입력해 주세요.' className={`${pwChk === '' ? 'border-l-d dark:border-d-4 focus:border-h-1 focus:dark:border-f-8' : 'border-h-r focus:border-h-r'} w-full text-sm mt-2 px-3.5 py-3 rounded-lg border-2 placeholder-l-5 dark:placeholder-d-c bg-l-d dark:bg-d-4`}/>
                         {
                             pwChk === ''
                             ? <></>

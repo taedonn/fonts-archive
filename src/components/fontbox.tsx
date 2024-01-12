@@ -219,7 +219,7 @@ export default function FontBox ({
                                                         <i className="block peer-checked:group-[]:hidden text-xl tlg:text-lg bi bi-heart"></i>
                                                         <i className="hidden peer-checked:group-[]:block text-xl tlg:text-lg text-h-r bi bi-heart-fill"></i>
                                                     </label>
-                                                    <div className={`${hoverDisplay === true ? 'group-hover:block' : 'group-hover:hidden'} tooltip w-max absolute left-1/2 -top-10 px-3 pt-2 pb-2 text-sm font-medium leading-none origin-bottom rounded-lg hidden group-hover:animate-zoom-in-fontbox after:bg-h-r bg-h-r text-white`}>{like === null || like.some((likedFont: any) => likedFont.font_id === font.code) === false ? '좋아요' : '좋아요 해제'}</div>
+                                                    <div className={`${hoverDisplay === true ? 'group-hover:block' : 'group-hover:hidden'} tooltip w-max absolute left-1/2 -top-10 px-3 py-2 text-sm font-medium leading-none origin-bottom rounded-lg hidden group-hover:animate-zoom-in-fontbox after:bg-h-r bg-h-r text-white`}>{like === null || like.some((likedFont: any) => likedFont.font_id === font.code) === false ? '좋아요' : '좋아요 해제'}</div>
                                                 </div>
                                             </div>
                                             <div className="w-full relative overflow-hidden">

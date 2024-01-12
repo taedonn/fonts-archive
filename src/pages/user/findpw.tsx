@@ -15,6 +15,7 @@ import axios from 'axios';
 // components
 import Header from "@/components/header";
 import Footer from '@/components/footer';
+import Button from '@/components/button';
 
 const FindPw = ({params}: any) => {
     const { theme, userAgent } = params;
@@ -106,56 +107,58 @@ const FindPw = ({params}: any) => {
 
             {/* 메인 */}
             <div className='w-full flex flex-col justify-center items-center'>
-                <div className='w-[360px] flex flex-col justify-center items-start my-[100px] tlg:my-10'>
-                    <h2 className='text-xl tlg:text-lg text-theme-3 dark:text-theme-9 font-medium mb-3 tlg:mb-2'>비밀번호 찾기</h2>
+                <div className='w-[360px] flex flex-col justify-center items-start my-[100px] tlg:my-16'>
+                    <h2 className='text-2xl tlg:text-xl text-l-2 dark:text-white font-bold mb-4'>비밀번호 찾기</h2>
                     {
                         alertDisplay === true
                         ? <>
-                            <div className='w-full h-10 px-2.5 mb-2.5 flex flex-row justify-between items-center rounded-md border-2 border-theme-yellow dark:border-theme-blue-1/80 text-xs text-theme-3 dark:text-theme-9 bg-theme-yellow/40 dark:bg-theme-blue-1/20'>
-                                <div className='flex flex-row justify-start items-center'>
-                                    <i className="text-sm text-theme-yellow dark:text-theme-blue-1 fa-regular fa-bell"></i>
-                                    <div className='ml-1.5'>이메일로 임시 비밀번호가 발급되었습니다. <Link href="/user/login" className='ml-2 text-theme-yellow dark:text-theme-blue-1 hover:underline tlg:hover:no-underline'>로그인 하기</Link></div>
+                            <div className='w-full h-10 px-2.5 mb-3 flex justify-between items-center rounded-lg border-2 border-h-1 dark:border-f-8 text-xs text-l-2 dark:text-white bg-h-1/20 dark:bg-f-8/20'>
+                                <div className='flex justify-start items-center'>
+                                    <i className="text-sm text-h-1 dark:text-f-8 fa-regular fa-bell"></i>
+                                    <div className='ml-2'>이메일로 임시 비밀번호가 발급되었습니다. <Link href="/user/login" className='ml-2 text-h-1 dark:text-f-8 hover:underline'>로그인 하기</Link></div>
                                 </div>
-                                <div onClick={handleAlertClose} className='flex flex-row justify-center items-center cursor-pointer'>
-                                    <i className="text-sm text-theme-3 dark:text-theme-9 fa-solid fa-xmark"></i>
+                                <div onClick={handleAlertClose} className='flex justify-center items-center cursor-pointer'>
+                                    <i className="text-sm text-l-2 dark:text-white fa-solid fa-xmark"></i>
                                 </div>
                             </div>
                         </>
                         : <></>
                     }
-                    <form onSubmit={e => e.preventDefault()} className='w-full p-5 rounded-lg text-theme-10 dark:text-theme-9 bg-theme-5 dark:bg-theme-3 drop-shadow-default dark:drop-shadow-dark'>
-                        <label htmlFor='name' className='block text-sm ml-px'>이름</label>
-                        <input onChange={handleNameChange} type='text' id='name' tabIndex={1} autoComplete='on' placeholder='홍길동' className={`${nameChk === '' ? 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' : 'border-theme-red focus:border-theme-red dark:border-theme-red focus:dark:border-theme-red'} w-full text-sm mt-1.5 px-3.5 py-2 rounded-lg border-2 placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
+                    <form onSubmit={e => e.preventDefault()} className='w-full p-5 rounded-lg text-l-2 dark:text-white bg-l-e dark:bg-d-3 drop-shadow-default dark:drop-shadow-dark'>
+                        <label htmlFor='name' className='block font-medium ml-px'>이름</label>
+                        <input onChange={handleNameChange} type='text' id='name' tabIndex={1} autoComplete='on' placeholder='홍길동' className={`${nameChk === '' ? 'border-l-d dark:border-d-4 focus:border-h-1 focus:dark:border-f-8' : 'border-h-r focus:border-h-r'} w-full text-sm mt-2 px-3.5 py-3 rounded-lg border-2 placeholder-l-5 dark:placeholder-d-c bg-l-d dark:bg-d-4`}/>
                         {
                             nameChk === 'empty'
-                            ? <span className='block text-xs text-theme-red mt-1 ml-4'>이름을 입력해 주세요.</span>
+                            ? <span className='block text-xs text-h-r mt-2 ml-4'>이름을 입력해 주세요.</span>
                             : ( nameChk === 'wrong-name'
-                                ? <span className='block text-xs text-theme-red mt-1 ml-4'>이름이 아이디와 일치하지 않습니다.</span>
+                                ? <span className='block text-xs text-h-r mt-2 ml-4'>이름이 아이디와 일치하지 않습니다.</span>
                                 : <></>
                             )
                         }
-                        <label htmlFor='id' className='block text-sm mt-[18px] ml-px'>아이디</label>
-                        <input onChange={handleIdChange} type='text' id='id' tabIndex={2} autoComplete='on' placeholder='이메일을 입력해 주세요.' className={`${idChk === '' ? 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' : 'border-theme-red focus:border-theme-red dark:border-theme-red focus:dark:border-theme-red'} w-full text-sm mt-1.5 px-3.5 py-2 rounded-lg border-2 placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
+                        <label htmlFor='id' className='block font-medium mt-5 ml-px'>아이디</label>
+                        <input onChange={handleIdChange} type='text' id='id' tabIndex={2} autoComplete='on' placeholder='이메일을 입력해 주세요.' className={`${idChk === '' ? 'border-l-d dark:border-d-4 focus:border-h-1 focus:dark:border-f-8' : 'border-h-r focus:border-h-r'} w-full text-sm mt-2 px-3.5 py-3 rounded-lg border-2 placeholder-l-5 dark:placeholder-d-c bg-l-d dark:bg-d-4`}/>
                         {
                             idChk === 'empty'
-                            ? <span className='block text-xs text-theme-red mt-1 ml-4'>아이디를 입력해 주세요.</span>
+                            ? <span className='block text-xs text-h-r mt-2 ml-4'>아이디를 입력해 주세요.</span>
                             : ( idChk === 'wrong-id'
-                                ? <span className='block text-xs text-theme-red mt-1 ml-4'>조회된 아이디가 없습니다.</span>
+                                ? <span className='block text-xs text-h-r mt-2 ml-4'>조회된 아이디가 없습니다.</span>
                                 : <></>
                             )
                         }
-                        <button onClick={handleOnSubmit} className='w-full h-10 rounded-lg mt-3.5 text-sm font-medium text-theme-4 dark:text-theme-blue-2 bg-theme-yellow/80 hover:bg-theme-yellow tlg:hover:bg-theme-yellow/80 dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1/80'>
-                            {
-                                isLoading === true
-                                ? <span className='loader border-2 border-theme-5 border-b-theme-yellow dark:border-b-theme-blue-1 w-[18px] h-[18px] mt-1'></span>
-                                : '다음'
-                            }
-                        </button>
+                        <Button marginTop={16}>
+                            <button onClick={handleOnSubmit} className='w-full h-full flex justify-center items-center'>
+                                {
+                                    isLoading
+                                    ? <span className='loader border-2 border-h-e dark:border-d-6 border-b-h-1 dark:border-b-f-8 w-4 h-4'></span>
+                                    : '다음'
+                                }
+                            </button>
+                        </Button>
                     </form>
-                    <div className='w-full flex flex-row justify-center items-center text-xs mt-3'>
-                        <Link href="/terms" target="_blank" rel="noopener noreferrer" className='text-theme-5 dark:text-theme-6 hover:underline tlg:hover:underline'>서비스 이용약관</Link>
-                        <div className='text-theme-5 dark:text-theme-6 mx-1'>·</div>
-                        <Link href="/privacy" target="_blank" rel="noopener noreferrer" className='text-theme-5 dark:text-theme-6 hover:underline tlg:hover:underline'>개인정보처리방침</Link>
+                    <div className='w-full flex justify-center items-center text-sm mt-4 text-l-5 dark:text-d-c'>
+                        <Link href="/terms" target="_blank" rel="noopener noreferrer" className='hover:underline'>서비스 이용약관</Link>
+                        <div className='mx-1'>·</div>
+                        <Link href="/privacy" target="_blank" rel="noopener noreferrer" className='hover:underline'>개인정보처리방침</Link>
                     </div>
                 </div>
             </div>
