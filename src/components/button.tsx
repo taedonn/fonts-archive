@@ -27,7 +27,7 @@ export default function Button ({
                 marginTop: marginTop + "px",
                 marginBottom: marginBottom + "px",
             }}
-            className={`${color === "main" ? "bg-h-1 dark:bg-f-8  hover:bg-h-0 hover:dark:bg-f-9 text-white dark:text-d-2" : "bg-h-r hover:bg-h-r-h text-white"} w-full flex justify-center items-center rounded-lg selection:bg-transparent`}
+            className={`${color === "main" ? "bg-h-1 dark:bg-f-8  hover:bg-h-0 hover:dark:bg-f-9 tlg:hover:bg-h-1 tlg:hover:dark:bg-f-8 text-white dark:text-d-2" : "bg-h-r hover:bg-h-r-h tlg:hover:bg-h-r text-white"} w-full flex justify-center items-center rounded-lg selection:bg-transparent`}
         >
             {children}
         </div>

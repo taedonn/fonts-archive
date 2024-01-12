@@ -58,14 +58,14 @@ export default function Sidemenu ({
                         onChange={handleExpand}
                         checked={expand}
                     />
-                    <label htmlFor="expand-filter" className="px-4 py-1.5 text-sm font-medium rounded-full cursor-pointer bg-h-e dark:bg-d-3 hover:bg-h-1 hover:dark:bg-d-4 peer-checked:bg-h-1 peer-checked:dark:bg-f-8 peer-checked:hover:bg-h-0 peer-checked:hover:dark:bg-f-9 text-h-1 dark:text-f-8 hover:text-white peer-checked:text-white peer-checked:dark:text-d-2">
+                    <label htmlFor="expand-filter" className="px-4 py-1.5 text-sm font-medium rounded-full cursor-pointer bg-h-e dark:bg-d-3 hover:bg-h-1 hover:dark:bg-d-4 tlg:hover:bg-h-e tlg:hover:dark:bg-d-3 peer-checked:bg-h-1 peer-checked:dark:bg-f-8 tlg:peer-checked:bg-h-e tlg:peer-checked:dark:bg-d-3 peer-checked:hover:bg-h-0 peer-checked:hover:dark:bg-f-9 tlg:peer-checked:hover:bg-h-e tlg:peer-checked:hover:dark:bg-d-3 text-h-1 dark:text-f-8 hover:text-white tlg:hover:text-h-1 tlg:hover:dark:text-f-8 peer-checked:text-white peer-checked:dark:text-d-2 tlg:peer-checked:text-h-1 tlg:peer-checked:dark:text-f-8">
                         <i className="mr-1.5 bi bi-sliders2"></i>
                         필터
                     </label>
                     <button onClick={handleResetFilter} className={`${
                         license === "all" && lang === "all" && type === "all" && sort === "date" && text === "" && searchword === ""
                             ? "text-l-b dark:text-d-6 hover:bg-transparent cursor-default"
-                            : "text-h-1 dark:text-f-8 hover:bg-h-e hover:dark:bg-d-3"
+                            : "text-h-1 dark:text-f-8 hover:bg-h-e hover:dark:bg-d-3 tlg:hover:bg-transparent tlg:hover:dark:bg-transparent"
                         } ml-1.5 px-3 py-2 rounded-lg text-sm`}>
                         <i className="mr-2 fa-solid fa-rotate-right"></i>
                         필터 초기화
@@ -79,7 +79,7 @@ export default function Sidemenu ({
                         <button onClick={handleResetFilter} className={`${
                                 license === "all" && lang === "all" && type === "all" && sort === "date" && text === "" && searchword === ""
                                 ? "text-l-b dark:text-d-6 hover:bg-transparent cursor-default"
-                                : "text-h-1 dark:text-f-8 hover:bg-h-e hover:dark:bg-d-4"
+                                : "text-h-1 dark:text-f-8 hover:bg-h-e hover:dark:bg-d-4 tlg:hover:bg-transparent tlg:hover:dark:bg-transparent"
                             } mr-1 mt-0.5 px-3 py-2 rounded-lg text-sm`}>
                             <i className="mr-2 fa-solid fa-rotate-right"></i>
                             필터 초기화
@@ -91,7 +91,7 @@ export default function Sidemenu ({
                             onChange={handleExpand}
                             checked={expand}
                         />
-                        <label htmlFor="expand" className="w-10 h-10 relative flex justify-center items-center text-3xl rounded-full cursor-pointer text-l-2 dark:text-white hover:bg-h-e hover:dark:bg-d-4">
+                        <label htmlFor="expand" className="w-10 h-10 translate-x-2 relative flex justify-center tlg:justify-end items-center text-3xl rounded-full cursor-pointer text-l-2 dark:text-white hover:bg-h-e hover:dark:bg-d-4 tlg:hover:bg-transparent tlg:hover:dark:bg-transparent">
                             <i className="bi bi-x"></i>
                         </label>
                     </div>

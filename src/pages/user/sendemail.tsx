@@ -58,7 +58,7 @@ const SendEmail = ({params}: any) => {
                     </h2>
                     <h3 className='mt-7 text-sm flex flex-row justify-center items-center'>
                         이메일을 확인할 수 없나요?
-                        <div onClick={resendEmail} className='text-h-1 dark:text-f-8 hover:underline ml-2 cursor-pointer'>인증 메일 다시 보내기</div>
+                        <div onClick={resendEmail} className='text-h-1 dark:text-f-8 hover:underline tlg:hover:no-underline ml-2 cursor-pointer'>인증 메일 다시 보내기</div>
                     </h3>
                 </div>
             </div>

@@ -141,7 +141,7 @@ const Login = ({params}: any) => {
                         }
                         <label htmlFor='pw' className='w-full font-medium flex justify-between items-center ml-px mt-5'>
                             <span>비밀번호</span>
-                            <Link href="/user/findpw" className='text-sm font-normal text-h-1 dark:text-f-8 hover:underline'>비밀번호를 잊으셨나요?</Link>
+                            <Link href="/user/findpw" className='text-sm font-normal text-h-1 dark:text-f-8 hover:underline tlg:hover:no-underline'>비밀번호를 잊으셨나요?</Link>
                         </label>
                         <input onChange={handlePwChange} type='password' id='pw' tabIndex={2} autoComplete='on' placeholder='비밀번호를 입력해 주세요.' className={`${pwChk === '' ? 'border-l-d dark:border-d-4 focus:border-h-1 focus:dark:border-f-8' : 'border-h-r focus:border-h-r'} w-full text-sm mt-2 px-3.5 py-3 rounded-lg border-2 placeholder-l-5 dark:placeholder-d-c bg-l-d dark:bg-d-4`}/>
                         {
@@ -179,12 +179,12 @@ const Login = ({params}: any) => {
                     </div>
                     <div className='w-full h-14 rounded-lg flex justify-center items-center border border-l-b dark:border-d-6'>
                         <span className='text-l-5 dark:text-d-c mr-3'>처음 방문하셨나요?</span>
-                        <Link href="/user/register" className='text-h-1 dark:text-f-8 hover:underline'>회원가입하기</Link>
+                        <Link href="/user/register" className='text-h-1 dark:text-f-8 hover:underline tlg:hover:no-underline'>회원가입하기</Link>
                     </div>
                     <div className='w-full flex justify-center items-center text-sm mt-4 text-l-5 dark:text-d-c'>
-                        <Link href="/terms" target="_blank" rel="noopener noreferrer" className='hover:underline'>서비스 이용약관</Link>
+                        <Link href="/terms" target="_blank" rel="noopener noreferrer" className='hover:underline tlg:hover:no-underline'>서비스 이용약관</Link>
                         <div className='mx-1'>·</div>
-                        <Link href="/privacy" target="_blank" rel="noopener noreferrer" className='hover:underline'>개인정보처리방침</Link>
+                        <Link href="/privacy" target="_blank" rel="noopener noreferrer" className='hover:underline tlg:hover:no-underline'>개인정보처리방침</Link>
                     </div>
                 </div>
             </div>

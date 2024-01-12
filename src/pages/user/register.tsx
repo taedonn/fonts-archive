@@ -297,7 +297,7 @@ const Register = ({params}: any) => {
                                     </label>
                                     <p className='text-sm text-l-2 dark:text-white ml-1.5'>서비스 이용약관 (필수)</p>
                                 </div>
-                                <Link href="/terms" target='_blank' rel="noopener noreferrer" className='text-xs text-l-6 dark:text-d-c flex justify-center items-center hover:underline'>전문보기</Link>
+                                <Link href="/terms" target='_blank' rel="noopener noreferrer" className='text-xs text-l-6 dark:text-d-c flex justify-center items-center hover:underline tlg:hover:no-underline'>전문보기</Link>
                             </div>
                             <div className='w-full flex justify-between items-center mt-2'>
                                 <div className='flex justify-start items-center'>
@@ -308,7 +308,7 @@ const Register = ({params}: any) => {
                                     </label>
                                     <p className='text-sm text-l-2 dark:text-white ml-1.5'>개인정보 처리방침 (필수)</p>
                                 </div>
-                                <Link href="/privacy" target='_blank' rel="noopener noreferrer" className='text-xs text-l-6 dark:text-d-c flex justify-center items-center hover:underline'>전문보기</Link>
+                                <Link href="/privacy" target='_blank' rel="noopener noreferrer" className='text-xs text-l-6 dark:text-d-c flex justify-center items-center hover:underline tlg:hover:no-underline'>전문보기</Link>
                             </div>
                         </div>
                         

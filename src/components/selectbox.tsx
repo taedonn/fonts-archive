@@ -98,7 +98,7 @@ export default function SelectBox ({
                 onChange={handleChange}
                 className="peer hidden"
             />
-            <label ref={refSelect} htmlFor={`select-${value}`} id={`label-${value}`} style={{height: height + "px"}} className="group px-4 flex justify-between items-center rounded-lg border-2 cursor-pointer text-l-2 dark:text-white hover:bg-l-e hover:dark:bg-d-4 peer-checked:hover:bg-transparent border-transparent peer-checked:border-h-1 peer-checked:dark:border-f-8">
+            <label ref={refSelect} htmlFor={`select-${value}`} id={`label-${value}`} style={{height: height + "px"}} className="group px-4 flex justify-between items-center rounded-lg border-2 cursor-pointer text-l-2 dark:text-white hover:bg-l-e hover:dark:bg-d-4 tlg:hover:bg-transparent tlg:hover:dark:bg-transparent peer-checked:hover:bg-transparent border-transparent peer-checked:border-h-1 peer-checked:dark:border-f-8">
                 <div className="flex items-center gap-3">
                     <i className={`text-lg bi ${icon}`}></i>
                     <span className="font-medium selection:bg-transparent">
@@ -132,7 +132,7 @@ export default function SelectBox ({
                                 />
                                 <label
                                     htmlFor={`option-${value}-${option.value}`}
-                                    className="w-full px-5 py-2.5 block selection:bg-transparent cursor-pointer hover:bg-l-e hover:dark:bg-d-6 peer-checked:bg-h-e peer-checked:dark:bg-f-8 text-l-2 dark:text-white peer-checked:dark:text-d-2"
+                                    className="w-full px-5 py-2.5 block selection:bg-transparent cursor-pointer hover:bg-l-e hover:dark:bg-d-6 tlg:hover:bg-transparent tlg:hover:dark:bg-transparent peer-checked:bg-h-e peer-checked:dark:bg-f-8 text-l-2 dark:text-white peer-checked:dark:text-d-2"
                                 >
                                     {option.name}
                                 </label>
