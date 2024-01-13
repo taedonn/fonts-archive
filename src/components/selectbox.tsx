@@ -5,7 +5,7 @@ import { useEffect, useRef } from "react";
 import { throttle } from "lodash";
 
 const defaultSelectBox = {
-    height: 64
+    height: 4
 }
 
 interface SelectBox {
@@ -58,14 +58,16 @@ export default function SelectBox ({
 
         if (e.target.checked) {
             if (window.innerHeight <= (labelBottom + optionHeight)) {
-                option.classList.remove("top-16");
-                option.classList.add("animate-fade-in-from-top", "bottom-[68px]");
+                option.style.top = "auto";
+                option.style.bottom = (height + 0.25) + "rem";
+                option.classList.add("animate-fade-in-from-top");
                 setTimeout(function() {
                     option.classList.remove("animate-fade-in-from-top");
                 }, 600);
             } else {
-                option.classList.remove("bottom-[68px]");
-                option.classList.add("animate-fade-in-account", "top-16");
+                option.style.top = height + "rem";
+                option.style.bottom = "auto";
+                option.classList.add("animate-fade-in-account");
                 setTimeout(function() { option.classList.remove("animate-fade-in-account"); }, 600);
             }
         }
@@ -98,9 +100,9 @@ export default function SelectBox ({
                 onChange={handleChange}
                 className="peer hidden"
             />
-            <label ref={refSelect} htmlFor={`select-${value}`} id={`label-${value}`} style={{height: height + "px"}} className="group px-4 flex justify-between items-center rounded-lg border-2 cursor-pointer text-l-2 dark:text-white hover:bg-l-e hover:dark:bg-d-4 tlg:hover:bg-transparent tlg:hover:dark:bg-transparent peer-checked:hover:bg-transparent border-transparent peer-checked:border-h-1 peer-checked:dark:border-f-8">
+            <label ref={refSelect} htmlFor={`select-${value}`} id={`label-${value}`} style={{height: height + "rem"}} className="group px-4 flex justify-between items-center rounded-lg border-2 cursor-pointer text-l-2 dark:text-white hover:bg-l-e hover:dark:bg-d-4 tlg:hover:bg-transparent tlg:hover:dark:bg-transparent peer-checked:hover:bg-transparent border-transparent peer-checked:border-h-1 peer-checked:dark:border-f-8">
                 <div className="flex items-center gap-3">
-                    <i className={`text-lg bi ${icon}`}></i>
+                    { icon !== "none" && <i className={`text-lg bi ${icon}`}></i> }
                     <span className="font-medium selection:bg-transparent">
                         {title}
                         <span className="ml-1 font-normal text-h-1 dark:text-f-8">[{fetchOptionName(select)}]</span>
@@ -111,7 +113,7 @@ export default function SelectBox ({
             <div
                 ref={refOption}
                 id={`option-${value}-wrap`}
-                style={{ height: options.length >= 5 ? '216px' : (options.length * 40 + 16) + 'px' }}
+                style={{ height: options.length >= 5 ? '13.5rem' : (options.length * 2.5 + 1) + 'rem' }}
                 className="custom-sm-scrollbar hidden peer-checked:block h-0 peer-checked:h-max w-full absolute z-10 left-0 mt-1 py-2 rounded-lg overflow-y-auto duration-100 bg-white dark:bg-d-4 drop-shadow-default dark:drop-shadow-dark"
             >
                 {

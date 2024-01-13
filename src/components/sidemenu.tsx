@@ -74,7 +74,7 @@ export default function Sidemenu ({
                 </div>
             </div>
             <div className={`${expand ? "left-0" : "-left-80"} w-80 h-full fixed z-10 top-0 duration-200`}>
-                <div className="w-full h-full pt-32 p-8 custom-sm-scrollbar overflow-y-auto bg-h-f dark:bg-d-3">
+                <div className="w-full h-full pt-32 p-8 custom-sm-scrollbar relative overflow-y-auto bg-h-f dark:bg-d-3">
                     <div className="absolute right-8 top-[76px] flex items-center">
                         <button onClick={handleResetFilter} className={`${
                                 license === "all" && lang === "all" && type === "all" && sort === "date" && text === "" && searchword === ""

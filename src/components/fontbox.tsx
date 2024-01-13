@@ -87,7 +87,7 @@ export default function FontBox ({
     useEffect(() => {
         remove();
         refetch();
-        window.scrollTo(0, 0);
+        // window.scrollTo(0, 0);
     }, [license, lang, type, sort, searchword, filter, remove, refetch]);
 
     /** 로그인 중이 아닐 때 좋아요 클릭 방지 */
@@ -206,10 +206,10 @@ export default function FontBox ({
                                         font_type: string
                                         cdn_url: string
                                     }) => (
-                                        <div aria-label="font-link" key={font.code} className="w-full group/wrap relative py-8 hover:rounded-lg tlg:hover:rounded-none border-t first:border-t-0 last:border-b border-l-b dark:border-d-4 tlg:hover:border-l-b tlg:hover:dark:border-d-4 [&+div]:hover:border-transparent tlg:[&+div]:hover:border-l-b tlg:[&+div]:hover:dark:border-d-4 hover:border-transparent hover:bg-l-e hover:dark:bg-d-4 tlg:hover:bg-transparent tlg:hover:dark:bg-transparent text-l-2 dark:text-white animate-fade-in-fontbox cursor-pointer">
+                                        <div aria-label="font-link" key={font.code} className="w-full group/wrap relative py-8 tlg:py-6 hover:rounded-lg tlg:hover:rounded-none border-t first:border-t-0 last:border-b border-l-b dark:border-d-4 tlg:hover:border-l-b tlg:hover:dark:border-d-4 [&+div]:hover:border-transparent tlg:[&+div]:hover:border-l-b tlg:[&+div]:hover:dark:border-d-4 hover:border-transparent hover:bg-l-e hover:dark:bg-d-4 tlg:hover:bg-transparent tlg:hover:dark:bg-transparent text-l-2 dark:text-white animate-fade-in-fontbox cursor-pointer">
                                             <Link href={`/post/${font.font_family.replaceAll(" ", "+")}`} className='w-full h-full absolute z-10 left-0 top-0'></Link>
                                             <link href={font.cdn_url} rel="stylesheet" type="text/css" itemProp="url"></link>
-                                            <div className='w-max pl-8 tlg:pl-4 mb-6 relative tlg:static flex tlg:flex-col items-center tlg:items-start'>
+                                            <div className='w-max pl-8 tlg:pl-4 mb-6 tlg:mb-4 relative tlg:static flex tlg:flex-col items-center tlg:items-start'>
                                                 <div className="text-xl tlg:text-lg tlg:mb-2">{font.name}</div>
                                                 <div className='w-px h-4 mx-3 tlg:hidden bg-l-b dark:bg-d-9'></div>
                                                 <div className="text-l-5 dark:text-d-9">by {font.source}</div>
@@ -226,7 +226,7 @@ export default function FontBox ({
                                                 <div style={{fontFamily:"'"+font.font_family+"'"}} className="w-full pl-8 tlg:pl-4 text-4xl tlg:text-3xl text-normal">
                                                     <p className={`${font.code + '-text'} whitespace-nowrap text-l-b dark:text-white`}><DummyText lang={font.lang} text={text} num={num}/></p>
                                                 </div>
-                                                <div className='w-40 h-full absolute right-0 top-0 bg-gradient-to-l from-white dark:from-d-2 from-25% group-hover/wrap:from-l-e group-hover/wrap:dark:from-d-4 tlg:group-hover/wrap:from-white tlg:group-hover/wrap:dark:from-d-4'></div>
+                                                <div className='w-40 h-full absolute right-0 top-0 bg-gradient-to-l from-white dark:from-d-2 from-25% group-hover/wrap:from-l-e group-hover/wrap:dark:from-d-4 tlg:group-hover/wrap:from-white tlg:group-hover/wrap:dark:from-d-2'></div>
                                             </div>
                                         </div>
                                     ))}

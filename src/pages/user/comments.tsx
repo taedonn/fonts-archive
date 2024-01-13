@@ -36,6 +36,9 @@ const Comments = ({params}: any) => {
     const [thisCount, setCount] = useState<number>(count);
     const [filter, setFilter] = useState<string>('all');
     const [text, setText] = useState<string>('');
+    const [fontId, setFontId] = useState<number>(0);
+    const [commentId, setCommentId] = useState<number>(0);
+    const [deleteModalDisplay, setDeleteModalDisplay] = useState<boolean>(false);
 
     // 댓글 목록 ref
     const selectRef = useRef<HTMLSelectElement>(null);
@@ -43,7 +46,10 @@ const Comments = ({params}: any) => {
 
     // 댓글 목록 페이지 변경
     const [page, setPage] = useState<number>(1);
-    const handleChange = (e: React.ChangeEvent<unknown>, value: number) => { setPage(value); };
+    const handleChange = (e: React.ChangeEvent<unknown>, value: number) => { setPage(value); }
+
+    // 핕터 변경
+    const handleFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => { setFilter(e.target.value); }
 
     // 페이지 변경 시 데이터 다시 불러오기
     useEffect(() => {
@@ -92,11 +98,6 @@ const Comments = ({params}: any) => {
         }
     }
 
-    // 댓글 삭제
-    const [fontId, setFontId] = useState<number>(0);
-    const [commentId, setCommentId] = useState<number>(0);
-    const [deleteModalDisplay, setDeleteModalDisplay] = useState<boolean>(false);
-
      /** 댓글 삭제 모달창 열기 */
      const deleteCommentModalOpen = (e: React.MouseEvent<HTMLButtonElement>) => {
         setDeleteModalDisplay(true);
@@ -113,8 +114,6 @@ const Comments = ({params}: any) => {
     const updateComments = (comments: any) => {
         setComments(comments);
     }
-
-    const emptyFn = () => { return; }
 
     return (
         <>
@@ -158,9 +157,9 @@ const Comments = ({params}: any) => {
                         <button onClick={handleClick} className='w-[68px] h-8 tlg:h-7 ml-2 text-xs border rounded-md bg-theme-6/40 hover:bg-theme-6/60 tlg:hover:bg-theme-6/40 dark:bg-theme-4 hover:dark:bg-theme-5 tlg:hover:dark:bg-theme-4'>검색</button> */}
                         <div className="w-44 rounded-lg bg-l-e">
                             <SelectBox
-                                height={48}
+                                height={4}
                                 title="필터"
-                                icon="bi-globe2"
+                                icon="none"
                                 value="filter"
                                 select={filter}
                                 options={[
@@ -168,7 +167,7 @@ const Comments = ({params}: any) => {
                                     { value: "kr", name: "폰트" },
                                     { value: "en", name: "댓글" },
                                 ]}
-                                optionChange={emptyFn}
+                                optionChange={handleFilterChange}
                             />
                         </div>
                     </div>

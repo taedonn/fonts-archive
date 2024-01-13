@@ -123,12 +123,12 @@ export default function Header (
 
     return (
         <>
-            <header className="w-full h-16 relative">
+            <header className="w-full h-16">
                 {/* 메인 페이지가 아닐 때 헤더 아래 그라데이션 */}
                 { page !== "index" && <div className="w-full h-4 fixed z-20 left-0 top-16 bg-gradient-to-b from-white dark:from-d-2"></div> }
                 
-                <div className='interface w-full h-16 px-8 tlg:px-4 fixed right-0 top-0 z-20 flex justify-between items-center bg-white dark:bg-d-2'>
-                    <div className="flex justify-start items-center text-l-2 dark:text-white">
+                <div className='w-full h-16 px-8 tlg:px-4 fixed right-0 top-0 z-20 flex justify-between items-center bg-white dark:bg-d-2'>
+                    <div className="w-full flex justify-start items-center overflow-hidden text-l-2 dark:text-white">
                         <Link
                             onClick={reset}
                             href="/"
@@ -141,8 +141,8 @@ export default function Header (
                             <div className="font-bold tlg:hidden">폰트 아카이브</div>
                             <div className="hidden tlg:block w-4 h-full absolute -right-4 top-0 bg-gradient-to-r from-white from-50% dark:from-d-2"></div>
                         </Link>
-                        <div className={`${page === "index" ? "tlg:w-[calc(100vw-160px)]" : "tlg:w-[calc(100vw-202px)]"} overflow-x-auto no-scrollbar`}>
-                            <div className={`w-max mx-6 tlg:mx-4`}>
+                        <div className="w-full overflow-x-auto no-scrollbar">
+                            <div className="w-max mx-6 tlg:mx-4">
                                 <div className="w-max flex gap-2 tlg:gap-0 items-center">
                                     <Link href="/" onClick={reset} className={`${page === "index" ? "text-h-1 dark:text-f-8 tlg:hover:text-h-1 tlg:hover:dark:text-f-8 bg-h-e dark:bg-d-3" : ""} px-3 py-1.5 rounded-lg tlg:text-sm font-medium hover:text-h-1 hover:dark:text-f-8 tlg:hover:text-l-2 tlg:hover:dark:text-white`}>모든 폰트</Link>
                                     <Link href="/issue/font" className={`${page === "issue" ? "text-h-1 dark:text-f-8 tlg:hover:text-h-1 tlg:hover:dark:text-f-8 bg-h-e dark:bg-d-3" : ""} px-3 py-1.5 rounded-lg tlg:text-sm font-medium hover:text-h-1 hover:dark:text-f-8 tlg:hover:text-l-2 tlg:hover:dark:text-white`}>문의하기</Link>
@@ -151,7 +151,7 @@ export default function Header (
                             </div>
                         </div>
                     </div>
-                    <div className='w-max relative flex justify-start shrink-0 items-center'>
+                    <div className='relative flex justify-start shrink-0 items-center'>
                         <div className="hidden tlg:block w-4 h-full absolute -left-4 top-0 bg-gradient-to-l from-white dark:from-d-2"></div>
                         <button onClick={handleFontSearch} className={`${page === "index" ? "hidden" : "flex"} w-56 tlg:w-8 h-8 pl-10 tlg:p-0 mr-3 tlg:mr-2 relative text-sm flex-start justify-start items-center rounded-lg text-h-1 dark:text-white hover:text-white hover:dark:text-f-8 tlg:hover:text-h-1 tlg:hover:dark:text-white bg-h-e dark:bg-d-4 hover:bg-h-1 tlg:hover:bg-h-e tlg:hover:dark:bg-d-4`}>
                             <span className="tlg:hidden">폰트 검색하기...</span>
@@ -179,7 +179,7 @@ export default function Header (
                         </div>
                         <div className="relative flex justify-center items-center cursor-pointer">
                             <input onChange={handleAccount} type="checkbox" id="account" className="peer hidden"/>
-                            <label ref={refAccountLabel} htmlFor="account" className="w-8 h-8 flex justify-center items-center cursor-pointer text-l-5 dark:text-white hover:text-l-2 hover:dark:text-d-c peer-checked:text-l-2 peer-checked:dark:text-d-c">
+                            <label ref={refAccountLabel} htmlFor="account" className="w-8 h-8 flex justify-center items-center cursor-pointer text-l-5 dark:text-white hover:text-l-2 hover:dark:text-d-c peer-checked:text-l-2 peer-checked:dark:text-d-c tlg:hover:text-l-5 tlg:hover:dark:text-white">
                                 {
                                     user === null
                                     ? <i className="text-3xl bi bi-person-circle"></i>

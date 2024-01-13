@@ -268,7 +268,7 @@ const Info = ({params}: any) => {
 
             {/* 메인 */}
             <form onSubmit={e => e.preventDefault()} className='w-full flex flex-col justify-center items-center'>
-                <div className='w-[360px] flex flex-col justify-center items-start my-[100px] tlg:my-16'>
+                <div className='w-[22.5rem] flex flex-col justify-center items-start my-24 tlg:my-16'>
                     <h2 className='text-2xl tlg:text-xl mb-4 font-bold text-l-2 dark:text-white'>프로필 정보</h2>
                     <div className='w-full flex items-end gap-3 mb-2.5'>
                         {
@@ -321,14 +321,14 @@ const Info = ({params}: any) => {
                                     }
                                     {
                                         user.auth === "credentials"
-                                            && <div className='w-5 h-[18px] flex justify-center items-center absolute z-10 left-0.5 bottom-0.5 rounded-md bg-h-1 dark:bg-f-8 text-white dark:text-d-2'>
-                                                <i className="text-[10px] fa-solid fa-pen"></i>
+                                            && <div className='w-5 h-[1.125rem] flex justify-center items-center absolute z-10 left-0.5 bottom-0.5 rounded-md bg-h-1 dark:bg-f-8 text-white dark:text-d-2'>
+                                                <i className="text-[0.625rem] fa-solid fa-pen"></i>
                                             </div>
                                     }
                                 </label>
                                 {
                                     user.auth === "credentials"
-                                        && <div ref={refImgPopup} className='w-max hidden peer-checked:block absolute left-[30px] -bottom-2.5 -translate-x-1/2 translate-y-full rounded-lg after:content-[""] after:w-2 after:h-2 after:absolute after:left-1/4 after:-top-1 after:-translate-x-1/2 after:rotate-45 drop-shadow-default dark:drop-shadow-dark bg-l-d dark:bg-d-4 dark:text-white after:bg-l-d after:dark:bg-d-4'>
+                                        && <div ref={refImgPopup} className='w-max hidden peer-checked:block absolute left-[1.875rem] -bottom-2.5 -translate-x-1/2 translate-y-full rounded-lg after:content-[""] after:w-2 after:h-2 after:absolute after:left-1/4 after:-top-1 after:-translate-x-1/2 after:rotate-45 drop-shadow-default dark:drop-shadow-dark bg-l-d dark:bg-d-4 dark:text-white after:bg-l-d after:dark:bg-d-4'>
                                             <div className='flex'>
                                                 <input onChange={changeImg} className='hidden' type='file' accept='image/*' id='profile-img-upload'/>
                                                 <label className='w-full relative z-10 text-xs leading-none rounded-t-lg pl-3 pr-3.5 pt-2.5 pb-2 hover:bg-h-1 hover:dark:bg-f-8 hover:text-white hover:dark:text-d-2 cursor-pointer' htmlFor='profile-img-upload'>사진 변경</label>
@@ -361,7 +361,7 @@ const Info = ({params}: any) => {
                             user.auth === "credentials"
                                 ? <div className='w-full flex justify-between items-center mt-2'>
                                     <input onChange={handleNameChange} onKeyDown={handleNameEnter} type='text' id='name' tabIndex={1} autoComplete='on' defaultValue={user.user_name} placeholder='홍길동' className={`${nameChk === '' ? 'border-l-d dark:border-d-4 focus:border-h-1 focus:dark:border-f-8' : 'border-h-r focus:border-h-r'} w-[calc(100%-84px)] text-sm px-3.5 py-3 rounded-lg border-2 placeholder-l-5 dark:placeholder-d-c bg-l-d dark:bg-d-4`}/>
-                                    <div className='w-[76px]'>
+                                    <div className='w-[4.75rem]'>
                                         <Button>
                                             <button onClick={handleNameClick} className='w-full h-full flex justify-center items-center text-sm'>
                                                 {
@@ -400,7 +400,7 @@ const Info = ({params}: any) => {
                                 </div>
                                 <div className='w-full flex justify-between items-center mt-2'>
                                     <input type='password' id='pw' tabIndex={2} autoComplete='on' defaultValue={user.user_pw} disabled className='text-l-2 dark:text-white w-[calc(100%-84px)] text-sm px-3.5 py-3 rounded-lg border-2 border-transparent bg-l-d dark:bg-d-4'/>
-                                    <div className='w-[76px]'>
+                                    <div className='w-[4.75rem]'>
                                         <Button>
                                             <button onClick={handleChangePwModalClick} className='w-full h-full flex justify-center items-center text-sm'>변경하기</button>
                                         </Button>
