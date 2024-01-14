@@ -4,12 +4,16 @@ import React, { useEffect, useRef } from "react";
 // libraries
 import axios from "axios";
 
+// components
+import Button from "@/components/button";
+
 export default function DeleteCommentModal(
     {
         display,
         close,
         font_id,
         comment_id,
+        user_id,
         update,
     }:
     {
@@ -17,6 +21,7 @@ export default function DeleteCommentModal(
         close: any,
         font_id: number,
         comment_id: number,
+        user_id: number,
         update: any
     }
 ) {
@@ -73,27 +78,36 @@ export default function DeleteCommentModal(
     return (
         <>
             {
-                display === true
-                ? <div className="w-full h-full fixed left-0 top-0 z-40 flex flex-col justify-start items-center pt-[12vh] tlg:pt-[10vh] tmd:pt-[60px] backdrop-blur bg-blur-theme dark:border-theme-4">
-                    <div ref={thisModal} className="overflow-hidden w-[400px] tmd:w-[calc(100%-24px)] rounded-lg border border-theme-7 dark:border-theme-3 bg-theme-9 dark:bg-theme-2 animate-zoom-in">
-                        <div className="relative w-full h-[52px] flex flex-row justify-between items-center px-5">
-                            <div className="text-sm text-theme-5 dark:text-theme-7 mt-px">댓글 삭제</div>
-                            <button onClick={close} className="w-9 h-6 rounded-md absolute right-4 tmd:right-3 top-1/2 -translate-y-1/2 text-xs leading-none text-theme-4 dark:text-theme-8 bg-theme-8 dark:bg-theme-3/80 hover:dark:bg-theme-4/60 tlg:hover:dark:bg-theme-3/80 hover:drop-shadow-default hover:dark:drop-shadow-dark tlg:hover:drop-shadow-none tlg:hover:dark:drop-shadow-none">ESC</button>
-                        </div>
-                        <div className="w-full p-5 bg-theme-4 dark:bg-theme-blue-2">
-                            <h2 className="font-bold text-base text-theme-9 mb-2">댓글을 삭제하시겠습니까?</h2>
-                            <div className='w-full flex flex-row justify-start items-start mb-1 text-xs text-theme-7'>
-                                <i className="text-xs mr-2 text-theme-yellow dark:text-theme-blue-1 fa-regular fa-bell"></i>
-                                <div>삭제된 댓글은 복구되지 않습니다.</div>
+                display
+                && <div className="w-full h-full fixed left-0 top-0 z-40 pt-24 tlg:pt-16 tlg:px-4 flex flex-col justify-start items-center backdrop-blur">
+                    <div ref={thisModal} className="overflow-hidden w-96 txs:w-full p-6 relative rounded-lg animate-zoom-in drop-shadow-default dark:drop-shadow-dark bg-l-e dark:bg-d-3">
+                        <div className="w-full flex flex-col">
+                            <div className="font-medium text-l-2 dark:text-white">댓글 삭제</div>
+                            <button onClick={close} className="w-8 h-8 absolute right-3 top-3 rounded-full text-l-2 dark:text-white hover:bg-l-d hover:dark:bg-d-6 tlg:hover:bg-transparent tlg:hover:dark:bg-transparent">
+                                <i className="fa-solid fa-xmark"></i>
+                            </button>
+                            <div className="w-full mt-5 px-5 py-4 rounded-lg text-l-2 dark:text-white bg-l-d dark:bg-d-4">
+                                <h2 className="font-medium mb-1">댓글을 삭제하시겠습니까?</h2>
+                                <div className='w-full text-sm flex gap-1.5 items-center'>
+                                    <div className="w-1 h-1 rounded-full bg-l-2 dark:bg-white"></div>
+                                    <div>삭제된 댓글은 복구되지 않습니다.</div>
+                                </div>
                             </div>
-                            <div className="w-full h-px bg-theme-5 my-4"></div>
-                            <div className="flex justify-between mt-3">
-                                <button onClick={close} className='w-[calc(50%-5px)] h-10 pt-px rounded-lg flex flex-row justify-center items-center text-sm font-medium text-theme-10 dark:text-theme-8 bg-theme-5/80 hover:bg-theme-5 tlg:hover:bg-theme-5/80 dark:bg-theme-3/80 hover:dark:bg-theme-3 tlg:hover:dark:bg-theme-3/80'>취소</button>
-                                <button onClick={deleteComment} className='w-[calc(50%-5px)] h-10 pt-px rounded-lg flex flex-row justify-center items-center text-sm font-medium text-theme-4 dark:text-theme-blue-2 bg-theme-yellow/80 hover:bg-theme-yellow tlg:hover:bg-theme-yellow/80 dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1/80'>확인</button>
+                            <div className="flex justify-between gap-2 mt-3">
+                                <div className="w-1/2">
+                                    <Button color="gray">
+                                        <button onClick={close} className='w-full h-full'>취소</button>
+                                    </Button>
+                                </div>
+                                <div className="w-1/2">
+                                    <Button>
+                                        <button onClick={deleteComment} className='w-full h-full'>확인</button>
+                                    </Button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div> : <></>
+                </div>
             }
         </>
     )

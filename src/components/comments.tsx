@@ -477,6 +477,7 @@ export default function Comments (
                 close={deleteCommentModalClose}
                 font_id={font.code}
                 comment_id={commentId}
+                user_id={1}
                 update={updateComments}
             />
 

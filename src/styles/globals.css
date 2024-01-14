@@ -114,11 +114,12 @@ html.dark .font-size-slider .MuiSlider-thumb:active { color: #8AB4F8; box-shadow
 #__next .Mui-checked + .MuiSwitch-track { background-color: #40E0D080; }
 
 /* Material UI - Pagination */
-#__next .MuiPagination-ul button { color: #5F6368; }
+#__next .MuiPagination-ul button { color: #5F6368; transition: 0s; }
 html.dark #__next .MuiPagination-ul button { color: #CDCED2; }
-#__next .MuiPagination-ul .Mui-selected { color: #202124; background-color: #E9EAEE; transition: 0s; }
+html.dark #__next .MuiPagination-ul button:hover { background-color: #2D2E31; }
+#__next .MuiPagination-ul .Mui-selected { color: #202124; background-color: #E9EAEE; }
 #__next .MuiPagination-ul .Mui-selected:hover { background-color: #D2D4DC; }
-html.dark #__next .MuiPagination-ul .Mui-selected { color: #FFFFFF; background-color: #3C4043; transition: 0s; }
+html.dark #__next .MuiPagination-ul .Mui-selected { color: #FFFFFF; background-color: #3C4043; }
 html.dark #__next .MuiPagination-ul .Mui-selected:hover { background-color: #646568; }
 #__next .MuiPaginationItem-root { color: #202124; }
 html.dark #__next .MuiPaginationItem-root { color: #FFFFFF; }

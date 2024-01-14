@@ -1,97 +1,60 @@
 // next
 import Link from 'next/link';
-import { NextSeo } from 'next-seo';
+import { useRouter } from 'next/router';
 
 // next-auth
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../api/auth/[...nextauth]';
 
 // react
-import React, { useEffect, useState, useRef } from 'react';
+import { useState } from 'react';
 
 // api
 import { FetchCommentsLength } from '../api/user/fetchcomments'
 import { FetchComments } from '../api/user/fetchcomments';
 
 // libraries
-import axios from 'axios';
 import { Pagination } from '@mui/material';
+import { NextSeo } from 'next-seo';
 
 // components
 import Header from "@/components/header";
 import Footer from '@/components/footer';
 import AdminDeleteCommentModal from '@/components/admindeletecommentmodal';
+import DeleteCommentModal from '@/components/deletecommentmodal';
 
 // common
 import { timeFormat } from '@/libs/common';
 
 const Comments = ({params}: any) => {
     const { theme, userAgent, user, page, filter, search, count, comments } = params;
+    
     // 디바이스 체크
     const isMac: boolean = userAgent.includes("Mac OS") ? true : false;
 
-    // 댓글 목록 state
-    const [thisComments, setComments] = useState(comments);
-    const [thisFilter, setFilter] = useState<string>(filter);
-    const [thisSearch, setSearch] = useState<string>(search);
+    // router
+    const router = useRouter();
+
+    // states
     const [fontId, setFontId] = useState<number>(0);
     const [commentId, setCommentId] = useState<number>(0);
     const [deleteModalDisplay, setDeleteModalDisplay] = useState<boolean>(false);
 
-    console.log(filter);
-
-    // 댓글 목록 페이지 변경
-    const handleChange = (e: React.ChangeEvent<unknown>, value: number) => { return; }
+    // 페이지 변경
+    const handlePageChange = (e: React.ChangeEvent<unknown>, value: number) => {
+        router.push(`/user/comments${value === 1 ? "" : `?page=${value}`}${filter === "date" ? "" : `${value === 1 ? "?" : "&"}filter=${filter}`}${search === "" ? "" : `${value === 1 && filter === "date" ? "?" : "&"}search=${search}`}`);
+    }
 
     // 핕터 변경
-    const handleFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => { setFilter(e.target.value); }
+    const handleFilterChange = (e: React.MouseEvent<HTMLButtonElement>) => {
+        router.push(`/user/comments${e.currentTarget.value === "date" ? "" : `?filter=${e.currentTarget.value}`}${search === "" ? "" : `${page === 1 && e.currentTarget.value === "date" ? "?" : "&"}search=${search}`}`);
+    }
 
-    // 페이지 변경 시 데이터 다시 불러오기
-    // useEffect(() => {
-    //     const fetchNewComments = async () => {
-    //         await axios.get('/api/user/fetchcomments', {
-    //             params: {
-    //                 email: user.email,
-    //                 provider: user.provider,
-    //                 page: page,
-    //                 filter: filter,
-    //                 text: search
-    //             }
-    //         })
-    //         .then((res) => {
-    //             setComments(res.data.comments);
-    //             setCount(res.data.count);
-    //         })
-    //         .catch(err => console.log(err));
-    //     }
-    //     fetchNewComments();
-    // }, [user.email, user.provider, page, filter, search]);
-
-    // 댓글 필터 버튼 클릭 시 값 state에 저장 후, API 호출
-    // const handleClick = async () => {
-    //     if (selectRef &&selectRef.current && textRef && textRef.current) {
-    //         // state 저장
-    //         setPage(1);
-    //         setFilter(selectRef.current.value);
-    //         setSearch(textRef.current.value);
-            
-    //         // API 호출
-    //         await axios.get('/api/user/fetchcomments', {
-    //             params: {
-    //                 email: user.email,
-    //                 provider: user.provider,
-    //                 page: 1,
-    //                 filter: selectRef.current.value,
-    //                 text: textRef.current.value
-    //             }
-    //         })
-    //         .then((res) => {
-    //             setComments(res.data.comments);
-    //             setCount(res.data.count);
-    //         })
-    //         .catch(err => console.log(err));
-    //     }
-    // }
+    // 검색어 변경
+    const handleSearchClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+        const input = document.getElementById("search") as HTMLInputElement;
+        router.push(`/user/comments${filter === "date" ? "" : `?filter=${filter}`}${input.value === "" ? "" : `${page === 1 && filter === "date" ? "?" : "&"}search=${input.value}`}`);
+    }
 
      /** 댓글 삭제 모달창 열기 */
      const deleteCommentModalOpen = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -106,8 +69,9 @@ const Comments = ({params}: any) => {
     }
 
     /** 댓글 삭제 시 댓글 업데이트 */
-    const updateComments = (comments: any) => {
-        setComments(comments);
+    const updateComments = () => {
+        router.push(`/user/comments${page === 1 ? "" : `?page=${page}`}${filter === "date" ? "" : `${page === 1 ? "?" : "&"}filter=${filter}`}${search === "" ? "" : `${page === 1 && filter === "date" ? "?" : "&"}search=${search}`}`);
+        router.reload();
     }
 
     return (
@@ -126,16 +90,13 @@ const Comments = ({params}: any) => {
             />
 
             {/* 댓글 삭제 모달 */}
-            <AdminDeleteCommentModal
+            <DeleteCommentModal
                 display={deleteModalDisplay}
                 close={deleteCommentModalClose}
                 font_id={fontId}
                 comment_id={commentId}
                 user_id={user.user_no}
                 update={updateComments}
-                page={page}
-                text={thisSearch}
-                filter={thisFilter}
             />
 
             {/* 메인 */}
@@ -143,26 +104,21 @@ const Comments = ({params}: any) => {
                 <div className='w-[45rem] tmd:w-full px-4 flex flex-col justify-center items-start my-24 tlg:my-16'>
                     <h2 className='text-2xl tlg:text-xl text-l-2 dark:text-white font-bold mb-4'>내 댓글 목록</h2>
                     <div className='flex items-center mb-10'>
-                        <input type="textbox" placeholder="폰트/댓글" className="w-60 h-[3.25rem] px-4 border-2 rounded-lg bg-l-e dark:bg-d-4 border-transparent focus:border-h-1 focus:dark:border-f-8 text-l-2 dark:text-white placeholder-l-5 dark:placeholder-d-c"/>
+                        <input type="textbox" id="search" placeholder="폰트/댓글" defaultValue={search} className="w-60 h-[3.25rem] px-4 border-2 rounded-lg bg-l-e dark:bg-d-4 border-transparent focus:border-h-1 focus:dark:border-f-8 text-l-2 dark:text-white placeholder-l-5 dark:placeholder-d-c"/>
+                        <button onClick={handleSearchClick} className="hidden">검색</button>
                     </div>
                     <div className='flex items-center gap-1.5 mb-4'>
-                        <div>
-                            <input type="radio" id="date" name="filter" className="hidden peer" defaultChecked/>
-                            <label htmlFor='date' className='w-20 h-9 flex justify-center items-center cursor-pointer rounded-lg text-l-5 dark:text-d-c peer-checked:text-white peer-checked:dark:text-d-2 peer-checked:bg-h-1 peer-checked:dark:bg-f-8'>최신순</label>
-                        </div>
-                        <div>
-                            <input type="radio" id="name" name="filter" className="hidden peer"/>
-                            <label htmlFor='name' className='w-20 h-9 flex justify-center items-center cursor-pointer rounded-lg text-l-5 dark:text-d-c peer-checked:text-white peer-checked:dark:text-d-2 peer-checked:bg-h-1 peer-checked:dark:bg-f-8'>폰트순</label>
-                        </div>
+                        <button onClick={handleFilterChange} value="date" className={`${filter === "date" ? "bg-h-1 dark:bg-f-8 text-white dark:text-d-2" : "text-l-5 dark:text-d-c hover:text-h-1 hover:dark:text-f-8"} w-20 h-9 flex justify-center items-center rounded-lg`}>최신순</button>
+                        <button onClick={handleFilterChange} value="name" className={`${filter === "name" ? "bg-h-1 dark:bg-f-8 text-white dark:text-d-2" : "text-l-5 dark:text-d-c hover:text-h-1 hover:dark:text-f-8"} w-20 h-9 flex justify-center items-center rounded-lg`}>이름순</button>
                     </div>
                     <div className='custom-sm-scrollbar w-full overflow-hidden overflow-x-auto'>
                         <div className='w-full text-sm text-l-2 dark:text-white'>
                             <div className='flex flex-col gap-3'>
                                 {
-                                    thisComments && thisComments.length > 0
+                                    comments && comments.length > 0
                                     ? <>
                                         {
-                                            thisComments.map((comment: any) => {
+                                            comments.map((comment: any) => {
                                                 return (
                                                     <div key={comment.comment_id} className='p-4 relative rounded-lg bg-l-e dark:bg-d-4'>
                                                         <div className="flex tlg:flex-col items-center tlg:items-start gap-2 mb-2">
@@ -181,13 +137,13 @@ const Comments = ({params}: any) => {
                                             })
                                         }
                                     </>
-                                    : <div className='h-16 flex justify-center items-center text-center'>댓글이 없습니다.</div>
+                                    : <div className='h-16 text-base flex justify-center items-center text-center'>댓글이 없습니다.</div>
                                 }
                             </div>
                         </div>
                     </div>
                     <div className='w-full flex justify-center mt-3'>
-                        <Pagination count={count} page={page} onChange={handleChange} shape='rounded' showFirstButton showLastButton/>
+                        <Pagination count={count} page={Number(page)} onChange={handlePageChange} shape='rounded'/>
                     </div>
                 </div>
             </form>
@@ -206,7 +162,7 @@ export async function getServerSideProps(ctx: any) {
         // 쿼리 체크
         const page = ctx.query.page === undefined ? 1 : ctx.query.page;
         const filter = ctx.query.filter === undefined ? "date" : ctx.query.filter;
-        const search = ctx.query.search === undefined ? "null" : ctx.query.search;
+        const search = ctx.query.search === undefined ? "" : ctx.query.search;
 
         // 디바이스 체크
         const userAgent = ctx.req ? ctx.req.headers['user-agent'] : navigator.userAgent;
