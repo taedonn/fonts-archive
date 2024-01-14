@@ -206,7 +206,7 @@ export async function getServerSideProps(ctx: any) {
         // 쿼리 체크
         const page = ctx.query.page === undefined ? 1 : ctx.query.page;
         const filter = ctx.query.filter === undefined ? "date" : ctx.query.filter;
-        const search = ctx.query.search === undefined ? null : ctx.query.search;
+        const search = ctx.query.search === undefined ? "null" : ctx.query.search;
 
         // 디바이스 체크
         const userAgent = ctx.req ? ctx.req.headers['user-agent'] : navigator.userAgent;
