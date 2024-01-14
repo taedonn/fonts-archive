@@ -64,13 +64,6 @@ export default function AdminDeleteCommentModal(
         }
     });
 
-    // 팝업 보일 시 스크롤 막기
-    useEffect(() => {
-        const body = document.body;
-        if (display) body.style.overflow = "hidden";
-        else body.style.overflow = "auto";
-    }, [display]);
-
     /** 댓글 삭제 */
     const deleteComment = async () => {
         await axios.post('/api/post/comments', {
@@ -109,6 +102,13 @@ export default function AdminDeleteCommentModal(
         // 모달창 닫기
         close();
     }
+
+    // 팝업 보일 시 스크롤 막기
+    useEffect(() => {
+        const body = document.body;
+        if (display) body.style.overflow = "hidden";
+        else body.style.overflow = "auto";
+    }, [display]);
 
     return (
         <>

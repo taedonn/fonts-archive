@@ -75,12 +75,19 @@ export default function DeleteCommentModal(
         close();
     }
 
+    // 팝업 보일 시 스크롤 막기
+    useEffect(() => {
+        const body = document.body;
+        if (display) body.style.overflow = "hidden";
+        else body.style.overflow = "auto";
+    }, [display]);
+
     return (
         <>
             {
                 display
                 && <div className="w-full h-full fixed left-0 top-0 z-40 pt-24 tlg:pt-16 tlg:px-4 flex flex-col justify-start items-center backdrop-blur">
-                    <div ref={thisModal} className="overflow-hidden w-96 txs:w-full p-6 relative rounded-lg animate-zoom-in drop-shadow-default dark:drop-shadow-dark bg-l-e dark:bg-d-3">
+                    <div ref={thisModal} className="w-96 txs:w-full p-6 relative rounded-lg animate-zoom-in drop-shadow-default dark:drop-shadow-dark bg-l-e dark:bg-d-3">
                         <div className="w-full flex flex-col">
                             <div className="font-medium text-l-2 dark:text-white">댓글 삭제</div>
                             <button onClick={close} className="w-8 h-8 absolute right-3 top-3 rounded-full text-l-2 dark:text-white hover:bg-l-d hover:dark:bg-d-6 tlg:hover:bg-transparent tlg:hover:dark:bg-transparent">

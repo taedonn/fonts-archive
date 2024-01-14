@@ -24,6 +24,7 @@ import "react-color-palette/css";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import Tooltip from "@/components/tooltip";
+import Button from "@/components/button";
 import DummyText from "@/components/dummytext";
 import Comments from "@/components/comments";
 import KakaoAdFitTopBanner from "@/components/kakaoAdFitTopBanner";
@@ -355,64 +356,77 @@ function DetailPage({params}: any) {
 
             {/* 로그인 중이 아닐 때 좋아요 alert창 팝업 */}
             {
-                alertDisplay === true
-                ? <div className='fixed z-20 top-6 tlg:top-5 right-8 tlg:right-7 w-max h-[60px] tlg:h-14 px-4 flex justify-between items-center rounded-lg border border-theme-yellow dark:border-theme-blue-1 text-sm text-theme-10 dark:text-theme-9 bg-theme-4 dark:bg-theme-blue-2'>
-                    <div className='flex flex-row justify-start items-center'>
-                        <i className="text-lg text-theme-10 dark:text-theme-9 fa-solid fa-star-and-crescent"></i>
-                        <div className='ml-3'>
-                            좋아요 기능은 로그인 시 이용 가능합니다. <br/>
-                            <Link href="/user/login" className='text-theme-yellow dark:text-theme-blue-1 hover:underline tlg:hover:no-underline'>로그인 하러 가기</Link>
+                alertDisplay
+                    && <div className='fixed z-20 top-6 right-8 tlg:right-4 w-max h-16 px-4 flex justify-between items-center rounded-lg text-sm text-l-2 dark:text-white bg-l-e dark:bg-d-4'>
+                        <div className='flex flex-row justify-start items-center'>
+                            <i className="text-lg text-h-1 dark:text-f-8 bi bi-stars"></i>
+                            <div className='ml-3'>
+                                좋아요 기능은 로그인 시 이용 가능합니다. <br/>
+                                <Link href="/user/login" className='text-h-1 dark:text-f-8 hover:underline'>로그인 하러 가기</Link>
+                            </div>
+                        </div>
+                        <div onClick={handleAlertClose} className='flex justify-center items-center ml-3 cursor-pointer'>
+                            <i className="text-lg fa-solid fa-xmark"></i>
                         </div>
                     </div>
-                    <div onClick={handleAlertClose} className='flex justify-center items-center ml-3 cursor-pointer'>
-                        <i className="text-sm text-theme-10 dark:text-theme-9 fa-solid fa-xmark"></i>
-                    </div>
-                </div> : <></>
             }
 
             {/* 메인 */}
-            <div className="w-full pt-8 tmd:pt-5">
+            <div className="w-full mt-12 px-8 tlg:px-4">
                 <link href={font.cdn_url} rel="stylesheet" type="text/css" itemProp="url"></link>
                 <div className="w-full flex flex-col justify-start items-start">
-                    <div className="mb-3 tlg:mb-2 flex items-center">
-                        <div style={{fontFamily:'"'+font.font_family+'"'}} className="text-4xl tlg:text-3xl tmd:text-2xl text-theme-3 dark:text-theme-9 font-medium leading-tight">{font.name}</div>
-                        <div className='group relative ml-3.5 tmd:ml-2.5 mb-0.5'>
+                    <div className="mb-2 flex gap-4 items-center">
+                        <div style={{fontFamily:'"'+font.font_family+'"'}} className="text-4xl tlg:text-3xl text-l-2 dark:text-white font-medium">{font.name}</div>
+                        <div className='group relative'>
                             <input onClick={handleLikeClick} onChange={handleLikeChange} type="checkbox" id={font.code.toString()} className='peer hidden' defaultChecked={like === null ? false : true}/>
                             <label htmlFor={font.code.toString()} className='group cursor-pointer'>
-                                <i className="block peer-checked:group-[]:hidden text-2xl text-theme-4 dark:text-theme-7 fa-regular fa-heart"></i>
-                                <i className="hidden peer-checked:group-[]:block text-2xl text-theme-red fa-solid fa-heart"></i>
+                                <i className="block peer-checked:group-[]:hidden text-xl text-l-2 dark:text-white bi bi-heart"></i>
+                                <i className="hidden peer-checked:group-[]:block text-xl text-h-r bi bi-heart-fill"></i>
                             </label>
-                            <div className={`${hoverDisplay === true ? 'group-hover:block' : 'group-hover:hidden'} tooltip after:bg-theme-red w-max absolute z-20 left-1/2 -top-10 text-sm font-medium leading-none px-3 py-2 origin-bottom rounded-md hidden tlg:group-hover:hidden group-hover:animate-zoom-in-fontbox bg-theme-red text-theme-2`}>{liked === true ? "좋아요 해제" : "좋아요"}</div>
+                            <div className={`${hoverDisplay === true ? 'group-hover:block' : 'group-hover:hidden'} tlg:group-hover:hidden tooltip w-max absolute left-1/2 -top-10 px-3 py-2 text-sm font-medium leading-none origin-bottom rounded-lg hidden group-hover:animate-zoom-in-fontbox after:bg-h-r bg-h-r text-white`}>{liked === true ? "좋아요 해제" : "좋아요"}</div>
                         </div>
                     </div>
-                    <div className="flex flex-row justify-start items-center">
-                        <div style={{fontFamily:'"'+font.font_family+'"'}} className="text-base tmd:text-xs leading-tight text-theme-3 dark:text-theme-9 ml-0.5 mr-4 tmd:mr-3">
+                    <div className="mb-4 flex gap-4 tlg:gap-3 justify-start items-center">
+                        <div style={{fontFamily:'"'+font.font_family+'"'}} className="flex gap-2 tlg:text-sm text-l-2 dark:text-white">
                             <span className={`${font.lang === 'KR' ? '' : 'font-sans'}`}>제작</span>
-                            <Link href={{pathname: "/", query: {search: font.source}}} className="relative group text-theme-yellow dark:text-theme-blue-1 border-b border-theme-yellow dark:border-theme-blue-1 ml-2 tlg:ml-1.5">
+                            <Link href={{pathname: "/", query: {search: font.source}}} className="relative group border-b border-h-1 dark:border-f-8 text-h-1 dark:text-f-8">
                                 {font.source}
-                                <div className="tooltip after:bg-theme-yellow after:dark:bg-theme-blue-1 w-max absolute z-10 left-1/2 -top-11 text-sm font-medium leading-none px-3 py-2 origin-bottom rounded-md hidden group-hover:block tlg:group-hover:hidden group-hover:animate-zoom-in-fontbox bg-theme-yellow dark:bg-theme-blue-1 text-theme-3 dark:text-theme-blue-2">제작사의 다른 폰트 보기</div>
+                                <div className="tooltip w-max absolute z-10 left-1/2 -top-10 text-sm font-medium leading-none px-3 py-2 origin-bottom rounded-lg hidden group-hover:block tlg:group-hover:hidden group-hover:animate-zoom-in-fontbox bg-h-1 dark:bg-f-8 after:bg-h-1 after:dark:bg-f-8 text-white dark:text-d-2">제작사의 다른 폰트 보기</div>
                             </Link>
                         </div>
-                        <div className={`${font.lang === 'KR' ? '' : 'font-sans'} text-base tmd:text-xs leading-tight text-theme-3 dark:text-theme-9 mr-3.5 tmd:mr-3`}>형태<span className="text-theme-5 dark:text-theme-7 ml-1.5">{font.font_type === "Sans Serif" ? "고딕" : (font.font_type === "Serif" ? "명조" : (font.font_type === "Hand Writing" ? "손글씨" : (font.font_type === "Display" ? "장식체" : "픽셀체")))}</span></div>
-                        <div className={`${font.lang === 'KR' ? '' : 'font-sans'} text-base tmd:text-xs leading-tight text-theme-3 dark:text-theme-9 mr-3.5 tmd:mr-3`}>조회수<span className="text-theme-5 dark:text-theme-7 ml-1.5">{formatNumber(font.view)}</span></div>
-                        <div className={`${font.lang === 'KR' ? '' : 'font-sans'} text-base tmd:text-xs leading-tight text-theme-3 dark:text-theme-9`}>좋아요 수<span className="text-theme-5 dark:text-theme-7 ml-1.5">{formatNumber(likedNum)}</span></div>
+                        <div className={`${font.lang === 'KR' ? '' : 'font-sans'} tlg:text-sm text-l-2 dark:text-white`}>형태<span className="text-l-5 dark:text-d-c ml-1.5">{font.font_type === "Sans Serif" ? "고딕" : (font.font_type === "Serif" ? "명조" : (font.font_type === "Hand Writing" ? "손글씨" : (font.font_type === "Display" ? "장식체" : "픽셀체")))}</span></div>
+                        <div className={`${font.lang === 'KR' ? '' : 'font-sans'} tlg:text-sm text-l-2 dark:text-white`}>조회수<span className="text-l-5 dark:text-d-c ml-1.5">{formatNumber(font.view)}</span></div>
+                        <div className={`${font.lang === 'KR' ? '' : 'font-sans'} tlg:text-sm text-l-2 dark:text-white`}>좋아요 수<span className="text-l-5 dark:text-d-c ml-1.5">{formatNumber(likedNum)}</span></div>
                     </div>
 
                     {/* 카카오 애드핏 상단 띠배너 */}
                     <div className="w-full">
                         <KakaoAdFitTopBanner
-                            marginTop={16}
+                            marginBottom={16}
                         />
                     </div>
 
-                    <div className="w-full h-px my-4 tmd:my-3 bg-theme-7 dark:bg-theme-5"></div>
+                    <div className="w-full h-px mb-4 bg-l-b dark:bg-d-4"></div>
                 </div>
-                <div className="flex flex-row justify-start items-center mb-[60px] tmd:mb-12">
-                    <Link aria-label="source-link" href={font.source_link} target="_blank" rel="noopener noreferrer" className="h-9 tmd:h-8 flex flex-row justify-center items-center text-sm tmd:text-xs leading-none text-theme-3 dark:text-theme-blue-1 font-medium dark:border-2 tmd:dark:border dark:border-theme-blue-1 rounded-full px-5 mr-3 tmd:mr-2 cursor-pointer bg-theme-yellow hover:bg-theme-yellow/90 tlg:hover:bg-theme-yellow dark:bg-transparent hover:dark:bg-theme-blue-1/10 tlg:hover:dark:bg-transparent">다운로드 페이지로 이동</Link>
+                <div className="flex gap-2 justify-start items-center mb-16 tlg:mb-12">
+                    <div className="w-40">
+                        <Button>
+                            <Link aria-label="source-link" href={font.source_link} target="_blank" rel="noopener noreferrer" className="w-full h-full flex gap-2.5 justify-center items-center">
+                                <i className="text-sm bi bi-send"></i>
+                                원 배포처 링크
+                            </Link>
+                        </Button>
+                    </div>
                     {
-                        font.license_ofl !== "Y"
-                        ? <></>
-                        : <Link aria-label="github-source-link" href={font.github_link} className="w-40 tmd:w-32 h-9 tmd:h-8 flex flex-row justify-center items-center text-sm tmd:text-xs leading-none text-theme-9 dark:text-theme-9 font-medium dark:border-2 tmd:dark:border border-theme-4 dark:border-theme-9 rounded-full px-5 cursor-pointer bg-theme-3 hover:bg-theme-3/90 tlg:hover:bg-theme-3 dark:bg-transparent hover:dark:bg-theme-9/10 tlg:hover:dark:bg-transparent">폰트 다운로드</Link>
+                        font.license_ofl === "Y"
+                            && <div className="w-40">
+                                <Button color="gray">
+                                    <Link aria-label="github-source-link" href={font.github_link} className="w-full h-full flex gap-2.5 justify-center items-center">
+                                        <i className="bi bi-download"></i>
+                                        다운로드 링크
+                                    </Link>
+                                </Button>
+                            </div>
                     }
                 </div>
                 {

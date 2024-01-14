@@ -130,7 +130,7 @@ const Notices = ({params}: any) => {
                         ?  noticesList.map((notice: notices) => {
                             return <div key={notice.notice_id.toString()} className='notice group w-full flex flex-col gap-3'>
                                 <input type='checkbox' id={`notice-${notice.notice_id}`} className='hidden peer/expand'/>
-                                <label htmlFor={`notice-${notice.notice_id}`} className='group/label rounded-lg cursor-pointer border-2 border-transparent text-l-2 dark:text-white bg-l-e dark:bg-d-4 hover:border-h-1 hover:dark:border-f-8 peer-checked/expand:border-h-1 peer-checked/expand:dark:border-f-8 peer-checked/expand:bg-transparent'>
+                                <label htmlFor={`notice-${notice.notice_id}`} className='group/label rounded-lg cursor-pointer border-2 border-transparent text-l-2 dark:text-white bg-l-e dark:bg-d-4 hover:border-h-1 hover:dark:border-f-8 tlg:hover:border-transparent tlg:hover:dark:border-transparent peer-checked/expand:border-h-1 peer-checked/expand:dark:border-f-8 peer-checked/expand:bg-transparent'>
                                     <div className='w-full h-14 text-sm flex justify-between items-center'>
                                         <div className='flex items-center'>
                                             <div className='w-[6.25rem] tlg:w-20 shrink-0 flex justify-center items-center'><div className='px-1 border-b-2 border-h-1 dark:border-f-8 selection:bg-transparent'>{notice.notice_type === "service" ? "서비스" : "폰트"}</div></div>

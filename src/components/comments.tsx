@@ -601,9 +601,6 @@ export default function Comments (
                             comments.map((comment: any) => {
                                 return (
                                     <div key={comment.comment_id} className='w-full text-theme-3 dark:text-theme-10 animate-fade-in-fontbox'>
-                                        {/* 앵커 포인트 */}
-                                        <div id={`c${comment.comment_id}`} className="-translate-y-20 tlg:translate-y-[72px]"></div>
-                                        
                                         <div className='flex items-start mt-5 tlg:mt-4'>
                                             {
                                                 comment.depth === 1
@@ -699,6 +696,9 @@ export default function Comments (
                     </>
                 }
             </div>
+
+            {/* 앵커 포인트 */}
+            <div id="comment-section"></div>
         </>
     )
 }

@@ -20,7 +20,7 @@ import { NextSeo } from 'next-seo';
 // components
 import Header from "@/components/header";
 import Footer from '@/components/footer';
-import AdminDeleteCommentModal from '@/components/admindeletecommentmodal';
+import Tooltip from '@/components/tooltip';
 import DeleteCommentModal from '@/components/deletecommentmodal';
 
 // common
@@ -64,15 +64,10 @@ const Comments = ({params}: any) => {
     }
 
     /** 댓글 삭제 모달창 닫기 */
-    const deleteCommentModalClose = () => {
-        setDeleteModalDisplay(false);
-    }
+    const deleteCommentModalClose = () => { setDeleteModalDisplay(false); }
 
     /** 댓글 삭제 시 댓글 업데이트 */
-    const updateComments = () => {
-        router.push(`/user/comments${page === 1 ? "" : `?page=${page}`}${filter === "date" ? "" : `${page === 1 ? "?" : "&"}filter=${filter}`}${search === "" ? "" : `${page === 1 && filter === "date" ? "?" : "&"}search=${search}`}`);
-        router.reload();
-    }
+    const updateComments = () => { router.reload(); }
 
     return (
         <>
@@ -128,7 +123,7 @@ const Comments = ({params}: any) => {
                                                                 <div className='text-xs text-l-5 dark:text-d-c'>신고수: {comment.reported_politics + comment.reported_swearing + comment.reported_etc}</div>
                                                             </div>
                                                         </div>
-                                                        <div className="pr-10"><Link href={`/post/${comment.font_family.replaceAll(" ", "+")}#c${comment.comment_id}`} className='ellipsed-text w-full hover:underline tlg:hover:no-underline'>{comment.comment}</Link></div>
+                                                        <div className="pr-10"><Link href={`/post/${comment.font_family.replaceAll(" ", "+")}#comment-section`} className='ellipsed-text w-full hover:underline tlg:hover:no-underline'>{comment.comment}</Link></div>
                                                         <button onClick={deleteCommentModalOpen} data-font={comment.font_id} data-comment={comment.comment_id} className='group absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full flex justify-center items-center hover:bg-l-d hover:dark:bg-d-6 tlg:hover:bg-transparent tlg:hover:dark:bg-transparent'>
                                                             <i className="text-base text-l-2 dark:text-white fa-regular fa-trash-can"></i>
                                                         </button>
@@ -147,6 +142,8 @@ const Comments = ({params}: any) => {
                     </div>
                 </div>
             </form>
+
+            <Tooltip/>
 
             {/* 풋터 */}
             <Footer/>
