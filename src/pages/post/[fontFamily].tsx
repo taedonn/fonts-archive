@@ -433,9 +433,9 @@ function DetailPage({params}: any) {
                     font.license_embed !== "Y" || font.license_ofl !== "Y"
                     ? <></>
                     : <>
-                        <div className="flex flex-col justify-start items-start mb-[60px] tmd:mb-12">
-                            <h2 className="text-xl tmd:text-lg text-theme-3 dark:text-theme-9 font-medium mb-3.5">웹 폰트 사용하기</h2>
-                            <div className="cdn w-[916px] tlg:w-full h-12 tmd:h-10 overflow-hidden border-x border-t border-b border-theme-4 dark:border-theme-3/80 rounded-t-lg flex flex-row justify-start items-center">
+                        <div className="flex flex-col justify-start items-start mb-16 tlg:mb-12">
+                            <h2 className="text-xl tlg:text-lg text-d-2 dark:text-white font-medium mb-4">웹 폰트 사용하기</h2>
+                            <div className="cdn w-[58.25rem] tlg:w-full h-12 tlg:h-10 overflow-hidden border-x border-t rounded-t-lg flex justify-start items-center border-l-b dark:border-d-4">
                                 <input onChange={handleWebFont} type="radio" id="cdn_css" name="cdn" value="CSS" className="peer/css hidden" defaultChecked/>
                                 <label htmlFor="cdn_css" className="peer-checked/css:bg-theme-4 peer-checked/css:dark:bg-theme-3 hover:bg-theme-6/20 hover:dark:bg-theme-3/40 peer-checked/css:text-theme-9 w-1/4 h-full border-r border-theme-8 dark:border-theme-3/80 flex flex-row justify-center items-center text-sm tmd:text-xs text-theme-3 focused:text-theme-9 dark:text-theme-9 leading-none cursor-pointer">CSS 설정하기</label>
                                 <input onChange={handleWebFont} type="radio" id="cdn_link" name="cdn" value="link" className="peer/link hidden"/>
@@ -445,7 +445,7 @@ function DetailPage({params}: any) {
                                 <input onChange={handleWebFont} type="radio" id="cdn_font_face" name="cdn" value="font-face" className="peer/font-face hidden"/>
                                 <label htmlFor="cdn_font_face" className="peer-checked/font-face:bg-theme-4 peer-checked/font-face:dark:bg-theme-3 hover:bg-theme-6/20 hover:dark:bg-theme-3/40 peer-checked/font-face:text-theme-9 w-1/4 h-full flex flex-row justify-center items-center text-sm tmd:text-xs text-theme-3 dark:text-theme-9 leading-none cursor-pointer">font-face 방식</label>
                             </div>
-                            <div className="w-[916px] tlg:w-full border-x border-b rounded-b-lg border-theme-4 dark:border-theme-blue-2 bg-theme-3 dark:bg-theme-blue-2">
+                            <div className="w-[58.25rem] tlg:w-full border-x border-b rounded-b-lg border-theme-4 dark:border-theme-blue-2 bg-theme-3 dark:bg-theme-blue-2">
                                 {
                                     webFont === "CSS"
                                     ? <div className="w-full relative pl-6 tmd:pl-4 pr-[60px] overflow-hidden">
