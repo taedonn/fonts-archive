@@ -21,82 +21,77 @@ import { Pagination } from '@mui/material';
 import Header from "@/components/header";
 import Footer from '@/components/footer';
 import AdminDeleteCommentModal from '@/components/admindeletecommentmodal';
-import SelectBox from '@/components/selectbox';
 
 // common
 import { timeFormat } from '@/libs/common';
 
 const Comments = ({params}: any) => {
-    const { theme, userAgent, user, count, comments } = params;
+    const { theme, userAgent, user, page, filter, search, count, comments } = params;
     // 디바이스 체크
     const isMac: boolean = userAgent.includes("Mac OS") ? true : false;
 
     // 댓글 목록 state
     const [thisComments, setComments] = useState(comments);
-    const [thisCount, setCount] = useState<number>(count);
-    const [filter, setFilter] = useState<string>('all');
-    const [text, setText] = useState<string>('');
+    const [thisFilter, setFilter] = useState<string>(filter);
+    const [thisSearch, setSearch] = useState<string>(search);
     const [fontId, setFontId] = useState<number>(0);
     const [commentId, setCommentId] = useState<number>(0);
     const [deleteModalDisplay, setDeleteModalDisplay] = useState<boolean>(false);
 
-    // 댓글 목록 ref
-    const selectRef = useRef<HTMLSelectElement>(null);
-    const textRef = useRef<HTMLInputElement>(null);
+    console.log(filter);
 
     // 댓글 목록 페이지 변경
-    const [page, setPage] = useState<number>(1);
-    const handleChange = (e: React.ChangeEvent<unknown>, value: number) => { setPage(value); }
+    const handleChange = (e: React.ChangeEvent<unknown>, value: number) => { return; }
 
     // 핕터 변경
     const handleFilterChange = (e: React.ChangeEvent<HTMLInputElement>) => { setFilter(e.target.value); }
 
     // 페이지 변경 시 데이터 다시 불러오기
-    useEffect(() => {
-        const fetchNewComments = async () => {
-            await axios.get('/api/user/fetchcomments', {
-                params: {
-                    email: user.email,
-                    provider: user.provider,
-                    page: page,
-                    filter: filter,
-                    text: text
-                }
-            })
-            .then((res) => {
-                setComments(res.data.comments);
-                setCount(res.data.count);
-            })
-            .catch(err => console.log(err));
-        }
-        fetchNewComments();
-    }, [user.email, user.provider, page, filter, text]);
+    // useEffect(() => {
+    //     const fetchNewComments = async () => {
+    //         await axios.get('/api/user/fetchcomments', {
+    //             params: {
+    //                 email: user.email,
+    //                 provider: user.provider,
+    //                 page: page,
+    //                 filter: filter,
+    //                 text: search
+    //             }
+    //         })
+    //         .then((res) => {
+    //             setComments(res.data.comments);
+    //             setCount(res.data.count);
+    //         })
+    //         .catch(err => console.log(err));
+    //     }
+    //     fetchNewComments();
+    // }, [user.email, user.provider, page, filter, search]);
 
     // 댓글 필터 버튼 클릭 시 값 state에 저장 후, API 호출
-    const handleClick = async () => {
-        if (selectRef &&selectRef.current && textRef && textRef.current) {
-            // state 저장
-            setPage(1);
-            setFilter(selectRef.current.value);
-            setText(textRef.current.value);
+    // const handleClick = async () => {
+    //     if (selectRef &&selectRef.current && textRef && textRef.current) {
+    //         // state 저장
+    //         setPage(1);
+    //         setFilter(selectRef.current.value);
+    //         setSearch(textRef.current.value);
             
-            // API 호출
-            await axios.get('/api/user/fetchcomments', {
-                params: {
-                    email: user.email,
-                    provider: user.provider,
-                    page: 1,
-                    filter: selectRef.current.value,
-                    text: textRef.current.value
-                }
-            })
-            .then((res) => {
-                setComments(res.data.comments);
-                setCount(res.data.count);
-            })
-            .catch(err => console.log(err));
-        }
-    }
+    //         // API 호출
+    //         await axios.get('/api/user/fetchcomments', {
+    //             params: {
+    //                 email: user.email,
+    //                 provider: user.provider,
+    //                 page: 1,
+    //                 filter: selectRef.current.value,
+    //                 text: textRef.current.value
+    //             }
+    //         })
+    //         .then((res) => {
+    //             setComments(res.data.comments);
+    //             setCount(res.data.count);
+    //         })
+    //         .catch(err => console.log(err));
+    //     }
+    // }
 
      /** 댓글 삭제 모달창 열기 */
      const deleteCommentModalOpen = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -139,82 +134,60 @@ const Comments = ({params}: any) => {
                 user_id={user.user_no}
                 update={updateComments}
                 page={page}
-                text={text}
-                filter={filter}
+                text={thisSearch}
+                filter={thisFilter}
             />
 
             {/* 메인 */}
             <form onSubmit={e => e.preventDefault()} className='w-full flex flex-col justify-center items-center'>
-                <div className='w-[720px] tmd:w-full flex flex-col justify-center items-start my-[100px] tlg:my-16'>
+                <div className='w-[45rem] tmd:w-full px-4 flex flex-col justify-center items-start my-24 tlg:my-16'>
                     <h2 className='text-2xl tlg:text-xl text-l-2 dark:text-white font-bold mb-4'>내 댓글 목록</h2>
-                    <div className='flex items-center mb-8'>
-                        {/* <select ref={selectRef} className='w-[80px] h-8 tlg:h-7 text-xs pt-px px-3.5 bg-transparent rounded-md outline-none border border-theme-6 dark:border-theme-5 cursor-pointer'>
-                            <option value='all' defaultChecked>전체</option>
-                            <option value='font'>폰트</option>
-                            <option value='comment'>댓글</option>
-                        </select> */}
-                        {/* <input ref={textRef} type='textbox' placeholder='폰트/댓글' className='w-[200px] tlg:w-40 h-8 tlg:h-7 ml-2 px-3 text-xs bg-transparent border rounded-md border-theme-6 dark:border-theme-5'/>
-                        <button onClick={handleClick} className='w-[68px] h-8 tlg:h-7 ml-2 text-xs border rounded-md bg-theme-6/40 hover:bg-theme-6/60 tlg:hover:bg-theme-6/40 dark:bg-theme-4 hover:dark:bg-theme-5 tlg:hover:dark:bg-theme-4'>검색</button> */}
-                        <div className="w-44 rounded-lg bg-l-e">
-                            <SelectBox
-                                height={4}
-                                title="필터"
-                                icon="none"
-                                value="filter"
-                                select={filter}
-                                options={[
-                                    { value: "all", name: "전체" },
-                                    { value: "kr", name: "폰트" },
-                                    { value: "en", name: "댓글" },
-                                ]}
-                                optionChange={handleFilterChange}
-                            />
+                    <div className='flex items-center mb-10'>
+                        <input type="textbox" placeholder="폰트/댓글" className="w-60 h-[3.25rem] px-4 border-2 rounded-lg bg-l-e dark:bg-d-4 border-transparent focus:border-h-1 focus:dark:border-f-8 text-l-2 dark:text-white placeholder-l-5 dark:placeholder-d-c"/>
+                    </div>
+                    <div className='flex items-center gap-1.5 mb-4'>
+                        <div>
+                            <input type="radio" id="date" name="filter" className="hidden peer" defaultChecked/>
+                            <label htmlFor='date' className='w-20 h-9 flex justify-center items-center cursor-pointer rounded-lg text-l-5 dark:text-d-c peer-checked:text-white peer-checked:dark:text-d-2 peer-checked:bg-h-1 peer-checked:dark:bg-f-8'>최신순</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="name" name="filter" className="hidden peer"/>
+                            <label htmlFor='name' className='w-20 h-9 flex justify-center items-center cursor-pointer rounded-lg text-l-5 dark:text-d-c peer-checked:text-white peer-checked:dark:text-d-2 peer-checked:bg-h-1 peer-checked:dark:bg-f-8'>폰트순</label>
                         </div>
                     </div>
-                    <div className='w-full rounded-lg overflow-hidden overflow-x-auto'>
-                        <div className='w-[720px] text-xs text-theme-10 dark:text-theme-9 bg-theme-4 dark:bg-theme-4'>
-                            <div className='text-left bg-theme-5 dark:bg-theme-3'>
-                                <div className='h-10 tlg:h-9 flex items-center'>
-                                    <div className='w-[120px] pl-4 shrink-0'>폰트</div>
-                                    <div className='w-full pl-4'>댓글</div>
-                                    <div className='w-[120px] pl-4 shrink-0'>수정 날짜</div>
-                                    <div className='w-[120px] pl-4 shrink-0'>작성 날짜</div>
-                                    <div className='w-[52px] text-center shrink-0'>신고수</div>
-                                    <div className='w-[88px] text-center shrink-0'>댓글 삭제</div>
-                                </div>
-                            </div>
-                            <div>
+                    <div className='custom-sm-scrollbar w-full overflow-hidden overflow-x-auto'>
+                        <div className='w-full text-sm text-l-2 dark:text-white'>
+                            <div className='flex flex-col gap-3'>
                                 {
                                     thisComments && thisComments.length > 0
                                     ? <>
                                         {
                                             thisComments.map((comment: any) => {
                                                 return (
-                                                    <div key={comment.comment_id} className='h-10 tlg:h-9 relative flex items-center border-t border-theme-5 dark:border-theme-3'>
-                                                        <div className='w-[120px] pl-4 shrink-0'><Link href={`/post/${comment.font_family.replaceAll(" ", "+")}`} className='ellipsed-text text-theme-yellow dark:text-theme-blue-1 focus:underline hover:underline tlg:hover:no-underline'>{comment.font_name}</Link></div>
-                                                        <div className='w-full pl-4'><Link href={`/post/${comment.font_family.replaceAll(" ", "+")}#c${comment.comment_id}`} className='ellipsed-text focus:underline hover:underline tlg:hover:no-underline'>{comment.comment}</Link></div>
-                                                        <div className='w-[120px] pl-4 shrink-0'>{timeFormat(comment.updated_at)}</div>
-                                                        <div className='w-[120px] pl-4 shrink-0'>{timeFormat(comment.created_at)}</div>
-                                                        <div className='w-[52px] shrink-0 flex justify-center'>{comment.reported_politics + comment.reported_swearing + comment.reported_etc}</div>
-                                                        <div className='w-[88px] shrink-0 relative flex justify-center'>
-                                                            <button onClick={deleteCommentModalOpen} data-font={comment.font_id} data-comment={comment.comment_id} className='group w-5 h-5 flex justify-center items-center'>
-                                                                <i className="text-xs text-theme-10 group-hover:text-theme-yellow tlg:group-hover:text-theme-10 dark:text-theme-9 group-hover:dark:text-theme-blue-1 tlg:group-hover:dark:text-theme-9 fa-regular fa-trash-can"></i>
-                                                            </button>
+                                                    <div key={comment.comment_id} className='p-4 relative rounded-lg bg-l-e dark:bg-d-4'>
+                                                        <div className="flex tlg:flex-col items-center tlg:items-start gap-2 mb-2">
+                                                            <Link href={`/post/${comment.font_family.replaceAll(" ", "+")}`} className="block text-h-1 dark:text-f-8 hover:underline tlg:hover:no-underline">{comment.font_name}</Link>
+                                                            <div className="flex gap-2 items-center">
+                                                                <div className='text-xs text-l-5 dark:text-d-c'>{timeFormat(comment.created_at)}</div>
+                                                                <div className='text-xs text-l-5 dark:text-d-c'>신고수: {comment.reported_politics + comment.reported_swearing + comment.reported_etc}</div>
+                                                            </div>
                                                         </div>
+                                                        <div className="pr-10"><Link href={`/post/${comment.font_family.replaceAll(" ", "+")}#c${comment.comment_id}`} className='ellipsed-text w-full hover:underline tlg:hover:no-underline'>{comment.comment}</Link></div>
+                                                        <button onClick={deleteCommentModalOpen} data-font={comment.font_id} data-comment={comment.comment_id} className='group absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full flex justify-center items-center hover:bg-l-d hover:dark:bg-d-6 tlg:hover:bg-transparent tlg:hover:dark:bg-transparent'>
+                                                            <i className="text-base text-l-2 dark:text-white fa-regular fa-trash-can"></i>
+                                                        </button>
                                                     </div>
                                                 )
                                             })
                                         }
                                     </>
-                                    : <div className='h-[60px]'>
-                                        <div className='leading-[60px] text-center'>유저가 없습니다.</div>
-                                    </div>
+                                    : <div className='h-16 flex justify-center items-center text-center'>댓글이 없습니다.</div>
                                 }
                             </div>
                         </div>
                     </div>
                     <div className='w-full flex justify-center mt-3'>
-                        <Pagination count={thisCount} page={page} onChange={handleChange} shape='rounded' showFirstButton showLastButton/>
+                        <Pagination count={count} page={page} onChange={handleChange} shape='rounded' showFirstButton showLastButton/>
                     </div>
                 </div>
             </form>
@@ -227,8 +200,13 @@ const Comments = ({params}: any) => {
 
 export async function getServerSideProps(ctx: any) {
     try {
-        // 체크
+        // 쿠키 체크
         const { theme } = ctx.req.cookies;
+
+        // 쿼리 체크
+        const page = ctx.query.page === undefined ? 1 : ctx.query.page;
+        const filter = ctx.query.filter === undefined ? "date" : ctx.query.filter;
+        const search = ctx.query.search === undefined ? null : ctx.query.search;
 
         // 디바이스 체크
         const userAgent = ctx.req ? ctx.req.headers['user-agent'] : navigator.userAgent;
@@ -245,11 +223,11 @@ export async function getServerSideProps(ctx: any) {
             }
         } else {
             // 댓글 페이지 수
-            const length = await FetchCommentsLength(session.user);
+            const length = await FetchCommentsLength(session.user, search);
             const count = Number(length) % 10 > 0 ? Math.floor(Number(length)/10) + 1 : Math.floor(Number(length)/10);
 
             // 첫 댓글 목록 가져오기
-            const comments = await FetchComments(session.user, undefined);
+            const comments = await FetchComments(session.user, page, filter, search);
 
             return {
                 props: {
@@ -257,6 +235,9 @@ export async function getServerSideProps(ctx: any) {
                         theme: theme ? theme : 'light',
                         userAgent: userAgent,
                         user: session === null ? null : session.user,
+                        page: page,
+                        filter: filter,
+                        search: search,
                         count: count,
                         comments: JSON.parse(JSON.stringify(comments))
                     }

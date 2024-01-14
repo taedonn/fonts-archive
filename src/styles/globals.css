@@ -91,12 +91,12 @@ html.dark .img-loader {
 .font-size-slider.MuiSlider-root { color: #FCBE11; }
 .font-size-slider .MuiSlider-valueLabel {
     font-family: "Spoqa Han Sans Neo", "Noto Sans KR";
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 500;
     background-color: #FCBE11;
 }
 .font-size-slider .MuiSlider-valueLabel > span > span { color: #646568; }
-.font-size-slider .MuiSlider-thumb:hover, 
+.font-size-slider .MuiSlider-thumb:hover,
 .font-size-slider .MuiSlider-thumb.Mui-focusVisible { color: #FCBE11; box-shadow: 0 0 0 8px #FCBE114D; }
 .font-size-slider .MuiSlider-thumb:active { color: #FCBE11; box-shadow: 0 0 0 12px #FCBE114D; }
 html.dark .font-size-slider.MuiSlider-root { color: #8AB4F8; }
@@ -114,12 +114,14 @@ html.dark .font-size-slider .MuiSlider-thumb:active { color: #8AB4F8; box-shadow
 #__next .Mui-checked + .MuiSwitch-track { background-color: #40E0D080; }
 
 /* Material UI - Pagination */
-#__next .MuiPagination-ul button { color: #646568; }
+#__next .MuiPagination-ul button { color: #5F6368; }
 html.dark #__next .MuiPagination-ul button { color: #CDCED2; }
-#__next .MuiPagination-ul .Mui-selected { color: #FFF; background-color: #646568; }
-html.dark #__next .MuiPagination-ul .Mui-selected { color: #E9EAEE; background-color: #35363A; }
-#__next .MuiPaginationItem-root { color: #646568; }
-html.dark #__next .MuiPaginationItem-root { color: #E9EAEE; }
+#__next .MuiPagination-ul .Mui-selected { color: #202124; background-color: #E9EAEE; transition: 0s; }
+#__next .MuiPagination-ul .Mui-selected:hover { background-color: #D2D4DC; }
+html.dark #__next .MuiPagination-ul .Mui-selected { color: #FFFFFF; background-color: #3C4043; transition: 0s; }
+html.dark #__next .MuiPagination-ul .Mui-selected:hover { background-color: #646568; }
+#__next .MuiPaginationItem-root { color: #202124; }
+html.dark #__next .MuiPaginationItem-root { color: #FFFFFF; }
 
 /* Color picker */
 .color-picker .rcp-root {

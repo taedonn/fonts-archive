@@ -2,7 +2,9 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import prisma from '@/libs/prisma';
 
 // SSR 댓글 페이지 수
-export async function FetchCommentsLength(user: any) {
+export async function FetchCommentsLength(user: any, search: string) {
+    const thisSearch = search === "null" ? "" : search;
+
     const comments = await prisma.fontsComment.findMany({
         select: { user_id: true },
         where: {
@@ -10,7 +12,11 @@ export async function FetchCommentsLength(user: any) {
             user_auth: user.provier,
             is_deleted: false,
             is_deleted_with_reply: false,
-            is_deleted_by_reports: false
+            is_deleted_by_reports: false,
+            OR: [
+                {font_name: { contains: "" }},
+                {comment: { contains: "" }}
+            ]
         },
         take: 50,
     });
@@ -19,19 +25,26 @@ export async function FetchCommentsLength(user: any) {
 }
 
 // SSR 첫 댓글 목록 가져오기
-export async function FetchComments(user: any, lastId: number | undefined) {
+export async function FetchComments(user: any, page: number, search: string, filter: string) {
+    const thisSearch = search === "null" ? "" : search;
+    
     const comments = await prisma.fontsComment.findMany({
         where: {
             user_email: user.email,
             user_auth: user.provider,
             is_deleted: false,
             is_deleted_with_reply: false,
-            is_deleted_by_reports: false
+            is_deleted_by_reports: false,
+            OR: [
+                {font_name: { contains: "" }},
+                {comment: { contains: "" }}
+            ]
         },
-        orderBy: [{created_at: 'desc'}, {comment_id: 'desc'}], // 정렬순
+        orderBy: filter === "date"
+            ? [{created_at: "desc"}, {comment_id: "desc"}]
+            : [{font_name: "desc"}, {comment_id: "desc"}],
+        skip: (Number(page) - 1) * 10,
         take: 10, // 가져오는 데이터 수
-        skip: lastId ? 1 : 0,
-        ...(lastId && { cursor: {comment_id: lastId} })
     });
 
     return comments;
