@@ -56,7 +56,7 @@ function DetailPage({params}: any) {
     const [letterSpacingUnit, setLetterSpacingUnit] = useState<string>("em");
     const [textColor, setTextColor] = useColor(theme === "dark" ? "#FFFFFF" : "#202124");
     const [displayTextColorPicker, setDisplayTextColorPicker] = useState<boolean>(false);
-    const [bgColor, setBgColor] = useColor(theme === "dark" ? "#2D2E31" : "#E9EAEE");
+    const [bgColor, setBgColor] = useColor(theme === "dark" ? "#3C4043" : "#E9EAEE");
     const [displaybgColorPicker, setDisplaybgColorPicker] = useState<boolean>(false);
 
     // refs
@@ -295,7 +295,7 @@ function DetailPage({params}: any) {
         const html = document.getElementsByTagName("html")[0];
         if (html.classList.contains("dark")) {
             setTextColor({hex: "#FFFFFF", rgb: {r: 233, g: 234, b: 238, a: 1}, hsv: {h: 228, s: 2.1, v: 93.3, a: 1}});
-            setBgColor({hex: "#2D2E31", rgb: {r: 23, g: 24, b: 27, a: 1}, hsv: {h: 225, s: 14.8, v: 10.6, a: 1}});
+            setBgColor({hex: "#3C4043", rgb: {r: 23, g: 24, b: 27, a: 1}, hsv: {h: 225, s: 14.8, v: 10.6, a: 1}});
         }
         else {
             setTextColor({hex: "#202124", rgb: {r: 233, g: 234, b: 238, a: 1}, hsv: {h: 228, s: 2.1, v: 93.3, a: 1}});
@@ -306,7 +306,7 @@ function DetailPage({params}: any) {
     const resetColor = (theme: string) => {
         if (theme === "dark") {
             setTextColor({hex: "#FFFFFF", rgb: {r: 233, g: 234, b: 238, a: 1}, hsv: {h: 228, s: 2.1, v: 93.3, a: 1}});
-            setBgColor({hex: "#2D2E31", rgb: {r: 23, g: 24, b: 27, a: 1}, hsv: {h: 225, s: 14.8, v: 10.6, a: 1}});
+            setBgColor({hex: "#3C4043", rgb: {r: 23, g: 24, b: 27, a: 1}, hsv: {h: 225, s: 14.8, v: 10.6, a: 1}});
         } else {
             setTextColor({hex: "#202124", rgb: {r: 233, g: 234, b: 238, a: 1}, hsv: {h: 228, s: 2.1, v: 93.3, a: 1}});
             setBgColor({hex: "#E9EAEE", rgb: {r: 53, g: 54, b: 58, a: 1}, hsv: {h: 228, s: 8.6, v: 22.7, a: 1}});
@@ -446,26 +446,26 @@ function DetailPage({params}: any) {
                     ? <></>
                     : <div className="flex flex-col justify-start items-start mb-20 tlg:mb-16">
                         <h2 className="text-2xl tlg:text-xl text-d-2 dark:text-white font-medium mb-4 tlg:mb-3">웹 폰트</h2>
-                        <div className="cdn w-[58.25rem] tlg:w-full h-12 txs:h-10 overflow-hidden border rounded-t-lg flex justify-start items-center text-sm txs:text-xs border-l-d dark:border-d-4">
+                        <div className="w-full mb-4 gap-1.5 tlg:text-sm txs:text-xs flex justify-start items-center">
                             <input onChange={handleWebFont} type="radio" id="cdn_css" name="cdn" value="CSS" className="peer/css hidden" defaultChecked/>
-                            <label htmlFor="cdn_css" className="peer-checked/css:bg-l-d peer-checked/css:dark:bg-d-4 hover:bg-l-e hover:dark:bg-d-3 tlg:hover:bg-transparent tlg:hover:dark:bg-transparent text-l-2 dark:text-white w-1/4 h-full border-r border-l-d dark:border-d-4 flex justify-center items-center leading-none cursor-pointer">CSS</label>
+                            <label htmlFor="cdn_css" className="w-28 h-9 tlg:w-24 tlg:h-8 txs:w-20 txs:h-7 rounded-lg flex justify-center items-center cursor-pointer peer-checked/css:bg-h-1 peer-checked/css:dark:bg-f-8 peer-checked/css:text-white peer-checked/css:dark:text-d-2 tlg:hover:bg-transparent tlg:hover:dark:bg-transparent text-l-2 dark:text-white hover:text-h-1 hover:dark:text-f-8 tlg:hover:text-l-2 tlg:hover:dark:text-white">CSS</label>
                             <input onChange={handleWebFont} type="radio" id="cdn_link" name="cdn" value="link" className="peer/link hidden"/>
-                            <label htmlFor="cdn_link" className="peer-checked/link:bg-l-d peer-checked/link:dark:bg-d-4 hover:bg-l-e hover:dark:bg-d-3 tlg:hover:bg-transparent tlg:hover:dark:bg-transparent text-l-2 dark:text-white w-1/4 h-full border-r border-l-d dark:border-d-4 flex justify-center items-center leading-none cursor-pointer">&#60;link/&#62;</label>
+                            <label htmlFor="cdn_link" className="w-28 h-9 tlg:w-24 tlg:h-8 txs:w-20 txs:h-7 rounded-lg flex justify-center items-center cursor-pointer peer-checked/link:bg-h-1 peer-checked/link:dark:bg-f-8 peer-checked/link:text-white peer-checked/link:dark:text-d-2 tlg:hover:bg-transparent tlg:hover:dark:bg-transparent text-l-2 dark:text-white hover:text-h-1 hover:dark:text-f-8 tlg:hover:text-l-2 tlg:hover:dark:text-white">&#60;link/&#62;</label>
                             <input onChange={handleWebFont} type="radio" id="cdn_import" name="cdn" value="import" className="peer/import hidden"/>
-                            <label htmlFor="cdn_import" className="peer-checked/import:bg-l-d peer-checked/import:dark:bg-d-4 hover:bg-l-e hover:dark:bg-d-3 tlg:hover:bg-transparent tlg:hover:dark:bg-transparent text-l-2 dark:text-white w-1/4 h-full border-r border-l-d dark:border-d-4 flex justify-center items-center leading-none cursor-pointer">@import</label>
+                            <label htmlFor="cdn_import" className="w-28 h-9 tlg:w-24 tlg:h-8 txs:w-20 txs:h-7 rounded-lg flex justify-center items-center cursor-pointer peer-checked/import:bg-h-1 peer-checked/import:dark:bg-f-8 peer-checked/import:text-white peer-checked/import:dark:text-d-2 tlg:hover:bg-transparent tlg:hover:dark:bg-transparent text-l-2 dark:text-white hover:text-h-1 hover:dark:text-f-8 tlg:hover:text-l-2 tlg:hover:dark:text-white">@import</label>
                             <input onChange={handleWebFont} type="radio" id="cdn_font_face" name="cdn" value="font-face" className="peer/font-face hidden"/>
-                            <label htmlFor="cdn_font_face" className="peer-checked/font-face:bg-l-d peer-checked/font-face:dark:bg-d-4 hover:bg-l-e hover:dark:bg-d-3 tlg:hover:bg-transparent tlg:hover:dark:bg-transparent text-l-2 dark:text-white w-1/4 h-full flex justify-center items-center leading-none cursor-pointer">@font-face</label>
+                            <label htmlFor="cdn_font_face" className="w-28 h-9 tlg:w-24 tlg:h-8 txs:w-20 txs:h-7 rounded-lg flex justify-center items-center cursor-pointer peer-checked/font-face:bg-h-1 peer-checked/font-face:dark:bg-f-8 peer-checked/font-face:text-white peer-checked/font-face:dark:text-d-2 tlg:hover:bg-transparent tlg:hover:dark:bg-transparent text-l-2 dark:text-white hover:text-h-1 hover:dark:text-f-8 tlg:hover:text-l-2 tlg:hover:dark:text-white">@font-face</label>
                         </div>
-                        <div className="w-[58.25rem] tlg:w-full text-sm txs:text-xs border-x border-b rounded-b-lg border-l-d dark:border-d-4 bg-l-e dark:bg-d-3 text-l-2 dark:text-white">
+                        <div className="w-[58.25rem] tlg:w-full rounded-lg bg-l-e dark:bg-d-4 text-l-2 dark:text-white">
                             {
                                 webFont === "CSS"
                                 ? <div className="w-full relative pl-6 txs:pl-4 pr-16 txs:pr-[3.25rem] overflow-hidden">
                                     <div className="cdn-pre no-scrollbar w-full h-14 txs:h-10 flex justify-start items-center overflow-x-auto"><pre className="font-sans">{font.cdn_css}</pre></div>
                                     <div className="w-8 h-8 tlg:w-7 tlg:h-7 absolute z-10 right-4 txs:right-3 top-1/2 -translate-y-1/2 rounded-md cursor-pointer">
-                                        <div onClick={copyOnClick} className="copy_btn w-full h-full flex justify-center items-center rounded-md hover:bg-h-1/10 tlg:hover:bg-transparent hover:dark:bg-f-8/10 tlg:hover:dark-bg-transparent text-h-1 dark:text-f-8">
+                                        <div onClick={copyOnClick} className="copy_btn w-full h-full flex justify-center items-center rounded-md hover:bg-h-1/20 tlg:hover:bg-transparent hover:dark:bg-f-8/20 tlg:hover:dark-bg-transparent text-h-1 dark:text-f-8">
                                             <i className="text-base txs:text-sm bi bi-clipboard"></i>
                                         </div>
-                                        <div className="copy_chk_btn w-full h-full hidden justify-center items-center rounded-md bg-h-1/10 dark:bg-f-8/10 text-h-1 dark:text-f-8">
+                                        <div className="copy_chk_btn w-full h-full hidden justify-center items-center rounded-md bg-h-1/20 dark:bg-f-8/20 text-h-1 dark:text-f-8">
                                             <i className="text-base txs:text-sm bi bi-check-lg"></i>
                                         </div>
                                     </div>
@@ -474,10 +474,10 @@ function DetailPage({params}: any) {
                                     ? <div className="w-full relative pl-6 txs:pl-4 pr-16 txs:pr-[3.25rem] overflow-hidden">
                                         <div className="cdn-pre no-scrollbar w-full h-14 txs:h-10 flex justify-start items-center overflow-x-auto"><pre className="font-sans">{font.cdn_link}</pre></div>
                                         <div className="w-8 h-8 tlg:w-7 tlg:h-7 absolute z-10 right-4 txs:right-3 top-1/2 -translate-y-1/2 rounded-md cursor-pointer">
-                                            <div onClick={copyOnClick} className="copy_btn w-full h-full flex justify-center items-center rounded-md hover:bg-h-1/10 tlg:hover:bg-transparent hover:dark:bg-f-8/10 tlg:hover:dark-bg-transparent text-h-1 dark:text-f-8">
+                                            <div onClick={copyOnClick} className="copy_btn w-full h-full flex justify-center items-center rounded-md hover:bg-h-1/20 tlg:hover:bg-transparent hover:dark:bg-f-8/20 tlg:hover:dark-bg-transparent text-h-1 dark:text-f-8">
                                                 <i className="text-base txs:text-sm bi bi-clipboard"></i>
                                             </div>
-                                            <div className="copy_chk_btn w-full h-full hidden justify-center items-center rounded-md bg-h-1/10 dark:bg-f-8/10 text-h-1 dark:text-f-8">
+                                            <div className="copy_chk_btn w-full h-full hidden justify-center items-center rounded-md bg-h-1/20 dark:bg-f-8/20 text-h-1 dark:text-f-8">
                                                 <i className="text-base txs:text-sm bi bi-check-lg"></i>
                                             </div>
                                         </div>
@@ -486,10 +486,10 @@ function DetailPage({params}: any) {
                                         ? <div className="w-full relative pl-6 txs:pl-4 pr-16 txs:pr-[3.25rem] overflow-hidden">
                                             <div className="cdn-pre no-scrollbar w-full h-14 txs:h-10 flex justify-start items-center overflow-x-auto"><pre className="font-sans">{font.cdn_import}</pre></div>
                                             <div className="w-8 h-8 tlg:w-7 tlg:h-7 absolute z-10 right-4 txs:right-3 top-1/2 -translate-y-1/2 rounded-md cursor-pointer">
-                                                <div onClick={copyOnClick} className="copy_btn w-full h-full flex justify-center items-center rounded-md hover:bg-h-1/10 tlg:hover:bg-transparent hover:dark:bg-f-8/10 tlg:hover:dark-bg-transparent text-h-1 dark:text-f-8">
+                                                <div onClick={copyOnClick} className="copy_btn w-full h-full flex justify-center items-center rounded-md hover:bg-h-1/20 tlg:hover:bg-transparent hover:dark:bg-f-8/20 tlg:hover:dark-bg-transparent text-h-1 dark:text-f-8">
                                                     <i className="text-base txs:text-sm bi bi-clipboard"></i>
                                                 </div>
-                                                <div className="copy_chk_btn w-full h-full hidden justify-center items-center rounded-md bg-h-1/10 dark:bg-f-8/10 text-h-1 dark:text-f-8">
+                                                <div className="copy_chk_btn w-full h-full hidden justify-center items-center rounded-md bg-h-1/20 dark:bg-f-8/20 text-h-1 dark:text-f-8">
                                                     <i className="text-base txs:text-sm bi bi-check-lg"></i>
                                                 </div>
                                             </div>
@@ -497,10 +497,10 @@ function DetailPage({params}: any) {
                                         : <div className="w-full relative pl-6 txs:pl-4 pr-16 txs:pr-[3.25rem] overflow-hidden">
                                             <div className="cdn-pre no-scrollbar w-full h-[auto] py-[1.125rem] txs:py-3 flex justify-start items-center overflow-auto whitespace-nowrap"><pre id="cdn-font-face" style={{tabSize: 8}} className="font-sans">{font.cdn_font_face}</pre></div>
                                             <div className="w-8 h-8 tlg:w-7 tlg:h-7 absolute z-10 right-4 txs:right-3 top-7 txs:top-5 -translate-y-1/2 cursor-pointer">
-                                                <div onClick={copyOnClick} className="copy_btn w-full h-full flex justify-center items-center rounded-md hover:bg-h-1/10 tlg:hover:bg-transparent hover:dark:bg-f-8/10 tlg:hover:dark-bg-transparent text-h-1 dark:text-f-8">
+                                                <div onClick={copyOnClick} className="copy_btn w-full h-full flex justify-center items-center rounded-md hover:bg-h-1/20 tlg:hover:bg-transparent hover:dark:bg-f-8/20 tlg:hover:dark-bg-transparent text-h-1 dark:text-f-8">
                                                     <i className="text-base txs:text-sm bi bi-clipboard"></i>
                                                 </div>
-                                                <div className="copy_chk_btn w-full h-full hidden justify-center items-center rounded-md bg-h-1/10 dark:bg-f-8/10 text-h-1 dark:text-f-8">
+                                                <div className="copy_chk_btn w-full h-full hidden justify-center items-center rounded-md bg-h-1/20 dark:bg-f-8/20 text-h-1 dark:text-f-8">
                                                     <i className="text-base txs:text-sm bi bi-check-lg"></i>
                                                 </div>
                                             </div>
@@ -516,7 +516,7 @@ function DetailPage({params}: any) {
                     <div className="w-full px-4 py-2 mb-4 border-b border-l-b dark:border-d-4">
                         <textarea onChange={handleFontWeightChange} onInput={handleHeightChange} placeholder="원하는 문구를 적어보세요." className="w-full h-[1.5rem] resize-none text-l-2 dark:text-white placeholder-l-5 dark:placeholder-d-c leading-tight bg-transparent"/>
                     </div>
-                    <div className="max-w-full rounded-lg pt-6 bg-l-e dark:bg-d-3">
+                    <div className="max-w-full rounded-lg pt-6 bg-l-e dark:bg-d-4">
                         <div className="w-full px-6 flex flex-wrap justify-start items-center gap-20 tlg:gap-8 mb-8">
                             <div className="flex flex-col justify-center items-start">
                                 <div className="w-44 flex items-center mb-1">
@@ -724,7 +724,7 @@ function DetailPage({params}: any) {
                     <h2 className="text-2xl tlg:text-xl text-l-2 dark:text-white font-medium mb-4 tlg:mb-3">라이센스 사용 범위</h2>
                     <div className="mb-20 tlg:mb-16">
                         <div className="w-full flex tlg:flex-col gap-4 justify-between items-stretch tlg:items-start">
-                            <div className="tlg:w-full tlg:mb-4 rounded-lg bg-l-e dark:bg-d-3">
+                            <div className="tlg:w-full tlg:mb-4 rounded-lg bg-l-e dark:bg-d-4">
                                 <div className="w-[41.875rem] tlg:w-full p-6 flex flex-col gap-4 text-sm">
                                     <div className="w-full flex items-center text-base font-medium text-l-2 dark:text-white">
                                         <div className="w-28 tlg:w-24 shrink-0 text-center">카테고리</div>
@@ -945,7 +945,7 @@ function DetailPage({params}: any) {
                                     </div>
                                 </div>
                             </div>
-                            <div className="w-full p-6 flex flex-col rounded-lg bg-l-e dark:bg-d-3">
+                            <div className="w-full p-6 flex flex-col rounded-lg bg-l-e dark:bg-d-4">
                                 <h2 className="flex justify-start items-center font-medium text-l-2 dark:text-white">
                                     라이센스 본문
                                 </h2>

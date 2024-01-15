@@ -496,72 +496,71 @@ export default function Comments (
                 <label htmlFor={font.code.toString()} className='cursor-pointer'>
                     {
                         !likedInput
-                        ? <div className="w-14 h-8 flex justify-center items-center rounded-md text-theme-3 dark:text-theme-10 bg-theme-8 hover:bg-theme-7 tlg:hover:bg-theme-8 dark:bg-theme-3 hover:dark:bg-theme-4 tlg:dark:hover:bg-theme-3">
-                            <i className="text-sm fa-regular fa-heart"></i>
-                            <div className="ml-1.5 text-[13px] font-medium leading-none">{likedNum}</div>
+                        ? <div className="w-14 h-8 flex justify-center items-center rounded-lg text-l-2 dark:text-white bg-l-e hover:bg-l-d tlg:hover:bg-l-e dark:bg-d-4 hover:dark:bg-d-6 tlg:dark:hover:bg-d-4">
+                            <i className="text-sm bi bi-heart"></i>
+                            <div className="ml-1.5 text-[0.813rem] selection:bg-transparent">{likedNum}</div>
                         </div>
-                        : <div className="w-14 h-8 flex justify-center items-center rounded-md bg-theme-red">
-                            <i className="text-sm fa-solid fa-heart"></i>
-                            <div className="ml-1.5 text-[13px] font-medium leading-none">{likedNum}</div>
+                        : <div className="w-14 h-8 flex justify-center items-center rounded-lg bg-h-r text-white">
+                            <i className="text-sm bi bi-heart-fill"></i>
+                            <div className="ml-1.5 text-[0.813rem] selection:bg-transparent">{likedNum}</div>
                         </div>
                     }
                 </label>
                 <div className="relative">
                     <input onChange={handleShareExpand} type="checkbox" id="share-expand" className="peer hidden"/>
-                    <label ref={shareExpandBtn} htmlFor="share-expand" className="w-max h-8 px-3 text-[13px] font-medium flex justify-center items-center cursor-pointer rounded-md selection:bg-transparent text-theme-3 dark:text-theme-10 bg-theme-8 hover:bg-theme-7 tlg:hover:bg-theme-8 peer-checked:bg-theme-7 dark:bg-theme-3 hover:dark:bg-theme-4 tlg:hover:dark:bg-theme-3 peer-checked:dark:bg-theme-4">
+                    <label ref={shareExpandBtn} htmlFor="share-expand" className="w-max h-8 px-3 text-[0.813rem] flex justify-center items-center cursor-pointer rounded-lg selection:bg-transparent text-l-2 dark:text-white bg-l-e hover:bg-l-d tlg:hover:bg-l-e peer-checked:bg-l-d dark:bg-d-4 hover:dark:bg-d-6 tlg:hover:dark:bg-d-4 peer-checked:dark:bg-d-6">
                         <i className="text-sm mr-2 fa-solid fa-share-nodes"></i>
                         공유
                     </label>
                     {
                         shareExpand &&
-                        <div ref={shareExpandContent} className="w-max px-5 py-4 rounded-lg absolute left-0 -top-2 -translate-y-full bg-theme-8 dark:bg-theme-3">
-                            <div className="w-full rounded-lg border-2 flex items-center overflow-hidden border-theme-yellow dark:border-theme-blue-1 bg-theme-yellow dark:bg-theme-blue-1">
-                                <input type="text" id="url" defaultValue={`https://fonts.taedonn.com/post/${font.font_family.replaceAll(" ", "+")}`} className="w-full text-xs px-3 py-2 rounded-r-lg text-theme-9 dark:text-theme-8 placeholder-theme-6 bg-theme-3 dark:bg-theme-blue-2 autofill:bg-theme-3 autofill:dark:bg-theme-blue-2"/>
-                                <label onClick={copyUrl} htmlFor="url" className="w-[44px] h-[34px] text-[13px] shrink-0 flex justify-center items-center cursor-pointer font-medium text-theme-3 dark:text-theme-blue-2">
-                                    <div className="url_copy_btn selection:bg-transparent">복사</div>
-                                    <i className="url_copy_chk_btn text-sm hidden fa-solid fa-check"></i>
+                        <div ref={shareExpandContent} className="w-max p-4 rounded-lg absolute left-0 -top-2 -translate-y-full bg-l-e dark:bg-d-3">
+                            <div className="w-full mb-4 relative rounded-lg flex items-center overflow-hidden">
+                                <input type="text" id="url" defaultValue={`https://fonts.taedonn.com/post/${font.font_family.replaceAll(" ", "+")}`} className="w-full h-12 px-3 pr-10 py-2 rounded-r-lg text-sm text-l-2 dark:text-white placeholder-l-5 dark:placeholder-d-c bg-l-d dark:bg-d-4"/>
+                                <label onClick={copyUrl} htmlFor="url" className="w-8 h-8 absolute z-10 right-1 flex justify-center items-center cursor-pointer text-l-2 dark:text-white hover:text-h-1 hover:dark:text-f-8 tlg:hover:text-l-2 tlg:hover:dark:text-white">
+                                    <i className="url_copy_btn text-sm bi bi-clipboard"></i>
+                                    <i className="url_copy_chk_btn text-sm hidden text-h-1 dark:text-f-8 bi bi-check-lg"></i>
                                 </label>
                             </div>
-                            <div className="w-full h-px bg-theme-5 mt-2.5 mb-4"></div>
-                            <div className="gap-4 flex justify-center items-center">
-                                <button onClick={shareKakao} id="share-kakao" className="group text-[11px] flex flex-col justify-center items-center">
+                            <div className="gap-4 flex justify-center items-center text-xs text-l-5 dark:text-d-c">
+                                <button onClick={shareKakao} id="share-kakao" className="group flex flex-col justify-center items-center">
                                     <div className="w-8 h-8 rounded-full overflow-hidden flex justify-center items-center bg-theme-kakao drop-shadow-default dark:drop-shadow-dark">
                                         <div className="w-6 h-6 relative">
                                             <Image src="/logo-kakaotalk.svg" alt="카카오톡 로고" fill sizes="100%" referrerPolicy="no-referrer"/>
                                         </div>
                                     </div>
-                                    <div className="w-[42px] mt-2.5 text-center text-theme-5 group-hover:text-theme-3 tlg:group-hover:text-theme-5 dark:text-theme-7 group-hover:dark:text-theme-9 tlg:group-hover:dark:text-theme7">카카오톡</div>
+                                    <div className="w-12 mt-2.5 text-center group-hover:text-l-2 group-hover:dark:text-white tlg:text-l-2 tlg:dark:text-white">카카오톡</div>
                                 </button>
-                                <button onClick={shareLine} className="group text-[11px] flex flex-col justify-center items-center">
+                                <button onClick={shareLine} className="group flex flex-col justify-center items-center">
                                     <div className="w-8 h-8 rounded-full overflow-hidden flex justify-center items-center bg-theme-naver drop-shadow-default dark:drop-shadow-dark">
                                         <div className="w-7 h-7 relative">
                                             <Image src="/logo-line.svg" alt="라인 로고" fill sizes="100%" referrerPolicy="no-referrer"/>
                                         </div>
                                     </div>
-                                    <div className="w-[42px] mt-2.5 text-center text-theme-5 group-hover:text-theme-3 tlg:group-hover:text-theme-5 dark:text-theme-7 group-hover:dark:text-theme-9 tlg:group-hover:dark:text-theme7">라인</div>
+                                    <div className="w-12 mt-2.5 text-center group-hover:text-l-2 group-hover:dark:text-white tlg:text-l-2 tlg:dark:text-white">라인</div>
                                 </button>
-                                <button onClick={shareFacebook} className="group text-[11px] flex flex-col justify-center items-center">
+                                <button onClick={shareFacebook} className="group flex flex-col justify-center items-center">
                                     <div className="w-8 h-8 relative rounded-full overflow-hidden flex justify-center items-center drop-shadow-default dark:drop-shadow-dark">
                                         <Image src="/logo-facebook.png" alt="페이스북 로고" fill sizes="100%" referrerPolicy="no-referrer"/>
                                     </div>
-                                    <div className="w-[42px] mt-2.5 text-center text-theme-5 group-hover:text-theme-3 tlg:group-hover:text-theme-5 dark:text-theme-7 group-hover:dark:text-theme-9 tlg:group-hover:dark:text-theme7">페이스북</div>
+                                    <div className="w-12 mt-2.5 text-center group-hover:text-l-2 group-hover:dark:text-white tlg:text-l-2 tlg:dark:text-white">페이스북</div>
                                 </button>
-                                <button onClick={shareTwitter} className="group text-[11px] flex flex-col justify-center items-center">
+                                <button onClick={shareTwitter} className="group flex flex-col justify-center items-center">
                                     <div className="w-8 h-8 rounded-full overflow-hidden flex justify-center items-center bg-theme-1 drop-shadow-default dark:drop-shadow-dark">
                                         <div className="w-4 h-4 relative">
                                             <Image src="/logo-x.svg" alt="엑스(트위터) 로고" fill sizes="100%" referrerPolicy="no-referrer"/>
                                         </div>
                                     </div>
-                                    <div className="w-[42px] mt-2.5 text-center text-theme-5 group-hover:text-theme-3 tlg:group-hover:text-theme-5 dark:text-theme-7 group-hover:dark:text-theme-9 tlg:group-hover:dark:text-theme7">엑스</div>
+                                    <div className="w-12 mt-2.5 text-center group-hover:text-l-2 group-hover:dark:text-white tlg:text-l-2 tlg:dark:text-white">엑스</div>
                                 </button>
                             </div>
                         </div>
                     }
                 </div>
             </div>
-            <div className="w-full h-px bg-theme-7 dark:bg-theme-5 mb-5"></div>
-            <h2 className="text-base tlg:text-sm text-theme-3 dark:text-theme-9 font-medium mb-4 tlg:mb-3">댓글 {comments === null ? 0 : comments.length}개</h2>
-            <div className="w-full mb-[38px] tlg:mb-[34px]">
+            <div className="w-full h-px bg-l-b dark:bg-d-4 mb-5"></div>
+            <h2 className="text-l-2 dark:text-white font-medium mb-4">댓글 {comments === null ? 0 : comments.length}개</h2>
+            <div className="w-full mb-10">
                 <div className="w-full flex">
                     {
                         user === null
