@@ -82,7 +82,7 @@ export default function SelectBox ({
     /** 옵션 선택 시 셀렉트 박스 해제 */
     const optionClose = () => {
         const input = document.getElementById(`select-${value}`) as HTMLInputElement;
-        input.checked = false;
+        if (input) input.checked = false;
     }
 
     /** lodash/throttle을 이용해 스크롤 제어 */
@@ -114,7 +114,7 @@ export default function SelectBox ({
                 ref={refOption}
                 id={`option-${value}-wrap`}
                 style={{ height: options.length >= 5 ? '13.5rem' : (options.length * 2.5 + 1) + 'rem' }}
-                className="custom-sm-scrollbar hidden peer-checked:block h-0 peer-checked:h-max w-full absolute z-10 left-0 mt-1 py-2 rounded-lg overflow-y-auto duration-100 bg-white dark:bg-d-4 drop-shadow-default dark:drop-shadow-dark"
+                className="custom-sm-scrollbar hidden peer-checked:block h-0 peer-checked:h-max w-full absolute z-20 left-0 mt-1 py-2 rounded-lg overflow-y-auto duration-100 bg-white dark:bg-d-4 drop-shadow-default dark:drop-shadow-dark"
             >
                 {
                     options && options.map((option: Option) => {

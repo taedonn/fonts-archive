@@ -17,11 +17,12 @@ import FontSearch from "@/components/fontsearch";
 import Button from "@/components/button";
 
 // 빈 함수
-const emptyFn = () => { return; }
+const emptyFn = (e: string) => { return; }
 
 const defaultHeader = {
     page: "",
     handleSearch: emptyFn,
+    handleThemeChange: emptyFn,
 }
 
 interface Header {
@@ -30,6 +31,7 @@ interface Header {
     user: any,
     page?: string,
     handleSearch?: any,
+    handleThemeChange?: Function,
 }
 
 export default function Header (
@@ -39,6 +41,7 @@ export default function Header (
         user,
         page=defaultHeader.page,
         handleSearch=defaultHeader.handleSearch,
+        handleThemeChange=defaultHeader.handleThemeChange,
     }: Header) {
         
     // states
@@ -60,11 +63,13 @@ export default function Header (
             setCookie('theme', 'dark', {path:'/', expires: expires, secure: true, sameSite: 'strict'});
             document.documentElement.classList.add('dark');
             setTheme("dark");
+            handleThemeChange("dark");
         } else {
             expires.setMonth(expires.getMonth() - 1);
             setCookie('theme', 'light', {path:'/', expires: expires, secure: true, sameSite: 'strict'});
             document.documentElement.classList.remove('dark');
             setTheme("light");
+            handleThemeChange("light");
         }
     }
 
