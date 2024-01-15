@@ -514,7 +514,7 @@ export default function Comments (
                     </label>
                     {
                         shareExpand &&
-                        <div ref={shareExpandContent} className="w-max p-4 rounded-lg absolute left-0 -top-2 -translate-y-full bg-l-e dark:bg-d-3">
+                        <div ref={shareExpandContent} className="p-4 rounded-lg absolute left-0 -top-2 -translate-y-full bg-l-e dark:bg-d-3">
                             <div className="w-full mb-4 relative rounded-lg flex items-center overflow-hidden">
                                 <input type="text" id="url" defaultValue={`https://fonts.taedonn.com/post/${font.font_family.replaceAll(" ", "+")}`} className="w-full h-12 px-3 pr-10 py-2 rounded-r-lg text-sm text-l-2 dark:text-white placeholder-l-5 dark:placeholder-d-c bg-l-d dark:bg-d-4"/>
                                 <label onClick={copyUrl} htmlFor="url" className="w-8 h-8 absolute z-10 right-1 flex justify-center items-center cursor-pointer text-l-2 dark:text-white hover:text-h-1 hover:dark:text-f-8 tlg:hover:text-l-2 tlg:hover:dark:text-white">
@@ -522,9 +522,9 @@ export default function Comments (
                                     <i className="url_copy_chk_btn text-sm hidden text-h-1 dark:text-f-8 bi bi-check-lg"></i>
                                 </label>
                             </div>
-                            <div className="gap-4 flex justify-center items-center text-xs text-l-5 dark:text-d-c">
+                            <div className="gap-3 flex justify-center items-center text-xs text-l-5 dark:text-d-c">
                                 <button onClick={shareKakao} id="share-kakao" className="group flex flex-col justify-center items-center">
-                                    <div className="w-8 h-8 rounded-full overflow-hidden flex justify-center items-center bg-theme-kakao drop-shadow-default dark:drop-shadow-dark">
+                                    <div className="w-8 h-8 rounded-full flex justify-center items-center bg-theme-kakao drop-shadow-default dark:drop-shadow-dark">
                                         <div className="w-6 h-6 relative">
                                             <Image src="/logo-kakaotalk.svg" alt="카카오톡 로고" fill sizes="100%" referrerPolicy="no-referrer"/>
                                         </div>
@@ -532,21 +532,21 @@ export default function Comments (
                                     <div className="w-12 mt-2.5 text-center group-hover:text-l-2 group-hover:dark:text-white tlg:text-l-2 tlg:dark:text-white">카카오톡</div>
                                 </button>
                                 <button onClick={shareLine} className="group flex flex-col justify-center items-center">
-                                    <div className="w-8 h-8 rounded-full overflow-hidden flex justify-center items-center bg-theme-naver drop-shadow-default dark:drop-shadow-dark">
-                                        <div className="w-7 h-7 relative">
+                                    <div className="w-8 h-8 rounded-full flex justify-center items-center bg-theme-naver drop-shadow-default dark:drop-shadow-dark">
+                                        <div className="w-[1.125rem] h-[1.125rem] relative">
                                             <Image src="/logo-line.svg" alt="라인 로고" fill sizes="100%" referrerPolicy="no-referrer"/>
                                         </div>
                                     </div>
                                     <div className="w-12 mt-2.5 text-center group-hover:text-l-2 group-hover:dark:text-white tlg:text-l-2 tlg:dark:text-white">라인</div>
                                 </button>
                                 <button onClick={shareFacebook} className="group flex flex-col justify-center items-center">
-                                    <div className="w-8 h-8 relative rounded-full overflow-hidden flex justify-center items-center drop-shadow-default dark:drop-shadow-dark">
+                                    <div className="w-8 h-8 relative rounded-full flex justify-center items-center drop-shadow-default dark:drop-shadow-dark">
                                         <Image src="/logo-facebook.png" alt="페이스북 로고" fill sizes="100%" referrerPolicy="no-referrer"/>
                                     </div>
                                     <div className="w-12 mt-2.5 text-center group-hover:text-l-2 group-hover:dark:text-white tlg:text-l-2 tlg:dark:text-white">페이스북</div>
                                 </button>
                                 <button onClick={shareTwitter} className="group flex flex-col justify-center items-center">
-                                    <div className="w-8 h-8 rounded-full overflow-hidden flex justify-center items-center bg-theme-1 drop-shadow-default dark:drop-shadow-dark">
+                                    <div className="w-8 h-8 rounded-full flex justify-center items-center bg-theme-1 drop-shadow-default dark:drop-shadow-dark">
                                         <div className="w-4 h-4 relative">
                                             <Image src="/logo-x.svg" alt="엑스(트위터) 로고" fill sizes="100%" referrerPolicy="no-referrer"/>
                                         </div>
@@ -558,127 +558,124 @@ export default function Comments (
                     }
                 </div>
             </div>
-            <div className="w-full h-px bg-l-b dark:bg-d-4 mb-5"></div>
+            <div className="w-full h-px bg-l-b dark:bg-d-6 mb-5"></div>
             <h2 className="text-l-2 dark:text-white font-medium mb-4">댓글 {comments === null ? 0 : comments.length}개</h2>
-            <div className="w-full mb-10">
+            <div className="w-full mb-10 tlg:mb-8">
                 <div className="w-full flex">
                     {
                         user === null
-                        ? <>
-                            <i className="text-4xl text-theme-5 dark:text-theme-8 fa-regular fa-face-smile"></i>
-                            <div className="w-full mt-1 ml-4 tlg:ml-3.5">
-                                <div className="text-sm text-theme-5 dark:text-theme-7">로그인 후 댓글 이용 가능합니다...</div>
-                                <div className="w-full h-px mt-1 bg-theme-7 dark:bg-theme-5"></div>
+                        ? <div className="w-full flex items-center gap-4 text-l-5 dark:text-d-c">
+                            <i className="text-4xl tlg:text-3xl bi bi-person-circle"></i>
+                            <div className="w-full">
+                                <div className="text-sm">로그인 후 댓글 이용 가능합니다.</div>
+                                <div className="w-full h-px mt-1 bg-l-b dark:bg-d-6"></div>
                             </div>
-                        </>
-                        : <>
-                            <div className="w-10 tlg:w-8 h-10 tlg:h-8 relative object-cover rounded-full overflow-hidden">
-                                <Image src={user.image} alt="유저 프로필 사진" fill sizes="100%" referrerPolicy="no-referrer"/>
+                        </div>
+                        : <div className="w-full flex gap-4">
+                            <div className="w-10 tlg:w-8 h-10 tlg:h-8 shrink-0 relative rounded-full overflow-hidden">
+                                <Image src={user.image} alt="유저 프로필 사진" fill sizes="100%" referrerPolicy="no-referrer" className="object-cover"/>
                             </div>
-                            <div className="w-full flex flex-col mt-1.5 ml-4 tlg:ml-3.5">
-                                <div className={`relative w-full flex items-center pb-1 border-b ${commentFocus ? 'border-theme-5 dark:border-theme-7' : 'border-theme-7 dark:border-theme-5'}`}>
-                                    <textarea ref={commentRef} onChange={commentOnChange} onInput={handleHeightChange} onFocus={commentOnFocus} onBlur={commentOnBlur} placeholder="댓글 달기..." className="w-full h-[21px] resize-none text-sm tlg:text-xs tracking-wide text-theme-3 dark:text-theme-10 placeholder-theme-5 dark:placeholder-theme-8 leading-normal bg-transparent"/>
+                            <div className="w-full flex flex-col mt-1.5 tlg:mt-0.5">
+                                <div className={`relative w-full flex items-center pb-1 border-b hover:border-l-9 hover:dark:border-d-9 tlg:hover:border-l-b tlg:hover:dark:border-d-6 ${commentFocus ? 'border-l-9 dark:border-d-9 tlg:hover:border-l-9 tlg:hover:dark:border-d-9' : 'border-l-b dark:border-d-6'}`}>
+                                    <textarea ref={commentRef} onChange={commentOnChange} onInput={handleHeightChange} onFocus={commentOnFocus} onBlur={commentOnBlur} placeholder="댓글 달기..." className="w-full h-[1.375rem] resize-none text-sm text-l-2 dark:text-white placeholder-l-5 dark:placeholder-d-c bg-transparent"/>
                                 </div>
                                 {
                                     commentFocus
-                                    ? <div className="flex w-full text-sm tlg:text-xs text-theme-3 dark:text-theme-9 mt-3">
-                                        <button ref={commentBtnRef} onMouseDown={newComment} className={`${commentBtn ? 'comment-enabled text-theme-4 dark:text-theme-blue-2 bg-theme-yellow/80 tlg:bg-theme-yellow hover:bg-theme-yellow dark:bg-theme-blue-1 hover:dark:bg-theme-blue-1/90 tlg:hover:dark:bg-theme-blue-1 cursor-pointer' : 'comment-disabled text-theme-6 bg-theme-8 dark:text-theme-5 dark:bg-theme-3 cursor-default'} w-14 tlg:w-12 h-8 tlg:h-7 pb-px rounded-full`}>댓글</button>
-                                        <button onMouseDown={commentCancelBtnOnMouseDown} className="w-14 tlg:w-12 h-8 tlg:h-7 ml-2 rounded-full hover:bg-theme-8 hover:dark:bg-theme-4 tlg:hover:bg-transparent tlg:hover:dark:bg-transparent pb-px">취소</button>
-                                    </div> : <></>
+                                    && <div className="flex gap-2 w-full text-sm text-l-2 dark:text-white mt-3">
+                                        <button ref={commentBtnRef} onMouseDown={newComment} className={`${commentBtn ? 'comment-enabled text-white dark:text-d-2 bg-h-1 hover:bg-h-0 tlg:hover:bg-h-1 dark:bg-f-8 hover:dark:bg-f-9 tlg:hover:dark:bg-f-8 cursor-pointer' : 'comment-disabled text-l-9 dark:text-d-9 bg-l-e dark:bg-d-4 cursor-default'} w-14 tlg:w-12 h-8 tlg:h-7 rounded-lg`}>댓글</button>
+                                        <button onMouseDown={commentCancelBtnOnMouseDown} className="w-14 h-8 rounded-lg hover:bg-l-e hover:dark:bg-d-4 tlg:hover:bg-transparent tlg:hover:dark:bg-transparent">취소</button>
+                                    </div>
                                 }
                             </div>
-                        </>
+                        </div>
                     } 
                 </div>
             </div>
-            <div className="w-full min-h-[120px] mb-[180px] pl-10 tlg:pl-0">
+            <div className="w-full min-h-[7.5rem] mb-[11.25rem] pl-10 tlg:pl-0">
                 {
                     comments === null || comments.length === 0
-                    ? <div className="w-full text-sm text-center text-theme-3 dark:text-theme-8">아직 댓글이 없습니다.</div>
+                    ? <div className="w-full text-center text-l-2 dark:text-white">아직 댓글이 없습니다.</div>
                     : <>
                         {
                             comments.map((comment: any) => {
                                 return (
-                                    <div key={comment.comment_id} className='w-full text-theme-3 dark:text-theme-10 animate-fade-in-fontbox'>
+                                    <div key={comment.comment_id} className='w-full text-l-2 dark:text-white animate-fade-in-fontbox'>
                                         <div className='flex items-start mt-5 tlg:mt-4'>
                                             {
                                                 comment.depth === 1
-                                                && <i className="text-base text-theme-5 dark:text-theme-8 rotate-180 mt-2.5 mx-3.5 fa-solid fa-reply"></i>
+                                                && <i className="text-l-2 dark:text-white rotate-180 mt-2.5 mx-3.5 fa-solid fa-reply"></i>
                                             }
-                                            <div className="w-10 tlg:w-8 h-10 tlg:h-8 relative object-cover rounded-full overflow-hidden">
-                                                <Image src={comment.user_image} alt="유저 프로필 사진" fill sizes="100%" referrerPolicy="no-referrer"/>
+                                            <div className="w-10 tlg:w-8 h-10 tlg:h-8 shrink-0 relative rounded-full overflow-hidden">
+                                                <Image src={comment.user_image} alt="유저 프로필 사진" fill sizes="100%" referrerPolicy="no-referrer" className="object-cover"/>
                                             </div>
                                             <div className="w-full ml-4 tlg:ml-3.5">
-                                                <div className="flex items-end">
-                                                    <div className="text-[15px] tlg:text-sm font-medium">{comment.user_auth === "credentials" ? comment.user_name : hideUserName(comment.user_name)}</div>
-                                                    {
-                                                        comment.user_id === 1
-                                                        ? <div className="text-xs leading-none px-1.5 pt-1 pb-[3px] ml-1.5 mb-px border rounded-full border-theme-blue-1 text-theme-blue-1">Manager</div>
-                                                        : <div className="text-xs leading-none px-1.5 pt-1 pb-[3px] ml-1.5 mb-px border rounded-full border-theme-green text-theme-green">User</div>
-                                                    }
-                                                    <div className="text-[13px] tlg:text-[11px] ml-2.5 text-theme-5 dark:text-theme-7">{commentsDateFormat(comment.created_at)}</div>
-                                                    {
-                                                        user
-                                                        ? comment.user_id !== user.id && !comment.is_deleted_with_reply
-                                                            ? reports === null || !reports.some((report: any) => report.comment_id === comment.comment_id)
-                                                                ? <button id={`report-comment-${comment.comment_id}`} onClick={reportCommentModalOpen} className="flex items-center ml-3 mb-px cursor-pointer text-theme-5 hover:text-theme-yellow dark:text-theme-8 hover:dark:text-theme-blue-1">
-                                                                    <i className="text-xs mb-px fa-regular fa-bell"></i>
-                                                                    <div className="text-xs leading-none ml-1">신고</div>
-                                                                </button>
-                                                                : <div className="ml-2.5 text-xs text-theme-4 dark:text-theme-8">댓글이 신고되었습니다.</div>
-                                                            : comment.user_id === user.id && !comment.is_deleted_with_reply
-                                                                ? <div id={`comment-btn-wrap-${comment.comment_id}`} className="flex items-start mb-1 tlg:mb-0.5">
-                                                                    <input onChange={editComment} type="checkbox" id={`comment-edit-${comment.comment_id}`} className="hidden"/>
-                                                                    <label htmlFor={`comment-edit-${comment.comment_id}`} className="flex items-center ml-3 cursor-pointer text-theme-4 hover:text-theme-yellow tlg:hover:text-theme-4 dark:text-theme-10 hover:dark:text-theme-blue-1 tlg:hover:dark:text-theme-10">
-                                                                        <i className="text-[10px] fa-solid fa-pen"></i>
-                                                                        <div className="text-xs leading-none ml-1">수정</div>
-                                                                    </label>
-                                                                    <div className="w-px h-[11px] mx-1.5 bg-theme-6"></div>
-                                                                    <button id={`delete-comment-${comment.comment_id}`} onClick={deleteCommentModalOpen} className="flex items-center text-theme-4 hover:text-theme-yellow tlg:hover:text-theme-4 dark:text-theme-10 hover:dark:text-theme-blue-1 tlg:hover:dark:text-theme-10">
-                                                                        <i className="text-[10px] fa-regular fa-trash-can"></i>
-                                                                        <div className="text-xs leading-none ml-1">삭제</div>
+                                                <div className="flex gap-3 tlg:gap-1 tlg:flex-col items-center tlg:items-start">
+                                                    <div className="font-medium">{comment.user_auth === "credentials" ? comment.user_name : hideUserName(comment.user_name)}</div>
+                                                    <div className="flex gap-3 items-center">
+                                                        <div className="text-sm text-l-5 dark:text-d-c">{commentsDateFormat(comment.created_at)}</div>
+                                                        {
+                                                            user
+                                                            ? comment.user_id !== user.id && !comment.is_deleted_with_reply
+                                                                ? reports === null || !reports.some((report: any) => report.comment_id === comment.comment_id)
+                                                                    ? <button id={`report-comment-${comment.comment_id}`} onClick={reportCommentModalOpen} className="flex gap-1 items-center text-sm text-l-2 dark:text-white hover:text-h-1 hover:dark:text-f-8">
+                                                                        <i className="text-xs fa-regular fa-bell"></i>
+                                                                        신고
                                                                     </button>
-                                                                </div>
-                                                                : <></>
-                                                        : <></>
-                                                    }
+                                                                    : <div className="text-sm text-l-5 dark:text-d-c">댓글이 신고되었습니다.</div>
+                                                                : comment.user_id === user.id && !comment.is_deleted_with_reply
+                                                                    ? <div id={`comment-btn-wrap-${comment.comment_id}`} className="flex gap-2 items-center text-sm">
+                                                                        <input onChange={editComment} type="checkbox" id={`comment-edit-${comment.comment_id}`} className="hidden"/>
+                                                                        <label htmlFor={`comment-edit-${comment.comment_id}`} className="flex gap-1 items-center cursor-pointer text-l-2 hover:text-h-1 tlg:hover:text-l-2 dark:text-white hover:dark:text-f-8 tlg:hover:dark:text-white">
+                                                                            <i className="text-[0.5rem] fa-solid fa-pen"></i>
+                                                                            수정
+                                                                        </label>
+                                                                        <div className="w-px h-3 bg-l-2 dark:bg-white"></div>
+                                                                        <button id={`delete-comment-${comment.comment_id}`} onClick={deleteCommentModalOpen} className="flex gap-1 items-center text-l-2 hover:text-h-1 tlg:hover:text-l-2 dark:text-white hover:dark:text-f-8 tlg:hover:dark:text-white">
+                                                                            <i className="text-[0.625rem] fa-regular fa-trash-can"></i>
+                                                                            삭제
+                                                                        </button>
+                                                                    </div>
+                                                                    : <></>
+                                                            : <></>
+                                                        }
+                                                    </div>
                                                 </div>
-                                                <div id={`comment-${comment.comment_id}`} className="mt-2">
+                                                <div id={`comment-${comment.comment_id}`} className="mt-2 text-sm">
                                                     {
                                                         comment.is_deleted_with_reply
-                                                        ? <div className="text-sm tlg:text-xs text-theme-6">[삭제된 댓글입니다]</div>
+                                                        ? <div className="text-l-5 dark:text-d-c">[삭제된 댓글입니다]</div>
                                                             : comment.is_deleted_by_reports
-                                                                ? <div className="text-sm tlg:text-xs text-theme-6">[신고로 삭제된 댓글입니다]</div>
-                                                                : <pre className="font-sans text-sm tlg:text-xs text-theme-4 dark:text-theme-9">{comment.comment}</pre>
+                                                                ? <div className="text-l-5 dark:text-d-c">[신고로 삭제된 댓글입니다]</div>
+                                                                : <pre className="font-sans text-l-2 dark:text-white">{comment.comment}</pre>
                                                     }
                                                     <input onChange={commentReplyShow} id={`comment-reply-${comment.comment_id}`} type="checkbox" className="hidden peer"/>
-                                                    <label htmlFor={`comment-reply-${comment.comment_id}`} className={`${user ? 'block' : 'hidden'} peer-checked:hidden text-sm tlg:text-xs mt-3 tlg:mt-2 text-theme-3 dark:text-theme-blue-1 hover:underline tlg:underline hover:dark:text-theme-blue-1 cursor-pointer`}>답글</label>
+                                                    <label htmlFor={`comment-reply-${comment.comment_id}`} className={`${user ? 'block' : 'hidden'} peer-checked:hidden text-sm mt-3 text-h-1 dark:text-f-8 hover:underline tlg:underline cursor-pointer`}>답글</label>
                                                 </div>
                                                 {/* 댓글 수정 */}
-                                                <div id={`comment-editor-${comment.comment_id}`} className="hidden mt-2">
-                                                    <div className="w-full items-center px-[14px] pt-2.5 pb-1 rounded-lg bg-theme-8 dark:bg-theme-3">
-                                                        <textarea id={`comment-edit-textarea-${comment.comment_id}`} onChange={commentEditOnChange} onInput={handleHeightChange} onFocus={commentEditOnFocus} placeholder="댓글 수정하기..." defaultValue={comment.comment} className="w-full h-[21px] resize-none text-sm tlg:text-xs tracking-wide text-theme-4 dark:text-theme-9 placeholder-theme-5 dark:placeholder-theme-6 leading-normal bg-transparent"/>
+                                                <div id={`comment-editor-${comment.comment_id}`} className="hidden mt-3">
+                                                    <div className="w-full items-center px-4 pt-3 pb-1.5 rounded-lg bg-l-e dark:bg-d-4">
+                                                        <textarea id={`comment-edit-textarea-${comment.comment_id}`} onChange={commentEditOnChange} onInput={handleHeightChange} onFocus={commentEditOnFocus} placeholder="댓글 수정하기..." defaultValue={comment.comment} className="w-full h-5 resize-none text-sm text-l-2 dark:text-white placeholder-l-5 dark:placeholder-d-c bg-transparent"/>
                                                     </div>
-                                                    <div className="flex text-sm mt-3">
-                                                        <button onClick={editCommentAPIInit} id={`comment-edit-btn-${comment.comment_id}`} className="w-14 tlg:w-12 h-8 tlg:h-7 pb-px rounded-full">수정</button>
-                                                        <button onClick={commentEditCancelBtnOnClick} id={`comment-edit-cancel-${comment.comment_id}`} className="w-14 tlg:w-12 h-8 tlg:h-7 pb-px rounded-full text-theme-3 dark:text-theme-9 hover:bg-theme-8 hover:dark:bg-theme-4 tlg:hover:dark:bg-transparent ml-1.5">취소</button>
+                                                    <div className="flex gap-2 text-sm mt-3">
+                                                        <button onClick={editCommentAPIInit} id={`comment-edit-btn-${comment.comment_id}`} className="w-14 h-8 rounded-lg">수정</button>
+                                                        <button onClick={commentEditCancelBtnOnClick} id={`comment-edit-cancel-${comment.comment_id}`} className="w-14 h-8 rounded-lg text-l-2 dark:text-white hover:bg-l-e hover:dark:bg-d-4 tlg:hover:bg-transparent tlg:hover:dark:bg-transparent">취소</button>
                                                     </div>
                                                 </div>
                                                 {/* 답글 */}
                                                 {
                                                     user
                                                     ? <div id={`comment-reply-content-${comment.comment_id}`} className="hidden mt-5">
-                                                        <div className="w-full flex">
-                                                            <div className="w-10 tlg:w-8 h-10 tlg:h-8 relative object-cover rounded-full overflow-hidden">
-                                                                <Image src={user.image} alt="유저 프로필 사진" fill sizes="100%" referrerPolicy="no-referrer"/>
+                                                        <div className="w-full flex gap-4">
+                                                            <div className="w-10 tlg:w-8 h-10 tlg:h-8 shrink-0 relative rounded-full overflow-hidden">
+                                                                <Image src={user.image} alt="유저 프로필 사진" fill sizes="100%" referrerPolicy="no-referrer" className="object-cover"/>
                                                             </div>
-                                                            <div className="w-full ml-4 tlg:ml-3.5">
-                                                                <div className="relative w-full flex items-center pb-1 border-b border-theme-5 dark:border-theme-7">
-                                                                    <textarea onInput={handleHeightChange} onChange={commentReplyOnChange} onFocus={commentReplyOnChange} id={`comment-reply-textarea-${comment.comment_id}`} placeholder="답글 달기..." className="w-full h-[21px] resize-none text-sm tlg:text-xs tracking-wide mt-1.5 text-theme-5 dark:text-theme-8 placeholder-theme-5 dark:placeholder-theme-6 leading-normal bg-transparent"/>
+                                                            <div className="w-full">
+                                                                <div className="relative w-full flex items-center pb-1 border-b border-l-9 dark:border-d-9">
+                                                                    <textarea onInput={handleHeightChange} onChange={commentReplyOnChange} onFocus={commentReplyOnChange} id={`comment-reply-textarea-${comment.comment_id}`} placeholder="답글 달기..." className="w-full h-[1.375rem] resize-none text-sm mt-1.5 text-l-2 dark:text-white placeholder-l-5 dark:placeholder-d-c bg-transparent"/>
                                                                 </div>
-                                                                <div className="flex text-sm mt-3">
-                                                                    <button onClick={replyCommentAPIInit} id={`comment-reply-btn-${comment.comment_id}`} className="edit-btn-disabled w-14 tlg:w-12 h-8 tlg:h-7 pb-px rounded-full bg-theme-8 dark:bg-theme-3 text-theme-6 dark:text-theme-5 cursor-default">답글</button>
-                                                                    <button onClick={commentReplyCancelBtnOnClick} id={`comment-reply-cancel-${comment.comment_id}`} className="w-14 tlg:w-12 h-8 tlg:h-7 pb-px rounded-full text-theme-3 dark:text-theme-9 hover:bg-theme-8 hover:dark:bg-theme-4 tlg:hover:dark:bg-transparent ml-1.5">취소</button>
+                                                                <div className="flex gap-2 text-sm mt-3">
+                                                                    <button onClick={replyCommentAPIInit} id={`comment-reply-btn-${comment.comment_id}`} className="edit-btn-disabled w-14 h-8 rounded-lg bg-l-e dark:bg-d-4 text-l-9 dark:text-d-9 cursor-default">답글</button>
+                                                                    <button onClick={commentReplyCancelBtnOnClick} id={`comment-reply-cancel-${comment.comment_id}`} className="w-14 h-8 rounded-lg text-l-2 dark:text-white hover:bg-l-e hover:dark:bg-d-4 tlg:hover:bg-transparent tlg:hover:dark:bg-transparent">취소</button>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -687,7 +684,7 @@ export default function Comments (
                                                 }
                                             </div>
                                         </div>
-                                        <div className="w-full h-px mt-5 tlg:mt-4 bg-theme-7 dark:bg-theme-5"></div>
+                                        <div className="w-full h-px mt-5 tlg:mt-4 bg-l-b dark:bg-d-6"></div>
                                     </div>
                                 )
                             })

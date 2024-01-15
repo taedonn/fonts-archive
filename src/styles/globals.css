@@ -352,7 +352,7 @@ html.dark .animated-mail .letter .letter-stamp {
 #license a { text-decoration: underline; }
 
 /* 댓글 활성화 */
-.edit-btn-enabled { background-color: #FCBE11CC; color: #4C4D50; cursor: pointer }
-.edit-btn-enabled:hover { background-color: #FCBE11; }
+.edit-btn-enabled { background-color: #1B73E7; color: #FFFFFF; cursor: pointer }
+.edit-btn-enabled:hover { background-color: #006AE2; }
 html.dark .edit-btn-enabled { background-color: #8AB4F8; color: #202124; }
-html.dark .edit-btn-enabled:hover { background-color: #8AB4F8E6; }
+html.dark .edit-btn-enabled:hover { background-color: #9FBCF2; }

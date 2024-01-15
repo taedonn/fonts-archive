@@ -32,14 +32,10 @@ function KakaoAdFitTopBanner({
             ins.setAttribute('data-ad-width', '320');
             ins.setAttribute('data-ad-height', '100');
             ins.setAttribute('data-ad-unit', 'DAN-S69UuSbs9M89VlPg');
-            ins.setAttribute('style', `margin-top: ${marginTop}px`);
-            ins.setAttribute('style', `margin-bottom: ${marginBottom}px`);
         } else {
             ins.setAttribute('data-ad-width', '728');
             ins.setAttribute('data-ad-height', '90');
             ins.setAttribute('data-ad-unit', 'DAN-8npqLjWDiQg99MCm');
-            ins.setAttribute('style', `margin-top: ${marginTop}px`);
-            ins.setAttribute('style', `margin-bottom: ${marginBottom}px`);
         }
 
         script.async = true;
@@ -53,7 +49,7 @@ function KakaoAdFitTopBanner({
         adRef.current = true;
     }, [marginTop, marginBottom]);
 
-    return <aside className="aside__kakaoAdFit_top flex w-full relative"></aside>
+    return <aside style={{marginTop: marginTop + "px", marginBottom: marginBottom + "px"}} className="aside__kakaoAdFit_top relative"></aside>
 }
 
 export default React.memo(KakaoAdFitTopBanner);
