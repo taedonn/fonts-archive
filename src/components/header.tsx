@@ -150,7 +150,7 @@ export default function Header (
                             <div className="w-max mx-6 tlg:mx-4">
                                 <div className="w-max flex gap-2 tlg:gap-0 items-center">
                                     <Link href="/" onClick={reset} className={`${page === "index" ? "text-h-1 dark:text-f-8 tlg:hover:text-h-1 tlg:hover:dark:text-f-8 bg-h-e dark:bg-d-3" : ""} px-3 py-1.5 rounded-lg tlg:text-sm font-medium hover:text-h-1 hover:dark:text-f-8 tlg:hover:text-l-2 tlg:hover:dark:text-white`}>모든 폰트</Link>
-                                    <Link href="/issue/font" className={`${page === "issue" ? "text-h-1 dark:text-f-8 tlg:hover:text-h-1 tlg:hover:dark:text-f-8 bg-h-e dark:bg-d-3" : ""} px-3 py-1.5 rounded-lg tlg:text-sm font-medium hover:text-h-1 hover:dark:text-f-8 tlg:hover:text-l-2 tlg:hover:dark:text-white`}>문의하기</Link>
+                                    <Link href="/issue" className={`${page === "issue" ? "text-h-1 dark:text-f-8 tlg:hover:text-h-1 tlg:hover:dark:text-f-8 bg-h-e dark:bg-d-3" : ""} px-3 py-1.5 rounded-lg tlg:text-sm font-medium hover:text-h-1 hover:dark:text-f-8 tlg:hover:text-l-2 tlg:hover:dark:text-white`}>문의하기</Link>
                                     <Link href="/notices" className={`${page === "notices" ? "text-h-1 dark:text-f-8 tlg:hover:text-h-1 tlg:hover:dark:text-f-8 bg-h-e dark:bg-d-3" : ""} px-3 py-1.5 rounded-lg tlg:text-sm font-medium hover:text-h-1 hover:dark:text-f-8 tlg:hover:text-l-2 tlg:hover:dark:text-white`}>공지사항</Link>
                                 </div>
                             </div>
@@ -202,13 +202,9 @@ export default function Header (
                                     <i className="fa-solid fa-bell-concierge"></i>
                                     <span className="ml-1.5">공지사항</span>
                                 </Link>
-                                <Link href="/issue/font" className="flex justify-start items-center mt-1.5 text-sm text-l-2 dark:text-white hover:text-l-5 hover:dark:text-d-c tlg:hover:text-l-2 tlg:hover:dark:text-white selection:bg-transparent">
+                                <Link href="/issue" className="flex justify-start items-center mt-1.5 text-sm text-l-2 dark:text-white hover:text-l-5 hover:dark:text-d-c tlg:hover:text-l-2 tlg:hover:dark:text-white selection:bg-transparent">
                                     <i className="ml-px mr-px text-xs fa-regular fa-paper-plane"></i>
                                     <span className="ml-1.5">문의하기</span>
-                                </Link>
-                                <Link href="/issue/bug" className="flex justify-start items-center mt-1.5 text-sm text-l-2 dark:text-white hover:text-l-5 hover:dark:text-d-c tlg:hover:text-l-2 tlg:hover:dark:text-white selection:bg-transparent">
-                                    <i className="ml-px fa-solid fa-virus"></i>
-                                    <span className="ml-1.5">버그 리포트</span>
                                 </Link>
                                 {
                                     user === null
