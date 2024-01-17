@@ -106,7 +106,7 @@ const Comments = ({params}: any) => {
                         <button onClick={handleFilterChange} value="date" className={`${filter === "date" ? "bg-h-1 dark:bg-f-8 text-white dark:text-d-2" : "text-l-5 dark:text-d-c hover:text-h-1 hover:dark:text-f-8"} w-20 h-9 flex justify-center items-center rounded-lg`}>최신순</button>
                         <button onClick={handleFilterChange} value="name" className={`${filter === "name" ? "bg-h-1 dark:bg-f-8 text-white dark:text-d-2" : "text-l-5 dark:text-d-c hover:text-h-1 hover:dark:text-f-8"} w-20 h-9 flex justify-center items-center rounded-lg`}>이름순</button>
                     </div>
-                    <div className='custom-sm-scrollbar w-full overflow-hidden overflow-x-auto'>
+                    <div className='w-full'>
                         <div className='w-full text-sm text-l-2 dark:text-white'>
                             <div className='flex flex-col gap-3'>
                                 {
@@ -115,7 +115,7 @@ const Comments = ({params}: any) => {
                                         {
                                             comments.map((comment: any) => {
                                                 return (
-                                                    <div key={comment.comment_id} className='p-4 relative rounded-lg bg-l-e dark:bg-d-4'>
+                                                    <div key={comment.comment_id} className='px-6 py-4 relative rounded-lg bg-l-e dark:bg-d-4'>
                                                         <div className="flex tlg:flex-col items-center tlg:items-start gap-2 mb-2">
                                                             <Link href={`/post/${comment.font_family.replaceAll(" ", "+")}`} className="block text-h-1 dark:text-f-8 hover:underline tlg:hover:no-underline">{comment.font_name}</Link>
                                                             <div className="flex gap-2 items-center">

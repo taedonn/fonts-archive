@@ -74,59 +74,36 @@ const UserList = ({params}: any) => {
                         <button onClick={handleFilterChange} value="name" className={`${filter === "name" ? "bg-h-1 dark:bg-f-8 text-white dark:text-d-2" : "text-l-5 dark:text-d-c hover:text-h-1 hover:dark:text-f-8"} w-20 h-9 flex justify-center items-center rounded-lg`}>이름순</button>
                         <button onClick={handleFilterChange} value="report" className={`${filter === "report" ? "bg-h-1 dark:bg-f-8 text-white dark:text-d-2" : "text-l-5 dark:text-d-c hover:text-h-1 hover:dark:text-f-8"} w-20 h-9 flex justify-center items-center rounded-lg`}>신고순</button>
                     </div>
-                    <div className='w-full rounded-lg overflow-hidden overflow-x-auto'>
-                        <div className='w-[720px] text-xs text-theme-10 dark:text-theme-9 bg-theme-4 dark:bg-theme-4'>
-                            <div className='text-left bg-theme-5 dark:bg-theme-3'>
-                                <div className='h-10 tlg:h-9 flex items-center'>
-                                    <div className='w-[52px] pl-3 shrink-0'>번호</div>
-                                    <div className='w-20 pl-3 shrink-0'>유저명</div>
-                                    <div className='w-full pl-3'>유저 아이디</div>
-                                    <div className='w-[100px] pl-3 shrink-0'>수정 날짜</div>
-                                    <div className='w-[100px] pl-3 shrink-0'>생성 날짜</div>
-                                    <div className='w-20 pl-3 shrink-0'>닉네임 신고</div>
-                                    <div className='w-24 pl-3 shrink-0'>이메일 확인</div>
-                                </div>
-                            </div>
-                            <div>
+                    <div className='w-full'>
+                        <div className='w-full text-sm text-l-2 dark:text-white'>
+                            <div className='flex flex-col gap-3'>
                                 {
                                     list && list.length > 0
                                     ? <>
                                         {
                                             list.map((user: any) => {
                                                 return (
-                                                    <div key={user.code} className='h-10 tlg:h-9 relative flex items-center border-t border-theme-5 dark:border-theme-3'>
-                                                        <div className='w-[52px] pl-3 shrink-0'>{user.user_no}</div>
-                                                        <div className='w-20 pl-3 shrink-0'><Link href={`/admin/user/${user.user_no}`} className='ellipsed-text text-theme-yellow dark:text-theme-blue-1 focus:underline hover:underline tlg:hover:no-underline'>{user.user_name}</Link></div>
-                                                        <div className='w-full pl-3 overflow-hidden'><div className='ellipsed-text'>{user.user_id}</div></div>
-                                                        <div className='w-[100px] pl-3 shrink-0'>{timeFormat(user.updated_at)}</div>
-                                                        <div className='w-[100px] pl-3 shrink-0'>{timeFormat(user.created_at)}</div>
-                                                        <div className='w-20 shrink-0 text-center'>{user.nickname_reported}</div>
-                                                        <div className='w-24 pl-3 shrink-0'>
-                                                            {
-                                                                user.user_email_confirm
-                                                                ? <>
-                                                                    <span className='text-theme-green'>확인 됨</span>
-                                                                    <i className="text-[10px] ml-1 text-theme-green fa-solid fa-check"></i>
-                                                                </> : <>
-                                                                    <span className='text-theme-red'>확인 안됨</span>
-                                                                    <i className="text-xs ml-1 text-theme-red fa-solid fa-xmark"></i>
-                                                                </>
-                                                            }
+                                                    <div key={user.user_no} className='px-6 py-4 relative rounded-lg bg-l-e dark:bg-d-4'>
+                                                        <div className="flex tlg:flex-col items-center tlg:items-start gap-2 mb-2">
+                                                            <Link href={`/admin/user/${user.user_no}`} className="block text-h-1 dark:text-f-8 hover:underline tlg:hover:no-underline">{user.user_name}</Link>
+                                                            <div className="flex gap-2 items-center">
+                                                                <div className='text-xs text-l-5 dark:text-d-c'>{timeFormat(user.created_at)}</div>
+                                                                <div className='text-xs text-l-5 dark:text-d-c'>신고수: {user.nickname_reported}</div>
+                                                            </div>
                                                         </div>
+                                                        <div className='w-full overflow-hidden'>{user.user_id}</div>
                                                     </div>
                                                 )
                                             })
                                         }
                                     </>
-                                    : <div className='h-[60px]'>
-                                        <div className='leading-[60px] text-center'>유저가 없습니다.</div>
-                                    </div>
+                                    : <div className='h-16 text-base flex justify-center items-center text-center'>유저가 없습니다.</div>
                                 }
                             </div>
                         </div>
                     </div>
                     <div className='w-full flex justify-center mt-3'>
-                        <Pagination count={count} page={page} onChange={handlePageChange} shape='rounded'/>
+                        <Pagination count={count} page={Number(page)} onChange={handlePageChange} shape='rounded'/>
                     </div>
                 </div>
             </form>

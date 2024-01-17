@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import prisma from '@/libs/prisma';
 
-const limit = 1;
+const limit = 10;
 
 // 페이지 수
 export async function FetchUsersLength(page: number, search: string) {

@@ -16,6 +16,7 @@ import axios from 'axios';
 import Header from "@/components/header";
 import Footer from '@/components/footer';
 import Button from '@/components/button';
+import Input from '@/components/input';
 
 const FindPw = ({params}: any) => {
     const { theme, userAgent } = params;
@@ -125,8 +126,7 @@ const FindPw = ({params}: any) => {
                         : <></>
                     }
                     <form onSubmit={e => e.preventDefault()} className='w-full p-5 rounded-lg text-l-2 dark:text-white bg-l-e dark:bg-d-3 drop-shadow-default dark:drop-shadow-dark'>
-                        <label htmlFor='name' className='block font-medium ml-px'>이름</label>
-                        <input onChange={handleNameChange} type='text' id='name' tabIndex={1} autoComplete='on' placeholder='홍길동' className={`${nameChk === '' ? 'border-l-d dark:border-d-4 focus:border-h-1 focus:dark:border-f-8' : 'border-h-r focus:border-h-r'} w-full text-sm mt-2 px-3.5 py-3 rounded-lg border-2 placeholder-l-5 dark:placeholder-d-c bg-l-d dark:bg-d-4`}/>
+                        <Input onchange={handleNameChange} id='name' tabindex={1} placeholder='홍길동' focus={nameChk} label="이름"/>
                         {
                             nameChk === 'empty'
                             ? <span className='block text-xs text-h-r mt-2 ml-4'>이름을 입력해 주세요.</span>
@@ -135,8 +135,7 @@ const FindPw = ({params}: any) => {
                                 : <></>
                             )
                         }
-                        <label htmlFor='id' className='block font-medium mt-5 ml-px'>아이디</label>
-                        <input onChange={handleIdChange} type='text' id='id' tabIndex={2} autoComplete='on' placeholder='이메일을 입력해 주세요.' className={`${idChk === '' ? 'border-l-d dark:border-d-4 focus:border-h-1 focus:dark:border-f-8' : 'border-h-r focus:border-h-r'} w-full text-sm mt-2 px-3.5 py-3 rounded-lg border-2 placeholder-l-5 dark:placeholder-d-c bg-l-d dark:bg-d-4`}/>
+                        <Input onchange={handleIdChange} id='id' tabindex={2} placeholder='이메일을 입력해 주세요.' focus={idChk} label="아이디" marginTop={2}/>
                         {
                             idChk === 'empty'
                             ? <span className='block text-xs text-h-r mt-2 ml-4'>아이디를 입력해 주세요.</span>

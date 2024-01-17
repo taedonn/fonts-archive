@@ -1,5 +1,5 @@
 // react
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 // next
 import Image from "next/image";
@@ -17,6 +17,8 @@ import imageCompression from 'browser-image-compression';
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import Button from "@/components/button";
+import Input from "@/components/input";
+import TextArea from "@/components/textarea";
 import SelectBox from "@/components/selectbox";
 
 const IssueFont = ({params}: any) => {
@@ -26,10 +28,9 @@ const IssueFont = ({params}: any) => {
     const isMac: boolean = userAgent.includes("Mac OS") ? true : false
 
     // states
-    const [titleAlert, setTitleAlert] = useState<boolean>(false);
-    const [emailAlert, setEmailAlert] = useState<boolean>(false);
-    const [emailValid, setEmailValid] = useState<boolean>(false);
-    const [contentAlert, setContentAlert] = useState<boolean>(false);
+    const [titleAlert, setTitleAlert] = useState<string>("");
+    const [emailAlert, setEmailAlert] = useState<string>("");
+    const [contentAlert, setContentAlert] = useState<string>("");
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [isIssued, setIsIssued] = useState<string>("");
     const [imgs, setImgs] = useState<any>([]);
@@ -40,9 +41,9 @@ const IssueFont = ({params}: any) => {
     const [option, setOption] = useState<string>("font");
 
     // onChange
-    const handleTitleChange = () => { setTitleAlert(false); }
-    const handleEmailChange = () => { setEmailAlert(false); setEmailValid(false); }
-    const handleContentChange = () => { setContentAlert(false); }
+    const handleTitleChange = () => { setTitleAlert(""); }
+    const handleEmailChange = () => { setEmailAlert(""); }
+    const handleContentChange = () => { setContentAlert(""); }
     const handleOptionChange = (e: React.ChangeEvent<HTMLInputElement>) => { setOption(e.target.value); console.log(option); }
 
     // submit
@@ -56,16 +57,16 @@ const IssueFont = ({params}: any) => {
         const emailPattern = /^[A-Za-z0-9_.-]+@[A-Za-z0-9-]+\.[A-Za-z0-9-]+/;
 
         if (title.value === "") {
-            setTitleAlert(true);
+            setTitleAlert("fail");
             window.scrollTo({top: title.offsetTop});
         } else if (email.value === "") {
-            setEmailAlert(true);
+            setEmailAlert("empty");
             window.scrollTo({top: email.offsetTop});
         } else if (email.value !== "" && !emailPattern.test(email.value)) {
-            setEmailValid(true);
+            setEmailAlert("invalid");
             window.scrollTo({top: email.offsetTop});
         } else if (content.value === "") {
-            setContentAlert(true);
+            setContentAlert("fail");
             window.scrollTo({top: content.offsetTop});
         } else {
             setIsLoading(true);
@@ -374,6 +375,21 @@ const IssueFont = ({params}: any) => {
         }
     }
 
+    // 엔터키 입력 시 로그인 버튼 클릭
+    useEffect(() => {
+        const keys: any = [];
+        const handleKeydown = (e: KeyboardEvent) => { keys[e.key] = true; if (keys["Enter"]) { handleSubmit(); } }
+        const handleKeyup = (e: KeyboardEvent) => {keys[e.key] = false;}
+
+        window.addEventListener("keydown", handleKeydown, false);
+        window.addEventListener("keyup", handleKeyup, false);
+
+        return () => {
+            window.removeEventListener("keydown", handleKeydown);
+            window.removeEventListener("keyup", handleKeyup);
+        }
+    });
+
     return (
         <>
             {/* Head 부분*/}
@@ -442,28 +458,25 @@ const IssueFont = ({params}: any) => {
                                 ]}
                                 optionChange={handleOptionChange}
                             />
-                            <label htmlFor="title" className="mt-8 mb-2 font-medium">제목</label>
-                            <input onChange={handleTitleChange} placeholder="제목을 입력해 주세요." id="title" tabIndex={1} type="text" className={`w-full ${titleAlert ? 'border-h-r focus:border-h-r' : 'border-l-d dark:border-d-4 focus:border-h-1 focus:dark:border-f-8'} text-sm px-3.5 py-3 rounded-lg border-2 placeholder-l-5 dark:placeholder-d-c bg-l-d dark:bg-d-4`}/>
+                            <Input onchange={handleTitleChange} id="title" tabindex={1} placeholder="제목을 입력해 주세요." focus={titleAlert} label="제목" marginTop={2}/>
                             {
-                                titleAlert
-                                ? <div className="text-xs text-h-r mt-2 ml-4">제목을 입력해 주세요.</div>
-                                : <></>
+                                titleAlert === ""
+                                ? <></>
+                                : <div className="text-xs text-h-r mt-2 ml-4">제목을 입력해 주세요.</div>
                             }
-                            <label htmlFor="email" className="mt-8 mb-2">이메일</label>
-                            <input onChange={handleEmailChange} placeholder="빠른 시일내에 답변 드릴게요." id="email" tabIndex={2} type="text" className={`w-full ${emailAlert || emailValid ? 'border-h-r focus:border-h-r' : 'border-l-d dark:border-d-4 focus:border-h-1 focus:dark:border-f-8' } text-sm px-3.5 py-3 rounded-lg border-2 placeholder-l-5 dark:placeholder-d-c bg-l-d dark:bg-d-4`}/>
+                            <Input onchange={handleEmailChange} id="email" tabindex={2} placeholder="빠른 시일내에 답변 드릴게요." focus={emailAlert} label="이메일" marginTop={2}/>
                             {
-                                emailAlert && !emailValid
+                                emailAlert === "empty"
                                 ? <div className="text-xs text-h-r mt-2 ml-4">이메일을 입력해 주세요.</div>
-                                : emailValid
+                                : emailAlert === "invalid"
                                     ? <div className="text-xs text-h-r mt-2 ml-4">올바른 형식의 이메일이 아닙니다.</div>
                                     : <></>
                             }
-                            <label htmlFor="content" className="mt-8 mb-2">내용</label>
-                            <textarea onChange={handleContentChange} placeholder="내용은 최대한 자세하게 적어주세요." id="content" tabIndex={3} className={`custom-sm-scrollbar w-full h-52 resize-none ${contentAlert ? 'border-h-r focus:border-h-r' : 'border-l-d dark:border-d-4 focus:border-h-1 focus:dark:border-f-8' } text-sm px-3.5 py-3 rounded-lg border-2 placeholder-l-5 dark:placeholder-d-c bg-l-d dark:bg-d-4`}></textarea>
+                            <TextArea onchange={handleContentChange} id="content" tabindex={3} placeholder="내용은 최대한 자세하게 적어주세요." focus={contentAlert} label="내용" marginTop={2}/>
                             {
-                                contentAlert
-                                ? <div className="text-xs text-h-r mt-2 ml-4">내용을 입력해 주세요.</div>
-                                : <></>
+                                contentAlert === ""
+                                ? <></>
+                                : <div className="text-xs text-h-r mt-2 ml-4">내용을 입력해 주세요.</div>
                             }
                             <div 
                                 className={`${isDragging ? "border-h-1 dark:border-f-8 bg-h-1/20 dark:bg-f-8/20 duration-100" : "border-l-b dark:border-d-6 bg-transparent dark:bg-transparent duration-0"} w-full mt-4 p-6 rounded-lg flex flex-col justify-center items-center gap-x-2.5 border`}
@@ -473,7 +486,7 @@ const IssueFont = ({params}: any) => {
                                 onDrop={onDrop}
                             >
                                 <i className="text-3xl text-l-5 dark:text-d-c bi bi-image"></i>
-                                <label htmlFor="file" className="mt-2 text-sm text-h-1 dark:text-f-8 font-medium hover:underline tlg:hover:no-underline cursor-pointer">파일 추가</label>
+                                <label htmlFor="file" className="mt-2 text-sm text-h-1 dark:text-f-8 font-medium hover:underline tlg:hover:no-underline cursor-pointer">파일 첨부</label>
                                 <input onChange={uploadImg} accept='image/*' id="file" type="file" multiple className="hidden"/>
                                 <div className="mt-1.5 text-sm text-l-5 dark:text-d-c">또는 첨부 파일 드래그</div>
                                 {
