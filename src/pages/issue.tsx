@@ -17,6 +17,7 @@ import imageCompression from 'browser-image-compression';
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import Button from "@/components/button";
+import SelectBox from "@/components/selectbox";
 
 const IssueFont = ({params}: any) => {
     const { theme, userAgent, user } = params;
@@ -36,11 +37,13 @@ const IssueFont = ({params}: any) => {
     const [imgAlert, setImgAlert] = useState<boolean>(false);
     const [progress, setProgress] = useState<number>(0);
     const [isDragging, setIsDragging] = useState<boolean>(false);
+    const [option, setOption] = useState<string>("font");
 
     // onChange
     const handleTitleChange = () => { setTitleAlert(false); }
     const handleEmailChange = () => { setEmailAlert(false); setEmailValid(false); }
     const handleContentChange = () => { setContentAlert(false); }
+    const handleOptionChange = (e: React.ChangeEvent<HTMLInputElement>) => { setOption(e.target.value); console.log(option); }
 
     // submit
     const handleSubmit = async () => {
@@ -68,7 +71,7 @@ const IssueFont = ({params}: any) => {
             setIsLoading(true);
 
             // ID 가져오기
-            await axios.get('/api/issue/font', {
+            await axios.get('/api/issue', {
                 params: {
                     action: "get-issue-id"
                 }
@@ -87,10 +90,10 @@ const IssueFont = ({params}: any) => {
                     
                     // 이미지 여러개 업로드
                     for (let i = 0; i < imgs.length; i++) {
-                        let promise = await axios.post('/api/issue/font', 
+                        let promise = await axios.post('/api/issue', 
                             {
                                 action: 'upload-img',
-                                file_name: `issue-font-${issueId}-${i+1}.` + imgs[i].file.name.split('.').pop(),
+                                file_name: `issue-${issueId}-${i+1}.` + imgs[i].file.name.split('.').pop(),
                                 file_type: imgs[i].file.type
                             }, {
                                 onUploadProgress: (progressEvent: AxiosProgressEvent) => {
@@ -115,12 +118,13 @@ const IssueFont = ({params}: any) => {
                     await axios.all(allPromise)
                     .then(async () => {
                         // Prisma에 저장
-                        await axios.post("/api/issue/font", 
+                        await axios.post("/api/issue", 
                             {
-                                action: "upload-font-report",
+                                action: "upload-issue",
                                 title: title.value,
                                 email: email.value,
                                 content: content.value,
+                                type: option,
                                 img_length: imgs.length,
                                 img_1: imgs[0] !== undefined ? `https://fonts-archive-issue-font.s3.ap-northeast-2.amazonaws.com/issue-font-${issueId}-1.` + imgs[0].file.name.split('.').pop() : "null",
                                 img_2: imgs[1] !== undefined ? `https://fonts-archive-issue-font.s3.ap-northeast-2.amazonaws.com/issue-font-${issueId}-2.` + imgs[1].file.name.split('.').pop() : "null",
@@ -154,11 +158,12 @@ const IssueFont = ({params}: any) => {
                     });
                 } else {
                     // 이미지 없으면 바로 Prisma에 저장
-                    await axios.post("/api/issue/font", {
-                        action: "upload-font-report",
+                    await axios.post("/api/issue", {
+                        action: "upload-issue",
                         title: title.value,
                         email: email.value,
                         content: content.value,
+                        type: option,
                         img_length: imgs.length,
                         img_1: "null",
                         img_2: "null",
@@ -425,7 +430,19 @@ const IssueFont = ({params}: any) => {
                     </div>
                     <div className='w-full p-5 rounded-lg text-l-2 dark:text-white bg-l-e dark:bg-d-3 drop-shadow-default dark:drop-shadow-dark'>
                         <div className="flex flex-col">
-                            <label htmlFor="title" className="mb-2 font-medium">제목</label>
+                            <SelectBox
+                                title="문의 목적"
+                                icon="bi-send"
+                                value="lang"
+                                select={option}
+                                options={[
+                                    { value: "font", name: "폰트 관련 제보" },
+                                    { value: "bug", name: "버그 관련 제보" },
+                                    { value: "etc", name: "기타 문의 사항" },
+                                ]}
+                                optionChange={handleOptionChange}
+                            />
+                            <label htmlFor="title" className="mt-8 mb-2 font-medium">제목</label>
                             <input onChange={handleTitleChange} placeholder="제목을 입력해 주세요." id="title" tabIndex={1} type="text" className={`w-full ${titleAlert ? 'border-h-r focus:border-h-r' : 'border-l-d dark:border-d-4 focus:border-h-1 focus:dark:border-f-8'} text-sm px-3.5 py-3 rounded-lg border-2 placeholder-l-5 dark:placeholder-d-c bg-l-d dark:bg-d-4`}/>
                             {
                                 titleAlert

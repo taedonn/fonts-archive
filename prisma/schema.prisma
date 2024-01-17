@@ -139,6 +139,7 @@ model fontsIssue {
   issue_email       String
   issue_content     String   @db.Text
   issue_reply       String   @db.Text
+  issue_type        String   @default("")
   issue_img_length  Int      @default(0)
   issue_img_1       String
   issue_img_2       String
