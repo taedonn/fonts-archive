@@ -16,7 +16,7 @@ import axios from 'axios';
 import Header from "@/components/header";
 import Footer from '@/components/footer';
 import Button from '@/components/button';
-import Input from '@/components/input';
+import TextInput from '@/components/textinput';
 
 const FindPw = ({params}: any) => {
     const { theme, userAgent } = params;
@@ -126,24 +126,33 @@ const FindPw = ({params}: any) => {
                         : <></>
                     }
                     <form onSubmit={e => e.preventDefault()} className='w-full p-5 rounded-lg text-l-2 dark:text-white bg-l-e dark:bg-d-3 drop-shadow-default dark:drop-shadow-dark'>
-                        <Input onchange={handleNameChange} id='name' tabindex={1} placeholder='홍길동' focus={nameChk} label="이름"/>
-                        {
-                            nameChk === 'empty'
-                            ? <span className='block text-xs text-h-r mt-2 ml-4'>이름을 입력해 주세요.</span>
-                            : ( nameChk === 'wrong-name'
-                                ? <span className='block text-xs text-h-r mt-2 ml-4'>이름이 아이디와 일치하지 않습니다.</span>
-                                : <></>
-                            )
-                        }
-                        <Input onchange={handleIdChange} id='id' tabindex={2} placeholder='이메일을 입력해 주세요.' focus={idChk} label="아이디" marginTop={2}/>
-                        {
-                            idChk === 'empty'
-                            ? <span className='block text-xs text-h-r mt-2 ml-4'>아이디를 입력해 주세요.</span>
-                            : ( idChk === 'wrong-id'
-                                ? <span className='block text-xs text-h-r mt-2 ml-4'>조회된 아이디가 없습니다.</span>
-                                : <></>
-                            )
-                        }
+                        <TextInput
+                            onchange={handleNameChange}
+                            state={nameChk}
+                            stateMsg={[
+                                { state: "", msg: "" },
+                                { state: "empty", msg: "이름을 입력해 주세요." },
+                                { state: "wrong-name", msg: "이름이 아이디와 일치하지 않습니다." },
+                            ]}
+                            id='name'
+                            tabindex={1}
+                            placeholder='홍길동'
+                            label="이름"
+                        />
+                        <TextInput
+                            onchange={handleIdChange}
+                            state={idChk}
+                            stateMsg={[
+                                { state: "", msg: "" },
+                                { state: "empty", msg: "아이디를 입력해 주세요." },
+                                { state: "wrong-id", msg: "조회된 아이디가 없습니다." },
+                            ]}
+                            id='id'
+                            tabindex={2}
+                            placeholder='이메일을 입력해 주세요.'
+                            label="아이디"
+                            marginTop={2}
+                        />
                         <Button marginTop={16}>
                             <button onClick={handleOnSubmit} className='w-full h-full flex justify-center items-center'>
                                 {

@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react"
 
-const defaultTextArea = {
-    onchange: (e: React.ChangeEvent<HTMLTextAreaElement>) => { return },
+const defaultTextInput = {
+    onchange: (e: React.ChangeEvent<HTMLInputElement>) => { return },
     stateMsg: [{ state: "", msg: "" }],
     state: "",
+    type: "text",
     value: "",
     disabled: false,
     tabindex: 1,
@@ -19,11 +20,12 @@ interface StateMsg {
     msg: string,
 }
 
-interface TextArea {
-    onchange?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void,
+interface TextInput {
+    onchange?: (e: React.ChangeEvent<HTMLInputElement>) => void,
     id: string,
     stateMsg?: Array<StateMsg>,
     state?: string,
+    type?: string,
     value?: string,
     disabled?: boolean,
     tabindex?: number,
@@ -34,20 +36,21 @@ interface TextArea {
     marginTop?: number,
 }
 
-export default function TextArea ({
-    onchange=defaultTextArea.onchange,
+export default function TextInput ({
+    onchange=defaultTextInput.onchange,
     id,
-    stateMsg=defaultTextArea.stateMsg,
-    state=defaultTextArea.state,
-    value=defaultTextArea.value,
-    disabled=defaultTextArea.disabled,
-    tabindex=defaultTextArea.tabindex,
-    autocomplete=defaultTextArea.autocomplete,
-    placeholder=defaultTextArea.placeholder,
-    label=defaultTextArea.label,
-    isLabeled=defaultTextArea.isLabeled,
-    marginTop=defaultTextArea.marginTop,
-}: TextArea) {
+    stateMsg=defaultTextInput.stateMsg,
+    state=defaultTextInput.state,
+    type=defaultTextInput.type,
+    value=defaultTextInput.value,
+    disabled=defaultTextInput.disabled,
+    tabindex=defaultTextInput.tabindex,
+    autocomplete=defaultTextInput.autocomplete,
+    placeholder=defaultTextInput.placeholder,
+    label=defaultTextInput.label,
+    isLabeled=defaultTextInput.isLabeled,
+    marginTop=defaultTextInput.marginTop,
+}: TextInput) {
     const returnMsg = (states: Array<StateMsg>) => {
         const obj = states.find((obj: StateMsg) => obj.state === state);
         return obj ? obj.msg : "";
@@ -70,8 +73,9 @@ export default function TextArea ({
                 isLabeled
                 && <label htmlFor={id} style={{marginTop: marginTop + "rem"}} className='w-full flex justify-between items-center font-medium ml-px'>{label}</label>
             }
-            <textarea
+            <input
                 onChange={onchange}
+                type={type}
                 defaultValue={value}
                 disabled={disabled}
                 id={id}
@@ -79,7 +83,7 @@ export default function TextArea ({
                 autoComplete={autocomplete}
                 placeholder={placeholder}
                 style={{marginTop: isLabeled ? "0.5rem" : marginTop + "rem"}}
-                className={`custom-sm-scrollbar h-52 resize-none ${thisState === "" ? 'border-l-d dark:border-d-4 focus:border-h-1 focus:dark:border-f-8' : 'border-h-r focus:border-h-r'} ${isLabeled ? "mt-2" : ""} w-full text-sm px-3.5 py-3 rounded-lg border-2 placeholder-l-5 dark:placeholder-d-c bg-l-d dark:bg-d-4`}
+                className={`${thisState === '' ? 'border-l-d dark:border-d-4 focus:border-h-1 focus:dark:border-f-8' : 'border-h-r focus:border-h-r'} ${isLabeled ? "mt-2" : ""} w-full text-sm px-3.5 py-3 rounded-lg border-2 placeholder-l-5 dark:placeholder-d-c bg-l-d dark:bg-d-4`}
             />
             {
                 thisState !== ""

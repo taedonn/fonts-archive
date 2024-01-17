@@ -17,7 +17,7 @@ import imageCompression from 'browser-image-compression';
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import Button from "@/components/button";
-import Input from "@/components/input";
+import TextInput from "@/components/textinput";
 import TextArea from "@/components/textarea";
 import SelectBox from "@/components/selectbox";
 
@@ -57,7 +57,7 @@ const IssueFont = ({params}: any) => {
         const emailPattern = /^[A-Za-z0-9_.-]+@[A-Za-z0-9-]+\.[A-Za-z0-9-]+/;
 
         if (title.value === "") {
-            setTitleAlert("fail");
+            setTitleAlert("empty");
             window.scrollTo({top: title.offsetTop});
         } else if (email.value === "") {
             setEmailAlert("empty");
@@ -66,7 +66,7 @@ const IssueFont = ({params}: any) => {
             setEmailAlert("invalid");
             window.scrollTo({top: email.offsetTop});
         } else if (content.value === "") {
-            setContentAlert("fail");
+            setContentAlert("empty");
             window.scrollTo({top: content.offsetTop});
         } else {
             setIsLoading(true);
@@ -458,26 +458,46 @@ const IssueFont = ({params}: any) => {
                                 ]}
                                 optionChange={handleOptionChange}
                             />
-                            <Input onchange={handleTitleChange} id="title" tabindex={1} placeholder="제목을 입력해 주세요." focus={titleAlert} label="제목" marginTop={2}/>
-                            {
-                                titleAlert === ""
-                                ? <></>
-                                : <div className="text-xs text-h-r mt-2 ml-4">제목을 입력해 주세요.</div>
-                            }
-                            <Input onchange={handleEmailChange} id="email" tabindex={2} placeholder="빠른 시일내에 답변 드릴게요." focus={emailAlert} label="이메일" marginTop={2}/>
-                            {
-                                emailAlert === "empty"
-                                ? <div className="text-xs text-h-r mt-2 ml-4">이메일을 입력해 주세요.</div>
-                                : emailAlert === "invalid"
-                                    ? <div className="text-xs text-h-r mt-2 ml-4">올바른 형식의 이메일이 아닙니다.</div>
-                                    : <></>
-                            }
-                            <TextArea onchange={handleContentChange} id="content" tabindex={3} placeholder="내용은 최대한 자세하게 적어주세요." focus={contentAlert} label="내용" marginTop={2}/>
-                            {
-                                contentAlert === ""
-                                ? <></>
-                                : <div className="text-xs text-h-r mt-2 ml-4">내용을 입력해 주세요.</div>
-                            }
+                            <TextInput
+                                onchange={handleTitleChange}
+                                state={titleAlert}
+                                stateMsg={[
+                                    { state: "", msg: "" },
+                                    { state: "empty", msg: "제목을 입력해 주세요." }
+                                ]}
+                                id="title"
+                                tabindex={1}
+                                placeholder="제목을 입력해 주세요."
+                                label="제목"
+                                marginTop={2}
+                            />
+                            <TextInput
+                                onchange={handleEmailChange}
+                                state={emailAlert}
+                                stateMsg={[
+                                    { state: "", msg: "" },
+                                    { state: "empty", msg: "이메일을 입력해 주세요." },
+                                    { state: "invalid", msg: "올바른 형식의 이메일이 아닙니다." },
+                                ]}
+                                id="email"
+                                tabindex={2}
+                                placeholder="빠른 시일내에 답변 드릴게요."
+                                label="이메일"
+                                marginTop={2}
+                            />
+                            <TextArea
+                                onchange={handleContentChange}
+                                state={contentAlert}
+                                stateMsg={[
+                                    { state: "", msg: "" },
+                                    { state: "empty", msg: "내용을 입력해 주세요." },
+                                ]}
+                                id="content"
+                                tabindex={3}
+                                placeholder="내용은 최대한 자세하게 적어주세요."
+                                label="내용"
+                                marginTop={2}
+                            />
                             <div 
                                 className={`${isDragging ? "border-h-1 dark:border-f-8 bg-h-1/20 dark:bg-f-8/20 duration-100" : "border-l-b dark:border-d-6 bg-transparent dark:bg-transparent duration-0"} w-full mt-4 p-6 rounded-lg flex flex-col justify-center items-center gap-x-2.5 border`}
                                 onDragEnter={onDragEnter}

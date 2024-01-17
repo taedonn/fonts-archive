@@ -6,9 +6,6 @@ import { useRouter } from 'next/router';
 import { getServerSession } from "next-auth";
 import { authOptions } from '@/pages/api/auth/[...nextauth]';
 
-// react
-import { useState, useRef } from 'react';
-
 // api
 import { FetchUsers, FetchUsersLength } from '@/pages/api/admin/user';
 
@@ -19,6 +16,7 @@ import { NextSeo } from 'next-seo';
 // components
 import Header from "@/components/header";
 import Footer from '@/components/footer';
+import SearchInput from '@/components/SearchInput';
 
 // common
 import { timeFormat } from '@/libs/common';
@@ -29,6 +27,7 @@ const UserList = ({params}: any) => {
     // 디바이스 체크
     const isMac: boolean = userAgent.includes("Mac OS") ? true : false;
 
+    // router
     const router = useRouter();
 
     // 페이지 변경
@@ -41,9 +40,10 @@ const UserList = ({params}: any) => {
         router.push(`/admin/user/list${e.currentTarget.value === "date" ? "" : `?filter=${e.currentTarget.value}`}${search === "" ? "" : `${page === 1 && e.currentTarget.value === "date" ? "?" : "&"}search=${search}`}`);
     }
 
-    // 검색 버튼 클릭 시 값 state에 저장 후, API 호출
-    const handleClick = async () => {
-        
+    // 검색어 변경
+    const handleSearchClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+        const input = document.getElementById("search") as HTMLInputElement;
+        router.push(`/admin/user/list${filter === "date" ? "" : `?filter=${filter}`}${input.value === "" ? "" : `${page === 1 && filter === "date" ? "?" : "&"}search=${input.value}`}`);
     }
 
     return (
@@ -66,8 +66,8 @@ const UserList = ({params}: any) => {
                 <div className='w-[45rem] tmd:w-full px-4 flex flex-col justify-center items-start my-24 tlg:my-16'>
                     <h2 className='text-2xl tlg:text-xl text-l-2 dark:text-white font-bold mb-4'>유저 목록</h2>
                     <div className='flex items-center mb-10'>
-                        <input type="textbox" id="search" placeholder="폰트/댓글" defaultValue={search} className="w-60 h-[3.25rem] px-4 border-2 rounded-lg bg-l-e dark:bg-d-4 border-transparent focus:border-h-1 focus:dark:border-f-8 text-l-2 dark:text-white placeholder-l-5 dark:placeholder-d-c"/>
-                        <button onClick={handleClick} className="hidden">검색</button>
+                        <SearchInput id="search" placeholder="폰트/댓글" value={search}/>
+                        <button onClick={handleSearchClick} className="hidden">검색</button>
                     </div>
                     <div className='flex items-center gap-1.5 mb-4'>
                         <button onClick={handleFilterChange} value="date" className={`${filter === "date" ? "bg-h-1 dark:bg-f-8 text-white dark:text-d-2" : "text-l-5 dark:text-d-c hover:text-h-1 hover:dark:text-f-8"} w-20 h-9 flex justify-center items-center rounded-lg`}>최신순</button>

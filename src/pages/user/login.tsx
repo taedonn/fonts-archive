@@ -15,7 +15,7 @@ import { useState, useEffect } from 'react';
 import Header from "@/components/header";
 import Footer from '@/components/footer';
 import Button from '@/components/button';
-import Input from '@/components/input';
+import TextInput from '@/components/textinput';
 
 const Login = ({params}: any) => {
     const { theme, userAgent } = params;
@@ -133,22 +133,36 @@ const Login = ({params}: any) => {
                             </div>
                     }
                     <form onSubmit={e => e.preventDefault()} className='w-full p-5 mb-4 rounded-lg text-l-2 dark:text-white bg-l-e dark:bg-d-3 drop-shadow-default dark:drop-shadow-dark'>
-                        <Input onchange={handleIdChange} id='id' tabindex={1} placeholder='이메일을 입력해 주세요.' focus={idChk} label="아이디"/>
-                        {
-                            idChk === ''
-                            ? <></>
-                            : <span className='block text-xs text-h-r mt-2 ml-4'>아이디를 입력해 주세요.</span>
-                        }
+                        <TextInput
+                            onchange={handleIdChange}
+                            state={idChk}
+                            stateMsg={[
+                                { state: "", msg: "" },
+                                { state: "empty", msg: "아이디를 입력해 주세요." },
+                            ]}
+                            id='id'
+                            tabindex={1}
+                            placeholder='이메일을 입력해 주세요.'
+                            label="아이디"
+                        />
                         <label htmlFor='pw' className='w-full font-medium flex justify-between items-center ml-px mt-8'>
                             <span>비밀번호</span>
                             <Link href="/user/findpw" className='text-sm font-normal text-h-1 dark:text-f-8 hover:underline tlg:hover:no-underline'>비밀번호를 잊으셨나요?</Link>
                         </label>
-                        <Input onchange={handlePwChange} type='password' id='pw' tabindex={2} placeholder='비밀번호를 입력해 주세요.' focus={pwChk} isLabeled={false} marginTop={0.5}/>
-                        {
-                            pwChk === ''
-                            ? <></>
-                            : <span className='block text-xs text-h-r mt-2 ml-4'>비밀번호를 입력해 주세요.</span>
-                        }
+                        <TextInput
+                            onchange={handlePwChange}
+                            state={pwChk}
+                            stateMsg={[
+                                { state: "", msg: "" },
+                                { state: "empty", msg: "비밀번호를 입력해 주세요." },
+                            ]}
+                            type='password'
+                            id='pw'
+                            tabindex={2}
+                            placeholder='비밀번호를 입력해 주세요.'
+                            isLabeled={false}
+                            marginTop={0.5}
+                        />
                         <Button marginTop={16}>
                             <button onClick={handleLogin} className='w-full h-full flex justify-center items-center'>
                                 {

@@ -17,7 +17,7 @@ import axios from 'axios';
 import Header from "@/components/header";
 import Footer from '@/components/footer';
 import Button from '@/components/button';
-import Input from '@/components/input';
+import TextInput from '@/components/textinput';
 
 const Register = ({params}: any) => {
     const { theme, userAgent } = params;
@@ -233,45 +233,63 @@ const Register = ({params}: any) => {
                 <div className='w-[22.5rem] flex flex-col justify-center items-start my-24 tlg:my-16'>
                     <h2 className='text-2xl tlg:text-xl text-l-2 dark:text-white font-bold mb-4'>회원가입</h2>
                     <form onSubmit={e => e.preventDefault()} id='register-form' className='w-full p-5 rounded-lg text-l-2 dark:text-white bg-l-e dark:bg-d-3 drop-shadow-default dark:drop-shadow-dark'>
-                        <Input onchange={handleNameChange} id="name" tabindex={1} placeholder="홍길동" focus={nameChk} label="이름"/>
-                        {
-                            nameChk === ''
-                            ? <></>
-                            : <span className='block text-xs text-h-r mt-2 ml-4'>이름을 입력해 주세요.</span>
-                        }
-                        <Input onchange={handleIdChange} id="id" tabindex={2} placeholder='example@example.com' focus={idChk} label="이메일" marginTop={2}/>
-                        {
-                            idChk === ''
-                            ? <></>
-                            : ( idChk === 'empty'
-                                ? <span className='block text-xs text-h-r mt-2 ml-4'>이메일을 입력해 주세요.</span>
-                                : ( idChk === 'wrong-pattern'
-                                    ? <span className='block text-xs text-h-r mt-2 ml-4'>이메일 형식이 올바르지 않습니다.</span>
-                                    : ( idChk === 'is-used'
-                                        ? <span className='block text-xs text-h-r mt-2 ml-4'>이미 등록된 이메일입니다.</span>
-                                        : <></>
-                                    )
-                                )
-                            )
-                        }
-                        <Input onchange={handlePwChange} type="password" id="pw" tabindex={3} placeholder='영문, 숫자, 특수문자 포함 8~20자' focus={pwChk} label="비밀번호" marginTop={2}/>
-                        {
-                            pwChk === ''
-                            ? <></>
-                            : ( pwChk === 'empty'
-                                ? <span className='block text-xs text-h-r mt-2 ml-4'>비밀번호를 입력해 주세요.</span>
-                                : <span className='block text-xs text-h-r mt-2 ml-4'>비밀번호 형식이 올바르지 않습니다.</span>
-                            )
-                        }
-                        <Input onchange={handlePwConfirmChange} type="password" id="pw-confirm" tabindex={4} placeholder='비밀번호 재입력' focus={pwConfirmChk} isLabeled={false} marginTop={0.5}/>
-                        {
-                            pwConfirmChk === ''
-                            ? <></>
-                            : ( pwConfirmChk === 'empty'
-                                ? <span className='block text-xs text-h-r mt-2 ml-4'>비밀번호를 다시 입력해 주세요.</span>
-                                : <span className='block text-xs text-h-r mt-2 ml-4'>비밀번호가 일치하지 않습니다.</span>
-                            )
-                        }
+                        <TextInput
+                            onchange={handleNameChange}
+                            state={nameChk}
+                            stateMsg={[
+                                { state: "", msg: "" },
+                                { state: "empty", msg: "이름을 입력해 주세요." },
+                            ]}
+                            id="name"
+                            tabindex={1}
+                            placeholder="홍길동"
+                            label="이름"
+                        />
+                        <TextInput
+                            onchange={handleIdChange}
+                            state={idChk}
+                            stateMsg={[
+                                { state: "", msg: "" },
+                                { state: "empty", msg: "이메일을 입력해 주세요." },
+                                { state: "wrong-pattern", msg: "이메일 형식이 올바르지 않습니다." },
+                                { state: "is-used", msg: "이미 등록된 이메일입니다." },
+                            ]}
+                            id="id"
+                            tabindex={2}
+                            placeholder='example@example.com'
+                            label="이메일"
+                            marginTop={2}
+                        />
+                        <TextInput
+                            onchange={handlePwChange}
+                            state={pwChk}
+                            stateMsg={[
+                                { state: "", msg: "" },
+                                { state: "empty", msg: "비밀번호를 입력해 주세요." },
+                                { state: "wrong-pattern", msg: "비밀번호 형식이 올바르지 않습니다." },
+                            ]}
+                            type="password"
+                            id="pw"
+                            tabindex={3}
+                            placeholder='영문, 숫자, 특수문자 포함 8~20자'
+                            label="비밀번호"
+                            marginTop={2}
+                        />
+                        <TextInput
+                            onchange={handlePwConfirmChange}
+                            state={pwConfirmChk}
+                            stateMsg={[
+                                { state: "", msg: "" },
+                                { state: "empty", msg: "비밀번호를 다시 입력해 주세요." },
+                                { state: "unmatch", msg: "비밀번호가 일치하지 않습니다." },
+                            ]}
+                            type="password"
+                            id="pw-confirm"
+                            tabindex={4}
+                            placeholder='비밀번호 재입력'
+                            isLabeled={false}
+                            marginTop={0.5}
+                        />
                         <div className='w-full h-px my-6 bg-l-b dark:bg-d-6'></div>
                         {
                             alertDisplay === true

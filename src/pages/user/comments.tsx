@@ -21,6 +21,7 @@ import { NextSeo } from 'next-seo';
 import Header from "@/components/header";
 import Footer from '@/components/footer';
 import Tooltip from '@/components/tooltip';
+import SearchInput from '@/components/SearchInput';
 import DeleteCommentModal from '@/components/deletecommentmodal';
 
 // common
@@ -99,7 +100,7 @@ const Comments = ({params}: any) => {
                 <div className='w-[45rem] tmd:w-full px-4 flex flex-col justify-center items-start my-24 tlg:my-16'>
                     <h2 className='text-2xl tlg:text-xl text-l-2 dark:text-white font-bold mb-4'>내 댓글 목록</h2>
                     <div className='flex items-center mb-10'>
-                        <input type="textbox" id="search" placeholder="폰트/댓글" defaultValue={search} className="w-60 h-[3.25rem] px-4 border-2 rounded-lg bg-l-e dark:bg-d-4 border-transparent focus:border-h-1 focus:dark:border-f-8 text-l-2 dark:text-white placeholder-l-5 dark:placeholder-d-c"/>
+                        <SearchInput id="search" placeholder="폰트/댓글" value={search}/>
                         <button onClick={handleSearchClick} className="hidden">검색</button>
                     </div>
                     <div className='flex items-center gap-1.5 mb-4'>

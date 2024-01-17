@@ -20,6 +20,7 @@ import { Switch } from "@mui/material";
 // components
 import Header from "@/components/header";
 import Footer from "@/components/footer";
+import TextInput from "@/components/textinput";
 
 const UserDetailPage = ({params}: any) => {
     const { theme, userAgent, userDetail } = params;
@@ -32,15 +33,15 @@ const UserDetailPage = ({params}: any) => {
     const [profileImg, setProfileImg] = useState<string>(user.profile_img);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [isSuccess, setIsSuccess] = useState<string>("");
-    const [userNameAlert, setUserNameAlert] = useState<boolean>(false);
-    const [userNameReportAlert, setUserNameReportAlert] = useState<boolean>(false);
+    const [userNameAlert, setUserNameAlert] = useState<string>("");
+    const [userNameReportAlert, setUserNameReportAlert] = useState<string>("");
     const [userPwAlert, setUserPwAlert] = useState<boolean>(false);
     const [emailConfirmed, setEmailConfirmed] = useState<boolean>(user.user_email_confirm);
     const [userEmailTokenAlert, setUserEmailTokenAlert] = useState<boolean>(false);
 
     // change 이벤트
-    const handleUserNameChange = () => { setUserNameAlert(false); }
-    const handleUserNameReportChange = () => { setUserNameReportAlert(false); }
+    const handleUserNameChange = () => { setUserNameAlert(""); }
+    const handleUserNameReportChange = () => { setUserNameReportAlert(""); }
     const handleUserPwChange = () => { setUserPwAlert(false); }
     const handleUserEmailTokenChange = () => { setUserEmailTokenAlert(false); }
 
@@ -100,10 +101,10 @@ const UserDetailPage = ({params}: any) => {
 
         // 빈 값 유효성 체크
         if (userName.value === "") {
-            setUserNameAlert(true);
+            setUserNameAlert("empty");
             window.scrollTo({top: userName.offsetTop});
         } else if (userNameReported.value === "") {
-            setUserNameReportAlert(true);
+            setUserNameReportAlert("empty");
             window.scrollTo({top: userNameReported.offsetTop});
         } else if (userPw.value === "") {
             setUserPwAlert(true);
@@ -169,73 +170,84 @@ const UserDetailPage = ({params}: any) => {
 
             {/* 메인 */}
             <div className='w-full flex flex-col justify-center items-center'>
-                <div className='relative max-w-[720px] w-full flex flex-col justify-center items-start my-[100px] tlg:my-10'>
-                    <Link href="/admin/user/list" className="absolute left-0 -top-20 tlg:-top-7 text-xs text-theme-5 hover:text-theme-3 tlg:hover:text-theme-5 dark:text-theme-7 hover:dark:text-theme-9 tlg:hover:dark:text-theme-7 block border-b border-transparent hover:border-theme-3 tlg:border-theme-5 tlg:hover:border-theme-5 hover:dark:border-theme-9 tlg:dark:border-theme-7 tlg:hover:dark:border-theme-7"><div className="inline-block mr-1">&#60;</div> 유저 관리 페이지로 돌아가기</Link>
-                    <h2 className='text-xl tlg:text-lg text-theme-3 dark:text-theme-9 font-medium mb-3 tlg:mb-2'>유저 정보</h2>
+                <div className='relative max-w-[45rem] w-full flex flex-col justify-center items-start py-24 tlg:py-16'>
+                    <Link href="/admin/user/list" className="absolute left-0 top-3 block border-b border-transparent text-sm text-l-5 dark:text-d-c hover:text-l-2 hover:dark:text-white tlg:hover:text-l-5 tlg:hover:dark:text-d-c hover:border-b-l-2 hover:dark:border-b-white tlg:hover:border-b-transparent tlg:hover:dark:border-b-transparent"><div className="inline-block mr-1">&#60;</div> 유저 관리 페이지로 돌아가기</Link>
+                    <h2 className='text-2xl tlg:text-xl text-l-2 dark:text-white font-bold mb-4'>유저 정보</h2>
                     <div id="success-btn" className="w-full">
                         {
                             isSuccess === "success"
                             ? <>
-                                <div className='w-full h-10 px-3 mb-2.5 flex flex-row justify-between items-center rounded-md border-2 border-theme-yellow dark:border-theme-blue-1/80 text-xs text-theme-3 dark:text-theme-9 bg-theme-yellow/40 dark:bg-theme-blue-1/20'>
-                                    <div className='flex flex-row justify-start items-center'>
-                                        <i className="text-sm text-theme-yellow dark:text-theme-blue-1 fa-regular fa-bell"></i>
+                                <div className='w-full h-10 px-2.5 mb-3 flex justify-between items-center rounded-lg border-2 border-h-1 dark:border-f-8 text-xs text-l-2 dark:text-white bg-h-1/20 dark:bg-f-8/20'>
+                                    <div className='flex items-center'>
+                                        <i className="text-sm text-h-1 dark:text-f-8 fa-regular fa-bell"></i>
                                         <div className='ml-2'>유저 정보 저장이 완료됐습니다.</div>
                                     </div>
-                                    <div onClick={handleSuccessBtnClose} className='flex flex-row justify-center items-center cursor-pointer'>
-                                        <i className="text-sm text-theme-3 dark:text-theme-9 fa-solid fa-xmark"></i>
+                                    <div onClick={handleSuccessBtnClose} className='flex justify-center items-center cursor-pointer'>
+                                        <i className="text-sm fa-solid fa-xmark"></i>
                                     </div>
                                 </div>
                             </>
                             : isSuccess === "fail"
                                 ? <>
-                                    <div className='w-full h-10 px-3 mb-2.5 flex flex-row justify-between items-center rounded-md border-2 border-theme-red/80 text-xs text-theme-3 dark:text-theme-9 bg-theme-red/20'>
-                                        <div className='flex flex-row justify-start items-center'>
-                                            <i className="text-sm text-theme-red fa-regular fa-bell"></i>
+                                    <div className='w-full h-10 px-2.5 mb-3 flex justify-between items-center rounded-lg border-2 border-h-r text-xs text-l-2 dark:text-white bg-h-r/20'>
+                                        <div className='flex items-center'>
+                                            <i className="text-sm text-h-r fa-regular fa-bell"></i>
                                             <div className='ml-2'>유저 정보 저장에 실패했습니다.</div>
                                         </div>
-                                        <div onClick={handleSuccessBtnClose} className='flex flex-row justify-center items-center cursor-pointer'>
-                                            <i className="text-sm text-theme-3 dark:text-theme-9 fa-solid fa-xmark"></i>
+                                        <div onClick={handleSuccessBtnClose} className='flex justify-center items-center cursor-pointer'>
+                                            <i className="text-sm fa-solid fa-xmark"></i>
                                         </div>
                                     </div>
                                 </> : <></>
                         }
                     </div>
-                    <div className='w-full p-10 rounded-lg text-sm text-theme-10 dark:text-theme-9 bg-theme-5 dark:bg-theme-3 drop-shadow-default dark:drop-shadow-dark'>
+                    <div className='w-full p-10 rounded-lg text-l-2 dark:text-white bg-l-e dark:bg-d-3 drop-shadow-default dark:drop-shadow-dark'>
                         <div className="flex items-center">
                             <div className="relative mr-7">
-                                <div className="w-20 h-20">
+                                <div className="w-20 h-20 relative">
                                     <Image src={profileImg} alt="Profile image" fill sizes="100%" priority className="object-cover rounded-full"/>
                                 </div>
-                                <button onClick={changeProfileImg} className="group flex justify-center items-center absolute top-0 -right-1 w-7 h-7 rounded-full bg-theme-3 dark:bg-theme-blue-2">
-                                    <i className="text-sm text-theme-yellow dark:text-theme-blue-1 duration-200 group-hover:rotate-90 fa-solid fa-rotate"></i>
-                                    <div className="tooltip w-max absolute z-10 left-1/2 -top-10 text-xs font-medium leading-none px-3 py-2 rounded-md hidden group-hover:block tlg:group-hover:hidden group-hover:animate-zoom-in-fontbox bg-theme-yellow dark:bg-theme-blue-1 text-theme-3 dark:text-theme-blue-2">이미지 랜덤 변경하기</div>
+                                <button onClick={changeProfileImg} className="group absolute top-0 -right-1 w-7 h-7 rounded-full bg-h-1 dark:bg-f-8">
+                                    <i className="text-sm text-white dark:text-d-2 duration-200 group-hover:rotate-90 tlg:group-hover:rotate-0 fa-solid fa-rotate"></i>
+                                    <div className="tooltip w-max absolute z-10 left-1/2 -top-10 text-sm font-medium leading-none origin-bottom px-3 py-2 rounded-lg hidden group-hover:block tlg:group-hover:hidden group-hover:animate-zoom-in-fontbox bg-h-1 dark:bg-f-8 after:bg-h-1 after:dark:bg-f-8 text-white dark:text-d-2">이미지 랜덤 변경하기</div>
                                 </button>
                             </div>
-                            <div className="w-[calc(100%-100px)]">
-                                <label htmlFor="user-no">유저 번호</label>
-                                <input id="user-no" defaultValue={user.user_no} type="text" disabled className='w-full border-theme-6 dark:border-theme-4 text-xs mt-2 px-3.5 py-2 rounded-lg border-2 bg-theme-4 dark:bg-theme-2 text-theme-8 dark:text-theme-7'/>
-                                <label htmlFor="user-id" className="block mt-5">유저 ID</label>
-                                <input id="user-id" defaultValue={user.user_id} type="text" disabled className='w-full border-theme-6 dark:border-theme-4 text-xs mt-2 px-3.5 py-2 rounded-lg border-2 bg-theme-4 dark:bg-theme-2 text-theme-8 dark:text-theme-7'/>
+                            <div className="w-[calc(100%-5rem)]">
+                                <TextInput value={user.user_no} disabled id="user-no" label="유저 번호"/>
+                                <TextInput value={user.user_id} disabled id="user-id" label="유저 ID" marginTop={2}/>
                             </div>
                         </div>
-                        <div className="w-full h-px my-5 bg-theme-8/80 dark:bg-theme-7/80"></div>
-                        <label htmlFor="user-name" className="flex items-center mt-5">
+                        <div className="w-full h-px my-6 bg-l-b dark:bg-d-6"></div>
+                        <label htmlFor="user-name" className="mt-8 flex items-center font-medium">
                             유저 이름
-                            <button onClick={changeNickname} className="w-max text-xs font-medium rounded-full px-3 py-1.5 ml-2.5 bg-theme-yellow/80 hover:bg-theme-yellow tlg:bg-theme-yellow dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:dark:bg-theme-blue-1 text-theme-4 dark:text-theme-blue-2">부적절한 닉네임</button>
+                            <button onClick={changeNickname} className="text-sm font-medium rounded-full px-4 py-1.5 ml-3 bg-h-1 dark:bg-f-8 hover:bg-h-0 hover:dark:bg-f-9 tlg:hover:bg-h-1 tlg:hover:dark:bg-f-8 text-white dark:text-d-2">부적절한 닉네임</button>
                         </label>
-                        <input onChange={handleUserNameChange} id="user-name" tabIndex={1} defaultValue={user.user_name} type="text" placeholder="유저 이름" className={`w-full ${userNameAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-xs mt-2 px-3.5 py-2 rounded-lg border-2 placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
-                        {
-                            userNameAlert
-                            ? <div className="text-xs ml-4 mt-1.5 text-theme-red">유저 이름을 올바르게 입력해 주세요.</div>
-                            : <></>
-                        }
-                        <label htmlFor="user-name-reported" className="block mt-5">유저 이름 신고 수</label>
-                        <input onChange={handleUserNameReportChange} id="user-name-reported" tabIndex={2} defaultValue={user.nickname_reported} type="text" placeholder="유저 이름 신고 수" className={`w-full ${userNameReportAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-xs mt-2 px-3.5 py-2 rounded-lg border-2 placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
-                        {
-                            userNameReportAlert
-                            ? <div className="text-xs ml-4 mt-1.5 text-theme-red">유저 이름 신고 수를 올바르게 입력해 주세요.</div>
-                            : <></>
-                        }
+                        <TextInput
+                            onchange={handleUserNameChange}
+                            state={userNameAlert}
+                            stateMsg={[
+                                { state: "", msg: "" },
+                                { state: "empty", msg: "유저 이름을 올바르게 입력해 주세요." }
+                            ]}
+                            value={user.user_name}
+                            id="user-name"
+                            tabindex={1}
+                            placeholder="유저 이름"
+                            marginTop={0.5}
+                        />
+                        <TextInput
+                            onchange={handleUserNameReportChange}
+                            state={userNameReportAlert} stateMsg={[
+                                { state: "", msg: "" },
+                                { state: "empty", msg: "유저 이름 신고 수를 올바르게 입력해 주세요." }
+                            ]}
+                            value={user.nickname_reported}
+                            id="user-name-reported"
+                            tabindex={2}
+                            placeholder="유저 이름 신고 수"
+                            label="유저 이름 신고 수"
+                            marginTop={2}
+                        />
                         <label htmlFor="user-pw" className="block mt-5">비밀번호</label>
                         <input onChange={handleUserPwChange} id="user-pw" tabIndex={3} defaultValue={user.user_pw} type="text" placeholder="비밀번호" className={`w-full ${userPwAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-xs mt-2 px-3.5 py-2 rounded-lg border-2 placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
                         {

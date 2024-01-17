@@ -16,6 +16,7 @@ import axios from 'axios';
 import Header from "@/components/header";
 import Footer from '@/components/footer';
 import Tooltip from '@/components/tooltip';
+import SearchInput from '@/components/SearchInput';
 
 // common
 import { dateFormat } from '@/libs/common';
@@ -109,7 +110,7 @@ const Notices = ({params}: any) => {
                         <h3 className='ml-4 text-l-5 dark:text-d-c'>폰트 업데이트 & 소식</h3>
                     </div>
                     <div className='relative mb-10 text-l-2 dark:text-white'>
-                        <input onKeyUp={handleKeyUp} type="text" id="search" placeholder="검색어 입력" className="w-80 px-3.5 py-3 text-sm rounded-lg border-2 border-transparent focus:border-h-1 focus:dark:border-f-8 text-l-2 dark:text-white placeholder:text-l-5 dark:placeholder:text-d-c bg-l-e dark:bg-d-4"/>
+                        <SearchInput onkeyup={handleKeyUp} id="search" placeholder="검색어 입력"/>
                     </div>
                     <div className='flex items-center gap-1.5 mb-4'>
                         <div>
