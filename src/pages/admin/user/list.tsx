@@ -16,7 +16,7 @@ import { NextSeo } from 'next-seo';
 // components
 import Header from "@/components/header";
 import Footer from '@/components/footer';
-import SearchInput from '@/components/SearchInput';
+import SearchInput from '@/components/searchinput';
 
 // common
 import { timeFormat } from '@/libs/common';
@@ -66,7 +66,7 @@ const UserList = ({params}: any) => {
                 <div className='w-[45rem] tmd:w-full px-4 flex flex-col justify-center items-start my-24 tlg:my-16'>
                     <h2 className='text-2xl tlg:text-xl text-l-2 dark:text-white font-bold mb-4'>유저 목록</h2>
                     <div className='flex items-center mb-10'>
-                        <SearchInput id="search" placeholder="폰트/댓글" value={search}/>
+                        <SearchInput id="search" placeholder="이름/아이디" value={search}/>
                         <button onClick={handleSearchClick} className="hidden">검색</button>
                     </div>
                     <div className='flex items-center gap-1.5 mb-4'>
@@ -139,7 +139,7 @@ export async function getServerSideProps(ctx: any) {
             }
         } else {
             // 유저 목록 페이지 수
-            const count = await FetchUsersLength(page, search);
+            const count = await FetchUsersLength(search);
 
             // 첫 유저 목록 가져오기
             const list: any = await FetchUsers(page, filter, search);

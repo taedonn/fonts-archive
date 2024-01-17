@@ -7,7 +7,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from '@/pages/api/auth/[...nextauth]';
 
 // react
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 // api
 import { FetchUser } from "@/pages/api/admin/user";
@@ -20,6 +20,8 @@ import { Switch } from "@mui/material";
 // components
 import Header from "@/components/header";
 import Footer from "@/components/footer";
+import Button from "@/components/button";
+import Tooltip from "@/components/tooltip";
 import TextInput from "@/components/textinput";
 
 const UserDetailPage = ({params}: any) => {
@@ -35,14 +37,14 @@ const UserDetailPage = ({params}: any) => {
     const [isSuccess, setIsSuccess] = useState<string>("");
     const [userNameAlert, setUserNameAlert] = useState<string>("");
     const [userNameReportAlert, setUserNameReportAlert] = useState<string>("");
-    const [userPwAlert, setUserPwAlert] = useState<boolean>(false);
+    const [userPwAlert, setUserPwAlert] = useState<string>("");
     const [emailConfirmed, setEmailConfirmed] = useState<boolean>(user.user_email_confirm);
     const [userEmailTokenAlert, setUserEmailTokenAlert] = useState<boolean>(false);
 
     // change 이벤트
     const handleUserNameChange = () => { setUserNameAlert(""); }
     const handleUserNameReportChange = () => { setUserNameReportAlert(""); }
-    const handleUserPwChange = () => { setUserPwAlert(false); }
+    const handleUserPwChange = () => { setUserPwAlert(""); }
     const handleUserEmailTokenChange = () => { setUserEmailTokenAlert(false); }
 
     // 부적절한 아이디 버튼 클릭
@@ -107,7 +109,7 @@ const UserDetailPage = ({params}: any) => {
             setUserNameReportAlert("empty");
             window.scrollTo({top: userNameReported.offsetTop});
         } else if (userPw.value === "") {
-            setUserPwAlert(true);
+            setUserPwAlert("empty");
             window.scrollTo({top: userPw.offsetTop});
         } else if (userEmailToken.value === "") {
             setUserEmailTokenAlert(true);
@@ -149,6 +151,21 @@ const UserDetailPage = ({params}: any) => {
             })
         }
     }
+
+    // 엔터키 입력 시 가입하기 버튼 클릭
+    useEffect(() => {
+        const keys: any = [];
+        const handleKeydown = (e: KeyboardEvent) => { keys[e.key] = true; if (keys["Enter"]) { saveUserInfo(); } }
+        const handleKeyup = (e: KeyboardEvent) => {keys[e.key] = false;}
+
+        window.addEventListener("keydown", handleKeydown, false);
+        window.addEventListener("keyup", handleKeyup, false);
+
+        return () => {
+            window.removeEventListener("keydown", handleKeydown);
+            window.removeEventListener("keyup", handleKeyup);
+        }
+    });
 
     // 저장 완료/실패 팝업 닫기 버튼 클릭
     const handleSuccessBtnClose = () => { setIsSuccess(""); }
@@ -248,52 +265,64 @@ const UserDetailPage = ({params}: any) => {
                             label="유저 이름 신고 수"
                             marginTop={2}
                         />
-                        <label htmlFor="user-pw" className="block mt-5">비밀번호</label>
-                        <input onChange={handleUserPwChange} id="user-pw" tabIndex={3} defaultValue={user.user_pw} type="text" placeholder="비밀번호" className={`w-full ${userPwAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-xs mt-2 px-3.5 py-2 rounded-lg border-2 placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
-                        {
-                            userPwAlert
-                            ? <div className="text-xs ml-4 mt-1.5 text-theme-red">비밀번호를 올바르게 입력해 주세요.</div>
-                            : <></>
-                        }
-                        <div className="block mt-5">이메일 확인</div>
-                        <div className="w-max h-9 rounded-lg mt-2 px-3.5 flex items-center text-xs bg-theme-4 dark:bg-theme-blue-2">
-                            <div className="mr-1">미확인</div>
+                        <TextInput
+                            onchange={handleUserPwChange}
+                            state={userPwAlert}
+                            stateMsg={[
+                                { state: "", msg: "" },
+                                { state: "empty", msg: "비밀번호를 올바르게 입력해 주세요." }
+                            ]}
+                            value={user.user_pw}
+                            id="user-pw"
+                            tabindex={3}
+                            placeholder="비밀번호"
+                            label="비밀번호"
+                            marginTop={2}
+                        />
+                        <div className="mt-8 font-medium">이메일 확인</div>
+                        <div className="w-max h-12 rounded-lg mt-2 px-3.5 flex items-center text-sm bg-l-d dark:bg-d-4">
+                            <div className="mr-1.5">미확인</div>
                             <Switch
                                 defaultChecked={user.user_email_confirm}
                                 onChange={handleToggleChange}
                                 size="small"
                             />
-                            <div className={`${emailConfirmed ? "text-theme-green" : ""} ml-1.5`}>확인됨</div>
+                            <div className={`${emailConfirmed ? "text-h-1 dark:text-f-8" : ""} ml-1.5`}>확인됨</div>
                         </div>
-                        <label htmlFor="user-email-token" className="flex items-center mt-5">
+                        <label htmlFor="user-email-token" className="mt-8 flex items-center font-medium">
                             이메일 토큰
-                            <button id="token-copy" onClick={copyOnClick} value={user.user_email_token} className="inline-flex items-center leading-loose ml-1.5 text-xs text-theme-yellow dark:text-theme-blue-1">
+                            <button id="token-copy" onClick={copyOnClick} value={user.user_email_token} className="inline-flex items-center ml-2 text-sm text-h-1 dark:text-f-8">
                                 <span className="hover:underline tlg:hover:no-underline">복사하기</span>
                                 <i className="copy_btn hidden ml-1 fa-solid fa-check"></i>
                             </button>
                         </label>
                         <div className="relative mt-2">
-                            <button onClick={regenerateToken} className="group w-[22px] h-[22px] flex justify-center items-center absolute z-10 right-2 top-1/2 -translate-y-1/2 cursor-pointer">
-                                <i className="text-sm text-theme-yellow dark:text-theme-blue-1 duration-200 group-hover:rotate-90 fa-solid fa-rotate"></i>
-                                <div className="tooltip w-max absolute z-10 left-1/2 -top-10 text-xs font-medium leading-none px-3 py-2 rounded-md hidden group-hover:block tlg:group-hover:hidden group-hover:animate-zoom-in-fontbox bg-theme-yellow dark:bg-theme-blue-1 text-theme-3 dark:text-theme-blue-2">토큰 재생성하기</div>
+                            <button onClick={regenerateToken} className="group w-5 h-5 flex justify-center items-center absolute z-10 right-2 top-1/2 -translate-y-1/2 cursor-pointer">
+                                <i className="text-sm text-h-1 dark:text-f-8 duration-200 group-hover:rotate-90 fa-solid fa-rotate"></i>
+                                <div className="tooltip w-max absolute z-10 left-1/2 -top-10 text-sm font-medium leading-none origin-bottom px-3 py-2 rounded-lg hidden group-hover:block tlg:group-hover:hidden group-hover:animate-zoom-in-fontbox bg-h-1 dark:bg-f-8 after:bg-h-1 after:dark:bg-f-8 text-white dark:text-d-2">토큰 재생성하기</div>
                             </button>
-                            <input onChange={handleUserEmailTokenChange} id="user-email-token" tabIndex={4} defaultValue={user.user_email_token} type="text" placeholder="이메일 토큰" className={`w-full ${userEmailTokenAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-xs px-3.5 py-2 rounded-lg border-2 placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
+                            <input onChange={handleUserEmailTokenChange} id="user-email-token" tabIndex={4} defaultValue={user.user_email_token} type="text" placeholder="이메일 토큰" className={`w-full ${userEmailTokenAlert ? 'border-h-r focus:border-h-r' : 'border-l-d dark:border-d-4 focus:border-h-1 focus:dark:border-f-8' } w-full text-sm px-3.5 py-3 rounded-lg border-2 placeholder-l-5 dark:placeholder-d-c bg-l-d dark:bg-d-4`}/>
                         </div>
                         {
                             userEmailTokenAlert
-                            ? <div className="text-xs ml-4 mt-1.5 text-theme-red">이메일 토큰을 올바르게 입력해 주세요.</div>
+                            ? <div className="text-xs text-h-r mt-2 ml-4">이메일 토큰을 올바르게 입력해 주세요.</div>
                             : <></>
                         }
-                        <button onClick={saveUserInfo} className="w-full h-9 rounded-lg mt-5 font-medium text-sm text-theme-4 dark:text-theme-blue-2 bg-theme-yellow/80 hover:bg-theme-yellow tlg:bg-theme-yellow dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:dark:bg-theme-blue-1">
-                            {
-                                isLoading
-                                ? <span className='loader border-2 border-theme-5 border-b-theme-yellow dark:border-b-theme-blue-1 w-4 h-4 mt-0.5'></span>
-                                : <>저장하기</>
-                            }
-                        </button>
+                        <Button marginTop={1}>
+                            <button onClick={saveUserInfo} className="w-full h-full">
+                                {
+                                    isLoading
+                                    ? <span className='loader border-2 border-h-e dark:border-d-6 border-b-h-1 dark:border-b-f-8 w-4 h-4'></span>
+                                    : <>저장하기</>
+                                }
+                            </button>
+                        </Button>
                     </div>
                 </div>
             </div>
+
+            {/* 툴팁 */}
+            <Tooltip/>
 
             {/* 풋터 */}
             <Footer/>

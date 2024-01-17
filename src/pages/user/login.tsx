@@ -163,7 +163,7 @@ const Login = ({params}: any) => {
                             isLabeled={false}
                             marginTop={0.5}
                         />
-                        <Button marginTop={16}>
+                        <Button marginTop={1}>
                             <button onClick={handleLogin} className='w-full h-full flex justify-center items-center'>
                                 {
                                     isLoading

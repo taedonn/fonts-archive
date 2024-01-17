@@ -153,7 +153,7 @@ const FindPw = ({params}: any) => {
                             label="아이디"
                             marginTop={2}
                         />
-                        <Button marginTop={16}>
+                        <Button marginTop={1}>
                             <button onClick={handleOnSubmit} className='w-full h-full flex justify-center items-center'>
                                 {
                                     isLoading

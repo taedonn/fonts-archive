@@ -208,7 +208,7 @@ export default function Header (
                                 </Link>
                                 {
                                     user === null
-                                    ? <Button height={28} marginTop={10}>
+                                    ? <Button height={1.75} marginTop={0.625}>
                                         <Link href="/user/login" onClick={handleLoginClick} className="w-full h-full flex justify-center items-center text-sm">로그인</Link>
                                     </Button>
                                     : <div className="text-sm text-l-2 dark:text-white">
@@ -269,7 +269,7 @@ export default function Header (
                                                 </Link>
                                             </> : <></>
                                         }
-                                        <Button height={28} marginTop={12}>
+                                        <Button height={1.75} marginTop={0.625}>
                                             <button onClick={handleLogout} className="w-full h-full flex justify-center items-center text-sm">로그아웃</button>
                                         </Button>
                                     </div>

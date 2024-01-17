@@ -3,23 +3,37 @@ import prisma from '@/libs/prisma';
 
 const limit = 10;
 
-// SSR 공지 목록 페이지 수
-export async function FetchNoticesLength() {
+// 페이지 수
+export async function FetchNoticesLength(search: string) {
     const notices = await prisma.fontsNotice.findMany({
         select: { notice_id: true },
+        where: {
+            OR: [
+                {notice_title: { contains: search }},
+                {notice_content: { contains: search }},
+            ]
+        },
     });
     const count = Number(notices.length) % limit > 0 ? Math.floor(Number(notices.length)/limit) + 1 : Math.floor(Number(notices.length)/limit);
 
     return count;
 }
 
-// SSR 첫 공지 목록 불러오기
-export async function FetchNotices(lastId: number | undefined) {
+// 목록
+export async function FetchNotices(page: number, filter: string, search: string) {
     const list = await prisma.fontsNotice.findMany({
-        orderBy: [{notice_id: 'desc'}], // 정렬순
-        take: limit, // 가져오는 데이터 수
-        skip: lastId ? 1 : 0,
-        ...(lastId && { cursor: {notice_id: lastId} })
+        where: {
+            notice_type: filter === "all"
+                ? { contains: "" }
+                : filter,
+            OR: [
+                {notice_title: { contains: search }},
+                {notice_content: { contains: search }},
+            ]
+        },
+        orderBy: [{notice_id: "desc"}],
+        skip: (Number(page) - 1) * limit,
+        take: limit,
     });
 
     return list;
@@ -80,50 +94,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 return res.status(500).json({
                     msg: "공지 수정 실패",
                     err: err,
-                });
-            }
-        }
-    } else if (req.method === "GET") {
-        if (req.query.action === "list") {
-            try {
-                const { page, text, filter } = req.query;
-                
-                const texts = [
-                    {notice_title: {contains: text as string}},
-                    {notice_content: {contains: text as string}},
-                ];
-                const filters = filter as string;
-
-                // 공지 목록 페이지 수
-                const length = await prisma.fontsNotice.findMany({
-                    select: { notice_id: true },
-                    where: {
-                        OR: texts,
-                        notice_type: filters === "all" ? {} : filters,
-                    }
-                });
-                const count = Number(length.length) % limit > 0 ? Math.floor(Number(length.length)/limit) + 1 : Math.floor(Number(length.length)/limit);
-
-                // 공지 목록 불러오기
-                const list = await prisma.fontsNotice.findMany({
-                    where: {
-                        OR: texts,
-                        notice_type: filters === "all" ? {} : filters,
-                    },
-                    orderBy: [{notice_id: 'desc'}],
-                    take: limit, // 가져오는 데이터 수
-                    skip: Number(page) === 1 ? 0 : (Number(page) - 1) * limit
-                });
-
-                return res.status(200).json({
-                    message: "공지 목록 불러오기 성공",
-                    list: list,
-                    count: count
-                });
-            } catch (err) {
-                return res.status(500).json({
-                    message: "공지 목록 불러오기 실패",
-                    err: err
                 });
             }
         }

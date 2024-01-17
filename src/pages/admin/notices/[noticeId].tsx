@@ -1,7 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 // next
 import Link from "next/link";
-import { NextSeo } from "next-seo";
 
 // next-auth
 import { getServerSession } from "next-auth";
@@ -16,6 +15,7 @@ import { FetchNotice } from "@/pages/api/admin/notices";
 // libraries
 import axios from "axios";
 import { Switch } from "@mui/material";
+import { NextSeo } from "next-seo";
 
 // components
 import Header from "@/components/header";

@@ -16,7 +16,7 @@ import axios from 'axios';
 import Header from "@/components/header";
 import Footer from '@/components/footer';
 import Tooltip from '@/components/tooltip';
-import SearchInput from '@/components/SearchInput';
+import SearchInput from '@/components/searchinput';
 
 // common
 import { dateFormat } from '@/libs/common';

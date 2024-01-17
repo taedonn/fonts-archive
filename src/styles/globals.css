@@ -108,10 +108,14 @@ html.dark .font-size-slider .MuiSlider-thumb:active { color: #8AB4F8; box-shadow
 
 /* Material UI - Toggle */
 #__next .MuiTouchRipple-root { display: none; }
-#__next .MuiSwitch-thumb { color: #FFFFFF; }
-#__next .Mui-checked .MuiSwitch-thumb { color: #40E0D0; }
-#__next .MuiSwitch-track { background-color: #FFFFFF80; }
-#__next .Mui-checked + .MuiSwitch-track { background-color: #40E0D080; }
+#__next .MuiSwitch-thumb { color: #202124; }
+#__next .Mui-checked .MuiSwitch-thumb { color: #1B73E7; }
+#__next .MuiSwitch-track { background-color: #20212480; }
+#__next .Mui-checked + .MuiSwitch-track { background-color: #1B73E780; }
+html.dark #__next .MuiSwitch-thumb { color: #FFFFFF; }
+html.dark #__next .Mui-checked .MuiSwitch-thumb { color: #8AB4F8; }
+html.dark #__next .MuiSwitch-track { background-color: #FFFFFF80; }
+html.dark #__next .Mui-checked + .MuiSwitch-track { background-color: #8AB4F880; }
 
 /* Material UI - Pagination */
 #__next .MuiPagination-ul button { color: #5F6368; transition: 0s; }

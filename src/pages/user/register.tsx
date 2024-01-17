@@ -328,7 +328,7 @@ const Register = ({params}: any) => {
                             </div>
                         </div>
                         
-                        <Button marginTop={16}>
+                        <Button marginTop={1}>
                             <button onClick={handleOnSubmit} className='w-full h-full flex justify-center items-center'>
                                 {
                                     isLoading

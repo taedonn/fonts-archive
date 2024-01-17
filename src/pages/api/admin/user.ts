@@ -4,7 +4,7 @@ import prisma from '@/libs/prisma';
 const limit = 10;
 
 // 페이지 수
-export async function FetchUsersLength(page: number, search: string) {
+export async function FetchUsersLength(search: string) {
     const users = await prisma.fontsUser.findMany({
         select: { user_no: true },
         where: {

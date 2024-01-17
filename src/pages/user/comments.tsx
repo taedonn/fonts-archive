@@ -21,11 +21,11 @@ import { NextSeo } from 'next-seo';
 import Header from "@/components/header";
 import Footer from '@/components/footer';
 import Tooltip from '@/components/tooltip';
-import SearchInput from '@/components/SearchInput';
+import SearchInput from '@/components/searchinput';
 import DeleteCommentModal from '@/components/deletecommentmodal';
 
 // common
-import { timeFormat } from '@/libs/common';
+import { dateFormat } from '@/libs/common';
 
 const Comments = ({params}: any) => {
     const { theme, userAgent, user, page, filter, search, count, comments } = params;
@@ -120,7 +120,7 @@ const Comments = ({params}: any) => {
                                                         <div className="flex tlg:flex-col items-center tlg:items-start gap-2 mb-2">
                                                             <Link href={`/post/${comment.font_family.replaceAll(" ", "+")}`} className="block text-h-1 dark:text-f-8 hover:underline tlg:hover:no-underline">{comment.font_name}</Link>
                                                             <div className="flex gap-2 items-center">
-                                                                <div className='text-xs text-l-5 dark:text-d-c'>{timeFormat(comment.created_at)}</div>
+                                                                <div className='text-xs text-l-5 dark:text-d-c'>{dateFormat(comment.created_at)}</div>
                                                                 <div className='text-xs text-l-5 dark:text-d-c'>신고수: {comment.reported_politics + comment.reported_swearing + comment.reported_etc}</div>
                                                             </div>
                                                         </div>

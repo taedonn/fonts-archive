@@ -17,6 +17,7 @@ import imageCompression from 'browser-image-compression';
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import Button from "@/components/button";
+import Tooltip from "@/components/tooltip";
 import TextInput from "@/components/textinput";
 import TextArea from "@/components/textarea";
 import SelectBox from "@/components/selectbox";
@@ -449,7 +450,7 @@ const IssueFont = ({params}: any) => {
                             <SelectBox
                                 title="문의 목적"
                                 icon="bi-send"
-                                value="lang"
+                                value="issue"
                                 select={option}
                                 options={[
                                     { value: "font", name: "폰트 관련 제보" },
@@ -551,7 +552,7 @@ const IssueFont = ({params}: any) => {
                                 <div>이미지 파일만 첨부 가능합니다.</div>
                             </div>
                         </div>
-                        <Button marginTop={20}>
+                        <Button marginTop={1.25}>
                             <button onClick={handleSubmit} className="w-full h-full">
                                 {
                                     isLoading === true
@@ -563,6 +564,9 @@ const IssueFont = ({params}: any) => {
                     </div>
                 </div>
             </div>
+
+            {/* 툴팁 */}
+            <Tooltip/>
 
             {/* 풋터 */}
             <Footer/>
