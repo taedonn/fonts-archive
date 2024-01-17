@@ -253,11 +253,7 @@ export default function Header (
                                                 </Link>
                                                 <Link href="/admin/issue/list" className="flex justify-start items-center mt-0.5 hover:text-l-5 hover:dark:text-d-c tlg:hover:text-l-2 tlg:hover:dark:text-white">
                                                     <i className="ml-px mr-2 text-xs fa-regular fa-paper-plane"></i>
-                                                    폰트 제보
-                                                </Link>
-                                                <Link href="/admin/bug/list" className="flex justify-start items-center mt-0.5 hover:text-l-5 hover:dark:text-d-c tlg:hover:text-l-2 tlg:hover:dark:text-white">
-                                                    <i className="ml-px mr-2 text-xs fa-regular fa-paper-plane"></i>
-                                                    버그 제보
+                                                    제보 목록
                                                 </Link>
                                                 <Link href="/admin/notices/add" className="flex justify-start items-center mt-0.5 hover:text-l-5 hover:dark:text-d-c tlg:hover:text-l-2 tlg:hover:dark:text-white">
                                                     <i className="ml-0.5 mr-2 text-xs fa-regular fa-flag"></i>

@@ -20,7 +20,7 @@ import Tooltip from '@/components/tooltip';
 import SearchInput from '@/components/searchinput';
 
 // common
-import { timeFormat } from '@/libs/common';
+import { dateFormat } from '@/libs/common';
 
 const NoticeList = ({params}: any) => {
     const { theme, userAgent, user, page, filter, search, list, count } = params;
@@ -88,7 +88,7 @@ const NoticeList = ({params}: any) => {
                                                         <div className="flex tlg:flex-col items-center tlg:items-start gap-2 mb-2">
                                                             <Link href={`/admin/notices/${notice.notice_id}`} className="block text-h-1 dark:text-f-8 hover:underline tlg:hover:no-underline">{notice.notice_title}</Link>
                                                             <div className="flex gap-2 items-center">
-                                                                <div className='text-xs text-l-5 dark:text-d-c'>{timeFormat(notice.notice_created_at)}</div>
+                                                                <div className='text-xs text-l-5 dark:text-d-c'>{dateFormat(notice.notice_created_at)}</div>
                                                             </div>
                                                         </div>
                                                         <div className='w-full'><div className='ellipsed-text w-full'>{notice.notice_content}</div></div>
@@ -144,7 +144,7 @@ export async function getServerSideProps(ctx: any) {
             // 유저 목록 페이지 수
             const count = await FetchNoticesLength(search);
 
-            // 첫 유저 목록 가져오기
+            // 유저 목록 가져오기
             const list = await FetchNotices(page, filter, search);
 
             return {
