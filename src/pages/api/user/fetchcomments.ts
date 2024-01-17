@@ -1,5 +1,7 @@
 import prisma from '@/libs/prisma';
 
+const limit = 10;
+
 // 페이지 수
 export async function FetchCommentsLength(user: any, search: string) {
     const comments = await prisma.fontsComment.findMany({
@@ -15,10 +17,10 @@ export async function FetchCommentsLength(user: any, search: string) {
                 {comment: { contains: search }}
             ]
         },
-        take: 50,
     });
+    const count = Number(comments.length) % limit > 0 ? Math.floor(Number(comments.length)/limit) + 1 : Math.floor(Number(comments.length)/limit);
 
-    return comments.length;
+    return count;
 }
 
 // 목록
@@ -37,9 +39,9 @@ export async function FetchComments(user: any, page: number, filter: string, sea
         },
         orderBy: filter === "date"
             ? [{comment_id: "desc"}]
-            : [{font_name: "desc"}, {comment_id: "desc"}],
-        skip: (Number(page) - 1) * 10,
-        take: 10,
+            : [{font_name: "asc"}, {comment_id: "desc"}],
+        skip: (Number(page) - 1) * limit,
+        take: limit,
     });
 
     return comments;

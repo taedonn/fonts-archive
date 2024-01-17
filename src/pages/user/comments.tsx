@@ -176,8 +176,7 @@ export async function getServerSideProps(ctx: any) {
             }
         } else {
             // 댓글 페이지 수
-            const length = await FetchCommentsLength(session.user, search);
-            const count = Number(length) % 10 > 0 ? Math.floor(Number(length)/10) + 1 : Math.floor(Number(length)/10);
+            const count = await FetchCommentsLength(session.user, search);
 
             // 첫 댓글 목록 가져오기
             const comments = await FetchComments(session.user, page, filter, search);

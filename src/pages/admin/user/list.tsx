@@ -1,20 +1,20 @@
 // next
 import Link from 'next/link';
-import { NextSeo } from 'next-seo';
+import { useRouter } from 'next/router';
 
 // next-auth
 import { getServerSession } from "next-auth";
 import { authOptions } from '@/pages/api/auth/[...nextauth]';
 
 // react
-import React, { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
 
 // api
 import { FetchUsers, FetchUsersLength } from '@/pages/api/admin/user';
 
 // libraries
-import axios from 'axios';
 import { Pagination } from '@mui/material';
+import { NextSeo } from 'next-seo';
 
 // components
 import Header from "@/components/header";
@@ -24,61 +24,26 @@ import Footer from '@/components/footer';
 import { timeFormat } from '@/libs/common';
 
 const UserList = ({params}: any) => {
-    const { theme, userAgent, user, list, count } = params;
+    const { theme, userAgent, user, page, filter, search, list, count } = params;
 
     // 디바이스 체크
     const isMac: boolean = userAgent.includes("Mac OS") ? true : false;
 
-    // 유저 목록 state
-    const [thisList, setList] = useState(list);
-    const [thisCount, setCount] = useState<number>(count);
-    const [filter, setFilter] = useState<string>('all');
-    const [text, setText] = useState<string>('');
+    const router = useRouter();
 
-    // 유저 목록 ref
-    const selectRef = useRef<HTMLSelectElement>(null);
-    const textRef = useRef<HTMLInputElement>(null);
+    // 페이지 변경
+    const handlePageChange = (e: React.ChangeEvent<unknown>, value: number) => {
+        router.push(`/admin/user/list${value === 1 ? "" : `?page=${value}`}${filter === "date" ? "" : `${value === 1 ? "?" : "&"}filter=${filter}`}${search === "" ? "" : `${value === 1 && filter === "date" ? "?" : "&"}search=${search}`}`);
+    }
 
-    // 유저 목록 페이지 변경
-    const [page, setPage] = useState<number>(1);
-    const handleChange = (e: React.ChangeEvent<unknown>, value: number) => { setPage(value); };
-
-    // 페이지 변경 시 데이터 다시 불러오기
-    useEffect(() => {
-        const fetchNewComments = async () => {
-            await axios.post('/api/admin/user', {
-                action: "list",
-                page: page,
-                filter: filter,
-                text: text
-            })
-            .then((res) => { setList(res.data.list); })
-            .catch(err => console.log(err));
-        }
-        fetchNewComments();
-    }, [filter, text, page]);
+    // 핕터 변경
+    const handleFilterChange = (e: React.MouseEvent<HTMLButtonElement>) => {
+        router.push(`/admin/user/list${e.currentTarget.value === "date" ? "" : `?filter=${e.currentTarget.value}`}${search === "" ? "" : `${page === 1 && e.currentTarget.value === "date" ? "?" : "&"}search=${search}`}`);
+    }
 
     // 검색 버튼 클릭 시 값 state에 저장 후, API 호출
     const handleClick = async () => {
-        if (selectRef &&selectRef.current && textRef && textRef.current) {
-            // state 저장
-            setPage(1);
-            setFilter(selectRef.current.value);
-            setText(textRef.current.value);
-            
-            // API 호출
-            await axios.post('/api/admin/user', {
-                action: "list",
-                page: 1,
-                filter: selectRef.current.value,
-                text: textRef.current.value
-            })
-            .then((res) => {
-                setList(res.data.list);
-                setCount(res.data.count);
-            })
-            .catch(err => console.log(err));
-        }
+        
     }
 
     return (
@@ -98,16 +63,16 @@ const UserList = ({params}: any) => {
 
             {/* 메인 */}
             <form onSubmit={e => e.preventDefault()} className='w-full flex flex-col justify-center items-center'>
-                <div className='w-[720px] tmd:w-full flex flex-col justify-center items-start my-[100px] tlg:my-10'>
-                    <h2 className='text-xl tlg:text-lg text-theme-3 dark:text-theme-9 font-medium mb-4 tlg:mb-3'>유저 목록</h2>
-                    <div className='w-max flex items-center p-1.5 mb-3 tlg:mb-2 rounded-md text-theme-10 dark:text-theme-9 bg-theme-5 dark:bg-theme-3'>
-                        <select ref={selectRef} className='w-[80px] h-8 tlg:h-7 text-xs pt-px px-2.5 bg-transparent rounded-md outline-none border border-theme-6 dark:border-theme-5 cursor-pointer'>
-                            <option value='all' defaultChecked>전체</option>
-                            <option value='email-confirmed'>확인된 이메일만</option>
-                            <option value='nickname-reported'>닉네임 신고 많은 순</option>
-                        </select>
-                        <input ref={textRef} type='textbox' placeholder='유저명/유저 아이디' className='w-[200px] tlg:w-40 h-8 tlg:h-7 ml-2 px-3 text-xs bg-transparent border rounded-md border-theme-6 dark:border-theme-5'/>
-                        <button onClick={handleClick} className='w-[68px] h-8 tlg:h-7 ml-2 text-xs border rounded-md bg-theme-6/40 hover:bg-theme-6/60 tlg:hover:bg-theme-6/40 dark:bg-theme-4 hover:dark:bg-theme-5 tlg:hover:dark:bg-theme-4'>검색</button>
+                <div className='w-[45rem] tmd:w-full px-4 flex flex-col justify-center items-start my-24 tlg:my-16'>
+                    <h2 className='text-2xl tlg:text-xl text-l-2 dark:text-white font-bold mb-4'>유저 목록</h2>
+                    <div className='flex items-center mb-10'>
+                        <input type="textbox" id="search" placeholder="폰트/댓글" defaultValue={search} className="w-60 h-[3.25rem] px-4 border-2 rounded-lg bg-l-e dark:bg-d-4 border-transparent focus:border-h-1 focus:dark:border-f-8 text-l-2 dark:text-white placeholder-l-5 dark:placeholder-d-c"/>
+                        <button onClick={handleClick} className="hidden">검색</button>
+                    </div>
+                    <div className='flex items-center gap-1.5 mb-4'>
+                        <button onClick={handleFilterChange} value="date" className={`${filter === "date" ? "bg-h-1 dark:bg-f-8 text-white dark:text-d-2" : "text-l-5 dark:text-d-c hover:text-h-1 hover:dark:text-f-8"} w-20 h-9 flex justify-center items-center rounded-lg`}>최신순</button>
+                        <button onClick={handleFilterChange} value="name" className={`${filter === "name" ? "bg-h-1 dark:bg-f-8 text-white dark:text-d-2" : "text-l-5 dark:text-d-c hover:text-h-1 hover:dark:text-f-8"} w-20 h-9 flex justify-center items-center rounded-lg`}>이름순</button>
+                        <button onClick={handleFilterChange} value="report" className={`${filter === "report" ? "bg-h-1 dark:bg-f-8 text-white dark:text-d-2" : "text-l-5 dark:text-d-c hover:text-h-1 hover:dark:text-f-8"} w-20 h-9 flex justify-center items-center rounded-lg`}>신고순</button>
                     </div>
                     <div className='w-full rounded-lg overflow-hidden overflow-x-auto'>
                         <div className='w-[720px] text-xs text-theme-10 dark:text-theme-9 bg-theme-4 dark:bg-theme-4'>
@@ -124,10 +89,10 @@ const UserList = ({params}: any) => {
                             </div>
                             <div>
                                 {
-                                    thisList && thisList.length > 0
+                                    list && list.length > 0
                                     ? <>
                                         {
-                                            thisList.map((user: any) => {
+                                            list.map((user: any) => {
                                                 return (
                                                     <div key={user.code} className='h-10 tlg:h-9 relative flex items-center border-t border-theme-5 dark:border-theme-3'>
                                                         <div className='w-[52px] pl-3 shrink-0'>{user.user_no}</div>
@@ -161,7 +126,7 @@ const UserList = ({params}: any) => {
                         </div>
                     </div>
                     <div className='w-full flex justify-center mt-3'>
-                        <Pagination count={thisCount} page={page} onChange={handleChange} shape='rounded' showFirstButton showLastButton/>
+                        <Pagination count={count} page={page} onChange={handlePageChange} shape='rounded'/>
                     </div>
                 </div>
             </form>
@@ -176,6 +141,11 @@ export async function getServerSideProps(ctx: any) {
     try {
         // 쿠키 체크
         const { theme } = ctx.req.cookies;
+
+        // 쿼리 체크
+        const page = ctx.query.page === undefined ? 1 : ctx.query.page;
+        const filter = ctx.query.filter === undefined ? "date" : ctx.query.filter;
+        const search = ctx.query.search === undefined ? "" : ctx.query.search;
 
         // 디바이스 체크
         const userAgent = ctx.req ? ctx.req.headers['user-agent'] : navigator.userAgent;
@@ -192,10 +162,10 @@ export async function getServerSideProps(ctx: any) {
             }
         } else {
             // 유저 목록 페이지 수
-            const count = await FetchUsersLength();
+            const count = await FetchUsersLength(page, search);
 
             // 첫 유저 목록 가져오기
-            const list: any = await FetchUsers(undefined);
+            const list: any = await FetchUsers(page, filter, search);
 
             return {
                 props: {
@@ -203,6 +173,9 @@ export async function getServerSideProps(ctx: any) {
                         theme: theme ? theme : 'light',
                         userAgent: userAgent,
                         user: session === null ? null : session.user,
+                        page: page,
+                        filter: filter,
+                        search: search,
                         list: JSON.parse(JSON.stringify(list)),
                         count: count,
                     }
