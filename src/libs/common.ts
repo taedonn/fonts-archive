@@ -13,3 +13,10 @@ export function timeFormat(date: string) {
     const splitDate = date.split('-');
     return splitDate[0].replace("20", "") + '.' + splitDate[1] + '.' + timeSplit(splitDate[2].replace('T', ' ').replace('Z', ''));
 }
+
+/** 문자열에서 숫자 추출 */
+export function getIntFromString(string: string) {
+    const regex = /[^0-9]/g;
+    const result = string.replace(regex, '');
+    return parseInt(result);
+}

@@ -4,6 +4,7 @@ import { useRef, useState, useEffect } from "react";
 // next
 import Script from "next/script";
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 // libraries
 import axios from "axios";
@@ -11,6 +12,9 @@ import axios from "axios";
 // components
 import DeleteCommentModal from "@/components/deletecommentmodal";
 import ReportCommentModal from "@/components/reportcommentmodal";
+
+// common
+import { getIntFromString } from "@/libs/common";
 
 declare global {
     interface Window {
@@ -43,6 +47,7 @@ export default function Comments (
     const [deleteModalDisplay, setDeleteModalDisplay] = useState<boolean>(false);
     const [reportModalDisplay, setReportModalDisplay] = useState<boolean>(false);
     const [commentId, setCommentId] = useState<number>(0);
+    const [bundleId, setBundleId] = useState<number>(0);
     const [reports, setReports] = useState(report);
     const [shareExpand, setShareExpand] = useState<boolean>(false);
 
@@ -51,6 +56,9 @@ export default function Comments (
     const commentBtnRef = useRef<HTMLButtonElement>(null);
     const shareExpandBtn = useRef<HTMLLabelElement>(null);
     const shareExpandContent = useRef<HTMLDivElement>(null);
+
+    // router
+    const router = useRouter();
 
     useEffect(() => {
         setComments(comment);
@@ -138,7 +146,8 @@ export default function Comments (
     /** 댓글 삭제 모달창 열기 */
     const deleteCommentModalOpen = (e: React.MouseEvent<HTMLButtonElement>) => {
         setDeleteModalDisplay(true);
-        setCommentId(getIntFromString(e.currentTarget.id));
+        setCommentId(Number(e.currentTarget.dataset.comment));
+        setBundleId(Number(e.currentTarget.dataset.bundle));
     }
 
     /** 댓글 삭제 모달창 닫기 */
@@ -147,20 +156,11 @@ export default function Comments (
     }
 
     /** 댓글 삭제 시 댓글 업데이트 */
-    const updateComments = (comments: any) => {
-        setComments(comments);
-    }
+    const updateComments = () => { router.reload(); }
 
     /** 신고 업데이트 */
     const updateReports = (reports: any) => {
         setReports(reports);
-    }
-
-    /** 문자열에서 숫자 추출 */
-    const getIntFromString = (string: string) => {
-        const regex = /[^0-9]/g;
-        const result = string.replace(regex, '');
-        return parseInt(result);
     }
 
     /** 댓글 수정하기 버튼 클릭 */
@@ -477,7 +477,7 @@ export default function Comments (
                 close={deleteCommentModalClose}
                 font_id={font.code}
                 comment_id={commentId}
-                user_id={1}
+                bundle_id={bundleId}
                 update={updateComments}
             />
 
@@ -630,7 +630,7 @@ export default function Comments (
                                                                             수정
                                                                         </label>
                                                                         <div className="w-px h-3 bg-l-2 dark:bg-white"></div>
-                                                                        <button id={`delete-comment-${comment.comment_id}`} onClick={deleteCommentModalOpen} className="flex gap-1 items-center text-l-2 hover:text-h-1 tlg:hover:text-l-2 dark:text-white hover:dark:text-f-8 tlg:hover:dark:text-white">
+                                                                        <button id={`delete-comment-${comment.comment_id}`} data-comment={comment.comment_id} data-bundle={comment.bundle_id} onClick={deleteCommentModalOpen} className="flex gap-1 items-center text-l-2 hover:text-h-1 tlg:hover:text-l-2 dark:text-white hover:dark:text-f-8 tlg:hover:dark:text-white">
                                                                             <i className="text-[0.625rem] fa-regular fa-trash-can"></i>
                                                                             삭제
                                                                         </button>

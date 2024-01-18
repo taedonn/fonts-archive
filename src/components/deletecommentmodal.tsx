@@ -7,24 +7,29 @@ import axios from "axios";
 // components
 import Button from "@/components/button";
 
-export default function DeleteCommentModal(
-    {
-        display,
-        close,
-        font_id,
-        comment_id,
-        user_id,
-        update,
-    }:
-    {
-        display: boolean, 
-        close: any,
-        font_id: number,
-        comment_id: number,
-        user_id: number,
-        update: any
-    }
-) {
+const defaultDeleteCommentModal = {
+    admin: false,
+}
+
+interface DeleteCommentModal {
+    display: boolean,
+    close: () => void,
+    font_id: number,
+    comment_id: number,
+    bundle_id: number,
+    update: () => void,
+    admin?: boolean,
+}
+
+export default function DeleteCommentModal({
+    display,
+    close,
+    font_id,
+    comment_id,
+    bundle_id,
+    update,
+    admin=defaultDeleteCommentModal.admin,
+}: DeleteCommentModal) {
     // refs
     const thisModal = useRef<HTMLDivElement>(null);
 
@@ -60,16 +65,31 @@ export default function DeleteCommentModal(
 
     /** 댓글 삭제 */
     const deleteComment = async () => {
-        await axios.post('/api/post/comments', {
-            action: 'delete-comment',
-            font_id: font_id,
-            comment_id: comment_id
-        })
-        .then(async (res) => {
-            console.log(res.data.msg);
-            update(res.data.comments);
-        })
-        .catch(err => console.log(err));
+        if (admin) {
+            await axios.post('/api/post/comments', {
+                action: 'delete-comment-by-admin',
+                font_id: font_id,
+                comment_id: comment_id,
+                bundle_id: bundle_id,
+            })
+            .then(async (res) => {
+                update();
+                console.log(res.data.msg);
+            })
+            .catch(err => console.log(err));
+        } else {
+            await axios.post('/api/post/comments', {
+                action: 'delete-comment',
+                font_id: font_id,
+                comment_id: comment_id,
+                bundle_id: bundle_id,
+            })
+            .then(async (res) => {
+                update();
+                console.log(res.data.msg);
+            })
+            .catch(err => console.log(err));
+        }
 
         // 모달창 닫기
         close();

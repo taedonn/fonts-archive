@@ -5,7 +5,7 @@ const limit = 10;
 // 페이지 수
 export async function FetchCommentsLength(user: any, search: string) {
     const comments = await prisma.fontsComment.findMany({
-        select: { user_id: true },
+        select: { comment_id: true },
         where: {
             user_email: user.email,
             user_auth: user.provier,

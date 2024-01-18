@@ -1,96 +1,58 @@
 // next
 import Link from 'next/link';
-import { NextSeo } from 'next-seo';
+import { useRouter } from 'next/router';
 
 // next-auth
 import { getServerSession } from "next-auth";
 import { authOptions } from '@/pages/api/auth/[...nextauth]';
 
 // react
-import React, { useState, useRef, useEffect } from 'react';
+import { useState } from 'react';
 
 // libraries
-import axios from 'axios';
 import { Pagination } from '@mui/material';
+import { NextSeo } from 'next-seo';
 
-import { FetchCommentsLength } from '@/pages/api/admin/comment';
-import { FetchComments } from '@/pages/api/admin/comment';
+import { FetchCommentsLength, FetchComments } from '@/pages/api/admin/comment';
 
 // components
 import Header from "@/components/header";
 import Footer from '@/components/footer';
-import AdminDeleteCommentModal from '@/components/admindeletecommentmodal';
+import DeleteCommentModal from '@/components/deletecommentmodal';
+import SearchInput from '@/components/searchinput';
 
 // common
 import { timeFormat } from '@/libs/common';
 
 const CommentList = ({params}: any) => {
-    const { theme, userAgent, user, comments, count } = params;
+    const { theme, userAgent, user, page, filter, search, comments, count } = params;
 
     // 디바이스 체크
     const isMac: boolean = userAgent.includes("Mac OS") ? true : false;
 
+    // router
+    const router = useRouter();
+
     // states
-    const [thisComments, setComments] = useState(JSON.parse(comments));
-    const [thisCount, setCount] = useState<number>(count);
-    const [text, setText] = useState<string>('');
-    const [filter, setFilter] = useState<string>('');
-    const [page, setPage] = useState<number>(1);
     const [fontId, setFontId] = useState<number>(0);
     const [commentId, setCommentId] = useState<number>(0);
+    const [bundleId, setBundleId] = useState<number>(0);
     const [deleteModalDisplay, setDeleteModalDisplay] = useState<boolean>(false);
 
-    // refs
-    const selectRef = useRef<HTMLSelectElement>(null);
-    const textRef = useRef<HTMLInputElement>(null);
+    // 페이지 변경
+    const handlePageChange = (e: React.ChangeEvent<unknown>, value: number) => {
+        router.push(`/user/comments${value === 1 ? "" : `?page=${value}`}${filter === "date" ? "" : `${value === 1 ? "?" : "&"}filter=${filter}`}${search === "" ? "" : `${value === 1 && filter === "date" ? "?" : "&"}search=${search}`}`);
+    }
 
-    // 댓글 목록 페이지 변경
-    const handleChange = (e: React.ChangeEvent<unknown>, value: number) => {
-        setPage(value);
-    };
+    // 핕터 변경
+    const handleFilterChange = (e: React.MouseEvent<HTMLButtonElement>) => {
+        router.push(`/user/comments${e.currentTarget.value === "date" ? "" : `?filter=${e.currentTarget.value}`}${search === "" ? "" : `${page === 1 && e.currentTarget.value === "date" ? "?" : "&"}search=${search}`}`);
+    }
 
-    // 페이지 변경 시 데이터 다시 불러오기
-    useEffect(() => {
-        const fetchNewComments = async () => {
-            await axios.get('/api/admin/comment', {
-                params: {
-                    action: 'list',
-                    page: page,
-                    text: text,
-                    filter: filter,
-                }
-            })
-            .then((res) => {
-                setComments(res.data.comments);
-            })
-            .catch(err => console.log(err));
-        }
-        fetchNewComments();
-    }, [params.user.user_no, page, text, filter]);
-
-    // 댓글 필터 버튼 클릭 시 값 state에 저장 후, API 호출
-    const handleClick = async () => {
-        if (selectRef &&selectRef.current && textRef && textRef.current) {
-            // state 저장
-            setPage(1);
-            setText(textRef.current.value);
-            setFilter(selectRef.current.value);
-            
-            // API 호출
-            await axios.get('/api/admin/comment', {
-                params: {
-                    action: 'list',
-                    page: 1,
-                    text: textRef.current.value,
-                    filter: selectRef.current.value,
-                }
-            })
-            .then((res) => {
-                setComments(res.data.comments);
-                setCount(res.data.count);
-            })
-            .catch(err => console.log(err));
-        }
+    // 검색어 변경
+    const handleSearchClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+        const input = document.getElementById("search") as HTMLInputElement;
+        router.push(`/user/comments${filter === "date" ? "" : `?filter=${filter}`}${input.value === "" ? "" : `${page === 1 && filter === "date" ? "?" : "&"}search=${input.value}`}`);
     }
 
      /** 댓글 삭제 모달창 열기 */
@@ -98,17 +60,14 @@ const CommentList = ({params}: any) => {
         setDeleteModalDisplay(true);
         setFontId(Number(e.currentTarget.dataset.font));
         setCommentId(Number(e.currentTarget.dataset.comment));
+        setBundleId(Number(e.currentTarget.dataset.bundle));
     }
 
     /** 댓글 삭제 모달창 닫기 */
-    const deleteCommentModalClose = () => {
-        setDeleteModalDisplay(false);
-    }
+    const deleteCommentModalClose = () => { setDeleteModalDisplay(false); }
 
     /** 댓글 삭제 시 댓글 업데이트 */
-    const updateComments = (comments: any) => {
-        setComments(comments);
-    }
+    const updateComments = () => { router.reload(); }
 
     return (
         <>
@@ -126,80 +85,61 @@ const CommentList = ({params}: any) => {
             />
 
             {/* 댓글 삭제 모달 */}
-            <AdminDeleteCommentModal
+            <DeleteCommentModal
                 display={deleteModalDisplay}
                 close={deleteCommentModalClose}
                 font_id={fontId}
                 comment_id={commentId}
-                user_id={0}
+                bundle_id={bundleId}
                 update={updateComments}
-                page={page}
-                text={text}
-                filter={filter}
+                admin
             />
 
             {/* 메인 */}
-            <form onSubmit={e => e.preventDefault()} className='w-full flex flex-col justify-center items-center'>
-                <div className='w-[720px] tmd:w-full flex flex-col justify-center items-start my-[100px] tlg:my-10'>
-                    <h2 className='text-xl tlg:text-lg text-theme-3 dark:text-theme-9 font-medium mb-4 tlg:mb-3'>댓글 목록</h2>
-                    <div className='w-max flex items-center p-1.5 mb-3 tlg:mb-2 rounded-md text-theme-10 dark:text-theme-9 bg-theme-5 dark:bg-theme-3'>
-                        <select ref={selectRef} className='w-20 h-8 tlg:h-7 text-xs pt-px px-3.5 bg-transparent rounded-md outline-none border border-theme-6 dark:border-theme-5 cursor-pointer'>
-                            <option value='all' defaultChecked>전체</option>
-                            <option value='font'>폰트</option>
-                            <option value='user'>작성자</option>
-                            <option value='comment'>댓글</option>
-                        </select>
-                        <input ref={textRef} type='textbox' placeholder='폰트/작성자/댓글' className='w-[200px] tlg:w-40 h-8 tlg:h-7 ml-2 px-3 text-xs bg-transparent border rounded-md border-theme-6 dark:border-theme-5'/>
-                        <button onClick={handleClick} className='w-[68px] h-8 tlg:h-7 ml-2 text-xs border rounded-md bg-theme-6/40 hover:bg-theme-6/60 tlg:hover:bg-theme-6/40 dark:bg-theme-4 hover:dark:bg-theme-5 tlg:hover:dark:bg-theme-4'>검색</button>
+            <form onSubmit={e => e.preventDefault()} className='w-full px-4 flex flex-col justify-center items-center'>
+                <div className='w-[45rem] tmd:w-full flex flex-col justify-center items-start my-24 tlg:my-16'>
+                    <h2 className='text-2xl tlg:text-xl text-l-2 dark:text-white font-bold mb-4'>댓글 목록</h2>
+                    <div className='flex items-center mb-10'>
+                        <SearchInput id="search" placeholder="폰트/댓글" value={search}/>
+                        <button onClick={handleSearchClick} className="hidden">검색</button>
                     </div>
-                    <div className='w-full rounded-lg overflow-hidden overflow-x-auto'>
-                        <table className='w-[720px] text-xs text-theme-10 dark:text-theme-9 bg-theme-4 dark:bg-theme-4'>
-                            <thead className='text-left bg-theme-5 dark:bg-theme-3'>
-                                <tr>
-                                    <th className='h-10 tlg:h-9 w-14 pl-4'>번호</th>
-                                    <th className='w-[100px] pl-4'>폰트</th>
-                                    <th className='w-20 pl-4'>작성자</th>
-                                    <th className='pl-4'>댓글</th>
-                                    <th className='w-[100px] pl-4'>수정 날짜</th>
-                                    <th className='w-[100px] pl-4'>작성 날짜</th>
-                                    <th className='w-20 text-center'>댓글 삭제</th>
-                                </tr>
-                            </thead>
-                            <tbody>
+                    <div className='flex items-center gap-1.5 mb-4'>
+                        <button onClick={handleFilterChange} value="date" className={`${filter === "date" ? "bg-h-1 dark:bg-f-8 text-white dark:text-d-2" : "text-l-5 dark:text-d-c hover:text-h-1 hover:dark:text-f-8"} w-20 h-9 flex justify-center items-center rounded-lg`}>최신순</button>
+                        <button onClick={handleFilterChange} value="name" className={`${filter === "name" ? "bg-h-1 dark:bg-f-8 text-white dark:text-d-2" : "text-l-5 dark:text-d-c hover:text-h-1 hover:dark:text-f-8"} w-20 h-9 flex justify-center items-center rounded-lg`}>이름순</button>
+                    </div>
+                    <div className='w-full'>
+                        <div className='w-full text-sm text-l-2 dark:text-white'>
+                            <div className='flex flex-col gap-3'>
                                 {
-                                    thisComments && thisComments.length > 0
+                                    comments && comments.length > 0
                                     ? <>
                                         {
-                                            thisComments.map((comment: any) => {
+                                            comments.map((comment: any) => {
                                                 return (
-                                                    <tr key={comment.comment_id} className='border-t border-theme-5 dark:border-theme-3'>
-                                                        <td className='h-10 tlg:h-9 pl-4 py-2.5'>{comment.comment_id}</td>
-                                                        <td className='pl-4 py-2.5 break-keep'><Link href={`/post/${comment.font_family.replaceAll(" ", "+")}`} className='ellipsed-text text-theme-yellow dark:text-theme-blue-1 focus:underline hover:underline tlg:hover:no-underline'>{comment.font_name}</Link></td>
-                                                        <td className='pl-4 py-2.5 break-keep'><Link href={`/admin/user/${comment.user_id}`} className='ellipsed-text focus:underline hover:underline tlg:hover:no-underline'>{comment.user_name}</Link></td>
-                                                        <td className='pl-4 py-2.5 break-keep'><Link href={`/post/${comment.font_family.replaceAll(" ", "+")}#c${comment.comment_id}`} className='ellipsed-text focus:underline hover:underline tlg:hover:no-underline'>{comment.comment}</Link></td>
-                                                        <td className='pl-4 py-2.5'>{timeFormat(comment.updated_at)}</td>
-                                                        <td className='pl-4 py-2.5'>{timeFormat(comment.created_at)}</td>
-                                                        <td className='py-2.5 relative'>
-                                                            <div className='absolute w-full h-full left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex justify-center items-center'>
-                                                                <button onClick={deleteCommentModalOpen} data-font={comment.font_id} data-comment={comment.comment_id} className='group w-5 h-5 flex justify-center items-center'>
-                                                                    <i className="text-xs text-theme-10 group-hover:text-theme-yellow tlg:group-hover:text-theme-10 dark:text-theme-9 group-hover:dark:text-theme-blue-1 tlg:group-hover:dark:text-theme-9 fa-regular fa-trash-can"></i>
-                                                                </button>
+                                                    <div key={comment.comment_id} className='px-6 py-4 relative rounded-lg bg-l-e dark:bg-d-4'>
+                                                        <div className="flex tlg:flex-col items-center tlg:items-start gap-2 mb-2">
+                                                            <Link href={`/post/${comment.font_family.replaceAll(" ", "+")}`} className="block text-h-1 dark:text-f-8 hover:underline tlg:hover:no-underline">{comment.font_name}</Link>
+                                                            <div className="flex gap-2 items-center">
+                                                                <div className='text-xs text-l-5 dark:text-d-c'>{timeFormat(comment.created_at)}</div>
+                                                                <div className='text-xs text-l-5 dark:text-d-c'>신고수: {comment.reported_politics + comment.reported_swearing + comment.reported_etc}</div>
                                                             </div>
-                                                        </td>
-                                                    </tr>
+                                                        </div>
+                                                        <div className="pr-10"><Link href={`/post/${comment.font_family.replaceAll(" ", "+")}#comment-section`} className='ellipsed-text w-full hover:underline tlg:hover:no-underline'>{comment.comment}</Link></div>
+                                                        <button onClick={deleteCommentModalOpen} data-font={comment.font_id} data-comment={comment.comment_id} data-bundle={comment.bundle_id} className='group absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full flex justify-center items-center hover:bg-l-d hover:dark:bg-d-6 tlg:hover:bg-transparent tlg:hover:dark:bg-transparent'>
+                                                            <i className="text-base text-l-2 dark:text-white fa-regular fa-trash-can"></i>
+                                                        </button>
+                                                    </div>
                                                 )
                                             })
                                         }
                                     </>
-                                    : <tr className='h-[60px]'>
-                                        <td colSpan={7} className='text-center'>댓글이 없습니다.</td>
-                                    </tr>
+                                    : <div className='h-16 text-base flex justify-center items-center text-center'>댓글이 없습니다.</div>
                                 }
-                            </tbody>
-                        </table>
+                            </div>
+                        </div>
                     </div>
                     <div className='w-full flex justify-center mt-3'>
-                        <Pagination count={thisCount} page={page} onChange={handleChange} shape='rounded' showFirstButton showLastButton/>
+                        <Pagination count={count} page={Number(page)} onChange={handlePageChange} shape='rounded'/>
                     </div>
                 </div>
             </form>
@@ -214,6 +154,11 @@ export async function getServerSideProps(ctx: any) {
     try {
         // 쿠키 체크
         const { theme } = ctx.req.cookies;
+
+        // 쿼리 체크
+        const page = ctx.query.page === undefined ? 1 : ctx.query.page;
+        const filter = ctx.query.filter === undefined ? "date" : ctx.query.filter;
+        const search = ctx.query.search === undefined ? "" : ctx.query.search;
 
         // 디바이스 체크
         const userAgent = ctx.req ? ctx.req.headers['user-agent'] : navigator.userAgent;
@@ -230,10 +175,10 @@ export async function getServerSideProps(ctx: any) {
             }
         } else {
             // 유저 목록 페이지 수
-            const count = await FetchCommentsLength();
+            const count = await FetchCommentsLength(search);
 
             // 첫 유저 목록 가져오기
-            const comments: any = await FetchComments(undefined);
+            const comments = await FetchComments(page, filter, search);
 
             return {
                 props: {
@@ -241,7 +186,10 @@ export async function getServerSideProps(ctx: any) {
                         theme: theme ? theme : 'light',
                         userAgent: userAgent,
                         user: session === null ? null : session.user,
-                        comments: JSON.stringify(comments),
+                        page: page,
+                        filter: filter,
+                        search: search,
+                        comments: JSON.parse(JSON.stringify(comments)),
                         count: count,
                     }
                 }

@@ -10,8 +10,7 @@ import { authOptions } from '../api/auth/[...nextauth]';
 import { useState } from 'react';
 
 // api
-import { FetchCommentsLength } from '../api/user/fetchcomments'
-import { FetchComments } from '../api/user/fetchcomments';
+import { FetchCommentsLength, FetchComments } from '../api/user/fetchcomments'
 
 // libraries
 import { Pagination } from '@mui/material';
@@ -38,6 +37,7 @@ const Comments = ({params}: any) => {
     // states
     const [fontId, setFontId] = useState<number>(0);
     const [commentId, setCommentId] = useState<number>(0);
+    const [bundleId, setBundleId] = useState<number>(0);
     const [deleteModalDisplay, setDeleteModalDisplay] = useState<boolean>(false);
 
     // 페이지 변경
@@ -61,6 +61,7 @@ const Comments = ({params}: any) => {
         setDeleteModalDisplay(true);
         setFontId(Number(e.currentTarget.dataset.font));
         setCommentId(Number(e.currentTarget.dataset.comment));
+        setBundleId(Number(e.currentTarget.dataset.bundle));
     }
 
     /** 댓글 삭제 모달창 닫기 */
@@ -90,7 +91,7 @@ const Comments = ({params}: any) => {
                 close={deleteCommentModalClose}
                 font_id={fontId}
                 comment_id={commentId}
-                user_id={user.user_no}
+                bundle_id={bundleId}
                 update={updateComments}
             />
 
@@ -124,7 +125,7 @@ const Comments = ({params}: any) => {
                                                             </div>
                                                         </div>
                                                         <div className="pr-10"><Link href={`/post/${comment.font_family.replaceAll(" ", "+")}#comment-section`} className='ellipsed-text w-full hover:underline tlg:hover:no-underline'>{comment.comment}</Link></div>
-                                                        <button onClick={deleteCommentModalOpen} data-font={comment.font_id} data-comment={comment.comment_id} className='group absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full flex justify-center items-center hover:bg-l-d hover:dark:bg-d-6 tlg:hover:bg-transparent tlg:hover:dark:bg-transparent'>
+                                                        <button onClick={deleteCommentModalOpen} data-font={comment.font_id} data-comment={comment.comment_id} data-bundle={comment.bundle_id} className='group absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full flex justify-center items-center hover:bg-l-d hover:dark:bg-d-6 tlg:hover:bg-transparent tlg:hover:dark:bg-transparent'>
                                                             <i className="text-base text-l-2 dark:text-white fa-regular fa-trash-can"></i>
                                                         </button>
                                                     </div>
