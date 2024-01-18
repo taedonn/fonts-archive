@@ -156,7 +156,7 @@ const NoticesAdd = ({params}: any) => {
                             </div> : <></>
                         }
                     </div>
-                    <div className='w-full p-10 rounded-lg text-l-2 dark:text-white bg-l-e dark:bg-d-3 drop-shadow-default dark:drop-shadow-dark'>
+                    <div className='w-full p-5 rounded-lg text-l-2 dark:text-white bg-l-e dark:bg-d-3 drop-shadow-default dark:drop-shadow-dark'>
                         <div className="w-full flex flex-col">
                             <SelectBox
                                 title="문의 종류"

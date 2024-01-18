@@ -442,17 +442,17 @@ function DetailPage({params}: any) {
                     ? <></>
                     : <div className="flex flex-col justify-start items-start mb-20 tlg:mb-16">
                         <h2 className="text-2xl tlg:text-xl text-d-2 dark:text-white font-medium mb-4 tlg:mb-3">웹 폰트</h2>
-                        <div className="w-full mb-3.5 gap-2.5 flex tlg:flex-wrap justify-start items-center">
+                        <div className="w-full mb-3 gap-3 flex tlg:flex-wrap justify-start items-center tlg:text-sm">
                             <input onChange={handleWebFont} type="radio" id="cdn_css" name="cdn" value="CSS" className="peer/css hidden" defaultChecked/>
-                            <label htmlFor="cdn_css" className="w-28 tlg:w-[calc(50%-0.313rem)] h-10 rounded-lg flex justify-center items-center cursor-pointer peer-checked/css:bg-h-1 peer-checked/css:dark:bg-f-8 peer-checked/css:text-white peer-checked/css:dark:text-d-2 tlg:bg-l-e tlg:dark:bg-d-4 text-l-2 dark:text-white hover:text-h-1 hover:dark:text-f-8 tlg:hover:text-l-2 tlg:hover:dark:text-white">CSS</label>
+                            <label htmlFor="cdn_css" className="w-28 tlg:w-[calc(50%-0.375rem)] h-11 rounded-lg flex justify-center items-center cursor-pointer peer-checked/css:bg-h-1 peer-checked/css:dark:bg-f-8 peer-checked/css:text-white peer-checked/css:dark:text-d-2 tlg:bg-l-e tlg:dark:bg-d-4 text-l-2 dark:text-white hover:text-h-1 hover:dark:text-f-8 tlg:hover:text-l-2 tlg:hover:dark:text-white">CSS</label>
                             <input onChange={handleWebFont} type="radio" id="cdn_link" name="cdn" value="link" className="peer/link hidden"/>
-                            <label htmlFor="cdn_link" className="w-28 tlg:w-[calc(50%-0.313rem)] h-10 rounded-lg flex justify-center items-center cursor-pointer peer-checked/link:bg-h-1 peer-checked/link:dark:bg-f-8 peer-checked/link:text-white peer-checked/link:dark:text-d-2 tlg:bg-l-e tlg:dark:bg-d-4 text-l-2 dark:text-white hover:text-h-1 hover:dark:text-f-8 tlg:hover:text-l-2 tlg:hover:dark:text-white">&#60;link/&#62;</label>
+                            <label htmlFor="cdn_link" className="w-28 tlg:w-[calc(50%-0.375rem)] h-11 rounded-lg flex justify-center items-center cursor-pointer peer-checked/link:bg-h-1 peer-checked/link:dark:bg-f-8 peer-checked/link:text-white peer-checked/link:dark:text-d-2 tlg:bg-l-e tlg:dark:bg-d-4 text-l-2 dark:text-white hover:text-h-1 hover:dark:text-f-8 tlg:hover:text-l-2 tlg:hover:dark:text-white">&#60;link/&#62;</label>
                             <input onChange={handleWebFont} type="radio" id="cdn_import" name="cdn" value="import" className="peer/import hidden"/>
-                            <label htmlFor="cdn_import" className="w-28 tlg:w-[calc(50%-0.313rem)] h-10 rounded-lg flex justify-center items-center cursor-pointer peer-checked/import:bg-h-1 peer-checked/import:dark:bg-f-8 peer-checked/import:text-white peer-checked/import:dark:text-d-2 tlg:bg-l-e tlg:dark:bg-d-4 text-l-2 dark:text-white hover:text-h-1 hover:dark:text-f-8 tlg:hover:text-l-2 tlg:hover:dark:text-white">@import</label>
+                            <label htmlFor="cdn_import" className="w-28 tlg:w-[calc(50%-0.375rem)] h-11 rounded-lg flex justify-center items-center cursor-pointer peer-checked/import:bg-h-1 peer-checked/import:dark:bg-f-8 peer-checked/import:text-white peer-checked/import:dark:text-d-2 tlg:bg-l-e tlg:dark:bg-d-4 text-l-2 dark:text-white hover:text-h-1 hover:dark:text-f-8 tlg:hover:text-l-2 tlg:hover:dark:text-white">@import</label>
                             <input onChange={handleWebFont} type="radio" id="cdn_font_face" name="cdn" value="font-face" className="peer/font-face hidden"/>
-                            <label htmlFor="cdn_font_face" className="w-28 tlg:w-[calc(50%-0.313rem)] h-10 rounded-lg flex justify-center items-center cursor-pointer peer-checked/font-face:bg-h-1 peer-checked/font-face:dark:bg-f-8 peer-checked/font-face:text-white peer-checked/font-face:dark:text-d-2 tlg:bg-l-e tlg:dark:bg-d-4 text-l-2 dark:text-white hover:text-h-1 hover:dark:text-f-8 tlg:hover:text-l-2 tlg:hover:dark:text-white">@font-face</label>
+                            <label htmlFor="cdn_font_face" className="w-28 tlg:w-[calc(50%-0.375rem)] h-11 rounded-lg flex justify-center items-center cursor-pointer peer-checked/font-face:bg-h-1 peer-checked/font-face:dark:bg-f-8 peer-checked/font-face:text-white peer-checked/font-face:dark:text-d-2 tlg:bg-l-e tlg:dark:bg-d-4 text-l-2 dark:text-white hover:text-h-1 hover:dark:text-f-8 tlg:hover:text-l-2 tlg:hover:dark:text-white">@font-face</label>
                         </div>
-                        <div className="w-[58.25rem] tlg:w-full rounded-lg bg-l-e dark:bg-d-4 text-l-2 dark:text-white">
+                        <div className="w-[58.25rem] tlg:w-full tlg:text-sm rounded-lg bg-l-e dark:bg-d-4 text-l-2 dark:text-white">
                             {
                                 webFont === "CSS"
                                 ? <div className="w-full relative pl-6 pr-16 tlg:pr-[3.75rem] overflow-hidden">
@@ -507,15 +507,15 @@ function DetailPage({params}: any) {
                         </div>
                     </div>
                 }
-                <div className="max-w-full w-max flex flex-col justify-start items-start mb-20 tmd:mb-16">
+                <div className="max-w-full w-max tlg:w-full flex flex-col justify-start items-start mb-20 tmd:mb-16">
                     <h2 className="text-2xl tlg:text-xl text-l-2 dark:text-white font-medium mb-4 tlg:mb-3">폰트 미리보기</h2>
                     <div className="w-full px-4 py-2 mb-4 border-b border-l-b dark:border-d-6">
                         <textarea onChange={handleFontWeightChange} onInput={handleHeightChange} placeholder="원하는 문구를 적어보세요." className="w-full h-[1.5rem] resize-none text-l-2 dark:text-white placeholder-l-5 dark:placeholder-d-c leading-tight bg-transparent"/>
                     </div>
-                    <div className="max-w-full rounded-lg pt-6 bg-l-e dark:bg-d-4">
-                        <div className="w-full px-6 flex flex-wrap justify-start items-center gap-20 tlg:gap-8 mb-8">
-                            <div className="flex flex-col justify-center items-start">
-                                <div className="w-44 flex items-center mb-1">
+                    <div className="max-w-full tlg:w-full rounded-lg pt-6 bg-l-e dark:bg-d-4">
+                        <div className="w-full px-6 flex flex-wrap justify-start items-center gap-20 tlg:gap-6 mb-8">
+                            <div className="w-60 tlg:w-full flex flex-col justify-center items-start">
+                                <div className="w-full flex items-center mb-1">
                                     <SelectBox
                                         height={3.5}
                                         title="폰트 크기"
@@ -529,7 +529,7 @@ function DetailPage({params}: any) {
                                         optionChange={handleFontUnit}
                                     />
                                 </div>
-                                <div className="w-60 relative flex gap-2 items-center">
+                                <div className="w-full relative flex gap-2 items-center">
                                     <div className="text-center text-sm text-l-2 dark:text-white">{fontUnit === "px" ? 12 : 9}{fontUnit}</div>
                                     <Slider
                                         className="font-size-slider"
@@ -545,8 +545,8 @@ function DetailPage({params}: any) {
                                     <div className="text-center text-sm text-l-2 dark:text-white">{fontUnit === "px" ? 64 : 48}{fontUnit}</div>
                                 </div>
                             </div>
-                            <div className="flex flex-col justify-center items-start">
-                                <div className="w-44 flex items-center mb-1">
+                            <div className="w-60 tlg:w-full flex flex-col justify-center items-start">
+                                <div className="w-full flex items-center mb-1">
                                     <SelectBox
                                         height={3.5}
                                         title="행간"
@@ -561,7 +561,7 @@ function DetailPage({params}: any) {
                                         optionChange={handleLineHeightUnit}
                                     />
                                 </div>
-                                <div className="w-60 relative flex gap-2 items-center">
+                                <div className="w-full relative flex gap-2 items-center">
                                     <div className="text-center text-sm text-l-2 dark:text-white">{lineHeightUnit === "em" ? 1 : lineHeightUnit === "px" ? 12 : 50}{lineHeightUnit}</div>
                                     <Slider
                                         className="font-size-slider"
@@ -578,8 +578,8 @@ function DetailPage({params}: any) {
                                     <div className="text-center text-sm text-l-2 dark:text-white">{lineHeightUnit === "em" ? 3 : lineHeightUnit === "px" ? 64 : 200}{lineHeightUnit}</div>
                                 </div>
                             </div>
-                            <div className="flex flex-col justify-center items-start">
-                                <div className="w-44 flex items-center mb-1">
+                            <div className="w-60 tlg:w-full flex flex-col justify-center items-start">
+                                <div className="w-full flex items-center mb-1">
                                     <SelectBox
                                         height={3.5}
                                         title="자간"
@@ -593,7 +593,7 @@ function DetailPage({params}: any) {
                                         optionChange={handleLetterSpacingUnit}
                                     />
                                 </div>
-                                <div className="w-60 relative flex gap-2 items-center">
+                                <div className="w-full relative flex gap-2 items-center">
                                     <div className="text-center text-sm text-l-2 dark:text-white">{letterSpacingUnit === "em" ? -1 :  -10}{letterSpacingUnit}</div>
                                     <Slider
                                         className="font-size-slider"
@@ -721,15 +721,15 @@ function DetailPage({params}: any) {
                     <div className="mb-20 tlg:mb-16">
                         <div className="w-full flex tlg:flex-col gap-4 justify-between items-stretch tlg:items-start">
                             <div className="tlg:w-full shrink-0 rounded-lg bg-l-e dark:bg-d-4">
-                                <div className="w-[41.875rem] tlg:w-full p-6 flex flex-col gap-4 text-sm">
+                                <div className="w-[41.875rem] tlg:w-full p-6 tlg:p-0 tlg:py-6 flex flex-col gap-4 text-sm">
                                     <div className="w-full flex items-center text-base font-medium text-l-2 dark:text-white">
-                                        <div className="w-28 tlg:w-20 shrink-0 text-center">카테고리</div>
+                                        <div className="w-28 shrink-0 text-center">카테고리</div>
                                         <div className="w-full">사용 범위</div>
-                                        <div className="w-28 tlg:w-20 shrink-0 text-center">허용 여부</div>
+                                        <div className="w-28 shrink-0 text-center">허용 여부</div>
                                     </div>
                                     <div className="w-full text-l-2 dark:text-white">
                                         <div className="w-full h-[4.5rem] flex items-center border-b border-l-b dark:border-d-6">
-                                            <div className="w-28 tlg:w-20 shrink-0 flex flex-col justify-center items-center">
+                                            <div className="w-28 shrink-0 flex flex-col justify-center items-center">
                                                 <i className="text-lg mb-0.5 fa-solid fa-print"></i>
                                                 <div>인쇄물</div>
                                             </div>
@@ -740,7 +740,7 @@ function DetailPage({params}: any) {
                                                     : <span className="ellipsed-text text-h-r line-through">브로슈어, 포스터, 책, 잡지, 간판 등 출판용 인쇄물</span>
                                                 }
                                             </div>
-                                            <div className="w-28 tlg:w-20 shrink-0 flex justify-center">
+                                            <div className="w-28 shrink-0 flex justify-center">
                                                 {
                                                     font.license_print === "Y"
                                                     ? <i className="text-sm fa-regular fa-circle"></i>
@@ -755,7 +755,7 @@ function DetailPage({params}: any) {
                                             </div>
                                         </div>
                                         <div className="w-full h-[4.5rem] flex items-center border-b border-l-b dark:border-d-6">
-                                            <div className="w-28 tlg:w-20 shrink-0 flex flex-col justify-center items-center">
+                                            <div className="w-28 shrink-0 flex flex-col justify-center items-center">
                                                 <i className="text-lg fa-solid fa-laptop"></i>
                                                 <div>웹 서비스</div>
                                             </div>
@@ -766,7 +766,7 @@ function DetailPage({params}: any) {
                                                     : <span className="ellipsed-text text-h-r line-through">웹페이지, 광고 배너, 메일, E-브로슈어, 웹서버용 폰트 등</span>
                                                 }
                                             </div>
-                                            <div className="w-28 tlg:w-20 shrink-0 flex justify-center">
+                                            <div className="w-28 shrink-0 flex justify-center">
                                                 {
                                                     font.license_web === "Y"
                                                     ? <i className="text-sm fa-regular fa-circle"></i>
@@ -781,7 +781,7 @@ function DetailPage({params}: any) {
                                             </div>
                                         </div>
                                         <div className="w-full h-[4.5rem] flex items-center border-b border-l-b dark:border-d-6">
-                                            <div className="w-28 tlg:w-20 shrink-0 flex flex-col justify-center items-center">
+                                            <div className="w-28 shrink-0 flex flex-col justify-center items-center">
                                                 <i className="text-lg fa-solid fa-film"></i>
                                                 <div>영상물</div>
                                             </div>
@@ -792,7 +792,7 @@ function DetailPage({params}: any) {
                                                     : <span className="ellipsed-text text-h-r line-through">방송 및 영상물 자막, 영상 광고, 영화 오프닝/엔딩크레딧 자막 등</span>
                                                 }
                                             </div>
-                                            <div className="w-28 tlg:w-20 shrink-0 flex justify-center">
+                                            <div className="w-28 shrink-0 flex justify-center">
                                                 {
                                                     font.license_video === "Y"
                                                     ? <i className="text-sm fa-regular fa-circle"></i>
@@ -807,7 +807,7 @@ function DetailPage({params}: any) {
                                             </div>
                                         </div>
                                         <div className="w-full h-[4.5rem] flex items-center border-b border-l-b dark:border-d-6">
-                                            <div className="w-28 tlg:w-20 shrink-0 flex flex-col justify-center items-center">
+                                            <div className="w-28 shrink-0 flex flex-col justify-center items-center">
                                                 <i className="text-lg fa-solid fa-cube"></i>
                                                 <div>포장지</div>
                                             </div>
@@ -818,7 +818,7 @@ function DetailPage({params}: any) {
                                                     : <span className="ellipsed-text text-h-r line-through">판매용 상품의 패키지</span>
                                                 }
                                             </div>
-                                            <div className="w-28 tlg:w-20 shrink-0 flex justify-center">
+                                            <div className="w-28 shrink-0 flex justify-center">
                                                 {
                                                     font.license_package === "Y"
                                                     ? <i className="text-sm fa-regular fa-circle"></i>
@@ -833,7 +833,7 @@ function DetailPage({params}: any) {
                                             </div>
                                         </div>
                                         <div className="w-full h-[4.5rem] flex items-center border-b border-l-b dark:border-d-6">
-                                            <div className="w-28 tlg:w-20 shrink-0 flex flex-col justify-center items-center">
+                                            <div className="w-28 shrink-0 flex flex-col justify-center items-center">
                                                 <i className="text-lg mb-0.5 fa-solid fa-code"></i>
                                                 <div>임베딩</div>
                                             </div>
@@ -844,7 +844,7 @@ function DetailPage({params}: any) {
                                                     : <span className="ellipsed-text text-h-r line-through">웹사이트 및 프로그램 서버 내 폰트 탑재, E-book 제작</span>
                                                 }
                                             </div>
-                                            <div className="w-28 tlg:w-20 shrink-0 flex justify-center">
+                                            <div className="w-28 shrink-0 flex justify-center">
                                                 {
                                                     font.license_embed === "Y"
                                                     ? <i className="text-sm fa-regular fa-circle"></i>
@@ -859,7 +859,7 @@ function DetailPage({params}: any) {
                                             </div>
                                         </div>
                                         <div className="w-full h-[4.5rem] flex items-center border-b border-l-b dark:border-d-6">
-                                            <div className="w-28 tlg:w-20 shrink-0 flex flex-col justify-center items-center">
+                                            <div className="w-28 shrink-0 flex flex-col justify-center items-center">
                                                 <i className="text-lg fa-regular fa-building"></i>
                                                 <div>BI/CI</div>
                                             </div>
@@ -870,7 +870,7 @@ function DetailPage({params}: any) {
                                                     : <span className="ellipsed-text text-h-r line-through">회사명, 브랜드명, 상품명, 로고, 마크, 슬로건, 캐치프레이즈</span>
                                                 }
                                             </div>
-                                            <div className="w-28 tlg:w-20 shrink-0 flex justify-center">
+                                            <div className="w-28 shrink-0 flex justify-center">
                                                 {
                                                     font.license_bici === "Y"
                                                     ? <i className="text-sm fa-regular fa-circle"></i>
@@ -885,7 +885,7 @@ function DetailPage({params}: any) {
                                             </div>
                                         </div>
                                         <div className="w-full h-[4.5rem] flex items-center border-b border-l-b dark:border-d-6">
-                                            <div className="w-28 tlg:w-20 shrink-0 flex flex-col justify-center items-center">
+                                            <div className="w-28 shrink-0 flex flex-col justify-center items-center">
                                                 <i className="text-lg fa-solid fa-lock-open"></i>
                                                 <div>OFL</div>
                                             </div>
@@ -896,7 +896,7 @@ function DetailPage({params}: any) {
                                                     : <span className="ellipsed-text text-h-r line-through">폰트 파일의 수정, 편집 재배포 및 유료 판매 금지</span>
                                                 }
                                             </div>
-                                            <div className="w-28 tlg:w-20 shrink-0 flex justify-center">
+                                            <div className="w-28 shrink-0 flex justify-center">
                                                 {
                                                     font.license_ofl === "Y"
                                                     ? <i className="text-sm fa-regular fa-circle"></i>
@@ -905,7 +905,7 @@ function DetailPage({params}: any) {
                                             </div>
                                         </div>
                                         <div className="w-full h-[4.5rem] flex items-center border-b border-l-b dark:border-d-6">
-                                            <div className="w-28 tlg:w-20 shrink-0 flex flex-col justify-center items-center">
+                                            <div className="w-28 shrink-0 flex flex-col justify-center items-center">
                                                 <i className="text-lg fa-solid fa-user-check"></i>
                                                 <div>용도</div>
                                             </div>
@@ -916,7 +916,7 @@ function DetailPage({params}: any) {
                                                     : <span className="ellipsed-text text-h-r line-through">개인적 용도 사용 가능, 상업적 용도 사용 금지</span>
                                                 }
                                             </div>
-                                            <div className="w-28 tlg:w-20 shrink-0 flex justify-center">
+                                            <div className="w-28 shrink-0 flex justify-center">
                                                 {
                                                     font.license_purpose === "Y"
                                                     ? <i className="text-sm fa-regular fa-circle"></i>
@@ -925,12 +925,12 @@ function DetailPage({params}: any) {
                                             </div>
                                         </div>
                                         <div className="w-full h-[4.5rem] flex items-center">
-                                            <div className="w-28 tlg:w-20 shrink-0 flex flex-col justify-center items-center">
+                                            <div className="w-28 shrink-0 flex flex-col justify-center items-center">
                                                 <i className="text-lg fa-solid fa-share-nodes"></i>
                                                 <div>출처</div>
                                             </div>
                                             <div className="w-full">출처 표시</div>
-                                            <div className="w-28 tlg:w-20 shrink-0 flex justify-center">
+                                            <div className="w-28 shrink-0 flex justify-center">
                                                 {
                                                     font.license_source === "Y"
                                                     ? <i className="text-sm fa-regular fa-circle"></i>

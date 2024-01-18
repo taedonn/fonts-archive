@@ -319,8 +319,8 @@ const Edit = ({params}: any) => {
             />
 
             {/* 메인 */}
-            <div className='w-full flex flex-col justify-center items-center'>
-                <div className='max-w-[720px] w-full flex flex-col justify-center items-start my-[100px] tlg:my-10'>
+            <div className='w-full px-4 flex flex-col justify-center items-center'>
+                <div className='max-w-[45rem] w-full flex flex-col justify-center items-start py-24 tlg:py-16'>
                     <h2 className='text-xl tlg:text-lg text-theme-3 dark:text-theme-9 font-medium mb-3 tlg:mb-2'>폰트 수정</h2>
                     <div id="edit-btn-success" className="w-full">
                         {

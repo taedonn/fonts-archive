@@ -154,7 +154,7 @@ const NoticePage = ({params}: any) => {
                                 </div> : <></>
                         }
                     </div>
-                    <div className='w-full p-10 rounded-lg text-l-2 dark:text-white bg-l-e dark:bg-d-3 drop-shadow-default dark:drop-shadow-dark'>
+                    <div className='w-full p-5 rounded-lg text-l-2 dark:text-white bg-l-e dark:bg-d-3 drop-shadow-default dark:drop-shadow-dark'>
                         <div className="font-medium">숨김 여부</div>
                         <div className="w-max h-12 rounded-lg mt-2 px-3.5 flex items-center text-sm bg-l-d dark:bg-d-4">
                             <div className="mr-1.5">숨김</div>
