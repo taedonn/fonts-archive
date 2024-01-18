@@ -1,6 +1,8 @@
 // next
 import Link from "next/link";
 
+import Tooltip from "@/components/tooltip";
+
 export default function Footer () {
     return (
         <>
@@ -23,6 +25,9 @@ export default function Footer () {
                     </div>
                 </div>
             </footer>
+
+            {/* 툴팁 */}
+            <Tooltip/>
         </>
     )
 }

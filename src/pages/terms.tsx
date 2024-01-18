@@ -8,7 +8,6 @@ import { authOptions } from './api/auth/[...nextauth]';
 // components
 import Header from "@/components/header";
 import Footer from '@/components/footer';
-import Tooltip from '@/components/tooltip';
 
 const Terms = ({params}: any) => {
     const { theme, userAgent, user } = params;
@@ -30,9 +29,6 @@ const Terms = ({params}: any) => {
                 theme={theme}
                 user={user}
             />
-
-            {/* 고정 메뉴 */}
-            <Tooltip/>
 
             {/* 메인 */}
             <div className='w-full px-4 flex flex-col justify-center items-center'>

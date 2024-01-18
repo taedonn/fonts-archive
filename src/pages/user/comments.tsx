@@ -20,7 +20,6 @@ import { NextSeo } from 'next-seo';
 // components
 import Header from "@/components/header";
 import Footer from '@/components/footer';
-import Tooltip from '@/components/tooltip';
 import SearchInput from '@/components/searchinput';
 import DeleteCommentModal from '@/components/deletecommentmodal';
 
@@ -96,8 +95,8 @@ const Comments = ({params}: any) => {
             />
 
             {/* 메인 */}
-            <form onSubmit={e => e.preventDefault()} className='w-full flex flex-col justify-center items-center'>
-                <div className='w-[45rem] tmd:w-full px-4 flex flex-col justify-center items-start my-24 tlg:my-16'>
+            <form onSubmit={e => e.preventDefault()} className='w-full px-4 flex flex-col justify-center items-center'>
+                <div className='w-[45rem] tmd:w-full flex flex-col justify-center items-start my-24 tlg:my-16'>
                     <h2 className='text-2xl tlg:text-xl text-l-2 dark:text-white font-bold mb-4'>내 댓글 목록</h2>
                     <div className='flex items-center mb-10'>
                         <SearchInput id="search" placeholder="폰트/댓글" value={search}/>
@@ -143,8 +142,6 @@ const Comments = ({params}: any) => {
                     </div>
                 </div>
             </form>
-
-            <Tooltip/>
 
             {/* 풋터 */}
             <Footer/>

@@ -17,7 +17,6 @@ import imageCompression from 'browser-image-compression';
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import Button from "@/components/button";
-import Tooltip from "@/components/tooltip";
 import TextInput from "@/components/textinput";
 import TextArea from "@/components/textarea";
 import SelectBox from "@/components/selectbox";
@@ -128,11 +127,11 @@ const IssueFont = ({params}: any) => {
                                 content: content.value,
                                 type: option,
                                 img_length: imgs.length,
-                                img_1: imgs[0] !== undefined ? `https://fonts-archive-issue-font.s3.ap-northeast-2.amazonaws.com/issue-font-${issueId}-1.` + imgs[0].file.name.split('.').pop() : "null",
-                                img_2: imgs[1] !== undefined ? `https://fonts-archive-issue-font.s3.ap-northeast-2.amazonaws.com/issue-font-${issueId}-2.` + imgs[1].file.name.split('.').pop() : "null",
-                                img_3: imgs[2] !== undefined ? `https://fonts-archive-issue-font.s3.ap-northeast-2.amazonaws.com/issue-font-${issueId}-3.` + imgs[2].file.name.split('.').pop() : "null",
-                                img_4: imgs[3] !== undefined ? `https://fonts-archive-issue-font.s3.ap-northeast-2.amazonaws.com/issue-font-${issueId}-4.` + imgs[3].file.name.split('.').pop() : "null",
-                                img_5: imgs[4] !== undefined ? `https://fonts-archive-issue-font.s3.ap-northeast-2.amazonaws.com/issue-font-${issueId}-5.` + imgs[4].file.name.split('.').pop() : "null",
+                                img_1: imgs[0] !== undefined ? `https://fonts-archive-issue.s3.ap-northeast-2.amazonaws.com/issue-${issueId}-1.` + imgs[0].file.name.split('.').pop() : "null",
+                                img_2: imgs[1] !== undefined ? `https://fonts-archive-issue.s3.ap-northeast-2.amazonaws.com/issue-${issueId}-2.` + imgs[1].file.name.split('.').pop() : "null",
+                                img_3: imgs[2] !== undefined ? `https://fonts-archive-issue.s3.ap-northeast-2.amazonaws.com/issue-${issueId}-3.` + imgs[2].file.name.split('.').pop() : "null",
+                                img_4: imgs[3] !== undefined ? `https://fonts-archive-issue.s3.ap-northeast-2.amazonaws.com/issue-${issueId}-4.` + imgs[3].file.name.split('.').pop() : "null",
+                                img_5: imgs[4] !== undefined ? `https://fonts-archive-issue.s3.ap-northeast-2.amazonaws.com/issue-${issueId}-5.` + imgs[4].file.name.split('.').pop() : "null",
                                 issue_closed_type: "Open",
                             },
                             {
@@ -411,7 +410,7 @@ const IssueFont = ({params}: any) => {
             <div style={{width: `${progress}%`}} className="h-[0.188rem] bg-h-1 dark:bg-f-8 fixed z-30 left-0 top-0 duration-300 ease-out"></div>
 
             {/* 메인 */}
-            <div className='w-full flex flex-col justify-center items-center'>
+            <div className='w-full px-4 flex flex-col justify-center items-center'>
                 <div className='max-w-[45rem] w-full flex flex-col justify-center items-start my-24 tlg:my-16'>
                     <h2 className='text-2xl tlg:text-xl mb-4 font-bold text-l-2 dark:text-white'>문의하기</h2>
                     <h3 className='text-sm text-ㅣ-5 dark:text-d-c mb-2.5'>
@@ -564,9 +563,6 @@ const IssueFont = ({params}: any) => {
                     </div>
                 </div>
             </div>
-
-            {/* 툴팁 */}
-            <Tooltip/>
 
             {/* 풋터 */}
             <Footer/>

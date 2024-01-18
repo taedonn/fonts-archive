@@ -129,7 +129,7 @@ const NoticesAdd = ({params}: any) => {
             />
 
             {/* 메인 */}
-            <div className='w-full flex flex-col justify-center items-center'>
+            <div className='w-full px-4 flex flex-col justify-center items-center'>
                 <div className='max-w-[45rem] w-full flex flex-col justify-center items-start py-24 tlg:py-16'>
                     <h2 className='text-2xl tlg:text-xl text-l-2 dark:text-white font-bold mb-4'>공지 추가</h2>
                     <div id="is-issued" className="w-full">

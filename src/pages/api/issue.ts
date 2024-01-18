@@ -13,7 +13,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         },
         region: process.env.MY_AWS_S3_REGION as string,
     });
-    const s3Bucket = process.env.MY_AWS_S3_ISSUE_FONT_BUCKET as string;
+    const s3Bucket = process.env.MY_AWS_S3_ISSUE_BUCKET as string;
 
     if (req.method === 'POST') {
         const fileName = req.body.file_name as string;

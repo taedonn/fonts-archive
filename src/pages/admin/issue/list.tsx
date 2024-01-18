@@ -20,7 +20,7 @@ import Footer from '@/components/footer';
 import SearchInput from '@/components/searchinput';
 
 // common
-import { timeFormat } from '@/libs/common';
+import { dateFormat } from '@/libs/common';
 
 const IssueList = ({params}: any) => {
     const { theme, userAgent, user, page, filter, search, list, count } = params;
@@ -63,8 +63,8 @@ const IssueList = ({params}: any) => {
             />
 
             {/* 메인 */}
-            <form onSubmit={e => e.preventDefault()} className='w-full flex flex-col justify-center items-center'>
-                <div className='w-[45rem] tmd:w-full px-4 flex flex-col justify-center items-start my-24 tlg:my-16'>
+            <form onSubmit={e => e.preventDefault()} className='w-full px-4 flex flex-col justify-center items-center'>
+                <div className='w-[45rem] tmd:w-full flex flex-col justify-center items-start my-24 tlg:my-16'>
                     <h2 className='text-2xl tlg:text-xl text-l-2 dark:text-white font-bold mb-4'>문의 목록</h2>
                     <div className='flex items-center mb-10'>
                         <SearchInput id="search" placeholder="제목/내용" value={search}/>
@@ -76,53 +76,30 @@ const IssueList = ({params}: any) => {
                         <button onClick={handleFilterChange} value="bug" className={`${filter === "bug" ? "bg-h-1 dark:bg-f-8 text-white dark:text-d-2" : "text-l-5 dark:text-d-c hover:text-h-1 hover:dark:text-f-8"} w-20 h-9 flex justify-center items-center rounded-lg`}>버그</button>
                         <button onClick={handleFilterChange} value="etc" className={`${filter === "etc" ? "bg-h-1 dark:bg-f-8 text-white dark:text-d-2" : "text-l-5 dark:text-d-c hover:text-h-1 hover:dark:text-f-8"} w-20 h-9 flex justify-center items-center rounded-lg`}>기타</button>
                     </div>
-                    <div className='w-full rounded-lg overflow-hidden overflow-x-auto'>
-                        <div className='w-[720px] text-xs text-theme-10 dark:text-theme-9 bg-theme-4 dark:bg-theme-4'>
-                            <div className='text-left bg-theme-5 dark:bg-theme-3'>
-                                <div className='h-10 tlg:h-9 flex items-center'>
-                                    <div className='w-12 pl-4 shrink-0'>번호</div>
-                                    <div className='w-[120px] pl-4 shrink-0'>제목</div>
-                                    <div className='w-full pl-4'>이메일</div>
-                                    <div className='w-28 pl-4 shrink-0'>생성 날짜</div>
-                                    <div className='w-28 pl-4 shrink-0'>종료 날짜</div>
-                                    <div className='w-[100px] pl-4 shrink-0'>답변 여부</div>
-                                </div>
-                            </div>
-                            <div>
+                    <div className='w-full'>
+                        <div className='w-full text-sm text-l-2 dark:text-white'>
+                            <div className='flex flex-col gap-3'>
                                 {
                                     list && list.length > 0
                                     ? <>
                                         {
                                             list.map((issue: any) => {
                                                 return (
-                                                    <div key={issue.issue_id} className='h-10 tlg:h-9 relative flex items-center border-t border-theme-5 dark:border-theme-3 hover:bg-theme-yellow/20 tlg:hover:bg-transparent hover:dark:bg-theme-blue-1/20 tlg:hover:dark:bg-transparent cursor-pointer'>
-                                                        <div className='w-12 pl-4 py-2.5 shrink-0'>
-                                                            {issue.issue_id}
-                                                            <Link href={`/admin/issue/${issue.issue_id}`} className='w-full h-full absolute z-10 left-0 top-0'></Link>
+                                                    <div key={issue.issue_id} className='px-6 py-4 relative rounded-lg bg-l-e dark:bg-d-4'>
+                                                        <div className="flex tlg:flex-col items-center tlg:items-start gap-2 mb-2">
+                                                            <Link href={`/admin/issue/${issue.issue_id}`} className="block text-h-1 dark:text-f-8 hover:underline tlg:hover:no-underline">{issue.issue_title}</Link>
+                                                            <div className="flex gap-2 items-center">
+                                                                <div className='text-xs text-l-5 dark:text-d-c'>{dateFormat(issue.issue_created_at)}</div>
+                                                                <div className={`text-xs ${issue.issue_closed ? "text-h-1 dark:text-f-8" : "text-l-5 dark:text-d-c"}`}>{issue.issue_closed ? "답변 완료" : "답변 중"}</div>
+                                                            </div>
                                                         </div>
-                                                        <div className='w-[120px] pl-4 py-2.5 shrink-0'><div className='ellipsed-text'>{issue.issue_title}</div></div>
-                                                        <div className='w-full pl-4 py-2.5 overflow-hidden'><div className='ellipsed-text'>{issue.issue_email}</div></div>
-                                                        <div className='w-28 pl-4 py-2.5 shrink-0'>{timeFormat(issue.issue_created_at)}</div>
-                                                        <div className='w-28 pl-4 py-2.5 shrink-0'>{timeFormat(issue.issue_closed_at)}</div>
-                                                        <div className='w-[100px] pl-4 py-2.5 shrink-0'>
-                                                            {
-                                                                issue.issue_closed
-                                                                ? <>
-                                                                    <span className='text-theme-green'>답변 완료</span>
-                                                                    <i className="text-[10px] ml-1 text-theme-green fa-solid fa-check"></i>
-                                                                </> : <>
-                                                                    <span className='text-theme-9'>답변 중...</span>
-                                                                </>
-                                                            }
-                                                        </div>
+                                                        <div className='w-full overflow-hidden'>[{issue.issue_type === "font" ? "폰트" : issue.issue_type === "bug" ? "버그" : "기타"}] {issue.issue_content}</div>
                                                     </div>
                                                 )
                                             })
                                         }
                                     </>
-                                    : <div className='h-[60px] flex justify-center items-center'>
-                                        제보가 없습니다.
-                                    </div>
+                                    : <div className='h-16 text-base flex justify-center items-center text-center'>문의가 없습니다.</div>
                                 }
                             </div>
                         </div>

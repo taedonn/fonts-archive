@@ -62,8 +62,8 @@ const UserList = ({params}: any) => {
             />
 
             {/* 메인 */}
-            <form onSubmit={e => e.preventDefault()} className='w-full flex flex-col justify-center items-center'>
-                <div className='w-[45rem] tmd:w-full px-4 flex flex-col justify-center items-start my-24 tlg:my-16'>
+            <form onSubmit={e => e.preventDefault()} className='w-full px-4 flex flex-col justify-center items-center'>
+                <div className='w-[45rem] tmd:w-full flex flex-col justify-center items-start my-24 tlg:my-16'>
                     <h2 className='text-2xl tlg:text-xl text-l-2 dark:text-white font-bold mb-4'>유저 목록</h2>
                     <div className='flex items-center mb-10'>
                         <SearchInput id="search" placeholder="이름/아이디" value={search}/>

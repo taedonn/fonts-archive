@@ -20,6 +20,9 @@ import { Switch } from "@mui/material";
 // components
 import Header from "@/components/header";
 import Footer from "@/components/footer";
+import TextInput from "@/components/textinput";
+import TextArea from "@/components/textarea";
+import Button from "@/components/button";
 
 // common
 import { timeFormat } from "@/libs/common";
@@ -34,7 +37,7 @@ const IssuePage = ({params}: any) => {
     const [replySuccess, setReplySuccess] = useState<string>("");
     const [isFocused, setIsFocused] = useState<boolean>(false);
     const [focusedImg, setFocusedImg] = useState<string>("");
-    const [txtAlert, setTxtAlert] = useState<boolean>(false);
+    const [txtAlert, setTxtAlert] = useState<string>("");
     const [issueClosed, setIssueClosed] = useState<boolean>(issue.issue_closed);
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -136,7 +139,7 @@ const IssuePage = ({params}: any) => {
 
     /** 텍스트 에리어 변경사항 있을 때 알럿 해제 */
     const handleTextAreaOnChange = () => {
-        setTxtAlert(false);
+        setTxtAlert("");
     }
 
     /** 답변하기 버튼 클릭 */
@@ -144,7 +147,7 @@ const IssuePage = ({params}: any) => {
         const txt = document.getElementById("answer") as HTMLTextAreaElement;
 
         if (txt.value === "") {
-            setTxtAlert(true);
+            setTxtAlert("empty");
         } else if (!issueClosed) {
             setIsLoading(true);
 
@@ -214,80 +217,119 @@ const IssuePage = ({params}: any) => {
             />
 
             {/* 메인 */}
-            <div className='w-full flex flex-col justify-center items-center'>
-                <div className='relative max-w-[720px] w-full flex flex-col justify-center items-start my-[100px] tlg:my-10'>
-                    <Link href="/admin/issue/list" className="absolute left-0 -top-20 tlg:-top-7 text-xs text-theme-5 hover:text-theme-3 tlg:hover:text-theme-5 dark:text-theme-7 hover:dark:text-theme-9 tlg:hover:dark:text-theme-7 block border-b border-transparent hover:border-theme-3 tlg:border-theme-5 tlg:hover:border-theme-5 hover:dark:border-theme-9 tlg:dark:border-theme-7 tlg:hover:dark:border-theme-7"><div className="inline-block mr-1">&#60;</div> 목록으로 돌아가기</Link>
-                    <h2 className='text-xl tlg:text-lg text-theme-3 dark:text-theme-9 font-medium'>폰트 티켓</h2>
-                    <div className='text-xs text-theme-5 dark:text-theme-6 mt-1 mb-2.5 tlg:mb-2'>{timeFormat(issue.issue_created_at) === timeFormat(issue.issue_closed_at) ? timeFormat(issue.issue_created_at) + "에 생성됨" : timeFormat(issue.issue_closed_at) + "에 수정됨"}</div>
-                    <div id="reply-success" className="w-full">
-                        {
-                            replySuccess === "success"
-                            ? <div className='w-full h-10 px-3 mb-2.5 flex flex-row justify-between items-center rounded-md border-2 border-theme-yellow dark:border-theme-blue-1/80 text-xs text-theme-3 dark:text-theme-9 bg-theme-yellow/40 dark:bg-theme-blue-1/20'>
-                                <div className='flex flex-row justify-start items-center'>
-                                    <i className="text-sm text-theme-yellow dark:text-theme-blue-1 fa-regular fa-bell"></i>
-                                    <div className='ml-2'>답변이 완료되었습니다.</div>
-                                </div>
-                                <div onClick={handleOnReplyClose} className='flex flex-row justify-center items-center cursor-pointer'>
-                                    <i className="text-sm text-theme-3 dark:text-theme-9 fa-solid fa-xmark"></i>
-                                </div>
+            <div className='w-full px-4 flex flex-col justify-center items-center'>
+                <div className='relative max-w-[45rem] w-full flex flex-col justify-center items-start py-24 tlg:py-16'>
+                    <Link href="/admin/issue/list" className="absolute left-0 top-3 block border-b border-transparent text-sm text-l-5 dark:text-d-c hover:text-l-2 hover:dark:text-white tlg:hover:text-l-5 tlg:hover:dark:text-d-c hover:border-b-l-2 hover:dark:border-b-white tlg:hover:border-b-transparent tlg:hover:dark:border-b-transparent"><div className="inline-block mr-1">&#60;</div> 목록으로 돌아가기</Link>
+                    <h2 className='text-2xl tlg:text-xl text-l-2 dark:text-white font-bold mb-4'>문의 사항</h2>
+                    <div className='mb-2.5 text-sm tlg:text-xs text-l-5 dark:text-d-c'>{timeFormat(issue.issue_created_at) === timeFormat(issue.issue_closed_at) ? timeFormat(issue.issue_created_at) + "에 생성됨" : timeFormat(issue.issue_closed_at) + "에 수정됨"}</div>
+                    {
+                        replySuccess === "success"
+                        ? <div className='w-full h-10 px-2.5 mb-3 flex justify-between items-center rounded-lg border-2 border-h-1 dark:border-f-8 text-xs text-l-2 dark:text-white bg-h-1/20 dark:bg-f-8/20'>
+                            <div className='flex justify-start items-center'>
+                                <i className='text-sm text-h-1 dark:text-f-8 fa-regular fa-bell'></i>
+                                <div className='ml-2'>답변이 완료되었습니다.</div>
                             </div>
-                            : replySuccess === "fail"
-                                ? <div className='w-full h-10 px-3 mb-2.5 flex flex-row justify-between items-center rounded-md border-2 border-theme-red/80 text-xs text-theme-3 dark:text-theme-9 bg-theme-red/20'>
-                                    <div className='flex flex-row justify-start items-center'>
-                                        <i className="text-sm text-theme-red fa-regular fa-bell"></i>
-                                        <div className='ml-2'>답변 전송에 실패했습니다.</div>
-                                    </div>
-                                    <div onClick={handleOnReplyClose} className='flex flex-row justify-center items-center cursor-pointer'>
-                                        <i className="text-sm text-theme-3 dark:text-theme-9 fa-solid fa-xmark"></i>
-                                    </div>
-                                </div> : <></>
-                        }
-                    </div>
-                    <div className='w-full p-5 rounded-lg text-sm text-theme-10 dark:text-theme-9 bg-theme-5 dark:bg-theme-3 drop-shadow-default dark:drop-shadow-dark'>
-                        <label htmlFor="title">제목</label>
-                        <input id="title" defaultValue={issue.issue_title} type="text" disabled className='w-full border-theme-6 dark:border-theme-4 text-xs mt-2 px-3.5 py-2.5 rounded-lg border-2 bg-theme-4 dark:bg-theme-2 text-theme-10 dark:text-theme-9 cursor-text'/>
-                        <label htmlFor="email" className="block mt-5">이메일</label>
-                        <input id="email" defaultValue={issue.issue_email} type="text" disabled className='w-full border-theme-6 dark:border-theme-4 text-xs mt-2 px-3.5 py-2.5 rounded-lg border-2 bg-theme-4 dark:bg-theme-2 text-theme-10 dark:text-theme-9 cursor-text'/>
-                        <label htmlFor="content" className="block mt-5">내용</label>
-                        <textarea id="content" disabled defaultValue={issue.issue_content} className={`custom-sm-scrollbar w-full h-48 resize-none border-theme-6 dark:border-theme-4 bg-theme-4 dark:bg-theme-2 text-theme-10 dark:text-theme-9 text-xs mt-2 px-3.5 py-3 rounded-lg border-2 cursor-text`}></textarea>
-                        <div className="mt-5">첨부한 이미지</div>
-                        <div className="w-full min-h-[88px] flex items-center px-4 mt-2 rounded-lg border-2 border-theme-6 dark:border-theme-4 bg-theme-4 dark:bg-theme-2">
+                            <div onClick={handleOnReplyClose} className='flex justify-center items-center cursor-pointer'>
+                                <i className="text-sm text-l-2 dark:text-white fa-solid fa-xmark"></i>
+                            </div>
+                        </div>
+                        : replySuccess === "fail"
+                            ? <div className='w-full h-10 px-2.5 mb-3 flex justify-between items-center rounded-lg border-2 border-h-r text-xs text-l-2 dark:text-white bg-h-r/20'>
+                                <div className='flex justify-start items-center'>
+                                    <i className='text-sm text-h-r fa-regular fa-bell'></i>
+                                    <div className='ml-2'>답변 전송에 실패했습니다.</div>
+                                </div>
+                                <div onClick={handleOnReplyClose} className='flex justify-center items-center cursor-pointer'>
+                                    <i className="text-sm text-l-2 dark:text-white fa-solid fa-xmark"></i>
+                                </div>
+                            </div> : <></>
+                    }
+                    <div className='w-full p-5 rounded-lg text-l-2 dark:text-white bg-l-e dark:bg-d-3 drop-shadow-default dark:drop-shadow-dark'>
+                        <TextInput
+                            value={
+                                issue.issue_type === "font"
+                                    ? "폰트 관련 제보"
+                                    : issue.issue_type === "bug"
+                                        ? "버그 관련 제보"
+                                        : "기타 문의 사항"
+                            }
+                            disabled
+                            id="type"
+                            tabindex={1}
+                            label="유형"
+                        />
+                        <TextInput
+                            value={issue.issue_title}
+                            disabled
+                            id="title"
+                            tabindex={2}
+                            label="제목"
+                            marginTop={2}
+                        />
+                        <TextInput
+                            value={issue.issue_email}
+                            disabled
+                            id="email"
+                            tabindex={3}
+                            label="이메일"
+                            marginTop={2}
+                        />
+                        <TextArea
+                            value={issue.issue_content}
+                            disabled
+                            id="content"
+                            tabindex={4}
+                            label="내용"
+                            marginTop={2}
+                        />
+                        <div className="mt-8 font-medium">첨부한 이미지</div>
+                        <div className="w-full min-h-24 flex items-center px-4 mt-2 rounded-lg bg-l-d dark:bg-d-4">
                             {
                                 issue.issue_img_length > 0
-                                ? <div className="w-full flex justify-center items-center gap-x-2.5 my-4">
-                                    {issue.issue_img_1 !== "null" && <div className="w-[72px] h-[88px] relative"><Image src={issue.issue_img_1} alt="첨부한 이미지 1" fill sizes="100%" priority referrerPolicy="no-referrer" onClick={handleOnImgFocus} id="img_1" className="rounded-lg border-2 border-theme-6 dark:border-theme-4 object-cover cursor-pointer"/></div>}
-                                    {issue.issue_img_2 !== "null" && <div className="w-[72px] h-[88px] relative"><Image src={issue.issue_img_2} alt="첨부한 이미지 2" fill sizes="100%" priority referrerPolicy="no-referrer" onClick={handleOnImgFocus} id="img_2" className="rounded-lg border-2 border-theme-6 dark:border-theme-4 object-cover cursor-pointer"/></div>}
-                                    {issue.issue_img_3 !== "null" && <div className="w-[72px] h-[88px] relative"><Image src={issue.issue_img_3} alt="첨부한 이미지 3" fill sizes="100%" priority referrerPolicy="no-referrer" onClick={handleOnImgFocus} id="img_3" className="rounded-lg border-2 border-theme-6 dark:border-theme-4 object-cover cursor-pointer"/></div>}
-                                    {issue.issue_img_4 !== "null" && <div className="w-[72px] h-[88px] relative"><Image src={issue.issue_img_4} alt="첨부한 이미지 4" fill sizes="100%" priority referrerPolicy="no-referrer" onClick={handleOnImgFocus} id="img_4" className="rounded-lg border-2 border-theme-6 dark:border-theme-4 object-cover cursor-pointer"/></div>}
-                                    {issue.issue_img_5 !== "null" && <div className="w-[72px] h-[88px] relative"><Image src={issue.issue_img_5} alt="첨부한 이미지 5" fill sizes="100%" priority referrerPolicy="no-referrer" onClick={handleOnImgFocus} id="img_5" className="rounded-lg border-2 border-theme-6 dark:border-theme-4 object-cover cursor-pointer"/></div>}
+                                ? <div className="w-full flex justify-center items-center gap-x-2.5 my-6">
+                                    {issue.issue_img_1 !== "null" && <div className="w-24 h-28 relative"><Image src={issue.issue_img_1} alt="첨부한 이미지 1" fill sizes="100%" priority referrerPolicy="no-referrer" onClick={handleOnImgFocus} id="img_1" className="rounded-lg border-2 border-l-b dark:border-d-6 object-cover cursor-pointer"/></div>}
+                                    {issue.issue_img_2 !== "null" && <div className="w-24 h-28 relative"><Image src={issue.issue_img_2} alt="첨부한 이미지 2" fill sizes="100%" priority referrerPolicy="no-referrer" onClick={handleOnImgFocus} id="img_2" className="rounded-lg border-2 border-l-b dark:border-d-6 object-cover cursor-pointer"/></div>}
+                                    {issue.issue_img_3 !== "null" && <div className="w-24 h-28 relative"><Image src={issue.issue_img_3} alt="첨부한 이미지 3" fill sizes="100%" priority referrerPolicy="no-referrer" onClick={handleOnImgFocus} id="img_3" className="rounded-lg border-2 border-l-b dark:border-d-6 object-cover cursor-pointer"/></div>}
+                                    {issue.issue_img_4 !== "null" && <div className="w-24 h-28 relative"><Image src={issue.issue_img_4} alt="첨부한 이미지 4" fill sizes="100%" priority referrerPolicy="no-referrer" onClick={handleOnImgFocus} id="img_4" className="rounded-lg border-2 border-l-b dark:border-d-6 object-cover cursor-pointer"/></div>}
+                                    {issue.issue_img_5 !== "null" && <div className="w-24 h-28 relative"><Image src={issue.issue_img_5} alt="첨부한 이미지 5" fill sizes="100%" priority referrerPolicy="no-referrer" onClick={handleOnImgFocus} id="img_5" className="rounded-lg border-2 border-l-b dark:border-d-6 object-cover cursor-pointer"/></div>}
                                 </div> 
-                                : <div className="w-full text-xs text-center text-theme-10 dark:text-theme-9 cursor-text">첨부한 이미지가 없습니다.</div>
+                                : <div className="w-full h-24 flex justify-center items-center text-sm text-center text-l-2 dark:text-white">첨부한 이미지가 없습니다.</div>
                             }
                         </div>
-                        <div className="w-full h-px my-7 bg-theme-8/80 dark:bg-theme-7/80"></div>
-                        <div className="mt-5">답변 여부</div>
-                        <div className="w-max flex items-center text-xs mt-3 px-5 py-2 rounded-lg bg-theme-4 dark:bg-theme-blue-2">
-                            <div className="mr-1">답변 중</div>
+                        <div className="w-full h-px my-6 bg-l-b dark:bg-d-6"></div>
+                        <div className="font-medium">답변 여부</div>
+                        <div className="w-max h-12 rounded-lg mt-2 px-3.5 flex items-center text-sm bg-l-d dark:bg-d-4">
+                            <div className="mr-1.5">답변 중</div>
                             <Switch
                                 checked={issueClosed}
                                 onChange={handleToggleChange}
                                 size="small"
                             />
-                            <div className={`${issueClosed ? "text-theme-green" : ""} ml-1.5`}>답변 완료</div>
+                            <div className={`${issueClosed ? "text-h-1 dark:text-f-8" : ""} ml-1.5`}>답변 완료</div>
                         </div>
-                        <div className="mt-7">답변</div>
-                        <textarea onChange={handleTextAreaOnChange} defaultValue={issue.issue_reply} id="answer" placeholder="답변을 입력해 주세요." className={`custom-sm-scrollbar w-full h-48 resize-none ${txtAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-xs mt-2 px-3.5 py-3 rounded-lg border-2 placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}></textarea>
-                        {
-                            txtAlert &&
-                            <div className="text-xs ml-4 mt-1.5 text-theme-red">답변 내용이 없습니다.</div>
-                        }
-                        <button onClick={handleBtnClick} className="w-full h-9 rounded-lg mt-5 font-medium text-sm text-theme-3 dark:text-theme-2 bg-theme-yellow/80 hover:bg-theme-yellow dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1">
-                            {
-                                isLoading
-                                ? <span className='loader border-2 border-theme-5 border-b-theme-yellow dark:border-b-theme-blue-1 w-4 h-4 mt-0.5'></span>
-                                : <>답변하기</>
-                            }
-                        </button>
+                        <TextArea
+                            onchange={handleTextAreaOnChange}
+                            state={txtAlert}
+                            stateMsg={[
+                                { state: "", msg: "" },
+                                { state: "empty", msg: "답변 내용이 없습니다." }
+                            ]}
+                            value={issue.issue_reply}
+                            id="answer"
+                            tabindex={5}
+                            placeholder="답변을 입력해 주세요."
+                            label="답변"
+                            marginTop={2}
+                        />
+                        <Button marginTop={1}>
+                            <button onClick={handleBtnClick} className="w-full h-full">
+                                {
+                                    isLoading
+                                    ? <span className='loader border-2 border-h-e dark:border-d-6 border-b-h-1 dark:border-b-f-8 w-4 h-4'></span>
+                                    : <>답변하기</>
+                                }
+                            </button>
+                        </Button>
                     </div>
                 </div>
             </div>

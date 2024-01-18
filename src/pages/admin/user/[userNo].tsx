@@ -21,7 +21,6 @@ import { Switch } from "@mui/material";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import Button from "@/components/button";
-import Tooltip from "@/components/tooltip";
 import TextInput from "@/components/textinput";
 
 const UserDetailPage = ({params}: any) => {
@@ -186,7 +185,7 @@ const UserDetailPage = ({params}: any) => {
             />
 
             {/* 메인 */}
-            <div className='w-full flex flex-col justify-center items-center'>
+            <div className='w-full px-4 flex flex-col justify-center items-center'>
                 <div className='relative max-w-[45rem] w-full flex flex-col justify-center items-start py-24 tlg:py-16'>
                     <Link href="/admin/user/list" className="absolute left-0 top-3 block border-b border-transparent text-sm text-l-5 dark:text-d-c hover:text-l-2 hover:dark:text-white tlg:hover:text-l-5 tlg:hover:dark:text-d-c hover:border-b-l-2 hover:dark:border-b-white tlg:hover:border-b-transparent tlg:hover:dark:border-b-transparent"><div className="inline-block mr-1">&#60;</div> 유저 관리 페이지로 돌아가기</Link>
                     <h2 className='text-2xl tlg:text-xl text-l-2 dark:text-white font-bold mb-4'>유저 정보</h2>
@@ -320,9 +319,6 @@ const UserDetailPage = ({params}: any) => {
                     </div>
                 </div>
             </div>
-
-            {/* 툴팁 */}
-            <Tooltip/>
 
             {/* 풋터 */}
             <Footer/>

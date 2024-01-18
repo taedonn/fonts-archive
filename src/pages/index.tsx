@@ -164,7 +164,7 @@ const Index = ({params}: any) => {
             </div>
 
             {/* 고정 메뉴 */}
-            <Tooltip page='index'/>
+            <Tooltip/>
         </>
     );
 }

@@ -32,7 +32,7 @@ export async function FetchIssues(page: number, filter: string, search: string) 
                 {issue_content: { contains: search }},
             ]
         },
-        orderBy: [{issue_id: "desc"}],
+        orderBy: [{issue_closed: "asc"}, {issue_id: "desc"}],
         skip: (Number(page) - 1) * limit,
         take: limit,
     });

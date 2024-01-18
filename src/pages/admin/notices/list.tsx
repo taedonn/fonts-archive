@@ -16,7 +16,6 @@ import { NextSeo } from 'next-seo';
 // components
 import Header from "@/components/header";
 import Footer from '@/components/footer';
-import Tooltip from '@/components/tooltip';
 import SearchInput from '@/components/searchinput';
 
 // common
@@ -63,8 +62,8 @@ const NoticeList = ({params}: any) => {
             />
 
             {/* 메인 */}
-            <form onSubmit={e => e.preventDefault()} className='w-full flex flex-col justify-center items-center'>
-                <div className='w-[45rem] tmd:w-full px-4 flex flex-col justify-center items-start my-24 tlg:my-16'>
+            <form onSubmit={e => e.preventDefault()} className='w-full px-4 flex flex-col justify-center items-center'>
+                <div className='w-[45rem] tmd:w-full flex flex-col justify-center items-start my-24 tlg:my-16'>
                     <h2 className='text-2xl tlg:text-xl text-l-2 dark:text-white font-bold mb-4'>공지 목록</h2>
                     <div className='flex items-center mb-10'>
                         <SearchInput id="search" placeholder="제목/내용" value={search}/>
@@ -107,9 +106,6 @@ const NoticeList = ({params}: any) => {
                     </div>
                 </div>
             </form>
-
-            {/* 툴팁 */}
-            <Tooltip/>
 
             {/* 풋터 */}
             <Footer/>

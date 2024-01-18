@@ -1,22 +1,42 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import prisma from '@/libs/prisma';
 
-// SSR 댓글 페이지 수
-export async function FetchFontsLength() {
+const limit = 10;
+
+// 페이지 수
+export async function FetchFontsLength(search: string) {
     const fonts = await prisma.fonts.findMany({
         select: { code: true },
+        where: {
+            OR: [
+                {name: { contains: search }},
+                {font_family: { contains: search }},
+            ]
+        },
     });
+    const count = Number(fonts.length) % limit > 0 ? Math.floor(Number(fonts.length)/limit) + 1 : Math.floor(Number(fonts.length)/limit);
 
-    return fonts.length;
+    return count;
 }
 
-// SSR 첫 댓글 목록 가져오기
-export async function FetchFonts(lastId: number | undefined) {
+// 목록
+export async function FetchFonts(page: number, filter: string, search: string) {
     const fonts = await prisma.fonts.findMany({
-        orderBy: [{code: 'desc'}], // 정렬순
-        take: 10, // 가져오는 데이터 수
-        skip: lastId ? 1 : 0,
-        ...(lastId && { cursor: {code: lastId} })
+        where: {
+            OR: [
+                {name: { contains: search }},
+                {font_family: { contains: search }},
+            ]
+        },
+        orderBy: filter === "date"
+            ? [{code: "desc"}]
+            : filter === "name"
+                ? [{name: "asc"}, {code: "desc"}]
+                : filter === "view"
+                    ? [{view: "desc"}, {code: "desc"}]
+                    : [{like: "desc"}, {code: "desc"}],
+        skip: (Number(page) - 1) * limit,
+        take: limit, // 가져오는 데이터 수
     });
 
     return fonts;
@@ -41,75 +61,7 @@ export async function FetchAllFonts() {
 }
   
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-    if (req.method === "GET") {
-        if (req.query.action === "fetch-fonts") {
-            try {
-                const { page, filter, text } = req.query;
-
-                // 필터링 값
-                const filters = filter === "all"
-                    ? {name: {contains: text as string}}
-                    : filter === "kr"
-                        ? { 
-                            AND: [
-                                {lang: {equals: "KR"}},
-                                {name: {contains: text as string}},
-                            ]
-                        }
-                        : filter === "en"
-                            ? {
-                                AND: [
-                                    {lang: {equals: "EN"}},
-                                    {name: {contains: text as string}},
-                                ]
-                            }
-                            : filter === "show"
-                                ? {
-                                    AND: [
-                                        {show_type: {equals: true}},
-                                        {name: {contains: text as string}},
-                                    ]
-                                }
-                                : {
-                                    AND: [
-                                        {show_type: {equals: false}},
-                                        {name: {contains: text as string}},
-                                    ]
-                                };
-
-                // 댓글 페이지 수 가져오기
-                const length = await prisma.fonts.findMany({
-                    select: {
-                        code: true,
-                        name: true,
-                        lang: true,
-                        show_type: true,
-                    },
-                    where: filters
-                });
-                const count = Number(length.length) % 10 > 0 ? Math.floor(Number(length.length)/10) + 1 : Math.floor(Number(length.length)/10);
-
-                // 폰트 가져오기
-                const fonts = await prisma.fonts.findMany({
-                    where: filters,
-                    orderBy: [{code: 'desc'}], // 정렬순
-                    take: 10, // 가져오는 데이터 수
-                    skip: Number(page) === 1 ? 0 : (Number(page) - 1) * 10
-                });
-
-                return res.status(200).json({
-                    msg: "댓글 가져오기 성공",
-                    fonts: fonts,
-                    count: count,
-                });
-            } catch (err) {
-                return res.status(500).json({
-                    msg: "폰트 가져오기 실패",
-                    err: err,
-                })
-            }
-        }
-    } else if (req.method === 'POST') {
+    if (req.method === 'POST') {
         if (req.body.action === "edit") {
             try {
                 const {

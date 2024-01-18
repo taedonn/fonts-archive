@@ -23,7 +23,6 @@ import "react-color-palette/css";
 // components
 import Header from "@/components/header";
 import Footer from "@/components/footer";
-import Tooltip from "@/components/tooltip";
 import Button from "@/components/button";
 import SelectBox from "@/components/selectbox";
 import DummyText from "@/components/dummytext";
@@ -362,9 +361,6 @@ function DetailPage({params}: any) {
                 user={user}
                 handleThemeChange={resetColor}
             />
-
-            {/* 고정 메뉴 */}
-            <Tooltip/>
 
             {/* 로그인 중이 아닐 때 좋아요 alert창 팝업 */}
             {

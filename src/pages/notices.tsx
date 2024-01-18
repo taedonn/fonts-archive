@@ -15,7 +15,6 @@ import axios from 'axios';
 // components
 import Header from "@/components/header";
 import Footer from '@/components/footer';
-import Tooltip from '@/components/tooltip';
 import SearchInput from '@/components/searchinput';
 
 // common
@@ -98,9 +97,6 @@ const Notices = ({params}: any) => {
                 user={user}
                 page="notices"
             />
-
-            {/* 고정 메뉴 */}
-            <Tooltip/>
 
             {/* 메인 */}
             <div className='w-full px-4 flex flex-col justify-center items-center mt-16 mb-32 tmd:mt-12 tmd:mb-24'>
