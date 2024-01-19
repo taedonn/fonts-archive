@@ -7,6 +7,10 @@ import { signOut } from "next-auth/react";
 // libraries
 import axios from "axios";
 
+// components
+import TextInput from "@/components/textinput";
+import Button from "@/components/button";
+
 interface User {
     user_no: number,
     user_name: string,
@@ -121,47 +125,54 @@ export default function DeleteUserModal(
     return (
         <>
             {
-                display === true
-                ? <div className="w-full h-full fixed left-0 top-0 z-40 flex flex-col justify-start items-center pt-[12vh] tlg:pt-[10vh] tmd:pt-[60px] backdrop-blur bg-blur-theme dark:border-theme-4">
-                    <div ref={refSearchOutside} className="overflow-hidden w-[400px] tmd:w-[calc(100%-24px)] rounded-lg border border-theme-7 dark:border-theme-3 bg-theme-9 dark:bg-theme-2 animate-zoom-in">
-                        <div className="relative w-full h-[52px] flex flex-row justify-between items-center px-5">
-                            <div className="text-sm text-theme-5 dark:text-theme-7 mt-px">정말 탈퇴 하시겠습니까?</div>
-                            <button onClick={close} className="w-9 h-6 rounded-md absolute right-4 tmd:right-3 top-1/2 -translate-y-1/2 text-xs leading-none text-theme-4 dark:text-theme-8 bg-theme-8 dark:bg-theme-3/80 hover:dark:bg-theme-4/60 tlg:hover:dark:bg-theme-3/80 hover:drop-shadow-default hover:dark:drop-shadow-dark tlg:hover:drop-shadow-none tlg:hover:dark:drop-shadow-none">ESC</button>
-                        </div>
-                        <div className="w-full p-5 bg-theme-8 dark:bg-theme-blue-2">
-                            <h2 className="font-bold text-base text-theme-4 dark:text-theme-9 mb-2">회원 탈퇴 시 유의사항</h2>
-                            <div className='w-full flex flex-row justify-start items-start mb-1.5 text-xs text-theme-5 dark:text-theme-7'>
-                                <i className="text-xs mr-1.5 text-theme-red fa-regular fa-bell"></i>
-                                <div>탈퇴 시 계정의 모든 정보는 삭제됩니다.</div>
+                display
+                && <div className="w-full h-full fixed left-0 top-0 z-40 pt-24 tlg:pt-16 tlg:px-4 flex flex-col justify-start items-center backdrop-blur">
+                    <div ref={refSearchOutside} className="w-96 txs:w-full p-6 relative rounded-lg animate-zoom-in drop-shadow-default dark:drop-shadow-dark bg-l-e dark:bg-d-3">
+                        <div className="w-full flex flex-col text-l-2 dark:text-white">
+                            <div className="font-medium text-l-2 dark:text-white">정말 탈퇴 하시겠습니까?</div>
+                            <button onClick={close} className="w-8 h-8 absolute right-3 top-3 rounded-full text-l-2 dark:text-white hover:bg-l-d hover:dark:bg-d-6 tlg:hover:bg-transparent tlg:hover:dark:bg-transparent">
+                                <i className="fa-solid fa-xmark"></i>
+                            </button>
+                            <div className="w-full mt-5 px-5 py-4 rounded-lg text-l-2 dark:text-white bg-l-d dark:bg-d-4">
+                                <h2 className="font-medium mb-2">회원 탈퇴 시 유의사항</h2>
+                                <div className='w-full text-sm flex gap-1.5 items-center text-l-5 dark:text-d-c'>
+                                    <div className="w-1 h-1 rounded-full bg-l-5 dark:bg-d-c"></div>
+                                    <div>탈퇴 시 계정의 모든 정보는 삭제됩니다.</div>
+                                </div>
+                                <div className='w-full text-sm flex mt-1 gap-1.5 items-center text-l-5 dark:text-d-c'>
+                                    <div className="w-1 h-1 rounded-full bg-l-5 dark:bg-d-c"></div>
+                                    <div>재가입 시에도 삭제된 정보는 복구되지 않습니다.</div>
+                                </div>
                             </div>
-                            <div className='w-full flex flex-row justify-start items-start text-xs text-theme-5 dark:text-theme-7'>
-                                <i className="text-xs mr-1.5 text-theme-red fa-regular fa-bell"></i>
-                                <div>재가입 시에도 삭제된 정보는 복구되지 않습니다.</div>
-                            </div>
-                            <div className="w-full h-px bg-theme-5 mt-4"></div>
-                            <h2 className="font-bold text-base text-theme-4 dark:text-theme-9 mt-8">탈퇴하기</h2>
-                            <div className="text-xs text-theme-5 dark:text-theme-7 flex flex-row justify-start items-center mt-1.5">
+                            <h2 className="font-medium mt-8 mb-2">탈퇴하기</h2>
+                            <div className="text-sm text-l-5 dark:text-d-c flex items-center">
                                 아래 문구를 정확히 입력 후 탈퇴하기 버튼을 눌러주세요.
                             </div>
-                            <input onChange={handleDeleteValChange} id="delete-confirm" type="text" placeholder={`${user.user_id}/탈퇴한다`} className={`${inputChk === '' ? 'border-theme-4 focus:border-theme-yellow dark:border-theme-5 focus:dark:border-theme-blue-1' : 'border-theme-red focus:border-theme-red dark:border-theme-red focus:dark:border-theme-red'} w-full text-sm text-theme-10 dark:text-theme-9 px-3.5 py-2 mt-1.5 rounded-lg border-2 placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
-                            {
-                                inputChk === 'empty'
-                                ? <span className='block text-xs text-theme-red mt-1 ml-4'>입력칸이 비어있습니다.</span>
-                                : ( inputChk === 'wrong-val'
-                                    ? <span className='block text-xs text-theme-red mt-1 ml-4'>입력값이 일치하지 않습니다.</span>
-                                    : <></>
-                                )
-                            }
-                            <button onClick={handleDeleteBtnClick} className='w-full h-10 mt-2.5 rounded-lg flex flex-row justify-center items-center text-sm font-medium text-theme-10 dark:text-theme-9 bg-theme-red/80 hover:bg-theme-red tlg:hover:bg-theme-red/80'>
-                                {
-                                    isLoading === true
-                                    ? <span className='loader border-2 border-theme-5 dark:border-theme-3 border-b-theme-red dark:border-b-theme-red w-[18px] h-[18px]'></span>
-                                    : '회원 탈퇴하기'
-                                }
-                            </button>
+                            <TextInput
+                                onchange={handleDeleteValChange}
+                                state={inputChk}
+                                stateMsg={[
+                                    { state: "", msg: "" },
+                                    { state: "empty", msg: "입력칸이 비어있습니다." },
+                                    { state: "wrong-val", msg: "입력값이 일치하지 않습니다." },
+                                ]}
+                                id="delete-confirm"
+                                placeholder={`${user.user_id}/탈퇴한다`}
+                                isLabeled={false}
+                                marginTop={0.5}
+                            />
+                            <Button marginTop={1} color="red">
+                                <button onClick={handleDeleteBtnClick} className='w-full h-full'>
+                                    {
+                                        isLoading === true
+                                        ? <span className='loader border-2 border-white border-b-h-r w-4 h-4'></span>
+                                        : '회원 탈퇴하기'
+                                    }
+                                </button>
+                            </Button>
                         </div>
                     </div>
-                </div> : <></>
+                </div>
             }
         </>
     )

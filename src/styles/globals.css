@@ -323,20 +323,20 @@ html.dark .animated-mail .letter .letter-stamp {
 
 /* 검색 결과 active 상태일 때 스타일 정의 */
 @media (hover: hover) and (pointer: fine) {
-    #active { background-color: #FCBE11; }
-    #active .when-active-1 { background-color: #35363A; border-color: #35363A; }
-    #active .when-active-2 { color: #FCBE11; }
-    #active .when-active-3 { color: #35363A; }
-    #active .when-active-4 { color: #4C4D50; }
-    #active .when-active-5 { color: #4C4D50; }
-    #active .when-active-6 { color: #35363A; }
+    #active { background-color: #1B73E7; }
+    #active .when-active-1 { background-color: #FFFFFF; }
+    #active .when-active-2 { color: #1B73E7; }
+    #active .when-active-3 { color: #FFFFFF; }
+    #active .when-active-4 { color: #D2D4DC; }
+    #active .when-active-5 { color: #D2D4DC; }
+    #active .when-active-6 { color: #FFFFFF; }
     html.dark #active { background-color: #8AB4F8; }
-    html.dark #active .when-active-1 { background-color: #17181B; border-color: #17181B; }
+    html.dark #active .when-active-1 { background-color: #202124; }
     html.dark #active .when-active-2 { color: #8AB4F8; }
-    html.dark #active .when-active-3 { color: #17181B; }
-    html.dark #active .when-active-4 { color: #35363A; }
-    html.dark #active .when-active-5 { color: #35363A; }
-    html.dark #active .wㄴhen-active-6 { color: #17181B; }
+    html.dark #active .when-active-3 { color: #202124; }
+    html.dark #active .when-active-4 { color: #3C4043; }
+    html.dark #active .when-active-5 { color: #3C4043; }
+    html.dark #active .wㄴhen-active-6 { color: #202124; }
 }
 
 /* 툴팁 호버 이벤트 */

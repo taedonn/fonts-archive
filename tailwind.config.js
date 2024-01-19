@@ -11,28 +11,12 @@ module.exports = {
         },
         extend: {
             screens: {
-                "txl": { "max": "1280px" },
                 "tlg": { "max": "1024px" },
                 "tmd": { "max": "768px" },
                 "tsm": { "max": "640px" },
                 "txs": { "max": "480px" },
             },
             colors: {
-                "theme-1": "#000000",
-                "theme-2": "#202124",
-                "theme-3": "#35363A",
-                "theme-4": "#4C4D50",
-                "theme-5": "#646568",
-                "theme-6": "#97989C",
-                "theme-7": "#B1B2B6",
-                "theme-8": "#CDCED2",
-                "theme-9": "#E9EAEE",
-                "theme-10": "#FFFFFF",
-                "theme-blue-1": "#8AB4F8",
-                "theme-blue-2": "#17181B",
-                "theme-yellow": "#FCBE11",
-                "theme-red": "#FF084A",
-                "theme-green": "#40E0D0",
                 "theme-naver": "#03C75A",
                 "theme-kakao": "#FFE812",
                 h: {
@@ -75,8 +59,8 @@ module.exports = {
                 "skeleton-anim": "skeleton-anim 2s infinite"
             },
             backgroundImage: {
-                "gradient": "linear-gradient(90deg, #E9F0FE, #F9FAFD, #E9F0FE)",
-                "gradient-dark": "linear-gradient(90deg, #35363A, #4C4D50, #35363A)"
+                "gradient": "linear-gradient(90deg, #F9FAFD, #D4E1FD, #F9FAFD)",
+                "gradient-dark": "linear-gradient(90deg, #2D2E31, #3C4043, #2D2E31)"
             },
             backgroundSize: {
                 "gradient-size": "200% 100%"

@@ -320,6 +320,7 @@ export default function Comments (
         if(e.target.classList.contains('edit-btn-enabled')) {
             // 아이디 추출
             const id = getIntFromString(e.target.id);
+            const bundle = Number(e.currentTarget.dataset.bundle);
             const textarea = document.getElementById('comment-reply-textarea-' + id) as HTMLTextAreaElement;
             const input = document.getElementById('comment-reply-' + id) as HTMLInputElement;
 
@@ -334,7 +335,8 @@ export default function Comments (
                 user_auth: user.provider,
                 user_image: user.image,
                 comment_id: id,
-                comment: textarea.value
+                comment: textarea.value,
+                bundle_id: bundle,
             })
             .then(async (res) => {
                 // 업데이트된 댓글 가져오기
@@ -488,7 +490,6 @@ export default function Comments (
                 font_id={font.code}
                 user={user}
                 comment_id={commentId}
-                update={updateComments}
                 update_reports={updateReports}
             />
 
@@ -600,7 +601,7 @@ export default function Comments (
                             comments.map((comment: any) => {
                                 return (
                                     <div key={comment.comment_id} className='w-full text-l-2 dark:text-white animate-fade-in-fontbox'>
-                                        <div className='flex items-start mt-5 tlg:mt-4'>
+                                        <div className='flex items-start gap-4 tlg:gap-3 mt-5 tlg:mt-4'>
                                             {
                                                 comment.depth === 1
                                                 && <i className="text-l-2 dark:text-white rotate-180 mt-2.5 mx-3.5 fa-solid fa-reply"></i>
@@ -608,7 +609,7 @@ export default function Comments (
                                             <div className="w-10 tlg:w-8 h-10 tlg:h-8 shrink-0 relative rounded-full overflow-hidden">
                                                 <Image src={comment.user_image} alt="유저 프로필 사진" fill sizes="100%" referrerPolicy="no-referrer" className="object-cover"/>
                                             </div>
-                                            <div className="w-full ml-4 tlg:ml-3.5">
+                                            <div className="w-full">
                                                 <div className="flex gap-3 tlg:gap-1 tlg:flex-col items-center tlg:items-start">
                                                     <div className="font-medium">{comment.user_auth === "credentials" ? comment.user_name : hideUserName(comment.user_name)}</div>
                                                     <div className="flex gap-3 items-center">
@@ -617,7 +618,7 @@ export default function Comments (
                                                             user
                                                             ? comment.user_id !== user.id && !comment.is_deleted_with_reply
                                                                 ? reports === null || !reports.some((report: any) => report.comment_id === comment.comment_id)
-                                                                    ? <button id={`report-comment-${comment.comment_id}`} onClick={reportCommentModalOpen} className="flex gap-1 items-center text-sm text-l-2 dark:text-white hover:text-h-1 hover:dark:text-f-8">
+                                                                    ? <button id={`report-comment-${comment.comment_id}`} data-bundle={comment.bundle_id} onClick={reportCommentModalOpen} className="flex gap-1 items-center text-sm text-l-2 dark:text-white hover:text-h-1 hover:dark:text-f-8">
                                                                         <i className="text-xs fa-regular fa-bell"></i>
                                                                         신고
                                                                     </button>
@@ -646,7 +647,7 @@ export default function Comments (
                                                         ? <div className="text-l-5 dark:text-d-c">[삭제된 댓글입니다]</div>
                                                             : comment.is_deleted_by_reports
                                                                 ? <div className="text-l-5 dark:text-d-c">[신고로 삭제된 댓글입니다]</div>
-                                                                : <pre className="font-sans text-l-2 dark:text-white">{comment.comment}</pre>
+                                                                : <pre className="whitespace-pre-wrap font-sans text-l-2 dark:text-white">{comment.comment}</pre>
                                                     }
                                                     <input onChange={commentReplyShow} id={`comment-reply-${comment.comment_id}`} type="checkbox" className="hidden peer"/>
                                                     <label htmlFor={`comment-reply-${comment.comment_id}`} className={`${user ? 'block' : 'hidden'} peer-checked:hidden text-sm mt-3 text-h-1 dark:text-f-8 hover:underline tlg:underline cursor-pointer`}>답글</label>

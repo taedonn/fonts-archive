@@ -410,7 +410,7 @@ function DetailPage({params}: any) {
                     {/* 카카오 애드핏 상단 띠배너 */}
                     <div className="w-max">
                         <KakaoAdFitTopBanner
-                            marginBottom={16}
+                            marginBottom={1}
                         />
                     </div>
 
@@ -654,63 +654,90 @@ function DetailPage({params}: any) {
                                 font.font_weight[0] === "Y"
                                 && <div>
                                     <div style={{color: textColor.hex}} className="mb-2">Thin 100</div>
-                                    <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"100", color: textColor.hex}} className="w-full"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
+                                    <div className="w-full relative">
+                                        <div style={{height: convertedFontSize, backgroundImage: `linear-gradient(to left, ${bgColor.hex} 25%, #FFFFFF00)`}} className='w-44 absolute -right-6 top-1/2 -translate-y-1/2'></div>
+                                        <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"100", color: textColor.hex}} className="w-full"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
+                                    </div>
                                 </div>
                             }
                             {
                                 font.font_weight[1] === "Y"
                                 && <div>
                                     <div style={{color: textColor.hex}} className="mb-2">ExtraLight 200</div>
-                                    <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"200", color: textColor.hex}} className="w-full"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
+                                    <div className="w-full relative">
+                                        <div style={{height: convertedFontSize, backgroundImage: `linear-gradient(to left, ${bgColor.hex} 25%, #FFFFFF00)`}} className='w-44 absolute -right-6 top-1/2 -translate-y-1/2'></div>
+                                        <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"200", color: textColor.hex}} className="w-full"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
+                                    </div>
                                 </div>
                             }
                             {
                                 font.font_weight[2] === "Y"
                                 && <div>
                                     <div style={{color: textColor.hex}} className="mb-2">Light 300</div>
-                                    <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"300", color: textColor.hex}} className="w-full"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
+                                    <div className="w-full relative">
+                                        <div style={{height: convertedFontSize, backgroundImage: `linear-gradient(to left, ${bgColor.hex} 25%, #FFFFFF00)`}} className='w-44 absolute -right-6 top-1/2 -translate-y-1/2'></div>
+                                        <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"300", color: textColor.hex}} className="w-full"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
+                                    </div>
                                 </div>
                             }
                             {
                                 font.font_weight[3] === "Y"
                                 && <div>
                                     <div style={{color: textColor.hex}} className="mb-2">Regular 400</div>
-                                    <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"400", color: textColor.hex}} className="w-full"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
+                                    <div className="w-full relative">
+                                        <div style={{height: convertedFontSize, backgroundImage: `linear-gradient(to left, ${bgColor.hex} 25%, #FFFFFF00)`}} className='w-44 absolute -right-6 top-1/2 -translate-y-1/2'></div>
+                                        <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"400", color: textColor.hex}} className="w-full"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
+                                    </div>
                                 </div>
                             }
                             {
                                 font.font_weight[4] === "Y"
                                 && <div>
                                     <div style={{color: textColor.hex}} className="mb-2">Medium 500</div>
-                                    <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"500", color: textColor.hex}} className="w-full"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
+                                    <div className="w-full relative">
+                                        <div style={{height: convertedFontSize, backgroundImage: `linear-gradient(to left, ${bgColor.hex} 25%, #FFFFFF00)`}} className='w-44 absolute -right-6 top-1/2 -translate-y-1/2'></div>
+                                        <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"500", color: textColor.hex}} className="w-full"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
+                                    </div>
                                 </div>
                             }
                             {
                                 font.font_weight[5] === "Y"
                                 && <div>
                                     <div style={{color: textColor.hex}} className="mb-2">SemiBold 600</div>
-                                    <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"600", color: textColor.hex}} className="w-full"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
+                                    <div className="w-full relative">
+                                        <div style={{height: convertedFontSize, backgroundImage: `linear-gradient(to left, ${bgColor.hex} 25%, #FFFFFF00)`}} className='w-44 absolute -right-6 top-1/2 -translate-y-1/2'></div>
+                                        <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"600", color: textColor.hex}} className="w-full"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
+                                    </div>
                                 </div>
                             }
                             {
                                 font.font_weight[6] === "Y"
                                 && <div>
                                     <div style={{color: textColor.hex}} className="mb-2">Bold 700</div>
-                                    <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"700", color: textColor.hex}} className="w-full"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
+                                    <div className="w-full relative">
+                                        <div style={{height: convertedFontSize, backgroundImage: `linear-gradient(to left, ${bgColor.hex} 25%, #FFFFFF00)`}} className='w-44 absolute -right-6 top-1/2 -translate-y-1/2'></div>
+                                        <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"700", color: textColor.hex}} className="w-full"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
+                                    </div>
                                 </div>
                             }
                             {
                                 font.font_weight[7] === "Y"
                                 && <div>
                                     <div style={{color: textColor.hex}} className="mb-2">Heavy 800</div>
-                                    <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"800", color: textColor.hex}} className="w-full"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
+                                    <div className="w-full relative">
+                                        <div style={{height: convertedFontSize, backgroundImage: `linear-gradient(to left, ${bgColor.hex} 25%, #FFFFFF00)`}} className='w-44 absolute -right-6 top-1/2 -translate-y-1/2'></div>
+                                        <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"800", color: textColor.hex}} className="w-full"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
+                                    </div>
                                 </div>
                             }
                             {
                                 font.font_weight[8] === "Y"
                                 && <div>
                                     <div style={{color: textColor.hex}} className="mb-2">Black 900</div>
-                                    <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"900", color: textColor.hex}} className="w-full"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
+                                    <div className="w-full relative">
+                                        <div style={{height: convertedFontSize, backgroundImage: `linear-gradient(to left, ${bgColor.hex} 25%, #FFFFFF00)`}} className='w-44 absolute -right-6 top-1/2 -translate-y-1/2'></div>
+                                        <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"900", color: textColor.hex}} className="w-full"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
+                                    </div>
                                 </div>
                             }
                         </div>
@@ -941,19 +968,23 @@ function DetailPage({params}: any) {
                                     </div>
                                 </div>
                             </div>
-                            <div className="w-full p-6 rounded-lg bg-l-e dark:bg-d-4">
+                            <div className="w-full p-6 pb-0 rounded-lg bg-l-e dark:bg-d-4">
                                 <h2 className="flex justify-start items-center font-medium text-l-2 dark:text-white">
                                     라이센스 본문
                                 </h2>
-                                <div className="custom-md-scrollbar w-full h-[39.5rem] tlg:h-[auto] mt-8 overflow-hidden overflow-y-auto">
-                                    <pre id="license" className="w-full font-sans text-sm leading-loose whitespace-pre-wrap text-l-2 dark:text-white"></pre>
+                                <div className="w-full relative">
+                                    <div className="w-[calc(100%-0.25rem)] h-8 absolute left-0 top-0 bg-gradient-to-b from-50% from-l-e dark:from-d-4"></div>
+                                    <div className="w-[calc(100%-0.25rem)] h-16 absolute left-0 bottom-0 bg-gradient-to-t from-50% from-l-e dark:from-d-4"></div>
+                                    <div className="custom-sm-scrollbar w-full h-[43rem] pt-8 pb-16 overflow-hidden overflow-y-auto">
+                                        <pre id="license" className="w-full font-sans leading-loose whitespace-pre-wrap text-l-2 dark:text-white"></pre>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         
                         {/* 카카오 애드핏 하단 띠배너 */}
                         <div>
-                            <KakaoAdFitBottomBanner marginTop={16}/>
+                            <KakaoAdFitBottomBanner marginTop={1}/>
                         </div>
                     </div>
 

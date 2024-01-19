@@ -160,50 +160,59 @@ export default function FontSearch(
         <>
             {
                 display === "show"
-                ? <div className="w-full h-full fixed left-0 top-0 z-40 flex flex-col justify-start items-center pt-[12vh] tlg:pt-[10vh] tmd:pt-[60px] backdrop-blur bg-blur-theme dark:border-theme-4">
-                    <div ref={refSearchOutside} className="w-[720px] tmd:w-[calc(100%-24px)] rounded-lg border border-theme-7 dark:border-theme-3 bg-theme-9 dark:bg-theme-2 animate-zoom-in">
-                        <div className="w-full h-14 tmd:h-11 relative flex flex-row justify-center items-center border-b border-theme-7 dark:border-theme-3">
-                            <i className="text-lg tlg:text-sm absolute left-5 tlg:left-4 top-1/2 -translate-y-1/2 text-theme-4 dark:text-theme-8 fa-solid fa-magnifying-glass"></i>
-                            <input onChange={handleSearch} type="text" placeholder="폰트 검색하기..." autoFocus className="w-[calc(100%-108px)] tmd:w-[calc(100%-84px)] h-full text-sm tmd:text-xs leading-none text-theme-4 dark:text-theme-9 placeholder-theme-5 dark:placeholder-theme-8 bg-transparent"/>
-                            <button onClick={handleCloseBtn} className="w-9 h-6 rounded-md absolute right-4 tmd:right-3 top-1/2 -translate-y-1/2 text-xs leading-none text-theme-4 dark:text-theme-9 bg-theme-8 dark:bg-theme-3 hover:dark:bg-theme-4 tlg:hover:dark:bg-theme-3 hover:drop-shadow-default hover:dark:drop-shadow-dark tlg:hover:drop-shadow-none tlg:hover:dark:drop-shadow-none">ESC</button>
-                        </div>
-                        <div ref={parentRef} className="custom-md-scrollbar w-full min-h-[150px] tmd:min-h-[120px] max-h-[500px] relative overflow-auto">
-                            {/* 로딩 바 */}
-                            {isLoading && <div className="w-full h-full absolute left-0 top-0 flex flex-row justify-center items-center"><span className="loader border-2 border-theme-8 border-b-theme-6 dark:border-theme-5 dark:border-b-theme-10 w-10 tlg:w-9 h-10 tlg:h-9"></span></div>}
-                            {isRefetching && <div className="w-full h-full absolute left-0 top-0 flex flex-row justify-center items-center"><span className="loader border-2 border-theme-8 border-b-theme-6 dark:border-theme-5 dark:border-b-theme-10 w-10 tlg:w-9 h-10 tlg:h-9"></span></div>}
+                ? <div className="w-full h-full fixed left-0 top-0 z-40 pt-24 tlg:pt-16 tlg:px-4 flex flex-col justify-start items-center backdrop-blur">
+                    <div ref={refSearchOutside} className="w-[45rem] tlg:w-full relative rounded-lg animate-zoom-in drop-shadow-default dark:drop-shadow-dark bg-l-e dark:bg-d-3">
+                        <div className="w-full flex flex-col">
+                            <div className="w-full h-14 tlg:h-12 px-14 relative flex justify-center items-center border-b border-l-d dark:border-d-3 text-l-2 dark:text-white">
+                                <i className="tlg:text-sm absolute left-5 tlg:left-4 top-1/2 -translate-y-1/2 fa-solid fa-magnifying-glass"></i>
+                                <input onChange={handleSearch} type="text" placeholder="폰트 검색하기..." autoFocus className="w-full h-full tlg:text-sm leading-none placeholder-l-5 dark:placeholder-d-c bg-transparent"/>
+                                <button onClick={handleCloseBtn} className="w-8 h-8 absolute right-3 top-1/2 -translate-y-1/2 rounded-full text-l-2 dark:text-white hover:bg-l-d hover:dark:bg-d-4 tlg:hover:bg-transparent tlg:hover:dark:bg-transparent">
+                                    <i className="fa-solid fa-xmark"></i>
+                                </button>
+                                <div className="w-[calc(100%-0.25rem)] h-6 absolute z-10 left-0 -bottom-px translate-y-full bg-gradient-to-b from-white dark:from-d-2"></div>
+                            </div>
+                            <div ref={parentRef} className="custom-sm-scrollbar w-full min-h-[9.375rem] tlg:min-h-[7.5rem] max-h-[31.25rem] relative overflow-auto bg-white dark:bg-d-2">
 
-                            {/* 검색 결과 */}
-                            {isSuccess && !isLoading && !isRefetching
-                                ? ( data.fonts.length !== 0
-                                    ? <div className="w-full px-6 tmd:px-4">
-                                        <div className="text-lg tmd:text-sm text-theme-3 dark:text-theme-8 leading-none mt-7 tmd:mt-6 mb-4 tmd:mb-3 font-bold">검색 결과</div>
-                                        {data && data.fonts.map((font: {
-                                            code: number,
-                                            name: string,
-                                            source: string,
-                                            font_family: string,
-                                        }, idx: number) => {
-                                            return (
-                                                <Link aria-label="search-result-link" onMouseOver={() => handleLinkMouseOver(idx)} id={activeEl === idx ? "active" : ""} ref={activeEl === idx ? activeRef : null} href={`/post/${font.font_family.replaceAll(" ", "+")}`} key={font.code} className="px-4 mt-2 first:mt-0 last:mb-7 last:tmd:mb-6 w-full h-[60px] tmd:h-12 relative flex justify-start items-center rounded-lg bg-theme-8 dark:bg-theme-3 cursor-pointer">
-                                                    <div className="w-6 tmd:w-5 h-6 tmd:h-5 border rounded-md tmd:rounded-sm flex flex-row justify-center items-center mr-3 bg-theme-7 dark:bg-theme-4 border-theme-7 dark:border-theme-4 when-active-1">
-                                                        <i className="when-active-2 text-sm text-theme-10 fa-solid fa-hashtag"></i>
-                                                    </div>
-                                                    <div className="text-sm tmd:text-xs text-theme-3 dark:text-theme-10 font-medium leading-none when-active-3">{font.name}</div>
-                                                    <div className="text-sm text-theme-5 dark:text-theme-8 font-normal leading-none tmd:hidden ml-2.5 when-active-4">{font.font_family}</div>
-                                                    <div className="text-xs text-theme-5 dark:text-theme-8 leading-none tmd:hidden ml-2.5 when-active-5">{font.source}</div>
-                                                    <i className="when-active-6 text-sm absolute right-4 text-theme-3 dark:text-theme-10 fa-solid fa-angle-right"></i>
-                                                </Link>
-                                            )
-                                        })}
-                                    </div>
-                                    : ( data.fonts.length === 0 && keyword !== ""
-                                        ? <div className="w-full h-full absolute left-0 top-0 flex flex-row justify-center items-center text-base tmd:text-xs leading-none text-theme-5 dark:text-theme-7">&quot;<span className="text-theme-3 dark:text-theme-9 font-medium">{keyword}</span>&quot; 에 대한 검색 결과가 없습니다.</div>
-                                        : <div className="w-full h-full absolute left-0 top-0 flex flex-row justify-center items-center text-base tmd:text-xs leading-none text-theme-5 dark:text-theme-7"><span className="text-theme-3 dark:text-theme-9 font-medium mr-2">영문/한글 폰트 이름,</span> 또는 <span className="text-theme-3 dark:text-theme-9 font-medium ml-2">회사 이름</span>을 검색해 주세요.</div>
-                                    )
-                                ) : <></>
-                            }
+                                {/* 로딩 바 */}
+                                {isLoading && <div className="w-full h-full absolute left-0 top-0 flex justify-center items-center"><span className="loader w-9 h-9 border-2 border-h-e dark:border-d-6 border-b-h-1 dark:border-b-f-8"></span></div>}
+                                {isRefetching && <div className="w-full h-full absolute left-0 top-0 flex justify-center items-center"><span className="loader w-9 h-9 border-2 border-h-e dark:border-d-6 border-b-h-1 dark:border-b-f-8"></span></div>}
+
+                                {/* 검색 결과 */}
+                                {isSuccess && !isLoading && !isRefetching
+                                    ? ( data.fonts.length !== 0
+                                        ? <div className="w-full p-6">
+                                            <div className="text-lg text-l-2 dark:text-white mb-4 font-bold">검색 결과</div>
+                                            {data && data.fonts.map((font: {
+                                                code: number,
+                                                name: string,
+                                                source: string,
+                                                font_family: string,
+                                            }, idx: number) => {
+                                                return (
+                                                    <Link aria-label="search-result-link" onMouseOver={() => handleLinkMouseOver(idx)} id={activeEl === idx ? "active" : ""} ref={activeEl === idx ? activeRef : null} href={`/post/${font.font_family.replaceAll(" ", "+")}`} key={font.code} className="px-4 mt-2.5 first:mt-0 w-full h-16 tmd:h-12 gap-3 relative flex items-center rounded-lg bg-l-e dark:bg-d-3 cursor-pointer">
+                                                        <div className="when-active-1 w-6 h-6 rounded-md flex justify-center items-center bg-l-d dark:bg-d-6">
+                                                            <i className="when-active-2 text-sm text-l-2 dark:text-white fa-solid fa-hashtag"></i>
+                                                        </div>
+                                                        <div className="when-active-3 text-l-2 dark:text-white font-medium">{font.name}</div>
+                                                        <div className="when-active-4 text-sm text-l-5 dark:text-d-c font-normal tlg:hidden">{font.font_family}</div>
+                                                        <div className="when-active-5 text-sm text-l-5 dark:text-d-c font-normal tlg:hidden">{font.source}</div>
+                                                        <i className="when-active-6 text-sm absolute right-4 text-l-2 dark:text-white fa-solid fa-angle-right"></i>
+                                                    </Link>
+                                                )
+                                            })}
+                                        </div>
+                                        : ( data.fonts.length === 0 && keyword !== ""
+                                            ? <div className="w-full h-full absolute left-0 top-0 flex justify-center items-center tlg:text-sm text-l-5 dark:text-d-c">&quot;<span className="text-l-2 dark:text-white font-medium">{keyword}</span>&quot; 에 대한 검색 결과가 없습니다.</div>
+                                            : <div className="w-full h-full absolute left-0 top-0 flex justify-center items-center tlg:text-sm text-l-5 dark:text-d-c"><span className="text-l-2 dark:text-white font-medium mr-2">영문/한글 폰트 이름,</span> 또는 <span className="text-l-2 dark:text-white font-medium ml-2">회사 이름</span>을 검색해 주세요.</div>
+                                        )
+                                    ) : <></>
+                                }
+                            </div>
+                            <div className="w-full h-14 tlg:h-12 text-sm tlg:text-xs relative flex justify-end items-center px-6 border-t text-l-5 dark:text-d-9 border-l-d dark:border-d-3">
+                                © 2023 - {new Date().getFullYear()}. 태돈, all rights reserved.
+                                <div className="w-[calc(100%-0.25rem)] h-6 absolute z-10 left-0 -top-px -translate-y-full bg-gradient-to-t from-white dark:from-d-2"></div>
+                            </div>
                         </div>
-                        <div className="w-full h-12 flex flex-row justify-end items-center px-6 tmd:px-4 border-t text-xs tmd:text-xs text-theme-5 dark:text-theme-7 leading-none border-theme-7 dark:border-theme-3">© 2023. taedonn, all rights reserved.</div>
                     </div>
                 </div> : <></>
             }

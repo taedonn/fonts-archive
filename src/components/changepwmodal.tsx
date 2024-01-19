@@ -4,6 +4,10 @@ import React, { useEffect, useRef, useState } from "react";
 // libraries
 import axios from "axios";
 
+// components
+import TextInput from "@/components/textinput";
+import Button from "@/components/button";
+
 export default function ChangePwModal(
     {
         display,
@@ -148,6 +152,10 @@ export default function ChangePwModal(
                     auth: auth,
                 })
                 .then(() => {
+                    success();
+                    close();
+                })
+                .then(() => {
                     setIsLoading(false);
                     setCurrentPwVal('');
                     setCurrentPwChk('');
@@ -155,8 +163,6 @@ export default function ChangePwModal(
                     setNewPwChk('');
                     setNewPwConfirmVal('');
                     setNewPwConfirmChk('');
-                    success();
-                    close();
                 })
                 .catch(err => console.log(err));
             } else { setIsLoading(false); }
@@ -167,70 +173,88 @@ export default function ChangePwModal(
     return (
         <>
             {
-                display === true
-                ? <div className="w-full h-full fixed left-0 top-0 z-40 flex flex-col justify-start items-center pt-[12vh] tlg:pt-[10vh] tmd:pt-[60px] backdrop-blur bg-blur-theme dark:border-theme-4">
-                    <div ref={refSearchOutside} className="overflow-hidden w-[400px] tmd:w-[calc(100%-24px)] rounded-lg border border-theme-7 dark:border-theme-3 bg-theme-9 dark:bg-theme-2 animate-zoom-in">
-                        <div className="relative w-full h-[52px] flex flex-row justify-between items-center px-5">
-                            <div className="text-sm text-theme-5 dark:text-theme-7 mt-px">비밀번호 변경 안내</div>
-                            <button onClick={close} className="w-9 h-6 rounded-md absolute right-4 tmd:right-3 top-1/2 -translate-y-1/2 text-xs leading-none text-theme-4 dark:text-theme-8 bg-theme-8 dark:bg-theme-3/80 hover:dark:bg-theme-4/60 tlg:hover:dark:bg-theme-3/80 hover:drop-shadow-default hover:dark:drop-shadow-dark tlg:hover:drop-shadow-none tlg:hover:dark:drop-shadow-none">ESC</button>
-                        </div>
-                        <form onSubmit={e => e.preventDefault()} className="w-full p-5 bg-theme-8 dark:bg-theme-blue-2">
-                            <input id="userName" name="username" autoComplete="username" className="hidden"/>
-                            <div className="text-sm text-theme-4 dark:text-theme-9">현재 비밀번호</div>
-                            <input onChange={handleCurrentPwChange} id="current-pw" type="password" placeholder="현재 비밀번호를 입력해 주세요." autoFocus autoComplete="current-password" className={`${currentPwChk === '' || currentPwChk === 'success' ? 'border-theme-4 focus:border-theme-yellow dark:border-theme-5 focus:dark:border-theme-blue-1' : 'border-theme-red focus:border-theme-red dark:border-theme-red focus:dark:border-theme-red'} w-full text-sm text-theme-10 dark:text-theme-9 px-3.5 py-2 mt-1.5 rounded-lg border-2 placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
-                            {
-                                currentPwChk === ''
-                                ? <></>
-                                : currentPwChk === 'empty'
-                                    ? <span className='block text-xs text-theme-red mt-1 ml-4'>비밀번호를 입력해 주세요.</span>
-                                    : currentPwChk === 'invalid'
-                                        ? <span className='block text-xs text-theme-red mt-1 ml-4'>비밀번호가 일치하지 않습니다.</span>
-                                        : <></>
-                            }
-                            <div className="text-sm text-theme-4 dark:text-theme-9 mt-5">새 비밀번호 입력</div>
-                            <input onChange={handleNewPwChange} id="new-pw" type="password" placeholder='새 비밀번호를 입력해 주세요.' autoComplete="new-pw" className={`${newPwChk === '' || newPwChk === 'success' ? 'border-theme-4 focus:border-theme-yellow dark:border-theme-5 focus:dark:border-theme-blue-1' : 'border-theme-red focus:border-theme-red dark:border-theme-red focus:dark:border-theme-red'} w-full text-sm text-theme-10 dark:text-theme-9 px-3.5 py-2 mt-1.5 rounded-lg border-2 placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
-                            {
-                                newPwChk === ''
-                                ? <></>
-                                : newPwChk === 'empty'
-                                    ? <span className='block text-xs text-theme-red mt-1 ml-4'>새 비밀번호를 입력해 주세요.</span>
-                                    : newPwChk === 'unchanged'
-                                        ? <span className='block text-xs text-theme-red mt-1 ml-4'>기존 비밀번호와 동일합니다.</span>
-                                        : newPwChk === 'invalid'
-                                            ? <span className='block text-xs text-theme-red mt-1 ml-4'>비밀번호 형식이 올바르지 않습니다.</span>
-                                            : <></>
-                            }
-                            <div className="text-sm text-theme-4 dark:text-theme-9 mt-5">새 비밀번호 확인</div>
-                            <input onChange={handleNewPwConfirmChange} id="new-pw-confirm" type="password" placeholder="새 비밀번호를 재입력해 주세요." autoComplete="new-pw" className={`${newPwConfirmChk === '' || newPwConfirmChk === 'success' ? 'border-theme-4 focus:border-theme-yellow dark:border-theme-5 focus:dark:border-theme-blue-1' : 'border-theme-red focus:border-theme-red dark:border-theme-red focus:dark:border-theme-red'} w-full text-sm text-theme-10 dark:text-theme-9 px-3.5 py-2 mt-1.5 rounded-lg border-2 placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
-                            {
-                                newPwConfirmChk === ''
-                                ? <></>
-                                : newPwConfirmChk === 'empty'
-                                    ? <span className='block text-xs text-theme-red mt-1 ml-4'>새 비밀번호를 입력해 주세요.</span>
-                                    : newPwConfirmChk === 'invalid'
-                                        ? <span className='block text-xs text-theme-red mt-1 ml-4'>새 비밀번호와 일치하지 않습니다.</span>
-                                        : <></>
-                            }
-                            <div className="w-full h-px bg-theme-6 dark:bg-theme-5 mt-4"></div>
-                            <h2 className="font-bold text-base text-theme-4 dark:text-theme-9 mt-8">비밀번호 변경 시 유의사항</h2>
-                            <div className='w-full flex flex-row justify-start items-start text-xs text-theme-5 dark:text-theme-7 mt-1'>
-                                <i className="text-xs mr-1.5 text-theme-yellow dark:text-theme-blue-1 fa-regular fa-bell"></i>
-                                <div>영문, 숫자, 특수문자 포함 8~20자를 조합해 만들어 주세요.</div>
-                            </div>
-                            <div className='w-full flex flex-row justify-start items-start text-xs text-theme-5 dark:text-theme-7 mt-1'>
-                                <i className="text-xs mr-1.5 text-theme-yellow dark:text-theme-blue-1 fa-regular fa-bell"></i>
-                                <div>비밀번호 변경 완료 시, 비밀번호는 즉시 변경됩니다.</div>
-                            </div>
-                            <button onClick={handlePwChangeClick} className='w-full h-10 flex flex-row justify-center items-center rounded-lg mt-3.5 text-sm font-medium text-theme-4 dark:text-theme-blue-2 bg-theme-yellow/80 hover:bg-theme-yellow tlg:hover:bg-theme-yellow/80 dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1/80'>
-                                {
-                                    isLoading === true
-                                    ? <span className='loader border-2 border-theme-5 border-b-theme-yellow dark:border-b-theme-blue-1 w-[18px] h-[18px]'></span>
-                                    : '비밀번호 변경하기'
-                                }
+                display
+                && <div className="w-full h-full fixed left-0 top-0 z-40 pt-24 tlg:pt-16 tlg:px-4 flex flex-col justify-start items-center backdrop-blur">
+                    <div ref={refSearchOutside} className="w-96 txs:w-full p-6 relative rounded-lg animate-zoom-in drop-shadow-default dark:drop-shadow-dark text-l-2 dark:text-white bg-l-e dark:bg-d-3">
+                        <div className="w-full flex flex-col">
+                            <div className="font-medium">비밀번호 변경 안내</div>
+                            <button onClick={close} className="w-8 h-8 absolute right-3 top-3 rounded-full hover:bg-l-d hover:dark:bg-d-6 tlg:hover:bg-transparent tlg:hover:dark:bg-transparent">
+                                <i className="fa-solid fa-xmark"></i>
                             </button>
-                        </form>
+                            <form onSubmit={e => e.preventDefault()} className="w-full">
+                                <TextInput
+                                    onchange={handleCurrentPwChange}
+                                    state={currentPwChk}
+                                    stateMsg={[
+                                        { state: "", msg: "" },
+                                        { state: "empty", msg: "비밀번호를 입력해 주세요." },
+                                        { state: "invalid", msg: "비밀번호가 일치하지 않습니다." },
+                                    ]}
+                                    type="password"
+                                    id="current-pw"
+                                    autocomplete="current-pw"
+                                    tabindex={1}
+                                    placeholder="현재 비밀번호를 입력해 주세요."
+                                    label="현재 비밀번호"
+                                    marginTop={2}
+                                />
+                                <TextInput
+                                    onchange={handleNewPwChange}
+                                    state={newPwChk}
+                                    stateMsg={[
+                                        { state: "", msg: "" },
+                                        { state: "empty", msg: "새 비밀번호를 입력해 주세요." },
+                                        { state: "unchanged", msg: "기존 비밀번호와 동일합니다." },
+                                        { state: "invalid", msg: "비밀번호 형식이 올바르지 않습니다." },
+                                    ]}
+                                    type="password"
+                                    id="new-pw"
+                                    autocomplete="new-pw"
+                                    tabindex={2}
+                                    placeholder="새 비밀번호를 입력해 주세요."
+                                    label="새 비밀번호 입력"
+                                    marginTop={1}
+                                />
+                                <TextInput
+                                    onchange={handleNewPwConfirmChange}
+                                    state={newPwConfirmChk}
+                                    stateMsg={[
+                                        { state: "", msg: "" },
+                                        { state: "empty", msg: "새 비밀번호를 입력해 주세요." },
+                                        { state: "invalid", msg: "새 비밀번호와 일치하지 않습니다." },
+                                    ]}
+                                    type="password"
+                                    id="new-pw-confirm"
+                                    autocomplete="new-pw-confirm"
+                                    tabindex={3}
+                                    placeholder="새 비밀번호를 재입력해 주세요."
+                                    label="새 비밀번호 확인"
+                                    marginTop={1}
+                                />
+                                <div className="w-full mt-5 px-5 py-4 rounded-lg text-l-2 dark:text-white bg-l-d dark:bg-d-4">
+                                    <h2 className="font-medium mb-2">비밀번호 변경 시 유의사항</h2>
+                                    <div className='w-full text-sm flex gap-1.5 items-center text-l-5 dark:text-d-c'>
+                                        <div className="w-1 h-1 rounded-full bg-l-5 dark:bg-d-c"></div>
+                                        <div>영문, 숫자, 특수문자 포함 8~20자 조합</div>
+                                    </div>
+                                    <div className='w-full text-sm flex gap-1.5 mt-1 items-center text-l-5 dark:text-d-c'>
+                                        <div className="w-1 h-1 rounded-full bg-l-5 dark:bg-d-c"></div>
+                                        <div>비밀번호 변경 완료 시, 즉시 반영됩니다.</div>
+                                    </div>
+                                </div>
+                                <Button marginTop={0.75}>
+                                    <button onClick={handlePwChangeClick} className='w-full h-full'>
+                                        {
+                                            isLoading === true
+                                            ? <span className='loader border-2 border-h-e dark:border-d-6 border-b-h-1 dark:border-b-f-8 w-4 h-4'></span>
+                                            : '비밀번호 변경하기'
+                                        }
+                                    </button>
+                                </Button>
+                            </form>
+                        </div>
                     </div>
-                </div> : <></>
+                </div>
             }
         </>
     )

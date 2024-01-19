@@ -114,13 +114,13 @@ export default function DeleteCommentModal({
                                 <i className="fa-solid fa-xmark"></i>
                             </button>
                             <div className="w-full mt-5 px-5 py-4 rounded-lg text-l-2 dark:text-white bg-l-d dark:bg-d-4">
-                                <h2 className="font-medium mb-1">댓글을 삭제하시겠습니까?</h2>
-                                <div className='w-full text-sm flex gap-1.5 items-center'>
-                                    <div className="w-1 h-1 rounded-full bg-l-2 dark:bg-white"></div>
+                                <h2 className="font-medium mb-2">댓글을 삭제하시겠습니까?</h2>
+                                <div className='w-full text-sm flex gap-1.5 items-center text-l-5 dark:text-d-c'>
+                                    <div className="w-1 h-1 rounded-full bg-l-5 dark:bg-d-c"></div>
                                     <div>삭제된 댓글은 복구되지 않습니다.</div>
                                 </div>
                             </div>
-                            <div className="flex justify-between gap-2 mt-3">
+                            <div className="flex justify-between gap-2 mt-4">
                                 <div className="w-1/2">
                                     <Button color="gray">
                                         <button onClick={close} className='w-full h-full'>취소</button>

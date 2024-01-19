@@ -251,15 +251,15 @@ export default function Header (
                                                     <i className="ml-px mr-1.5 fa-regular fa-comment"></i>
                                                     댓글 목록
                                                 </Link>
-                                                <Link href="/admin/issue/list" className="flex justify-start items-center mt-0.5 hover:text-l-5 hover:dark:text-d-c tlg:hover:text-l-2 tlg:hover:dark:text-white">
+                                                <Link href="/admin/issue/list" className="flex justify-start items-center mt-1 hover:text-l-5 hover:dark:text-d-c tlg:hover:text-l-2 tlg:hover:dark:text-white">
                                                     <i className="ml-px mr-2 text-xs fa-regular fa-paper-plane"></i>
                                                     문의 목록
                                                 </Link>
-                                                <Link href="/admin/notices/add" className="flex justify-start items-center mt-0.5 hover:text-l-5 hover:dark:text-d-c tlg:hover:text-l-2 tlg:hover:dark:text-white">
+                                                <Link href="/admin/notices/add" className="flex justify-start items-center mt-1 hover:text-l-5 hover:dark:text-d-c tlg:hover:text-l-2 tlg:hover:dark:text-white">
                                                     <i className="ml-0.5 mr-2 text-xs fa-regular fa-flag"></i>
                                                     공지 추가
                                                 </Link>
-                                                <Link href="/admin/notices/list" className="flex justify-start items-center mt-0.5 hover:text-l-5 hover:dark:text-d-c tlg:hover:text-l-2 tlg:hover:dark:text-white">
+                                                <Link href="/admin/notices/list" className="flex justify-start items-center mt-1 hover:text-l-5 hover:dark:text-d-c tlg:hover:text-l-2 tlg:hover:dark:text-white">
                                                     <i className="ml-0.5 mr-2 text-xs fa-regular fa-flag"></i>
                                                     공지 목록
                                                 </Link>

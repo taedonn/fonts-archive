@@ -168,10 +168,10 @@ export default function FontBox ({
 
     return (
         <>
-            <div className={`${expand ? "w-[calc(100%-320px)] tlg:w-full" : "w-full"} pt-16 px-8 tlg:px-4 duration-200`}>
+            <div className={`${expand ? "w-[calc(100%-320px)] tlg:w-full" : "w-full"} pt-12 px-8 tlg:px-4 duration-200`}>
                 <div className="w-full mt-8 tlg:mt-4 mb-32 relative flex flex-col">
                     <div className='w-full flex'>
-                        <KakaoAdFitTopBanner marginBottom={16}/>
+                        <KakaoAdFitTopBanner marginBottom={1}/>
                     </div>
                     
                     {/* 로그인 중이 아닐 때 좋아요 alert창 팝업 */}

@@ -225,19 +225,22 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     user_image,
                     comment_id,
                     comment,
+                    bundle_id,
                 } = req.body;
 
-                // 답글을 단 댓글 정보 가져오기
-                const thisComment = await prisma.fontsComment.findUnique({
-                    where: { comment_id: Number(comment_id) }
+                // 번들 ID 조회
+                const bundle = await prisma.fontsComment.findMany({
+                    where: {
+                        is_deleted: false,
+                        font_id: font_id,
+                        bundle_id: bundle_id
+                    }
                 });
 
-                if (thisComment) {
-                    // 답글을 단 댓글의 bundle_id 가져오기
-                    const thisBundle = await prisma.fontsComment.findMany({
-                        where: { bundle_id: thisComment.bundle_id }
-                    });
+                // 번들 ID에서 댓글 ID 추출
+                const thisComment = bundle.find((bundle: any) => bundle.comment_id === comment_id);
 
+                if (thisComment) {
                     // 답글 저장하기
                     await prisma.fontsComment.create({
                         data: {
@@ -252,7 +255,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                             comment: comment,
                             depth: 1,
                             bundle_id: Number(thisComment.bundle_id),
-                            bundle_order: thisBundle.length,
+                            bundle_order: bundle.length,
                             is_deleted: false
                         }
                     });
