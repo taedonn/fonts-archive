@@ -106,68 +106,47 @@ export default function ChangePwModal(
         // 로딩 스피너 실행
         setIsLoading(true);
 
-        // 현재 비밀번호
-        let currentPw = '';
-        
-        await axios.get('/api/user/updateuserinfo', {
-            params: {
-                action: "get-current-pw",
-                id: id,
-                auth: auth,
-            }
-        })
-        .then(res => {
-            // 현재 비밀번호 유효성 검사
-            currentPw = res.data.user.user_pw;
-            if (currentPwVal === '') { setCurrentPwChk('empty'); }
-            else if (currentPwVal !== currentPw) { setCurrentPwChk('invalid'); }
-            else { setCurrentPwChk('success'); }
-
-            // 새 비밀번호 유효성 검사
-            if (newPwVal === '') { setNewPwChk('empty'); }
-            else if (newPwVal === currentPw) { setNewPwChk('unchanged'); }
-            else if (!pwPattern.test(newPwVal)) { setNewPwChk('invalid'); }
-            else { setNewPwChk('success'); }
-
-            // 새 비밀번호 재입력 유효성 검사
-            if (newPwConfirmVal === '') { setNewPwConfirmChk('empty'); }
-            else if (newPwConfirmVal !== newPwVal) { setNewPwConfirmChk('invalid'); }
-            else { setNewPwConfirmChk('success'); }
-        })
-        .then(async () => {
-            // 유효성 검사 통과 시 비밀번호 변경 API 호출
-            if (
-                currentPwVal !== '' &&
-                currentPwVal === currentPw &&
-                newPwVal !== '' &&
-                newPwVal !== currentPw &&
-                pwPattern.test(newPwVal) &&
-                newPwConfirmVal !== '' &&
-                newPwConfirmVal === newPwVal
-            ) {
-                await axios.post('/api/user/updateuserinfo', {
-                    action: "change-pw",
+        if (currentPwVal === "") setCurrentPwChk("empty");
+        else if (newPwVal === "") setNewPwChk("empty");
+        else if (newPwVal == currentPwVal) setNewPwChk("unchanged");
+        else if (!pwPattern.test(newPwVal)) setNewPwChk("invalid");
+        else if (newPwConfirmVal === "") setNewPwConfirmVal("empty");
+        else if (newPwConfirmVal !== newPwVal) setNewPwConfirmChk("invalid");
+        else {
+            await axios.get('/api/user/updateuserinfo', {
+                params: {
+                    action: "compare-pw",
                     id: id,
-                    pw: newPwVal,
+                    pw: currentPwVal,
                     auth: auth,
-                })
-                .then(() => {
-                    success();
-                    close();
-                })
-                .then(() => {
+                }
+            })
+            .then(async (res) => {
+                if (res.data.compare) {
+                    await axios.post('/api/user/updateuserinfo', {
+                        action: "change-pw",
+                        id: id,
+                        pw: newPwVal,
+                        auth: auth,
+                    })
+                    .then(() => {
+                        success();
+                        close();
+                        setIsLoading(false);
+                        setCurrentPwVal('');
+                        setCurrentPwChk('');
+                        setNewPwVal('');
+                        setNewPwChk('');
+                        setNewPwConfirmVal('');
+                        setNewPwConfirmChk('');
+                    })
+                    .catch(err => console.log(err));
+                } else {
+                    setCurrentPwChk("invalid");
                     setIsLoading(false);
-                    setCurrentPwVal('');
-                    setCurrentPwChk('');
-                    setNewPwVal('');
-                    setNewPwChk('');
-                    setNewPwConfirmVal('');
-                    setNewPwConfirmChk('');
-                })
-                .catch(err => console.log(err));
-            } else { setIsLoading(false); }
-        })
-        .catch(err => console.log(err));
+                }
+            });
+        }
     }
 
     return (

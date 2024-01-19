@@ -1,4 +1,5 @@
 import prisma from '@/libs/prisma';
+const bcrypt = require('bcrypt');
 
 export async function FetchUserInfo(id: string, provider: string) {
     const user = await prisma.fontsUser.findFirst({
@@ -39,7 +40,7 @@ export async function GetUser(credentials: any) {
         }
     });
 
-    if (user !== null && user.user_pw === credentials.password) {
+    if (user !== null && bcrypt.compareSync(credentials.password, user.user_pw)) {
         const sessionUser = {};
 
         // Session의 기본 키 값과 동일하게 맞춰줌
@@ -70,7 +71,7 @@ export async function GetOAuthUser(user: any, account: any) {
         } 
     });
 
-    if (OAuthUser === null) {
+    if (OAuthUser === null) { // OAuth 유저가 등록이 안되어 있으면 OAuth 유저 등록
         await prisma.fontsUser.create({
             data: {
                 user_name: user.name === undefined ? user.email.split("@")[0] : user.name,
@@ -82,12 +83,17 @@ export async function GetOAuthUser(user: any, account: any) {
                 profile_img: user.image === undefined ? "/fonts-archive-base-profile-img-" + (Math.floor(Math.random() * 6) + 1) + ".svg" : user.image
             }
         });
-
         return true;
-    }
-    else {
+    } else if (OAuthUser.profile_img !== user.image) { // OAuth 프로필 이미지랑 등록된 프로필 이미지랑 다르면 프로필 이미지 업데이트
+        await prisma.fontsUser.updateMany({
+            where: {
+                user_id: user.email,
+                auth: account.provider,
+            },
+            data: { profile_img: user.image }
+        });
         return true;
-    }
+    } else return true; // OAuth 유저가 등록되어 있고 프로필 이미지도 일치하면 return true
 }
 
 export async function GetOAuthUserInfo(user: any, account: any) {
