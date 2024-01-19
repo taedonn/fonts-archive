@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import prisma from '@/libs/prisma';
 const nodemailer = require('nodemailer');
+const bcrypt = require('bcrypt');
   
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method === "GET") {
@@ -32,6 +33,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         if (req.body.action === "register") {
             try {
                 const { id, pw, name } = req.body;
+                const salt = bcrypt.genSaltSync(5);
+                const hash = bcrypt.hashSync(pw, salt);
                 const userEmailToken = crypto.randomUUID();
     
                 // 유저 정보 생성
@@ -39,7 +42,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     data: {
                         user_name: name,
                         user_id: id,
-                        user_pw: pw,
+                        user_pw: hash,
                         auth: "credentials",
                         user_email_token: userEmailToken,
                         user_email_confirm: false,

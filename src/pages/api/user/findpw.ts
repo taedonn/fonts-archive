@@ -1,12 +1,15 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import prisma from '@/libs/prisma';
 const nodemailer = require('nodemailer');
+const bcrypt = require('bcrypt');
   
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method === 'POST') {
         try {
             const { id, name } = req.body;
             const randomPw = Math.random().toString(36).slice(2);
+            const salt = bcrypt.genSaltSync(5);
+            const hash = bcrypt.hashSync(randomPw, salt);
 
             // 유저 정보 조회
             const user = await prisma.fontsUser.findFirst({
@@ -34,7 +37,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     user_id: id,
                     auth: "credentials",
                 },
-                data: { user_pw: randomPw }
+                data: { user_pw: hash }
             });
 
             // 아이디 조회 성공 시 메일 보내기
