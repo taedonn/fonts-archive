@@ -144,8 +144,9 @@ export default function Header (
                             onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut}
                             className="relative flex items-center gap-3 shrink-0 text-lg"
                         >
-                            <div className="w-9 h-9 flex justify-center items-center rounded-lg bg-h-1">
-                                <i className="text-white fa-solid fa-a"></i>
+                            <div className="h-6 relative">
+                                {/* eslint-disable-next-line @next/next/no-img-element */}
+                                <img src="/logo.svg" alt="로고" referrerPolicy="no-referrer" className="h-full"/>
                             </div>
                             <div className="font-bold tlg:hidden">폰트 아카이브</div>
                             <div className="hidden tlg:block w-4 h-full absolute -right-4 top-0 bg-gradient-to-r from-white from-50% dark:from-d-2"></div>

@@ -10,8 +10,9 @@ export default function Footer () {
             <footer className="w-full h-20 px-4 absolute left-0 bottom-0 flex justify-center tlg:justify-start items-center border-t border-l-b dark:border-d-6">
                 <div className="flex items-center text-l-2 dark:text-white">
                     <div className="flex items-center">
-                        <div className="w-8 h-8 mr-3 tlg:mr-2.5 flex justify-center items-center rounded-full bg-h-1">
-                            <i className="text-sm text-white fa-solid fa-a"></i>
+                        <div className="w-8 h-8 mr-3 tlg:mr-2.5 relative">
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img src="/icon.svg" alt="로고" referrerPolicy="no-referrer" className="h-full"/>
                         </div>
                         <div className="flex items-end">
                             <h2 className="text-sm">폰트 아카이브,</h2>
