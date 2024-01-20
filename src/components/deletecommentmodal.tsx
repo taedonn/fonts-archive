@@ -7,6 +7,9 @@ import axios from "axios";
 // components
 import Button from "@/components/button";
 
+// common
+import { onMouseDown, onMouseUp, onMouseOut } from "@/libs/common";
+
 const defaultDeleteCommentModal = {
     admin: false,
 }
@@ -110,7 +113,7 @@ export default function DeleteCommentModal({
                     <div ref={thisModal} className="w-96 txs:w-full p-6 relative rounded-lg animate-zoom-in drop-shadow-default dark:drop-shadow-dark bg-l-e dark:bg-d-3">
                         <div className="w-full flex flex-col">
                             <div className="font-medium text-l-2 dark:text-white">댓글 삭제</div>
-                            <button onClick={close} className="w-8 h-8 absolute right-3 top-3 rounded-full text-l-2 dark:text-white hover:bg-l-d hover:dark:bg-d-6 tlg:hover:bg-transparent tlg:hover:dark:bg-transparent">
+                            <button onClick={close} onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-8 h-8 absolute right-3 top-3 rounded-full text-l-2 dark:text-white hover:bg-l-d hover:dark:bg-d-6 tlg:hover:bg-transparent tlg:hover:dark:bg-transparent">
                                 <i className="fa-solid fa-xmark"></i>
                             </button>
                             <div className="w-full mt-5 px-5 py-4 rounded-lg text-l-2 dark:text-white bg-l-d dark:bg-d-4">

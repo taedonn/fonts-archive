@@ -10,6 +10,9 @@ import { useRouter } from "next/router";
 // libraries
 import axios from "axios";
 
+// common
+import { onMouseDown, onMouseUp, onMouseOut } from "@/libs/common";
+
 export default function FontSearch(
     {
         isMac,
@@ -189,7 +192,7 @@ export default function FontSearch(
                                                 font_family: string,
                                             }, idx: number) => {
                                                 return (
-                                                    <Link aria-label="search-result-link" onMouseOver={() => handleLinkMouseOver(idx)} id={activeEl === idx ? "active" : ""} ref={activeEl === idx ? activeRef : null} href={`/post/${font.font_family.replaceAll(" ", "+")}`} key={font.code} className="px-4 mt-2.5 first:mt-0 w-full h-16 tmd:h-12 gap-3 relative flex items-center rounded-lg bg-l-e dark:bg-d-3 cursor-pointer">
+                                                    <Link aria-label="search-result-link" onMouseOver={() => handleLinkMouseOver(idx)} id={activeEl === idx ? "active" : ""} ref={activeEl === idx ? activeRef : null} href={`/post/${font.font_family.replaceAll(" ", "+")}`} key={font.code} onMouseDown={e => onMouseDown(e, 0.95, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="px-4 mt-2.5 first:mt-0 w-full h-16 tmd:h-12 gap-3 relative flex items-center rounded-lg bg-l-e dark:bg-d-3 cursor-pointer">
                                                         <div className="when-active-1 w-6 h-6 rounded-md flex justify-center items-center bg-l-d dark:bg-d-6">
                                                             <i className="when-active-2 text-sm text-l-2 dark:text-white fa-solid fa-hashtag"></i>
                                                         </div>

@@ -21,10 +21,12 @@ export function getIntFromString(string: string) {
     return parseInt(result);
 }
 
-export function onMouseDown(e: React.MouseEvent, scale?: number) {
+export function onMouseDown(e: React.MouseEvent, scale: number, enabled: boolean) {
     const target = e.currentTarget as HTMLElement;
-    if (target) target.style.transition = "0.2s";
-    if (target) { if (scale) target.style.transform = `scale(${scale})`; }
+    if (target && enabled) {
+        target.style.transition = "0.2s";
+        if (scale) target.style.transform = `scale(${scale})`;
+    }
 }
 
 export function onMouseUp(e: React.MouseEvent) {

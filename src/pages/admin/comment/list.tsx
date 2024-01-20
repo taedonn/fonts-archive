@@ -23,7 +23,7 @@ import DeleteCommentModal from '@/components/deletecommentmodal';
 import SearchInput from '@/components/searchinput';
 
 // common
-import { timeFormat } from '@/libs/common';
+import { timeFormat, onMouseDown, onMouseUp, onMouseOut } from '@/libs/common';
 
 const CommentList = ({params}: any) => {
     const { theme, userAgent, user, page, filter, search, comments, count } = params;
@@ -114,8 +114,8 @@ const CommentList = ({params}: any) => {
                             <button onClick={handleSearchClick} className="hidden">검색</button>
                         </div>
                         <div className='flex items-center gap-1.5 mb-4'>
-                            <button onClick={handleFilterChange} value="date" className={`${filter === "date" ? "bg-h-1 dark:bg-f-8 text-white dark:text-d-2" : "text-l-5 dark:text-d-c hover:text-h-1 hover:dark:text-f-8"} w-20 h-9 flex justify-center items-center rounded-lg`}>최신순</button>
-                            <button onClick={handleFilterChange} value="name" className={`${filter === "name" ? "bg-h-1 dark:bg-f-8 text-white dark:text-d-2" : "text-l-5 dark:text-d-c hover:text-h-1 hover:dark:text-f-8"} w-20 h-9 flex justify-center items-center rounded-lg`}>이름순</button>
+                            <button onClick={handleFilterChange} value="date" onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className={`${filter === "date" ? "bg-h-1 dark:bg-f-8 text-white dark:text-d-2" : "text-l-5 dark:text-d-c hover:text-h-1 hover:dark:text-f-8"} w-20 h-9 flex justify-center items-center rounded-lg`}>최신순</button>
+                            <button onClick={handleFilterChange} value="name" onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className={`${filter === "name" ? "bg-h-1 dark:bg-f-8 text-white dark:text-d-2" : "text-l-5 dark:text-d-c hover:text-h-1 hover:dark:text-f-8"} w-20 h-9 flex justify-center items-center rounded-lg`}>이름순</button>
                         </div>
                         <div className='w-full'>
                             <div className='w-full text-sm text-l-2 dark:text-white'>

@@ -14,7 +14,7 @@ import DeleteCommentModal from "@/components/deletecommentmodal";
 import ReportCommentModal from "@/components/reportcommentmodal";
 
 // common
-import { getIntFromString } from "@/libs/common";
+import { timeFormat, getIntFromString, onMouseDown, onMouseOut, onMouseUp } from "@/libs/common";
 
 declare global {
     interface Window {
@@ -105,18 +105,6 @@ export default function Comments (
         }
     }
 
-    /** 댓글 시간 포맷 */
-    const commentsTimeFormat = (time: string) => {
-        const splitTime = time.split(':');
-        return splitTime[0] + ':' + splitTime[1];
-    }
-
-    /** 댓글 날짜 포맷 */
-    const commentsDateFormat = (date: string) => {
-        const splitDate = date.split('-');
-        return splitDate[0].replace("20", "") + '.' + splitDate[1] + '.' + commentsTimeFormat(splitDate[2].replace('T', ' ').replace('Z', ''));
-    }
-
     /** 새 댓글 쓰기 */
     const newComment = async (e: React.MouseEvent<HTMLButtonElement>) => {
         if (commentRef.current && e.currentTarget.classList.contains('comment-enabled')) {
@@ -156,23 +144,19 @@ export default function Comments (
     }
 
     /** 댓글 삭제 시 댓글 업데이트 */
-    const updateComments = () => { router.reload(); }
+    const updateComments = () => {
+        router.push(`/post/${font.font_family.replaceAll(" ", "+")}#comment-section`);
+        router.reload();
+    }
 
     /** 신고 업데이트 */
-    const updateReports = (reports: any) => {
-        setReports(reports);
-    }
+    const updateReports = (reports: any) => { setReports(reports); }
 
-    /** 댓글 수정하기 버튼 클릭 */
-    const editComment = (e: React.ChangeEvent<HTMLInputElement>) => {
-        // 댓글 수정 보임/숨김
-        commentEditShow(e);
-    }
+    /** 댓글 수정하기 버튼 클릭(보임/숨김) */
+    const editComment = (e: React.ChangeEvent<HTMLInputElement>) => { commentEditShow(e); }
 
     /** 댓글 수정 포커스 시 */
-    const commentEditOnFocus = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-        handleHeightChange(e);
-    }
+    const commentEditOnFocus = (e: React.ChangeEvent<HTMLTextAreaElement>) => { handleHeightChange(e); }
 
     const commentEditOnChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         // 아이디 추출
@@ -494,7 +478,7 @@ export default function Comments (
             />
 
             <div className='w-max mb-3 flex gap-2'>
-                <label htmlFor={font.code.toString()} className='cursor-pointer'>
+                <label htmlFor={font.code.toString()} onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className='cursor-pointer'>
                     {
                         !likedInput
                         ? <div className="w-14 h-8 flex justify-center items-center rounded-lg text-l-2 dark:text-white bg-l-e hover:bg-l-d tlg:hover:bg-l-e dark:bg-d-4 hover:dark:bg-d-6 tlg:dark:hover:bg-d-4">
@@ -509,7 +493,7 @@ export default function Comments (
                 </label>
                 <div className="relative">
                     <input onChange={handleShareExpand} type="checkbox" id="share-expand" className="peer hidden"/>
-                    <label ref={shareExpandBtn} htmlFor="share-expand" className="w-max h-8 px-3 text-[0.813rem] flex justify-center items-center cursor-pointer rounded-lg selection:bg-transparent text-l-2 dark:text-white bg-l-e hover:bg-l-d tlg:hover:bg-l-e peer-checked:bg-l-d dark:bg-d-4 hover:dark:bg-d-6 tlg:hover:dark:bg-d-4 peer-checked:dark:bg-d-6">
+                    <label ref={shareExpandBtn} htmlFor="share-expand" onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-max h-8 px-3 text-[0.813rem] flex justify-center items-center cursor-pointer rounded-lg selection:bg-transparent text-l-2 dark:text-white bg-l-e hover:bg-l-d tlg:hover:bg-l-e peer-checked:bg-l-d dark:bg-d-4 hover:dark:bg-d-6 tlg:hover:dark:bg-d-4 peer-checked:dark:bg-d-6">
                         <i className="text-sm mr-2 fa-solid fa-share-nodes"></i>
                         공유
                     </label>
@@ -524,7 +508,7 @@ export default function Comments (
                                 </label>
                             </div>
                             <div className="gap-3 flex justify-center items-center text-xs text-l-5 dark:text-d-c">
-                                <button onClick={shareKakao} id="share-kakao" className="group flex flex-col justify-center items-center">
+                                <button onClick={shareKakao} id="share-kakao" onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="group flex flex-col justify-center items-center">
                                     <div className="w-8 h-8 rounded-full flex justify-center items-center bg-theme-kakao drop-shadow-default dark:drop-shadow-dark">
                                         <div className="w-6 h-6 relative">
                                             <Image src="/logo-kakaotalk.svg" alt="카카오톡 로고" fill sizes="100%" referrerPolicy="no-referrer"/>
@@ -532,7 +516,7 @@ export default function Comments (
                                     </div>
                                     <div className="w-12 mt-2.5 text-center group-hover:text-l-2 group-hover:dark:text-white tlg:text-l-2 tlg:dark:text-white">카카오톡</div>
                                 </button>
-                                <button onClick={shareLine} className="group flex flex-col justify-center items-center">
+                                <button onClick={shareLine} onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="group flex flex-col justify-center items-center">
                                     <div className="w-8 h-8 rounded-full flex justify-center items-center bg-theme-naver drop-shadow-default dark:drop-shadow-dark">
                                         <div className="w-[1.125rem] h-[1.125rem] relative">
                                             <Image src="/logo-line.svg" alt="라인 로고" fill sizes="100%" referrerPolicy="no-referrer"/>
@@ -540,13 +524,13 @@ export default function Comments (
                                     </div>
                                     <div className="w-12 mt-2.5 text-center group-hover:text-l-2 group-hover:dark:text-white tlg:text-l-2 tlg:dark:text-white">라인</div>
                                 </button>
-                                <button onClick={shareFacebook} className="group flex flex-col justify-center items-center">
+                                <button onClick={shareFacebook} onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="group flex flex-col justify-center items-center">
                                     <div className="w-8 h-8 relative rounded-full flex justify-center items-center drop-shadow-default dark:drop-shadow-dark">
                                         <Image src="/logo-facebook.png" alt="페이스북 로고" fill sizes="100%" referrerPolicy="no-referrer"/>
                                     </div>
                                     <div className="w-12 mt-2.5 text-center group-hover:text-l-2 group-hover:dark:text-white tlg:text-l-2 tlg:dark:text-white">페이스북</div>
                                 </button>
-                                <button onClick={shareTwitter} className="group flex flex-col justify-center items-center">
+                                <button onClick={shareTwitter} onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="group flex flex-col justify-center items-center">
                                     <div className="w-8 h-8 rounded-full flex justify-center items-center bg-black drop-shadow-default dark:drop-shadow-dark">
                                         <div className="w-4 h-4 relative">
                                             <Image src="/logo-x.svg" alt="엑스(트위터) 로고" fill sizes="100%" referrerPolicy="no-referrer"/>
@@ -613,7 +597,7 @@ export default function Comments (
                                                 <div className="flex gap-3 tlg:gap-1 tlg:flex-col items-center tlg:items-start">
                                                     <div className="font-medium">{comment.user_auth === "credentials" ? comment.user_name : hideUserName(comment.user_name)}</div>
                                                     <div className="flex gap-3 items-center">
-                                                        <div className="text-sm text-l-5 dark:text-d-c">{commentsDateFormat(comment.created_at)}</div>
+                                                        <div className="text-sm text-l-5 dark:text-d-c">{timeFormat(comment.created_at)}</div>
                                                         {
                                                             user
                                                             ? comment.user_id !== user.id && !comment.is_deleted_with_reply
@@ -658,8 +642,8 @@ export default function Comments (
                                                         <textarea id={`comment-edit-textarea-${comment.comment_id}`} onChange={commentEditOnChange} onInput={handleHeightChange} onFocus={commentEditOnFocus} placeholder="댓글 수정하기..." defaultValue={comment.comment} className="w-full h-5 resize-none text-sm text-l-2 dark:text-white placeholder-l-5 dark:placeholder-d-c bg-transparent"/>
                                                     </div>
                                                     <div className="flex gap-2 text-sm mt-3">
-                                                        <button onClick={editCommentAPIInit} id={`comment-edit-btn-${comment.comment_id}`} className="w-14 h-8 rounded-lg">수정</button>
-                                                        <button onClick={commentEditCancelBtnOnClick} id={`comment-edit-cancel-${comment.comment_id}`} className="w-14 h-8 rounded-lg text-l-2 dark:text-white hover:bg-l-e hover:dark:bg-d-4 tlg:hover:bg-transparent tlg:hover:dark:bg-transparent">취소</button>
+                                                        <button onClick={editCommentAPIInit} id={`comment-edit-btn-${comment.comment_id}`} onMouseDown={e => onMouseDown(e, 0.9, e.currentTarget.classList.contains("edit-btn-enabled") ? true : false)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-14 h-8 rounded-lg">수정</button>
+                                                        <button onClick={commentEditCancelBtnOnClick} id={`comment-edit-cancel-${comment.comment_id}`} onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-14 h-8 rounded-lg text-l-2 dark:text-white hover:bg-l-e hover:dark:bg-d-4 tlg:hover:bg-transparent tlg:hover:dark:bg-transparent">취소</button>
                                                     </div>
                                                 </div>
                                                 {/* 답글 */}
@@ -675,8 +659,8 @@ export default function Comments (
                                                                     <textarea onInput={handleHeightChange} onChange={commentReplyOnChange} onFocus={commentReplyOnChange} id={`comment-reply-textarea-${comment.comment_id}`} placeholder="답글 달기..." className="w-full h-[1.375rem] resize-none text-sm mt-1.5 text-l-2 dark:text-white placeholder-l-5 dark:placeholder-d-c bg-transparent"/>
                                                                 </div>
                                                                 <div className="flex gap-2 text-sm mt-3">
-                                                                    <button onClick={replyCommentAPIInit} id={`comment-reply-btn-${comment.comment_id}`} className="edit-btn-disabled w-14 h-8 rounded-lg bg-l-e dark:bg-d-4 text-l-9 dark:text-d-9 cursor-default">답글</button>
-                                                                    <button onClick={commentReplyCancelBtnOnClick} id={`comment-reply-cancel-${comment.comment_id}`} className="w-14 h-8 rounded-lg text-l-2 dark:text-white hover:bg-l-e hover:dark:bg-d-4 tlg:hover:bg-transparent tlg:hover:dark:bg-transparent">취소</button>
+                                                                    <button onClick={replyCommentAPIInit} id={`comment-reply-btn-${comment.comment_id}`} onMouseDown={e => onMouseDown(e, 0.9, e.currentTarget.classList.contains("edit-btn-enabled") ? true : false)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="edit-btn-disabled w-14 h-8 rounded-lg bg-l-e dark:bg-d-4 text-l-9 dark:text-d-9 cursor-default">답글</button>
+                                                                    <button onClick={commentReplyCancelBtnOnClick} id={`comment-reply-cancel-${comment.comment_id}`} onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-14 h-8 rounded-lg text-l-2 dark:text-white hover:bg-l-e hover:dark:bg-d-4 tlg:hover:bg-transparent tlg:hover:dark:bg-transparent">취소</button>
                                                                 </div>
                                                             </div>
                                                         </div>

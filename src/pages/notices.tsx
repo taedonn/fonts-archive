@@ -19,7 +19,7 @@ import Footer from '@/components/footer';
 import SearchInput from '@/components/searchinput';
 
 // common
-import { dateFormat } from '@/libs/common';
+import { dateFormat, onMouseDown, onMouseUp, onMouseOut } from '@/libs/common';
 
 // type
 import { notices } from '@/libs/global';
@@ -121,15 +121,15 @@ const Notices = ({params}: any) => {
                         <div className='flex items-center gap-1.5 mb-4'>
                             <div>
                                 <input onChange={handleTypeOnChange} type="radio" id="all" name="type" className="hidden peer" defaultChecked/>
-                                <label htmlFor='all' className='w-24 h-9 flex justify-center items-center cursor-pointer rounded-lg text-l-5 dark:text-d-c peer-checked:text-white peer-checked:dark:text-d-2 peer-checked:bg-h-1 peer-checked:dark:bg-f-8'>전체<div className='text-sm ml-0.5'>({all.length})</div></label>
+                                <label htmlFor='all' onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className='w-24 h-9 flex justify-center items-center cursor-pointer rounded-lg text-l-5 dark:text-d-c peer-checked:text-white peer-checked:dark:text-d-2 peer-checked:bg-h-1 peer-checked:dark:bg-f-8'>전체<div className='text-sm ml-0.5'>({all.length})</div></label>
                             </div>
                             <div>
                                 <input onChange={handleTypeOnChange} type="radio" id="service" name="type" className="hidden peer"/>
-                                <label htmlFor='service' className='w-24 h-9 flex justify-center items-center cursor-pointer rounded-lg text-l-5 dark:text-d-c peer-checked:text-white peer-checked:dark:text-d-2 peer-checked:bg-h-1 peer-checked:dark:bg-f-8'>서비스<div className='text-sm ml-0.5'>({services.length})</div></label>
+                                <label htmlFor='service' onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className='w-24 h-9 flex justify-center items-center cursor-pointer rounded-lg text-l-5 dark:text-d-c peer-checked:text-white peer-checked:dark:text-d-2 peer-checked:bg-h-1 peer-checked:dark:bg-f-8'>서비스<div className='text-sm ml-0.5'>({services.length})</div></label>
                             </div>
                             <div>
                                 <input onChange={handleTypeOnChange} type="radio" id="font" name="type" className="hidden peer"/>
-                                <label htmlFor='font' className='w-24 h-9 flex justify-center items-center cursor-pointer rounded-lg text-l-5 dark:text-d-c peer-checked:text-white peer-checked:dark:text-d-2 peer-checked:bg-h-1 peer-checked:dark:bg-f-8'>폰트<div className='text-sm ml-0.5'>({fonts.length})</div></label>
+                                <label htmlFor='font' onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className='w-24 h-9 flex justify-center items-center cursor-pointer rounded-lg text-l-5 dark:text-d-c peer-checked:text-white peer-checked:dark:text-d-2 peer-checked:bg-h-1 peer-checked:dark:bg-f-8'>폰트<div className='text-sm ml-0.5'>({fonts.length})</div></label>
                             </div>
                         </div>
                         {

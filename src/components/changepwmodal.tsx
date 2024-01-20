@@ -8,6 +8,9 @@ import axios from "axios";
 import TextInput from "@/components/textinput";
 import Button from "@/components/button";
 
+// common
+import { onMouseDown, onMouseUp, onMouseOut } from "@/libs/common";
+
 export default function ChangePwModal(
     {
         display,
@@ -157,7 +160,7 @@ export default function ChangePwModal(
                     <div ref={refSearchOutside} className="w-96 txs:w-full p-6 relative rounded-lg animate-zoom-in drop-shadow-default dark:drop-shadow-dark text-l-2 dark:text-white bg-l-e dark:bg-d-3">
                         <div className="w-full flex flex-col">
                             <div className="font-medium">비밀번호 변경 안내</div>
-                            <button onClick={close} className="w-8 h-8 absolute right-3 top-3 rounded-full hover:bg-l-d hover:dark:bg-d-6 tlg:hover:bg-transparent tlg:hover:dark:bg-transparent">
+                            <button onClick={close} onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-8 h-8 absolute right-3 top-3 rounded-full hover:bg-l-d hover:dark:bg-d-6 tlg:hover:bg-transparent tlg:hover:dark:bg-transparent">
                                 <i className="fa-solid fa-xmark"></i>
                             </button>
                             <form onSubmit={e => e.preventDefault()} className="w-full">

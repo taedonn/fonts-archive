@@ -24,6 +24,9 @@ import Footer from "@/components/footer";
 import Button from "@/components/button";
 import TextInput from "@/components/textinput";
 
+// common
+import { onMouseDown, onMouseUp, onMouseOut } from "@/libs/common";
+
 const UserDetailPage = ({params}: any) => {
     const { theme, userAgent, userDetail } = params;
     const user = userDetail;
@@ -233,7 +236,7 @@ const UserDetailPage = ({params}: any) => {
                                     <div className="w-20 h-20 relative">
                                         <Image src={profileImg} alt="Profile image" fill sizes="100%" priority className="object-cover rounded-full"/>
                                     </div>
-                                    <button onClick={changeProfileImg} className="group absolute top-0 -right-1 w-7 h-7 rounded-full bg-h-1 dark:bg-f-8">
+                                    <button onClick={changeProfileImg} onMouseDown={e => onMouseDown(e, 0.95, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="group absolute top-0 -right-1 w-7 h-7 rounded-full bg-h-1 dark:bg-f-8">
                                         <i className="text-sm text-white dark:text-d-2 duration-200 group-hover:rotate-90 tlg:group-hover:rotate-0 fa-solid fa-rotate"></i>
                                         <div className="tooltip w-max absolute z-10 left-1/2 -top-10 text-sm font-medium leading-none origin-bottom px-3 py-2 rounded-lg hidden group-hover:block tlg:group-hover:hidden group-hover:animate-zoom-in-fontbox bg-h-1 dark:bg-f-8 after:bg-h-1 after:dark:bg-f-8 text-white dark:text-d-2">이미지 랜덤 변경하기</div>
                                     </button>
@@ -246,7 +249,7 @@ const UserDetailPage = ({params}: any) => {
                             <div className="w-full h-px my-6 bg-l-b dark:bg-d-6"></div>
                             <label htmlFor="user-name" className="mt-8 flex items-center font-medium">
                                 유저 이름
-                                <button onClick={changeNickname} className="text-sm font-medium rounded-full px-4 py-1.5 ml-3 bg-h-1 dark:bg-f-8 hover:bg-h-0 hover:dark:bg-f-9 tlg:hover:bg-h-1 tlg:hover:dark:bg-f-8 text-white dark:text-d-2">부적절한 닉네임</button>
+                                <button onClick={changeNickname} onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="text-sm font-medium rounded-full px-4 py-1.5 ml-3 bg-h-1 dark:bg-f-8 hover:bg-h-0 hover:dark:bg-f-9 tlg:hover:bg-h-1 tlg:hover:dark:bg-f-8 text-white dark:text-d-2">부적절한 닉네임</button>
                             </label>
                             <TextInput
                                 onchange={handleUserNameChange}

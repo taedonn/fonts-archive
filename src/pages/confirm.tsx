@@ -11,7 +11,7 @@ import { FetchUserInfoFromToken } from "./api/auth/auth";
 import axios from "axios";
 
 // common
-import { dateFormat } from "@/libs/common";
+import { dateFormat, onMouseDown, onMouseUp, onMouseOut } from "@/libs/common";
 
 const Confirm = ({params}: any) => {
     const { user } = params;
@@ -50,7 +50,7 @@ const Confirm = ({params}: any) => {
                         가입일: {dateFormat(user.created_at)}
                     </div>
                     <div className="flex justify-center items-center mt-10">
-                        <Link href="/" className="flex justify-center items-center w-[8.25rem] h-9 rounded-lg text-sm border border-h-1 dark:border-f-8 hover:bg-h-1 hover:dark:bg-f-8 tlg:hover:bg-transparent tlg:hover:dark:bg-transparent text-h-1 dark:text-f-8 hover:text-white hover:dark:text-d-2 tlg:hover:text-h-1 tlg:hover:dark:text-f-8 cursor-pointer duration-100">메인 페이지</Link>
+                        <Link href="/" onMouseDown={e => onMouseDown(e, 0.95, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="flex justify-center items-center w-[8.25rem] h-9 rounded-lg text-sm border border-h-1 dark:border-f-8 hover:bg-h-1 hover:dark:bg-f-8 tlg:hover:bg-transparent tlg:hover:dark:bg-transparent text-h-1 dark:text-f-8 hover:text-white hover:dark:text-d-2 tlg:hover:text-h-1 tlg:hover:dark:text-f-8 cursor-pointer duration-100">메인 페이지</Link>
                     </div>
                 </div>
             </div>

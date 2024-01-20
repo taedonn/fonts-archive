@@ -20,7 +20,7 @@ import Footer from '@/components/footer';
 import SearchInput from '@/components/searchinput';
 
 // common
-import { dateFormat } from '@/libs/common';
+import { dateFormat, onMouseDown, onMouseUp, onMouseOut } from '@/libs/common';
 
 const NoticeList = ({params}: any) => {
     const { theme, userAgent, user, page, filter, search, list, count } = params;
@@ -80,9 +80,9 @@ const NoticeList = ({params}: any) => {
                             <button onClick={handleSearchClick} className="hidden">검색</button>
                         </div>
                         <div className='flex items-center gap-1.5 mb-4'>
-                            <button onClick={handleFilterChange} value="all" className={`${filter === "all" ? "bg-h-1 dark:bg-f-8 text-white dark:text-d-2" : "text-l-5 dark:text-d-c hover:text-h-1 hover:dark:text-f-8"} w-20 h-9 flex justify-center items-center rounded-lg`}>전체</button>
-                            <button onClick={handleFilterChange} value="font" className={`${filter === "font" ? "bg-h-1 dark:bg-f-8 text-white dark:text-d-2" : "text-l-5 dark:text-d-c hover:text-h-1 hover:dark:text-f-8"} w-20 h-9 flex justify-center items-center rounded-lg`}>폰트</button>
-                            <button onClick={handleFilterChange} value="service" className={`${filter === "service" ? "bg-h-1 dark:bg-f-8 text-white dark:text-d-2" : "text-l-5 dark:text-d-c hover:text-h-1 hover:dark:text-f-8"} w-20 h-9 flex justify-center items-center rounded-lg`}>서비스</button>
+                            <button onClick={handleFilterChange} value="all" onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className={`${filter === "all" ? "bg-h-1 dark:bg-f-8 text-white dark:text-d-2" : "text-l-5 dark:text-d-c hover:text-h-1 hover:dark:text-f-8"} w-20 h-9 flex justify-center items-center rounded-lg`}>전체</button>
+                            <button onClick={handleFilterChange} value="font" onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className={`${filter === "font" ? "bg-h-1 dark:bg-f-8 text-white dark:text-d-2" : "text-l-5 dark:text-d-c hover:text-h-1 hover:dark:text-f-8"} w-20 h-9 flex justify-center items-center rounded-lg`}>폰트</button>
+                            <button onClick={handleFilterChange} value="service" onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className={`${filter === "service" ? "bg-h-1 dark:bg-f-8 text-white dark:text-d-2" : "text-l-5 dark:text-d-c hover:text-h-1 hover:dark:text-f-8"} w-20 h-9 flex justify-center items-center rounded-lg`}>서비스</button>
                         </div>
                         <div className='w-full'>
                             <div className='w-full text-sm text-l-2 dark:text-white'>

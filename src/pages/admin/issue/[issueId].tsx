@@ -26,7 +26,7 @@ import TextArea from "@/components/textarea";
 import Button from "@/components/button";
 
 // common
-import { timeFormat } from "@/libs/common";
+import { timeFormat, onMouseDown, onMouseUp, onMouseOut } from "@/libs/common";
 
 const IssuePage = ({params}: any) => {
     const { theme, userAgent, user, issue } = params;
@@ -81,7 +81,7 @@ const IssuePage = ({params}: any) => {
 
     /** 왼쪽 화살표 클릭 */
     const handleImgPrev = () => {
-        const imgNum = focusedImg.split(`/issue-font-${issue.issue_id}-`)[1].split(".")[0];
+        const imgNum = focusedImg.split(`/issue-${issue.issue_id}-`)[1].split(".")[0];
         if (Number(imgNum) > 1) {
             setFocusedImg(issue[`issue_img_${Number(imgNum) - 1}`]);
         }
@@ -89,7 +89,7 @@ const IssuePage = ({params}: any) => {
 
     /** 오른쪽 화살표 클릭 */
     const handleImgNext = () => {
-        const imgNum = focusedImg.split("/issue-font-")[1].split("-")[1].split(".")[0];
+        const imgNum = focusedImg.split("/issue-")[1].split("-")[1].split(".")[0];
         if (Number(imgNum) < issue.issue_img_length) {
             setFocusedImg(issue[`issue_img_${Number(imgNum) + 1}`]);
         }
@@ -297,11 +297,11 @@ const IssuePage = ({params}: any) => {
                                 {
                                     issue.issue_img_length > 0
                                     ? <div className="w-full flex justify-center items-center gap-x-2.5 my-6">
-                                        {issue.issue_img_1 !== "null" && <div className="w-24 h-28 relative"><Image src={issue.issue_img_1} alt="첨부한 이미지 1" fill sizes="100%" priority referrerPolicy="no-referrer" onClick={handleOnImgFocus} id="img_1" className="rounded-lg border-2 border-l-b dark:border-d-6 object-cover cursor-pointer"/></div>}
-                                        {issue.issue_img_2 !== "null" && <div className="w-24 h-28 relative"><Image src={issue.issue_img_2} alt="첨부한 이미지 2" fill sizes="100%" priority referrerPolicy="no-referrer" onClick={handleOnImgFocus} id="img_2" className="rounded-lg border-2 border-l-b dark:border-d-6 object-cover cursor-pointer"/></div>}
-                                        {issue.issue_img_3 !== "null" && <div className="w-24 h-28 relative"><Image src={issue.issue_img_3} alt="첨부한 이미지 3" fill sizes="100%" priority referrerPolicy="no-referrer" onClick={handleOnImgFocus} id="img_3" className="rounded-lg border-2 border-l-b dark:border-d-6 object-cover cursor-pointer"/></div>}
-                                        {issue.issue_img_4 !== "null" && <div className="w-24 h-28 relative"><Image src={issue.issue_img_4} alt="첨부한 이미지 4" fill sizes="100%" priority referrerPolicy="no-referrer" onClick={handleOnImgFocus} id="img_4" className="rounded-lg border-2 border-l-b dark:border-d-6 object-cover cursor-pointer"/></div>}
-                                        {issue.issue_img_5 !== "null" && <div className="w-24 h-28 relative"><Image src={issue.issue_img_5} alt="첨부한 이미지 5" fill sizes="100%" priority referrerPolicy="no-referrer" onClick={handleOnImgFocus} id="img_5" className="rounded-lg border-2 border-l-b dark:border-d-6 object-cover cursor-pointer"/></div>}
+                                        {issue.issue_img_1 !== "null" && <div onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-24 h-28 relative"><Image src={issue.issue_img_1} alt="첨부한 이미지 1" fill sizes="100%" priority referrerPolicy="no-referrer" onClick={handleOnImgFocus} id="img_1" className="rounded-lg border-2 border-l-b dark:border-d-6 object-cover cursor-pointer"/></div>}
+                                        {issue.issue_img_2 !== "null" && <div onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-24 h-28 relative"><Image src={issue.issue_img_2} alt="첨부한 이미지 2" fill sizes="100%" priority referrerPolicy="no-referrer" onClick={handleOnImgFocus} id="img_2" className="rounded-lg border-2 border-l-b dark:border-d-6 object-cover cursor-pointer"/></div>}
+                                        {issue.issue_img_3 !== "null" && <div onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-24 h-28 relative"><Image src={issue.issue_img_3} alt="첨부한 이미지 3" fill sizes="100%" priority referrerPolicy="no-referrer" onClick={handleOnImgFocus} id="img_3" className="rounded-lg border-2 border-l-b dark:border-d-6 object-cover cursor-pointer"/></div>}
+                                        {issue.issue_img_4 !== "null" && <div onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-24 h-28 relative"><Image src={issue.issue_img_4} alt="첨부한 이미지 4" fill sizes="100%" priority referrerPolicy="no-referrer" onClick={handleOnImgFocus} id="img_4" className="rounded-lg border-2 border-l-b dark:border-d-6 object-cover cursor-pointer"/></div>}
+                                        {issue.issue_img_5 !== "null" && <div onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-24 h-28 relative"><Image src={issue.issue_img_5} alt="첨부한 이미지 5" fill sizes="100%" priority referrerPolicy="no-referrer" onClick={handleOnImgFocus} id="img_5" className="rounded-lg border-2 border-l-b dark:border-d-6 object-cover cursor-pointer"/></div>}
                                     </div> 
                                     : <div className="w-full h-24 flex justify-center items-center text-sm text-center text-l-2 dark:text-white">첨부한 이미지가 없습니다.</div>
                                 }
@@ -350,16 +350,16 @@ const IssuePage = ({params}: any) => {
                 isFocused &&
                 <div className="fixed z-40 left-0 top-0 backdrop-blur bg-blur-theme w-full h-full flex justify-center items-center">
                     <div ref={imgRef} className="relative flex items-center">
-                        <button onClick={handleOffImgFocus} className="group w-10 tlg:w-8 h-10 tlg:h-8 rounded-full hover:bg-theme-3 tlg:hover:bg-transparent hover:dark:bg-theme-4 tlg:hover:dark:bg-transparent absolute right-[92px] tlg:right-16 tsm:right-10 -top-12 tlg:1top-10 flex justify-center items-center">
-                            <i className="text-2xl text-theme-3 tlg:text-theme-10 group-hover:text-theme-10 dark:text-theme-9 fa-solid fa-xmark"></i>
+                        <button onClick={handleOffImgFocus} onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-10 tlg:w-8 h-10 tlg:h-8 rounded-full hover:bg-l-d tlg:hover:bg-transparent hover:dark:bg-d-4 tlg:hover:dark:bg-transparent absolute right-[5.75rem] tlg:right-16 tsm:right-10 -top-12 tlg:-top-10 flex justify-center items-center">
+                            <i className="text-2xl text-l-2 dark:text-white fa-solid fa-xmark"></i>
                         </button>
-                        <button onClick={handleImgPrev} className="group w-10 tlg:w-8 h-10 tlg:h-8 rounded-full hover:bg-theme-3 tlg:hover:bg-transparent hover:dark:bg-theme-4 tlg:hover:dark:bg-transparent mr-[60px] tlg:mr-10 tsm:mr-4 flex justify-center items-center">
-                            <i className="text-2xl -translate-x-px text-theme-3 tlg:text-theme-10 group-hover:text-theme-10 dark:text-theme-9 fa-solid fa-angle-left"></i>
+                        <button onClick={handleImgPrev} onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-10 tlg:w-8 h-10 tlg:h-8 rounded-full hover:bg-l-d tlg:hover:bg-transparent hover:dark:bg-d-4 tlg:hover:dark:bg-transparent mr-[3.75rem] tlg:mr-10 tsm:mr-4 flex justify-center items-center">
+                            <i className="text-2xl -translate-x-px text-l-2 dark:text-white fa-solid fa-angle-left"></i>
                         </button>
                         {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img src={focusedImg} alt="이미지 미리보기" className="w-[600px] tlg:w-[420px] tsm:w-[300px] rounded-lg animate-zoom-in"/>
-                        <button onClick={handleImgNext} className="group w-10 tlg:w-8 h-10 tlg:h-8 rounded-full hover:bg-theme-3 tlg:hover:bg-transparent hover:dark:bg-theme-4 tlg:hover:dark:bg-transparent ml-[60px] tlg:ml-10 tsm:ml-4 flex justify-center items-center">
-                            <i className="text-2xl translate-x-px text-theme-3 tlg:text-theme-10 group-hover:text-theme-10 dark:text-theme-9 fa-solid fa-angle-right"></i>
+                        <img src={focusedImg} alt="이미지 미리보기" className="w-[37.5rem] tlg:w-[26.25rem] tsm:w-[18.75rem] rounded-lg animate-zoom-in"/>
+                        <button onClick={handleImgNext} onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-10 tlg:w-8 h-10 tlg:h-8 rounded-full hover:bg-l-d tlg:hover:bg-transparent hover:dark:bg-d-4 tlg:hover:dark:bg-transparent ml-[3.75rem] tlg:ml-10 tsm:ml-4 flex justify-center items-center">
+                            <i className="text-2xl translate-x-px text-l-2 dark:text-white fa-solid fa-angle-right"></i>
                         </button>
                     </div>
                 </div>

@@ -141,7 +141,7 @@ export default function Header (
                             onClick={reset}
                             href="/"
                             aria-label="logo"
-                            onMouseDown={e => onMouseDown(e, 0.9)} onMouseUp={onMouseUp} onMouseOut={onMouseOut}
+                            onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut}
                             className="relative flex items-center gap-3 shrink-0 text-lg"
                         >
                             <div className="w-9 h-9 flex justify-center items-center rounded-lg bg-h-1">
@@ -153,16 +153,16 @@ export default function Header (
                         <div className="w-full overflow-x-auto no-scrollbar">
                             <div className="w-max mx-6 tlg:mx-4">
                                 <div className="w-max flex gap-2 tlg:gap-0 items-center">
-                                    <Link href="/" onClick={reset} onMouseDown={e => onMouseDown(e, 0.9)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className={`${page === "index" ? "text-h-1 dark:text-f-8 tlg:hover:text-h-1 tlg:hover:dark:text-f-8 bg-h-e dark:bg-d-3" : ""} px-3 py-1.5 rounded-lg tlg:text-sm font-medium hover:text-h-1 hover:dark:text-f-8 tlg:hover:text-l-2 tlg:hover:dark:text-white`}>모든 폰트</Link>
-                                    <Link href="/issue" onMouseDown={e => onMouseDown(e, 0.9)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className={`${page === "issue" ? "text-h-1 dark:text-f-8 tlg:hover:text-h-1 tlg:hover:dark:text-f-8 bg-h-e dark:bg-d-3" : ""} px-3 py-1.5 rounded-lg tlg:text-sm font-medium hover:text-h-1 hover:dark:text-f-8 tlg:hover:text-l-2 tlg:hover:dark:text-white`}>문의하기</Link>
-                                    <Link href="/notices" onMouseDown={e => onMouseDown(e, 0.9)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className={`${page === "notices" ? "text-h-1 dark:text-f-8 tlg:hover:text-h-1 tlg:hover:dark:text-f-8 bg-h-e dark:bg-d-3" : ""} px-3 py-1.5 rounded-lg tlg:text-sm font-medium hover:text-h-1 hover:dark:text-f-8 tlg:hover:text-l-2 tlg:hover:dark:text-white`}>공지사항</Link>
+                                    <Link href="/" onClick={reset} onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className={`${page === "index" ? "text-h-1 dark:text-f-8 tlg:hover:text-h-1 tlg:hover:dark:text-f-8 bg-h-e dark:bg-d-3" : ""} px-3 py-1.5 rounded-lg tlg:text-sm font-medium hover:text-h-1 hover:dark:text-f-8 tlg:hover:text-l-2 tlg:hover:dark:text-white`}>모든 폰트</Link>
+                                    <Link href="/issue" onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className={`${page === "issue" ? "text-h-1 dark:text-f-8 tlg:hover:text-h-1 tlg:hover:dark:text-f-8 bg-h-e dark:bg-d-3" : ""} px-3 py-1.5 rounded-lg tlg:text-sm font-medium hover:text-h-1 hover:dark:text-f-8 tlg:hover:text-l-2 tlg:hover:dark:text-white`}>문의하기</Link>
+                                    <Link href="/notices" onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className={`${page === "notices" ? "text-h-1 dark:text-f-8 tlg:hover:text-h-1 tlg:hover:dark:text-f-8 bg-h-e dark:bg-d-3" : ""} px-3 py-1.5 rounded-lg tlg:text-sm font-medium hover:text-h-1 hover:dark:text-f-8 tlg:hover:text-l-2 tlg:hover:dark:text-white`}>공지사항</Link>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div className='relative flex justify-start shrink-0 items-center'>
                         <div className="hidden tlg:block w-4 h-full absolute -left-4 top-0 bg-gradient-to-l from-white dark:from-d-2"></div>
-                        <button onClick={handleFontSearch} onMouseDown={e => onMouseDown(e, 0.95)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className={`${page === "index" ? "hidden" : "flex"} w-56 tlg:w-8 h-8 pl-10 tlg:p-0 mr-3 tlg:mr-2 relative text-sm flex-start justify-start items-center rounded-lg text-h-1 dark:text-white hover:text-white hover:dark:text-f-8 tlg:hover:text-h-1 tlg:hover:dark:text-white bg-h-e dark:bg-d-4 hover:bg-h-1 tlg:hover:bg-h-e tlg:hover:dark:bg-d-4`}>
+                        <button onClick={handleFontSearch} onMouseDown={e => onMouseDown(e, 0.95, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className={`${page === "index" ? "hidden" : "flex"} w-56 tlg:w-8 h-8 pl-10 tlg:p-0 mr-3 tlg:mr-2 relative text-sm flex-start justify-start items-center rounded-lg text-h-1 dark:text-white hover:text-white hover:dark:text-f-8 tlg:hover:text-h-1 tlg:hover:dark:text-white bg-h-e dark:bg-d-4 hover:bg-h-1 tlg:hover:bg-h-e tlg:hover:dark:bg-d-4`}>
                             <span className="tlg:hidden">폰트 검색하기...</span>
                             <i className="text-xs absolute left-4 tlg:left-1/2 top-1/2 tlg:-translate-x-1/2 -translate-y-1/2 fa-solid fa-magnifying-glass"></i>
                             <div className="tlg:hidden w-max h-full absolute right-4 flex flex-row justify-center items-center">
@@ -180,7 +180,7 @@ export default function Header (
                             </div>
                         </button>
                         <div className="relative mr-3 tlg:mr-2">
-                            <label htmlFor="color-theme" onMouseDown={e => onMouseDown(e, 0.85)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-10 h-10 text-2xl flex justify-center items-center rounded-full cursor-pointer text-h-1 dark:text-f-8 hover:bg-h-e hover:dark:bg-d-3 tlg:hover:bg-transparent tlg:hover:dark:bg-transparent">
+                            <label htmlFor="color-theme" onMouseDown={e => onMouseDown(e, 0.85, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-10 h-10 text-2xl flex justify-center items-center rounded-full cursor-pointer text-h-1 dark:text-f-8 hover:bg-h-e hover:dark:bg-d-3 tlg:hover:bg-transparent tlg:hover:dark:bg-transparent">
                                 <input onChange={handleColorThemeChange} defaultChecked={thisTheme === 'dark' ? true : false} type="checkbox" id="color-theme" className="hidden peer"/>
                                 <i className='block peer-checked:hidden bi bi-cloud-sun'></i>
                                 <i className='hidden peer-checked:block bi bi-cloud-moon'></i>
@@ -188,7 +188,7 @@ export default function Header (
                         </div>
                         <div className="relative flex justify-center items-center cursor-pointer">
                             <input onChange={handleAccount} type="checkbox" id="account" className="peer hidden"/>
-                            <label ref={refAccountLabel} htmlFor="account" onMouseDown={e => onMouseDown(e, 0.85)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-8 h-8 flex justify-center items-center cursor-pointer text-l-5 dark:text-white hover:text-l-2 hover:dark:text-d-c peer-checked:text-l-2 peer-checked:dark:text-d-c tlg:hover:text-l-5 tlg:hover:dark:text-white">
+                            <label ref={refAccountLabel} htmlFor="account" onMouseDown={e => onMouseDown(e, 0.85, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-8 h-8 flex justify-center items-center cursor-pointer text-l-5 dark:text-white hover:text-l-2 hover:dark:text-d-c peer-checked:text-l-2 peer-checked:dark:text-d-c tlg:hover:text-l-5 tlg:hover:dark:text-white">
                                 {
                                     user === null
                                     ? <i className="text-3xl bi bi-person-circle"></i>

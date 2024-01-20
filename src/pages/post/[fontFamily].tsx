@@ -40,6 +40,7 @@ function DetailPage({params}: any) {
 
     // 디바이스 체크
     const isMac: boolean = userAgent.includes("Mac OS") ? true : false;
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(userAgent);
 
     // states
     const [comments, setComments] = useState(null);
@@ -377,7 +378,7 @@ function DetailPage({params}: any) {
                                 <Link href="/user/login" className='text-h-1 dark:text-f-8 hover:underline'>로그인 하러 가기</Link>
                             </div>
                         </div>
-                        <div onClick={handleAlertClose} className='flex justify-center items-center ml-3 cursor-pointer'>
+                        <div onClick={handleAlertClose} onMouseDown={e => onMouseDown(e, 0.85, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className='flex justify-center items-center ml-3 cursor-pointer'>
                             <i className="text-lg fa-solid fa-xmark"></i>
                         </div>
                     </div>
@@ -388,9 +389,9 @@ function DetailPage({params}: any) {
                 initialOpacity={0}
                 animateOpacity={1}
                 exitOpacity={0}
-                initialX={-100}
+                initialX={isMobile ? 0 : -100}
                 animateX={0}
-                exitX={-100}
+                exitX={isMobile ? 0 : -100}
                 transitionType="spring"
             >
                 <div className="w-full mt-12 px-8 tlg:px-4">
@@ -400,7 +401,7 @@ function DetailPage({params}: any) {
                             <div style={{fontFamily:'"'+font.font_family+'"'}} className="text-4xl tlg:text-3xl text-l-2 dark:text-white font-medium">{font.name}</div>
                             <div className='group relative'>
                                 <input onClick={handleLikeClick} onChange={handleLikeChange} type="checkbox" id={font.code.toString()} className='peer hidden' defaultChecked={like === null ? false : true}/>
-                                <label htmlFor={font.code.toString()} onMouseDown={e => onMouseDown(e, 0.85)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className='group block cursor-pointer'>
+                                <label htmlFor={font.code.toString()} onMouseDown={e => onMouseDown(e, 0.85, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className='group block cursor-pointer'>
                                     <i className="block peer-checked:group-[]:hidden text-xl text-l-2 dark:text-white bi bi-heart"></i>
                                     <i className="hidden peer-checked:group-[]:block text-xl text-h-r bi bi-heart-fill"></i>
                                 </label>
@@ -457,13 +458,13 @@ function DetailPage({params}: any) {
                             <h2 className="text-2xl tlg:text-xl text-d-2 dark:text-white font-medium mb-4 tlg:mb-3">웹 폰트</h2>
                             <div className="w-full mb-3 gap-3 flex tlg:flex-wrap justify-start items-center tlg:text-sm">
                                 <input onChange={handleWebFont} type="radio" id="cdn_css" name="cdn" value="CSS" className="peer/css hidden" defaultChecked/>
-                                <label htmlFor="cdn_css" onMouseDown={e => onMouseDown(e, 0.9)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-28 tlg:w-[calc(50%-0.375rem)] h-11 rounded-lg flex justify-center items-center cursor-pointer peer-checked/css:bg-h-1 peer-checked/css:dark:bg-f-8 peer-checked/css:text-white peer-checked/css:dark:text-d-2 tlg:bg-l-e tlg:dark:bg-d-4 text-l-2 dark:text-white hover:text-h-1 hover:dark:text-f-8 tlg:hover:text-l-2 tlg:hover:dark:text-white">CSS</label>
+                                <label htmlFor="cdn_css" onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-28 tlg:w-[calc(50%-0.375rem)] h-11 rounded-lg flex justify-center items-center cursor-pointer peer-checked/css:bg-h-1 peer-checked/css:dark:bg-f-8 peer-checked/css:text-white peer-checked/css:dark:text-d-2 tlg:bg-l-e tlg:dark:bg-d-4 text-l-2 dark:text-white hover:text-h-1 hover:dark:text-f-8 tlg:hover:text-l-2 tlg:hover:dark:text-white">CSS</label>
                                 <input onChange={handleWebFont} type="radio" id="cdn_link" name="cdn" value="link" className="peer/link hidden"/>
-                                <label htmlFor="cdn_link" onMouseDown={e => onMouseDown(e, 0.9)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-28 tlg:w-[calc(50%-0.375rem)] h-11 rounded-lg flex justify-center items-center cursor-pointer peer-checked/link:bg-h-1 peer-checked/link:dark:bg-f-8 peer-checked/link:text-white peer-checked/link:dark:text-d-2 tlg:bg-l-e tlg:dark:bg-d-4 text-l-2 dark:text-white hover:text-h-1 hover:dark:text-f-8 tlg:hover:text-l-2 tlg:hover:dark:text-white">&#60;link/&#62;</label>
+                                <label htmlFor="cdn_link" onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-28 tlg:w-[calc(50%-0.375rem)] h-11 rounded-lg flex justify-center items-center cursor-pointer peer-checked/link:bg-h-1 peer-checked/link:dark:bg-f-8 peer-checked/link:text-white peer-checked/link:dark:text-d-2 tlg:bg-l-e tlg:dark:bg-d-4 text-l-2 dark:text-white hover:text-h-1 hover:dark:text-f-8 tlg:hover:text-l-2 tlg:hover:dark:text-white">&#60;link/&#62;</label>
                                 <input onChange={handleWebFont} type="radio" id="cdn_import" name="cdn" value="import" className="peer/import hidden"/>
-                                <label htmlFor="cdn_import" onMouseDown={e => onMouseDown(e, 0.9)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-28 tlg:w-[calc(50%-0.375rem)] h-11 rounded-lg flex justify-center items-center cursor-pointer peer-checked/import:bg-h-1 peer-checked/import:dark:bg-f-8 peer-checked/import:text-white peer-checked/import:dark:text-d-2 tlg:bg-l-e tlg:dark:bg-d-4 text-l-2 dark:text-white hover:text-h-1 hover:dark:text-f-8 tlg:hover:text-l-2 tlg:hover:dark:text-white">@import</label>
+                                <label htmlFor="cdn_import" onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-28 tlg:w-[calc(50%-0.375rem)] h-11 rounded-lg flex justify-center items-center cursor-pointer peer-checked/import:bg-h-1 peer-checked/import:dark:bg-f-8 peer-checked/import:text-white peer-checked/import:dark:text-d-2 tlg:bg-l-e tlg:dark:bg-d-4 text-l-2 dark:text-white hover:text-h-1 hover:dark:text-f-8 tlg:hover:text-l-2 tlg:hover:dark:text-white">@import</label>
                                 <input onChange={handleWebFont} type="radio" id="cdn_font_face" name="cdn" value="font-face" className="peer/font-face hidden"/>
-                                <label htmlFor="cdn_font_face" onMouseDown={e => onMouseDown(e, 0.9)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-28 tlg:w-[calc(50%-0.375rem)] h-11 rounded-lg flex justify-center items-center cursor-pointer peer-checked/font-face:bg-h-1 peer-checked/font-face:dark:bg-f-8 peer-checked/font-face:text-white peer-checked/font-face:dark:text-d-2 tlg:bg-l-e tlg:dark:bg-d-4 text-l-2 dark:text-white hover:text-h-1 hover:dark:text-f-8 tlg:hover:text-l-2 tlg:hover:dark:text-white">@font-face</label>
+                                <label htmlFor="cdn_font_face" onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-28 tlg:w-[calc(50%-0.375rem)] h-11 rounded-lg flex justify-center items-center cursor-pointer peer-checked/font-face:bg-h-1 peer-checked/font-face:dark:bg-f-8 peer-checked/font-face:text-white peer-checked/font-face:dark:text-d-2 tlg:bg-l-e tlg:dark:bg-d-4 text-l-2 dark:text-white hover:text-h-1 hover:dark:text-f-8 tlg:hover:text-l-2 tlg:hover:dark:text-white">@font-face</label>
                             </div>
                             <div className="w-[58.25rem] tlg:w-full tlg:text-sm rounded-lg bg-l-e dark:bg-d-4 text-l-2 dark:text-white">
                                 {
@@ -629,7 +630,7 @@ function DetailPage({params}: any) {
                                     <div className="color-picker flex gap-2">
                                         <div className="relative z-10">
                                             <input onChange={handleTextColorPickerDisplay} id="text-color-picker" type="checkbox" className="peer hidden"/>
-                                            <label htmlFor="text-color-picker" ref={textColorPickerBtn} onMouseDown={e => onMouseDown(e, 0.85)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-8 h-8 rounded-lg relative group flex flex-col justify-center items-center cursor-pointer bg-h-1 hover:bg-h-0 tlg:hover:bg-h-1 peer-checked:bg-h-0 dark:bg-f-8 hover:dark:bg-f-9 tlg:hover:dark:bg-f-8 peer-checked:dark:bg-f-9">
+                                            <label htmlFor="text-color-picker" ref={textColorPickerBtn} onMouseDown={e => onMouseDown(e, 0.85, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-8 h-8 rounded-lg relative group flex flex-col justify-center items-center cursor-pointer bg-h-1 hover:bg-h-0 tlg:hover:bg-h-1 peer-checked:bg-h-0 dark:bg-f-8 hover:dark:bg-f-9 tlg:hover:dark:bg-f-8 peer-checked:dark:bg-f-9">
                                                 <i className="text-sm text-white dark:text-d-2 fa-solid fa-a"></i>
                                                 <div style={{background: textColor.hex}} className="w-4 h-0.5 mb-0.5"></div>
                                                 <div className="tooltip after:bg-h-0 after:dark:bg-f-9 w-max absolute left-1/2 -top-11 text-sm font-medium leading-none px-3 py-2 origin-bottom rounded-lg hidden group-hover:block peer-checked:group-[]:hidden tlg:group-hover:hidden group-hover:animate-zoom-in-fontbox bg-h-0 dark:bg-f-9 text-white dark:text-d-2 selection:bg-transparent">폰트색 변경</div>
@@ -643,7 +644,7 @@ function DetailPage({params}: any) {
                                         </div>
                                         <div className="relative">
                                             <input onChange={handlebgColorPickerDisplay} id="bg-color-picker" type="checkbox" className="peer hidden"/>
-                                            <label htmlFor="bg-color-picker" ref={bgColorPickerBtn} onMouseDown={e => onMouseDown(e, 0.85)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-8 h-8 rounded-lg relative group flex flex-col justify-center items-center cursor-pointer bg-h-1 hover:bg-h-0 tlg:hover:bg-h-1 peer-checked:bg-h-0 dark:bg-f-8 hover:dark:bg-f-9 tlg:hover:dark:bg-f-8 peer-checked:dark:bg-f-9">
+                                            <label htmlFor="bg-color-picker" ref={bgColorPickerBtn} onMouseDown={e => onMouseDown(e, 0.85, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-8 h-8 rounded-lg relative group flex flex-col justify-center items-center cursor-pointer bg-h-1 hover:bg-h-0 tlg:hover:bg-h-1 peer-checked:bg-h-0 dark:bg-f-8 hover:dark:bg-f-9 tlg:hover:dark:bg-f-8 peer-checked:dark:bg-f-9">
                                                 <i className="text-sm text-white dark:text-d-2 fa-solid fa-fill-drip"></i>
                                                 <div style={{background: bgColor.hex}} className="w-4 h-0.5 mb-0.5"></div>
                                                 <div className="tooltip after:bg-h-0 after:dark:bg-f-9 w-max absolute left-1/2 -top-11 text-sm font-medium leading-none px-3 py-2 origin-bottom rounded-lg hidden group-hover:block peer-checked:group-[]:hidden tlg:group-hover:hidden group-hover:animate-zoom-in-fontbox bg-h-0 dark:bg-f-9 text-white dark:text-d-2 selection:bg-transparent">배경색 변경</div>
@@ -655,7 +656,7 @@ function DetailPage({params}: any) {
                                                 }
                                             </div>
                                         </div>
-                                        <button onClick={resetColorPicker} onMouseDown={e => onMouseDown(e, 0.85)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-8 h-8 rounded-lg relative group flex flex-col justify-center items-center bg-h-1 hover:bg-h-0 tlg:hover:bg-h-1 dark:bg-f-8 hover:dark:bg-f-9 tlg:hover:dark:bg-f-8 text-white dark:text-d-2">
+                                        <button onClick={resetColorPicker} onMouseDown={e => onMouseDown(e, 0.85, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-8 h-8 rounded-lg relative group flex flex-col justify-center items-center bg-h-1 hover:bg-h-0 tlg:hover:bg-h-1 dark:bg-f-8 hover:dark:bg-f-9 tlg:hover:dark:bg-f-8 text-white dark:text-d-2">
                                             <i className="text-sm group-hover:rotate-45 tlg:group-hover:rotate-0 duration-100 fa-solid fa-rotate"></i>
                                             <div className="tooltip w-max absolute left-1/2 -top-11 text-sm font-medium leading-none px-3 py-2 origin-bottom rounded-lg hidden group-hover:block tlg:group-hover:hidden group-hover:animate-zoom-in-fontbox after:bg-h-0 after:dark:bg-f-9 bg-h-0 dark:bg-f-9 selection:bg-transparent">컬러 리셋하기</div>
                                         </button>
