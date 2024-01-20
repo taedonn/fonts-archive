@@ -21,6 +21,7 @@ import { ColorPicker, useColor } from "react-color-palette";
 import "react-color-palette/css";
 
 // components
+import Motion from "@/components/motion";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import Button from "@/components/button";
@@ -29,6 +30,9 @@ import DummyText from "@/components/dummytext";
 import Comments from "@/components/comments";
 import KakaoAdFitTopBanner from "@/components/kakaoAdFitTopBanner";
 import KakaoAdFitBottomBanner from "@/components/kakaoAdFitBottomBanner";
+
+// common
+import { onMouseDown, onMouseUp, onMouseOut } from "@/libs/common";
 
 function DetailPage({params}: any) {
     const { theme, userAgent, randomNum, user, like } = params;
@@ -380,107 +384,104 @@ function DetailPage({params}: any) {
             }
 
             {/* 메인 */}
-            <div className="w-full mt-12 px-8 tlg:px-4">
-                <link href={font.cdn_url} rel="stylesheet" type="text/css" itemProp="url"></link>
-                <div className="w-full flex flex-col justify-start items-start">
-                    <div className="mb-2 flex gap-4 items-center">
-                        <div style={{fontFamily:'"'+font.font_family+'"'}} className="text-4xl tlg:text-3xl text-l-2 dark:text-white font-medium">{font.name}</div>
-                        <div className='group relative'>
-                            <input onClick={handleLikeClick} onChange={handleLikeChange} type="checkbox" id={font.code.toString()} className='peer hidden' defaultChecked={like === null ? false : true}/>
-                            <label htmlFor={font.code.toString()} className='group cursor-pointer'>
-                                <i className="block peer-checked:group-[]:hidden text-xl text-l-2 dark:text-white bi bi-heart"></i>
-                                <i className="hidden peer-checked:group-[]:block text-xl text-h-r bi bi-heart-fill"></i>
-                            </label>
-                            <div className={`${hoverDisplay === true ? 'group-hover:block' : 'group-hover:hidden'} tlg:group-hover:hidden tooltip w-max absolute left-1/2 -top-10 px-3 py-2 text-sm font-medium leading-none origin-bottom rounded-lg hidden group-hover:animate-zoom-in-fontbox after:bg-h-r bg-h-r text-white`}>{liked === true ? "좋아요 해제" : "좋아요"}</div>
+            <Motion
+                initialOpacity={0}
+                animateOpacity={1}
+                exitOpacity={0}
+                initialX={-100}
+                animateX={0}
+                exitX={-100}
+                transitionType="spring"
+            >
+                <div className="w-full mt-12 px-8 tlg:px-4">
+                    <link href={font.cdn_url} rel="stylesheet" type="text/css" itemProp="url"></link>
+                    <div className="w-full flex flex-col justify-start items-start">
+                        <div className="mb-2 flex gap-4 items-center">
+                            <div style={{fontFamily:'"'+font.font_family+'"'}} className="text-4xl tlg:text-3xl text-l-2 dark:text-white font-medium">{font.name}</div>
+                            <div className='group relative'>
+                                <input onClick={handleLikeClick} onChange={handleLikeChange} type="checkbox" id={font.code.toString()} className='peer hidden' defaultChecked={like === null ? false : true}/>
+                                <label htmlFor={font.code.toString()} onMouseDown={e => onMouseDown(e, 0.85)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className='group block cursor-pointer'>
+                                    <i className="block peer-checked:group-[]:hidden text-xl text-l-2 dark:text-white bi bi-heart"></i>
+                                    <i className="hidden peer-checked:group-[]:block text-xl text-h-r bi bi-heart-fill"></i>
+                                </label>
+                                <div className={`${hoverDisplay === true ? 'group-hover:block' : 'group-hover:hidden'} tlg:group-hover:hidden tooltip w-max absolute left-1/2 -top-10 px-3 py-2 text-sm font-medium leading-none origin-bottom rounded-lg hidden group-hover:animate-zoom-in-fontbox after:bg-h-r bg-h-r text-white`}>{liked === true ? "좋아요 해제" : "좋아요"}</div>
+                            </div>
                         </div>
-                    </div>
-                    <div className="mb-4 flex gap-4 tlg:gap-3 justify-start items-center">
-                        <div style={{fontFamily:'"'+font.font_family+'"'}} className="flex gap-2 tlg:text-sm text-l-2 dark:text-white">
-                            <span className={`${font.lang === 'KR' ? '' : 'font-sans'}`}>제작</span>
-                            <Link href={{pathname: "/", query: {search: font.source}}} className="relative group border-b border-h-1 dark:border-f-8 text-h-1 dark:text-f-8">
-                                {font.source}
-                                <div className="tooltip w-max absolute z-10 left-1/2 -top-10 text-sm font-medium leading-none px-3 py-2 origin-bottom rounded-lg hidden group-hover:block tlg:group-hover:hidden group-hover:animate-zoom-in-fontbox bg-h-1 dark:bg-f-8 after:bg-h-1 after:dark:bg-f-8 text-white dark:text-d-2">제작사의 다른 폰트 보기</div>
-                            </Link>
+                        <div className="mb-4 flex gap-4 tlg:gap-3 justify-start items-center">
+                            <div style={{fontFamily:'"'+font.font_family+'"'}} className="flex gap-2 tlg:text-sm text-l-2 dark:text-white">
+                                <span className={`${font.lang === 'KR' ? '' : 'font-sans'}`}>제작</span>
+                                <Link href={{pathname: "/", query: {search: font.source}}} className="relative group border-b border-h-1 dark:border-f-8 text-h-1 dark:text-f-8">
+                                    {font.source}
+                                    <div className="tooltip w-max absolute z-10 left-1/2 -top-10 text-sm font-medium leading-none px-3 py-2 origin-bottom rounded-lg hidden group-hover:block tlg:group-hover:hidden group-hover:animate-zoom-in-fontbox bg-h-1 dark:bg-f-8 after:bg-h-1 after:dark:bg-f-8 text-white dark:text-d-2">제작사의 다른 폰트 보기</div>
+                                </Link>
+                            </div>
+                            <div className={`${font.lang === 'KR' ? '' : 'font-sans'} tlg:text-sm text-l-2 dark:text-white`}>형태<span className="text-l-5 dark:text-d-c ml-1.5">{font.font_type === "Sans Serif" ? "고딕" : (font.font_type === "Serif" ? "명조" : (font.font_type === "Hand Writing" ? "손글씨" : (font.font_type === "Display" ? "장식체" : "픽셀체")))}</span></div>
+                            <div className={`${font.lang === 'KR' ? '' : 'font-sans'} tlg:text-sm text-l-2 dark:text-white`}>조회수<span className="text-l-5 dark:text-d-c ml-1.5">{formatNumber(font.view)}</span></div>
+                            <div className={`${font.lang === 'KR' ? '' : 'font-sans'} tlg:text-sm text-l-2 dark:text-white`}>좋아요 수<span className="text-l-5 dark:text-d-c ml-1.5">{formatNumber(likedNum)}</span></div>
                         </div>
-                        <div className={`${font.lang === 'KR' ? '' : 'font-sans'} tlg:text-sm text-l-2 dark:text-white`}>형태<span className="text-l-5 dark:text-d-c ml-1.5">{font.font_type === "Sans Serif" ? "고딕" : (font.font_type === "Serif" ? "명조" : (font.font_type === "Hand Writing" ? "손글씨" : (font.font_type === "Display" ? "장식체" : "픽셀체")))}</span></div>
-                        <div className={`${font.lang === 'KR' ? '' : 'font-sans'} tlg:text-sm text-l-2 dark:text-white`}>조회수<span className="text-l-5 dark:text-d-c ml-1.5">{formatNumber(font.view)}</span></div>
-                        <div className={`${font.lang === 'KR' ? '' : 'font-sans'} tlg:text-sm text-l-2 dark:text-white`}>좋아요 수<span className="text-l-5 dark:text-d-c ml-1.5">{formatNumber(likedNum)}</span></div>
-                    </div>
 
-                    {/* 카카오 애드핏 상단 띠배너 */}
-                    <div className="w-max">
-                        <KakaoAdFitTopBanner
-                            marginBottom={1}
-                        />
-                    </div>
+                        {/* 카카오 애드핏 상단 띠배너 */}
+                        <div className="w-max">
+                            <KakaoAdFitTopBanner
+                                marginBottom={1}
+                            />
+                        </div>
 
-                    <div className="w-full h-px mb-4 bg-l-b dark:bg-d-6"></div>
-                </div>
-                <div className="flex gap-2 justify-start items-center mb-20 tlg:mb-16">
-                    <div className="w-40">
-                        <Button>
-                            <Link aria-label="source-link" href={font.source_link} target="_blank" rel="noopener noreferrer" className="w-full h-full flex gap-2.5 justify-center items-center">
-                                <i className="text-sm bi bi-send"></i>
-                                원 배포처 링크
-                            </Link>
-                        </Button>
+                        <div className="w-full h-px mb-4 bg-l-b dark:bg-d-6"></div>
+                    </div>
+                    <div className="flex gap-2 justify-start items-center mb-20 tlg:mb-16">
+                        <div className="w-40">
+                            <Button>
+                                <Link aria-label="source-link" href={font.source_link} target="_blank" rel="noopener noreferrer" className="w-full h-full flex gap-2.5 justify-center items-center">
+                                    <i className="text-sm bi bi-send"></i>
+                                    원 배포처 링크
+                                </Link>
+                            </Button>
+                        </div>
+                        {
+                            font.license_ofl === "Y"
+                                && <div className="w-40">
+                                    <Button color="gray">
+                                        <Link aria-label="github-source-link" href={font.github_link} className="w-full h-full flex gap-2.5 justify-center items-center">
+                                            <i className="bi bi-download"></i>
+                                            파일 다운로드
+                                        </Link>
+                                    </Button>
+                                </div>
+                        }
                     </div>
                     {
-                        font.license_ofl === "Y"
-                            && <div className="w-40">
-                                <Button color="gray">
-                                    <Link aria-label="github-source-link" href={font.github_link} className="w-full h-full flex gap-2.5 justify-center items-center">
-                                        <i className="bi bi-download"></i>
-                                        파일 다운로드
-                                    </Link>
-                                </Button>
+                        font.license_embed !== "Y" || font.license_ofl !== "Y"
+                        ? <></>
+                        : <div className="flex flex-col justify-start items-start mb-20 tlg:mb-16">
+                            <h2 className="text-2xl tlg:text-xl text-d-2 dark:text-white font-medium mb-4 tlg:mb-3">웹 폰트</h2>
+                            <div className="w-full mb-3 gap-3 flex tlg:flex-wrap justify-start items-center tlg:text-sm">
+                                <input onChange={handleWebFont} type="radio" id="cdn_css" name="cdn" value="CSS" className="peer/css hidden" defaultChecked/>
+                                <label htmlFor="cdn_css" onMouseDown={e => onMouseDown(e, 0.9)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-28 tlg:w-[calc(50%-0.375rem)] h-11 rounded-lg flex justify-center items-center cursor-pointer peer-checked/css:bg-h-1 peer-checked/css:dark:bg-f-8 peer-checked/css:text-white peer-checked/css:dark:text-d-2 tlg:bg-l-e tlg:dark:bg-d-4 text-l-2 dark:text-white hover:text-h-1 hover:dark:text-f-8 tlg:hover:text-l-2 tlg:hover:dark:text-white">CSS</label>
+                                <input onChange={handleWebFont} type="radio" id="cdn_link" name="cdn" value="link" className="peer/link hidden"/>
+                                <label htmlFor="cdn_link" onMouseDown={e => onMouseDown(e, 0.9)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-28 tlg:w-[calc(50%-0.375rem)] h-11 rounded-lg flex justify-center items-center cursor-pointer peer-checked/link:bg-h-1 peer-checked/link:dark:bg-f-8 peer-checked/link:text-white peer-checked/link:dark:text-d-2 tlg:bg-l-e tlg:dark:bg-d-4 text-l-2 dark:text-white hover:text-h-1 hover:dark:text-f-8 tlg:hover:text-l-2 tlg:hover:dark:text-white">&#60;link/&#62;</label>
+                                <input onChange={handleWebFont} type="radio" id="cdn_import" name="cdn" value="import" className="peer/import hidden"/>
+                                <label htmlFor="cdn_import" onMouseDown={e => onMouseDown(e, 0.9)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-28 tlg:w-[calc(50%-0.375rem)] h-11 rounded-lg flex justify-center items-center cursor-pointer peer-checked/import:bg-h-1 peer-checked/import:dark:bg-f-8 peer-checked/import:text-white peer-checked/import:dark:text-d-2 tlg:bg-l-e tlg:dark:bg-d-4 text-l-2 dark:text-white hover:text-h-1 hover:dark:text-f-8 tlg:hover:text-l-2 tlg:hover:dark:text-white">@import</label>
+                                <input onChange={handleWebFont} type="radio" id="cdn_font_face" name="cdn" value="font-face" className="peer/font-face hidden"/>
+                                <label htmlFor="cdn_font_face" onMouseDown={e => onMouseDown(e, 0.9)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-28 tlg:w-[calc(50%-0.375rem)] h-11 rounded-lg flex justify-center items-center cursor-pointer peer-checked/font-face:bg-h-1 peer-checked/font-face:dark:bg-f-8 peer-checked/font-face:text-white peer-checked/font-face:dark:text-d-2 tlg:bg-l-e tlg:dark:bg-d-4 text-l-2 dark:text-white hover:text-h-1 hover:dark:text-f-8 tlg:hover:text-l-2 tlg:hover:dark:text-white">@font-face</label>
                             </div>
-                    }
-                </div>
-                {
-                    font.license_embed !== "Y" || font.license_ofl !== "Y"
-                    ? <></>
-                    : <div className="flex flex-col justify-start items-start mb-20 tlg:mb-16">
-                        <h2 className="text-2xl tlg:text-xl text-d-2 dark:text-white font-medium mb-4 tlg:mb-3">웹 폰트</h2>
-                        <div className="w-full mb-3 gap-3 flex tlg:flex-wrap justify-start items-center tlg:text-sm">
-                            <input onChange={handleWebFont} type="radio" id="cdn_css" name="cdn" value="CSS" className="peer/css hidden" defaultChecked/>
-                            <label htmlFor="cdn_css" className="w-28 tlg:w-[calc(50%-0.375rem)] h-11 rounded-lg flex justify-center items-center cursor-pointer peer-checked/css:bg-h-1 peer-checked/css:dark:bg-f-8 peer-checked/css:text-white peer-checked/css:dark:text-d-2 tlg:bg-l-e tlg:dark:bg-d-4 text-l-2 dark:text-white hover:text-h-1 hover:dark:text-f-8 tlg:hover:text-l-2 tlg:hover:dark:text-white">CSS</label>
-                            <input onChange={handleWebFont} type="radio" id="cdn_link" name="cdn" value="link" className="peer/link hidden"/>
-                            <label htmlFor="cdn_link" className="w-28 tlg:w-[calc(50%-0.375rem)] h-11 rounded-lg flex justify-center items-center cursor-pointer peer-checked/link:bg-h-1 peer-checked/link:dark:bg-f-8 peer-checked/link:text-white peer-checked/link:dark:text-d-2 tlg:bg-l-e tlg:dark:bg-d-4 text-l-2 dark:text-white hover:text-h-1 hover:dark:text-f-8 tlg:hover:text-l-2 tlg:hover:dark:text-white">&#60;link/&#62;</label>
-                            <input onChange={handleWebFont} type="radio" id="cdn_import" name="cdn" value="import" className="peer/import hidden"/>
-                            <label htmlFor="cdn_import" className="w-28 tlg:w-[calc(50%-0.375rem)] h-11 rounded-lg flex justify-center items-center cursor-pointer peer-checked/import:bg-h-1 peer-checked/import:dark:bg-f-8 peer-checked/import:text-white peer-checked/import:dark:text-d-2 tlg:bg-l-e tlg:dark:bg-d-4 text-l-2 dark:text-white hover:text-h-1 hover:dark:text-f-8 tlg:hover:text-l-2 tlg:hover:dark:text-white">@import</label>
-                            <input onChange={handleWebFont} type="radio" id="cdn_font_face" name="cdn" value="font-face" className="peer/font-face hidden"/>
-                            <label htmlFor="cdn_font_face" className="w-28 tlg:w-[calc(50%-0.375rem)] h-11 rounded-lg flex justify-center items-center cursor-pointer peer-checked/font-face:bg-h-1 peer-checked/font-face:dark:bg-f-8 peer-checked/font-face:text-white peer-checked/font-face:dark:text-d-2 tlg:bg-l-e tlg:dark:bg-d-4 text-l-2 dark:text-white hover:text-h-1 hover:dark:text-f-8 tlg:hover:text-l-2 tlg:hover:dark:text-white">@font-face</label>
-                        </div>
-                        <div className="w-[58.25rem] tlg:w-full tlg:text-sm rounded-lg bg-l-e dark:bg-d-4 text-l-2 dark:text-white">
-                            {
-                                webFont === "CSS"
-                                ? <div className="w-full relative pl-6 pr-16 tlg:pr-[3.75rem] overflow-hidden">
-                                    <div className="cdn-pre no-scrollbar w-full h-16 flex justify-start items-center overflow-x-auto"><pre className="font-sans">{font.cdn_css}</pre></div>
-                                    <div className="w-8 h-8 tlg:w-7 tlg:h-7 absolute z-10 right-4 top-1/2 -translate-y-1/2 rounded-md cursor-pointer">
-                                        <div onClick={copyOnClick} className="copy_btn w-full h-full flex justify-center items-center rounded-md hover:bg-h-1/20 tlg:hover:bg-transparent hover:dark:bg-f-8/20 tlg:hover:dark-bg-transparent text-h-1 dark:text-f-8">
-                                            <i className="text-base bi bi-clipboard"></i>
-                                        </div>
-                                        <div className="copy_chk_btn w-full h-full hidden justify-center items-center rounded-md bg-h-1/20 dark:bg-f-8/20 text-h-1 dark:text-f-8">
-                                            <i className="text-base bi bi-check-lg"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                                : ( webFont === "link"
+                            <div className="w-[58.25rem] tlg:w-full tlg:text-sm rounded-lg bg-l-e dark:bg-d-4 text-l-2 dark:text-white">
+                                {
+                                    webFont === "CSS"
                                     ? <div className="w-full relative pl-6 pr-16 tlg:pr-[3.75rem] overflow-hidden">
-                                        <div className="cdn-pre no-scrollbar w-full h-16 flex justify-start items-center overflow-x-auto"><pre className="font-sans">{font.cdn_link}</pre></div>
+                                        <div className="cdn-pre no-scrollbar w-full h-16 flex justify-start items-center overflow-x-auto"><pre className="font-sans">{font.cdn_css}</pre></div>
                                         <div className="w-8 h-8 tlg:w-7 tlg:h-7 absolute z-10 right-4 top-1/2 -translate-y-1/2 rounded-md cursor-pointer">
                                             <div onClick={copyOnClick} className="copy_btn w-full h-full flex justify-center items-center rounded-md hover:bg-h-1/20 tlg:hover:bg-transparent hover:dark:bg-f-8/20 tlg:hover:dark-bg-transparent text-h-1 dark:text-f-8">
-                                                <i className="text-base :text-sm bi bi-clipboard"></i>
+                                                <i className="text-base bi bi-clipboard"></i>
                                             </div>
                                             <div className="copy_chk_btn w-full h-full hidden justify-center items-center rounded-md bg-h-1/20 dark:bg-f-8/20 text-h-1 dark:text-f-8">
-                                                <i className="text-base :text-sm bi bi-check-lg"></i>
+                                                <i className="text-base bi bi-check-lg"></i>
                                             </div>
                                         </div>
                                     </div>
-                                    : ( webFont === "import"
+                                    : ( webFont === "link"
                                         ? <div className="w-full relative pl-6 pr-16 tlg:pr-[3.75rem] overflow-hidden">
-                                            <div className="cdn-pre no-scrollbar w-full h-16 flex justify-start items-center overflow-x-auto"><pre className="font-sans">{font.cdn_import}</pre></div>
+                                            <div className="cdn-pre no-scrollbar w-full h-16 flex justify-start items-center overflow-x-auto"><pre className="font-sans">{font.cdn_link}</pre></div>
                                             <div className="w-8 h-8 tlg:w-7 tlg:h-7 absolute z-10 right-4 top-1/2 -translate-y-1/2 rounded-md cursor-pointer">
                                                 <div onClick={copyOnClick} className="copy_btn w-full h-full flex justify-center items-center rounded-md hover:bg-h-1/20 tlg:hover:bg-transparent hover:dark:bg-f-8/20 tlg:hover:dark-bg-transparent text-h-1 dark:text-f-8">
                                                     <i className="text-base :text-sm bi bi-clipboard"></i>
@@ -490,516 +491,529 @@ function DetailPage({params}: any) {
                                                 </div>
                                             </div>
                                         </div>
-                                        : <div className="w-full relative pl-6 pr-16 tlg:pr-[3.75rem] overflow-hidden">
-                                            <div className="cdn-pre no-scrollbar w-full h-[auto] py-5 flex justify-start items-center overflow-auto whitespace-nowrap"><pre id="cdn-font-face" style={{tabSize: 8}} className="font-sans">{font.cdn_font_face}</pre></div>
-                                            <div className="w-8 h-8 tlg:w-7 tlg:h-7 absolute z-10 right-4 top-8 -translate-y-1/2 cursor-pointer">
-                                                <div onClick={copyOnClick} className="copy_btn w-full h-full flex justify-center items-center rounded-md hover:bg-h-1/20 tlg:hover:bg-transparent hover:dark:bg-f-8/20 tlg:hover:dark-bg-transparent text-h-1 dark:text-f-8">
-                                                    <i className="text-base :text-sm bi bi-clipboard"></i>
-                                                </div>
-                                                <div className="copy_chk_btn w-full h-full hidden justify-center items-center rounded-md bg-h-1/20 dark:bg-f-8/20 text-h-1 dark:text-f-8">
-                                                    <i className="text-base :text-sm bi bi-check-lg"></i>
+                                        : ( webFont === "import"
+                                            ? <div className="w-full relative pl-6 pr-16 tlg:pr-[3.75rem] overflow-hidden">
+                                                <div className="cdn-pre no-scrollbar w-full h-16 flex justify-start items-center overflow-x-auto"><pre className="font-sans">{font.cdn_import}</pre></div>
+                                                <div className="w-8 h-8 tlg:w-7 tlg:h-7 absolute z-10 right-4 top-1/2 -translate-y-1/2 rounded-md cursor-pointer">
+                                                    <div onClick={copyOnClick} className="copy_btn w-full h-full flex justify-center items-center rounded-md hover:bg-h-1/20 tlg:hover:bg-transparent hover:dark:bg-f-8/20 tlg:hover:dark-bg-transparent text-h-1 dark:text-f-8">
+                                                        <i className="text-base :text-sm bi bi-clipboard"></i>
+                                                    </div>
+                                                    <div className="copy_chk_btn w-full h-full hidden justify-center items-center rounded-md bg-h-1/20 dark:bg-f-8/20 text-h-1 dark:text-f-8">
+                                                        <i className="text-base :text-sm bi bi-check-lg"></i>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                            : <div className="w-full relative pl-6 pr-16 tlg:pr-[3.75rem] overflow-hidden">
+                                                <div className="cdn-pre no-scrollbar w-full h-[auto] py-5 flex justify-start items-center overflow-auto whitespace-nowrap"><pre id="cdn-font-face" style={{tabSize: 8}} className="font-sans">{font.cdn_font_face}</pre></div>
+                                                <div className="w-8 h-8 tlg:w-7 tlg:h-7 absolute z-10 right-4 top-8 -translate-y-1/2 cursor-pointer">
+                                                    <div onClick={copyOnClick} className="copy_btn w-full h-full flex justify-center items-center rounded-md hover:bg-h-1/20 tlg:hover:bg-transparent hover:dark:bg-f-8/20 tlg:hover:dark-bg-transparent text-h-1 dark:text-f-8">
+                                                        <i className="text-base :text-sm bi bi-clipboard"></i>
+                                                    </div>
+                                                    <div className="copy_chk_btn w-full h-full hidden justify-center items-center rounded-md bg-h-1/20 dark:bg-f-8/20 text-h-1 dark:text-f-8">
+                                                        <i className="text-base :text-sm bi bi-check-lg"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        )
                                     )
-                                )
-                            }
-                        </div>
-                    </div>
-                }
-                <div className="max-w-full w-max tlg:w-full flex flex-col justify-start items-start mb-20 tmd:mb-16">
-                    <h2 className="text-2xl tlg:text-xl text-l-2 dark:text-white font-medium mb-4 tlg:mb-3">폰트 미리보기</h2>
-                    <div className="w-full px-4 py-2 mb-4 border-b border-l-b dark:border-d-6">
-                        <textarea onChange={handleFontWeightChange} onInput={handleHeightChange} placeholder="원하는 문구를 적어보세요." className="w-full h-[1.5rem] resize-none text-l-2 dark:text-white placeholder-l-5 dark:placeholder-d-c leading-tight bg-transparent"/>
-                    </div>
-                    <div className="max-w-full tlg:w-full rounded-lg pt-6 bg-l-e dark:bg-d-4">
-                        <div className="w-full px-6 flex flex-wrap justify-start items-center gap-20 tlg:gap-6 mb-8">
-                            <div className="w-60 tlg:w-full flex flex-col justify-center items-start">
-                                <div className="w-full flex items-center mb-1">
-                                    <SelectBox
-                                        height={3.5}
-                                        title="폰트 크기"
-                                        icon="none"
-                                        value="font-size"
-                                        select={fontUnit}
-                                        options={[
-                                            { value: "px", name: "px" },
-                                            { value: "pt", name: "pt" },
-                                        ]}
-                                        optionChange={handleFontUnit}
-                                    />
-                                </div>
-                                <div className="w-full relative flex gap-2 items-center">
-                                    <div className="text-center text-sm text-l-2 dark:text-white">{fontUnit === "px" ? 12 : 9}{fontUnit}</div>
-                                    <Slider
-                                        className="font-size-slider"
-                                        aria-label="font-size-slider"
-                                        valueLabelDisplay="auto"
-                                        valueLabelFormat={fontSize + fontUnit}
-                                        onChange={(e, v) => setFontSize(Number(v))}
-                                        defaultValue={28}
-                                        value={fontSize}
-                                        min={fontUnit === "px" ? 12 : 9}
-                                        max={fontUnit === "px" ? 64 : 48}
-                                    />
-                                    <div className="text-center text-sm text-l-2 dark:text-white">{fontUnit === "px" ? 64 : 48}{fontUnit}</div>
-                                </div>
-                            </div>
-                            <div className="w-60 tlg:w-full flex flex-col justify-center items-start">
-                                <div className="w-full flex items-center mb-1">
-                                    <SelectBox
-                                        height={3.5}
-                                        title="행간"
-                                        icon="none"
-                                        value="line-height"
-                                        select={lineHeightUnit}
-                                        options={[
-                                            { value: "em", name: "em" },
-                                            { value: "px", name: "px" },
-                                            { value: "%", name: "%" },
-                                        ]}
-                                        optionChange={handleLineHeightUnit}
-                                    />
-                                </div>
-                                <div className="w-full relative flex gap-2 items-center">
-                                    <div className="text-center text-sm text-l-2 dark:text-white">{lineHeightUnit === "em" ? 1 : lineHeightUnit === "px" ? 12 : 50}{lineHeightUnit}</div>
-                                    <Slider
-                                        className="font-size-slider"
-                                        aria-label="font-size-slider"
-                                        step={lineHeightUnit === "em" ? 0.1 : lineHeightUnit === "px" ? 1 : 10}
-                                        valueLabelDisplay="auto"
-                                        valueLabelFormat={lineHeight + lineHeightUnit}
-                                        onChange={(e, v) => setLineHeight(Number(v))}
-                                        defaultValue={1.5}
-                                        value={lineHeight}
-                                        min={lineHeightUnit === "em" ? 1 : lineHeightUnit === "px" ? 12 : 50}
-                                        max={lineHeightUnit === "em" ? 3 : lineHeightUnit === "px" ? 64 : 200}
-                                    />
-                                    <div className="text-center text-sm text-l-2 dark:text-white">{lineHeightUnit === "em" ? 3 : lineHeightUnit === "px" ? 64 : 200}{lineHeightUnit}</div>
-                                </div>
-                            </div>
-                            <div className="w-60 tlg:w-full flex flex-col justify-center items-start">
-                                <div className="w-full flex items-center mb-1">
-                                    <SelectBox
-                                        height={3.5}
-                                        title="자간"
-                                        icon="none"
-                                        value="letter-spacing"
-                                        select={letterSpacingUnit}
-                                        options={[
-                                            { value: "em", name: "em" },
-                                            { value: "px", name: "px" },
-                                        ]}
-                                        optionChange={handleLetterSpacingUnit}
-                                    />
-                                </div>
-                                <div className="w-full relative flex gap-2 items-center">
-                                    <div className="text-center text-sm text-l-2 dark:text-white">{letterSpacingUnit === "em" ? -1 :  -10}{letterSpacingUnit}</div>
-                                    <Slider
-                                        className="font-size-slider"
-                                        aria-label="font-size-slider"
-                                        step={letterSpacingUnit === "em" ? 0.1 : 1}
-                                        valueLabelDisplay="auto"
-                                        valueLabelFormat={letterSpacing + letterSpacingUnit}
-                                        onChange={(e, v) => setLetterSpacing(Number(v))}
-                                        defaultValue={0}
-                                        value={letterSpacing}
-                                        min={letterSpacingUnit === "em" ? -1 : -10}
-                                        max={letterSpacingUnit === "em" ? 1 : 10}
-                                    />
-                                    <div className="text-center text-sm text-l-2 dark:text-white">{letterSpacingUnit === "em" ? 1 : 10}{letterSpacingUnit}</div>
-                                </div>
+                                }
                             </div>
                         </div>
-                        <div className="w-full p-6 pt-0">
-                            <div className="w-full relative">
-                                <div className="color-picker flex gap-2">
-                                    <div className="relative z-10">
-                                        <input onChange={handleTextColorPickerDisplay} id="text-color-picker" type="checkbox" className="peer hidden"/>
-                                        <label htmlFor="text-color-picker" ref={textColorPickerBtn} className="w-8 h-8 rounded-lg relative group flex flex-col justify-center items-center cursor-pointer bg-h-1 hover:bg-h-0 tlg:hover:bg-h-1 peer-checked:bg-h-0 dark:bg-f-8 hover:dark:bg-f-9 tlg:hover:dark:bg-f-8 peer-checked:dark:bg-f-9">
-                                            <i className="text-sm text-white dark:text-d-2 fa-solid fa-a"></i>
-                                            <div style={{background: textColor.hex}} className="w-4 h-0.5 mb-0.5"></div>
-                                            <div className="tooltip after:bg-h-0 after:dark:bg-f-9 w-max absolute left-1/2 -top-11 text-sm font-medium leading-none px-3 py-2 origin-bottom rounded-lg hidden group-hover:block peer-checked:group-[]:hidden tlg:group-hover:hidden group-hover:animate-zoom-in-fontbox bg-h-0 dark:bg-f-9 text-white dark:text-d-2 selection:bg-transparent">폰트색 변경</div>
-                                        </label>
-                                        <div ref={textColorPicker} className="drop-shadow-dark absolute left-0 -top-2 -translate-y-full">
-                                            {
-                                                displayTextColorPicker && 
-                                                <ColorPicker height={120} color={textColor} onChange={setTextColor} hideInput={["hsv"]}/>
-                                            }
-                                        </div>
-                                    </div>
-                                    <div className="relative">
-                                        <input onChange={handlebgColorPickerDisplay} id="bg-color-picker" type="checkbox" className="peer hidden"/>
-                                        <label htmlFor="bg-color-picker" ref={bgColorPickerBtn} className="w-8 h-8 rounded-lg relative group flex flex-col justify-center items-center cursor-pointer bg-h-1 hover:bg-h-0 tlg:hover:bg-h-1 peer-checked:bg-h-0 dark:bg-f-8 hover:dark:bg-f-9 tlg:hover:dark:bg-f-8 peer-checked:dark:bg-f-9">
-                                            <i className="text-sm text-white dark:text-d-2 fa-solid fa-fill-drip"></i>
-                                            <div style={{background: bgColor.hex}} className="w-4 h-0.5 mb-0.5"></div>
-                                            <div className="tooltip after:bg-h-0 after:dark:bg-f-9 w-max absolute left-1/2 -top-11 text-sm font-medium leading-none px-3 py-2 origin-bottom rounded-lg hidden group-hover:block peer-checked:group-[]:hidden tlg:group-hover:hidden group-hover:animate-zoom-in-fontbox bg-h-0 dark:bg-f-9 text-white dark:text-d-2 selection:bg-transparent">배경색 변경</div>
-                                        </label>
-                                        <div ref={bgColorPicker} className="drop-shadow-dark absolute left-0 -top-2 -translate-y-full">
-                                            {
-                                                displaybgColorPicker && 
-                                                <ColorPicker height={120} color={bgColor} onChange={setBgColor} hideInput={["hsv"]}/>
-                                            }
-                                        </div>
-                                    </div>
-                                    <button onClick={resetColorPicker} className="w-8 h-8 rounded-lg relative group flex flex-col justify-center items-center bg-h-1 hover:bg-h-0 tlg:hover:bg-h-1 dark:bg-f-8 hover:dark:bg-f-9 tlg:hover:dark:bg-f-8 text-white dark:text-d-2">
-                                        <i className="text-sm group-hover:rotate-45 tlg:group-hover:rotate-0 duration-100 fa-solid fa-rotate"></i>
-                                        <div className="tooltip w-max absolute left-1/2 -top-11 text-sm font-medium leading-none px-3 py-2 origin-bottom rounded-lg hidden group-hover:block tlg:group-hover:hidden group-hover:animate-zoom-in-fontbox after:bg-h-0 after:dark:bg-f-9 bg-h-0 dark:bg-f-9 selection:bg-transparent">컬러 리셋하기</div>
-                                    </button>
-                                </div>
-                            </div>
+                    }
+                    <div className="max-w-full w-max tlg:w-full flex flex-col justify-start items-start mb-20 tmd:mb-16">
+                        <h2 className="text-2xl tlg:text-xl text-l-2 dark:text-white font-medium mb-4 tlg:mb-3">폰트 미리보기</h2>
+                        <div className="w-full px-4 py-2 mb-4 border-b border-l-b dark:border-d-6">
+                            <textarea onChange={handleFontWeightChange} onInput={handleHeightChange} placeholder="원하는 문구를 적어보세요." className="w-full h-[1.5rem] resize-none text-l-2 dark:text-white placeholder-l-5 dark:placeholder-d-c leading-tight bg-transparent"/>
                         </div>
-                        <div style={{backgroundColor: bgColor.hex}} className="w-full p-6 flex flex-col gap-8 border-t border-l-b dark:border-d-6 rounded-b-lg relative overflow-hidden">
-                            {
-                                font.font_weight[0] === "Y"
-                                && <div>
-                                    <div style={{color: textColor.hex}} className="mb-2">Thin 100</div>
-                                    <div className="w-full relative">
-                                        <div style={{height: convertedFontSize, backgroundImage: `linear-gradient(to left, ${bgColor.hex} 25%, #FFFFFF00)`}} className='w-44 absolute -right-6 top-1/2 -translate-y-1/2'></div>
-                                        <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"100", color: textColor.hex}} className="w-full"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
+                        <div className="max-w-full tlg:w-full rounded-lg pt-6 bg-l-e dark:bg-d-4">
+                            <div className="w-full px-6 flex flex-wrap justify-start items-center gap-20 tlg:gap-6 mb-8">
+                                <div className="w-60 tlg:w-full flex flex-col justify-center items-start">
+                                    <div className="w-full flex items-center mb-1">
+                                        <SelectBox
+                                            height={3.5}
+                                            title="폰트 크기"
+                                            icon="none"
+                                            value="font-size"
+                                            select={fontUnit}
+                                            options={[
+                                                { value: "px", name: "px" },
+                                                { value: "pt", name: "pt" },
+                                            ]}
+                                            optionChange={handleFontUnit}
+                                        />
+                                    </div>
+                                    <div className="w-full relative flex gap-2 items-center">
+                                        <div className="text-center text-sm text-l-2 dark:text-white">{fontUnit === "px" ? 12 : 9}{fontUnit}</div>
+                                        <Slider
+                                            className="font-size-slider"
+                                            aria-label="font-size-slider"
+                                            valueLabelDisplay="auto"
+                                            valueLabelFormat={fontSize + fontUnit}
+                                            onChange={(e, v) => setFontSize(Number(v))}
+                                            defaultValue={28}
+                                            value={fontSize}
+                                            min={fontUnit === "px" ? 12 : 9}
+                                            max={fontUnit === "px" ? 64 : 48}
+                                        />
+                                        <div className="text-center text-sm text-l-2 dark:text-white">{fontUnit === "px" ? 64 : 48}{fontUnit}</div>
                                     </div>
                                 </div>
-                            }
-                            {
-                                font.font_weight[1] === "Y"
-                                && <div>
-                                    <div style={{color: textColor.hex}} className="mb-2">ExtraLight 200</div>
-                                    <div className="w-full relative">
-                                        <div style={{height: convertedFontSize, backgroundImage: `linear-gradient(to left, ${bgColor.hex} 25%, #FFFFFF00)`}} className='w-44 absolute -right-6 top-1/2 -translate-y-1/2'></div>
-                                        <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"200", color: textColor.hex}} className="w-full"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
+                                <div className="w-60 tlg:w-full flex flex-col justify-center items-start">
+                                    <div className="w-full flex items-center mb-1">
+                                        <SelectBox
+                                            height={3.5}
+                                            title="행간"
+                                            icon="none"
+                                            value="line-height"
+                                            select={lineHeightUnit}
+                                            options={[
+                                                { value: "em", name: "em" },
+                                                { value: "px", name: "px" },
+                                                { value: "%", name: "%" },
+                                            ]}
+                                            optionChange={handleLineHeightUnit}
+                                        />
+                                    </div>
+                                    <div className="w-full relative flex gap-2 items-center">
+                                        <div className="text-center text-sm text-l-2 dark:text-white">{lineHeightUnit === "em" ? 1 : lineHeightUnit === "px" ? 12 : 50}{lineHeightUnit}</div>
+                                        <Slider
+                                            className="font-size-slider"
+                                            aria-label="font-size-slider"
+                                            step={lineHeightUnit === "em" ? 0.1 : lineHeightUnit === "px" ? 1 : 10}
+                                            valueLabelDisplay="auto"
+                                            valueLabelFormat={lineHeight + lineHeightUnit}
+                                            onChange={(e, v) => setLineHeight(Number(v))}
+                                            defaultValue={1.5}
+                                            value={lineHeight}
+                                            min={lineHeightUnit === "em" ? 1 : lineHeightUnit === "px" ? 12 : 50}
+                                            max={lineHeightUnit === "em" ? 3 : lineHeightUnit === "px" ? 64 : 200}
+                                        />
+                                        <div className="text-center text-sm text-l-2 dark:text-white">{lineHeightUnit === "em" ? 3 : lineHeightUnit === "px" ? 64 : 200}{lineHeightUnit}</div>
                                     </div>
                                 </div>
-                            }
-                            {
-                                font.font_weight[2] === "Y"
-                                && <div>
-                                    <div style={{color: textColor.hex}} className="mb-2">Light 300</div>
-                                    <div className="w-full relative">
-                                        <div style={{height: convertedFontSize, backgroundImage: `linear-gradient(to left, ${bgColor.hex} 25%, #FFFFFF00)`}} className='w-44 absolute -right-6 top-1/2 -translate-y-1/2'></div>
-                                        <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"300", color: textColor.hex}} className="w-full"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
+                                <div className="w-60 tlg:w-full flex flex-col justify-center items-start">
+                                    <div className="w-full flex items-center mb-1">
+                                        <SelectBox
+                                            height={3.5}
+                                            title="자간"
+                                            icon="none"
+                                            value="letter-spacing"
+                                            select={letterSpacingUnit}
+                                            options={[
+                                                { value: "em", name: "em" },
+                                                { value: "px", name: "px" },
+                                            ]}
+                                            optionChange={handleLetterSpacingUnit}
+                                        />
                                     </div>
-                                </div>
-                            }
-                            {
-                                font.font_weight[3] === "Y"
-                                && <div>
-                                    <div style={{color: textColor.hex}} className="mb-2">Regular 400</div>
-                                    <div className="w-full relative">
-                                        <div style={{height: convertedFontSize, backgroundImage: `linear-gradient(to left, ${bgColor.hex} 25%, #FFFFFF00)`}} className='w-44 absolute -right-6 top-1/2 -translate-y-1/2'></div>
-                                        <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"400", color: textColor.hex}} className="w-full"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
-                                    </div>
-                                </div>
-                            }
-                            {
-                                font.font_weight[4] === "Y"
-                                && <div>
-                                    <div style={{color: textColor.hex}} className="mb-2">Medium 500</div>
-                                    <div className="w-full relative">
-                                        <div style={{height: convertedFontSize, backgroundImage: `linear-gradient(to left, ${bgColor.hex} 25%, #FFFFFF00)`}} className='w-44 absolute -right-6 top-1/2 -translate-y-1/2'></div>
-                                        <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"500", color: textColor.hex}} className="w-full"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
-                                    </div>
-                                </div>
-                            }
-                            {
-                                font.font_weight[5] === "Y"
-                                && <div>
-                                    <div style={{color: textColor.hex}} className="mb-2">SemiBold 600</div>
-                                    <div className="w-full relative">
-                                        <div style={{height: convertedFontSize, backgroundImage: `linear-gradient(to left, ${bgColor.hex} 25%, #FFFFFF00)`}} className='w-44 absolute -right-6 top-1/2 -translate-y-1/2'></div>
-                                        <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"600", color: textColor.hex}} className="w-full"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
-                                    </div>
-                                </div>
-                            }
-                            {
-                                font.font_weight[6] === "Y"
-                                && <div>
-                                    <div style={{color: textColor.hex}} className="mb-2">Bold 700</div>
-                                    <div className="w-full relative">
-                                        <div style={{height: convertedFontSize, backgroundImage: `linear-gradient(to left, ${bgColor.hex} 25%, #FFFFFF00)`}} className='w-44 absolute -right-6 top-1/2 -translate-y-1/2'></div>
-                                        <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"700", color: textColor.hex}} className="w-full"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
-                                    </div>
-                                </div>
-                            }
-                            {
-                                font.font_weight[7] === "Y"
-                                && <div>
-                                    <div style={{color: textColor.hex}} className="mb-2">Heavy 800</div>
-                                    <div className="w-full relative">
-                                        <div style={{height: convertedFontSize, backgroundImage: `linear-gradient(to left, ${bgColor.hex} 25%, #FFFFFF00)`}} className='w-44 absolute -right-6 top-1/2 -translate-y-1/2'></div>
-                                        <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"800", color: textColor.hex}} className="w-full"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
-                                    </div>
-                                </div>
-                            }
-                            {
-                                font.font_weight[8] === "Y"
-                                && <div>
-                                    <div style={{color: textColor.hex}} className="mb-2">Black 900</div>
-                                    <div className="w-full relative">
-                                        <div style={{height: convertedFontSize, backgroundImage: `linear-gradient(to left, ${bgColor.hex} 25%, #FFFFFF00)`}} className='w-44 absolute -right-6 top-1/2 -translate-y-1/2'></div>
-                                        <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"900", color: textColor.hex}} className="w-full"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
-                                    </div>
-                                </div>
-                            }
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <h2 className="text-2xl tlg:text-xl text-l-2 dark:text-white font-medium mb-4 tlg:mb-3">라이센스 사용 범위</h2>
-                    <div className="mb-20 tlg:mb-16">
-                        <div className="w-full flex tlg:flex-col gap-4 justify-between items-stretch tlg:items-start">
-                            <div className="tlg:w-full shrink-0 rounded-lg bg-l-e dark:bg-d-4">
-                                <div className="w-[41.875rem] tlg:w-full p-6 tlg:p-0 tlg:py-6 flex flex-col gap-4 text-sm">
-                                    <div className="w-full flex items-center text-base font-medium text-l-2 dark:text-white">
-                                        <div className="w-28 shrink-0 text-center">카테고리</div>
-                                        <div className="w-full">사용 범위</div>
-                                        <div className="w-28 shrink-0 text-center">허용 여부</div>
-                                    </div>
-                                    <div className="w-full text-l-2 dark:text-white">
-                                        <div className="w-full h-[4.5rem] flex items-center border-b border-l-b dark:border-d-6">
-                                            <div className="w-28 shrink-0 flex flex-col justify-center items-center">
-                                                <i className="text-lg mb-0.5 fa-solid fa-print"></i>
-                                                <div>인쇄물</div>
-                                            </div>
-                                            <div className="w-full">
-                                                {
-                                                    font.license_print === "Y"
-                                                    ? <span className="ellipsed-text">브로슈어, 카탈로그, 전단지, 책, 신문 등 출판용 인쇄물</span>
-                                                    : <span className="ellipsed-text text-h-r line-through">브로슈어, 포스터, 책, 잡지, 간판 등 출판용 인쇄물</span>
-                                                }
-                                            </div>
-                                            <div className="w-28 shrink-0 flex justify-center">
-                                                {
-                                                    font.license_print === "Y"
-                                                    ? <i className="text-sm fa-regular fa-circle"></i>
-                                                    : ( font.license_print === "H"
-                                                        ? <i className="text-lg text-h-r fa-solid fa-not-equal"></i>
-                                                        : ( font.license_print === "N"
-                                                            ? <i className="text-lg text-h-r fa-solid fa-xmark"></i>
-                                                            : <></>
-                                                        )
-                                                    )
-                                                }
-                                            </div>
-                                        </div>
-                                        <div className="w-full h-[4.5rem] flex items-center border-b border-l-b dark:border-d-6">
-                                            <div className="w-28 shrink-0 flex flex-col justify-center items-center">
-                                                <i className="text-lg fa-solid fa-laptop"></i>
-                                                <div>웹 서비스</div>
-                                            </div>
-                                            <div className="w-full">
-                                                {
-                                                    font.license_web === "Y"
-                                                    ? <span className="ellipsed-text">웹페이지, 광고 배너, 메일, E-브로슈어, 웹서버용 폰트 등</span>
-                                                    : <span className="ellipsed-text text-h-r line-through">웹페이지, 광고 배너, 메일, E-브로슈어, 웹서버용 폰트 등</span>
-                                                }
-                                            </div>
-                                            <div className="w-28 shrink-0 flex justify-center">
-                                                {
-                                                    font.license_web === "Y"
-                                                    ? <i className="text-sm fa-regular fa-circle"></i>
-                                                    : ( font.license_web === "H"
-                                                    ? <i className="text-lg text-h-r fa-solid fa-not-equal"></i>
-                                                        : ( font.license_web === "N"
-                                                            ? <i className="text-lg text-h-r fa-solid fa-xmark"></i>
-                                                            : <></>
-                                                        )
-                                                    )
-                                                }
-                                            </div>
-                                        </div>
-                                        <div className="w-full h-[4.5rem] flex items-center border-b border-l-b dark:border-d-6">
-                                            <div className="w-28 shrink-0 flex flex-col justify-center items-center">
-                                                <i className="text-lg fa-solid fa-film"></i>
-                                                <div>영상물</div>
-                                            </div>
-                                            <div className="w-full">
-                                                {
-                                                    font.license_video === "Y"
-                                                    ? <span className="ellipsed-text">방송 및 영상물 자막, 영상 광고, 영화 오프닝/엔딩크레딧 자막 등</span>
-                                                    : <span className="ellipsed-text text-h-r line-through">방송 및 영상물 자막, 영상 광고, 영화 오프닝/엔딩크레딧 자막 등</span>
-                                                }
-                                            </div>
-                                            <div className="w-28 shrink-0 flex justify-center">
-                                                {
-                                                    font.license_video === "Y"
-                                                    ? <i className="text-sm fa-regular fa-circle"></i>
-                                                    : ( font.license_video === "H"
-                                                        ? <i className="text-lg text-h-r fa-solid fa-not-equal"></i>
-                                                        : ( font.license_video === "N"
-                                                            ? <i className="text-lg text-h-r fa-solid fa-xmark"></i>
-                                                            : <></>
-                                                        )
-                                                    )
-                                                }
-                                            </div>
-                                        </div>
-                                        <div className="w-full h-[4.5rem] flex items-center border-b border-l-b dark:border-d-6">
-                                            <div className="w-28 shrink-0 flex flex-col justify-center items-center">
-                                                <i className="text-lg fa-solid fa-cube"></i>
-                                                <div>포장지</div>
-                                            </div>
-                                            <div className="w-full">
-                                                {
-                                                    font.license_package === "Y"
-                                                    ? <span className="ellipsed-text">판매용 상품의 패키지</span>
-                                                    : <span className="ellipsed-text text-h-r line-through">판매용 상품의 패키지</span>
-                                                }
-                                            </div>
-                                            <div className="w-28 shrink-0 flex justify-center">
-                                                {
-                                                    font.license_package === "Y"
-                                                    ? <i className="text-sm fa-regular fa-circle"></i>
-                                                    : ( font.license_package === "H"
-                                                        ? <i className="text-lg text-h-r fa-solid fa-not-equal"></i>
-                                                        : ( font.license_package === "N"
-                                                            ? <i className="text-lg text-h-r fa-solid fa-xmark"></i>
-                                                            : <></>
-                                                        )
-                                                    )
-                                                }
-                                            </div>
-                                        </div>
-                                        <div className="w-full h-[4.5rem] flex items-center border-b border-l-b dark:border-d-6">
-                                            <div className="w-28 shrink-0 flex flex-col justify-center items-center">
-                                                <i className="text-lg mb-0.5 fa-solid fa-code"></i>
-                                                <div>임베딩</div>
-                                            </div>
-                                            <div className="w-full">
-                                                {
-                                                    font.license_embed === "Y"
-                                                    ? <span className="ellipsed-text">웹사이트 및 프로그램 서버 내 폰트 탑재, E-book 제작</span>
-                                                    : <span className="ellipsed-text text-h-r line-through">웹사이트 및 프로그램 서버 내 폰트 탑재, E-book 제작</span>
-                                                }
-                                            </div>
-                                            <div className="w-28 shrink-0 flex justify-center">
-                                                {
-                                                    font.license_embed === "Y"
-                                                    ? <i className="text-sm fa-regular fa-circle"></i>
-                                                    : ( font.license_embed === "H"
-                                                        ? <i className="text-lg text-h-r fa-solid fa-not-equal"></i>
-                                                        : ( font.license_embed === "N"
-                                                            ? <i className="text-lg text-h-r fa-solid fa-xmark"></i>
-                                                            : <></>
-                                                        )
-                                                    )
-                                                }
-                                            </div>
-                                        </div>
-                                        <div className="w-full h-[4.5rem] flex items-center border-b border-l-b dark:border-d-6">
-                                            <div className="w-28 shrink-0 flex flex-col justify-center items-center">
-                                                <i className="text-lg fa-regular fa-building"></i>
-                                                <div>BI/CI</div>
-                                            </div>
-                                            <div className="w-full">
-                                                {
-                                                    font.license_bici === "Y"
-                                                    ? <span className="ellipsed-text">회사명, 브랜드명, 상품명, 로고, 마크, 슬로건, 캐치프레이즈</span>
-                                                    : <span className="ellipsed-text text-h-r line-through">회사명, 브랜드명, 상품명, 로고, 마크, 슬로건, 캐치프레이즈</span>
-                                                }
-                                            </div>
-                                            <div className="w-28 shrink-0 flex justify-center">
-                                                {
-                                                    font.license_bici === "Y"
-                                                    ? <i className="text-sm fa-regular fa-circle"></i>
-                                                    : ( font.license_bici === "H"
-                                                        ? <i className="text-lg text-h-r fa-solid fa-not-equal"></i>
-                                                        : ( font.license_bici === "N"
-                                                            ? <i className="text-lg text-h-r fa-solid fa-xmark"></i>
-                                                            : <></>
-                                                        )
-                                                    )
-                                                }
-                                            </div>
-                                        </div>
-                                        <div className="w-full h-[4.5rem] flex items-center border-b border-l-b dark:border-d-6">
-                                            <div className="w-28 shrink-0 flex flex-col justify-center items-center">
-                                                <i className="text-lg fa-solid fa-lock-open"></i>
-                                                <div>OFL</div>
-                                            </div>
-                                            <div className="w-full">
-                                                {
-                                                    font.license_ofl === "Y"
-                                                    ? <span className="ellipsed-text">폰트 파일의 수정, 편집 및 재배포 가능. 폰트 파일의 유료 판매는 금지</span>
-                                                    : <span className="ellipsed-text text-h-r line-through">폰트 파일의 수정, 편집 재배포 및 유료 판매 금지</span>
-                                                }
-                                            </div>
-                                            <div className="w-28 shrink-0 flex justify-center">
-                                                {
-                                                    font.license_ofl === "Y"
-                                                    ? <i className="text-sm fa-regular fa-circle"></i>
-                                                    : <i className="text-lg text-h-r fa-solid fa-xmark"></i>
-                                                }
-                                            </div>
-                                        </div>
-                                        <div className="w-full h-[4.5rem] flex items-center border-b border-l-b dark:border-d-6">
-                                            <div className="w-28 shrink-0 flex flex-col justify-center items-center">
-                                                <i className="text-lg fa-solid fa-user-check"></i>
-                                                <div>용도</div>
-                                            </div>
-                                            <div className="w-full">
-                                                {
-                                                    font.license_purpose === "Y"
-                                                    ? <span className="ellipsed-text">개인적, 상업적 용도 모두 사용 가능</span>
-                                                    : <span className="ellipsed-text text-h-r line-through">개인적 용도 사용 가능, 상업적 용도 사용 금지</span>
-                                                }
-                                            </div>
-                                            <div className="w-28 shrink-0 flex justify-center">
-                                                {
-                                                    font.license_purpose === "Y"
-                                                    ? <i className="text-sm fa-regular fa-circle"></i>
-                                                    : <i className="text-lg text-h-r fa-solid fa-xmark"></i>
-                                                }
-                                            </div>
-                                        </div>
-                                        <div className="w-full h-[4.5rem] flex items-center">
-                                            <div className="w-28 shrink-0 flex flex-col justify-center items-center">
-                                                <i className="text-lg fa-solid fa-share-nodes"></i>
-                                                <div>출처</div>
-                                            </div>
-                                            <div className="w-full">출처 표시</div>
-                                            <div className="w-28 shrink-0 flex justify-center">
-                                                {
-                                                    font.license_source === "Y"
-                                                    ? <i className="text-sm fa-regular fa-circle"></i>
-                                                    : <span>권장</span>
-                                                }
-                                            </div>
-                                        </div>
+                                    <div className="w-full relative flex gap-2 items-center">
+                                        <div className="text-center text-sm text-l-2 dark:text-white">{letterSpacingUnit === "em" ? -1 :  -10}{letterSpacingUnit}</div>
+                                        <Slider
+                                            className="font-size-slider"
+                                            aria-label="font-size-slider"
+                                            step={letterSpacingUnit === "em" ? 0.1 : 1}
+                                            valueLabelDisplay="auto"
+                                            valueLabelFormat={letterSpacing + letterSpacingUnit}
+                                            onChange={(e, v) => setLetterSpacing(Number(v))}
+                                            defaultValue={0}
+                                            value={letterSpacing}
+                                            min={letterSpacingUnit === "em" ? -1 : -10}
+                                            max={letterSpacingUnit === "em" ? 1 : 10}
+                                        />
+                                        <div className="text-center text-sm text-l-2 dark:text-white">{letterSpacingUnit === "em" ? 1 : 10}{letterSpacingUnit}</div>
                                     </div>
                                 </div>
                             </div>
-                            <div className="w-full p-6 pb-0 rounded-lg bg-l-e dark:bg-d-4">
-                                <h2 className="flex justify-start items-center font-medium text-l-2 dark:text-white">
-                                    라이센스 본문
-                                </h2>
+                            <div className="w-full p-6 pt-0">
                                 <div className="w-full relative">
-                                    <div className="w-[calc(100%-0.25rem)] h-8 absolute left-0 top-0 bg-gradient-to-b from-50% from-l-e dark:from-d-4"></div>
-                                    <div className="w-[calc(100%-0.25rem)] h-16 absolute left-0 bottom-0 bg-gradient-to-t from-50% from-l-e dark:from-d-4"></div>
-                                    <div className="custom-sm-scrollbar w-full h-[43rem] pt-8 pb-16 overflow-hidden overflow-y-auto">
-                                        <pre id="license" className="w-full font-sans leading-loose whitespace-pre-wrap text-l-2 dark:text-white"></pre>
+                                    <div className="color-picker flex gap-2">
+                                        <div className="relative z-10">
+                                            <input onChange={handleTextColorPickerDisplay} id="text-color-picker" type="checkbox" className="peer hidden"/>
+                                            <label htmlFor="text-color-picker" ref={textColorPickerBtn} onMouseDown={e => onMouseDown(e, 0.85)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-8 h-8 rounded-lg relative group flex flex-col justify-center items-center cursor-pointer bg-h-1 hover:bg-h-0 tlg:hover:bg-h-1 peer-checked:bg-h-0 dark:bg-f-8 hover:dark:bg-f-9 tlg:hover:dark:bg-f-8 peer-checked:dark:bg-f-9">
+                                                <i className="text-sm text-white dark:text-d-2 fa-solid fa-a"></i>
+                                                <div style={{background: textColor.hex}} className="w-4 h-0.5 mb-0.5"></div>
+                                                <div className="tooltip after:bg-h-0 after:dark:bg-f-9 w-max absolute left-1/2 -top-11 text-sm font-medium leading-none px-3 py-2 origin-bottom rounded-lg hidden group-hover:block peer-checked:group-[]:hidden tlg:group-hover:hidden group-hover:animate-zoom-in-fontbox bg-h-0 dark:bg-f-9 text-white dark:text-d-2 selection:bg-transparent">폰트색 변경</div>
+                                            </label>
+                                            <div ref={textColorPicker} className="drop-shadow-dark absolute left-0 -top-2 -translate-y-full">
+                                                {
+                                                    displayTextColorPicker && 
+                                                    <ColorPicker height={120} color={textColor} onChange={setTextColor} hideInput={["hsv"]}/>
+                                                }
+                                            </div>
+                                        </div>
+                                        <div className="relative">
+                                            <input onChange={handlebgColorPickerDisplay} id="bg-color-picker" type="checkbox" className="peer hidden"/>
+                                            <label htmlFor="bg-color-picker" ref={bgColorPickerBtn} onMouseDown={e => onMouseDown(e, 0.85)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-8 h-8 rounded-lg relative group flex flex-col justify-center items-center cursor-pointer bg-h-1 hover:bg-h-0 tlg:hover:bg-h-1 peer-checked:bg-h-0 dark:bg-f-8 hover:dark:bg-f-9 tlg:hover:dark:bg-f-8 peer-checked:dark:bg-f-9">
+                                                <i className="text-sm text-white dark:text-d-2 fa-solid fa-fill-drip"></i>
+                                                <div style={{background: bgColor.hex}} className="w-4 h-0.5 mb-0.5"></div>
+                                                <div className="tooltip after:bg-h-0 after:dark:bg-f-9 w-max absolute left-1/2 -top-11 text-sm font-medium leading-none px-3 py-2 origin-bottom rounded-lg hidden group-hover:block peer-checked:group-[]:hidden tlg:group-hover:hidden group-hover:animate-zoom-in-fontbox bg-h-0 dark:bg-f-9 text-white dark:text-d-2 selection:bg-transparent">배경색 변경</div>
+                                            </label>
+                                            <div ref={bgColorPicker} className="drop-shadow-dark absolute left-0 -top-2 -translate-y-full">
+                                                {
+                                                    displaybgColorPicker && 
+                                                    <ColorPicker height={120} color={bgColor} onChange={setBgColor} hideInput={["hsv"]}/>
+                                                }
+                                            </div>
+                                        </div>
+                                        <button onClick={resetColorPicker} onMouseDown={e => onMouseDown(e, 0.85)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-8 h-8 rounded-lg relative group flex flex-col justify-center items-center bg-h-1 hover:bg-h-0 tlg:hover:bg-h-1 dark:bg-f-8 hover:dark:bg-f-9 tlg:hover:dark:bg-f-8 text-white dark:text-d-2">
+                                            <i className="text-sm group-hover:rotate-45 tlg:group-hover:rotate-0 duration-100 fa-solid fa-rotate"></i>
+                                            <div className="tooltip w-max absolute left-1/2 -top-11 text-sm font-medium leading-none px-3 py-2 origin-bottom rounded-lg hidden group-hover:block tlg:group-hover:hidden group-hover:animate-zoom-in-fontbox after:bg-h-0 after:dark:bg-f-9 bg-h-0 dark:bg-f-9 selection:bg-transparent">컬러 리셋하기</div>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        
-                        {/* 카카오 애드핏 하단 띠배너 */}
-                        <div>
-                            <KakaoAdFitBottomBanner marginTop={1}/>
+                            <div style={{backgroundColor: bgColor.hex}} className="w-full p-6 flex flex-col gap-8 border-t border-l-b dark:border-d-6 rounded-b-lg relative overflow-hidden">
+                                {
+                                    font.font_weight[0] === "Y"
+                                    && <div>
+                                        <div style={{color: textColor.hex}} className="mb-2">Thin 100</div>
+                                        <div className="w-full relative">
+                                            <div style={{height: convertedFontSize, backgroundImage: `linear-gradient(to left, ${bgColor.hex} 25%, #FFFFFF00)`}} className='w-44 absolute -right-6 top-1/2 -translate-y-1/2'></div>
+                                            <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"100", color: textColor.hex}} className="w-full"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
+                                        </div>
+                                    </div>
+                                }
+                                {
+                                    font.font_weight[1] === "Y"
+                                    && <div>
+                                        <div style={{color: textColor.hex}} className="mb-2">ExtraLight 200</div>
+                                        <div className="w-full relative">
+                                            <div style={{height: convertedFontSize, backgroundImage: `linear-gradient(to left, ${bgColor.hex} 25%, #FFFFFF00)`}} className='w-44 absolute -right-6 top-1/2 -translate-y-1/2'></div>
+                                            <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"200", color: textColor.hex}} className="w-full"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
+                                        </div>
+                                    </div>
+                                }
+                                {
+                                    font.font_weight[2] === "Y"
+                                    && <div>
+                                        <div style={{color: textColor.hex}} className="mb-2">Light 300</div>
+                                        <div className="w-full relative">
+                                            <div style={{height: convertedFontSize, backgroundImage: `linear-gradient(to left, ${bgColor.hex} 25%, #FFFFFF00)`}} className='w-44 absolute -right-6 top-1/2 -translate-y-1/2'></div>
+                                            <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"300", color: textColor.hex}} className="w-full"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
+                                        </div>
+                                    </div>
+                                }
+                                {
+                                    font.font_weight[3] === "Y"
+                                    && <div>
+                                        <div style={{color: textColor.hex}} className="mb-2">Regular 400</div>
+                                        <div className="w-full relative">
+                                            <div style={{height: convertedFontSize, backgroundImage: `linear-gradient(to left, ${bgColor.hex} 25%, #FFFFFF00)`}} className='w-44 absolute -right-6 top-1/2 -translate-y-1/2'></div>
+                                            <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"400", color: textColor.hex}} className="w-full"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
+                                        </div>
+                                    </div>
+                                }
+                                {
+                                    font.font_weight[4] === "Y"
+                                    && <div>
+                                        <div style={{color: textColor.hex}} className="mb-2">Medium 500</div>
+                                        <div className="w-full relative">
+                                            <div style={{height: convertedFontSize, backgroundImage: `linear-gradient(to left, ${bgColor.hex} 25%, #FFFFFF00)`}} className='w-44 absolute -right-6 top-1/2 -translate-y-1/2'></div>
+                                            <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"500", color: textColor.hex}} className="w-full"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
+                                        </div>
+                                    </div>
+                                }
+                                {
+                                    font.font_weight[5] === "Y"
+                                    && <div>
+                                        <div style={{color: textColor.hex}} className="mb-2">SemiBold 600</div>
+                                        <div className="w-full relative">
+                                            <div style={{height: convertedFontSize, backgroundImage: `linear-gradient(to left, ${bgColor.hex} 25%, #FFFFFF00)`}} className='w-44 absolute -right-6 top-1/2 -translate-y-1/2'></div>
+                                            <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"600", color: textColor.hex}} className="w-full"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
+                                        </div>
+                                    </div>
+                                }
+                                {
+                                    font.font_weight[6] === "Y"
+                                    && <div>
+                                        <div style={{color: textColor.hex}} className="mb-2">Bold 700</div>
+                                        <div className="w-full relative">
+                                            <div style={{height: convertedFontSize, backgroundImage: `linear-gradient(to left, ${bgColor.hex} 25%, #FFFFFF00)`}} className='w-44 absolute -right-6 top-1/2 -translate-y-1/2'></div>
+                                            <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"700", color: textColor.hex}} className="w-full"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
+                                        </div>
+                                    </div>
+                                }
+                                {
+                                    font.font_weight[7] === "Y"
+                                    && <div>
+                                        <div style={{color: textColor.hex}} className="mb-2">Heavy 800</div>
+                                        <div className="w-full relative">
+                                            <div style={{height: convertedFontSize, backgroundImage: `linear-gradient(to left, ${bgColor.hex} 25%, #FFFFFF00)`}} className='w-44 absolute -right-6 top-1/2 -translate-y-1/2'></div>
+                                            <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"800", color: textColor.hex}} className="w-full"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
+                                        </div>
+                                    </div>
+                                }
+                                {
+                                    font.font_weight[8] === "Y"
+                                    && <div>
+                                        <div style={{color: textColor.hex}} className="mb-2">Black 900</div>
+                                        <div className="w-full relative">
+                                            <div style={{height: convertedFontSize, backgroundImage: `linear-gradient(to left, ${bgColor.hex} 25%, #FFFFFF00)`}} className='w-44 absolute -right-6 top-1/2 -translate-y-1/2'></div>
+                                            <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"900", color: textColor.hex}} className="w-full"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
                         </div>
                     </div>
+                    <div>
+                        <h2 className="text-2xl tlg:text-xl text-l-2 dark:text-white font-medium mb-4 tlg:mb-3">라이센스 사용 범위</h2>
+                        <div className="mb-20 tlg:mb-16">
+                            <div className="w-full flex tlg:flex-col gap-4 justify-between items-stretch tlg:items-start">
+                                <div className="tlg:w-full shrink-0 rounded-lg bg-l-e dark:bg-d-4">
+                                    <div className="w-[41.875rem] tlg:w-full p-6 tlg:p-0 tlg:py-6 flex flex-col gap-4 text-sm">
+                                        <div className="w-full flex items-center text-base font-medium text-l-2 dark:text-white">
+                                            <div className="w-28 shrink-0 text-center">카테고리</div>
+                                            <div className="w-full">사용 범위</div>
+                                            <div className="w-28 shrink-0 text-center">허용 여부</div>
+                                        </div>
+                                        <div className="w-full text-l-2 dark:text-white">
+                                            <div className="w-full h-[4.5rem] flex items-center border-b border-l-b dark:border-d-6">
+                                                <div className="w-28 shrink-0 flex flex-col justify-center items-center">
+                                                    <i className="text-lg mb-0.5 fa-solid fa-print"></i>
+                                                    <div>인쇄물</div>
+                                                </div>
+                                                <div className="w-full">
+                                                    {
+                                                        font.license_print === "Y"
+                                                        ? <span className="ellipsed-text">브로슈어, 카탈로그, 전단지, 책, 신문 등 출판용 인쇄물</span>
+                                                        : <span className="ellipsed-text text-h-r line-through">브로슈어, 포스터, 책, 잡지, 간판 등 출판용 인쇄물</span>
+                                                    }
+                                                </div>
+                                                <div className="w-28 shrink-0 flex justify-center">
+                                                    {
+                                                        font.license_print === "Y"
+                                                        ? <i className="text-sm fa-regular fa-circle"></i>
+                                                        : ( font.license_print === "H"
+                                                            ? <i className="text-lg text-h-r fa-solid fa-not-equal"></i>
+                                                            : ( font.license_print === "N"
+                                                                ? <i className="text-lg text-h-r fa-solid fa-xmark"></i>
+                                                                : <></>
+                                                            )
+                                                        )
+                                                    }
+                                                </div>
+                                            </div>
+                                            <div className="w-full h-[4.5rem] flex items-center border-b border-l-b dark:border-d-6">
+                                                <div className="w-28 shrink-0 flex flex-col justify-center items-center">
+                                                    <i className="text-lg fa-solid fa-laptop"></i>
+                                                    <div>웹 서비스</div>
+                                                </div>
+                                                <div className="w-full">
+                                                    {
+                                                        font.license_web === "Y"
+                                                        ? <span className="ellipsed-text">웹페이지, 광고 배너, 메일, E-브로슈어, 웹서버용 폰트 등</span>
+                                                        : <span className="ellipsed-text text-h-r line-through">웹페이지, 광고 배너, 메일, E-브로슈어, 웹서버용 폰트 등</span>
+                                                    }
+                                                </div>
+                                                <div className="w-28 shrink-0 flex justify-center">
+                                                    {
+                                                        font.license_web === "Y"
+                                                        ? <i className="text-sm fa-regular fa-circle"></i>
+                                                        : ( font.license_web === "H"
+                                                        ? <i className="text-lg text-h-r fa-solid fa-not-equal"></i>
+                                                            : ( font.license_web === "N"
+                                                                ? <i className="text-lg text-h-r fa-solid fa-xmark"></i>
+                                                                : <></>
+                                                            )
+                                                        )
+                                                    }
+                                                </div>
+                                            </div>
+                                            <div className="w-full h-[4.5rem] flex items-center border-b border-l-b dark:border-d-6">
+                                                <div className="w-28 shrink-0 flex flex-col justify-center items-center">
+                                                    <i className="text-lg fa-solid fa-film"></i>
+                                                    <div>영상물</div>
+                                                </div>
+                                                <div className="w-full">
+                                                    {
+                                                        font.license_video === "Y"
+                                                        ? <span className="ellipsed-text">방송 및 영상물 자막, 영상 광고, 영화 오프닝/엔딩크레딧 자막 등</span>
+                                                        : <span className="ellipsed-text text-h-r line-through">방송 및 영상물 자막, 영상 광고, 영화 오프닝/엔딩크레딧 자막 등</span>
+                                                    }
+                                                </div>
+                                                <div className="w-28 shrink-0 flex justify-center">
+                                                    {
+                                                        font.license_video === "Y"
+                                                        ? <i className="text-sm fa-regular fa-circle"></i>
+                                                        : ( font.license_video === "H"
+                                                            ? <i className="text-lg text-h-r fa-solid fa-not-equal"></i>
+                                                            : ( font.license_video === "N"
+                                                                ? <i className="text-lg text-h-r fa-solid fa-xmark"></i>
+                                                                : <></>
+                                                            )
+                                                        )
+                                                    }
+                                                </div>
+                                            </div>
+                                            <div className="w-full h-[4.5rem] flex items-center border-b border-l-b dark:border-d-6">
+                                                <div className="w-28 shrink-0 flex flex-col justify-center items-center">
+                                                    <i className="text-lg fa-solid fa-cube"></i>
+                                                    <div>포장지</div>
+                                                </div>
+                                                <div className="w-full">
+                                                    {
+                                                        font.license_package === "Y"
+                                                        ? <span className="ellipsed-text">판매용 상품의 패키지</span>
+                                                        : <span className="ellipsed-text text-h-r line-through">판매용 상품의 패키지</span>
+                                                    }
+                                                </div>
+                                                <div className="w-28 shrink-0 flex justify-center">
+                                                    {
+                                                        font.license_package === "Y"
+                                                        ? <i className="text-sm fa-regular fa-circle"></i>
+                                                        : ( font.license_package === "H"
+                                                            ? <i className="text-lg text-h-r fa-solid fa-not-equal"></i>
+                                                            : ( font.license_package === "N"
+                                                                ? <i className="text-lg text-h-r fa-solid fa-xmark"></i>
+                                                                : <></>
+                                                            )
+                                                        )
+                                                    }
+                                                </div>
+                                            </div>
+                                            <div className="w-full h-[4.5rem] flex items-center border-b border-l-b dark:border-d-6">
+                                                <div className="w-28 shrink-0 flex flex-col justify-center items-center">
+                                                    <i className="text-lg mb-0.5 fa-solid fa-code"></i>
+                                                    <div>임베딩</div>
+                                                </div>
+                                                <div className="w-full">
+                                                    {
+                                                        font.license_embed === "Y"
+                                                        ? <span className="ellipsed-text">웹사이트 및 프로그램 서버 내 폰트 탑재, E-book 제작</span>
+                                                        : <span className="ellipsed-text text-h-r line-through">웹사이트 및 프로그램 서버 내 폰트 탑재, E-book 제작</span>
+                                                    }
+                                                </div>
+                                                <div className="w-28 shrink-0 flex justify-center">
+                                                    {
+                                                        font.license_embed === "Y"
+                                                        ? <i className="text-sm fa-regular fa-circle"></i>
+                                                        : ( font.license_embed === "H"
+                                                            ? <i className="text-lg text-h-r fa-solid fa-not-equal"></i>
+                                                            : ( font.license_embed === "N"
+                                                                ? <i className="text-lg text-h-r fa-solid fa-xmark"></i>
+                                                                : <></>
+                                                            )
+                                                        )
+                                                    }
+                                                </div>
+                                            </div>
+                                            <div className="w-full h-[4.5rem] flex items-center border-b border-l-b dark:border-d-6">
+                                                <div className="w-28 shrink-0 flex flex-col justify-center items-center">
+                                                    <i className="text-lg fa-regular fa-building"></i>
+                                                    <div>BI/CI</div>
+                                                </div>
+                                                <div className="w-full">
+                                                    {
+                                                        font.license_bici === "Y"
+                                                        ? <span className="ellipsed-text">회사명, 브랜드명, 상품명, 로고, 마크, 슬로건, 캐치프레이즈</span>
+                                                        : <span className="ellipsed-text text-h-r line-through">회사명, 브랜드명, 상품명, 로고, 마크, 슬로건, 캐치프레이즈</span>
+                                                    }
+                                                </div>
+                                                <div className="w-28 shrink-0 flex justify-center">
+                                                    {
+                                                        font.license_bici === "Y"
+                                                        ? <i className="text-sm fa-regular fa-circle"></i>
+                                                        : ( font.license_bici === "H"
+                                                            ? <i className="text-lg text-h-r fa-solid fa-not-equal"></i>
+                                                            : ( font.license_bici === "N"
+                                                                ? <i className="text-lg text-h-r fa-solid fa-xmark"></i>
+                                                                : <></>
+                                                            )
+                                                        )
+                                                    }
+                                                </div>
+                                            </div>
+                                            <div className="w-full h-[4.5rem] flex items-center border-b border-l-b dark:border-d-6">
+                                                <div className="w-28 shrink-0 flex flex-col justify-center items-center">
+                                                    <i className="text-lg fa-solid fa-lock-open"></i>
+                                                    <div>OFL</div>
+                                                </div>
+                                                <div className="w-full">
+                                                    {
+                                                        font.license_ofl === "Y"
+                                                        ? <span className="ellipsed-text">폰트 파일의 수정, 편집 및 재배포 가능. 폰트 파일의 유료 판매는 금지</span>
+                                                        : <span className="ellipsed-text text-h-r line-through">폰트 파일의 수정, 편집 재배포 및 유료 판매 금지</span>
+                                                    }
+                                                </div>
+                                                <div className="w-28 shrink-0 flex justify-center">
+                                                    {
+                                                        font.license_ofl === "Y"
+                                                        ? <i className="text-sm fa-regular fa-circle"></i>
+                                                        : <i className="text-lg text-h-r fa-solid fa-xmark"></i>
+                                                    }
+                                                </div>
+                                            </div>
+                                            <div className="w-full h-[4.5rem] flex items-center border-b border-l-b dark:border-d-6">
+                                                <div className="w-28 shrink-0 flex flex-col justify-center items-center">
+                                                    <i className="text-lg fa-solid fa-user-check"></i>
+                                                    <div>용도</div>
+                                                </div>
+                                                <div className="w-full">
+                                                    {
+                                                        font.license_purpose === "Y"
+                                                        ? <span className="ellipsed-text">개인적, 상업적 용도 모두 사용 가능</span>
+                                                        : <span className="ellipsed-text text-h-r line-through">개인적 용도 사용 가능, 상업적 용도 사용 금지</span>
+                                                    }
+                                                </div>
+                                                <div className="w-28 shrink-0 flex justify-center">
+                                                    {
+                                                        font.license_purpose === "Y"
+                                                        ? <i className="text-sm fa-regular fa-circle"></i>
+                                                        : <i className="text-lg text-h-r fa-solid fa-xmark"></i>
+                                                    }
+                                                </div>
+                                            </div>
+                                            <div className="w-full h-[4.5rem] flex items-center">
+                                                <div className="w-28 shrink-0 flex flex-col justify-center items-center">
+                                                    <i className="text-lg fa-solid fa-share-nodes"></i>
+                                                    <div>출처</div>
+                                                </div>
+                                                <div className="w-full">출처 표시</div>
+                                                <div className="w-28 shrink-0 flex justify-center">
+                                                    {
+                                                        font.license_source === "Y"
+                                                        ? <i className="text-sm fa-regular fa-circle"></i>
+                                                        : <span>권장</span>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="w-full p-6 pb-0 rounded-lg bg-l-e dark:bg-d-4">
+                                    <h2 className="flex justify-start items-center font-medium text-l-2 dark:text-white">
+                                        라이센스 본문
+                                    </h2>
+                                    <div className="w-full relative">
+                                        <div className="w-[calc(100%-0.25rem)] h-8 absolute left-0 top-0 bg-gradient-to-b from-50% from-l-e dark:from-d-4"></div>
+                                        <div className="w-[calc(100%-0.25rem)] h-16 absolute left-0 bottom-0 bg-gradient-to-t from-50% from-l-e dark:from-d-4"></div>
+                                        <div className="custom-sm-scrollbar w-full h-[43rem] pt-8 pb-16 overflow-hidden overflow-y-auto">
+                                            <pre id="license" className="w-full font-sans leading-loose whitespace-pre-wrap text-l-2 dark:text-white"></pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            {/* 카카오 애드핏 하단 띠배너 */}
+                            <div>
+                                <KakaoAdFitBottomBanner marginTop={1}/>
+                            </div>
+                        </div>
 
-                    {/* 댓글 */}
-                    <Comments
-                        font={font}
-                        user={user}
-                        report={reports}
-                        comment={comments}
-                        likedInput={likedInput}
-                        likedNum={likedNum}
-                    />
+                        {/* 댓글 */}
+                        <Comments
+                            font={font}
+                            user={user}
+                            report={reports}
+                            comment={comments}
+                            likedInput={likedInput}
+                            likedNum={likedNum}
+                        />
 
+                    </div>
                 </div>
-            </div>
+            </Motion>
 
             {/* 풋터 */}
             <Footer/>

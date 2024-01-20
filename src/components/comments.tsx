@@ -547,7 +547,7 @@ export default function Comments (
                                     <div className="w-12 mt-2.5 text-center group-hover:text-l-2 group-hover:dark:text-white tlg:text-l-2 tlg:dark:text-white">페이스북</div>
                                 </button>
                                 <button onClick={shareTwitter} className="group flex flex-col justify-center items-center">
-                                    <div className="w-8 h-8 rounded-full flex justify-center items-center bg-theme-1 drop-shadow-default dark:drop-shadow-dark">
+                                    <div className="w-8 h-8 rounded-full flex justify-center items-center bg-black drop-shadow-default dark:drop-shadow-dark">
                                         <div className="w-4 h-4 relative">
                                             <Image src="/logo-x.svg" alt="엑스(트위터) 로고" fill sizes="100%" referrerPolicy="no-referrer"/>
                                         </div>

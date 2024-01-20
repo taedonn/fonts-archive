@@ -15,6 +15,7 @@ import { Pagination } from '@mui/material';
 import { NextSeo } from 'next-seo';
 
 // components
+import Motion from '@/components/motion';
 import Header from "@/components/header";
 import Footer from '@/components/footer';
 import SearchInput from '@/components/searchinput';
@@ -63,52 +64,62 @@ const IssueList = ({params}: any) => {
             />
 
             {/* 메인 */}
-            <form onSubmit={e => e.preventDefault()} className='w-full px-4 flex flex-col justify-center items-center'>
-                <div className='w-[45rem] tmd:w-full flex flex-col justify-center items-start my-24 tlg:my-16'>
-                    <h2 className='text-2xl tlg:text-xl text-l-2 dark:text-white font-bold mb-4'>문의 목록</h2>
-                    <div className='flex items-center mb-10'>
-                        <SearchInput id="search" placeholder="제목/내용" value={search}/>
-                        <button onClick={handleSearchClick} className="hidden">검색</button>
-                    </div>
-                    <div className='flex items-center gap-1.5 mb-4'>
-                        <button onClick={handleFilterChange} value="all" className={`${filter === "all" ? "bg-h-1 dark:bg-f-8 text-white dark:text-d-2" : "text-l-5 dark:text-d-c hover:text-h-1 hover:dark:text-f-8"} w-20 h-9 flex justify-center items-center rounded-lg`}>전체</button>
-                        <button onClick={handleFilterChange} value="font" className={`${filter === "font" ? "bg-h-1 dark:bg-f-8 text-white dark:text-d-2" : "text-l-5 dark:text-d-c hover:text-h-1 hover:dark:text-f-8"} w-20 h-9 flex justify-center items-center rounded-lg`}>폰트</button>
-                        <button onClick={handleFilterChange} value="bug" className={`${filter === "bug" ? "bg-h-1 dark:bg-f-8 text-white dark:text-d-2" : "text-l-5 dark:text-d-c hover:text-h-1 hover:dark:text-f-8"} w-20 h-9 flex justify-center items-center rounded-lg`}>버그</button>
-                        <button onClick={handleFilterChange} value="etc" className={`${filter === "etc" ? "bg-h-1 dark:bg-f-8 text-white dark:text-d-2" : "text-l-5 dark:text-d-c hover:text-h-1 hover:dark:text-f-8"} w-20 h-9 flex justify-center items-center rounded-lg`}>기타</button>
-                    </div>
-                    <div className='w-full'>
-                        <div className='w-full text-sm text-l-2 dark:text-white'>
-                            <div className='flex flex-col gap-3'>
-                                {
-                                    list && list.length > 0
-                                    ? <>
-                                        {
-                                            list.map((issue: any) => {
-                                                return (
-                                                    <div key={issue.issue_id} className='px-6 py-4 relative rounded-lg bg-l-e dark:bg-d-4'>
-                                                        <div className="flex tlg:flex-col items-center tlg:items-start gap-2 mb-2">
-                                                            <Link href={`/admin/issue/${issue.issue_id}`} className="block text-h-1 dark:text-f-8 hover:underline tlg:hover:no-underline">{issue.issue_title}</Link>
-                                                            <div className="flex gap-2 items-center">
-                                                                <div className='text-xs text-l-5 dark:text-d-c'>{dateFormat(issue.issue_created_at)}</div>
-                                                                <div className={`text-xs ${issue.issue_closed ? "text-h-1 dark:text-f-8" : "text-l-5 dark:text-d-c"}`}>{issue.issue_closed ? "답변 완료" : "답변 중"}</div>
+            <Motion
+                initialOpacity={0}
+                animateOpacity={1}
+                exitOpacity={0}
+                initialY={-50}
+                animateY={0}
+                exitY={-50}
+                transitionType="spring"
+            >
+                <form onSubmit={e => e.preventDefault()} className='w-full px-4 flex flex-col justify-center items-center'>
+                    <div className='w-[45rem] tmd:w-full flex flex-col justify-center items-start my-24 tlg:my-16'>
+                        <h2 className='text-2xl tlg:text-xl text-l-2 dark:text-white font-bold mb-4'>문의 목록</h2>
+                        <div className='flex items-center mb-10'>
+                            <SearchInput id="search" placeholder="제목/내용" value={search}/>
+                            <button onClick={handleSearchClick} className="hidden">검색</button>
+                        </div>
+                        <div className='flex items-center gap-1.5 mb-4'>
+                            <button onClick={handleFilterChange} value="all" className={`${filter === "all" ? "bg-h-1 dark:bg-f-8 text-white dark:text-d-2" : "text-l-5 dark:text-d-c hover:text-h-1 hover:dark:text-f-8"} w-20 h-9 flex justify-center items-center rounded-lg`}>전체</button>
+                            <button onClick={handleFilterChange} value="font" className={`${filter === "font" ? "bg-h-1 dark:bg-f-8 text-white dark:text-d-2" : "text-l-5 dark:text-d-c hover:text-h-1 hover:dark:text-f-8"} w-20 h-9 flex justify-center items-center rounded-lg`}>폰트</button>
+                            <button onClick={handleFilterChange} value="bug" className={`${filter === "bug" ? "bg-h-1 dark:bg-f-8 text-white dark:text-d-2" : "text-l-5 dark:text-d-c hover:text-h-1 hover:dark:text-f-8"} w-20 h-9 flex justify-center items-center rounded-lg`}>버그</button>
+                            <button onClick={handleFilterChange} value="etc" className={`${filter === "etc" ? "bg-h-1 dark:bg-f-8 text-white dark:text-d-2" : "text-l-5 dark:text-d-c hover:text-h-1 hover:dark:text-f-8"} w-20 h-9 flex justify-center items-center rounded-lg`}>기타</button>
+                        </div>
+                        <div className='w-full'>
+                            <div className='w-full text-sm text-l-2 dark:text-white'>
+                                <div className='flex flex-col gap-3'>
+                                    {
+                                        list && list.length > 0
+                                        ? <>
+                                            {
+                                                list.map((issue: any) => {
+                                                    return (
+                                                        <div key={issue.issue_id} className='px-6 py-4 relative rounded-lg bg-l-e dark:bg-d-4'>
+                                                            <div className="flex tlg:flex-col items-center tlg:items-start gap-2 mb-2">
+                                                                <Link href={`/admin/issue/${issue.issue_id}`} className="block text-h-1 dark:text-f-8 hover:underline tlg:hover:no-underline">{issue.issue_title}</Link>
+                                                                <div className="flex gap-2 items-center">
+                                                                    <div className='text-xs text-l-5 dark:text-d-c'>{dateFormat(issue.issue_created_at)}</div>
+                                                                    <div className={`text-xs ${issue.issue_closed ? "text-h-1 dark:text-f-8" : "text-l-5 dark:text-d-c"}`}>{issue.issue_closed ? "답변 완료" : "답변 중"}</div>
+                                                                </div>
                                                             </div>
+                                                            <div className='w-full overflow-hidden'>[{issue.issue_type === "font" ? "폰트" : issue.issue_type === "bug" ? "버그" : "기타"}] {issue.issue_content}</div>
                                                         </div>
-                                                        <div className='w-full overflow-hidden'>[{issue.issue_type === "font" ? "폰트" : issue.issue_type === "bug" ? "버그" : "기타"}] {issue.issue_content}</div>
-                                                    </div>
-                                                )
-                                            })
-                                        }
-                                    </>
-                                    : <div className='h-16 text-base flex justify-center items-center text-center'>문의가 없습니다.</div>
-                                }
+                                                    )
+                                                })
+                                            }
+                                        </>
+                                        : <div className='h-16 text-base flex justify-center items-center text-center'>문의가 없습니다.</div>
+                                    }
+                                </div>
                             </div>
                         </div>
+                        <div className='w-full flex justify-center mt-3'>
+                            <Pagination count={count} page={Number(page)} onChange={handlePageChange} shape='rounded'/>
+                        </div>
                     </div>
-                    <div className='w-full flex justify-center mt-3'>
-                        <Pagination count={count} page={Number(page)} onChange={handlePageChange} shape='rounded'/>
-                    </div>
-                </div>
-            </form>
+                </form>
+            </Motion>
 
             {/* 풋터 */}
             <Footer/>

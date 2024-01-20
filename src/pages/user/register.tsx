@@ -14,6 +14,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 // components
+import Motion from '@/components/motion';
 import Header from "@/components/header";
 import Footer from '@/components/footer';
 import Button from '@/components/button';
@@ -229,117 +230,127 @@ const Register = ({params}: any) => {
             />
 
             {/* 메인 */}
-            <div className='w-full flex flex-col justify-center items-center'>
-                <div className='w-[22.5rem] flex flex-col justify-center items-start my-24 tlg:my-16'>
-                    <h2 className='text-2xl tlg:text-xl text-l-2 dark:text-white font-bold mb-4'>회원가입</h2>
-                    <form onSubmit={e => e.preventDefault()} id='register-form' className='w-full p-5 rounded-lg text-l-2 dark:text-white bg-l-e dark:bg-d-3 drop-shadow-default dark:drop-shadow-dark'>
-                        <TextInput
-                            onchange={handleNameChange}
-                            state={nameChk}
-                            stateMsg={[
-                                { state: "", msg: "" },
-                                { state: "empty", msg: "이름을 입력해 주세요." },
-                            ]}
-                            id="name"
-                            tabindex={1}
-                            placeholder="홍길동"
-                            label="이름"
-                        />
-                        <TextInput
-                            onchange={handleIdChange}
-                            state={idChk}
-                            stateMsg={[
-                                { state: "", msg: "" },
-                                { state: "empty", msg: "이메일을 입력해 주세요." },
-                                { state: "wrong-pattern", msg: "이메일 형식이 올바르지 않습니다." },
-                                { state: "is-used", msg: "이미 등록된 이메일입니다." },
-                            ]}
-                            id="id"
-                            tabindex={2}
-                            placeholder='example@example.com'
-                            label="이메일"
-                            marginTop={2}
-                        />
-                        <TextInput
-                            onchange={handlePwChange}
-                            state={pwChk}
-                            stateMsg={[
-                                { state: "", msg: "" },
-                                { state: "empty", msg: "비밀번호를 입력해 주세요." },
-                                { state: "wrong-pattern", msg: "비밀번호 형식이 올바르지 않습니다." },
-                            ]}
-                            type="password"
-                            id="pw"
-                            tabindex={3}
-                            placeholder='영문, 숫자, 특수문자 포함 8~20자'
-                            label="비밀번호"
-                            marginTop={2}
-                        />
-                        <TextInput
-                            onchange={handlePwConfirmChange}
-                            state={pwConfirmChk}
-                            stateMsg={[
-                                { state: "", msg: "" },
-                                { state: "empty", msg: "비밀번호를 다시 입력해 주세요." },
-                                { state: "unmatch", msg: "비밀번호가 일치하지 않습니다." },
-                            ]}
-                            type="password"
-                            id="pw-confirm"
-                            tabindex={4}
-                            placeholder='비밀번호 재입력'
-                            isLabeled={false}
-                            marginTop={0.5}
-                        />
-                        <div className='w-full h-px my-6 bg-l-b dark:bg-d-6'></div>
-                        {
-                            alertDisplay === true
-                                && <div className='w-full h-10 px-2.5 mb-3 flex justify-between items-center rounded-lg border-2 border-h-r text-xs text-l-2 dark:text-white bg-h-r/20'>
+            <Motion
+                initialOpacity={0}
+                animateOpacity={1}
+                exitOpacity={0}
+                initialY={-50}
+                animateY={0}
+                exitY={-50}
+                transitionType="spring"
+            >
+                <div className='w-full flex flex-col justify-center items-center'>
+                    <div className='w-[22.5rem] flex flex-col justify-center items-start my-24 tlg:my-16'>
+                        <h2 className='text-2xl tlg:text-xl text-l-2 dark:text-white font-bold mb-4'>회원가입</h2>
+                        <form onSubmit={e => e.preventDefault()} id='register-form' className='w-full p-5 rounded-lg text-l-2 dark:text-white bg-l-e dark:bg-d-3 drop-shadow-default dark:drop-shadow-dark'>
+                            <TextInput
+                                onchange={handleNameChange}
+                                state={nameChk}
+                                stateMsg={[
+                                    { state: "", msg: "" },
+                                    { state: "empty", msg: "이름을 입력해 주세요." },
+                                ]}
+                                id="name"
+                                tabindex={1}
+                                placeholder="홍길동"
+                                label="이름"
+                            />
+                            <TextInput
+                                onchange={handleIdChange}
+                                state={idChk}
+                                stateMsg={[
+                                    { state: "", msg: "" },
+                                    { state: "empty", msg: "이메일을 입력해 주세요." },
+                                    { state: "wrong-pattern", msg: "이메일 형식이 올바르지 않습니다." },
+                                    { state: "is-used", msg: "이미 등록된 이메일입니다." },
+                                ]}
+                                id="id"
+                                tabindex={2}
+                                placeholder='example@example.com'
+                                label="이메일"
+                                marginTop={2}
+                            />
+                            <TextInput
+                                onchange={handlePwChange}
+                                state={pwChk}
+                                stateMsg={[
+                                    { state: "", msg: "" },
+                                    { state: "empty", msg: "비밀번호를 입력해 주세요." },
+                                    { state: "wrong-pattern", msg: "비밀번호 형식이 올바르지 않습니다." },
+                                ]}
+                                type="password"
+                                id="pw"
+                                tabindex={3}
+                                placeholder='영문, 숫자, 특수문자 포함 8~20자'
+                                label="비밀번호"
+                                marginTop={2}
+                            />
+                            <TextInput
+                                onchange={handlePwConfirmChange}
+                                state={pwConfirmChk}
+                                stateMsg={[
+                                    { state: "", msg: "" },
+                                    { state: "empty", msg: "비밀번호를 다시 입력해 주세요." },
+                                    { state: "unmatch", msg: "비밀번호가 일치하지 않습니다." },
+                                ]}
+                                type="password"
+                                id="pw-confirm"
+                                tabindex={4}
+                                placeholder='비밀번호 재입력'
+                                isLabeled={false}
+                                marginTop={0.5}
+                            />
+                            <div className='w-full h-px my-6 bg-l-b dark:bg-d-6'></div>
+                            {
+                                alertDisplay === true
+                                    && <div className='w-full h-10 px-2.5 mb-3 flex justify-between items-center rounded-lg border-2 border-h-r text-xs text-l-2 dark:text-white bg-h-r/20'>
+                                        <div className='flex justify-start items-center'>
+                                            <i className="text-sm text-h-r fa-regular fa-bell"></i>
+                                            <div className='ml-2'>약관에 동의해 주세요.</div>
+                                        </div>
+                                        <div onClick={handleAlertClose} className='flex justify-center items-center cursor-pointer'>
+                                            <i className="text-sm fa-solid fa-xmark"></i>
+                                        </div>
+                                    </div>
+                            }
+                            <div className='w-full flex flex-col justify-start items-start'>
+                                <div className='w-full flex justify-between items-center'>
                                     <div className='flex justify-start items-center'>
-                                        <i className="text-sm text-h-r fa-regular fa-bell"></i>
-                                        <div className='ml-2'>약관에 동의해 주세요.</div>
+                                        <input onChange={handleTermsChange} type='checkbox' id='terms-check' className='peer hidden'/>
+                                        <label htmlFor='terms-check' className='group w-5 h-5 text-lg flex justify-center items-center cursor-pointer'>
+                                            <i className="block peer-checked:group-[]:hidden text-h-1 dark:text-f-8 fa-regular fa-square-check"></i>
+                                            <i className="hidden peer-checked:group-[]:block text-h-1 dark:text-f-8 fa-solid fa-square-check"></i>
+                                        </label>
+                                        <p className='text-sm text-l-2 dark:text-white ml-1.5'>서비스 이용약관 (필수)</p>
                                     </div>
-                                    <div onClick={handleAlertClose} className='flex justify-center items-center cursor-pointer'>
-                                        <i className="text-sm fa-solid fa-xmark"></i>
+                                    <Link href="/terms" target='_blank' rel="noopener noreferrer" className='text-xs text-l-6 dark:text-d-c flex justify-center items-center hover:underline tlg:hover:no-underline'>전문보기</Link>
+                                </div>
+                                <div className='w-full flex justify-between items-center mt-2'>
+                                    <div className='flex justify-start items-center'>
+                                        <input onChange={handlePrivacyChange} type='checkbox' id='privacy-check' className='peer hidden'/>
+                                        <label htmlFor='privacy-check' className='group w-5 h-5 text-lg flex justify-center items-center cursor-pointer'>
+                                            <i className="block peer-checked:group-[]:hidden text-h-1 dark:text-f-8 fa-regular fa-square-check"></i>
+                                            <i className="hidden peer-checked:group-[]:block text-h-1 dark:text-f-8 fa-solid fa-square-check"></i>
+                                        </label>
+                                        <p className='text-sm text-l-2 dark:text-white ml-1.5'>개인정보 처리방침 (필수)</p>
                                     </div>
+                                    <Link href="/privacy" target='_blank' rel="noopener noreferrer" className='text-xs text-l-6 dark:text-d-c flex justify-center items-center hover:underline tlg:hover:no-underline'>전문보기</Link>
                                 </div>
-                        }
-                        <div className='w-full flex flex-col justify-start items-start'>
-                            <div className='w-full flex justify-between items-center'>
-                                <div className='flex justify-start items-center'>
-                                    <input onChange={handleTermsChange} type='checkbox' id='terms-check' className='peer hidden'/>
-                                    <label htmlFor='terms-check' className='group w-5 h-5 text-lg flex justify-center items-center cursor-pointer'>
-                                        <i className="block peer-checked:group-[]:hidden text-h-1 dark:text-f-8 fa-regular fa-square-check"></i>
-                                        <i className="hidden peer-checked:group-[]:block text-h-1 dark:text-f-8 fa-solid fa-square-check"></i>
-                                    </label>
-                                    <p className='text-sm text-l-2 dark:text-white ml-1.5'>서비스 이용약관 (필수)</p>
-                                </div>
-                                <Link href="/terms" target='_blank' rel="noopener noreferrer" className='text-xs text-l-6 dark:text-d-c flex justify-center items-center hover:underline tlg:hover:no-underline'>전문보기</Link>
                             </div>
-                            <div className='w-full flex justify-between items-center mt-2'>
-                                <div className='flex justify-start items-center'>
-                                    <input onChange={handlePrivacyChange} type='checkbox' id='privacy-check' className='peer hidden'/>
-                                    <label htmlFor='privacy-check' className='group w-5 h-5 text-lg flex justify-center items-center cursor-pointer'>
-                                        <i className="block peer-checked:group-[]:hidden text-h-1 dark:text-f-8 fa-regular fa-square-check"></i>
-                                        <i className="hidden peer-checked:group-[]:block text-h-1 dark:text-f-8 fa-solid fa-square-check"></i>
-                                    </label>
-                                    <p className='text-sm text-l-2 dark:text-white ml-1.5'>개인정보 처리방침 (필수)</p>
-                                </div>
-                                <Link href="/privacy" target='_blank' rel="noopener noreferrer" className='text-xs text-l-6 dark:text-d-c flex justify-center items-center hover:underline tlg:hover:no-underline'>전문보기</Link>
-                            </div>
-                        </div>
-                        
-                        <Button marginTop={1}>
-                            <button onClick={handleOnSubmit} className='w-full h-full flex justify-center items-center'>
-                                {
-                                    isLoading
-                                    ? <span className='loader border-2 border-h-e dark:border-d-6 border-b-h-1 dark:border-b-f-8 w-4 h-4'></span>
-                                    : '이메일 인증 후 가입하기'
-                                }
-                            </button>
-                        </Button>
-                    </form>
+                            
+                            <Button marginTop={1}>
+                                <button onClick={handleOnSubmit} className='w-full h-full flex justify-center items-center'>
+                                    {
+                                        isLoading
+                                        ? <span className='loader border-2 border-h-e dark:border-d-6 border-b-h-1 dark:border-b-f-8 w-4 h-4'></span>
+                                        : '이메일 인증 후 가입하기'
+                                    }
+                                </button>
+                            </Button>
+                        </form>
+                    </div>
                 </div>
-            </div>
+            </Motion>
 
             {/* 풋터 */}
             <Footer/>

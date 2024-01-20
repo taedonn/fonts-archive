@@ -17,6 +17,7 @@ const queryClient = new QueryClient();
 
 // libraries
 import NextNProgress from 'nextjs-progressbar';
+import { AnimatePresence } from "framer-motion";
 
 // styles
 import '@/styles/globals.css';
@@ -70,7 +71,13 @@ export default function App({Component, pageProps: { session, ...pageProps }}: A
                     <NextNProgress
                         color={theme === "dark" ? "#8AB4F8" : "#1B73E7"}
                     />
-                    <Component {...pageProps}/>
+                    <AnimatePresence
+                        mode="wait" // 새 페이지 로딩 전 페이지 아웃 애니메이션 끝까지 실행
+                        // ㄴinitial={false} // false 시 첫 페이지 로딩 애니메이션 안함
+                        onExitComplete={() => window.scrollTo(0, 0)} // 페이지 아웃 애니메이션 끝나면 스크롤 이동
+                    >
+                        <Component {...pageProps}/>
+                    </AnimatePresence>
                 </main>
             </SessionProvider>
         </QueryClientProvider>

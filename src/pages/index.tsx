@@ -13,6 +13,7 @@ import { useCookies } from 'react-cookie';
 import { debounce } from "lodash";
 
 // components
+import Motion from "@/components/motion";
 import Header from "@/components/header";
 import Tooltip from "@/components/tooltip";
 import Sidemenu from "@/components/sidemenu";
@@ -129,41 +130,51 @@ const Index = ({params}: any) => {
             />
             
             {/* 메인 */}
-            <div className="w-full flex">
-                <Sidemenu
-                    expand={expand}
-                    handleExpand={handleExpand}
-                    lang={thisLang}
-                    license={thisLicense}
-                    type={thisType}
-                    sort={thisSort}
-                    source={source}
-                    text={text}
-                    searchword={searchword}
-                    handleTextChange={handleTextChange}
-                    handleLangOptionChange={handleLangOptionChange}
-                    handleLicenseOptionChange={handleLicenseOptionChange}
-                    handleTypeOptionChange={handleTypeOptionChange}
-                    handleSortOptionChange={handleSortOptionChange}
-                    handleSearch={handleSearch}
-                    resetFilter={resetFilter}
-                />
-                <FontBox 
-                    expand={expand}
-                    license={thisLicense}
-                    lang={thisLang}
-                    type={thisType}
-                    sort={thisSort}
-                    user={user}
-                    like={like}
-                    filter={filter}
-                    searchword={searchword}
-                    text={text}
-                    num={999}
-                />
-            </div>
+            <Motion
+                initialOpacity={0}
+                animateOpacity={1}
+                exitOpacity={0}
+                initialX={-320}
+                animateX={0}
+                exitX={-320}
+                transitionType="spring"
+            >
+                <div className="w-full flex">
+                    <Sidemenu
+                        expand={expand}
+                        handleExpand={handleExpand}
+                        lang={thisLang}
+                        license={thisLicense}
+                        type={thisType}
+                        sort={thisSort}
+                        source={source}
+                        text={text}
+                        searchword={searchword}
+                        handleTextChange={handleTextChange}
+                        handleLangOptionChange={handleLangOptionChange}
+                        handleLicenseOptionChange={handleLicenseOptionChange}
+                        handleTypeOptionChange={handleTypeOptionChange}
+                        handleSortOptionChange={handleSortOptionChange}
+                        handleSearch={handleSearch}
+                        resetFilter={resetFilter}
+                    />
+                    <FontBox 
+                        expand={expand}
+                        license={thisLicense}
+                        lang={thisLang}
+                        type={thisType}
+                        sort={thisSort}
+                        user={user}
+                        like={like}
+                        filter={filter}
+                        searchword={searchword}
+                        text={text}
+                        num={999}
+                    />
+                </div>
+            </Motion>
 
-            {/* 고정 메뉴 */}
+            {/* 툴팁 */}
             <Tooltip/>
         </>
     );

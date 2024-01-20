@@ -12,6 +12,7 @@ import { authOptions } from '@/pages/api/auth/[...nextauth]';
 import axios from "axios";
 
 // components
+import Motion from "@/components/motion";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import Button from "@/components/button";
@@ -129,85 +130,95 @@ const NoticesAdd = ({params}: any) => {
             />
 
             {/* 메인 */}
-            <div className='w-full px-4 flex flex-col justify-center items-center'>
-                <div className='max-w-[45rem] w-full flex flex-col justify-center items-start py-24 tlg:py-16'>
-                    <h2 className='text-2xl tlg:text-xl text-l-2 dark:text-white font-bold mb-4'>공지 추가</h2>
-                    <div id="is-issued" className="w-full">
-                        {
-                            isAlerted === "success"
-                            ? <div className='w-full h-10 px-2.5 mb-3 flex justify-between items-center rounded-lg border-2 border-h-1 dark:border-f-8 text-xs text-l-2 dark:text-white bg-h-1/20 dark:bg-f-8/20'>
-                                <div className='flex items-center'>
-                                    <i className="text-sm text-h-1 dark:text-f-8 fa-regular fa-bell"></i>
-                                    <div className='ml-2'>공지 추가에 성공했습니다.</div>
+            <Motion
+                initialOpacity={0}
+                animateOpacity={1}
+                exitOpacity={0}
+                initialY={-50}
+                animateY={0}
+                exitY={-50}
+                transitionType="spring"
+            >
+                <div className='w-full px-4 flex flex-col justify-center items-center'>
+                    <div className='max-w-[45rem] w-full flex flex-col justify-center items-start py-24 tlg:py-16'>
+                        <h2 className='text-2xl tlg:text-xl text-l-2 dark:text-white font-bold mb-4'>공지 추가</h2>
+                        <div id="is-issued" className="w-full">
+                            {
+                                isAlerted === "success"
+                                ? <div className='w-full h-10 px-2.5 mb-3 flex justify-between items-center rounded-lg border-2 border-h-1 dark:border-f-8 text-xs text-l-2 dark:text-white bg-h-1/20 dark:bg-f-8/20'>
+                                    <div className='flex items-center'>
+                                        <i className="text-sm text-h-1 dark:text-f-8 fa-regular fa-bell"></i>
+                                        <div className='ml-2'>공지 추가에 성공했습니다.</div>
+                                    </div>
+                                    <div onClick={handleAlertClose} className='flex justify-center items-center cursor-pointer'>
+                                        <i className="text-sm fa-solid fa-xmark"></i>
+                                    </div>
                                 </div>
-                                <div onClick={handleAlertClose} className='flex justify-center items-center cursor-pointer'>
-                                    <i className="text-sm fa-solid fa-xmark"></i>
-                                </div>
-                            </div>
-                            : isAlerted === "fail"
-                                ? <div className='w-full h-10 px-2.5 mb-3 flex justify-between items-center rounded-lg border-2 border-h-r text-xs text-l-2 dark:text-white bg-h-r/20'>
-                                <div className='flex items-center'>
-                                    <i className="text-sm text-h-r fa-regular fa-bell"></i>
-                                    <div className='ml-2'>공지 추가에 실패했습니다. 잠시 후 다시 시도해 주세요.</div>
-                                </div>
-                                <div onClick={handleAlertClose} className='flex justify-center items-center cursor-pointer'>
-                                    <i className="text-sm fa-solid fa-xmark"></i>
-                                </div>
-                            </div> : <></>
-                        }
-                    </div>
-                    <div className='w-full p-5 rounded-lg text-l-2 dark:text-white bg-l-e dark:bg-d-3 drop-shadow-default dark:drop-shadow-dark'>
-                        <div className="w-full flex flex-col">
-                            <SelectBox
-                                title="문의 종류"
-                                icon="bi-send"
-                                value="type"
-                                select={option}
-                                options={[
-                                    { value: "service", name: "서비스" },
-                                    { value: "font", name: "폰트" },
-                                ]}
-                                optionChange={handleSelectBoxChange}
-                            />
-                            <TextInput
-                                onchange={handleTitleChange}
-                                state={titleAlert}
-                                stateMsg={[
-                                    { state: "", msg: "" },
-                                    { state: "empty", msg: "제목을 입력해 주세요." }
-                                ]}
-                                id="title"
-                                tabindex={1}
-                                placeholder="공지 제목을 입력해 주세요."
-                                label="공지 제목"
-                                marginTop={2}
-                            />
-                            <TextInput
-                                onchange={handleContentChange}
-                                state={contentAlert}
-                                stateMsg={[
-                                    { state: "", msg: "" },
-                                    { state: "empty", msg: "내용을 입력해 주세요." }
-                                ]}
-                                id="content"
-                                tabindex={2}
-                                placeholder="공지 내용을 입력해 주세요."
-                                label="공지 내용"
-                                marginTop={2}
-                            />
+                                : isAlerted === "fail"
+                                    ? <div className='w-full h-10 px-2.5 mb-3 flex justify-between items-center rounded-lg border-2 border-h-r text-xs text-l-2 dark:text-white bg-h-r/20'>
+                                    <div className='flex items-center'>
+                                        <i className="text-sm text-h-r fa-regular fa-bell"></i>
+                                        <div className='ml-2'>공지 추가에 실패했습니다. 잠시 후 다시 시도해 주세요.</div>
+                                    </div>
+                                    <div onClick={handleAlertClose} className='flex justify-center items-center cursor-pointer'>
+                                        <i className="text-sm fa-solid fa-xmark"></i>
+                                    </div>
+                                </div> : <></>
+                            }
                         </div>
-                        <Button marginTop={1}>
-                            <button onClick={handleSubmit} className="w-full h-full">
-                                {
-                                    isLoading === true
-                                    ? <span className='loader border-2 border-h-e dark:border-d-6 border-b-h-1 dark:border-b-f-8 w-4 h-4'></span>
-                                    : '추가하기'
-                                }
-                            </button>
-                        </Button>
+                        <div className='w-full p-5 rounded-lg text-l-2 dark:text-white bg-l-e dark:bg-d-3 drop-shadow-default dark:drop-shadow-dark'>
+                            <div className="w-full flex flex-col">
+                                <SelectBox
+                                    title="문의 종류"
+                                    icon="bi-send"
+                                    value="type"
+                                    select={option}
+                                    options={[
+                                        { value: "service", name: "서비스" },
+                                        { value: "font", name: "폰트" },
+                                    ]}
+                                    optionChange={handleSelectBoxChange}
+                                />
+                                <TextInput
+                                    onchange={handleTitleChange}
+                                    state={titleAlert}
+                                    stateMsg={[
+                                        { state: "", msg: "" },
+                                        { state: "empty", msg: "제목을 입력해 주세요." }
+                                    ]}
+                                    id="title"
+                                    tabindex={1}
+                                    placeholder="공지 제목을 입력해 주세요."
+                                    label="공지 제목"
+                                    marginTop={2}
+                                />
+                                <TextInput
+                                    onchange={handleContentChange}
+                                    state={contentAlert}
+                                    stateMsg={[
+                                        { state: "", msg: "" },
+                                        { state: "empty", msg: "내용을 입력해 주세요." }
+                                    ]}
+                                    id="content"
+                                    tabindex={2}
+                                    placeholder="공지 내용을 입력해 주세요."
+                                    label="공지 내용"
+                                    marginTop={2}
+                                />
+                            </div>
+                            <Button marginTop={1}>
+                                <button onClick={handleSubmit} className="w-full h-full">
+                                    {
+                                        isLoading === true
+                                        ? <span className='loader border-2 border-h-e dark:border-d-6 border-b-h-1 dark:border-b-f-8 w-4 h-4'></span>
+                                        : '추가하기'
+                                    }
+                                </button>
+                            </Button>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </Motion>
 
             {/* 풋터 */}
             <Footer/>

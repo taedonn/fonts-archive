@@ -17,6 +17,7 @@ import { Pagination } from '@mui/material';
 import { NextSeo } from 'next-seo';
 
 // components
+import Motion from '@/components/motion';
 import Header from "@/components/header";
 import Footer from '@/components/footer';
 import SearchInput from '@/components/searchinput';
@@ -96,53 +97,63 @@ const Comments = ({params}: any) => {
             />
 
             {/* 메인 */}
-            <form onSubmit={e => e.preventDefault()} className='w-full px-4 flex flex-col justify-center items-center'>
-                <div className='w-[45rem] tmd:w-full flex flex-col justify-center items-start my-24 tlg:my-16'>
-                    <h2 className='text-2xl tlg:text-xl text-l-2 dark:text-white font-bold mb-4'>내 댓글 목록</h2>
-                    <div className='flex items-center mb-10'>
-                        <SearchInput id="search" placeholder="폰트/댓글" value={search}/>
-                        <button onClick={handleSearchClick} className="hidden">검색</button>
-                    </div>
-                    <div className='flex items-center gap-1.5 mb-4'>
-                        <button onClick={handleFilterChange} value="date" className={`${filter === "date" ? "bg-h-1 dark:bg-f-8 text-white dark:text-d-2" : "text-l-5 dark:text-d-c hover:text-h-1 hover:dark:text-f-8"} w-20 h-9 flex justify-center items-center rounded-lg`}>최신순</button>
-                        <button onClick={handleFilterChange} value="name" className={`${filter === "name" ? "bg-h-1 dark:bg-f-8 text-white dark:text-d-2" : "text-l-5 dark:text-d-c hover:text-h-1 hover:dark:text-f-8"} w-20 h-9 flex justify-center items-center rounded-lg`}>이름순</button>
-                    </div>
-                    <div className='w-full'>
-                        <div className='w-full text-sm text-l-2 dark:text-white'>
-                            <div className='flex flex-col gap-3'>
-                                {
-                                    comments && comments.length > 0
-                                    ? <>
-                                        {
-                                            comments.map((comment: any) => {
-                                                return (
-                                                    <div key={comment.comment_id} className='px-6 py-4 relative rounded-lg bg-l-e dark:bg-d-4'>
-                                                        <div className="flex tlg:flex-col items-center tlg:items-start gap-2 mb-2">
-                                                            <Link href={`/post/${comment.font_family.replaceAll(" ", "+")}`} className="block text-h-1 dark:text-f-8 hover:underline tlg:hover:no-underline">{comment.font_name}</Link>
-                                                            <div className="flex gap-2 items-center">
-                                                                <div className='text-xs text-l-5 dark:text-d-c'>{timeFormat(comment.created_at)}</div>
-                                                                <div className='text-xs text-l-5 dark:text-d-c'>신고수: {comment.reported_politics + comment.reported_swearing + comment.reported_etc}</div>
+            <Motion
+                initialOpacity={0}
+                animateOpacity={1}
+                exitOpacity={0}
+                initialY={-50}
+                animateY={0}
+                exitY={-50}
+                transitionType="spring"
+            >
+                <form onSubmit={e => e.preventDefault()} className='w-full px-4 flex flex-col justify-center items-center'>
+                    <div className='w-[45rem] tmd:w-full flex flex-col justify-center items-start my-24 tlg:my-16'>
+                        <h2 className='text-2xl tlg:text-xl text-l-2 dark:text-white font-bold mb-4'>내 댓글 목록</h2>
+                        <div className='flex items-center mb-10'>
+                            <SearchInput id="search" placeholder="폰트/댓글" value={search}/>
+                            <button onClick={handleSearchClick} className="hidden">검색</button>
+                        </div>
+                        <div className='flex items-center gap-1.5 mb-4'>
+                            <button onClick={handleFilterChange} value="date" className={`${filter === "date" ? "bg-h-1 dark:bg-f-8 text-white dark:text-d-2" : "text-l-5 dark:text-d-c hover:text-h-1 hover:dark:text-f-8"} w-20 h-9 flex justify-center items-center rounded-lg`}>최신순</button>
+                            <button onClick={handleFilterChange} value="name" className={`${filter === "name" ? "bg-h-1 dark:bg-f-8 text-white dark:text-d-2" : "text-l-5 dark:text-d-c hover:text-h-1 hover:dark:text-f-8"} w-20 h-9 flex justify-center items-center rounded-lg`}>이름순</button>
+                        </div>
+                        <div className='w-full'>
+                            <div className='w-full text-sm text-l-2 dark:text-white'>
+                                <div className='flex flex-col gap-3'>
+                                    {
+                                        comments && comments.length > 0
+                                        ? <>
+                                            {
+                                                comments.map((comment: any) => {
+                                                    return (
+                                                        <div key={comment.comment_id} className='px-6 py-4 relative rounded-lg bg-l-e dark:bg-d-4'>
+                                                            <div className="flex tlg:flex-col items-center tlg:items-start gap-2 mb-2">
+                                                                <Link href={`/post/${comment.font_family.replaceAll(" ", "+")}`} className="block text-h-1 dark:text-f-8 hover:underline tlg:hover:no-underline">{comment.font_name}</Link>
+                                                                <div className="flex gap-2 items-center">
+                                                                    <div className='text-xs text-l-5 dark:text-d-c'>{timeFormat(comment.created_at)}</div>
+                                                                    <div className='text-xs text-l-5 dark:text-d-c'>신고수: {comment.reported_politics + comment.reported_swearing + comment.reported_etc}</div>
+                                                                </div>
                                                             </div>
+                                                            <div className="pr-10"><Link href={`/post/${comment.font_family.replaceAll(" ", "+")}#comment-section`} className='ellipsed-text w-full hover:underline tlg:hover:no-underline'>{comment.comment}</Link></div>
+                                                            <button onClick={deleteCommentModalOpen} data-font={comment.font_id} data-comment={comment.comment_id} data-bundle={comment.bundle_id} className='group absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full flex justify-center items-center hover:bg-l-d hover:dark:bg-d-6 tlg:hover:bg-transparent tlg:hover:dark:bg-transparent'>
+                                                                <i className="text-base text-l-2 dark:text-white fa-regular fa-trash-can"></i>
+                                                            </button>
                                                         </div>
-                                                        <div className="pr-10"><Link href={`/post/${comment.font_family.replaceAll(" ", "+")}#comment-section`} className='ellipsed-text w-full hover:underline tlg:hover:no-underline'>{comment.comment}</Link></div>
-                                                        <button onClick={deleteCommentModalOpen} data-font={comment.font_id} data-comment={comment.comment_id} data-bundle={comment.bundle_id} className='group absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full flex justify-center items-center hover:bg-l-d hover:dark:bg-d-6 tlg:hover:bg-transparent tlg:hover:dark:bg-transparent'>
-                                                            <i className="text-base text-l-2 dark:text-white fa-regular fa-trash-can"></i>
-                                                        </button>
-                                                    </div>
-                                                )
-                                            })
-                                        }
-                                    </>
-                                    : <div className='h-16 text-base flex justify-center items-center text-center'>댓글이 없습니다.</div>
-                                }
+                                                    )
+                                                })
+                                            }
+                                        </>
+                                        : <div className='h-16 text-base flex justify-center items-center text-center'>댓글이 없습니다.</div>
+                                    }
+                                </div>
                             </div>
                         </div>
+                        <div className='w-full flex justify-center mt-3'>
+                            <Pagination count={count} page={Number(page)} onChange={handlePageChange} shape='rounded'/>
+                        </div>
                     </div>
-                    <div className='w-full flex justify-center mt-3'>
-                        <Pagination count={count} page={Number(page)} onChange={handlePageChange} shape='rounded'/>
-                    </div>
-                </div>
-            </form>
+                </form>
+            </Motion>
 
             {/* 풋터 */}
             <Footer/>

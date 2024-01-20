@@ -14,6 +14,7 @@ import { throttle } from 'lodash';
 import DummyText from '@/components/dummytext';
 import SkeletonBox from '@/components/skeletonbox';
 import KakaoAdFitTopBanner from '@/components/kakaoAdFitTopBanner';
+import { onMouseDown, onMouseUp, onMouseOut } from '@/libs/common';
 
 interface FontBox {
     expand: boolean,
@@ -215,7 +216,7 @@ export default function FontBox ({
                                                 <div className="text-l-5 dark:text-d-9">by {font.source}</div>
                                                 <div className='group absolute z-20 -right-4 tlg:right-8 top-1/2 tlg:top-12 translate-x-full -translate-y-1/2'>
                                                     <input onClick={handleLikeClick} onChange={handleLikeChange} type="checkbox" id={font.code.toString()} className='peer hidden' defaultChecked={handleDefaultLike(font.code)}/>
-                                                    <label htmlFor={font.code.toString()} className='group cursor-pointer'>
+                                                    <label htmlFor={font.code.toString()} onMouseDown={e => onMouseDown(e, 0.8)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className='block group cursor-pointer'>
                                                         <i className="block peer-checked:group-[]:hidden text-xl tlg:text-lg bi bi-heart"></i>
                                                         <i className="hidden peer-checked:group-[]:block text-xl tlg:text-lg text-h-r bi bi-heart-fill"></i>
                                                     </label>

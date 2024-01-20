@@ -15,6 +15,7 @@ import { Pagination } from '@mui/material';
 import { NextSeo } from 'next-seo';
 
 // components
+import Motion from '@/components/motion';
 import Header from "@/components/header";
 import Footer from '@/components/footer';
 import SearchInput from '@/components/searchinput';
@@ -63,68 +64,78 @@ const FontsList = ({params}: any) => {
             />
 
             {/* 메인 */}
-            <form onSubmit={e => e.preventDefault()} className='w-full px-4 flex flex-col justify-center items-center'>
-                <div className='w-[45rem] tmd:w-full flex flex-col justify-center items-start my-24 tlg:my-16'>
-                    <h2 className='text-2xl tlg:text-xl text-l-2 dark:text-white font-bold mb-4'>폰트 목록</h2>
-                    <div className='flex items-center mb-10'>
-                        <SearchInput id="search" placeholder="폰트 검색" value={search}/>
-                        <button onClick={handleSearchClick} className="hidden">검색</button>
-                    </div>
-                    <div className='flex items-center gap-1.5 mb-4'>
-                        <button onClick={handleFilterChange} value="date" className={`${filter === "date" ? "bg-h-1 dark:bg-f-8 text-white dark:text-d-2" : "text-l-5 dark:text-d-c hover:text-h-1 hover:dark:text-f-8"} w-20 h-9 flex justify-center items-center rounded-lg`}>최신순</button>
-                        <button onClick={handleFilterChange} value="name" className={`${filter === "name" ? "bg-h-1 dark:bg-f-8 text-white dark:text-d-2" : "text-l-5 dark:text-d-c hover:text-h-1 hover:dark:text-f-8"} w-20 h-9 flex justify-center items-center rounded-lg`}>이름순</button>
-                        <button onClick={handleFilterChange} value="view" className={`${filter === "view" ? "bg-h-1 dark:bg-f-8 text-white dark:text-d-2" : "text-l-5 dark:text-d-c hover:text-h-1 hover:dark:text-f-8"} w-20 h-9 flex justify-center items-center rounded-lg`}>조회순</button>
-                        <button onClick={handleFilterChange} value="like" className={`${filter === "like" ? "bg-h-1 dark:bg-f-8 text-white dark:text-d-2" : "text-l-5 dark:text-d-c hover:text-h-1 hover:dark:text-f-8"} w-20 h-9 flex justify-center items-center rounded-lg`}>좋아요순</button>
-                    </div>
-                    <div className='w-full'>
-                        <div className='w-full text-sm text-l-2 dark:text-white'>
-                            <div className='flex flex-col gap-3'>
-                                {
-                                    fonts && fonts.length > 0
-                                    ? <>
-                                        {
-                                            fonts.map((font: any) => {
-                                                return (
-                                                    <div key={font.code} className='px-6 py-4 relative rounded-lg bg-l-e dark:bg-d-4'>
-                                                        <div className="flex tlg:flex-col items-center tlg:items-start gap-2 mb-2">
-                                                            <Link href={`/admin/font/edit?code=${font.code}`} className="block text-h-1 dark:text-f-8 hover:underline tlg:hover:no-underline">{font.name}</Link>
-                                                            <div className='flex gap-2 items-center'>
-                                                                <div className='text-xs text-l-5 dark:text-d-c'>{dateFormat(font.created_at)}</div>
-                                                                <div className='text-xs text-l-5 dark:text-d-c'>{font.lang}</div>
+            <Motion
+                initialOpacity={0}
+                animateOpacity={1}
+                exitOpacity={0}
+                initialY={-50}
+                animateY={0}
+                exitY={-50}
+                transitionType="spring"
+            >
+                <form onSubmit={e => e.preventDefault()} className='w-full px-4 flex flex-col justify-center items-center'>
+                    <div className='w-[45rem] tmd:w-full flex flex-col justify-center items-start my-24 tlg:my-16'>
+                        <h2 className='text-2xl tlg:text-xl text-l-2 dark:text-white font-bold mb-4'>폰트 목록</h2>
+                        <div className='flex items-center mb-10'>
+                            <SearchInput id="search" placeholder="폰트 검색" value={search}/>
+                            <button onClick={handleSearchClick} className="hidden">검색</button>
+                        </div>
+                        <div className='flex items-center gap-1.5 mb-4'>
+                            <button onClick={handleFilterChange} value="date" className={`${filter === "date" ? "bg-h-1 dark:bg-f-8 text-white dark:text-d-2" : "text-l-5 dark:text-d-c hover:text-h-1 hover:dark:text-f-8"} w-20 h-9 flex justify-center items-center rounded-lg`}>최신순</button>
+                            <button onClick={handleFilterChange} value="name" className={`${filter === "name" ? "bg-h-1 dark:bg-f-8 text-white dark:text-d-2" : "text-l-5 dark:text-d-c hover:text-h-1 hover:dark:text-f-8"} w-20 h-9 flex justify-center items-center rounded-lg`}>이름순</button>
+                            <button onClick={handleFilterChange} value="view" className={`${filter === "view" ? "bg-h-1 dark:bg-f-8 text-white dark:text-d-2" : "text-l-5 dark:text-d-c hover:text-h-1 hover:dark:text-f-8"} w-20 h-9 flex justify-center items-center rounded-lg`}>조회순</button>
+                            <button onClick={handleFilterChange} value="like" className={`${filter === "like" ? "bg-h-1 dark:bg-f-8 text-white dark:text-d-2" : "text-l-5 dark:text-d-c hover:text-h-1 hover:dark:text-f-8"} w-20 h-9 flex justify-center items-center rounded-lg`}>좋아요순</button>
+                        </div>
+                        <div className='w-full'>
+                            <div className='w-full text-sm text-l-2 dark:text-white'>
+                                <div className='flex flex-col gap-3'>
+                                    {
+                                        fonts && fonts.length > 0
+                                        ? <>
+                                            {
+                                                fonts.map((font: any) => {
+                                                    return (
+                                                        <div key={font.code} className='px-6 py-4 relative rounded-lg bg-l-e dark:bg-d-4'>
+                                                            <div className="flex tlg:flex-col items-center tlg:items-start gap-2 mb-2">
+                                                                <Link href={`/admin/font/edit?code=${font.code}`} className="block text-h-1 dark:text-f-8 hover:underline tlg:hover:no-underline">{font.name}</Link>
+                                                                <div className='flex gap-2 items-center'>
+                                                                    <div className='text-xs text-l-5 dark:text-d-c'>{dateFormat(font.created_at)}</div>
+                                                                    <div className='text-xs text-l-5 dark:text-d-c'>{font.lang}</div>
+                                                                </div>
+                                                            </div>
+                                                            <div className='w-full flex gap-3 text-sm'>
+                                                                <div>
+                                                                    [{
+                                                                        font.font_type === "Sans Serif"
+                                                                            ? "고딕체"
+                                                                            : font.font_type === "Serif"
+                                                                                ? "명조체"
+                                                                                : font.font_type === "Hand Writing"
+                                                                                    ? "손글씨체"
+                                                                                    : font.font_type === "Display"
+                                                                                        ? "장식체"
+                                                                                        : "픽셀체"
+                                                                    }]
+                                                                </div>
+                                                                <div>조회수: {font.view}</div>
+                                                                <div>좋아요수: {font.like}</div>
                                                             </div>
                                                         </div>
-                                                        <div className='w-full flex gap-3 text-sm'>
-                                                            <div>
-                                                                [{
-                                                                    font.font_type === "Sans Serif"
-                                                                        ? "고딕체"
-                                                                        : font.font_type === "Serif"
-                                                                            ? "명조체"
-                                                                            : font.font_type === "Hand Writing"
-                                                                                ? "손글씨체"
-                                                                                : font.font_type === "Display"
-                                                                                    ? "장식체"
-                                                                                    : "픽셀체"
-                                                                }]
-                                                            </div>
-                                                            <div>조회수: {font.view}</div>
-                                                            <div>좋아요수: {font.like}</div>
-                                                        </div>
-                                                    </div>
-                                                )
-                                            })
-                                        }
-                                    </>
-                                    : <div className='h-16 text-base flex justify-center items-center text-center'>폰트가 없습니다.</div>
-                                }
+                                                    )
+                                                })
+                                            }
+                                        </>
+                                        : <div className='h-16 text-base flex justify-center items-center text-center'>폰트가 없습니다.</div>
+                                    }
+                                </div>
                             </div>
                         </div>
+                        <div className='w-full flex justify-center mt-3'>
+                            <Pagination count={count} page={Number(page)} onChange={handlePageChange} shape='rounded'/>
+                        </div>
                     </div>
-                    <div className='w-full flex justify-center mt-3'>
-                        <Pagination count={count} page={Number(page)} onChange={handlePageChange} shape='rounded'/>
-                    </div>
-                </div>
-            </form>
+                </form>
+            </Motion>
 
             {/* 풋터 */}
             <Footer/>

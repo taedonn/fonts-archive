@@ -20,3 +20,21 @@ export function getIntFromString(string: string) {
     const result = string.replace(regex, '');
     return parseInt(result);
 }
+
+export function onMouseDown(e: React.MouseEvent, scale?: number) {
+    const target = e.currentTarget as HTMLElement;
+    if (target) target.style.transition = "0.2s";
+    if (target) { if (scale) target.style.transform = `scale(${scale})`; }
+}
+
+export function onMouseUp(e: React.MouseEvent) {
+    const target = e.currentTarget as HTMLElement;
+    if (target) target.style.transform = "scale(1)";
+    if (target) target.style.transition = "0s";
+}
+
+export function onMouseOut(e: React.MouseEvent) {
+    const target = e.currentTarget as HTMLElement;
+    if (target) target.style.transform = "scale(1)";
+    if (target) target.style.transition = "0s";
+}

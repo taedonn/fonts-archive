@@ -14,6 +14,7 @@ import { Pagination } from '@mui/material';
 import { NextSeo } from 'next-seo';
 
 // components
+import Motion from '@/components/motion';
 import Header from "@/components/header";
 import Footer from '@/components/footer';
 import SearchInput from '@/components/searchinput';
@@ -62,51 +63,61 @@ const UserList = ({params}: any) => {
             />
 
             {/* 메인 */}
-            <form onSubmit={e => e.preventDefault()} className='w-full px-4 flex flex-col justify-center items-center'>
-                <div className='w-[45rem] tmd:w-full flex flex-col justify-center items-start my-24 tlg:my-16'>
-                    <h2 className='text-2xl tlg:text-xl text-l-2 dark:text-white font-bold mb-4'>유저 목록</h2>
-                    <div className='flex items-center mb-10'>
-                        <SearchInput id="search" placeholder="이름/아이디" value={search}/>
-                        <button onClick={handleSearchClick} className="hidden">검색</button>
-                    </div>
-                    <div className='flex items-center gap-1.5 mb-4'>
-                        <button onClick={handleFilterChange} value="date" className={`${filter === "date" ? "bg-h-1 dark:bg-f-8 text-white dark:text-d-2" : "text-l-5 dark:text-d-c hover:text-h-1 hover:dark:text-f-8"} w-20 h-9 flex justify-center items-center rounded-lg`}>최신순</button>
-                        <button onClick={handleFilterChange} value="name" className={`${filter === "name" ? "bg-h-1 dark:bg-f-8 text-white dark:text-d-2" : "text-l-5 dark:text-d-c hover:text-h-1 hover:dark:text-f-8"} w-20 h-9 flex justify-center items-center rounded-lg`}>이름순</button>
-                        <button onClick={handleFilterChange} value="report" className={`${filter === "report" ? "bg-h-1 dark:bg-f-8 text-white dark:text-d-2" : "text-l-5 dark:text-d-c hover:text-h-1 hover:dark:text-f-8"} w-20 h-9 flex justify-center items-center rounded-lg`}>신고순</button>
-                    </div>
-                    <div className='w-full'>
-                        <div className='w-full text-sm text-l-2 dark:text-white'>
-                            <div className='flex flex-col gap-3'>
-                                {
-                                    list && list.length > 0
-                                    ? <>
-                                        {
-                                            list.map((user: any) => {
-                                                return (
-                                                    <div key={user.user_no} className='px-6 py-4 relative rounded-lg bg-l-e dark:bg-d-4'>
-                                                        <div className="flex tlg:flex-col items-center tlg:items-start gap-2 mb-2">
-                                                            <Link href={`/admin/user/${user.user_no}`} className="block text-h-1 dark:text-f-8 hover:underline tlg:hover:no-underline">{user.user_name}</Link>
-                                                            <div className="flex gap-2 items-center">
-                                                                <div className='text-xs text-l-5 dark:text-d-c'>{timeFormat(user.created_at)}</div>
-                                                                <div className='text-xs text-l-5 dark:text-d-c'>신고수: {user.nickname_reported}</div>
+            <Motion
+                initialOpacity={0}
+                animateOpacity={1}
+                exitOpacity={0}
+                initialY={-50}
+                animateY={0}
+                exitY={-50}
+                transitionType="spring"
+            >
+                <form onSubmit={e => e.preventDefault()} className='w-full px-4 flex flex-col justify-center items-center'>
+                    <div className='w-[45rem] tmd:w-full flex flex-col justify-center items-start my-24 tlg:my-16'>
+                        <h2 className='text-2xl tlg:text-xl text-l-2 dark:text-white font-bold mb-4'>유저 목록</h2>
+                        <div className='flex items-center mb-10'>
+                            <SearchInput id="search" placeholder="이름/아이디" value={search}/>
+                            <button onClick={handleSearchClick} className="hidden">검색</button>
+                        </div>
+                        <div className='flex items-center gap-1.5 mb-4'>
+                            <button onClick={handleFilterChange} value="date" className={`${filter === "date" ? "bg-h-1 dark:bg-f-8 text-white dark:text-d-2" : "text-l-5 dark:text-d-c hover:text-h-1 hover:dark:text-f-8"} w-20 h-9 flex justify-center items-center rounded-lg`}>최신순</button>
+                            <button onClick={handleFilterChange} value="name" className={`${filter === "name" ? "bg-h-1 dark:bg-f-8 text-white dark:text-d-2" : "text-l-5 dark:text-d-c hover:text-h-1 hover:dark:text-f-8"} w-20 h-9 flex justify-center items-center rounded-lg`}>이름순</button>
+                            <button onClick={handleFilterChange} value="report" className={`${filter === "report" ? "bg-h-1 dark:bg-f-8 text-white dark:text-d-2" : "text-l-5 dark:text-d-c hover:text-h-1 hover:dark:text-f-8"} w-20 h-9 flex justify-center items-center rounded-lg`}>신고순</button>
+                        </div>
+                        <div className='w-full'>
+                            <div className='w-full text-sm text-l-2 dark:text-white'>
+                                <div className='flex flex-col gap-3'>
+                                    {
+                                        list && list.length > 0
+                                        ? <>
+                                            {
+                                                list.map((user: any) => {
+                                                    return (
+                                                        <div key={user.user_no} className='px-6 py-4 relative rounded-lg bg-l-e dark:bg-d-4'>
+                                                            <div className="flex tlg:flex-col items-center tlg:items-start gap-2 mb-2">
+                                                                <Link href={`/admin/user/${user.user_no}`} className="block text-h-1 dark:text-f-8 hover:underline tlg:hover:no-underline">{user.user_name}</Link>
+                                                                <div className="flex gap-2 items-center">
+                                                                    <div className='text-xs text-l-5 dark:text-d-c'>{timeFormat(user.created_at)}</div>
+                                                                    <div className='text-xs text-l-5 dark:text-d-c'>신고수: {user.nickname_reported}</div>
+                                                                </div>
                                                             </div>
+                                                            <div className='w-full overflow-hidden'>{user.user_id}</div>
                                                         </div>
-                                                        <div className='w-full overflow-hidden'>{user.user_id}</div>
-                                                    </div>
-                                                )
-                                            })
-                                        }
-                                    </>
-                                    : <div className='h-16 text-base flex justify-center items-center text-center'>유저가 없습니다.</div>
-                                }
+                                                    )
+                                                })
+                                            }
+                                        </>
+                                        : <div className='h-16 text-base flex justify-center items-center text-center'>유저가 없습니다.</div>
+                                    }
+                                </div>
                             </div>
                         </div>
+                        <div className='w-full flex justify-center mt-3'>
+                            <Pagination count={count} page={Number(page)} onChange={handlePageChange} shape='rounded'/>
+                        </div>
                     </div>
-                    <div className='w-full flex justify-center mt-3'>
-                        <Pagination count={count} page={Number(page)} onChange={handlePageChange} shape='rounded'/>
-                    </div>
-                </div>
-            </form>
+                </form>
+            </Motion>
 
             {/* 풋터 */}
             <Footer/>
