@@ -155,7 +155,7 @@ const UserDetailPage = ({params}: any) => {
         }
     }
 
-    // 엔터키 입력 시 가입하기 버튼 클릭
+    // 엔터키 입력 시 버튼 클릭
     useEffect(() => {
         const keys: any = [];
         const handleKeydown = (e: KeyboardEvent) => { keys[e.key] = true; if (keys["Enter"]) { saveUserInfo(); } }

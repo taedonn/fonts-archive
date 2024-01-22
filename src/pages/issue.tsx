@@ -376,27 +376,12 @@ const IssueFont = ({params}: any) => {
         }
     }
 
-    // 엔터키 입력 시 로그인 버튼 클릭
-    useEffect(() => {
-        const keys: any = [];
-        const handleKeydown = (e: KeyboardEvent) => { keys[e.key] = true; if (keys["Enter"]) { handleSubmit(); } }
-        const handleKeyup = (e: KeyboardEvent) => {keys[e.key] = false;}
-
-        window.addEventListener("keydown", handleKeydown, false);
-        window.addEventListener("keyup", handleKeyup, false);
-
-        return () => {
-            window.removeEventListener("keydown", handleKeydown);
-            window.removeEventListener("keyup", handleKeyup);
-        }
-    });
-
     return (
         <>
             {/* Head 부분*/}
             <NextSeo 
-                title={"폰트 제보하기 · 폰트 아카이브"}
-                description={"폰트 제보하기 - 폰트 아카이브 · 상업용 무료 한글 폰트 저장소"}
+                title={"문의하기 · 폰트 아카이브"}
+                description={"문의하기 - 폰트 아카이브 · 상업용 무료 한글 폰트 저장소"}
             />
 
             {/* 헤더 */}
@@ -457,7 +442,7 @@ const IssueFont = ({params}: any) => {
                         <div className='w-full p-5 rounded-lg text-l-2 dark:text-white bg-l-e dark:bg-d-3 drop-shadow-default dark:drop-shadow-dark'>
                             <div className="flex flex-col">
                                 <SelectBox
-                                    title="문의 목적"
+                                    title="문의 유형"
                                     icon="bi-send"
                                     value="issue"
                                     select={option}

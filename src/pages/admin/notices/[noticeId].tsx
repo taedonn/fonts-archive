@@ -91,21 +91,6 @@ const NoticePage = ({params}: any) => {
         setIsLoading(false);
     }
 
-    // 엔터키 입력 시 가입하기 버튼 클릭
-    useEffect(() => {
-        const keys: any = [];
-        const handleKeydown = (e: KeyboardEvent) => { keys[e.key] = true; if (keys["Enter"]) { handleBtnClick(); } }
-        const handleKeyup = (e: KeyboardEvent) => {keys[e.key] = false;}
-
-        window.addEventListener("keydown", handleKeydown, false);
-        window.addEventListener("keyup", handleKeyup, false);
-
-        return () => {
-            window.removeEventListener("keydown", handleKeydown);
-            window.removeEventListener("keyup", handleKeyup);
-        }
-    });
-
     /** 답변 완료 시 알럿 표시 */
     const handleOnEdit = () => {
         setIsEdited("");

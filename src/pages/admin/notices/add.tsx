@@ -96,21 +96,6 @@ const NoticesAdd = ({params}: any) => {
         content.value = "";
     }
 
-    // 엔터키 입력 시 가입하기 버튼 클릭
-    useEffect(() => {
-        const keys: any = [];
-        const handleKeydown = (e: KeyboardEvent) => { keys[e.key] = true; if (keys["Enter"]) { handleSubmit(); } }
-        const handleKeyup = (e: KeyboardEvent) => {keys[e.key] = false;}
-
-        window.addEventListener("keydown", handleKeydown, false);
-        window.addEventListener("keyup", handleKeyup, false);
-
-        return () => {
-            window.removeEventListener("keydown", handleKeydown);
-            window.removeEventListener("keyup", handleKeyup);
-        }
-    });
-
     /** 알럿 닫기 */
     const handleAlertClose = () => { setIsAlerted(""); }
 
