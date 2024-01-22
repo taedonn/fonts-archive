@@ -117,7 +117,7 @@ export default function Comments (
                 user_name: user.name,
                 user_email: user.email,
                 user_auth: user.provider,
-                user_image: user.image,
+                user_image: user.protected ? user.public_img : user.image,
                 comment: commentRef.current.value,
             })
             .then(async (res) => {
@@ -317,7 +317,7 @@ export default function Comments (
                 user_name: user.name,
                 user_email: user.email,
                 user_auth: user.provider,
-                user_image: user.image,
+                user_image: user.protected ? user.public_img : user.image,
                 comment_id: id,
                 comment: textarea.value,
                 bundle_id: bundle,
@@ -558,7 +558,7 @@ export default function Comments (
                         </div>
                         : <div className="w-full flex gap-4">
                             <div className="w-10 tlg:w-8 h-10 tlg:h-8 shrink-0 relative rounded-full overflow-hidden">
-                                <Image src={user.image} alt="유저 프로필 사진" fill sizes="100%" referrerPolicy="no-referrer" className="object-cover"/>
+                                <Image src={user.protected ? user.public_img : user.image} alt="유저 프로필 사진" fill sizes="100%" referrerPolicy="no-referrer" className="object-cover"/>
                             </div>
                             <div className="w-full flex flex-col mt-1.5 tlg:mt-0.5">
                                 <div className={`relative w-full flex items-center pb-1 border-b hover:border-l-9 hover:dark:border-d-9 tlg:hover:border-l-9 tlg:hover:dark:border-d-9 ${commentFocus ? 'border-l-9 dark:border-d-9 tlg:hover:border-l-9 tlg:hover:dark:border-d-9' : 'border-l-b dark:border-d-6'}`}>
@@ -652,7 +652,7 @@ export default function Comments (
                                                     ? <div id={`comment-reply-content-${comment.comment_id}`} className="hidden mt-5">
                                                         <div className="w-full flex gap-4">
                                                             <div className="w-10 tlg:w-8 h-10 tlg:h-8 shrink-0 relative rounded-full overflow-hidden">
-                                                                <Image src={user.image} alt="유저 프로필 사진" fill sizes="100%" referrerPolicy="no-referrer" className="object-cover"/>
+                                                                <Image src={user.protected ? user.public_img : user.image} alt="유저 프로필 사진" fill sizes="100%" referrerPolicy="no-referrer" className="object-cover"/>
                                                             </div>
                                                             <div className="w-full">
                                                                 <div className="relative w-full flex items-center pb-1 border-b border-l-9 dark:border-d-9">

@@ -13,6 +13,7 @@ import React, { useState, useEffect, useRef, ChangeEvent } from 'react';
 // libraries
 import axios from 'axios';
 import imageCompression from 'browser-image-compression';
+import { Switch } from '@mui/material';
 
 // components
 import Motion from '@/components/motion';
@@ -40,6 +41,9 @@ const Info = ({params}: any) => {
     const [isImgError, setisImgError] = useState<boolean>(false);
     const [nameVal, setNameVal] = useState<string>('');
     const [nameChk, setNameChk] = useState<string>('');
+    const [isProtected, setIsProtected] = useState<boolean>(user.protected);
+    const [isProtectionLoading, setIsProtectionLoading] = useState<boolean>(false);
+    const [initialProtectionDisplay, setInitialProtectionDisplay] = useState<boolean>(false);
     const [alert, setAlert] = useState<string>('');
     const [alertDisplay, setAlertDisplay] = useState<boolean>(false);
     const [changePwModalDisplay, setChangePwModalDisplay] = useState<boolean>(false);
@@ -55,6 +59,22 @@ const Info = ({params}: any) => {
     const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setNameChk('');
         setNameVal(e.target.value);
+    }
+
+    /** 사생활 보호 체인지 이벤트 */
+    const handlePrivacyChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        setIsProtected(e.target.checked);
+        setIsProtectionLoading(true);
+        setInitialProtectionDisplay(true);
+        
+        await axios.post("/api/user/updateuserinfo", {
+            action: "update-privacy",
+            id: user.user_id,
+            auth: user.auth,
+            privacy: e.target.checked,
+        })
+        .then(() => setIsProtectionLoading(false))
+        .catch(err => console.log(err));
     }
 
     /** 이름 변경하기 클릭 이벤트 */
@@ -326,7 +346,7 @@ const Info = ({params}: any) => {
                                     <label className='w-14 h-14 block relative cursor-pointer overflow-hidden' htmlFor='profile-img'>
                                         {
                                             !isImgLoading
-                                            ? <Image src={profileImg} alt='Profile image' fill sizes='100%' priority referrerPolicy='no-referrer' className='object-cover rounded-full'/>
+                                            ? <Image src={isProtected ? user.public_img : profileImg} alt='Profile image' fill sizes='100%' priority referrerPolicy='no-referrer' className='object-cover rounded-full'/>
                                             : <div className='w-full h-full rounded-full flex items-center bg-l-d dark:bg-d-4'><div className='img-loader'></div></div>
                                         }
                                         {
@@ -349,21 +369,54 @@ const Info = ({params}: any) => {
                                 </div>
                                 <div className='ml-4'>
                                     <h2 className='mr-px text-l-2 dark:text-white font-bold'>프로필 이미지</h2>
-                                    <div className='text-xs font-normal leading-none break-keep text-l-5 dark:text-d-c mt-1.5'>
+                                    <div className='mt-1.5 text-xs font-normal leading-none break-keep text-l-5 dark:text-d-c'>
                                         {
                                             user.auth === "credentials"
                                                 ? <>
                                                     <h3 className='flex items-start mb-0.5 leading-normal'><div className='w-0.5 h-0.5 mr-1 mt-2 rounded-full bg-l-5 dark:bg-d-c'></div>500px보다 큰 이미지는 축소되어 업로드됩니다.</h3>
                                                     <h3 className='flex items-start leading-normal'><div className='w-0.5 h-0.5 mr-1 mt-2 shrink-0 rounded-full bg-l-5 dark:bg-d-c'></div>업로드된 이미지는 다음 로그인부터 적용됩니다.</h3>
-                                                </> : <h3 className='flex items-start leading-normal'><div className='w-0.5 h-0.5 mr-1 mt-2 shrink-0 rounded-full bg-l-5 dark:bg-d-c'></div>SNS 계정은 SNS 계정의 프로필 이미지가 표시됩니다.</h3>
+                                                </> : <>
+                                                    <h3 className='flex items-start leading-normal'><div className='w-0.5 h-0.5 mr-1 mt-2 shrink-0 rounded-full bg-l-5 dark:bg-d-c'></div>SNS 계정의 프로필 이미지가 표시됩니다.</h3>
+                                                    <h3 className='flex items-start leading-normal'><div className='w-0.5 h-0.5 mr-1 mt-2 shrink-0 rounded-full bg-l-5 dark:bg-d-c'></div>사생활 보호 중일 시, 랜덤 이미지가 표시됩니다.</h3>
+                                                </>
                                         }
                                     </div>
                                 </div>
                             </div>
                             {
                                 isImgError
-                                ? <span className='block text-xs text-h-r mt-3'>이미지 업로드에 실패했습니다. 잠시 후 다시 시도해 주세요.</span>
-                                : <></>
+                                && <span className='block text-xs text-h-r mt-3'>이미지 업로드에 실패했습니다. 잠시 후 다시 시도해 주세요.</span>
+                            }
+                            {
+                                user.auth !== "credentials"
+                                && <>
+                                    <h2 className='mt-8 font-medium'>사생활 보호</h2>
+                                    <div className='mt-1.5 text-xs text-l-5 dark:text-d-c'>
+                                        <div className='flex items-start leading-normal'><div className='w-0.5 h-0.5 mr-1 mt-2 shrink-0 rounded-full bg-l-5 dark:bg-d-c'></div>프로필 이미지와 이름을 숨깁니다.</div>
+                                        <div className='flex items-start leading-normal'><div className='w-0.5 h-0.5 mr-1 mt-2 shrink-0 rounded-full bg-l-5 dark:bg-d-c'></div>변경 시, 다음 로그인부터 적용됩니다.</div>
+                                    </div>
+                                    <div className="mt-2 flex gap-4 items-center">
+                                        <div className="w-max h-12 rounded-lg px-6 flex items-center text-sm bg-l-d dark:bg-d-4">
+                                            <div className="mr-3">미보호</div>
+                                            <Switch
+                                                checked={isProtected}
+                                                onChange={handlePrivacyChange}
+                                                size="small"
+                                            />
+                                            <div className={`${isProtected ? "text-h-1 dark:text-f-8" : ""} ml-3`}>보호중</div>
+                                        </div>
+                                        {
+                                            isProtectionLoading
+                                            ? <span className="loader w-4 h-4 border-2 border-l-b dark:border-d-6 border-b-h-1 dark:border-b-f-8"></span>
+                                            : !isProtectionLoading && initialProtectionDisplay
+                                                ? <div id="update-privacy" className="animate-fade-in-time-out text-xs text-h-1 dark:text-f-8">
+                                                    <i className="mr-1.5 fa-solid fa-check"></i>
+                                                    업데이트 성공
+                                                </div>
+                                                : <></>
+                                        }
+                                    </div>
+                                </>
                             }
                             <div className='w-full h-px bg-l-b dark:bg-d-6 my-6'></div>
                             <label htmlFor='name' className='block font-medium ml-px'>이름</label>

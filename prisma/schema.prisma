@@ -55,6 +55,8 @@ model fontsUser {
   user_email_token   String
   user_email_confirm Boolean
   profile_img        String         @db.Text
+  public_img         String         @default("")
+  protected          Boolean        @default(true)
   nickname_reported  Int            @default(0)
   created_at         DateTime       @default(now())
   updated_at         DateTime       @default(now()) @updatedAt

@@ -58,7 +58,29 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             }
         }
     } else if (req.method === "POST") {
-        if (req.body.action === "change-pw") {
+        if (req.body.action === "update-privacy") {
+            try {
+                const { id, auth, privacy } = req.body;
+
+                await prisma.fontsUser.updateMany({
+                    where: {
+                        user_id: id,
+                        auth: auth,
+                    },
+                    data: { protected: privacy }
+                });
+
+                return res.status(200).json({
+                    msg: "사생활 보호 업데이트 성공",
+                    isUpdated: true,
+                });
+            } catch (err) {
+                return res.status(500).json({
+                    msg: "사생활 보호 업데이트 실패",
+                    err: err,
+                });
+            }
+        } else if (req.body.action === "change-pw") {
             try {
                 const { id, pw, auth } = req.body;
                 const salt = bcrypt.genSaltSync(5);

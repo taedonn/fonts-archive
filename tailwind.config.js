@@ -56,6 +56,7 @@ module.exports = {
                 "fade-in-fontbox": "fade-in-fontbox 0.4s 1 both",
                 "fade-in-from-top": "fade-in-from-top 0.2s 1 both",
                 "fade-in-account": "fade-in-fontbox 0.2s 1 both",
+                "fade-in-time-out": "fade-in-time-out 1s 1 both",
                 "skeleton-anim": "skeleton-anim 2s infinite"
             },
             backgroundImage: {
@@ -86,10 +87,15 @@ module.exports = {
                     "0%": { opacity: "0", transform: "translateY(-12px)" },
                     "100%": { opacity: "1", transform: "translateY(0)" }
                 },
+                "fade-in-time-out": {
+                    "0%": { opacity: "1" },
+                    "90%": { opacity: "1" },
+                    "100%": { opacity: "0" }
+                },
                 "skeleton-anim": {
                     "0%": { backgroundPosition: "200% center" },
                     "100%": { backgroundPosition: "0% center" }
-                }
+                },
             },
             dropShadow: {
                 "default": "1px 2px 4px #97989C",
