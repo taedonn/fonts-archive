@@ -1,13 +1,13 @@
-<center><img src="https://fonts-archive.s3.ap-northeast-2.amazonaws.com/logo_squared.png" height="120"></center>
-
-&nbsp;
-
-# <center>폰트 아카이브</center>
-
-<center>
-<img src="https://img.shields.io/badge/Compatible%20with-Node%20v18.+-%2337873A"/>
-<img src="https://img.shields.io/badge/Protected%20under-GPL%20v3.0-blue"/>
-</center>
+<p align="center">
+  <a href="#">
+      <img src="https://fonts-archive.s3.ap-northeast-2.amazonaws.com/logo_squared.png" height="120">
+      <h1 align="center">폰트 아카이브</h1>
+  </a>
+  <p align="center">
+    <img src="https://img.shields.io/badge/Compatible%20with-Node%20v18.+-%2337873A"/>
+    <img src="https://img.shields.io/badge/Protected%20under-GPL%20v3.0-blue"/>
+  </p>
+</p>
 
 &nbsp;
 
