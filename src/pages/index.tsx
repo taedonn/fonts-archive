@@ -1,7 +1,5 @@
-// react hooks
+// react
 import { useState } from "react";
-import { useCookies } from 'react-cookie';
-import { debounce } from "lodash";
 
 // next-auth
 import { getServerSession } from "next-auth";
@@ -10,27 +8,39 @@ import { authOptions } from "./api/auth/[...nextauth]";
 // api
 import { FetchUserLike } from "./api/user/fetchuserlike";
 
+// libraries
+import { useCookies } from 'react-cookie';
+import { debounce } from "lodash";
+
 // components
+import Motion from "@/components/motion";
 import Header from "@/components/header";
-import TooltipIndex from "@/components/tooltipIndex";
+import Tooltip from "@/components/tooltip";
+import Sidemenu from "@/components/sidemenu";
 import FontBox from "@/components/fontbox";
-import KakaoAdFitTopBanner from "@/components/kakaoAdFitTopBanner";
 
 const Index = ({params}: any) => {
-    // 쿠키 훅
-    const [, setCookie] = useCookies<string>([]);
+    const { license, lang, type, sort, theme, source, filter, userAgent, user, like } = params;
 
     // 디바이스 체크
-    const isMac: boolean = params.userAgent.includes("Mac OS") ? true : false
+    const isMac: boolean = userAgent.includes("Mac OS") ? true : false;
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(userAgent);
 
-    // 옵션 - "허용 범위" 디폴트: "전체"
-    const [license, setLicense] = useState<string>(params.license);
+    // states
+    const [, setCookie] = useCookies<string>([]);
+    const [thisLicense, setLicense] = useState<string>(license);
+    const [thisLang, setLang] = useState<string>(lang);
+    const [thisType, setType] = useState<string>(type);
+    const [thisSort, setSort] = useState<string>(sort);
+    const [text, setText] = useState<string>("");
+    const [searchword, setSearchword] = useState<string>(source);
+    const [expand, setExpand] = useState<boolean>(isMobile ? false : true);
 
     /** 옵션 - "허용 범위" 클릭 */
-    const handleLicenseOptionChange = (e:React.ChangeEvent<HTMLInputElement>) => {
-        // 쿠키 유효 기간 1년으로 설정
+    const handleLicenseOptionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        // 쿠키 유효 기간 1달
         const expires = new Date();
-        expires.setFullYear(expires.getFullYear() + 1);
+        expires.setMonth(expires.getMonth() + 1);
 
         if (e.target.checked) {
             setCookie('license', e.target.value, {path:'/', expires: expires, secure: true, sameSite: 'strict'});
@@ -38,14 +48,11 @@ const Index = ({params}: any) => {
         }
     }
 
-    // 옵션 - "언어 선택" 디폴트: "전체"
-    const [lang, setLang] = useState<string>(params.lang);
-
     /** 옵션 - "언어 선택" 클릭 */
-    const handleLangOptionChange = (e:React.ChangeEvent<HTMLInputElement>) => {
-        // 쿠키 유효 기간 1년으로 설정
+    const handleLangOptionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        // 쿠키 유효 기간 1달
         const expires = new Date();
-        expires.setFullYear(expires.getFullYear() + 1);
+        expires.setMonth(expires.getMonth() + 1);
 
         if (e.target.checked) {
             setCookie('lang', e.target.value, {path:'/', expires: expires, secure: true, sameSite: 'strict'});
@@ -53,14 +60,11 @@ const Index = ({params}: any) => {
         }
     }
 
-    // 옵션 - "폰트 형태" 디폴트: 전체
-    const [type, setType] = useState<string>(params.type);
-
     /** 옵션 - "폰트 형태" 클릭 */
-    const handleTypeOptionChange = (e:React.ChangeEvent<HTMLInputElement>) => {
-        // 쿠키 유효 기간 1년으로 설정
+    const handleTypeOptionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        // 쿠키 유효 기간 1달
         const expires = new Date();
-        expires.setFullYear(expires.getFullYear() + 1);
+        expires.setMonth(expires.getMonth() + 1);
 
         if (e.target.checked) {
             setCookie('type', e.target.value, {path:'/', expires: expires, secure: true, sameSite: 'strict'});
@@ -68,14 +72,11 @@ const Index = ({params}: any) => {
         }
     }
 
-    // 옵션 - "정렬순" 디폴트: 최신순
-    const [sort, setSort] = useState<string>(params.sort);
-
     /** 옵션 - "정렬순" 클릭 */
-    const handleSortOptionChange = (e:React.ChangeEvent<HTMLInputElement>) => {
-        // 쿠키 유효 기간 1년으로 설정
+    const handleSortOptionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        // 쿠키 유효 기간 1달
         const expires = new Date();
-        expires.setFullYear(expires.getFullYear() + 1);
+        expires.setMonth(expires.getMonth() + 1);
 
         if (e.target.checked) {
             setCookie('sort', e.target.value, {path:'/', expires: expires, secure: true, sameSite: 'strict'});
@@ -83,62 +84,98 @@ const Index = ({params}: any) => {
         }
     }
 
-    // 텍스트 입력칸 디폴트: 빈 문자열
-    const [text, setText] = useState("");
-    const handleTextChange = (e:React.ChangeEvent<HTMLInputElement>) => { setText(e.target.value); }
+    // 텍스트 입력칸
+    const handleTextChange = (e: React.ChangeEvent<HTMLInputElement>) => { setText(e.target.value); }
 
-    // 폰트 검색 기능
-    const [searchword, setSearchword] = useState(params.source);
+    /** 폰트 검색 기능 */
     const debouncedSearch = debounce((e) => {
         if (e.target) setSearchword(e.target.value);
         else setSearchword("");
     }, 500);
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => { debouncedSearch(e); }
 
+    // 필터 초기화하기
+    const resetFilter = () => {
+        // 쿠키 유효 기간 삭제
+        const expires = new Date();
+        expires.setMonth(expires.getMonth() - 1);
+
+        // 상태 리셋
+        setLicense("all");
+        setLang("all");
+        setType("all");
+        setSort("date");
+        setText("");
+        setSearchword("");
+
+        // 쿠키 리셋
+        setCookie('license', "all", {path:'/', expires: expires, secure: true, sameSite: 'strict'});
+        setCookie('lang', "all", {path:'/', expires: expires, secure: true, sameSite: 'strict'});
+        setCookie('type', "all", {path:'/', expires: expires, secure: true, sameSite: 'strict'});
+        setCookie('sort', "date", {path:'/', expires: expires, secure: true, sameSite: 'strict'});
+    }
+
+    /** 사이드 메뉴 펼치기/접기 */
+    const handleExpand = (e: React.ChangeEvent<HTMLInputElement>) => { setExpand(e.target.checked); }
+
     return (
         <>
             {/* 헤더 */}
             <Header
                 isMac={isMac}
-                theme={params.theme}
-                user={params.user}
+                theme={theme}
+                user={user}
                 page={"index"}
-                license={license}
-                lang={lang}
-                type={type}
-                sort={sort}
-                source={params.source}
-                handleTextChange={handleTextChange}
-                handleLicenseOptionChange={handleLicenseOptionChange}
-                handleLangOptionChange={handleLangOptionChange}
-                handleTypeOptionChange={handleTypeOptionChange}
-                handleSortOptionChange={handleSortOptionChange}
                 handleSearch={handleSearch}
             />
-
-            {/* 카카오 애드핏 상단 띠배너 */}
-            <div>
-                <KakaoAdFitTopBanner
-                    marginTop={12}
-                />
-            </div>
             
             {/* 메인 */}
-            <FontBox 
-                license={license}
-                lang={lang}
-                type={type}
-                sort={sort}
-                user={params.user}
-                like={params.like}
-                filter={params.filter}
-                searchword={searchword}
-                text={text}
-                num={999}
-            />
+            <Motion
+                initialOpacity={0}
+                animateOpacity={1}
+                exitOpacity={0}
+                initialX={isMobile ? 0 : -320}
+                animateX={0}
+                exitX={isMobile ? 0 : -320}
+                transitionType="spring"
+            >
+                <div className="w-full flex">
+                    <Sidemenu
+                        expand={expand}
+                        handleExpand={handleExpand}
+                        lang={thisLang}
+                        license={thisLicense}
+                        type={thisType}
+                        sort={thisSort}
+                        source={source}
+                        text={text}
+                        searchword={searchword}
+                        handleTextChange={handleTextChange}
+                        handleLangOptionChange={handleLangOptionChange}
+                        handleLicenseOptionChange={handleLicenseOptionChange}
+                        handleTypeOptionChange={handleTypeOptionChange}
+                        handleSortOptionChange={handleSortOptionChange}
+                        handleSearch={handleSearch}
+                        resetFilter={resetFilter}
+                    />
+                    <FontBox 
+                        expand={expand}
+                        license={thisLicense}
+                        lang={thisLang}
+                        type={thisType}
+                        sort={thisSort}
+                        user={user}
+                        like={like}
+                        filter={filter}
+                        searchword={searchword}
+                        text={text}
+                        num={999}
+                    />
+                </div>
+            </Motion>
 
-            {/* 고정 메뉴 */}
-            <TooltipIndex/>
+            {/* 툴팁 */}
+            <Tooltip/>
         </>
     );
 }
@@ -146,16 +183,10 @@ const Index = ({params}: any) => {
 export async function getServerSideProps(ctx: any) {
     try {
         // 쿠키 가져오기
-        const { theme } = ctx.req.cookies;
-        const license = ctx.req.cookies.license === undefined ? "all" : ctx.req.cookies.license;
-        const lang = ctx.req.cookies.lang === undefined ? "all" : ctx.req.cookies.lang;
-        const type = ctx.req.cookies.type === undefined ? "all" : ctx.req.cookies.type;
-        const sort = ctx.req.cookies.sort === undefined ? "date" : ctx.req.cookies.sort;
-        // const theme = ctx.req.cookies.theme === undefined ? "dark" : ctx.req.cookies.theme;
+        const { license, lang, type, sort, theme } = ctx.req.cookies;
 
         // 파라미터 가져오기
-        const source = ctx.query.search === undefined ? "" : ctx.query.search;
-        const filter = ctx.query.filter === undefined ? "" : ctx.query.filter;
+        const { source, filter } = ctx.query;
 
         // 디바이스 체크
         const userAgent = ctx.req ? ctx.req.headers['user-agent'] : navigator.userAgent;
@@ -171,13 +202,13 @@ export async function getServerSideProps(ctx: any) {
         return {
             props: {
                 params: {
-                    license: license,
-                    lang: lang,
-                    type: type,
-                    sort: sort,
+                    license: license ? license : 'all',
+                    lang: lang ? lang : 'all',
+                    type: type ? type : 'all',
+                    sort: sort ? sort : 'date',
                     theme: theme ? theme : 'light',
-                    source: source,
-                    filter: filter,
+                    source: source ? source : '',
+                    filter: filter ? filter : '',
                     userAgent: userAgent,
                     user: session === null ? null : session.user,
                     like: like,

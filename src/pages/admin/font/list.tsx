@@ -1,118 +1,51 @@
-// next hooks
+// next
 import Link from 'next/link';
-import { NextSeo } from 'next-seo';
+import { useRouter } from 'next/router';
 
 // next-auth
 import { getServerSession } from "next-auth";
 import { authOptions } from '@/pages/api/auth/[...nextauth]';
 
-// react hooks
-import React, { useEffect, useState, useRef } from 'react';
-
 // api
-import axios from 'axios';
 import { FetchFontsLength } from '@/pages/api/admin/font';
 import { FetchFonts } from '@/pages/api/admin/font';
 
+// libraries
+import { Pagination } from '@mui/material';
+import { NextSeo } from 'next-seo';
+
 // components
+import Motion from '@/components/motion';
 import Header from "@/components/header";
 import Footer from '@/components/footer';
-import { Pagination } from '@mui/material';
+import SearchInput from '@/components/searchinput';
 
 // common
-import { timeFormat } from '@/libs/common';
+import { dateFormat, onMouseDown, onMouseUp, onMouseOut } from '@/libs/common';
 
 const FontsList = ({params}: any) => {
+    const { theme, userAgent, user, page, filter, search, count, fonts } = params;
+
     // 디바이스 체크
-    const isMac: boolean = params.userAgent.includes("Mac OS") ? true : false;
+    const isMac: boolean = userAgent.includes("Mac OS") ? true : false;
 
-    // 목록 state
-    const [fonts, setFonts] = useState(params.fonts);
-    const [count, setCount] = useState<number>(params.count);
-    const [filter, setFilter] = useState<string>('all');
-    const [text, setText] = useState<string>('');
+    // router
+    const router = useRouter();
 
-    // 목록 ref
-    const selectRef = useRef<HTMLSelectElement>(null);
-    const textRef = useRef<HTMLInputElement>(null);
-
-    // 목록 페이지 변경
-    const [page, setPage] = useState<number>(1);
-    const handleChange = (e: React.ChangeEvent<unknown>, value: number) => {
-        setPage(value);
-    };
-
-    // 페이지 변경 시 데이터 다시 불러오기
-    useEffect(() => {
-        const fetchNewFonts = async () => {
-            await axios.get('/api/admin/font', {
-                params: {
-                    action: "fetch-fonts",
-                    page: page,
-                    filter: filter,
-                    text: text,
-                }
-            })
-            .then((res) => {
-                setFonts(res.data.fonts);
-                setCount(res.data.count);
-            })
-            .catch(err => console.log(err));
-        }
-        fetchNewFonts();
-    }, [page, filter, text]);
-
-    // 검색 버튼 클릭 시 값 state에 저장 후, API 호출
-    const handleClick = async () => {
-        if (selectRef &&selectRef.current && textRef && textRef.current) {
-            // state 저장
-            setPage(1);
-            setFilter(selectRef.current.value);
-            setText(textRef.current.value);
-            
-            // API 호출
-            await axios.get('/api/admin/font', {
-                params: {
-                    action: "fetch-fonts",
-                    page: 1,
-                    filter: selectRef.current.value,
-                    text: textRef.current.value
-                }
-            })
-            .then((res) => {
-                setFonts(res.data.fonts);
-                setCount(res.data.count);
-            })
-            .catch(err => console.log(err));
-        }
+    // 페이지 변경
+    const handlePageChange = (e: React.ChangeEvent<unknown>, value: number) => {
+        router.push(`/admin/font/list${value === 1 ? "" : `?page=${value}`}${filter === "date" ? "" : `${value === 1 ? "?" : "&"}filter=${filter}`}${search === "" ? "" : `${value === 1 && filter === "date" ? "?" : "&"}search=${search}`}`);
     }
 
-    /** 조회수 단위 변경 : 1000 => 1K */
-    const ranges = [
-        { divider: 1e6 , suffix: 'M' },
-        { divider: 1e3 , suffix: 'k' }
-    ];
-    const formatNumber = (n: number | null) => {
-        if (n === null) {
-            return ""
-        }
-        else {
-            for (let i = 0; i < ranges.length; i++) {
-                if (n >= ranges[i].divider) {
-                    return (n / ranges[i].divider).toString() + ranges[i].suffix;
-                }
-            }
-        }
-        return n.toString();
+    // 핕터 변경
+    const handleFilterChange = (e: React.MouseEvent<HTMLButtonElement>) => {
+        router.push(`/admin/font/list${e.currentTarget.value === "date" ? "" : `?filter=${e.currentTarget.value}`}${search === "" ? "" : `${page === 1 && e.currentTarget.value === "date" ? "?" : "&"}search=${search}`}`);
     }
 
-    /** 폰트 타입 변경 */
-    const formatType = (type: string) => {
-        if (type === "Sans Serif") return "고딕";
-        else if (type === "Serif") return "명조";
-        else if (type === "Hand Writing") return "손글씨";
-        else if (type === "Display") return "장식체";
-        else return "픽셀체";
+    // 검색어 변경
+    const handleSearchClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+        const input = document.getElementById("search") as HTMLInputElement;
+        router.push(`/admin/font/list${filter === "date" ? "" : `?filter=${filter}`}${input.value === "" ? "" : `${page === 1 && filter === "date" ? "?" : "&"}search=${input.value}`}`);
     }
 
     return (
@@ -126,75 +59,83 @@ const FontsList = ({params}: any) => {
             {/* 헤더 */}
             <Header
                 isMac={isMac}
-                theme={params.theme}
-                user={params.user}
+                theme={theme}
+                user={user}
             />
 
             {/* 메인 */}
-            <form onSubmit={e => e.preventDefault()} className='w-[100%] flex flex-col justify-center items-center'>
-                <div className='w-[720px] tmd:w-[100%] flex flex-col justify-center items-start my-[100px] tlg:my-[40px]'>
-                    <h2 className='text-[20px] tlg:text-[18px] text-theme-3 dark:text-theme-9 font-medium mb-[16px] tlg:mb-[12px]'>폰트 목록</h2>
-                    <div className='w-content flex items-center p-[6px] mb-[12px] tlg:mb-[8px] rounded-[6px] text-theme-10 dark:text-theme-9 bg-theme-5 dark:bg-theme-3'>
-                        <select ref={selectRef} className='w-[80px] h-[32px] tlg:h-[28px] text-[12px] pt-px px-[14px] bg-transparent rounded-[6px] outline-none border border-theme-6 dark:border-theme-5 cursor-pointer'>
-                            <option value='all' defaultChecked>전체</option>
-                            <option value='kr'>한글</option>
-                            <option value='en'>영문</option>
-                            <option value='show'>보임</option>
-                            <option value='hide'>숨김</option>
-                        </select>
-                        <input ref={textRef} type='textbox' placeholder='폰트명 입력' className='w-[200px] tlg:w-[160px] h-[32px] tlg:h-[28px] ml-[8px] px-[12px] text-[12px] bg-transparent border rounded-[6px] border-theme-6 dark:border-theme-5'/>
-                        <button onClick={handleClick} className='w-[68px] h-[32px] tlg:h-[28px] ml-[8px] text-[12px] border rounded-[6px] bg-theme-6/40 hover:bg-theme-6/60 tlg:hover:bg-theme-6/40 dark:bg-theme-4 hover:dark:bg-theme-5 tlg:hover:dark:bg-theme-4'>검색</button>
-                    </div>
-                    <div className='w-[100%] rounded-[8px] overflow-hidden overflow-x-auto'>
-                    <div className='w-[720px] text-[12px] text-theme-10 dark:text-theme-9 bg-theme-4 dark:bg-theme-4'>
-                            <div className='text-left bg-theme-5 dark:bg-theme-3'>
-                                <div className='h-[40px] tlg:h-[34px] flex items-center'>
-                                    <div className='w-[60px] pl-[12px] shrink-0'>코드</div>
-                                    <div className='w-[100%] pl-[12px]'>폰트명</div>
-                                    <div className='w-[60px] pl-[12px] shrink-0'>조회수</div>
-                                    <div className='w-[60px] pl-[12px] shrink-0'>좋아요</div>
-                                    <div className='w-[60px] pl-[12px] shrink-0'>언어</div>
-                                    <div className='w-[60px] pl-[12px] shrink-0'>타입</div>
-                                    <div className='w-[60px] pl-[12px] shrink-0'>보임</div>
-                                    <div className='w-[112px] pl-[12px] shrink-0'>생성 날짜</div>
-                                    <div className='w-[112px] pl-[12px] shrink-0'>수정 날짜</div>
+            <Motion
+                initialOpacity={0}
+                animateOpacity={1}
+                exitOpacity={0}
+                initialY={-50}
+                animateY={0}
+                exitY={-50}
+                transitionType="spring"
+            >
+                <form onSubmit={e => e.preventDefault()} className='w-full px-4 flex flex-col justify-center items-center'>
+                    <div className='w-[45rem] tmd:w-full flex flex-col justify-center items-start my-24 tlg:my-16'>
+                        <h2 className='text-2xl tlg:text-xl text-l-2 dark:text-white font-bold mb-4'>폰트 목록</h2>
+                        <div className='flex items-center mb-10'>
+                            <SearchInput id="search" placeholder="폰트 검색" value={search}/>
+                            <button onClick={handleSearchClick} className="hidden">검색</button>
+                        </div>
+                        <div className='flex items-center gap-1.5 mb-4'>
+                            <button onClick={handleFilterChange} value="date" onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className={`${filter === "date" ? "bg-h-1 dark:bg-f-8 text-white dark:text-d-2" : "text-l-5 dark:text-d-c hover:text-h-1 hover:dark:text-f-8"} w-20 h-9 flex justify-center items-center rounded-lg`}>최신순</button>
+                            <button onClick={handleFilterChange} value="name" onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className={`${filter === "name" ? "bg-h-1 dark:bg-f-8 text-white dark:text-d-2" : "text-l-5 dark:text-d-c hover:text-h-1 hover:dark:text-f-8"} w-20 h-9 flex justify-center items-center rounded-lg`}>이름순</button>
+                            <button onClick={handleFilterChange} value="view" onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className={`${filter === "view" ? "bg-h-1 dark:bg-f-8 text-white dark:text-d-2" : "text-l-5 dark:text-d-c hover:text-h-1 hover:dark:text-f-8"} w-20 h-9 flex justify-center items-center rounded-lg`}>조회순</button>
+                            <button onClick={handleFilterChange} value="like" onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className={`${filter === "like" ? "bg-h-1 dark:bg-f-8 text-white dark:text-d-2" : "text-l-5 dark:text-d-c hover:text-h-1 hover:dark:text-f-8"} w-20 h-9 flex justify-center items-center rounded-lg`}>좋아요순</button>
+                        </div>
+                        <div className='w-full'>
+                            <div className='w-full text-sm text-l-2 dark:text-white'>
+                                <div className='flex flex-col gap-3'>
+                                    {
+                                        fonts && fonts.length > 0
+                                        ? <>
+                                            {
+                                                fonts.map((font: any) => {
+                                                    return (
+                                                        <div key={font.code} className='px-6 py-4 relative rounded-lg bg-l-e dark:bg-d-4'>
+                                                            <div className="flex tlg:flex-col items-center tlg:items-start gap-2 mb-2">
+                                                                <Link href={`/admin/font/edit?code=${font.code}`} className="block text-h-1 dark:text-f-8 hover:underline tlg:hover:no-underline">{font.name}</Link>
+                                                                <div className='flex gap-2 items-center'>
+                                                                    <div className='text-xs text-l-5 dark:text-d-c'>{dateFormat(font.created_at)}</div>
+                                                                    <div className='text-xs text-l-5 dark:text-d-c'>{font.lang}</div>
+                                                                </div>
+                                                            </div>
+                                                            <div className='w-full flex gap-3 text-sm'>
+                                                                <div>
+                                                                    [{
+                                                                        font.font_type === "Sans Serif"
+                                                                            ? "고딕체"
+                                                                            : font.font_type === "Serif"
+                                                                                ? "명조체"
+                                                                                : font.font_type === "Hand Writing"
+                                                                                    ? "손글씨체"
+                                                                                    : font.font_type === "Display"
+                                                                                        ? "장식체"
+                                                                                        : "픽셀체"
+                                                                    }]
+                                                                </div>
+                                                                <div>조회수: {font.view}</div>
+                                                                <div>좋아요수: {font.like}</div>
+                                                            </div>
+                                                        </div>
+                                                    )
+                                                })
+                                            }
+                                        </>
+                                        : <div className='h-16 text-base flex justify-center items-center text-center'>폰트가 없습니다.</div>
+                                    }
                                 </div>
                             </div>
-                            <div>
-                                {
-                                    fonts && fonts.length > 0
-                                    ? <>
-                                        {
-                                            fonts.map((font: any) => {
-                                                return (
-                                                    <div key={font.code} className='h-[40px] tlg:h-[34px] relative flex items-center border-t border-theme-5 dark:border-theme-3 hover:bg-theme-yellow/20 tlg:hover:bg-transparent hover:dark:bg-theme-blue-1/20 tlg:hover:dark:bg-transparent'>
-                                                        <Link href={`/admin/font/edit?code=${font.code}`} className='w-[100%] h-[100%] block absolute z-10 left-0 top-0'></Link>
-                                                        <div className='w-[60px] pl-[12px] shrink-0'>{font.code}</div>
-                                                        <div className='w-[100%] pl-[12px] overflow-hidden'><div className='font-size'>{font.name}</div></div>
-                                                        <div className='w-[60px] pl-[12px] shrink-0'>{formatNumber(font.view)}</div>
-                                                        <div className='w-[60px] pl-[12px] shrink-0'>{formatNumber(font.like)}</div>
-                                                        <div className='w-[60px] pl-[12px] shrink-0'>{font.lang}</div>
-                                                        <div className='w-[60px] pl-[12px] shrink-0'>{formatType(font.font_type)}</div>
-                                                        <div className='w-[60px] pl-[12px] shrink-0 text-theme-green'>{font.show_type ? "보임" : "숨김"}</div>
-                                                        <div className='w-[112px] pl-[12px] shrink-0'>{timeFormat(font.created_at)}</div>
-                                                        <div className='w-[112px] pl-[12px] shrink-0'>{timeFormat(font.updated_at)}</div>
-                                                    </div>
-                                                )
-                                            })
-                                        }
-                                    </>
-                                    : <div className='h-[60px]'>
-                                        <div className='leading-[60px] text-center'>폰트가 없습니다.</div>
-                                    </div>
-                                }
-                            </div>
+                        </div>
+                        <div className='w-full flex justify-center mt-3'>
+                            <Pagination count={count} page={Number(page)} onChange={handlePageChange} shape='rounded'/>
                         </div>
                     </div>
-                    <div className='w-[100%] flex justify-center mt-[12px]'>
-                        <Pagination count={count} page={page} onChange={handleChange} shape='rounded' showFirstButton showLastButton/>
-                    </div>
-                </div>
-            </form>
+                </form>
+            </Motion>
 
             {/* 풋터 */}
             <Footer/>
@@ -204,8 +145,13 @@ const FontsList = ({params}: any) => {
 
 export async function getServerSideProps(ctx: any) {
     try {
-        // 필터링 쿠키 체크
-        const cookieTheme = ctx.req.cookies.theme === undefined ? "dark" : ctx.req.cookies.theme;
+        // 쿠키 체크
+        const { theme } = ctx.req.cookies;
+
+        // 쿼리 체크
+        const page = ctx.query.page === undefined ? 1 : ctx.query.page;
+        const filter = ctx.query.filter === undefined ? "date" : ctx.query.filter;
+        const search = ctx.query.search === undefined ? "" : ctx.query.search;
 
         // 디바이스 체크
         const userAgent = ctx.req ? ctx.req.headers['user-agent'] : navigator.userAgent;
@@ -222,18 +168,20 @@ export async function getServerSideProps(ctx: any) {
             }
         } else {
             // 폰트 페이지 수
-            const length = await FetchFontsLength();
-            const count = Number(length) % 10 > 0 ? Math.floor(Number(length)/10) + 1 : Math.floor(Number(length)/10);
+            const count = await FetchFontsLength(search);
 
             // 첫 폰트 목록 가져오기
-            const fonts = await FetchFonts(undefined);
+            const fonts = await FetchFonts(page, filter, search);
 
             return {
                 props: {
                     params: {
-                        theme: cookieTheme,
+                        theme: theme ? theme : 'light',
                         userAgent: userAgent,
                         user: session === null ? null : session.user,
+                        page: page,
+                        filter: filter,
+                        search: search,
                         count: count,
                         fonts: JSON.parse(JSON.stringify(fonts))
                     }

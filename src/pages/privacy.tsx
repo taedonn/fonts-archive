@@ -1,4 +1,4 @@
-// next hooks
+// next
 import { NextSeo } from 'next-seo';
 
 // api
@@ -8,11 +8,12 @@ import { authOptions } from './api/auth/[...nextauth]';
 // components
 import Header from "@/components/header";
 import Footer from '@/components/footer';
-import Tooltip from '@/components/tooltip';
 
 const Privacy = ({params}: any) => {
+    const { theme, userAgent, user } = params;
+
     // 디바이스 체크
-    const isMac: boolean = params.userAgent.includes("Mac OS") ? true : false;
+    const isMac: boolean = userAgent.includes("Mac OS") ? true : false;
 
     return (
         <>
@@ -25,19 +26,16 @@ const Privacy = ({params}: any) => {
             {/* 헤더 */}
             <Header
                 isMac={isMac}
-                theme={params.theme}
-                user={params.user}
+                theme={theme}
+                user={user}
             />
 
-            {/* 고정 메뉴 */}
-            <Tooltip/>
-
             {/* 메인 */}
-            <div className='w-[100%] flex flex-col justify-center items-center'>
-                <div className='w-[720px] tmd:w-[100%] flex flex-col justify-center items-start my-[64px] tmd:my-[48px]'>
-                    <h2 className='text-[28px] tmd:text-[20px] text-theme-3 dark:text-theme-9 font-medium'>개인정보처리방침</h2>
-                    <div className='w-[100%] h-px bg-theme-7 dark:bg-theme-5 my-[16px] tmd:my-[12px]'></div>
-<pre style={{fontFamily: "Spoqa Han Sans Neo, Noto Sans KR"}} className='whitespace-pre-wrap text-[14px] text-theme-5 dark:text-theme-9/80 leading-loose'>{
+            <div className='w-full px-4 flex flex-col justify-center items-center'>
+                <div className='w-[45rem] tmd:w-full flex flex-col justify-center items-start mt-16 mb-32 tmd:mt-12 tmd:mb-24'>
+                    <h2 className='text-3xl tmd:text-2xl text-h-2 dark:text-white font-bold'>개인정보처리방침</h2>
+                    <div className='w-full h-px bg-l-b dark:bg-d-6 my-6 tmd:my-4'></div>
+<pre className='font-sans whitespace-pre-wrap text-sm text-l-5 dark:text-d-c leading-loose'>{
 `< 태돈 >('https://fonts.taedonn.com'이하 '폰트 아카이브')은(는) 「개인정보 보호법」 제30조에 따라 정보주체의 개인정보를 보호하고 이와 관련한 고충을 신속하고 원활하게 처리할 수 있도록 하기 위하여 다음과 같이 개인정보 처리방침을 수립·공개합니다.
 
 ○ 이 개인정보처리방침은 2023년 12월 1부터 적용됩니다.
@@ -264,8 +262,8 @@ const Privacy = ({params}: any) => {
 
 export async function getServerSideProps(ctx: any) {
     try {
-        // 필터링 쿠키 체크
-        const cookieTheme = ctx.req.cookies.theme === undefined ? "dark" : ctx.req.cookies.theme;
+        // 쿠키 체크
+        const { theme } = ctx.req.cookies;
 
         // 디바이스 체크
         const userAgent = ctx.req ? ctx.req.headers['user-agent'] : navigator.userAgent;
@@ -276,7 +274,7 @@ export async function getServerSideProps(ctx: any) {
         return {
             props: {
                 params: {
-                    theme: cookieTheme,
+                    theme: theme ? theme : 'light',
                     userAgent: userAgent,
                     user: session === null ? null : session.user,
                 }

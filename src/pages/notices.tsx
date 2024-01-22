@@ -1,41 +1,46 @@
-// react hooks
+// react
 import { useState } from 'react';
 
-// next hooks
+// next
 import { NextSeo } from 'next-seo';
 
 // api
 import { getServerSession } from 'next-auth';
 import { authOptions } from './api/auth/[...nextauth]';
 import { FetchAllNotices } from './api/notices';
+
+// libraries
 import axios from 'axios';
 
 // components
+import Motion from '@/components/motion';
 import Header from "@/components/header";
 import Footer from '@/components/footer';
-import Tooltip from '@/components/tooltip';
+import SearchInput from '@/components/searchinput';
 
 // common
-import { dateFormat } from '@/libs/common';
+import { dateFormat, onMouseDown, onMouseUp, onMouseOut } from '@/libs/common';
 
 // type
 import { notices } from '@/libs/global';
 
 const Notices = ({params}: any) => {
+    const { theme, userAgent, user, notices } = params;
+
     // 디바이스 체크
-    const isMac: boolean = params.userAgent.includes("Mac OS") ? true : false;
+    const isMac: boolean = userAgent.includes("Mac OS") ? true : false;
 
     // 공지 - 목록
-    const [notices, setNotices] = useState(params.notices);
+    const [noticesList, setNoticesList] = useState(notices);
 
     // 공지 - 전체
-    const [all, setAll] = useState(params.notices);
+    const [all, setAll] = useState(notices);
 
     // 공지 - 서비스
-    const [services, setServices] = useState(params.notices.filter((notice: notices) => notice.notice_type === "service"));
+    const [services, setServices] = useState(notices.filter((notice: notices) => notice.notice_type === "service"));
     
     // 공지 - 폰트
-    const [fonts, setFonts] = useState(params.notices.filter((notice: notices) => notice.notice_type === "font"));
+    const [fonts, setFonts] = useState(notices.filter((notice: notices) => notice.notice_type === "font"));
 
     // 공지 타입 저장
     const [type, setType] = useState<string>("all");
@@ -43,15 +48,15 @@ const Notices = ({params}: any) => {
     /** 서비스 유형 선택 시 */
     const handleTypeOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.id === "all") {
-            setNotices(all);
+            setNoticesList(all);
             setType("all");
         }
         else if (e.target.id === "service") {
-            setNotices(services);
+            setNoticesList(services);
             setType("service");
         }
         else {
-            setNotices(fonts);
+            setNoticesList(fonts);
             setType("font");
         }
     }
@@ -70,9 +75,9 @@ const Notices = ({params}: any) => {
                 setServices(res.data.notices.filter((notice: notices) => notice.notice_type === "service"));
                 setFonts(res.data.notices.filter((notice: notices) => notice.notice_type === "font"));
 
-                if (type === "all") { setNotices(res.data.notices); }
-                else if (type === "service") { setNotices(res.data.notices.filter((notice: notices) => notice.notice_type === "service")); }
-                else { setNotices(res.data.notices.filter((notice: notices) => notice.notice_type === "font")); }
+                if (type === "all") { setNoticesList(res.data.notices); }
+                else if (type === "service") { setNoticesList(res.data.notices.filter((notice: notices) => notice.notice_type === "service")); }
+                else { setNoticesList(res.data.notices.filter((notice: notices) => notice.notice_type === "font")); }
             })
             .catch(err => console.log(err));
         }
@@ -89,62 +94,69 @@ const Notices = ({params}: any) => {
             {/* 헤더 */}
             <Header
                 isMac={isMac}
-                theme={params.theme}
-                user={params.user}
+                theme={theme}
+                user={user}
+                page="notices"
             />
 
-            {/* 고정 메뉴 */}
-            <Tooltip/>
-
             {/* 메인 */}
-            <div className='w-[100%] flex flex-col justify-center items-center py-[60px]'>
-                <div className='notices w-[720px] tmd:w-[100%] flex flex-col justify-center items-start'>
-                    <div className='flex items-center mb-[16px]'>
-                        <h2 className='text-[22px] text-theme-3 dark:text-theme-9 font-medium'>공지사항</h2>
-                        <h3 className='text-[14px] ml-[14px] text-theme-5 dark:text-theme-7'>폰트 업데이트 & 소식</h3>
-                    </div>
-                    <div className='relative mb-[36px]'>
-                        <svg className='w-[14px] absolute left-[18px] top-[50%] translate-y-[-50%] fill-theme-5 dark:fill-theme-7' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/></svg>
-                        <input onKeyUp={handleKeyUp} type="text" id="search" placeholder="검색어 입력" className="w-[300px] h-[40px] text-[14px] pl-[40px] pr-[20px] border rounded-full border-theme-7 dark:border-theme-5 text-theme-5 dark:text-theme-7 placeholder:text-theme-5 dark:placeholder:text-theme-7 bg-transparent"/>
-                    </div>
-                    <div className='flex items-center gap-[6px] mb-[16px]'>
-                        <div>
-                            <input onChange={handleTypeOnChange} type="radio" id="all" name="type" className="hidden peer" defaultChecked/>
-                            <label htmlFor='all' className='w-[80px] h-[32px] text-[14px] pt-px flex justify-center items-center cursor-pointer border rounded-full border-theme-7 dark:border-theme-5 peer-checked:border-theme-yellow peer-checked:dark:border-theme-blue-1 text-theme-5 dark:text-theme-7 peer-checked:text-theme-3 peer-checked:dark:text-theme-blue-2 peer-checked:bg-theme-yellow peer-checked:dark:bg-theme-blue-1'>전체<div className='text-[13px] ml-[2px]'>({all.length})</div></label>
+            <Motion
+                initialOpacity={0}
+                animateOpacity={1}
+                exitOpacity={0}
+                initialY={-50}
+                animateY={0}
+                exitY={-50}
+                transitionType="spring"
+            >
+                <div className='w-full px-4 flex flex-col justify-center items-center my-24 tlg:my-16'>
+                    <div className='notices w-[45rem] tmd:w-full flex flex-col justify-center items-start'>
+                        <div className='flex items-center mb-4'>
+                            <h2 className='text-2xl text-h-2 dark:text-white font-bold'>공지사항</h2>
+                            <h3 className='ml-4 text-l-5 dark:text-d-c'>폰트 업데이트 & 소식</h3>
                         </div>
-                        <div>
-                            <input onChange={handleTypeOnChange} type="radio" id="service" name="type" className="hidden peer"/>
-                            <label htmlFor='service' className='w-[80px] h-[32px] text-[14px] pt-px flex justify-center items-center cursor-pointer border rounded-full border-theme-7 dark:border-theme-5 peer-checked:border-theme-yellow peer-checked:dark:border-theme-blue-1 text-theme-5 dark:text-theme-7 peer-checked:text-theme-3 peer-checked:dark:text-theme-blue-2 peer-checked:bg-theme-yellow peer-checked:dark:bg-theme-blue-1'>서비스<div className='text-[13px] ml-[2px]'>({services.length})</div></label>
+                        <div className='relative mb-10 text-l-2 dark:text-white'>
+                            <SearchInput onkeyup={handleKeyUp} id="search" placeholder="검색어 입력"/>
                         </div>
-                        <div>
-                            <input onChange={handleTypeOnChange} type="radio" id="font" name="type" className="hidden peer"/>
-                            <label htmlFor='font' className='w-[80px] h-[32px] text-[14px] pt-px flex justify-center items-center cursor-pointer border rounded-full border-theme-7 dark:border-theme-5 peer-checked:border-theme-yellow peer-checked:dark:border-theme-blue-1 text-theme-5 dark:text-theme-7 peer-checked:text-theme-3 peer-checked:dark:text-theme-blue-2 peer-checked:bg-theme-yellow peer-checked:dark:bg-theme-blue-1'>폰트<div className='text-[13px] ml-[2px]'>({fonts.length})</div></label>
-                        </div>
-                    </div>
-                    {
-                        notices && notices.length > 0
-                        ?  notices.map((notice: notices) => {
-                            return <div key={notice.notice_id.toString()} className='notice w-[100%] flex flex-col'>
-                                <input type='checkbox' id={`notice-${notice.notice_id}`} className='hidden peer/expand'/>
-                                <label htmlFor={`notice-${notice.notice_id}`} className='cursor-pointer hover:bg-theme-7/20 hover:dark:bg-theme-5/20'>
-                                    <div className='w-[100%] h-[56px] text-[14px] flex justify-between items-center border-t text-theme-3 dark:text-theme-9 border-theme-7 dark:border-theme-5'>
-                                        <div className='flex items-center'>
-                                            <div className='w-[100px] tlg:w-[80px] shrink-0 flex justify-center items-center'><div className='px-[4px] border-b-[2px] dark:border-theme-blue-1'>{notice.notice_type === "service" ? "서비스" : "폰트"}</div></div>
-                                            <div className='w-[100%] ml-[12px]'><div className='font-size'>{notice.notice_title}</div></div>
-                                        </div>
-                                        <div className='flex items-center mr-[20px]'>
-                                            <div className='w-[80px] text-theme-5 dark:text-theme-7'>{dateFormat(notice.notice_created_at)}</div>
-                                            <svg className='w-[8px] ml-[20px] fill-theme-5 dark:fill-theme-7 duration-100' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg>
-                                        </div>
-                                    </div>
-                                </label>
-                                <pre className='w-[100%] h-0 whitespace-pre-wrap peer-checked/expand:h-[auto] px-[32px] peer-checked/expand:py-[20px] text-[14px] duration-100 flex items-center overflow-hidden peer-checked/expand:border-t border-theme-7 dark:border-theme-5 text-theme-3 dark:text-theme-9 bg-theme-7/20 dark:bg-theme-5/20'>{notice.notice_content}</pre>
+                        <div className='flex items-center gap-1.5 mb-4'>
+                            <div>
+                                <input onChange={handleTypeOnChange} type="radio" id="all" name="type" className="hidden peer" defaultChecked/>
+                                <label htmlFor='all' onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className='w-24 h-9 flex justify-center items-center cursor-pointer rounded-lg text-l-5 dark:text-d-c peer-checked:text-white peer-checked:dark:text-d-2 peer-checked:bg-h-1 peer-checked:dark:bg-f-8'>전체<div className='text-sm ml-0.5'>({all.length})</div></label>
                             </div>
-                        })
-                        : <div className='w-[100%] h-[68px] text-[14px] flex justify-center items-center text-center border-t border-theme-7 dark:border-theme-5 text-theme-3 dark:text-theme-9'>공지사항을 찾을 수 없습니다.</div>
-                    }
+                            <div>
+                                <input onChange={handleTypeOnChange} type="radio" id="service" name="type" className="hidden peer"/>
+                                <label htmlFor='service' onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className='w-24 h-9 flex justify-center items-center cursor-pointer rounded-lg text-l-5 dark:text-d-c peer-checked:text-white peer-checked:dark:text-d-2 peer-checked:bg-h-1 peer-checked:dark:bg-f-8'>서비스<div className='text-sm ml-0.5'>({services.length})</div></label>
+                            </div>
+                            <div>
+                                <input onChange={handleTypeOnChange} type="radio" id="font" name="type" className="hidden peer"/>
+                                <label htmlFor='font' onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className='w-24 h-9 flex justify-center items-center cursor-pointer rounded-lg text-l-5 dark:text-d-c peer-checked:text-white peer-checked:dark:text-d-2 peer-checked:bg-h-1 peer-checked:dark:bg-f-8'>폰트<div className='text-sm ml-0.5'>({fonts.length})</div></label>
+                            </div>
+                        </div>
+                        {
+                            noticesList && noticesList.length > 0
+                            ?  noticesList.map((notice: notices) => {
+                                return <div key={notice.notice_id.toString()} className='notice group w-full flex flex-col gap-3'>
+                                    <input type='checkbox' id={`notice-${notice.notice_id}`} className='hidden peer/expand'/>
+                                    <label htmlFor={`notice-${notice.notice_id}`} className='group/label rounded-lg cursor-pointer border-2 border-transparent text-l-2 dark:text-white bg-l-e dark:bg-d-4 hover:border-h-1 hover:dark:border-f-8 tlg:hover:border-transparent tlg:hover:dark:border-transparent peer-checked/expand:border-h-1 peer-checked/expand:dark:border-f-8 peer-checked/expand:bg-transparent'>
+                                        <div className='w-full h-14 text-sm flex justify-between items-center'>
+                                            <div className='flex items-center'>
+                                                <div className='w-[6.25rem] tlg:w-20 shrink-0 flex justify-center items-center'><div className='px-1 border-b-2 border-h-1 dark:border-f-8 selection:bg-transparent'>{notice.notice_type === "service" ? "서비스" : "폰트"}</div></div>
+                                                <div className='w-full ml-3 selection:bg-transparent'><div className='ellipsed-text'>{notice.notice_title}</div></div>
+                                            </div>
+                                            <div className='flex items-center mr-5 text-l-5 dark:text-d-c'>
+                                                <div className='w-20 selection:bg-transparent'>{dateFormat(notice.notice_created_at)}</div>
+                                                <i className="text-xs ml-5 duration-100 peer-checked/expand:group-[]/label:rotate-90 fa-solid fa-angle-right"></i>
+                                            </div>
+                                        </div>
+                                    </label>
+                                    <pre className='font-sans w-full h-0 whitespace-pre-wrap peer-checked/expand:h-[auto] px-8 peer-checked/expand:py-6 peer-checked/expand:mb-3 text-sm leading-6 duration-100 flex items-center rounded-lg overflow-hidden bg-l-e dark:bg-d-4 text-l-2 dark:text-white'>{notice.notice_content}</pre>
+                                </div>
+                            })
+                            : <div className='w-full h-20 flex justify-center items-center text-sm text-center border-t border-l-b dark:border-d-6 text-l-2 dark:text-white'>공지사항을 찾을 수 없습니다.</div>
+                        }
+                    </div>
                 </div>
-            </div>
+            </Motion>
 
             {/* 풋터 */}
             <Footer/>
@@ -154,8 +166,8 @@ const Notices = ({params}: any) => {
 
 export async function getServerSideProps(ctx: any) {
     try {
-        // 필터링 쿠키 체크
-        const cookieTheme = ctx.req.cookies.theme === undefined ? "dark" : ctx.req.cookies.theme;
+        // 쿠키 체크
+        const { theme } = ctx.req.cookies;
 
         // 디바이스 체크
         const userAgent = ctx.req ? ctx.req.headers['user-agent'] : navigator.userAgent;
@@ -169,7 +181,7 @@ export async function getServerSideProps(ctx: any) {
         return {
             props: {
                 params: {
-                    theme: cookieTheme,
+                    theme: theme ? theme : 'light',
                     userAgent: userAgent,
                     user: session === null ? null : session.user,
                     notices: JSON.parse(JSON.stringify(notices)),

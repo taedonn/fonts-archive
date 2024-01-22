@@ -1,21 +1,62 @@
-// react hooks
+// react
 import React, { useEffect, useState } from 'react';
 import { useInfiniteQuery } from 'react-query';
 import { useInView } from 'react-intersection-observer';
 
-// next hooks
+// next
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 
-// hooks
+// libraries
 import axios from 'axios';
 import { throttle } from 'lodash';
 
-// 컴포넌트
-import DummyText from "./dummytext";
-import SkeletonBox from './skeletonbox';
+// components
+import DummyText from '@/components/dummytext';
+import SkeletonBox from '@/components/skeletonbox';
+import KakaoAdFitTopBanner from '@/components/kakaoAdFitTopBanner';
 
-export default function FontBox ({license, lang, type, sort, user, like, filter, searchword, text, num}:{license: string, lang: string, type: string, sort: string, user: any, like: any, filter: string, searchword: string, text: string, num: number}) {        
+// common
+import { onMouseDown, onMouseUp, onMouseOut } from '@/libs/common';
+
+interface FontBox {
+    expand: boolean,
+    license: string,
+    lang: string,
+    type: string,
+    sort: string,
+    user: any,
+    like: any,
+    filter: string,
+    searchword: string,
+    text: string,
+    num: number,
+}
+
+export default function FontBox ({
+    expand,
+    license,
+    lang,
+    type,
+    sort,
+    user,
+    like,
+    filter,
+    searchword,
+    text,
+    num
+}: FontBox) {        
+    // states
+    const [alertDisplay, setAlertDisplay] = useState<boolean>(false);
+    const [hoverDisplay, setHoverDisplay] = useState<boolean>(true);
+
+    /** 스켈레톤 박스 반복문 */
+    const skeletonLoop = () => {
+        const limit = 20;
+        const arr = [];
+        for (let i = 0; i < limit; i++) arr.push(<SkeletonBox key={i}/>);
+        return arr;
+    }
+    
     // react-intersection-observer 훅
     const { ref, inView } = useInView();
 
@@ -43,36 +84,14 @@ export default function FontBox ({license, lang, type, sort, user, like, filter,
     // react-intersection-observer 사용해 ref를 지정한 요소가 viewport에 있을 때 fetchNextPage 함수 실행
     useEffect(() => {
         if (inView && hasNextPage) { fetchNextPage(); }
-
-        if (!hasNextPage) document.body.style.paddingBottom = 16 + "px";
-        else document.body.style.paddingBottom = 76 + "px";
     }, [inView, hasNextPage, fetchNextPage]);
 
     // 폰트 검색 필터링 값 변경 시 기존 데이터 지우고 useInfiniteQuery 재실행
     useEffect(() => {
         remove();
         refetch();
-        window.scrollTo(0, 0);
+        // window.scrollTo(0, 0);
     }, [license, lang, type, sort, searchword, filter, remove, refetch]);
-
-    // 다음 페이지가 없으면 패딩 변경
-    const router = useRouter();
-    
-    useEffect(() => {
-        const start = () => {
-            document.body.style.paddingBottom = 76 + "px";
-        }
-        router.events.on("routeChangeStart", start);
-        router.events.on("routeChangeError", start);
-        return () => {
-            router.events.off("routeChangeStart", start);
-            router.events.off("routeChangeError", start);
-        }
-    }, [router]);
-
-    // 좋아요 state
-    const [alertDisplay, setAlertDisplay] = useState<boolean>(false);
-    const [hoverDisplay, setHoverDisplay] = useState<boolean>(true);
 
     /** 로그인 중이 아닐 때 좋아요 클릭 방지 */
     const handleLikeClick = (e: React.MouseEvent<HTMLInputElement>) => {
@@ -136,14 +155,14 @@ export default function FontBox ({license, lang, type, sort, user, like, filter,
                 font.load(null, 5000).then(function() { // 폰트 로딩 시 텍스트 투명도 제거 (timeout 5초)
                     let thisFont = document.getElementsByClassName(data.pages[data.pages.length-1].fonts[i].code + '-text');
                     if (thisFont.length !== 0) {
-                        thisFont[0].classList.add('text-theme-3', 'dark:text-theme-8');
-                        thisFont[0].classList.remove('text-theme-3/60', 'dark:text-theme-8/60');   
+                        thisFont[0].classList.add('text-l-2');
+                        thisFont[0].classList.remove('text-l-b');   
                     }
                 }, function() { // 폰트 로딩 실패 시에도 투명도 제거
                     let thisFont = document.getElementsByClassName(data.pages[data.pages.length-1].fonts[i].code + '-text');
                     if (thisFont.length !== 0) {
-                        thisFont[0].classList.add('text-theme-3', 'dark:text-theme-8');
-                        thisFont[0].classList.remove('text-theme-3/60', 'dark:text-theme-8/60');   
+                        thisFont[0].classList.add('text-l-2');
+                        thisFont[0].classList.remove('text-l-b');   
                     }
                 });
             }
@@ -152,126 +171,93 @@ export default function FontBox ({license, lang, type, sort, user, like, filter,
 
     return (
         <>
-            <div className='w-[100%] flex flex-col justify-start items-end'>
-                <div className="main-menu w-[100%] relative flex flex-wrap flex-row justify-between items-stretch">
+            <div className={`${expand ? "w-[calc(100%-320px)] tlg:w-full" : "w-full"} pt-12 px-8 tlg:px-4 duration-200`}>
+                <div className="w-full mt-8 tlg:mt-4 mb-32 relative flex flex-col">
+                    <div className='w-full flex'>
+                        <KakaoAdFitTopBanner marginBottom={1}/>
+                    </div>
                     
                     {/* 로그인 중이 아닐 때 좋아요 alert창 팝업 */}
                     {
-                        alertDisplay === true
-                        ? <div className='fixed z-20 top-[24px] tlg:top-[20px] right-[32px] tlg:right-[28px] w-content h-[60px] tlg:h-[56px] px-[12px] flex flex-row justify-between items-center rounded-[8px] border border-theme-yellow dark:border-theme-blue-1 text-[13px] tlg:text-[12px] text-theme-10/80 dark:text-theme-9/80 bg-theme-4 dark:bg-theme-blue-2'>
+                        alertDisplay
+                        && <div className='fixed z-20 top-6 right-8 tlg:right-4 w-max h-16 px-4 flex justify-between items-center rounded-lg text-sm text-l-2 dark:text-white bg-l-e dark:bg-d-4'>
                             <div className='flex flex-row justify-start items-center'>
-                                <svg className='w-[24px] tlg:w-[20px] fill-theme-8 dark:fill-theme-9/80' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M7.657 6.247c.11-.33.576-.33.686 0l.645 1.937a2.89 2.89 0 0 0 1.829 1.828l1.936.645c.33.11.33.576 0 .686l-1.937.645a2.89 2.89 0 0 0-1.828 1.829l-.645 1.936a.361.361 0 0 1-.686 0l-.645-1.937a2.89 2.89 0 0 0-1.828-1.828l-1.937-.645a.361.361 0 0 1 0-.686l1.937-.645a2.89 2.89 0 0 0 1.828-1.828l.645-1.937zM3.794 1.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387A1.734 1.734 0 0 0 4.593 5.69l-.387 1.162a.217.217 0 0 1-.412 0L3.407 5.69A1.734 1.734 0 0 0 2.31 4.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387A1.734 1.734 0 0 0 3.407 2.31l.387-1.162zM10.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732L9.1 2.137a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L10.863.1z"/></svg>
-                                <div className='ml-[8px]'>
+                                <i className="text-lg text-h-1 dark:text-f-8 bi bi-stars"></i>
+                                <div className='ml-3'>
                                     좋아요 기능은 로그인 시 이용 가능합니다. <br/>
-                                    <Link href="/user/login" className='text-theme-yellow dark:text-theme-blue-1 hover:underline tlg:hover:no-underline'>로그인 하러 가기</Link>
+                                    <Link href="/user/login" className='text-h-1 dark:text-f-8 hover:underline'>로그인 하러 가기</Link>
                                 </div>
                             </div>
-                            <div onClick={handleAlertClose} className='flex flex-row justify-center items-center ml-[8px] cursor-pointer'>
-                                <svg className='w-[20px] fill-theme-10/80 dark:fill-theme-9' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg>
+                            <div onClick={handleAlertClose} onMouseDown={e => onMouseDown(e, 0.85, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className='flex justify-center items-center ml-3 cursor-pointer'>
+                                <i className="text-lg fa-solid fa-xmark"></i>
                             </div>
-                        </div> : <></>
+                        </div>
                     }
                     
                     {/* fetchNextPage */}
-                    {data && data.pages.map((page) => {
-                        return (
-                            <React.Fragment key={page.nextId ?? 'lastPage'}>
-                                {page.fonts.map((font: {
-                                    code: number
-                                    name: string
-                                    lang: string
-                                    date: string
-                                    source: string
-                                    font_family: string
-                                    font_type: string
-                                    cdn_url: string
-                                }) => (
-                                    <div aria-label="font-link" key={font.code} className="relative block w-[calc(20%-8px)] tlg:w-[calc(33.3%-6px)] tmd:w-[calc(50%-4px)] txs:w-[100%] h-[18vw] tlg:h-[30vw] tmd:h-[46vw] txs:h-[82vw] p-[1.04vw] tlg:p-[1.95vw] tmd:p-[2.6vw] txs:p-[4.17vw] mt-[12px] tlg:mt-[10px] rounded-[8px] border border-theme-7 dark:border-theme-5 hover:bg-theme-8/60 tlg:hover:bg-transparent hover:dark:bg-theme-3/40 tlg:hover:dark:bg-transparent animate-fontbox-fade-in cursor-pointer">
-                                        <Link href={`/post/${font.font_family.replaceAll(" ", "+")}`} className='w-[100%] h-[100%] absolute left-0 top-0'></Link>
-                                        <link href={font.cdn_url} rel="stylesheet" type="text/css" itemProp="url"></link>
-                                        <div className='group absolute z-20 top-[1.46vw] tlg:top-[2.73vw] tmd:top-[3.65vw] txs:top-[5.83vw] right-[1.25vw] tlg:right-[1.95vw] tmd:right-[2.6vw] txs:right-[4.17vw]'>
-                                            <input onClick={handleLikeClick} onChange={handleLikeChange} type="checkbox" id={font.code.toString()} className='like hidden' defaultChecked={handleDefaultLike(font.code)}/>
-                                            <label htmlFor={font.code.toString()} className='cursor-pointer'>
-                                                <svg className='w-[1.46vw] tlg:w-[2.73vw] tmd:w-[3.65vw] txs:w-[5.83vw] fill-theme-5' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M225.8 468.2l-2.5-2.3L48.1 303.2C17.4 274.7 0 234.7 0 192.8v-3.3c0-70.4 50-130.8 119.2-144C158.6 37.9 198.9 47 231 69.6c9 6.4 17.4 13.8 25 22.3c4.2-4.8 8.7-9.2 13.5-13.3c3.7-3.2 7.5-6.2 11.5-9c0 0 0 0 0 0C313.1 47 353.4 37.9 392.8 45.4C462 58.6 512 119.1 512 189.5v3.3c0 41.9-17.4 81.9-48.1 110.4L288.7 465.9l-2.5 2.3c-8.2 7.6-19 11.9-30.2 11.9s-22-4.2-30.2-11.9zM239.1 145c-.4-.3-.7-.7-1-1.1l-17.8-20c0 0-.1-.1-.1-.1c0 0 0 0 0 0c-23.1-25.9-58-37.7-92-31.2C81.6 101.5 48 142.1 48 189.5v3.3c0 28.5 11.9 55.8 32.8 75.2L256 430.7 431.2 268c20.9-19.4 32.8-46.7 32.8-75.2v-3.3c0-47.3-33.6-88-80.1-96.9c-34-6.5-69 5.4-92 31.2c0 0 0 0-.1 .1s0 0-.1 .1l-17.8 20c-.3 .4-.7 .7-1 1.1c-4.5 4.5-10.6 7-16.9 7s-12.4-2.5-16.9-7z"/></svg>
-                                                <svg className='w-[1.46vw] tlg:w-[2.73vw] tmd:w-[3.65vw] txs:w-[5.83vw] fill-theme-red' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9L464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96 244 84c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z"/></svg>
-                                            </label>
-                                            <div className={`${hoverDisplay === true ? 'group-hover:block' : 'group-hover:hidden'} like-btn w-content absolute z-20 left-[50%] top-[-2.4vw] text-[0.73vw] font-medium leading-none px-[0.63vw] py-[0.42vw] rounded-[0.21vw] hidden tlg:group-hover:hidden group-hover:animate-fontbox-zoom-in bg-theme-red text-theme-2 after:w-[0.42vw] after:h-[0.42vw] after:bottom-[-0.21vw]`}>{like === null || like.some((likedFont: any) => likedFont.font_id === font.code) === false ? '좋아요' : '좋아요 해제'}</div>
+                    <div className='w-full'>
+                        {data && data.pages.map((page) => {
+                            return (
+                                <React.Fragment key={page.nextId ?? 'lastPage'}>
+                                    {page.fonts.map((font: {
+                                        code: number
+                                        name: string
+                                        lang: string
+                                        date: string
+                                        source: string
+                                        font_family: string
+                                        font_type: string
+                                        cdn_url: string
+                                    }) => (
+                                        <div aria-label="font-link" key={font.code} className="w-full group/wrap relative py-8 tlg:py-6 hover:rounded-lg tlg:hover:rounded-none border-t first:border-t-0 last:border-b border-l-b dark:border-d-4 tlg:hover:border-l-b tlg:hover:dark:border-d-4 [&+div]:hover:border-transparent tlg:[&+div]:hover:border-l-b tlg:[&+div]:hover:dark:border-d-4 hover:border-transparent hover:bg-l-e hover:dark:bg-d-4 tlg:hover:bg-transparent tlg:hover:dark:bg-transparent text-l-2 dark:text-white animate-fade-in-fontbox cursor-pointer">
+                                            <Link href={`/post/${font.font_family.replaceAll(" ", "+")}`} className='w-full h-full absolute z-10 left-0 top-0'></Link>
+                                            <link href={font.cdn_url} rel="stylesheet" type="text/css" itemProp="url"></link>
+                                            <div className='w-max pl-8 tlg:pl-4 mb-6 tlg:mb-4 relative tlg:static flex tlg:flex-col items-center tlg:items-start'>
+                                                <div className="text-xl tlg:text-lg tlg:mb-2">{font.name}</div>
+                                                <div className='w-px h-4 mx-3 tlg:hidden bg-l-b dark:bg-d-9'></div>
+                                                <div className="text-l-5 dark:text-d-9">by {font.source}</div>
+                                                <div className='group absolute z-20 -right-4 tlg:right-8 top-1/2 tlg:top-12 translate-x-full -translate-y-1/2'>
+                                                    <input onClick={handleLikeClick} onChange={handleLikeChange} type="checkbox" id={font.code.toString()} className='peer hidden' defaultChecked={handleDefaultLike(font.code)}/>
+                                                    <label htmlFor={font.code.toString()} onMouseDown={e => onMouseDown(e, 0.8, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className='block group cursor-pointer'>
+                                                        <i className="block peer-checked:group-[]:hidden text-xl tlg:text-lg bi bi-heart"></i>
+                                                        <i className="hidden peer-checked:group-[]:block text-xl tlg:text-lg text-h-r bi bi-heart-fill"></i>
+                                                    </label>
+                                                    <div className={`${hoverDisplay === true ? 'group-hover:block' : 'group-hover:hidden'} tlg:group-hover:hidden tooltip w-max absolute left-1/2 -top-10 px-3 py-2 text-sm font-medium leading-none origin-bottom rounded-lg hidden group-hover:animate-zoom-in-fontbox after:bg-h-r bg-h-r text-white`}>{like === null || like.some((likedFont: any) => likedFont.font_id === font.code) === false ? '좋아요' : '좋아요 해제'}</div>
+                                                </div>
+                                            </div>
+                                            <div className="w-full relative overflow-hidden">
+                                                <div style={{fontFamily:"'"+font.font_family+"'"}} className="w-full pl-8 tlg:pl-4 text-4xl tlg:text-3xl text-normal">
+                                                    <p className={`${font.code + '-text'} whitespace-nowrap text-l-b dark:text-white`}><DummyText lang={font.lang} text={text} num={num}/></p>
+                                                </div>
+                                                <div className='w-40 h-full absolute right-0 top-0 bg-gradient-to-l from-white dark:from-d-2 from-25% group-hover/wrap:from-l-e group-hover/wrap:dark:from-d-4 tlg:group-hover/wrap:from-white tlg:group-hover/wrap:dark:from-d-2'></div>
+                                            </div>
                                         </div>
-                                        <div style={{fontFamily:"'"+font.font_family+"'"}} className="text-[1.04vw] tlg:text-[1.95vw] tmd:text-[2.6vw] txs:text-[4.17vw] mb-[0.42vw] tlg:mb-[0.78vw] tmd:mb-[1.04vw] txs:mb-[1.67vw] text-normal leading-tight text-theme-3 dark:text-theme-8">{font.name}</div>
-                                        <div className="flex flex-row justify-start items-center">
-                                            <div style={{fontFamily:"'"+font.font_family+"'"}} className="inline-block text-[0.73vw] tlg:text-[1.37] tmd:text-[1.82vw] txs:text-[2.92vw] text-normal text-theme-5 dark:text-theme-6 leading-tight"><span className="text-theme-3 dark:text-theme-8">by</span> {font.source}</div>
-                                        </div>
-                                        <div className="w-[100%] h-px my-[0.83vw] tlg:my-[1.56vw] tmd:my-[2.08vw] txs:my-[3.33vw] bg-theme-7 dark:bg-theme-5"></div>
-                                        <div style={{fontFamily:"'"+font.font_family+"'"}} className="text-[1.67vw] tlg:text-[3.52vw] tmd:text-[4.69vw] txs:text-[7.5vw] text-normal leading-normal overflow-hidden">
-                                            <p className={`${font.code + '-text'} textbox ellipsed-text text-theme-3/60 dark:text-theme-8/60`}><DummyText lang={font.lang} text={text} num={num}/></p>
-                                        </div>
-                                    </div>
-                                ))}
-                            </React.Fragment>
-                        )
-                    })}
-
-                    {/* 정렬 맞추기 위한 빈 div */}
-                    <div className="w-[calc(20%-8px)] tlg:w-[calc(33.3%-6px)] tmd:w-[calc(50%-4px)] txs:w-[100%]"></div>
-                    <div className="w-[calc(20%-8px)] tlg:w-[calc(33.3%-6px)] tmd:w-[calc(50%-4px)] txs:w-[100%]"></div>
-                    <div className="w-[calc(20%-8px)] tlg:w-[calc(33.3%-6px)] tmd:w-[calc(50%-4px)] txs:w-[100%]"></div>
-                    <div className="w-[calc(20%-8px)] tlg:w-[calc(33.3%-6px)] tmd:w-[calc(50%-4px)] txs:w-[100%]"></div>
+                                    ))}
+                                </React.Fragment>
+                            )
+                        })}
+                    </div>
 
                     {/* 로딩 스켈레톤 */}
                     {
                         isLoading 
-                        ? <div className='w-[100%] flex flex-wrap flex-row justify-between items-start'>
-                            <SkeletonBox/>
-                            <SkeletonBox/>
-                            <SkeletonBox/>
-                            <SkeletonBox/>
-                            <SkeletonBox/>
-                            <SkeletonBox/>
-                            <SkeletonBox/>
-                            <SkeletonBox/>
-                            <SkeletonBox/>
-                            <SkeletonBox/>
-                            <SkeletonBox/>
-                            <SkeletonBox/>
-                            <SkeletonBox/>
-                            <SkeletonBox/>
-                            <SkeletonBox/>
-                            <SkeletonBox/>
-                            <SkeletonBox/>
-                            <SkeletonBox/>
-                            <SkeletonBox/>
-                            <SkeletonBox/>
-                            <SkeletonBox/>
-                            <SkeletonBox/>
-                            <SkeletonBox/>
-                            <SkeletonBox/>
-                            <SkeletonBox/>
-                            <SkeletonBox/>
-                            <SkeletonBox/>
-                            <SkeletonBox/>
-                            <SkeletonBox/>
-                            <SkeletonBox/>
-                        </div>
-                        : null
+                        && <div className="w-full">{ skeletonLoop() }</div>
                     }
 
                     {/* 폰트가 없을 때 */}
                     {
                         data && data.pages[0].fonts.length === 0
-                            && <div className='w-[100%] pt-[40px] absolute top-0 left-0 flex flex-col justify-center items-center'>
-                                <svg className='w-[120px] fill-theme-4 dark:fill-theme-7' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
-                                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
-                                    <path d="M6.831 11.43A3.1 3.1 0 0 1 8 11.196c.916 0 1.607.408 2.25.826.212.138.424-.069.282-.277-.564-.83-1.558-2.049-2.532-2.049-.53 0-1.066.361-1.536.824.083.179.162.36.232.535.045.115.092.241.135.373ZM6 11.333C6 12.253 5.328 13 4.5 13S3 12.254 3 11.333c0-.706.882-2.29 1.294-2.99a.238.238 0 0 1 .412 0c.412.7 1.294 2.284 1.294 2.99M7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5m4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5m-1.5-3A.5.5 0 0 1 10 3c1.162 0 2.35.584 2.947 1.776a.5.5 0 1 1-.894.448C11.649 4.416 10.838 4 10 4a.5.5 0 0 1-.5-.5M7 3.5a.5.5 0 0 0-.5-.5c-1.162 0-2.35.584-2.947 1.776a.5.5 0 1 0 .894.448C4.851 4.416 5.662 4 6.5 4a.5.5 0 0 0 .5-.5"/>
-                                </svg>
-                                <div className='text-[24px] mt-[24px] text-center font-medium text-theme-4 dark:text-theme-7'>찾으시는 폰트가 없습니다.</div>
+                            && <div className='w-full py-14 absolute top-0 left-0 flex flex-col justify-center items-center rounded-lg text-h-1 dark:text-white bg-h-e dark:bg-d-3'>
+                                <i className="text-[100px] leading-none bi bi-emoji-tear"></i>
+                                <div className='text-xl mt-6 text-center font-bold'>찾으시는 폰트가 없습니다.</div>
                             </div>
                     }
 
                     {/* 뷰포트 만날 시 다음 데이터 로딩 */}
-                    <span className="w-[100%]" ref={ref}></span>
+                    <span className="w-full" ref={ref}></span>
 
                     {/* 로딩 바 */}
-                    {hasNextPage ? <div className="w-[100%] py-[20px] absolute left-0 bottom-[-76px] flex flex-row justify-center items-center"><span className="loader w-[36px] h-[36px]"></span></div> : null}
+                    {hasNextPage && <div className="w-full h-20 absolute left-0 bottom-0 translate-y-full flex justify-center items-center"><span className="loader w-9 h-9 border-2 border-h-e dark:border-d-6 border-b-h-1 dark:border-b-f-8"></span></div>}
                 </div>
             </div>
         </>

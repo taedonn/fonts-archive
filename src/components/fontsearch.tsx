@@ -1,14 +1,17 @@
-// react hooks
+// react
 import React, { useEffect, useRef, useState } from "react";
 import { useQuery } from "react-query";
 import { debounce } from "lodash";
 
-// next hooks
+// next
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-// hooks
+// libraries
 import axios from "axios";
+
+// common
+import { onMouseDown, onMouseUp, onMouseOut } from "@/libs/common";
 
 export default function FontSearch(
     {
@@ -26,21 +29,16 @@ export default function FontSearch(
 ) {
     const router = useRouter();
 
-    // 검색 키워드 디폴트: 빈 문자열
+    // states
     const [keyword, setKeyword] = useState<string>("");
-
-    // active 상태 체크 디폴트: 0
     const [activeEl, setActiveEl] = useState<number>(0);
-
-    // 전체 검색 결과 디폴트: 0
     const [totalEl, setTotalEl] = useState<number>(0);
+    const [isKeyDown, setIsKeyDown] = useState<boolean>(false);
 
-    // 검색 결과 스크롤 위치 디폴트: null
+    // refs
     const parentRef = useRef<HTMLDivElement>(null);
     const activeRef = useRef<HTMLAnchorElement>(null);
-
-    // 키 다운 state
-    const [isKeyDown, setIsKeyDown] = useState<boolean>(false);
+    const refSearchOutside = useRef<HTMLDivElement>(null);
     
     // 키 다운 이벤트
     useEffect(() => {
@@ -101,9 +99,6 @@ export default function FontSearch(
 
     // showBtn, closeBtn 함수가 실행될 때 keyword를 빈칸으로 변경
     useEffect(() => { setKeyword(""); }, [showBtn, closeBtn]);
-
-    // 검색 영역 외 클릭 시
-    const refSearchOutside = useRef<HTMLDivElement>(null);
 
     // 셀렉트 박스 - "검색 선택" 외 영역 클릭
     useEffect(() => {
@@ -168,50 +163,59 @@ export default function FontSearch(
         <>
             {
                 display === "show"
-                ? <div className="w-[100%] h-[100vh] fixed left-0 top-0 z-40 flex flex-col justify-start items-center pt-[12vh] tlg:pt-[10vh] tmd:pt-[60px] backdrop-blur bg-blur-theme dark:border-theme-4">
-                    <div ref={refSearchOutside} className="w-[720px] tmd:w-[calc(100%-24px)] rounded-[12px] border border-theme-7 dark:border-theme-3 bg-theme-9 dark:bg-theme-2 animate-zoom-in">
-                        <div className="w-[100%] h-[56px] tmd:h-[44px] relative flex flex-row justify-center items-center border-b border-theme-7 dark:border-theme-3">
-                        <svg className="w-[16px] tmd:w-[12px] absolute left-[24px] tmd:left-[16px] top-[50%] translate-y-[-50%] fill-theme-4 dark:fill-theme-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/></svg>
-                            <input onChange={handleSearch} type="text" placeholder="폰트 검색하기..." autoFocus className="w-[calc(100%-108px)] tmd:w-[calc(100%-84px)] h-[100%] text-[14px] tmd:text-[12px] leading-none text-theme-4 dark:text-theme-9 placeholder-theme-5 dark:placeholder-theme-8 bg-transparent"/>
-                            <button onClick={handleCloseBtn} className="w-[36px] h-[24px] rounded-[6px] absolute right-[16px] tmd:right-[12px] top-[50%] translate-y-[-50%] text-[10px] leading-none text-theme-4 dark:text-theme-9 bg-theme-8 dark:bg-theme-3 hover:dark:bg-theme-4 tlg:hover:dark:bg-theme-3 hover:drop-shadow-default hover:dark:drop-shadow-dark tlg:hover:drop-shadow-none tlg:hover:dark:drop-shadow-none">ESC</button>
-                        </div>
-                        <div ref={parentRef} className="search-list w-[100%] min-h-[150px] tmd:min-h-[120px] max-h-[500px] relative overflow-auto">
-                            {/* 로딩 바 */}
-                            {isLoading ? <div className="w-[100%] h-[100%] absolute left-0 top-0 flex flex-row justify-center items-center"><span className="loader w-[40px] tlg:w-[36px] h-[40px] tlg:h-[36px]"></span></div> : <></>}
-                            {isRefetching ? <div className="w-[100%] h-[100%] absolute left-0 top-0 flex flex-row justify-center items-center"><span className="loader w-[40px] tlg:w-[36px] h-[40px] tlg:h-[36px]"></span></div> : <></>}
+                ? <div className="w-full h-full fixed left-0 top-0 z-40 pt-24 tlg:pt-16 tlg:px-4 flex flex-col justify-start items-center backdrop-blur">
+                    <div ref={refSearchOutside} className="w-[45rem] tlg:w-full relative rounded-lg animate-zoom-in drop-shadow-default dark:drop-shadow-dark bg-l-e dark:bg-d-3">
+                        <div className="w-full flex flex-col">
+                            <div className="w-full h-14 tlg:h-12 px-14 relative flex justify-center items-center border-b border-l-d dark:border-d-3 text-l-2 dark:text-white">
+                                <i className="tlg:text-sm absolute left-5 tlg:left-4 top-1/2 -translate-y-1/2 fa-solid fa-magnifying-glass"></i>
+                                <input onChange={handleSearch} type="text" placeholder="폰트 검색하기..." autoFocus className="w-full h-full tlg:text-sm leading-none placeholder-l-5 dark:placeholder-d-c bg-transparent"/>
+                                <button onClick={handleCloseBtn} className="w-8 h-8 absolute right-3 top-1/2 -translate-y-1/2 rounded-full text-l-2 dark:text-white hover:bg-l-d hover:dark:bg-d-4 tlg:hover:bg-transparent tlg:hover:dark:bg-transparent">
+                                    <i className="fa-solid fa-xmark"></i>
+                                </button>
+                                <div className="w-[calc(100%-0.25rem)] h-6 absolute z-10 left-0 -bottom-px translate-y-full bg-gradient-to-b from-white dark:from-d-2"></div>
+                            </div>
+                            <div ref={parentRef} className="custom-sm-scrollbar w-full min-h-[9.375rem] tlg:min-h-[7.5rem] max-h-[31.25rem] relative overflow-auto bg-white dark:bg-d-2">
 
-                            {/* 검색 결과 */}
-                            {isSuccess && !isLoading && !isRefetching
-                                ? ( data.fonts.length !== 0
-                                    ? <div className="w-[100%] px-[24px] tmd:px-[16px]">
-                                        <div className="text-[18px] tmd:text-[14px] text-theme-3 dark:text-theme-8 leading-none mt-[28px] tmd:mt-[24px] mb-[16px] tmd:mb-[12px] font-bold">검색 결과</div>
-                                        {data && data.fonts.map((font: {
-                                            code: number,
-                                            name: string,
-                                            source: string,
-                                            font_family: string,
-                                        }, idx: number) => {
-                                            return (
-                                                <Link aria-label="search-result-link" onMouseOver={() => handleLinkMouseOver(idx)} id={activeEl === idx ? "active" : ""} ref={activeEl === idx ? activeRef : null} href={`/post/${font.font_family.replaceAll(" ", "+")}`} key={font.code} className="search-link w-[100%] h-[60px] tmd:h-[48px] relative px-[16px] mt-[8px] flex flex-row justify-start items-center rounded-[8px] bg-theme-8 dark:bg-theme-3 cursor-pointer">
-                                                    <div className="w-[24px] tmd:w-[20px] h-[24px] tmd:h-[20px] border rounded-[6px] tmd:rounded-[4px] flex flex-row justify-center items-center mr-[12px] bg-theme-7 dark:bg-theme-4 border-theme-7 dark:border-theme-4 when-active-1">
-                                                        <svg className="w-[18px] tmd:w-[14px] fill-theme-10 dark:fill-theme-9 when-active-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8.39 12.648a1.32 1.32 0 0 0-.015.18c0 .305.21.508.5.508.266 0 .492-.172.555-.477l.554-2.703h1.204c.421 0 .617-.234.617-.547 0-.312-.188-.53-.617-.53h-.985l.516-2.524h1.265c.43 0 .618-.227.618-.547 0-.313-.188-.524-.618-.524h-1.046l.476-2.304a1.06 1.06 0 0 0 .016-.164.51.51 0 0 0-.516-.516.54.54 0 0 0-.539.43l-.523 2.554H7.617l.477-2.304c.008-.04.015-.118.015-.164a.512.512 0 0 0-.523-.516.539.539 0 0 0-.531.43L6.53 5.484H5.414c-.43 0-.617.22-.617.532 0 .312.187.539.617.539h.906l-.515 2.523H4.609c-.421 0-.609.219-.609.531 0 .313.188.547.61.547h.976l-.516 2.492c-.008.04-.015.125-.015.18 0 .305.21.508.5.508.265 0 .492-.172.554-.477l.555-2.703h2.242l-.515 2.492zm-1-6.109h2.266l-.515 2.563H6.859l.532-2.563z"/></svg>
-                                                    </div>
-                                                    <div className="text-[14px] tmd:text-[12px] text-theme-3 dark:text-theme-9 font-medium leading-none when-active-3">{font.name}</div>
-                                                    <div className="text-[14px] text-theme-5 dark:text-theme-7 font-normal leading-none tmd:hidden ml-[10px] when-active-4">{font.font_family}</div>
-                                                    <div className="text-[12px] text-theme-5 dark:text-theme-7 leading-none tmd:hidden ml-[10px] when-active-5">{font.source}</div>
-                                                    <svg className="w-[12px] tmd:w-[10px] absolute right-[12px] fill-theme-3 dark:fill-theme-9 when-active-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/></svg>
-                                                </Link>
-                                            )
-                                        })}
-                                    </div>
-                                    : ( data.fonts.length === 0 && keyword !== ""
-                                        ? <div className="w-[100%] h-[100%] absolute left-0 top-0 flex flex-row justify-center items-center text-[16px] tmd:text-[12px] leading-none text-theme-5 dark:text-theme-7">&quot;<span className="text-theme-3 dark:text-theme-9 font-medium">{keyword}</span>&quot; 에 대한 검색 결과가 없습니다.</div>
-                                        : <div className="w-[100%] h-[100%] absolute left-0 top-0 flex flex-row justify-center items-center text-[16px] tmd:text-[12px] leading-none text-theme-5 dark:text-theme-7"><span className="text-theme-3 dark:text-theme-9 font-medium mr-[8px]">영문/한글 폰트 이름,</span> 또는 <span className="text-theme-3 dark:text-theme-9 font-medium ml-[8px]">회사 이름</span>을 검색해 주세요.</div>
-                                    )
-                                ) : <></>
-                            }
+                                {/* 로딩 바 */}
+                                {isLoading && <div className="w-full h-full absolute left-0 top-0 flex justify-center items-center"><span className="loader w-9 h-9 border-2 border-h-e dark:border-d-6 border-b-h-1 dark:border-b-f-8"></span></div>}
+                                {isRefetching && <div className="w-full h-full absolute left-0 top-0 flex justify-center items-center"><span className="loader w-9 h-9 border-2 border-h-e dark:border-d-6 border-b-h-1 dark:border-b-f-8"></span></div>}
+
+                                {/* 검색 결과 */}
+                                {isSuccess && !isLoading && !isRefetching
+                                    ? ( data.fonts.length !== 0
+                                        ? <div className="w-full p-6">
+                                            <div className="text-lg text-l-2 dark:text-white mb-4 font-bold">검색 결과</div>
+                                            {data && data.fonts.map((font: {
+                                                code: number,
+                                                name: string,
+                                                source: string,
+                                                font_family: string,
+                                            }, idx: number) => {
+                                                return (
+                                                    <Link aria-label="search-result-link" onMouseOver={() => handleLinkMouseOver(idx)} id={activeEl === idx ? "active" : ""} ref={activeEl === idx ? activeRef : null} href={`/post/${font.font_family.replaceAll(" ", "+")}`} key={font.code} onMouseDown={e => onMouseDown(e, 0.95, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="px-4 mt-2.5 first:mt-0 w-full h-16 tmd:h-12 gap-3 relative flex items-center rounded-lg bg-l-e dark:bg-d-3 cursor-pointer">
+                                                        <div className="when-active-1 w-6 h-6 rounded-md flex justify-center items-center bg-l-d dark:bg-d-6">
+                                                            <i className="when-active-2 text-sm text-l-2 dark:text-white fa-solid fa-hashtag"></i>
+                                                        </div>
+                                                        <div className="when-active-3 text-l-2 dark:text-white font-medium">{font.name}</div>
+                                                        <div className="when-active-4 text-sm text-l-5 dark:text-d-c font-normal tlg:hidden">{font.font_family}</div>
+                                                        <div className="when-active-5 text-sm text-l-5 dark:text-d-c font-normal tlg:hidden">{font.source}</div>
+                                                        <i className="when-active-6 text-sm absolute right-4 text-l-2 dark:text-white fa-solid fa-angle-right"></i>
+                                                    </Link>
+                                                )
+                                            })}
+                                        </div>
+                                        : ( data.fonts.length === 0 && keyword !== ""
+                                            ? <div className="w-full h-full absolute left-0 top-0 flex justify-center items-center tlg:text-sm text-l-5 dark:text-d-c">&quot;<span className="text-l-2 dark:text-white font-medium">{keyword}</span>&quot; 에 대한 검색 결과가 없습니다.</div>
+                                            : <div className="w-full h-full absolute left-0 top-0 flex justify-center items-center tlg:text-sm text-l-5 dark:text-d-c"><span className="text-l-2 dark:text-white font-medium mr-2">영문/한글 폰트 이름,</span> 또는 <span className="text-l-2 dark:text-white font-medium ml-2">회사 이름</span>을 검색해 주세요.</div>
+                                        )
+                                    ) : <></>
+                                }
+                            </div>
+                            <div className="w-full h-14 tlg:h-12 text-sm tlg:text-xs relative flex justify-end items-center px-6 border-t text-l-5 dark:text-d-9 border-l-d dark:border-d-3">
+                                © 2023 - {new Date().getFullYear()}. 태돈, all rights reserved.
+                                <div className="w-[calc(100%-0.25rem)] h-6 absolute z-10 left-0 -top-px -translate-y-full bg-gradient-to-t from-white dark:from-d-2"></div>
+                            </div>
                         </div>
-                        <div className="w-[100%] h-[48px] flex flex-row justify-end items-center px-[24px] tmd:px-[16px] border-t text-[12px] tmd:text-[10px]  text-theme-5 dark:text-theme-7 leading-none border-theme-7 dark:border-theme-3">© 2023. taedonn, all rights reserved.</div>
                     </div>
                 </div> : <></>
             }

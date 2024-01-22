@@ -68,11 +68,11 @@ export type comments = {
     reported_politics: number
     reported_swearing: number
     reported_etc: number
-    is_deleted: true
-    created_at:string
-    updated_at:string
+    is_deleted: boolean
+    created_at: string
+    updated_at: string
     comment_id: number
-    deleted_at:string
+    deleted_at: string
     is_deleted_with_reply: boolean
     is_deleted_by_reports: boolean
 }

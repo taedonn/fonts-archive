@@ -1,24 +1,26 @@
 // 서버로 요청이 들어왔을 때 가장 먼저 실행되는 component
 
-// react hooks
+// react
 import { useEffect, useState } from "react";
 
-// next hooks
+// next
 import type { AppProps } from "next/app";
 import { useRouter } from "next/router";
 import { DefaultSeo } from 'next-seo';
-import NextNProgress from 'nextjs-progressbar';
 
 // next-auth
 import { SessionProvider } from "next-auth/react";
 
-// react-query hooks
+// react-query
 import { QueryClientProvider, QueryClient } from "react-query";
 const queryClient = new QueryClient();
 
+// libraries
+import NextNProgress from 'nextjs-progressbar';
+import { AnimatePresence } from "framer-motion";
+
 // styles
-import '../styles/globals.css';
-import '../styles/mailanimation.css';
+import '@/styles/globals.css';
 
 export default function App({Component, pageProps: { session, ...pageProps }}: AppProps) {
     const [theme, setTheme] = useState<string>("dark");
@@ -34,46 +36,50 @@ export default function App({Component, pageProps: { session, ...pageProps }}: A
     }, [router]);
 
     return (
-        <>
-            <QueryClientProvider client={queryClient}>
-                <SessionProvider session={session}>
-                    <DefaultSeo
-                        title="폰트 아카이브 · 상업용 무료 한글 폰트 저장소"
-                        description="폰트 아카이브 · 상업용 무료 한글 폰트 저장소"
-                        additionalLinkTags={[
+        <QueryClientProvider client={queryClient}>
+            <SessionProvider session={session}>
+                <DefaultSeo
+                    title="폰트 아카이브 · 상업용 무료 한글 폰트 저장소"
+                    description="폰트 아카이브 · 상업용 무료 한글 폰트 저장소"
+                    additionalLinkTags={[
+                        {
+                            rel:"icon",
+                            href: "/favicon.ico"
+                        }
+                    ]}
+                    openGraph={{
+                        type: 'website',
+                        locale: 'ko_KR',
+                        url: 'https://fonts.taedonn.com',
+                        siteName: '폰트 아카이브 · 상업용 무료 한글 폰트 저장소',
+                        images: [
                             {
-                                rel:"icon",
-                                href: "/favicon.ico"
-                            }
-                        ]}
-                        openGraph={{
-                            type: 'website',
-                            locale: 'ko_KR',
-                            url: 'https://fonts.taedonn.com',
-                            siteName: '폰트 아카이브 · 상업용 무료 한글 폰트 저장소',
-                            images: [
-                                {
-                                    url: 'https://fonts-archive.s3.ap-northeast-2.amazonaws.com/meta_image.png',
-                                    width: 1000,
-                                    height: 1000,
-                                    alt: '폰트 아카이브 메타 이미지',
-                                },
-                            ],
-                        }}
-                        twitter={{
-                            handle: '@handle',
-                            site: '@site',
-                            cardType: 'summary_large_image',
-                        }}
+                                url: 'https://fonts-archive.s3.ap-northeast-2.amazonaws.com/meta_image.png',
+                                width: 1000,
+                                height: 1000,
+                                alt: '폰트 아카이브 메타 이미지',
+                            },
+                        ],
+                    }}
+                    twitter={{
+                        handle: '@handle',
+                        site: '@site',
+                        cardType: 'summary_large_image',
+                    }}
+                />
+                <main>
+                    <NextNProgress
+                        color={theme === "dark" ? "#8AB4F8" : "#1B73E7"}
                     />
-                    <main>
-                        <NextNProgress
-                            color={theme === "dark" ? "#8AB4F8" : "#FCBE11"}
-                        />
+                    <AnimatePresence
+                        mode="wait" // 새 페이지 로딩 전 페이지 아웃 애니메이션 끝까지 실행
+                        // ㄴinitial={false} // false 시 첫 페이지 로딩 애니메이션 안함
+                        onExitComplete={() => window.scrollTo(0, 0)} // 페이지 아웃 애니메이션 끝나면 스크롤 이동
+                    >
                         <Component {...pageProps}/>
-                    </main>
-                </SessionProvider>
-            </QueryClientProvider>
-        </>
+                    </AnimatePresence>
+                </main>
+            </SessionProvider>
+        </QueryClientProvider>
     );
 }; 

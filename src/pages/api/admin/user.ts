@@ -1,25 +1,40 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import prisma from '@/libs/client-prisma';
+import prisma from '@/libs/prisma';
 
 const limit = 10;
 
-// SSR 유저 목록 페이지 수
-export async function FetchUsersLength() {
+// 페이지 수
+export async function FetchUsersLength(search: string) {
     const users = await prisma.fontsUser.findMany({
         select: { user_no: true },
+        where: {
+            OR: [
+                {user_id: { contains: search }},
+                {user_name: { contains: search }},
+            ]
+        },
     });
     const count = Number(users.length) % limit > 0 ? Math.floor(Number(users.length)/limit) + 1 : Math.floor(Number(users.length)/limit);
 
     return count;
 }
 
-// SSR 첫 유저 목록 불러오기
-export async function FetchUsers(lastId: number | undefined) {
+// 목록
+export async function FetchUsers(page: number, filter: string, search: string) {
     const users = await prisma.fontsUser.findMany({
-        orderBy: [{user_no: 'desc'}], // 정렬순
+        where: {
+            OR: [
+                {user_id: { contains: search }},
+                {user_name: { contains: search }},
+            ]
+        },
+        orderBy: filter === "date"
+            ? [{user_no: "desc"}]
+            : filter === "name"
+                ? [{user_name: "asc"}, {user_id: "desc"}]
+                : [{nickname_reported: "desc"}, {user_id: "asc"}],
+        skip: (Number(page) - 1) * limit,
         take: limit, // 가져오는 데이터 수
-        skip: lastId ? 1 : 0,
-        ...(lastId && { cursor: {user_no: lastId} })
     });
 
     return users;
@@ -37,53 +52,7 @@ export async function FetchUser(userNo: number) {
 // API
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method === 'POST') {
-        if (req.body.action === "list") {
-            try {
-                const { page, filter, text } = req.body;
-
-                const filters: any = filter === 'email-confirmed'
-                ? [{user_email_confirm: true}]
-                : [];
-
-                const texts = [
-                    {user_name: {contains: text as string}},
-                    {user_id: {contains: text as string}},
-                ]
-
-                // 유저 목록 페이지 수
-                const length = await prisma.fontsUser.findMany({
-                    select: { user_no: true },
-                    where: {
-                        OR: texts,
-                        AND: filters,
-                    }
-                });
-                const count = Number(length.length) % limit > 0 ? Math.floor(Number(length.length)/limit) + 1 : Math.floor(Number(length.length)/limit);
-
-                // 유저 목록 불러오기
-                const list = await prisma.fontsUser.findMany({
-                    where: {
-                        OR: texts,
-                        AND: filters,
-                    },
-                    orderBy: filter === 'nickname-reported' ? [{nickname_reported: 'desc'}, {user_no: 'desc'}] : [{user_no: 'desc'}], // 정렬순
-                    take: limit, // 가져오는 데이터 수
-                    skip: Number(page) === 1 ? 0 : (Number(page) - 1) * limit
-                });
-
-                return res.status(200).json({
-                    message: "유저 목록 불러오기 성공",
-                    list: list,
-                    count: count
-                });
-            } catch (err) {
-                return res.status(500).json({
-                    message: "유저 목록 불러오기 실패",
-                    err: err
-                });
-            }
-        }
-        else if (req.body.action === "save-user-info") {
+        if (req.body.action === "save-user-info") {
             try {
                 const {
                     user_no,

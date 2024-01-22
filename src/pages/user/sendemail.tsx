@@ -1,11 +1,13 @@
-// next hooks
+// next
 import { NextSeo } from 'next-seo';
 
-// react hooks
+// react
 import React from 'react';
 
 // api
 import { FetchUserInfoFromToken } from '../api/auth/auth';
+
+// libraries
 import axios from 'axios';
 
 // components
@@ -14,11 +16,10 @@ import Footer from '@/components/footer';
 import MailAnimation from '@/components/mailanimation';
 
 const SendEmail = ({params}: any) => {
-    // 디바이스 체크
-    const isMac: boolean = params.userAgent.includes("Mac OS") ? true : false;
+    const { theme, userAgent, user } = params;
 
-    // 유저 정보 저장
-    const user = params.user;
+    // 디바이스 체크
+    const isMac: boolean = userAgent.includes("Mac OS") ? true : false;
 
     // 이메일 다시 보내기
     const resendEmail = async () => {
@@ -43,21 +44,21 @@ const SendEmail = ({params}: any) => {
             {/* 헤더 */}
             <Header
                 isMac={isMac}
-                theme={params.theme}
+                theme={theme}
                 user={null}
             />
 
             {/* 메인 */}
-            <div className='w-[100%] mb-[60px] flex flex-col justify-start items-center'>
-                <div className='w-[100%] text-[14px] tlg:text-[12px] text-theme-6 dark:text-theme-7 flex flex-col justify-center items-center'>
+            <div className='w-full mb-32 tmd:mb-24 flex flex-col justify-start items-center'>
+                <div className='w-full px-4 text-l-5 dark:text-d-c relative flex flex-col justify-center items-center tlg:text-sm'>
                     <MailAnimation/>
-                    <h2 className='text-center leading-relaxed break-keep'>
-                        인증 메일이 <span className='text-theme-5 dark:text-theme-9 font-medium'>[{user.user_id}]</span>(으)로 전송되었습니다. <br className='txs:hidden'/>
-                        받으신 이메일의 링크를 클릭하면 가입이 완료됩니다.
+                    <h2 className='mt-12 text-center leading-relaxed break-keep'>
+                        <span className='text-l-2 dark:text-white font-bold'>[{user.user_id}]</span>(으)로 메일이 전송되었습니다. <br className='txs:hidden'/>
+                        받으신 이메일의 링크를 클릭하시면 가입이 완료됩니다.
                     </h2>
-                    <h3 className='mt-[28px] tlg:mt-[20px] flex flex-row justify-center items-center'>
+                    <h3 className='mt-7 text-sm flex flex-row justify-center items-center'>
                         이메일을 확인할 수 없나요?
-                        <div onClick={resendEmail} className='text-theme-yellow dark:text-theme-blue-1 hover:underline tlg:hover:no-underline ml-[8px] cursor-pointer'>인증 메일 다시 보내기</div>
+                        <div onClick={resendEmail} className='text-h-1 dark:text-f-8 hover:underline tlg:hover:no-underline ml-2 cursor-pointer'>인증 메일 다시 보내기</div>
                     </h3>
                 </div>
             </div>
@@ -70,8 +71,8 @@ const SendEmail = ({params}: any) => {
 
 export async function getServerSideProps(ctx: any) {
     try {
-        // 필터링 쿠키 체크
-        const cookieTheme = ctx.req.cookies.theme === undefined ? "dark" : ctx.req.cookies.theme;
+        // 쿠키 체크
+        const { theme } = ctx.req.cookies;
 
         // 디바이스 체크
         const userAgent = ctx.req ? ctx.req.headers['user-agent'] : navigator.userAgent;
@@ -91,7 +92,7 @@ export async function getServerSideProps(ctx: any) {
             return {
                 props: {
                     params: {
-                        theme: cookieTheme,
+                        theme: theme ? theme : 'light',
                         userAgent: userAgent,
                         user: JSON.parse(JSON.stringify(user)),
                     }

@@ -1,4 +1,4 @@
-// next hooks
+// next
 import { NextSeo } from 'next-seo';
 
 // api
@@ -8,11 +8,12 @@ import { authOptions } from './api/auth/[...nextauth]';
 // components
 import Header from "@/components/header";
 import Footer from '@/components/footer';
-import Tooltip from '@/components/tooltip';
 
 const Terms = ({params}: any) => {
+    const { theme, userAgent, user } = params;
+
     // 디바이스 체크
-    const isMac: boolean = params.userAgent.includes("Mac OS") ? true : false;
+    const isMac: boolean = userAgent.includes("Mac OS") ? true : false;
 
     return (
         <>
@@ -25,19 +26,16 @@ const Terms = ({params}: any) => {
             {/* 헤더 */}
             <Header
                 isMac={isMac}
-                theme={params.theme}
-                user={params.user}
+                theme={theme}
+                user={user}
             />
 
-            {/* 고정 메뉴 */}
-            <Tooltip/>
-
             {/* 메인 */}
-            <div className='w-[100%] flex flex-col justify-center items-center'>
-                <div className='w-[720px] tmd:w-[100%] flex flex-col justify-center items-start my-[64px] tmd:my-[48px]'>
-                    <h2 className='text-[28px] tmd:text-[20px] text-theme-3 dark:text-theme-9 font-medium'>서비스 이용약관</h2>
-                    <div className='w-[100%] h-px bg-theme-7 dark:bg-theme-5 my-[16px] tmd:my-[12px]'></div>
-<pre style={{fontFamily: "Spoqa Han Sans Neo, Noto Sans KR"}} className='whitespace-pre-wrap text-[14px] text-theme-5 dark:text-theme-9/80 leading-loose'>{
+            <div className='w-full px-4 flex flex-col justify-center items-center'>
+                <div className='w-[45rem] tmd:w-full flex flex-col justify-center items-start mt-16 mb-32 tmd:mt-12 tmd:mb-24'>
+                    <h2 className='text-3xl tmd:text-2xl text-h-2 dark:text-white font-bold'>서비스 이용약관</h2>
+                    <div className='w-full h-px bg-l-b dark:bg-d-6 my-6 tmd:my-4'></div>
+<pre className='font-sans whitespace-pre-wrap text-sm text-l-5 dark:text-d-c leading-loose'>{
 `제1조(목적) 이 약관은 "태돈" 회사(전자상거래 사업자)가 운영하는 "폰트 아카이브" 사이버 몰(이하 “폰트 아카이브”가라 한다)에서 제공하는 인터넷 관련 서비스(이하 “서비스”라 한다)를 이용함에 있어 사이버 몰과 이용자의 권리․의무 및 책임사항을 규정함을 목적으로 합니다.
 
 ※「PC통신, 무선 등을 이용하는 전자상거래에 대해서도 그 성질에 반하지 않는 한 이 약관을 준용합니다.」
@@ -343,8 +341,8 @@ const Terms = ({params}: any) => {
 
 export async function getServerSideProps(ctx: any) {
     try {
-        // 필터링 쿠키 체크
-        const cookieTheme = ctx.req.cookies.theme === undefined ? "dark" : ctx.req.cookies.theme;
+        // 쿠키 체크
+        const { theme } = ctx.req.cookies;
 
         // 디바이스 체크
         const userAgent = ctx.req ? ctx.req.headers['user-agent'] : navigator.userAgent;
@@ -355,7 +353,7 @@ export async function getServerSideProps(ctx: any) {
         return {
             props: {
                 params: {
-                    theme: cookieTheme,
+                    theme: theme ? theme : 'light',
                     userAgent: userAgent,
                     user: session === null ? null : session.user,
                 }

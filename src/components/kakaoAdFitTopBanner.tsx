@@ -1,6 +1,19 @@
 import React, { useEffect, useRef } from 'react';
 
-function KakaoAdFitTopBanner(props: any) {
+const defaultKakaoAdFitTopBanner = {
+    marginTop: 0,
+    marginBottom: 0,
+}
+
+interface KakaoAdFitTopBanner {
+    marginTop?: number,
+    marginBottom?: number,
+}
+
+function KakaoAdFitTopBanner({
+    marginTop=defaultKakaoAdFitTopBanner.marginTop,
+    marginBottom=defaultKakaoAdFitTopBanner.marginBottom,
+}: KakaoAdFitTopBanner) {
     // 최초 1회만 광고를 불러오기 위한 변수
     const adRef = useRef<boolean>(false);
 
@@ -19,12 +32,10 @@ function KakaoAdFitTopBanner(props: any) {
             ins.setAttribute('data-ad-width', '320');
             ins.setAttribute('data-ad-height', '100');
             ins.setAttribute('data-ad-unit', 'DAN-S69UuSbs9M89VlPg');
-            ins.setAttribute('style', `margin-top: ${props.marginTop}px`);
         } else {
             ins.setAttribute('data-ad-width', '728');
             ins.setAttribute('data-ad-height', '90');
             ins.setAttribute('data-ad-unit', 'DAN-8npqLjWDiQg99MCm');
-            ins.setAttribute('style', `margin-top: ${props.marginTop}px`);
         }
 
         script.async = true;
@@ -36,9 +47,9 @@ function KakaoAdFitTopBanner(props: any) {
         
         // 광고 로딩 여부 상태 변경
         adRef.current = true;
-    }, [props.marginTop]);
+    }, [marginTop, marginBottom]);
 
-    return <aside className="aside__kakaoAdFit_top flex w-[100%] relative"></aside>
+    return <aside style={{marginTop: marginTop + "rem", marginBottom: marginBottom + "rem"}} className="aside__kakaoAdFit_top relative"></aside>
 }
 
 export default React.memo(KakaoAdFitTopBanner);

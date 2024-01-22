@@ -1,8 +1,11 @@
-// react hooks
+// react
 import { useEffect } from "react";
 
-// next hooks
+// next
 import Link from "next/link";
+
+// common
+import { onMouseDown, onMouseUp, onMouseOut } from "@/libs/common";
 
 export default function Custom500() {
     // 로딩 시 폰트 다운로드
@@ -13,14 +16,14 @@ export default function Custom500() {
     
     return (
         <>
-            <div className="w-[100%] h-[100%] absolute left-0 top-0 flex flex-col justify-center items-center text-center text-theme-3 dark:text-theme-9">
-                <div className="text-[28px] font-medium">
+            <div className="w-full h-full absolute left-0 top-0 flex flex-col justify-center items-center text-center text-l-2 dark:text-white">
+                <div className="text-3xl leading-normal font-medium">
                     권한이 없거나 <br/>
                     존재하지 않는 페이지입니다.
                 </div>
-                <div style={{fontFamily: "Intel One Mono"}} className="w-[340px] h-[60px] mt-[16px] flex justify-center items-center rounded-[8px] text-[14px] text-theme-3 dark:text-theme-9 bg-theme-red/20 dark:bg-theme-blue-1/20 border border-dashed border-theme-red dark:border-theme-blue-1">500: Internal Server Error</div>
-                <div className="flex items-center mt-[40px]">
-                    <Link href="/" className="flex justify-center items-center w-[132px] h-[36px] rounded-full text-[13px] border border-theme-8 hover:border-theme-3 dark:border-theme-blue-1/40 hover:bg-theme-3 hover:dark:bg-theme-blue-1 text-theme-3 hover:text-theme-9 dark:text-theme-blue-1 hover:dark:text-theme-blue-2 cursor-pointer duration-100">메인 페이지</Link>
+                <div style={{fontFamily: "Intel One Mono"}} className="w-[22.5rem] h-16 mt-4 flex justify-center items-center rounded-lg text-sm bg-h-1/20 dark:bg-f-8/20 border border-dashed border-h-1 dark:border-f-8">500: Internal Server Error</div>
+                <div className="flex items-center mt-10">
+                    <Link href="/" onMouseDown={e => onMouseDown(e, 0.95, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="flex justify-center items-center w-32 h-9 rounded-lg text-sm border border-h-1 dark:border-f-8 hover:bg-h-1 hover:dark:bg-f-8 tlg:hover:bg-transparent tlg:hover:dark:bg-transparent text-h-1 hover:text-white dark:text-f-8 hover:dark:text-d-2 tlg:hover:text-h-1 tlg:hover:dark:text-f-8 cursor-pointer duration-100">메인 페이지</Link>
                 </div>
             </div>
         </>

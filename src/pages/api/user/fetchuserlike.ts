@@ -1,4 +1,4 @@
-import prisma from '@/libs/client-prisma';
+import prisma from '@/libs/prisma';
   
 export async function FetchUserLike(user: any) {
     const like = await prisma.fontsLiked.findMany({

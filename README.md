@@ -1,47 +1,38 @@
-<p align="center">
-  <a href="https://fonts.taedonn.com">
-      <img src="./public/logo.png" height="120">
-      <h1 align="center">Fonts Archive</h1>
-  </a>
-  <p align="center">
-    <img src="https://img.shields.io/badge/Made%20with-Next.js%20%4014.0.4-%23202124"/>
-    <img src="https://img.shields.io/badge/Built%20on-Node%20%4020.10.0-%2337873A"/>
-    <img src="https://img.shields.io/badge/Protected%20under-GPL%20v3.0-blue"/>
-  </p>
-</p>
+<center><img src="https://fonts-archive.s3.ap-northeast-2.amazonaws.com/logo_squared.png" height="120"></center>
 
 &nbsp;
 
-## 라이브 서버
+# <center>폰트 아카이브</center>
 
-[웹사이트 링크](https://fonts.taedonn.com)
-
-&nbsp;
-
-## 깃허브 프로젝트
-
-[깃허브 프로젝트 링크](https://github.com/fonts-archive)
+<center>
+<img src="https://img.shields.io/badge/Compatible%20with-Node%20v18.+-%2337873A"/>
+<img src="https://img.shields.io/badge/Protected%20under-GPL%20v3.0-blue"/>
+</center>
 
 &nbsp;
 
-## 필수 패키지 및 버전
+## 개요
 
-```
-"dependencies": {
-  "next": "^14.0.4",
-  "next-auth": "^4.24.5",
-  "nodemailer": "^6.9.3",
-  "react": "18.2.0",
-  "react-query": "^3.39.3",
-  "typescript": "^5.3.3",
-  "tailwindcss": "3.3.2",
-  "prisma": "^5.7.0",
-  "@prisma/client": "^5.7.0",
-  "@aws-sdk/client-s3": "^3.391.0",
-  "@mui/material": "^5.13.3",
-  "@types/jsonwebtoken": "^9.0.5"
-}
-```
+상업용으로 무료로 사용할 수 있는 폰트를 저장해둔 사이트입니다. 다른 사이트와 다른 점이 있다면 웹 폰트 정리가 잘 되어 있습니다.
+
+&nbsp;
+
+## 바로가기
+
+[웹사이트](https://fonts.taedonn.com) · [깃허브 프로젝트](https://github.com/fonts-archive)
+
+&nbsp;
+
+## 사용 스택
+
+- nextjs v14.0.4
+- typescript v5.3.3
+- tailwindcss v3.3.2
+- prisma/client v5.7.0
+- aws-sdk v3.391.0
+- react-query v3.39.3
+- next-auth v4.24.5
+- framer-motion v10.18.0
 
 &nbsp;
 

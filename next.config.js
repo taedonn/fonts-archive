@@ -3,13 +3,40 @@ const nextConfig = {
     basePath: "",
     images: {
         remotePatterns: [
-            {
+            {   // s3 image
                 protocol: 'https',
-                hostname: 'fonts-archive.s3.ap-northeast-2.amazonaws.com',
+                hostname: '*.amazonaws.com',
                 port: '',
-                pathname: '/*',
+                pathname: '**',
             },
+            {   // google profile image
+                protocol: 'https',
+                hostname: '*.googleusercontent.com',
+                port: '',
+                pathname: '**',
+            },
+            {   // github profile image
+                protocol: 'https',
+                hostname: '*.githubusercontent.com',
+                port: '',
+                pathname: '**',
+            },
+            {   // naver profile image
+                protocol: 'https',
+                hostname: '*.pstatic.net',
+                port: '',
+                pathname: '**',
+            },
+            {   // kakao profile image
+                protocol: 'http',
+                hostname: '*.kakaocdn.net',
+                port: '',
+                pathname: '**',
+            }
         ],
+    },
+    experimental: {
+        scrollRestoration: true,
     },
 }
 

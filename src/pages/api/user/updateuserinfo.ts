@@ -1,7 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import prisma from '@/libs/client-prisma';
+import prisma from '@/libs/prisma';
 import { S3Client, PutObjectCommand, DeleteObjectsCommand } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
+const bcrypt = require('bcrypt');
 
 export const config = {
     api: {
@@ -22,9 +23,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const fileType = req.body.file_type;
     
     if (req.method === 'GET') {
-        if (req.query.action === "get-current-pw") {
+        if (req.query.action === "compare-pw") {
             try {
-                const { id, auth } = req.query;
+                const { id, pw, auth } = req.query;
                 
                 const user = await prisma.fontsUser.findFirst({
                     select: {
@@ -38,9 +39,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     }
                 });
 
+                // bcrypt compare
+                const compare = user !== null
+                    ? bcrypt.compareSync(pw, user.user_pw)
+                        ? true
+                        : false
+                    : false;
+
                 return res.status(200).json({
                     msg: "비밀번호 조회 성공",
-                    user: user,
+                    compare: compare
                 });
             } catch (err) {
                 return res.status(500).json({
@@ -53,13 +61,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         if (req.body.action === "change-pw") {
             try {
                 const { id, pw, auth } = req.body;
+                const salt = bcrypt.genSaltSync(5);
+                const hash = bcrypt.hashSync(pw, salt);
 
                 await prisma.fontsUser.updateMany({
                     where: {
                         user_id: id,
                         auth: auth,
                     },
-                    data: { user_pw: pw }
+                    data: { user_pw: hash }
                 });
 
                 return res.status(200).json({

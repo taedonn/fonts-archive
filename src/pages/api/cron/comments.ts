@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import prisma from '@/libs/client-prisma';
+import prisma from '@/libs/prisma';
   
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     try {
@@ -8,13 +8,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             where: { is_deleted: true }
         });
 
-        // 삭제된 댓글 중 3일이 지난 댓글 ID 가져오기
+        // 삭제된 댓글 중 7일이 지난 댓글 ID 가져오기
         let arr = [];
         for (let i = 0; i < deletedComments.length; i++) {
             let deletedDate = new Date(deletedComments[i].deleted_at);
             let nowDate = new Date();
 
-            if (deletedDate.getDate() + 3 < nowDate.getDate()) {
+            if (deletedDate.getDate() + 7 < nowDate.getDate()) {
                 arr.push({ comment_id: deletedComments[i].comment_id });
             }
         }

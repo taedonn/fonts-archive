@@ -1,44 +1,49 @@
-/* eslint-disable @next/next/no-img-element */
-// next hooks
+// next
 import Link from "next/link";
-import { NextSeo } from "next-seo";
+import Image from "next/image";
 
 // next-auth
 import { getServerSession } from "next-auth";
 import { authOptions } from '@/pages/api/auth/[...nextauth]';
 
-// react hooks
+// react
 import { useState, useEffect, useRef } from "react";
 
 // api
 import { FetchIssue } from "@/pages/api/admin/issue";
-import axios from "axios";
 
-// components
-import Header from "@/components/header";
-import Footer from "@/components/footer";
+// libraries
+import { NextSeo } from "next-seo";
+import axios from "axios";
 import { Switch } from "@mui/material";
 
+// components
+import Motion from "@/components/motion";
+import Header from "@/components/header";
+import Footer from "@/components/footer";
+import TextInput from "@/components/textinput";
+import TextArea from "@/components/textarea";
+import Button from "@/components/button";
+
 // common
-import { timeFormat } from "@/libs/common";
+import { timeFormat, onMouseDown, onMouseUp, onMouseOut } from "@/libs/common";
 
 const IssuePage = ({params}: any) => {
+    const { theme, userAgent, user, issue } = params;
+
     // 디바이스 체크
-    const isMac: boolean = params.userAgent.includes("Mac OS") ? true : false;
+    const isMac: boolean = userAgent.includes("Mac OS") ? true : false;
 
-    // 유저 정보
-    const issue = params.issue;
-
-    // ref
-    const imgRef = useRef<HTMLDivElement>(null);
-
-    // state
+    // states
     const [replySuccess, setReplySuccess] = useState<string>("");
     const [isFocused, setIsFocused] = useState<boolean>(false);
     const [focusedImg, setFocusedImg] = useState<string>("");
-    const [txtAlert, setTxtAlert] = useState<boolean>(false);
+    const [txtAlert, setTxtAlert] = useState<string>("");
     const [issueClosed, setIssueClosed] = useState<boolean>(issue.issue_closed);
     const [isLoading, setIsLoading] = useState<boolean>(false);
+
+    // refs
+    const imgRef = useRef<HTMLDivElement>(null);
 
     /** 이미지 영역 확대 */
     const handleOnImgFocus = (e: React.MouseEvent<HTMLImageElement>) => {
@@ -76,7 +81,7 @@ const IssuePage = ({params}: any) => {
 
     /** 왼쪽 화살표 클릭 */
     const handleImgPrev = () => {
-        const imgNum = focusedImg.split(`/issue-font-${issue.issue_id}-`)[1].split(".")[0];
+        const imgNum = focusedImg.split(`/issue-${issue.issue_id}-`)[1].split(".")[0];
         if (Number(imgNum) > 1) {
             setFocusedImg(issue[`issue_img_${Number(imgNum) - 1}`]);
         }
@@ -84,7 +89,7 @@ const IssuePage = ({params}: any) => {
 
     /** 오른쪽 화살표 클릭 */
     const handleImgNext = () => {
-        const imgNum = focusedImg.split("/issue-font-")[1].split("-")[1].split(".")[0];
+        const imgNum = focusedImg.split("/issue-")[1].split("-")[1].split(".")[0];
         if (Number(imgNum) < issue.issue_img_length) {
             setFocusedImg(issue[`issue_img_${Number(imgNum) + 1}`]);
         }
@@ -135,7 +140,7 @@ const IssuePage = ({params}: any) => {
 
     /** 텍스트 에리어 변경사항 있을 때 알럿 해제 */
     const handleTextAreaOnChange = () => {
-        setTxtAlert(false);
+        setTxtAlert("");
     }
 
     /** 답변하기 버튼 클릭 */
@@ -143,7 +148,7 @@ const IssuePage = ({params}: any) => {
         const txt = document.getElementById("answer") as HTMLTextAreaElement;
 
         if (txt.value === "") {
-            setTxtAlert(true);
+            setTxtAlert("empty");
         } else if (!issueClosed) {
             setIsLoading(true);
 
@@ -208,103 +213,153 @@ const IssuePage = ({params}: any) => {
             {/* 헤더 */}
             <Header
                 isMac={isMac}
-                theme={params.theme}
-                user={params.user}
+                theme={theme}
+                user={user}
             />
 
             {/* 메인 */}
-            <div className='w-[100%] flex flex-col justify-center items-center'>
-                <div className='relative max-w-[720px] w-[100%] flex flex-col justify-center items-start my-[100px] tlg:my-[40px]'>
-                    <Link href="/admin/issue/list" className="absolute left-0 top-[-80px] tlg:top-[-28px] text-[12px] text-theme-5 hover:text-theme-3 tlg:hover:text-theme-5 dark:text-theme-7 hover:dark:text-theme-9 tlg:hover:dark:text-theme-7 block border-b border-transparent hover:border-theme-3 tlg:border-theme-5 tlg:hover:border-theme-5 hover:dark:border-theme-9 tlg:dark:border-theme-7 tlg:hover:dark:border-theme-7"><div className="inline-block mr-[4px]">&#60;</div> 목록으로 돌아가기</Link>
-                    <h2 className='text-[20px] tlg:text-[18px] text-theme-3 dark:text-theme-9 font-medium'>폰트 티켓</h2>
-                    <div className='text-[12px] text-theme-5 dark:text-theme-6 mt-[4px] mb-[10px] tlg:mb-[8px]'>{timeFormat(issue.issue_created_at) === timeFormat(issue.issue_closed_at) ? timeFormat(issue.issue_created_at) + "에 생성됨" : timeFormat(issue.issue_closed_at) + "에 수정됨"}</div>
-                    <div id="reply-success" className="w-[100%]">
+            <Motion
+                initialOpacity={0}
+                animateOpacity={1}
+                exitOpacity={0}
+                initialY={-50}
+                animateY={0}
+                exitY={-50}
+                transitionType="spring"
+            >
+                <div className='w-full px-4 flex flex-col justify-center items-center'>
+                    <div className='relative max-w-[45rem] w-full flex flex-col justify-center items-start py-24 tlg:py-16'>
+                        <Link href="/admin/issue/list" className="absolute left-0 top-3 block border-b border-transparent text-sm text-l-5 dark:text-d-c hover:text-l-2 hover:dark:text-white tlg:hover:text-l-5 tlg:hover:dark:text-d-c hover:border-b-l-2 hover:dark:border-b-white tlg:hover:border-b-transparent tlg:hover:dark:border-b-transparent"><div className="inline-block mr-1">&#60;</div> 목록으로 돌아가기</Link>
+                        <h2 className='text-2xl tlg:text-xl text-l-2 dark:text-white font-bold mb-4'>문의 사항</h2>
+                        <div className='mb-2.5 text-sm tlg:text-xs text-l-5 dark:text-d-c'>{timeFormat(issue.issue_created_at) === timeFormat(issue.issue_closed_at) ? timeFormat(issue.issue_created_at) + "에 생성됨" : timeFormat(issue.issue_closed_at) + "에 수정됨"}</div>
                         {
                             replySuccess === "success"
-                            ? <div className='w-[100%] h-[40px] px-[10px] mb-[10px] flex flex-row justify-between items-center rounded-[6px] border-[2px] border-theme-yellow dark:border-theme-blue-1/80 text-[12px] text-theme-3 dark:text-theme-9 bg-theme-yellow/40 dark:bg-theme-blue-1/20'>
-                                <div className='flex flex-row justify-start items-center'>
-                                    <svg className='w-[14px] fill-theme-yellow dark:fill-theme-blue-1/80' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg>
-                                    <div className='ml-[6px]'>답변이 완료되었습니다.</div>
+                            ? <div className='w-full h-10 px-2.5 mb-3 flex justify-between items-center rounded-lg border-2 border-h-1 dark:border-f-8 text-xs text-l-2 dark:text-white bg-h-1/20 dark:bg-f-8/20'>
+                                <div className='flex justify-start items-center'>
+                                    <i className='text-sm text-h-1 dark:text-f-8 fa-regular fa-bell'></i>
+                                    <div className='ml-2'>답변이 완료되었습니다.</div>
                                 </div>
-                                <div onClick={handleOnReplyClose} className='flex flex-row justify-center items-center cursor-pointer'>
-                                    <svg className='w-[18px] fill-theme-3 dark:fill-theme-9' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg>
+                                <div onClick={handleOnReplyClose} className='flex justify-center items-center cursor-pointer'>
+                                    <i className="text-sm text-l-2 dark:text-white fa-solid fa-xmark"></i>
                                 </div>
                             </div>
                             : replySuccess === "fail"
-                                ? <div className='w-[100%] h-[40px] px-[10px] mb-[10px] flex flex-row justify-between items-center rounded-[6px] border-[2px] border-theme-red/80 text-[12px] text-theme-3 dark:text-theme-9 bg-theme-red/20'>
-                                    <div className='flex flex-row justify-start items-center'>
-                                        <svg className='w-[14px] fill-theme-red/80' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg>
-                                        <div className='ml-[6px]'>답변 전송에 실패했습니다.</div>
+                                ? <div className='w-full h-10 px-2.5 mb-3 flex justify-between items-center rounded-lg border-2 border-h-r text-xs text-l-2 dark:text-white bg-h-r/20'>
+                                    <div className='flex justify-start items-center'>
+                                        <i className='text-sm text-h-r fa-regular fa-bell'></i>
+                                        <div className='ml-2'>답변 전송에 실패했습니다.</div>
                                     </div>
-                                    <div onClick={handleOnReplyClose} className='flex flex-row justify-center items-center cursor-pointer'>
-                                        <svg className='w-[18px] fill-theme-3 dark:fill-theme-9' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg>
+                                    <div onClick={handleOnReplyClose} className='flex justify-center items-center cursor-pointer'>
+                                        <i className="text-sm text-l-2 dark:text-white fa-solid fa-xmark"></i>
                                     </div>
                                 </div> : <></>
                         }
-                    </div>
-                    <div className='w-[100%] p-[20px] rounded-[8px] text-[14px] text-theme-10 dark:text-theme-9 bg-theme-5 dark:bg-theme-3 drop-shadow-default dark:drop-shadow-dark'>
-                        <label htmlFor="title">제목</label>
-                        <input id="title" defaultValue={issue.issue_title} type="text" disabled className='w-[100%] border-theme-6 dark:border-theme-4 text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] bg-theme-4 dark:bg-theme-2 text-theme-10 dark:text-theme-9 cursor-text'/>
-                        <label htmlFor="email" className="block mt-[20px]">이메일</label>
-                        <input id="email" defaultValue={issue.issue_email} type="text" disabled className='w-[100%] border-theme-6 dark:border-theme-4 text-[12px] mt-[8px] px-[14px] py-[6px] rounded-[8px] border-[2px] bg-theme-4 dark:bg-theme-2 text-theme-10 dark:text-theme-9 cursor-text'/>
-                        <label htmlFor="content" className="block mt-[20px]">내용</label>
-                        <textarea id="content" disabled defaultValue={issue.issue_content} className={`font-edit-textarea w-[100%] h-[196px] resize-none border-theme-6 dark:border-theme-4 bg-theme-4 dark:bg-theme-2 text-theme-10 dark:text-theme-9 text-[12px] mt-[8px] px-[14px] py-[12px] rounded-[8px] border-[2px] cursor-text`}></textarea>
-                        <div className="mt-[20px]">첨부한 이미지</div>
-                        <div className="w-[100%] min-h-[88px] flex items-center px-[16px] mt-[8px] rounded-[8px] border-[2px] border-theme-6 dark:border-theme-4 bg-theme-4 dark:bg-theme-2">
-                            {
-                                issue.issue_img_length > 0
-                                ? <div className="w-[100%] flex justify-center items-center gap-x-[10px] my-[16px]">
-                                    {issue.issue_img_1 !== "null" && <img src={issue.issue_img_1} onClick={handleOnImgFocus} id="img_1" alt="첨부한 이미지 1" className="w-[72px] h-[88px] rounded-[8px] border-[2px] border-theme-6 dark:border-theme-4 object-cover cursor-pointer"/>}
-                                    {issue.issue_img_2 !== "null" && <img src={issue.issue_img_2} onClick={handleOnImgFocus} id="img_2" alt="첨부한 이미지 2" className="w-[72px] h-[88px] rounded-[8px] border-[2px] border-theme-6 dark:border-theme-4 object-cover cursor-pointer"/>}
-                                    {issue.issue_img_3 !== "null" && <img src={issue.issue_img_3} onClick={handleOnImgFocus} id="img_3" alt="첨부한 이미지 3" className="w-[72px] h-[88px] rounded-[8px] border-[2px] border-theme-6 dark:border-theme-4 object-cover cursor-pointer"/>}
-                                    {issue.issue_img_4 !== "null" && <img src={issue.issue_img_4} onClick={handleOnImgFocus} id="img_4" alt="첨부한 이미지 4" className="w-[72px] h-[88px] rounded-[8px] border-[2px] border-theme-6 dark:border-theme-4 object-cover cursor-pointer"/>}
-                                    {issue.issue_img_5 !== "null" && <img src={issue.issue_img_5} onClick={handleOnImgFocus} id="img_5" alt="첨부한 이미지 5" className="w-[72px] h-[88px] rounded-[8px] border-[2px] border-theme-6 dark:border-theme-4 object-cover cursor-pointer"/>}
-                                </div> 
-                                : <div className="w-[100%] text-[12px] text-center text-theme-10 dark:text-theme-9 cursor-text">첨부한 이미지가 없습니다.</div>
-                            }
-                        </div>
-                        <div className="w-[100%] h-px my-[28px] bg-theme-8/80 dark:bg-theme-7/80"></div>
-                        <div className="mt-[20px]">답변 여부</div>
-                        <div className="w-content flex items-center text-[12px] mt-[12px] px-[20px] py-[8px] rounded-[8px] bg-theme-4 dark:bg-theme-blue-2">
-                            <div className={`mr-[4px]`}>답변 중</div>
-                            <Switch
-                                checked={issueClosed}
-                                onChange={handleToggleChange}
-                                size="small"
+                        <div className='w-full p-5 rounded-lg text-l-2 dark:text-white bg-l-e dark:bg-d-3 drop-shadow-default dark:drop-shadow-dark'>
+                            <TextInput
+                                value={
+                                    issue.issue_type === "font"
+                                        ? "폰트 관련 제보"
+                                        : issue.issue_type === "bug"
+                                            ? "버그 관련 제보"
+                                            : "기타 문의 사항"
+                                }
+                                disabled
+                                id="type"
+                                tabindex={1}
+                                label="유형"
                             />
-                            <div className={`${issueClosed ? "text-theme-green" : ""} ml-[6px]`}>답변 완료</div>
+                            <TextInput
+                                value={issue.issue_title}
+                                disabled
+                                id="title"
+                                tabindex={2}
+                                label="제목"
+                                marginTop={2}
+                            />
+                            <TextInput
+                                value={issue.issue_email}
+                                disabled
+                                id="email"
+                                tabindex={3}
+                                label="이메일"
+                                marginTop={2}
+                            />
+                            <TextArea
+                                value={issue.issue_content}
+                                disabled
+                                id="content"
+                                tabindex={4}
+                                label="내용"
+                                marginTop={2}
+                            />
+                            <div className="mt-8 font-medium">첨부한 이미지</div>
+                            <div className="w-full min-h-24 flex items-center px-4 mt-2 rounded-lg bg-l-d dark:bg-d-4">
+                                {
+                                    issue.issue_img_length > 0
+                                    ? <div className="w-full flex justify-center items-center gap-x-2.5 my-6">
+                                        {issue.issue_img_1 !== "null" && <div onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-24 h-28 relative"><Image src={issue.issue_img_1} alt="첨부한 이미지 1" fill sizes="100%" priority referrerPolicy="no-referrer" onClick={handleOnImgFocus} id="img_1" className="rounded-lg border-2 border-l-b dark:border-d-6 object-cover cursor-pointer"/></div>}
+                                        {issue.issue_img_2 !== "null" && <div onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-24 h-28 relative"><Image src={issue.issue_img_2} alt="첨부한 이미지 2" fill sizes="100%" priority referrerPolicy="no-referrer" onClick={handleOnImgFocus} id="img_2" className="rounded-lg border-2 border-l-b dark:border-d-6 object-cover cursor-pointer"/></div>}
+                                        {issue.issue_img_3 !== "null" && <div onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-24 h-28 relative"><Image src={issue.issue_img_3} alt="첨부한 이미지 3" fill sizes="100%" priority referrerPolicy="no-referrer" onClick={handleOnImgFocus} id="img_3" className="rounded-lg border-2 border-l-b dark:border-d-6 object-cover cursor-pointer"/></div>}
+                                        {issue.issue_img_4 !== "null" && <div onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-24 h-28 relative"><Image src={issue.issue_img_4} alt="첨부한 이미지 4" fill sizes="100%" priority referrerPolicy="no-referrer" onClick={handleOnImgFocus} id="img_4" className="rounded-lg border-2 border-l-b dark:border-d-6 object-cover cursor-pointer"/></div>}
+                                        {issue.issue_img_5 !== "null" && <div onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-24 h-28 relative"><Image src={issue.issue_img_5} alt="첨부한 이미지 5" fill sizes="100%" priority referrerPolicy="no-referrer" onClick={handleOnImgFocus} id="img_5" className="rounded-lg border-2 border-l-b dark:border-d-6 object-cover cursor-pointer"/></div>}
+                                    </div> 
+                                    : <div className="w-full h-24 flex justify-center items-center text-sm text-center text-l-2 dark:text-white">첨부한 이미지가 없습니다.</div>
+                                }
+                            </div>
+                            <div className="w-full h-px my-6 bg-l-b dark:bg-d-6"></div>
+                            <div className="font-medium">답변 여부</div>
+                            <div className="w-max h-12 rounded-lg mt-2 px-3.5 flex items-center text-sm bg-l-d dark:bg-d-4">
+                                <div className="mr-1.5">답변 중</div>
+                                <Switch
+                                    checked={issueClosed}
+                                    onChange={handleToggleChange}
+                                    size="small"
+                                />
+                                <div className={`${issueClosed ? "text-h-1 dark:text-f-8" : ""} ml-1.5`}>답변 완료</div>
+                            </div>
+                            <TextArea
+                                onchange={handleTextAreaOnChange}
+                                state={txtAlert}
+                                stateMsg={[
+                                    { state: "", msg: "" },
+                                    { state: "empty", msg: "답변 내용이 없습니다." }
+                                ]}
+                                value={issue.issue_reply}
+                                id="answer"
+                                tabindex={5}
+                                placeholder="답변을 입력해 주세요."
+                                label="답변"
+                                marginTop={2}
+                            />
+                            <Button marginTop={1}>
+                                <button onClick={handleBtnClick} className="w-full h-full">
+                                    {
+                                        isLoading
+                                        ? <span className='loader border-2 border-h-e dark:border-d-6 border-b-h-1 dark:border-b-f-8 w-4 h-4'></span>
+                                        : <>답변하기</>
+                                    }
+                                </button>
+                            </Button>
                         </div>
-                        <div className="mt-[28px]">답변</div>
-                        <textarea onChange={handleTextAreaOnChange} defaultValue={issue.issue_reply} id="answer" placeholder="답변을 입력해 주세요." className={`font-edit-textarea w-[100%] h-[196px] resize-none ${txtAlert ? 'border-theme-red focus:border-theme-red' : 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' } text-[12px] mt-[8px] px-[14px] py-[12px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}></textarea>
-                        {
-                            txtAlert &&
-                            <div className="text-[10px] ml-[16px] mt-[6px] text-theme-red">답변 내용이 없습니다.</div>
-                        }
-                        <button onClick={handleBtnClick} className="w-[100%] h-[34px] rounded-[8px] mt-[20px] font-medium text-[12px] text-theme-3 dark:text-theme-2 bg-theme-yellow/80 hover:bg-theme-yellow dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1">
-                            {
-                                isLoading
-                                ? <span className='loader loader-register w-[16px] h-[16px] mt-[2px]'></span>
-                                : <>답변하기</>
-                            }
-                        </button>
                     </div>
                 </div>
-            </div>
+            </Motion>
 
             {/* 이미지 확대 */}
             {
                 isFocused &&
-                <div className="fixed z-40 left-0 top-0 backdrop-blur bg-blur-theme w-[100%] h-[100vh] flex justify-center items-center">
+                <div className="fixed z-40 left-0 top-0 backdrop-blur bg-blur-theme w-full h-full flex justify-center items-center">
                     <div ref={imgRef} className="relative flex items-center">
-                        <button onClick={handleOffImgFocus} className="group w-[40px] tlg:w-[32px] h-[40px] tlg:h-[32px] rounded-full hover:bg-theme-3 tlg:hover:bg-transparent hover:dark:bg-theme-4 tlg:hover:dark:bg-transparent absolute right-[92px] tlg:right-[64px] tsm:right-[40px] top-[-48px] tlg:top-[-40px] flex justify-center items-center">
-                            <svg className="w-[28px] tlg:w-[20px] h-[28px] tlg:h-[20px] fill-theme-3 tlg:fill-theme-9 group-hover:fill-theme-9 dark:fill-theme-9" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>
+                        <button onClick={handleOffImgFocus} onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-10 tlg:w-8 h-10 tlg:h-8 rounded-full hover:bg-l-d tlg:hover:bg-transparent hover:dark:bg-d-4 tlg:hover:dark:bg-transparent absolute right-[5.75rem] tlg:right-16 tsm:right-10 -top-12 tlg:-top-10 flex justify-center items-center">
+                            <i className="text-2xl text-l-2 dark:text-white fa-solid fa-xmark"></i>
                         </button>
-                        <button onClick={handleImgPrev} className="group w-[40px] tlg:w-[32px] h-[40px] tlg:h-[32px] rounded-full hover:bg-theme-3 tlg:hover:bg-transparent hover:dark:bg-theme-4 tlg:hover:dark:bg-transparent mr-[60px] tlg:mr-[40px] tsm:mr-[16px] flex justify-center items-center">
-                            <svg className="w-[28px] tlg:w-[20px] h-[28px] tlg:h-[20px] translate-x-[-1px] fill-theme-3 tlg:fill-theme-9 group-hover:fill-theme-9 dark:fill-theme-9" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>
+                        <button onClick={handleImgPrev} onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-10 tlg:w-8 h-10 tlg:h-8 rounded-full hover:bg-l-d tlg:hover:bg-transparent hover:dark:bg-d-4 tlg:hover:dark:bg-transparent mr-[3.75rem] tlg:mr-10 tsm:mr-4 flex justify-center items-center">
+                            <i className="text-2xl -translate-x-px text-l-2 dark:text-white fa-solid fa-angle-left"></i>
                         </button>
-                        <img src={focusedImg} alt="이미지 미리보기" className="w-[600px] tlg:w-[420px] tsm:w-[300px] rounded-[16px] animate-zoom-in"/>
-                        <button onClick={handleImgNext} className="group w-[40px] tlg:w-[32px] h-[40px] tlg:h-[32px] rounded-full hover:bg-theme-3 tlg:hover:bg-transparent hover:dark:bg-theme-4 tlg:hover:dark:bg-transparent ml-[60px] tlg:ml-[40px] tsm:ml-[16px] flex justify-center items-center">
-                            <svg className="w-[28px] tlg:w-[20px] h-[28px] tlg:h-[20px] translate-x-[1px] fill-theme-3 tlg:fill-theme-9 group-hover:fill-theme-9 dark:fill-theme-9" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg>
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img src={focusedImg} alt="이미지 미리보기" className="w-[37.5rem] tlg:w-[26.25rem] tsm:w-[18.75rem] rounded-lg animate-zoom-in"/>
+                        <button onClick={handleImgNext} onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-10 tlg:w-8 h-10 tlg:h-8 rounded-full hover:bg-l-d tlg:hover:bg-transparent hover:dark:bg-d-4 tlg:hover:dark:bg-transparent ml-[3.75rem] tlg:ml-10 tsm:ml-4 flex justify-center items-center">
+                            <i className="text-2xl translate-x-px text-l-2 dark:text-white fa-solid fa-angle-right"></i>
                         </button>
                     </div>
                 </div>
@@ -318,8 +373,8 @@ const IssuePage = ({params}: any) => {
 
 export async function getServerSideProps(ctx: any) {
     try {
-        // 필터링 쿠키 체크
-        const cookieTheme = ctx.req.cookies.theme === undefined ? "dark" : ctx.req.cookies.theme;
+        // 쿠키 체크
+        const { theme } = ctx.req.cookies;
 
         // 디바이스 체크
         const userAgent = ctx.req ? ctx.req.headers['user-agent'] : navigator.userAgent;
@@ -342,7 +397,7 @@ export async function getServerSideProps(ctx: any) {
             return {
                 props: {
                     params: {
-                        theme: cookieTheme,
+                        theme: theme ? theme : 'light',
                         userAgent: userAgent,
                         user: session === null ? null : session.user,
                         issue: JSON.parse(JSON.stringify(issue)),

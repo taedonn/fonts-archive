@@ -1,18 +1,20 @@
-// react hooks
+// react
 import { useEffect } from "react";
 
-// next hooks
+// next
 import Link from "next/link";
 
 // api
 import { FetchUserInfoFromToken } from "./api/auth/auth";
+
+// libraries
 import axios from "axios";
 
 // common
-import { dateFormat } from "@/libs/common";
+import { dateFormat, onMouseDown, onMouseUp, onMouseOut } from "@/libs/common";
 
 const Confirm = ({params}: any) => {
-    const user = params.user;
+    const { user } = params;
 
     // 로딩 시 폰트 다운로드
     useEffect(() => {
@@ -33,21 +35,23 @@ const Confirm = ({params}: any) => {
     
     return (
         <>
-            <div className="w-[100%] h-[100%] absolute left-0 top-0 flex flex-col justify-center items-center text-center text-theme-3 dark:text-theme-9">
-                <div className="text-[28px] font-medium">
-                    환영합니다 {user.user_name}님!
-                </div>
-                <div className="text-[14px] mt-[8px] leading-relaxed">
-                    폰트 아카이브의 회원이 되어주셔서 감사합니다. <br/>
-                    앞으로 다양한 기능이 추가될 예정이니 자주 방문해 주세요!
-                </div>
-                <div style={{fontFamily: "Intel One Mono"}} className="w-[340px] px-[28px] py-[16px] mt-[16px] text-left leading-loose rounded-[8px] text-[14px] text-theme-3 dark:text-theme-9 bg-theme-red/20 dark:bg-theme-blue-1/20 border border-dashed border-theme-red dark:border-theme-blue-1">
-                    이름: {user.user_name} <br/>
-                    이메일: {user.user_id} <br/>
-                    가입일: {dateFormat(user.created_at)}
-                </div>
-                <div className="flex items-center mt-[40px]">
-                    <Link href="/" className="flex justify-center items-center w-[132px] h-[36px] rounded-full text-[13px] border border-theme-8 hover:border-theme-3 dark:border-theme-blue-1/40 hover:bg-theme-3 hover:dark:bg-theme-blue-1 text-theme-3 hover:text-theme-9 dark:text-theme-blue-1 hover:dark:text-theme-blue-2 cursor-pointer duration-100">메인 페이지</Link>
+            <div className="w-full h-full absolute left-0 top-0 flex justify-center items-center text-center text-l-2 dark:text-white">
+                <div className="w-[22.5rem]">
+                    <div className="text-3xl font-medium">
+                        환영합니다 {user.user_name}님!
+                    </div>
+                    <div className="text-sm mt-2.5 leading-relaxed">
+                        폰트 아카이브의 회원이 되어주셔서 감사합니다. <br/>
+                        앞으로 다양한 기능이 추가될 예정이니 자주 방문해 주세요!
+                    </div>
+                    <div style={{fontFamily: "Intel One Mono"}} className="w-full px-7 py-4 mt-5 text-left leading-loose rounded-lg text-sm bg-h-1/20 dark:bg-f-8/20 border border-dashed border-h-1 dark:border-f-8">
+                        이름: {user.user_name} <br/>
+                        이메일: {user.user_id} <br/>
+                        가입일: {dateFormat(user.created_at)}
+                    </div>
+                    <div className="flex justify-center items-center mt-10">
+                        <Link href="/" onMouseDown={e => onMouseDown(e, 0.95, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="flex justify-center items-center w-[8.25rem] h-9 rounded-lg text-sm border border-h-1 dark:border-f-8 hover:bg-h-1 hover:dark:bg-f-8 tlg:hover:bg-transparent tlg:hover:dark:bg-transparent text-h-1 dark:text-f-8 hover:text-white hover:dark:text-d-2 tlg:hover:text-h-1 tlg:hover:dark:text-f-8 cursor-pointer duration-100">메인 페이지</Link>
+                    </div>
                 </div>
             </div>
         </>
@@ -56,8 +60,8 @@ const Confirm = ({params}: any) => {
 
 export async function getServerSideProps(ctx: any) {
     try {
-        // 필터링 쿠키 체크
-        const cookieTheme = ctx.req.cookies.theme === undefined ? "dark" : ctx.req.cookies.theme;
+        // 쿠키 체크
+        const { theme } = ctx.req.cookies;
 
         // token 불러오기
         const token = ctx.query.token;
@@ -78,7 +82,7 @@ export async function getServerSideProps(ctx: any) {
             return {
                 props: {
                     params: {
-                        theme: cookieTheme,
+                        theme: theme ? theme : 'light',
                         user: JSON.parse(JSON.stringify(user))
                     }
                 }

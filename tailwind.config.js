@@ -3,55 +3,74 @@ module.exports = {
     content: [
         './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
         './src/components/**/*.{js,ts,jsx,tsx,mdx}',
-        './src/app/**/*.{js,ts,jsx,tsx,mdx}',
     ],
     darkMode: "class",
     theme: {
+        fontFamily: {
+            'sans': ['Spoqa Han Sans Neo', 'sans-serif']
+        },
         extend: {
             screens: {
-                "txl": { "max": "1280px" },
                 "tlg": { "max": "1024px" },
                 "tmd": { "max": "768px" },
                 "tsm": { "max": "640px" },
                 "txs": { "max": "480px" },
             },
             colors: {
-                "transparent": "transparent",
-                "theme-1": "#000000",
-                "theme-2": "#202124",
-                "theme-3": "#35363A",
-                "theme-4": "#4C4D50",
-                "theme-5": "#646568",
-                "theme-6": "#97989C",
-                "theme-7": "#B1B2B6",
-                "theme-8": "#CDCED2",
-                "theme-9": "#E9EAEE",
-                "theme-10": "#FFFFFF",
-                "theme-blue-1": "#8AB4F8",
-                "theme-blue-2": "#17181B",
-                "theme-yellow": "#FCBE11",
-                "theme-red": "#FF084A",
-                "theme-green": "#40E0D0",
                 "theme-naver": "#03C75A",
                 "theme-kakao": "#FFE812",
-            },
-            width: {
-                "content": "max-content"
+                h: {
+                    "0": "#006AE2",
+                    "1": "#1B73E7",
+                    "e": "#E9F0FE",
+                    "f": "#F9FAFD",
+                    "r": "#F03A39",
+                    "r-h": "#FF5252",
+                },
+                l: {
+                    "2": "#202124",
+                    "5": "#5F6368",
+                    "9": "#97989C",
+                    "b": "#BDC1C6",
+                    "d": "#D2D4DC",
+                    "e": "#E9EAEE",
+                },
+                f: {
+                    "1": "#17181B",
+                    "8": "#8AB4F8",
+                    "9": "#9FBCF2",
+                },
+                d: {
+                    "2": "#202124",
+                    "3": "#2D2E31",
+                    "4": "#3C4043",
+                    "6": "#646568",
+                    "9": "#97989C",
+                    "c": "#CDCED2",
+                }
             },
             animation: {
                 "zoom-in": "zoom-in 0.2s 1 both",
-                "fontbox-zoom-in": "fontbox-zoom-in 0.2s 1 both",
+                "zoom-in-fontbox": "zoom-in-fontbox 0.2s 1 both",
                 "fade-in": "fade-in 0.2s 1 both",
-                "account-fade-in": "fontbox-fade-in 0.2s 1 both",
-                "fontbox-fade-in": "fontbox-fade-in 0.4s 1 both",
-                "tooltip-fade-in": "tooltip-fade-in 0.2s 1 both"
+                "fade-in-fontbox": "fade-in-fontbox 0.4s 1 both",
+                "fade-in-from-top": "fade-in-from-top 0.2s 1 both",
+                "fade-in-account": "fade-in-fontbox 0.2s 1 both",
+                "skeleton-anim": "skeleton-anim 2s infinite"
+            },
+            backgroundImage: {
+                "gradient": "linear-gradient(90deg, #F9FAFD, #D4E1FD, #F9FAFD)",
+                "gradient-dark": "linear-gradient(90deg, #2D2E31, #3C4043, #2D2E31)"
+            },
+            backgroundSize: {
+                "gradient-size": "200% 100%"
             },
             keyframes: {
                 "zoom-in": {
                     "0%": { opacity: "0", transform: "scale(0.5)" },
                     "100%": { opacity: "1", transform: "scale(1)" }
                 },
-                "fontbox-zoom-in": {
+                "zoom-in-fontbox": {
                     "0%": { opacity: "0", transform: "translateX(-50%) scale(0.5)" },
                     "100%": { opacity: "1", transform: "translateX(-50%) scale(1)" }
                 },
@@ -59,14 +78,18 @@ module.exports = {
                     "0%": { opacity: "0", transform: "translateX(-50%) translateY(12px)" },
                     "100%": { opacity: "1", transform: "translateX(-50%) translateY(0)" }
                 },
-                "fontbox-fade-in": {
+                "fade-in-fontbox": {
                     "0%": { opacity: "0", transform: "translateY(12px)" },
                     "100%": { opacity: "1", transform: "translateY(0)" }
                 },
-                "tooltip-fade-in": {
-                    "0%": { opacity: "0", transform: "translate(0px) translateY(-50%)" },
-                    "100%": { opacity: "1", transform: "translate(-4px) translateY(-50%)" }
+                "fade-in-from-top": {
+                    "0%": { opacity: "0", transform: "translateY(-12px)" },
+                    "100%": { opacity: "1", transform: "translateY(0)" }
                 },
+                "skeleton-anim": {
+                    "0%": { backgroundPosition: "200% center" },
+                    "100%": { backgroundPosition: "0% center" }
+                }
             },
             dropShadow: {
                 "default": "1px 2px 4px #97989C",

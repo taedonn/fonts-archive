@@ -1,4 +1,4 @@
-// next hooks
+// next
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
@@ -7,19 +7,24 @@ import { NextSeo } from 'next-seo';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../api/auth/[...nextauth]';
 
-// react hooks
+// react
 import React, { useEffect, useState } from 'react';
 
-// hooks
+// libraries
 import axios from 'axios';
 
 // components
+import Motion from '@/components/motion';
 import Header from "@/components/header";
 import Footer from '@/components/footer';
+import Button from '@/components/button';
+import TextInput from '@/components/textinput';
 
 const Register = ({params}: any) => {
+    const { theme, userAgent } = params;
+
     // 디바이스 체크
-    const isMac: boolean = params.userAgent.includes("Mac OS") ? true : false;
+    const isMac: boolean = userAgent.includes("Mac OS") ? true : false;
 
     const router = useRouter();
 
@@ -220,104 +225,132 @@ const Register = ({params}: any) => {
             {/* 헤더 */}
             <Header
                 isMac={isMac}
-                theme={params.theme}
+                theme={theme}
                 user={null}
             />
 
             {/* 메인 */}
-            <div className='w-[100%] flex flex-col justify-center items-center'>
-                <div className='w-[360px] flex flex-col justify-center items-start my-[100px] tlg:my-[40px]'>
-                    <h2 className='text-[20px] tlg:text-[18px] text-theme-3 dark:text-theme-9 font-medium mb-[12px] tlg:mb-[8px]'>회원가입</h2>
-                    <form onSubmit={e => e.preventDefault()} id='register-form' className='w-[100%] p-[20px] rounded-[8px] text-theme-10 dark:text-theme-9 bg-theme-5 dark:bg-theme-3 drop-shadow-default dark:drop-shadow-dark'>
-                        <label htmlFor='name' className='block text-[14px] ml-px'>이름</label>
-                        <input onChange={handleNameChange} type='text' id='name' tabIndex={1} autoComplete='on' placeholder='홍길동' className={`${nameChk === '' ? 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' : 'border-theme-red focus:border-theme-red dark:border-theme-red focus:dark:border-theme-red'} w-[100%] text-[14px] mt-[6px] px-[14px] py-[8px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
-                        {
-                            nameChk === ''
-                            ? <></>
-                            : <span className='block text-[12px] text-theme-red mt-[4px] ml-[16px]'>이름을 입력해 주세요.</span>
-                        }
-                        <label htmlFor='id' className='block text-[14px] ml-px mt-[24px]'>이메일</label>
-                        <input onChange={handleIdChange} type='text' id='id' tabIndex={2} autoComplete='on' placeholder='example@example.com' className={`${idChk === '' ? 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' : 'border-theme-red focus:border-theme-red dark:border-theme-red focus:dark:border-theme-red'} w-[100%] text-[14px] mt-[6px] px-[14px] py-[8px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2 autofill:bg-theme-4 autofill:dark:bg-theme-blue-2`}/>
-                        {
-                            idChk === ''
-                            ? <></>
-                            : ( idChk === 'empty'
-                                ? <span className='block text-[12px] text-theme-red mt-[4px] ml-[16px]'>이메일을 입력해 주세요.</span>
-                                : ( idChk === 'wrong-pattern'
-                                    ? <span className='block text-[12px] text-theme-red mt-[4px] ml-[16px]'>이메일 형식이 올바르지 않습니다.</span>
-                                    : ( idChk === 'is-used'
-                                        ? <span className='block text-[12px] text-theme-red mt-[4px] ml-[16px]'>이미 등록된 이메일입니다.</span>
-                                        : <></>
-                                    )
-                                )
-                            )
-                        }
-                        <label htmlFor='pw' className='w-[100%] flex flex-row justify-between items-center text-[14px] ml-px mt-[24px]'>비밀번호</label>
-                        <input onChange={handlePwChange} type='password' id='pw' tabIndex={3} autoComplete='on' placeholder='영문, 숫자, 특수문자 포함 8~20자' className={`${pwChk === '' ? 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' : 'border-theme-red focus:border-theme-red dark:border-theme-red focus:dark:border-theme-red'} w-[100%] text-[14px] mt-[6px] px-[14px] py-[8px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2`}/>
-                        {
-                            pwChk === ''
-                            ? <></>
-                            : ( pwChk === 'empty'
-                                ? <span className='block text-[12px] text-theme-red mt-[4px] ml-[16px]'>비밀번호를 입력해 주세요.</span>
-                                : <span className='block text-[12px] text-theme-red mt-[4px] ml-[16px]'>비밀번호 형식이 올바르지 않습니다.</span>
-                            )
-                        }
-                        <input onChange={handlePwConfirmChange} type='password' id='pw-confirm' tabIndex={4} autoComplete='on' placeholder='비밀번호 재입력' className={`${pwConfirmChk === '' ? 'border-theme-4 focus:border-theme-yellow dark:border-theme-blue-2 focus:dark:border-theme-blue-1' : 'border-theme-red focus:border-theme-red dark:border-theme-red focus:dark:border-theme-red'} w-[100%] text-[14px] mt-[6px] px-[14px] py-[8px] rounded-[8px] border-[2px] placeholder-theme-7 dark:placeholder-theme-6 bg-theme-4 dark:bg-theme-blue-2`}/>
-                        {
-                            pwConfirmChk === ''
-                            ? <></>
-                            : ( pwConfirmChk === 'empty'
-                                ? <span className='block text-[12px] text-theme-red mt-[4px] ml-[16px]'>비밀번호를 다시 입력해 주세요.</span>
-                                : <span className='block text-[12px] text-theme-red mt-[4px] ml-[16px]'>비밀번호가 일치하지 않습니다.</span>
-                            )
-                        }
-                        <div className='w-[100%] h-px my-[24px] bg-theme-4/80 dark:bg-theme-blue-2/80'></div>
-                        {
-                            alertDisplay === true
-                                && <div className='w-[100%] h-[32px] px-[10px] mb-[8px] flex flex-row justify-between items-center rounded-[6px] border-[2px] border-theme-red/80 dark:border-theme-red/60 text-[12px] text-theme-10 dark:text-theme-9 bg-theme-red/20'>
-                                    <div className='flex flex-row justify-start items-center'>
-                                        <svg className='w-[14px] fill-theme-red/80 dark:fill-theme-red/60' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/></svg>
-                                        <div className='ml-[6px]'>약관에 동의해 주세요.</div>
-                                    </div>
-                                    <div onClick={handleAlertClose} className='flex flex-row justify-center items-center cursor-pointer'>
-                                        <svg className='w-[18px] fill-theme-10 dark:fill-theme-9' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/></svg>
-                                    </div>
-                                </div>
-                        }
-                        <div className='w-[100%] flex flex-col justify-start items-start'>
-                            <div className='w-[100%] flex flex-row justify-between items-center'>
-                                <div className='flex flex-row justify-start items-center'>
-                                    <input onChange={handleTermsChange} type='checkbox' id='terms-check' className='hidden'/>
-                                    <label htmlFor='terms-check' className='w-[20px] h-[20px] flex flex-row justify-center items-center cursor-pointer'>
-                                        <svg className='uncheck w-[16px] fill-theme-yellow dark:fill-theme-blue-1' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.235.235 0 0 1 .02-.022z"/></svg>
-                                        <svg className='check w-[16px] fill-theme-yellow dark:fill-theme-blue-1' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm10.03 4.97a.75.75 0 0 1 .011 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.75.75 0 0 1 1.08-.022z"/></svg>
-                                    </label>
-                                    <p className='text-[13px] text-theme-10 dark:text-theme-9 mt-px ml-[6px]'>서비스 이용약관 (필수)</p>
-                                </div>
-                                <Link href="/terms" target='_blank' rel="noopener noreferrer" className='text-[12px] text-theme-6 dark:text-theme-7 flex flex-row justify-center items-center hover:underline tlg:hover:no-underline'>전문보기</Link>
-                            </div>
-                            <div className='w-[100%] flex flex-row justify-between items-center mt-[8px]'>
-                                <div className='flex flex-row justify-start items-center'>
-                                    <input onChange={handlePrivacyChange} type='checkbox' id='privacy-check' className='hidden'/>
-                                    <label htmlFor='privacy-check' className='w-[20px] h-[20px] flex flex-row justify-center items-center cursor-pointer'>
-                                        <svg className='uncheck w-[16px] fill-theme-yellow dark:fill-theme-blue-1' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/><path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.235.235 0 0 1 .02-.022z"/></svg>
-                                        <svg className='check w-[16px] fill-theme-yellow dark:fill-theme-blue-1' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm10.03 4.97a.75.75 0 0 1 .011 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.75.75 0 0 1 1.08-.022z"/></svg>
-                                    </label>
-                                    <p className='text-[13px] text-theme-10 dark:text-theme-9 mt-px ml-[6px]'>개인정보 처리방침 (필수)</p>
-                                </div>
-                                <Link href="/privacy" target='_blank' rel="noopener noreferrer" className='text-[12px] text-theme-6 dark:text-theme-7 flex flex-row justify-center items-center hover:underline tlg:hover:no-underline'>전문보기</Link>
-                            </div>
-                        </div>
-                        <button onClick={handleOnSubmit} className='w-[100%] h-[40px] rounded-[8px] mt-[24px] flex flex-row justify-center items-center text-[14px] font-medium text-theme-4 dark:text-theme-blue-2 bg-theme-yellow/80 hover:bg-theme-yellow tlg:hover:bg-theme-yellow/80 dark:bg-theme-blue-1/80 hover:dark:bg-theme-blue-1 tlg:hover:dark:bg-theme-blue-1/80'>
+            <Motion
+                initialOpacity={0}
+                animateOpacity={1}
+                exitOpacity={0}
+                initialY={-50}
+                animateY={0}
+                exitY={-50}
+                transitionType="spring"
+            >
+                <div className='w-full flex flex-col justify-center items-center'>
+                    <div className='w-[22.5rem] flex flex-col justify-center items-start my-24 tlg:my-16'>
+                        <h2 className='text-2xl tlg:text-xl text-l-2 dark:text-white font-bold mb-4'>회원가입</h2>
+                        <form onSubmit={e => e.preventDefault()} id='register-form' className='w-full p-5 rounded-lg text-l-2 dark:text-white bg-l-e dark:bg-d-3 drop-shadow-default dark:drop-shadow-dark'>
+                            <TextInput
+                                onchange={handleNameChange}
+                                state={nameChk}
+                                stateMsg={[
+                                    { state: "", msg: "" },
+                                    { state: "empty", msg: "이름을 입력해 주세요." },
+                                ]}
+                                id="name"
+                                tabindex={1}
+                                placeholder="홍길동"
+                                label="이름"
+                            />
+                            <TextInput
+                                onchange={handleIdChange}
+                                state={idChk}
+                                stateMsg={[
+                                    { state: "", msg: "" },
+                                    { state: "empty", msg: "이메일을 입력해 주세요." },
+                                    { state: "wrong-pattern", msg: "이메일 형식이 올바르지 않습니다." },
+                                    { state: "is-used", msg: "이미 등록된 이메일입니다." },
+                                ]}
+                                id="id"
+                                tabindex={2}
+                                placeholder='example@example.com'
+                                label="이메일"
+                                marginTop={2}
+                            />
+                            <TextInput
+                                onchange={handlePwChange}
+                                state={pwChk}
+                                stateMsg={[
+                                    { state: "", msg: "" },
+                                    { state: "empty", msg: "비밀번호를 입력해 주세요." },
+                                    { state: "wrong-pattern", msg: "비밀번호 형식이 올바르지 않습니다." },
+                                ]}
+                                type="password"
+                                id="pw"
+                                tabindex={3}
+                                placeholder='영문, 숫자, 특수문자 포함 8~20자'
+                                label="비밀번호"
+                                marginTop={2}
+                            />
+                            <TextInput
+                                onchange={handlePwConfirmChange}
+                                state={pwConfirmChk}
+                                stateMsg={[
+                                    { state: "", msg: "" },
+                                    { state: "empty", msg: "비밀번호를 다시 입력해 주세요." },
+                                    { state: "unmatch", msg: "비밀번호가 일치하지 않습니다." },
+                                ]}
+                                type="password"
+                                id="pw-confirm"
+                                tabindex={4}
+                                placeholder='비밀번호 재입력'
+                                isLabeled={false}
+                                marginTop={0.5}
+                            />
+                            <div className='w-full h-px my-6 bg-l-b dark:bg-d-6'></div>
                             {
-                                isLoading === true
-                                ? <span className='loader loader-register w-[18px] h-[18px]'></span>
-                                : '이메일 인증 후 가입하기'
+                                alertDisplay === true
+                                    && <div className='w-full h-10 px-2.5 mb-3 flex justify-between items-center rounded-lg border-2 border-h-r text-xs text-l-2 dark:text-white bg-h-r/20'>
+                                        <div className='flex justify-start items-center'>
+                                            <i className="text-sm text-h-r fa-regular fa-bell"></i>
+                                            <div className='ml-2'>약관에 동의해 주세요.</div>
+                                        </div>
+                                        <div onClick={handleAlertClose} className='flex justify-center items-center cursor-pointer'>
+                                            <i className="text-sm fa-solid fa-xmark"></i>
+                                        </div>
+                                    </div>
                             }
-                        </button>
-                    </form>
+                            <div className='w-full flex flex-col justify-start items-start'>
+                                <div className='w-full flex justify-between items-center'>
+                                    <div className='flex justify-start items-center'>
+                                        <input onChange={handleTermsChange} type='checkbox' id='terms-check' className='peer hidden'/>
+                                        <label htmlFor='terms-check' className='group w-5 h-5 text-lg flex justify-center items-center cursor-pointer'>
+                                            <i className="block peer-checked:group-[]:hidden text-h-1 dark:text-f-8 fa-regular fa-square-check"></i>
+                                            <i className="hidden peer-checked:group-[]:block text-h-1 dark:text-f-8 fa-solid fa-square-check"></i>
+                                        </label>
+                                        <p className='text-sm text-l-2 dark:text-white ml-1.5'>서비스 이용약관 (필수)</p>
+                                    </div>
+                                    <Link href="/terms" target='_blank' rel="noopener noreferrer" className='text-xs text-l-6 dark:text-d-c flex justify-center items-center hover:underline tlg:hover:no-underline'>전문보기</Link>
+                                </div>
+                                <div className='w-full flex justify-between items-center mt-2'>
+                                    <div className='flex justify-start items-center'>
+                                        <input onChange={handlePrivacyChange} type='checkbox' id='privacy-check' className='peer hidden'/>
+                                        <label htmlFor='privacy-check' className='group w-5 h-5 text-lg flex justify-center items-center cursor-pointer'>
+                                            <i className="block peer-checked:group-[]:hidden text-h-1 dark:text-f-8 fa-regular fa-square-check"></i>
+                                            <i className="hidden peer-checked:group-[]:block text-h-1 dark:text-f-8 fa-solid fa-square-check"></i>
+                                        </label>
+                                        <p className='text-sm text-l-2 dark:text-white ml-1.5'>개인정보 처리방침 (필수)</p>
+                                    </div>
+                                    <Link href="/privacy" target='_blank' rel="noopener noreferrer" className='text-xs text-l-6 dark:text-d-c flex justify-center items-center hover:underline tlg:hover:no-underline'>전문보기</Link>
+                                </div>
+                            </div>
+                            
+                            <Button marginTop={1}>
+                                <button onClick={handleOnSubmit} className='w-full h-full flex justify-center items-center'>
+                                    {
+                                        isLoading
+                                        ? <span className='loader border-2 border-h-e dark:border-d-6 border-b-h-1 dark:border-b-f-8 w-4 h-4'></span>
+                                        : '이메일 인증 후 가입하기'
+                                    }
+                                </button>
+                            </Button>
+                        </form>
+                    </div>
                 </div>
-            </div>
+            </Motion>
 
             {/* 풋터 */}
             <Footer/>
@@ -327,8 +360,8 @@ const Register = ({params}: any) => {
 
 export async function getServerSideProps(ctx: any) {
     try {
-        // 필터링 쿠키 체크
-        const cookieTheme = ctx.req.cookies.theme === undefined ? "dark" : ctx.req.cookies.theme;
+        // 쿠키 체크
+        const { theme } = ctx.req.cookies;
 
         // 디바이스 체크
         const userAgent = ctx.req ? ctx.req.headers['user-agent'] : navigator.userAgent;
@@ -340,7 +373,7 @@ export async function getServerSideProps(ctx: any) {
             return {
                 props: {
                     params: {
-                        theme: cookieTheme,
+                        theme: theme ? theme : 'light',
                         userAgent: userAgent,
                     }
                 }

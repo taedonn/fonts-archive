@@ -10,10 +10,7 @@ function generateSiteMap(posts: any) {
             <loc>https://fonts.taedonn.com/notices</loc>
         </url>
         <url>
-            <loc>https://fonts.taedonn.com/issue/font</loc>
-        </url>
-        <url>
-            <loc>https://fonts.taedonn.com/issue/bug</loc>
+            <loc>https://fonts.taedonn.com/issue</loc>
         </url>
         <url>
             <loc>https://fonts.taedonn.com/user/login</loc>
