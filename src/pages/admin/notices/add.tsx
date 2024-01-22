@@ -18,6 +18,7 @@ import Footer from "@/components/footer";
 import Button from "@/components/button";
 import SelectBox from "@/components/selectbox";
 import TextInput from "@/components/textinput";
+import TextArea from "@/components/textarea";
 
 const NoticesAdd = ({params}: any) => {
     const { theme, userAgent, user } = params;
@@ -154,7 +155,7 @@ const NoticesAdd = ({params}: any) => {
                         <div className='w-full p-5 rounded-lg text-l-2 dark:text-white bg-l-e dark:bg-d-3 drop-shadow-default dark:drop-shadow-dark'>
                             <div className="w-full flex flex-col">
                                 <SelectBox
-                                    title="문의 종류"
+                                    title="공지 종류"
                                     icon="bi-send"
                                     value="type"
                                     select={option}
@@ -177,7 +178,7 @@ const NoticesAdd = ({params}: any) => {
                                     label="공지 제목"
                                     marginTop={2}
                                 />
-                                <TextInput
+                                <TextArea
                                     onchange={handleContentChange}
                                     state={contentAlert}
                                     stateMsg={[

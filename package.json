@@ -1,6 +1,6 @@
 {
     "name": "fonts-archive",
-    "version": "3.0.0",
+    "version": "3.0.1",
     "private": true,
     "homepage": "https://fonts.taedonn.com",
     "postinstall": "prisma generate --no-engine",
@@ -11,16 +11,16 @@
         "lint": "next lint"
     },
     "dependencies": {
-        "@aws-sdk/client-s3": "^3.391.0",
-        "@aws-sdk/s3-request-presigner": "^3.391.0",
+        "@aws-sdk/client-s3": "^3.496.0",
+        "@aws-sdk/s3-request-presigner": "^3.496.0",
         "@emotion/react": "^11.11.0",
         "@emotion/styled": "^11.11.0",
-        "@mui/material": "^5.13.3",
-        "@prisma/client": "^5.7.0",
+        "@mui/material": "^5.15.5",
+        "@prisma/client": "^5.8.1",
         "@prisma/extension-accelerate": "^0.6.2",
         "@types/jsonwebtoken": "^9.0.5",
         "@types/kakao-js-sdk": "^1.39.4",
-        "@types/lodash": "^4.14.194",
+        "@types/lodash": "^4.14.202",
         "@types/node": "20.1.0",
         "@types/react": "18.2.6",
         "@types/react-dom": "18.2.4",
@@ -33,24 +33,24 @@
         "fontfaceobserver": "^2.3.0",
         "framer-motion": "^10.18.0",
         "lodash": "^4.17.21",
-        "next": "^14.0.4",
+        "next": "^14.1.0",
         "next-auth": "^4.24.5",
-        "next-seo": "^6.0.0",
+        "next-seo": "^6.4.0",
         "nextjs-progressbar": "^0.0.16",
-        "nodemailer": "^6.9.3",
+        "nodemailer": "^6.9.8",
         "postcss": "8.4.23",
         "react": "18.2.0",
         "react-color-palette": "^7.1.0",
-        "react-cookie": "^4.1.1",
+        "react-cookie": "^7.0.1",
         "react-dom": "18.2.0",
-        "react-intersection-observer": "^9.4.3",
+        "react-intersection-observer": "^9.5.3",
         "react-query": "^3.39.3",
-        "styled-components": "^5.3.11",
+        "styled-components": "^6.1.8",
         "tailwind-scrollbar-hide": "^1.1.7",
-        "tailwindcss": "3.3.2",
+        "tailwindcss": "^3.4.1",
         "typescript": "^5.3.3"
     },
     "devDependencies": {
-        "prisma": "^5.7.0"
+        "prisma": "^5.8.1"
     }
 }
