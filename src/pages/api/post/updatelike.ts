@@ -20,11 +20,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 const like = await prisma.fontsLiked.findMany({
                     where: { font_id: Number(code) }
                 });
-    
-                await prisma.fonts.update({
-                    where: { code: Number(code) },
-                    data: { like: like.length }
-                });
 
                 return res.status(200).json({
                     msg: "좋아요 업데이트 성공",
@@ -52,11 +47,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     
                 const like = await prisma.fontsLiked.findMany({
                     where: { font_id: Number(code) }
-                });
-    
-                await prisma.fonts.update({
-                    where: { code: Number(code) },
-                    data: { like: like.length }
                 });
 
                 return res.status(200).json({

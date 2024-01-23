@@ -20,6 +20,7 @@ interface DeleteCommentModal {
     font_id: number,
     comment_id: number,
     bundle_id: number,
+    bundle_order: number,
     update: () => void,
     admin?: boolean,
 }
@@ -30,6 +31,7 @@ export default function DeleteCommentModal({
     font_id,
     comment_id,
     bundle_id,
+    bundle_order,
     update,
     admin=defaultDeleteCommentModal.admin,
 }: DeleteCommentModal) {
@@ -74,6 +76,7 @@ export default function DeleteCommentModal({
                 font_id: font_id,
                 comment_id: comment_id,
                 bundle_id: bundle_id,
+                bundle_order: bundle_order,
             })
             .then(async (res) => {
                 update();
@@ -86,6 +89,7 @@ export default function DeleteCommentModal({
                 font_id: font_id,
                 comment_id: comment_id,
                 bundle_id: bundle_id,
+                bundle_order: bundle_order,
             })
             .then(async (res) => {
                 update();

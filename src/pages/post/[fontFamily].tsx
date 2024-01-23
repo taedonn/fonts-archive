@@ -11,7 +11,6 @@ import React, { useEffect, useState, useRef } from "react";
 
 // api
 import { FetchFontDetail } from "../api/post/fetchfontdetail";
-import { FetchUserLikeOnDetail } from "../api/user/fetchuserlike";
 
 // libraries
 import axios from "axios";
@@ -34,9 +33,17 @@ import KakaoAdFitBottomBanner from "@/components/kakaoAdFitBottomBanner";
 // common
 import { onMouseDown, onMouseUp, onMouseOut } from "@/libs/common";
 
+interface LikedUser {
+    font_id: number,
+    user_auth: string,
+    user_email: string,
+    user_id: string,
+}
+
 function DetailPage({params}: any) {
     const { theme, userAgent, randomNum, user, like } = params;
     const font = params.font[0];
+    const fontLiked = font.liked_user.find((obj: LikedUser) => obj.user_email === user.email);
 
     // 디바이스 체크
     const isMac: boolean = userAgent.includes("Mac OS") ? true : false;
@@ -47,9 +54,9 @@ function DetailPage({params}: any) {
     const [reports, setReports] = useState(null);
     const [alertDisplay, setAlertDisplay] = useState<boolean>(false);
     const [hoverDisplay, setHoverDisplay] = useState<boolean>(true);
-    const [liked, setLiked] = useState<boolean>(like === null ? false : true);
-    const [likedInput, setLikedInput] = useState<boolean>(like === null ? false : true);
-    const [likedNum, setLikedNum] = useState<number>(font.like);
+    const [liked, setLiked] = useState<boolean>(fontLiked ? true : false);
+    const [likedInput, setLikedInput] = useState<boolean>(fontLiked ? true : false);
+    const [likedNum, setLikedNum] = useState<number>(font.liked_user.length);
     const [webFont, setWebFont] = useState("CSS");
     const [text, setText] = useState("");
     const [fontSize, setFontSize] = useState<number>(28);
@@ -1074,11 +1081,6 @@ export async function getServerSideProps(ctx: any) {
         // 유저 정보 불러오기
         const session = await getServerSession(ctx.req, ctx.res, authOptions);
 
-        // 유저 정보가 있으면, 좋아요한 폰트 체크
-        const like = session === null
-            ? null
-            : await FetchUserLikeOnDetail(session.user, font[0].code);
-
         if (font.length === 0) {
             return {
                 redirect: {
@@ -1095,7 +1097,7 @@ export async function getServerSideProps(ctx: any) {
                         randomNum: randomNum,
                         font: JSON.parse(JSON.stringify(font)), // typescript에서 createdAt은 JSON.parse를 통해 serialized object로 변환 후 params로 보낼 수 있다.
                         user: session === null ? null : session.user,
-                        like: like,
+                        // like: like,
                     }
                 }
             }

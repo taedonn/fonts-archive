@@ -43,6 +43,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 font_type: type,
                 show_type: true,
             },
+            include: {
+                liked_user: true,
+            },
             orderBy: sort, // 정렬순
             take: limit, // 가져오는 데이터 수
             skip: cursor !== '' ? 1 : 0, // 건너뛸 데이터 수

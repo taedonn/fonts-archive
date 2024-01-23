@@ -86,7 +86,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         }
         else if (req.body.action === 'delete-comment') {
             try {
-                const { font_id, comment_id, bundle_id } = req.body;
+                const { font_id, comment_id, bundle_id, bundle_order } = req.body;
 
                 // 번들 ID 조회
                 const bundle = await prisma.fontsComment.findMany({
@@ -125,6 +125,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                             }
                         })
                 : null;
+
+                // 알럿 삭제
+                await prisma.fontsAlert.deleteMany({
+                    where: {
+                        font_id: font_id,
+                        bundle_id: bundle_id,
+                        bundle_order: bundle_order,
+                    }
+                });
                     
                 return res.status(200).json({
                     msg: comment === null ? "댓글을 찾을 수 없습니다." : '댓글 삭제 성공',
@@ -138,7 +147,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         }
         else if (req.body.action === 'delete-comment-by-admin') {
             try {
-                const { font_id, comment_id, bundle_id } = req.body;
+                const { font_id, comment_id, bundle_id, bundle_order } = req.body;
 
                 // 번들 ID 조회
                 const bundle = await prisma.fontsComment.findMany({
@@ -177,6 +186,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                             }
                         })
                 : null;
+
+                // 알럿 삭제
+                await prisma.fontsAlert.deleteMany({
+                    where: {
+                        font_id: font_id,
+                        bundle_id: bundle_id,
+                        bundle_order: bundle_order,
+                    }
+                });
                     
                 return res.status(200).json({
                     msg: comment === null ? "댓글을 찾을 수 없습니다." : '댓글 삭제 성공',
@@ -262,7 +280,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     }
                 });
 
-                recipent_email !== user_email && recipent_auth !== user_auth
+                // 댓글과 답글이 다른 계정이면 알림 생성
+                const generateAlert = recipent_email === user_email
+                    ? recipent_auth === user_auth
+                        ? false
+                        : true
+                    : true;
+
+                generateAlert
                 && await prisma.fontsAlert.create({
                     data: {
                         alert_type: "reply",
@@ -277,9 +302,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                         recipent_auth: recipent_auth,
                         font_id: Number(font_id),
                         bundle_id: Number(bundle_id),
-                        bundle_order: bundle.length
+                        bundle_order: bundle.length,
                     }
-                });
+                })
 
                 // 댓글 가져오기
                 const comments = await FetchComments(font_id);

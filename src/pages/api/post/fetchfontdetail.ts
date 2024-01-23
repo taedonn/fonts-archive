@@ -6,6 +6,10 @@ export async function FetchFontDetail(font_family: string) {
             font_family: font_family,
             show_type: true,
         },
+        include: {
+            liked_user: true,
+            comments: true,
+        }
     })
 
     return fonts;

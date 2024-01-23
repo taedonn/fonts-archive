@@ -47,6 +47,7 @@ export default function Comments (
     const [reportModalDisplay, setReportModalDisplay] = useState<boolean>(false);
     const [commentId, setCommentId] = useState<number>(0);
     const [bundleId, setBundleId] = useState<number>(0);
+    const [bundleOrder, setBundleOrder] = useState<number>(0);
     const [reports, setReports] = useState(report);
     const [shareExpand, setShareExpand] = useState<boolean>(false);
 
@@ -133,6 +134,7 @@ export default function Comments (
         setDeleteModalDisplay(true);
         setCommentId(Number(e.currentTarget.dataset.comment));
         setBundleId(Number(e.currentTarget.dataset.bundle));
+        setBundleOrder(Number(e.currentTarget.dataset.bundleorder));
     }
 
     /** 댓글 삭제 모달창 닫기 */
@@ -465,6 +467,7 @@ export default function Comments (
                 font_id={font.code}
                 comment_id={commentId}
                 bundle_id={bundleId}
+                bundle_order={bundleOrder}
                 update={updateComments}
             />
 
@@ -568,7 +571,7 @@ export default function Comments (
                                 {
                                     commentFocus
                                     && <div className="flex gap-2 w-full text-sm text-l-2 dark:text-white mt-3">
-                                        <button ref={commentBtnRef} onMouseDown={newComment} className={`${commentBtn ? 'comment-enabled text-white dark:text-d-2 bg-h-1 hover:bg-h-0 tlg:hover:bg-h-1 dark:bg-f-8 hover:dark:bg-f-9 tlg:hover:dark:bg-f-8 cursor-pointer' : 'comment-disabled text-l-9 dark:text-d-9 bg-l-e dark:bg-d-4 cursor-default'} w-14 tlg:w-12 h-8 tlg:h-7 rounded-lg`}>댓글</button>
+                                        <button ref={commentBtnRef} onMouseDown={newComment} className={`${commentBtn ? 'comment-enabled text-white dark:text-d-2 bg-h-1 hover:bg-h-0 tlg:hover:bg-h-1 dark:bg-f-8 hover:dark:bg-f-9 tlg:hover:dark:bg-f-8 cursor-pointer' : 'comment-disabled text-l-9 dark:text-d-9 bg-l-e dark:bg-d-4 cursor-default'} w-14 h-8 rounded-lg`}>댓글</button>
                                         <button onMouseDown={commentCancelBtnOnMouseDown} className="w-14 h-8 rounded-lg hover:bg-l-e hover:dark:bg-d-4 tlg:hover:bg-transparent tlg:hover:dark:bg-transparent">취소</button>
                                     </div>
                                 }
@@ -616,7 +619,7 @@ export default function Comments (
                                                                             수정
                                                                         </label>
                                                                         <div className="w-px h-3 bg-l-2 dark:bg-white"></div>
-                                                                        <button id={`delete-comment-${comment.comment_id}`} data-comment={comment.comment_id} data-bundle={comment.bundle_id} onClick={deleteCommentModalOpen} className="flex gap-1 items-center text-l-2 hover:text-h-1 tlg:hover:text-l-2 dark:text-white hover:dark:text-f-8 tlg:hover:dark:text-white">
+                                                                        <button id={`delete-comment-${comment.comment_id}`} data-comment={comment.comment_id} data-bundle={comment.bundle_id} data-bundleorder={comment.bundle_order} onClick={deleteCommentModalOpen} className="flex gap-1 items-center text-l-2 hover:text-h-1 tlg:hover:text-l-2 dark:text-white hover:dark:text-f-8 tlg:hover:dark:text-white">
                                                                             <i className="text-[0.625rem] fa-regular fa-trash-can"></i>
                                                                             삭제
                                                                         </button>
