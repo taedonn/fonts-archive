@@ -25,7 +25,6 @@ export default function Comments (
     {
         font,
         user,
-        report,
         comment,
         likedInput,
         likedNum
@@ -33,7 +32,6 @@ export default function Comments (
     {
         font: any,
         user: any,
-        report: any,
         comment: any,
         likedInput: boolean,
         likedNum: number
@@ -48,7 +46,6 @@ export default function Comments (
     const [commentId, setCommentId] = useState<number>(0);
     const [bundleId, setBundleId] = useState<number>(0);
     const [bundleOrder, setBundleOrder] = useState<number>(0);
-    const [reports, setReports] = useState(report);
     const [shareExpand, setShareExpand] = useState<boolean>(false);
 
     // refs
@@ -56,11 +53,6 @@ export default function Comments (
     const commentBtnRef = useRef<HTMLButtonElement>(null);
     const shareExpandBtn = useRef<HTMLLabelElement>(null);
     const shareExpandContent = useRef<HTMLDivElement>(null);
-
-    useEffect(() => {
-        setComments(comment);
-        setReports(report);
-    }, [comment, report]);
 
     /** MUI TextArea 줄바꿈 시 높이 변경 */
     const handleHeightChange = (e: any) => {
@@ -141,15 +133,6 @@ export default function Comments (
     const deleteCommentModalClose = () => {
         setDeleteModalDisplay(false);
     }
-
-    /** 댓글 삭제 시 댓글 업데이트 */
-    const updateComments = () => {
-        if (location.href.includes("#comment-section")) location.reload();
-        else location.href = `/post/${font.font_family.replaceAll(" ", "+")}#comment-section`; location.reload();
-    }
-
-    /** 신고 업데이트 */
-    const updateReports = (reports: any) => { setReports(reports); }
 
     /** 댓글 수정하기 버튼 클릭(보임/숨김) */
     const editComment = (e: React.ChangeEvent<HTMLInputElement>) => { commentEditShow(e); }
@@ -468,7 +451,6 @@ export default function Comments (
                 comment_id={commentId}
                 bundle_id={bundleId}
                 bundle_order={bundleOrder}
-                update={updateComments}
             />
 
             {/* 댓글 신고 모달 */}
@@ -478,7 +460,6 @@ export default function Comments (
                 font_id={font.code}
                 user={user}
                 comment_id={commentId}
-                update_reports={updateReports}
             />
 
             <div className='w-max mb-3 flex gap-2'>
@@ -588,7 +569,7 @@ export default function Comments (
                         {
                             comments.map((comment: any) => {
                                 return (
-                                    <div key={comment.comment_id} className='w-full text-l-2 dark:text-white animate-fade-in-fontbox'>
+                                    <div key={comment.comment_id} id={`c${comment.comment_id}`} className='w-full text-l-2 dark:text-white animate-fade-in-fontbox'>
                                         <div className='flex items-start gap-4 tlg:gap-3 mt-5 tlg:mt-4'>
                                             {
                                                 comment.depth === 1
@@ -605,7 +586,7 @@ export default function Comments (
                                                         {
                                                             user
                                                             ? comment.user_id !== user.id && !comment.is_deleted_with_reply
-                                                                ? reports === null || !reports.some((report: any) => report.comment_id === comment.comment_id)
+                                                                ? comment.reports || comments.reports && !comment.reports.some((report: any) => report.report_user_id === user.id)
                                                                     ? <button id={`report-comment-${comment.comment_id}`} data-bundle={comment.bundle_id} onClick={reportCommentModalOpen} className="flex gap-1 items-center text-sm text-l-2 dark:text-white hover:text-h-1 hover:dark:text-f-8">
                                                                         <i className="text-xs fa-regular fa-bell"></i>
                                                                         신고

@@ -39,6 +39,7 @@ const Comments = ({params}: any) => {
     const [fontId, setFontId] = useState<number>(0);
     const [commentId, setCommentId] = useState<number>(0);
     const [bundleId, setBundleId] = useState<number>(0);
+    const [bundleOrder, setBundleOrder] = useState<number>(0);
     const [deleteModalDisplay, setDeleteModalDisplay] = useState<boolean>(false);
 
     // 페이지 변경
@@ -63,6 +64,7 @@ const Comments = ({params}: any) => {
         setFontId(Number(e.currentTarget.dataset.font));
         setCommentId(Number(e.currentTarget.dataset.comment));
         setBundleId(Number(e.currentTarget.dataset.bundle));
+        setBundleOrder(Number(e.currentTarget.dataset.bundleorder));
     }
 
     /** 댓글 삭제 모달창 닫기 */
@@ -93,7 +95,7 @@ const Comments = ({params}: any) => {
                 font_id={fontId}
                 comment_id={commentId}
                 bundle_id={bundleId}
-                update={updateComments}
+                bundle_order={bundleOrder}
             />
 
             {/* 메인 */}
@@ -134,8 +136,8 @@ const Comments = ({params}: any) => {
                                                                     <div className='text-xs text-l-5 dark:text-d-c'>신고수: {comment.reported_politics + comment.reported_swearing + comment.reported_etc}</div>
                                                                 </div>
                                                             </div>
-                                                            <div className="pr-10"><Link href={`/post/${comment.font_family.replaceAll(" ", "+")}#comment-section`} className='ellipsed-text w-full hover:underline tlg:hover:no-underline'>{comment.comment}</Link></div>
-                                                            <button onClick={deleteCommentModalOpen} data-font={comment.font_id} data-comment={comment.comment_id} data-bundle={comment.bundle_id} className='group absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full flex justify-center items-center hover:bg-l-d hover:dark:bg-d-6 tlg:hover:bg-transparent tlg:hover:dark:bg-transparent'>
+                                                            <div className="pr-10"><Link href={`/post/${comment.font_family.replaceAll(" ", "+")}#c${comment.comment_id}`} className='ellipsed-text w-full hover:underline tlg:hover:no-underline'>{comment.comment}</Link></div>
+                                                            <button onClick={deleteCommentModalOpen} data-font={comment.font_id} data-comment={comment.comment_id} data-bundle={comment.bundle_id} data-bundleorder={comment.bundle_order} className='group absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full flex justify-center items-center hover:bg-l-d hover:dark:bg-d-6 tlg:hover:bg-transparent tlg:hover:dark:bg-transparent'>
                                                                 <i className="text-base text-l-2 dark:text-white fa-regular fa-trash-can"></i>
                                                             </button>
                                                         </div>

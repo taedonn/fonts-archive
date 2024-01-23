@@ -5,9 +5,6 @@ import { useState } from "react";
 import { getServerSession } from "next-auth";
 import { authOptions } from "./api/auth/[...nextauth]";
 
-// api
-import { FetchUserLike } from "./api/user/fetchuserlike";
-
 // libraries
 import { useCookies } from 'react-cookie';
 import { debounce } from "lodash";
@@ -20,7 +17,7 @@ import Sidemenu from "@/components/sidemenu";
 import FontBox from "@/components/fontbox";
 
 const Index = ({params}: any) => {
-    const { license, lang, type, sort, theme, source, filter, userAgent, user, like } = params;
+    const { license, lang, type, sort, theme, source, filter, userAgent, user } = params;
 
     // 디바이스 체크
     const isMac: boolean = userAgent.includes("Mac OS") ? true : false;
@@ -165,7 +162,6 @@ const Index = ({params}: any) => {
                         type={thisType}
                         sort={thisSort}
                         user={user}
-                        like={like}
                         filter={filter}
                         searchword={searchword}
                         text={text}
@@ -194,11 +190,6 @@ export async function getServerSideProps(ctx: any) {
         // 유저 정보 불러오기
         const session = await getServerSession(ctx.req, ctx.res, authOptions);
 
-        // 유저 정보가 있으면, 좋아요한 폰트 체크
-        const like = session === null
-            ? null
-            : await FetchUserLike(session.user);
-
         return {
             props: {
                 params: {
@@ -211,7 +202,6 @@ export async function getServerSideProps(ctx: any) {
                     filter: filter ? filter : '',
                     userAgent: userAgent,
                     user: session === null ? null : session.user,
-                    like: like,
                 }
             }
         }

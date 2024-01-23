@@ -16,7 +16,6 @@ interface ReportCommentModal {
     font_id: number,
     user: any,
     comment_id: number,
-    update_reports: any,
 }
 
 export default function ReportCommentModal({
@@ -25,7 +24,6 @@ export default function ReportCommentModal({
     font_id,
     user,
     comment_id,
-    update_reports
 }: ReportCommentModal) {
     // states
     const [reportNickname, setReportNickname] = useState<boolean>(false);
@@ -141,7 +139,7 @@ export default function ReportCommentModal({
             })
             .then(async (res) => {
                 console.log(res.data.msg);
-                update_reports(res.data.reports);
+                location.reload();
 
                 // 로딩 바 정지
                 setIsLoading(false);

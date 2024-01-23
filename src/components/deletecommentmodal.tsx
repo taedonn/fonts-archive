@@ -21,7 +21,6 @@ interface DeleteCommentModal {
     comment_id: number,
     bundle_id: number,
     bundle_order: number,
-    update: () => void,
     admin?: boolean,
 }
 
@@ -32,7 +31,6 @@ export default function DeleteCommentModal({
     comment_id,
     bundle_id,
     bundle_order,
-    update,
     admin=defaultDeleteCommentModal.admin,
 }: DeleteCommentModal) {
     // refs
@@ -79,7 +77,7 @@ export default function DeleteCommentModal({
                 bundle_order: bundle_order,
             })
             .then(async (res) => {
-                update();
+                location.reload();
                 console.log(res.data.msg);
             })
             .catch(err => console.log(err));
@@ -92,7 +90,7 @@ export default function DeleteCommentModal({
                 bundle_order: bundle_order,
             })
             .then(async (res) => {
-                update();
+                location.reload();
                 console.log(res.data.msg);
             })
             .catch(err => console.log(err));

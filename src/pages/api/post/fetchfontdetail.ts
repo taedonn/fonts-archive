@@ -8,8 +8,15 @@ export async function FetchFontDetail(font_family: string) {
         },
         include: {
             liked_user: true,
-            comments: true,
-        }
+            comments: {
+                include: { reports: true },
+                orderBy: [
+                    { bundle_id: "desc" },
+                    { bundle_order: "asc" },
+                    { comment_id: "desc" }
+                ]
+            },
+        },
     })
 
     return fonts;

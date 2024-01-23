@@ -21,6 +21,7 @@ export function getIntFromString(string: string) {
     return parseInt(result);
 }
 
+/** 마우스 클릭 시 줌인/아웃 이벤트 */
 export function onMouseDown(e: React.MouseEvent, scale: number, enabled: boolean) {
     const target = e.currentTarget as HTMLElement;
     if (target && enabled) {
@@ -28,15 +29,21 @@ export function onMouseDown(e: React.MouseEvent, scale: number, enabled: boolean
         if (scale) target.style.transform = `scale(${scale})`;
     }
 }
-
 export function onMouseUp(e: React.MouseEvent) {
     const target = e.currentTarget as HTMLElement;
     if (target) target.style.transform = "scale(1)";
     if (target) target.style.transition = "0s";
 }
-
 export function onMouseOut(e: React.MouseEvent) {
     const target = e.currentTarget as HTMLElement;
     if (target) target.style.transform = "scale(1)";
     if (target) target.style.transition = "0s";
+}
+
+/** 배열 숨김 처리 */
+export function hideUserName(name: string, lettersToShow: number) {
+    let arr = name.slice(lettersToShow, name.length);
+    let newName = name.slice(0, lettersToShow);
+    for (let i = 0; i < arr.length; i++) newName += "*";
+    return newName;
 }

@@ -33,25 +33,20 @@ import KakaoAdFitBottomBanner from "@/components/kakaoAdFitBottomBanner";
 // common
 import { onMouseDown, onMouseUp, onMouseOut } from "@/libs/common";
 
-interface LikedUser {
-    font_id: number,
-    user_auth: string,
-    user_email: string,
-    user_id: string,
-}
+// global
+import { likes, comments } from "@/libs/global";
 
 function DetailPage({params}: any) {
     const { theme, userAgent, randomNum, user, like } = params;
     const font = params.font[0];
-    const fontLiked = font.liked_user.find((obj: LikedUser) => obj.user_email === user.email);
+    const fontLiked = font.liked_user.find((obj: likes) => obj.user_email === user.email);
+    const fontComments = font.comments.filter((obj: comments) => obj.is_deleted === false);
 
     // 디바이스 체크
     const isMac: boolean = userAgent.includes("Mac OS") ? true : false;
     const isMobile = /iPhone|iPad|iPod|Android/i.test(userAgent);
 
     // states
-    const [comments, setComments] = useState(null);
-    const [reports, setReports] = useState(null);
     const [alertDisplay, setAlertDisplay] = useState<boolean>(false);
     const [hoverDisplay, setHoverDisplay] = useState<boolean>(true);
     const [liked, setLiked] = useState<boolean>(fontLiked ? true : false);
@@ -85,37 +80,6 @@ function DetailPage({params}: any) {
             viewUpdate();
         }
     }, [font]);
-
-    // 댓글 가져오기
-    useEffect(() => {
-        const fetchComments = async () => {
-            await axios.get("/api/post/fetchcomments", {
-                params: {
-                    action: "fetch-comments",
-                    code: font.code,
-                }
-            })
-            .then(res => setComments(res.data.comments))
-            .catch(err => console.log(err));
-        }
-        fetchComments();
-
-        const fetchReports = async () => {
-            if (user !== null) {
-                await axios.get('/api/post/fetchreports', {
-                    params: {
-                        action: "fetch-reports",
-                        code: font.code,
-                        email: user.email,
-                        provider: user.provider,
-                    }
-                })
-                .then(res => setReports(res.data.reports))
-                .catch(err => console.log(err));
-            }
-        }
-        fetchReports();
-    }, [font.code, user]);
 
     /** 로그인 중이 아닐 때 좋아요 클릭 방지 */
     const handleLikeClick = (e: React.MouseEvent<HTMLInputElement>) => {
@@ -1013,8 +977,7 @@ function DetailPage({params}: any) {
                         <Comments
                             font={font}
                             user={user}
-                            report={reports}
-                            comment={comments}
+                            comment={fontComments}
                             likedInput={likedInput}
                             likedNum={likedNum}
                         />
