@@ -32,6 +32,8 @@ export async function GetUser(credentials: any) {
             user_email_confirm: true,
             auth: true,
             profile_img: true,
+            public_img: true,
+            protected: true,
         },
         where: {
             user_id: credentials.email,
@@ -48,7 +50,9 @@ export async function GetUser(credentials: any) {
             id: user.user_no,
             email: user.user_id,
             name: user.user_name,
-            image: user.profile_img
+            image: user.profile_img,
+            public_img: user.public_img,
+            protected: user.protected,
         });
         return sessionUser;
     }

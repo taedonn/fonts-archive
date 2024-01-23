@@ -194,7 +194,7 @@ export default function Header (
                                     user === null
                                     ? <i className="text-3xl bi bi-person-circle"></i>
                                     : <div className="w-8 h-8 relative">
-                                        <Image src={user.image} alt="유저 프로필 사진" fill sizes="100%" referrerPolicy="no-referrer" className="object-cover rounded-full"/>
+                                        <Image src={user.protected && user.provider !== "credentials" ? user.public_img : user.image} alt="유저 프로필 사진" fill sizes="100%" referrerPolicy="no-referrer" className="object-cover rounded-full"/>
                                     </div>
                                 }
                             </label>

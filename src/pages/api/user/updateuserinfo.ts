@@ -60,7 +60,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     } else if (req.method === "POST") {
         if (req.body.action === "update-privacy") {
             try {
-                const { id, auth, privacy } = req.body;
+                const { id, auth, img, privacy } = req.body;
 
                 await prisma.fontsUser.updateMany({
                     where: {
@@ -69,6 +69,18 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     },
                     data: { protected: privacy }
                 });
+
+                // 댓글 유저 정보 업데이트
+                await prisma.fontsComment.updateMany({
+                    where: {
+                        user_email: id,
+                        user_auth: auth,
+                    },
+                    data: {
+                        user_privacy: privacy,
+                        user_image: img,
+                    }
+                })
 
                 return res.status(200).json({
                     msg: "사생활 보호 업데이트 성공",

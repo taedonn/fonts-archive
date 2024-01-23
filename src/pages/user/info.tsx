@@ -71,6 +71,7 @@ const Info = ({params}: any) => {
             action: "update-privacy",
             id: user.user_id,
             auth: user.auth,
+            img: e.target.checked ? user.public_img : user.profile_img,
             privacy: e.target.checked,
         })
         .then(() => setIsProtectionLoading(false))
@@ -346,7 +347,7 @@ const Info = ({params}: any) => {
                                     <label className='w-14 h-14 block relative cursor-pointer overflow-hidden' htmlFor='profile-img'>
                                         {
                                             !isImgLoading
-                                            ? <Image src={isProtected ? user.public_img : profileImg} alt='Profile image' fill sizes='100%' priority referrerPolicy='no-referrer' className='object-cover rounded-full'/>
+                                            ? <Image src={user.auth !== "credentials" && isProtected ? user.public_img : profileImg} alt='Profile image' fill sizes='100%' priority referrerPolicy='no-referrer' className='object-cover rounded-full'/>
                                             : <div className='w-full h-full rounded-full flex items-center bg-l-d dark:bg-d-4'><div className='img-loader'></div></div>
                                         }
                                         {

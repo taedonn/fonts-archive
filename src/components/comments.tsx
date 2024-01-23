@@ -4,7 +4,6 @@ import { useRef, useState, useEffect } from "react";
 // next
 import Script from "next/script";
 import Image from "next/image";
-import { useRouter } from "next/router";
 
 // libraries
 import axios from "axios";
@@ -56,9 +55,6 @@ export default function Comments (
     const commentBtnRef = useRef<HTMLButtonElement>(null);
     const shareExpandBtn = useRef<HTMLLabelElement>(null);
     const shareExpandContent = useRef<HTMLDivElement>(null);
-
-    // router
-    const router = useRouter();
 
     useEffect(() => {
         setComments(comment);
@@ -117,7 +113,8 @@ export default function Comments (
                 user_name: user.name,
                 user_email: user.email,
                 user_auth: user.provider,
-                user_image: user.protected ? user.public_img : user.image,
+                user_image: user.protected && user.provider !== "credentials" ? user.public_img : user.image,
+                user_privacy: user.protected,
                 comment: commentRef.current.value,
             })
             .then(async (res) => {
@@ -145,8 +142,8 @@ export default function Comments (
 
     /** 댓글 삭제 시 댓글 업데이트 */
     const updateComments = () => {
-        router.push(`/post/${font.font_family.replaceAll(" ", "+")}#comment-section`);
-        router.reload();
+        if (location.href.includes("#comment-section")) location.reload();
+        else location.href = `/post/${font.font_family.replaceAll(" ", "+")}#comment-section`; location.reload();
     }
 
     /** 신고 업데이트 */
@@ -304,6 +301,8 @@ export default function Comments (
         if(e.target.classList.contains('edit-btn-enabled')) {
             // 아이디 추출
             const id = getIntFromString(e.target.id);
+            const recipentEmail = e.currentTarget.dataset.email;
+            const recipentAuth = e.currentTarget.dataset.auth;
             const bundle = Number(e.currentTarget.dataset.bundle);
             const textarea = document.getElementById('comment-reply-textarea-' + id) as HTMLTextAreaElement;
             const input = document.getElementById('comment-reply-' + id) as HTMLInputElement;
@@ -317,8 +316,10 @@ export default function Comments (
                 user_name: user.name,
                 user_email: user.email,
                 user_auth: user.provider,
-                user_image: user.protected ? user.public_img : user.image,
-                comment_id: id,
+                user_image: user.protected && user.provider !== "credentials" ? user.public_img : user.image,
+                user_privacy: user.protected,
+                recipent_email: recipentEmail,
+                recipent_auth: recipentAuth,
                 comment: textarea.value,
                 bundle_id: bundle,
             })
@@ -558,7 +559,7 @@ export default function Comments (
                         </div>
                         : <div className="w-full flex gap-4">
                             <div className="w-10 tlg:w-8 h-10 tlg:h-8 shrink-0 relative rounded-full overflow-hidden">
-                                <Image src={user.protected ? user.public_img : user.image} alt="유저 프로필 사진" fill sizes="100%" referrerPolicy="no-referrer" className="object-cover"/>
+                                <Image src={user.protected && user.provider !== "credentials" ? user.public_img : user.image} alt="유저 프로필 사진" fill sizes="100%" referrerPolicy="no-referrer" className="object-cover"/>
                             </div>
                             <div className="w-full flex flex-col mt-1.5 tlg:mt-0.5">
                                 <div className={`relative w-full flex items-center pb-1 border-b hover:border-l-9 hover:dark:border-d-9 tlg:hover:border-l-9 tlg:hover:dark:border-d-9 ${commentFocus ? 'border-l-9 dark:border-d-9 tlg:hover:border-l-9 tlg:hover:dark:border-d-9' : 'border-l-b dark:border-d-6'}`}>
@@ -595,7 +596,7 @@ export default function Comments (
                                             </div>
                                             <div className="w-full">
                                                 <div className="flex gap-3 tlg:gap-1 tlg:flex-col items-center tlg:items-start">
-                                                    <div className="font-medium">{comment.user_auth === "credentials" ? comment.user_name : hideUserName(comment.user_name)}</div>
+                                                    <div className="font-medium">{comment.user_auth !== "credentials" && comment.user_privacy ? hideUserName(comment.user_name) : comment.user_name}</div>
                                                     <div className="flex gap-3 items-center">
                                                         <div className="text-sm text-l-5 dark:text-d-c">{timeFormat(comment.created_at)}</div>
                                                         {
@@ -652,14 +653,14 @@ export default function Comments (
                                                     ? <div id={`comment-reply-content-${comment.comment_id}`} className="hidden mt-5">
                                                         <div className="w-full flex gap-4">
                                                             <div className="w-10 tlg:w-8 h-10 tlg:h-8 shrink-0 relative rounded-full overflow-hidden">
-                                                                <Image src={user.protected ? user.public_img : user.image} alt="유저 프로필 사진" fill sizes="100%" referrerPolicy="no-referrer" className="object-cover"/>
+                                                                <Image src={user.protected && user.provider !== "credentials" ? user.public_img : user.image} alt="유저 프로필 사진" fill sizes="100%" referrerPolicy="no-referrer" className="object-cover"/>
                                                             </div>
                                                             <div className="w-full">
                                                                 <div className="relative w-full flex items-center pb-1 border-b border-l-9 dark:border-d-9">
                                                                     <textarea onInput={handleHeightChange} onChange={commentReplyOnChange} onFocus={commentReplyOnChange} id={`comment-reply-textarea-${comment.comment_id}`} placeholder="답글 달기..." className="w-full h-[1.375rem] resize-none text-sm mt-1.5 text-l-2 dark:text-white placeholder-l-5 dark:placeholder-d-c bg-transparent"/>
                                                                 </div>
                                                                 <div className="flex gap-2 text-sm mt-3">
-                                                                    <button onClick={replyCommentAPIInit} id={`comment-reply-btn-${comment.comment_id}`} onMouseDown={e => onMouseDown(e, 0.9, e.currentTarget.classList.contains("edit-btn-enabled") ? true : false)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="edit-btn-disabled w-14 h-8 rounded-lg bg-l-e dark:bg-d-4 text-l-9 dark:text-d-9 cursor-default">답글</button>
+                                                                    <button onClick={replyCommentAPIInit} id={`comment-reply-btn-${comment.comment_id}`} data-bundle={comment.bundle_id} data-email={comment.user_email} data-auth={comment.user_auth} onMouseDown={e => onMouseDown(e, 0.9, e.currentTarget.classList.contains("edit-btn-enabled") ? true : false)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="edit-btn-disabled w-14 h-8 rounded-lg bg-l-e dark:bg-d-4 text-l-9 dark:text-d-9 cursor-default">답글</button>
                                                                     <button onClick={commentReplyCancelBtnOnClick} id={`comment-reply-cancel-${comment.comment_id}`} onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-14 h-8 rounded-lg text-l-2 dark:text-white hover:bg-l-e hover:dark:bg-d-4 tlg:hover:bg-transparent tlg:hover:dark:bg-transparent">취소</button>
                                                                 </div>
                                                             </div>

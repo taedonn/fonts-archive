@@ -17,6 +17,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     user_email,
                     user_auth,
                     user_image,
+                    user_privacy,
                     comment,
                 } = req.body;
     
@@ -41,6 +42,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                             user_email: user_email,
                             user_auth: user_auth,
                             user_image: user_image,
+                            user_privacy: user_privacy,
                             comment: comment,
                             depth: 0,
                             bundle_id: allComments[allComments.length-1].bundle_id + 1,
@@ -59,6 +61,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                             user_email: user_email,
                             user_auth: user_auth,
                             user_image: user_image,
+                            user_privacy: user_privacy,
                             comment: comment,
                             depth: 0,
                             bundle_id: 0,
@@ -223,7 +226,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     user_email,
                     user_auth,
                     user_image,
-                    comment_id,
+                    user_privacy,
+                    recipent_email,
+                    recipent_auth,
                     comment,
                     bundle_id,
                 } = req.body;
@@ -237,37 +242,52 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     }
                 });
 
-                // 번들 ID에서 댓글 ID 추출
-                const thisComment = bundle.find((bundle: any) => bundle.comment_id === comment_id);
+                bundle 
+                && await prisma.fontsComment.create({
+                    data: {
+                        font_id: Number(font_id),
+                        font_name: font_name,
+                        font_family: font_family,
+                        user_id: Number(user_id),
+                        user_name: user_name,
+                        user_email: user_email,
+                        user_auth: user_auth,
+                        user_image: user_image,
+                        user_privacy: user_privacy,
+                        comment: comment,
+                        depth: 1,
+                        bundle_id: Number(bundle_id),
+                        bundle_order: bundle.length,
+                        is_deleted: false
+                    }
+                });
 
-                if (thisComment) {
-                    // 답글 저장하기
-                    await prisma.fontsComment.create({
-                        data: {
-                            font_id: Number(font_id),
-                            font_name: font_name,
-                            font_family: font_family,
-                            user_id: Number(user_id),
-                            user_name: user_name,
-                            user_email: user_email,
-                            user_auth: user_auth,
-                            user_image: user_image,
-                            comment: comment,
-                            depth: 1,
-                            bundle_id: Number(thisComment.bundle_id),
-                            bundle_order: bundle.length,
-                            is_deleted: false
-                        }
-                    });
+                recipent_email !== user_email && recipent_auth !== user_auth
+                && await prisma.fontsAlert.create({
+                    data: {
+                        alert_type: "reply",
+                        alert_page: font_name,
+                        alert_link: `/post/${font_family.replaceAll(" ", "+")}#comment-section`,
+                        sender_name: user_name,
+                        sender_img: user_image,
+                        sender_content: comment,
+                        sender_email: user_email,
+                        sender_auth: user_auth,
+                        recipent_email: recipent_email,
+                        recipent_auth: recipent_auth,
+                        font_id: Number(font_id),
+                        bundle_id: Number(bundle_id),
+                        bundle_order: bundle.length
+                    }
+                });
 
-                    // 댓글 가져오기
-                    const comments = await FetchComments(font_id);
+                // 댓글 가져오기
+                const comments = await FetchComments(font_id);
 
-                    return res.status(200).json({
-                        msg: '답글 생성 성공',
-                        comments: comments
-                    });
-                }
+                return res.status(200).json({
+                    msg: '답글 생성 성공',
+                    comments: comments
+                });
             } catch (err) {
                 return res.status(500).json({
                     msg: "답글 생성 실패",

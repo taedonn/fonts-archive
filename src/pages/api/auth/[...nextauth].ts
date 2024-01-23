@@ -54,7 +54,9 @@ export const authOptions: NextAuthOptions = {
                 if (account.provider === "credentials") {
                     Object.assign(token, {
                         sub: user.id,
-                        provider: account.provider
+                        provider: account.provider,
+                        protected: user.protected,
+                        public_img: user.public_img,
                     });
                 } else {
                     const OAuthUser = await GetOAuthUserInfo(user, account);
