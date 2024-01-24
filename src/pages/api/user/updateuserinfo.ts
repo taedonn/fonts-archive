@@ -74,9 +74,18 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                                     user_image: img,
                                 }
                             }
+                        },
+                        alerts: {
+                            updateMany: {
+                                where: { user_no: user_no },
+                                data: { sender_img: img }
+                            }
                         }
                     },
-                    include: { comments: true },
+                    include: {
+                        comments: true,
+                        alerts: true,
+                    },
                 });
 
                 return res.status(200).json({
@@ -125,9 +134,18 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                                 where: { user_id: user_no },
                                 data: { user_name: name }
                             }
+                        },
+                        alerts: {
+                            updateMany: {
+                                where: { user_no: user_no },
+                                data: { sender_name: name }
+                            }
                         }
                     },
-                    include: { comments: true },
+                    include: {
+                        comments: true,
+                        alerts: true,
+                    },
                 });
 
                 return res.status(200).json({
@@ -153,9 +171,18 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                                 where: { user_id: user_no },
                                 data: { user_image: randomProfileImg }
                             }
+                        },
+                        alerts: {
+                            updateMany: {
+                                where: { user_no: user_no },
+                                data: { sender_img: randomProfileImg }
+                            }
                         }
                     },
-                    include: { comments: true },
+                    include: {
+                        comments: true,
+                        alerts: true,
+                    },
                 });
 
                 return res.status(200).json({
@@ -203,11 +230,20 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                         comments: {
                             updateMany: {
                                 where: { user_id: user_no },
-                                data: { user_image: url }
+                                data: { user_image: url },
+                            }
+                        },
+                        alerts: {
+                            updateMany: {
+                                where: { user_no: user_no },
+                                data: { sender_img: url }
                             }
                         }
                     },
-                    include: { comments: true },
+                    include: {
+                        comments: true,
+                        alerts: true,
+                    },
                 });
 
                 return res.status(200).json({
@@ -266,13 +302,24 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     where: { OR: commentsArr }
                 });
 
-                // 유저 정보 삭제
-                await prisma.fontsUser.delete({
+                // 좋아요, 신고, 알람 삭제
+                await prisma.fontsUser.update({
                     where: { user_no: Number(user_no) },
+                    data: {
+                        liked_fonts: { deleteMany: {} },
+                        reports: { deleteMany: {} },
+                        alerts: { deleteMany: {} }
+                    },
                     include: {
                         liked_fonts: true,
                         reports: true,
+                        alerts: true,
                     }
+                });
+
+                // 유저 정보 삭제
+                await prisma.fontsUser.delete({
+                    where: { user_no: Number(user_no) }
                 });
 
                 return res.status(200).json({

@@ -37,7 +37,7 @@ import { onMouseDown, onMouseUp, onMouseOut } from "@/libs/common";
 import { likes, comments } from "@/libs/global";
 
 function DetailPage({params}: any) {
-    const { theme, userAgent, randomNum, user, like } = params;
+    const { theme, userAgent, randomNum, user } = params;
     const font = params.font[0];
     const fontLiked = font.liked_user.find((obj: likes) => obj.user_email === user.email);
     const fontComments = font.comments.filter((obj: comments) => obj.is_deleted === false);

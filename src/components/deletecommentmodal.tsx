@@ -1,3 +1,6 @@
+// next
+import { useRouter } from "next/router";
+
 // react
 import React, { useEffect, useRef } from "react";
 
@@ -20,7 +23,6 @@ interface DeleteCommentModal {
     font_id: number,
     comment_id: number,
     bundle_id: number,
-    bundle_order: number,
     admin?: boolean,
 }
 
@@ -30,11 +32,13 @@ export default function DeleteCommentModal({
     font_id,
     comment_id,
     bundle_id,
-    bundle_order,
     admin=defaultDeleteCommentModal.admin,
 }: DeleteCommentModal) {
     // refs
     const thisModal = useRef<HTMLDivElement>(null);
+
+    // router
+    const router = useRouter();
 
     // 모달창 외 영역 클릭 시 모달창 닫기
     useEffect(() => {
@@ -74,10 +78,9 @@ export default function DeleteCommentModal({
                 font_id: font_id,
                 comment_id: comment_id,
                 bundle_id: bundle_id,
-                bundle_order: bundle_order,
             })
             .then(async (res) => {
-                location.reload();
+                router.reload();
                 console.log(res.data.msg);
             })
             .catch(err => console.log(err));
@@ -87,10 +90,9 @@ export default function DeleteCommentModal({
                 font_id: font_id,
                 comment_id: comment_id,
                 bundle_id: bundle_id,
-                bundle_order: bundle_order,
             })
             .then(async (res) => {
-                location.reload();
+                router.reload();
                 console.log(res.data.msg);
             })
             .catch(err => console.log(err));

@@ -15,7 +15,6 @@ model fonts {
   lang            String
   date            String
   view            Int            @default(0)
-  like            Int            @default(0)
   font_family     String
   font_type       String
   font_weight     String
@@ -63,6 +62,7 @@ model fontsUser {
   liked_fonts        fontsLiked[]
   comments           fontsComment[]
   reports            fontsUserReport[]
+  alerts             fontsAlert[]
 
   @@index([user_no])
   @@index([user_id])
@@ -108,6 +108,7 @@ model fontsComment {
   font                  fonts     @relation(fields: [font_id], references: [code])
   user                  fontsUser @relation(fields: [user_id], references: [user_no])
   reports               fontsUserReport[]
+  alerts                fontsAlert[]
 
   @@index([font_id])
   @@index([user_id])
@@ -170,22 +171,23 @@ model fontsNotice {
 }
 
 model fontsAlert {
-  alert_id       Int      @id @default(autoincrement())
-  alert_type     String   @default("")
-  alert_read     Boolean  @default(false)
-  alert_page     String   @default("")
-  alert_link     String   @default("")
-  sender_name    String   @default("")
-  sender_img     String   @default("")
-  sender_content String   @default("")
-  sender_email   String   @default("")
-  sender_auth    String   @default("")
-  recipent_email String   @default("")
-  recipent_auth  String   @default("")
-  font_id        Int      @default(0)
-  bundle_id      Int      @default(0)
-  bundle_order   Int      @default(0)
-  created_at     DateTime @default(now())
+  alert_id       Int          @id @default(autoincrement())
+  alert_type     String       @default("")
+  alert_read     Boolean      @default(false)
+  alert_page     String       @default("")
+  alert_link     String       @default("")
+  sender_name    String       @default("")
+  sender_img     String       @default("")
+  sender_content String       @default("")
+  recipent_email String       @default("")
+  recipent_auth  String       @default("")
+  created_at     DateTime     @default(now())
+  comment_id     Int
+  user_no        Int
+  comments       fontsComment @relation(fields: [comment_id], references: [comment_id])
+  user           fontsUser    @relation(fields: [user_no], references: [user_no])
 
   @@index([alert_id])
+  @@index([comment_id])
+  @@index([user_no])
 }

@@ -16,6 +16,8 @@ interface ReportCommentModal {
     font_id: number,
     user: any,
     comment_id: number,
+    comment_user_no: number,
+    update: any,
 }
 
 export default function ReportCommentModal({
@@ -24,6 +26,8 @@ export default function ReportCommentModal({
     font_id,
     user,
     comment_id,
+    comment_user_no,
+    update,
 }: ReportCommentModal) {
     // states
     const [reportNickname, setReportNickname] = useState<boolean>(false);
@@ -127,10 +131,10 @@ export default function ReportCommentModal({
             await axios.post('/api/post/comments', {
                 action: 'report-comment',
                 font_id: font_id,
-                user_id: user.id,
                 user_email: user.email,
                 user_auth: user.provider,
                 comment_id: comment_id,
+                comment_user_no: comment_user_no,
                 report_nickname: reportNickname,
                 report_politics: reportPolitics,
                 report_swearing: reportSwearing,
@@ -139,7 +143,7 @@ export default function ReportCommentModal({
             })
             .then(async (res) => {
                 console.log(res.data.msg);
-                location.reload();
+                update(res.data.comments);
 
                 // 로딩 바 정지
                 setIsLoading(false);
