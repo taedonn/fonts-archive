@@ -16,7 +16,7 @@ import ReportCommentModal from "@/components/reportcommentmodal";
 import { timeFormat, getIntFromString, onMouseDown, onMouseOut, onMouseUp, hideUserName } from "@/libs/common";
 
 // global
-import { reports } from "@/libs/global";
+import { reports, comments } from "@/libs/global";
 
 declare global {
     interface Window {
@@ -334,9 +334,14 @@ export default function Comments (
         setCommentId(getIntFromString(e.currentTarget.id));
         setCommentUserId(Number(e.currentTarget.dataset.user));
     }
+    
+    const compareIdsFromReports = (reports: reports[]) => {
+        const isReported = reports.length === 0 ? false : reports.some((report: reports) => report.reported_user_id === Number(user.id));
+        return isReported;
+    }
 
     /** 댓글 업데이트 */
-    const updateComments = (comments: any) => { setComments(comments); }
+    const updateComments = (comments: comments) => { setComments(comments); }
 
     /** 댓글 신고 모달창 닫기 */
     const reportCommentModalClose = () => { setReportModalDisplay(false); }
@@ -582,28 +587,29 @@ export default function Comments (
                                                         <div className="text-sm text-l-5 dark:text-d-c">{timeFormat(comment.created_at)}</div>
                                                         {
                                                             user
-                                                            ? comment.user_id !== user.id && !comment.is_deleted_with_reply && !comment.is_deleted_by_reports
-                                                                ? comment.reports && !comment.reports.some((report: reports) => report.report_user_id === user.id)
-                                                                    ? <button id={`report-comment-${comment.comment_id}`} data-user={comment.user_id} onClick={reportCommentModalOpen} className="flex gap-1 items-center text-sm text-l-2 dark:text-white hover:text-h-1 hover:dark:text-f-8">
-                                                                        <i className="text-xs fa-regular fa-bell"></i>
-                                                                        신고
-                                                                    </button>
-                                                                    : <div className="text-sm text-l-5 dark:text-d-c">댓글이 신고되었습니다.</div>
-                                                                : comment.user_id === user.id && !comment.is_deleted_with_reply && !comment.is_deleted_by_reports
-                                                                    ? <div id={`comment-btn-wrap-${comment.comment_id}`} className="flex gap-2 items-center text-sm">
-                                                                        <input onChange={editComment} type="checkbox" id={`comment-edit-${comment.comment_id}`} className="hidden"/>
-                                                                        <label htmlFor={`comment-edit-${comment.comment_id}`} className="flex gap-1 items-center cursor-pointer text-l-2 hover:text-h-1 tlg:hover:text-l-2 dark:text-white hover:dark:text-f-8 tlg:hover:dark:text-white">
-                                                                            <i className="text-[0.5rem] fa-solid fa-pen"></i>
-                                                                            수정
-                                                                        </label>
-                                                                        <div className="w-px h-3 bg-l-2 dark:bg-white"></div>
-                                                                        <button id={`delete-comment-${comment.comment_id}`} data-comment={comment.comment_id} data-bundle={comment.bundle_id} onClick={deleteCommentModalOpen} className="flex gap-1 items-center text-l-2 hover:text-h-1 tlg:hover:text-l-2 dark:text-white hover:dark:text-f-8 tlg:hover:dark:text-white">
-                                                                            <i className="text-[0.625rem] fa-regular fa-trash-can"></i>
-                                                                            삭제
+                                                                ? comment.user_id !== user.id && !comment.is_deleted_with_reply && !comment.is_deleted_by_reports
+                                                                    ? !compareIdsFromReports(comment.reports)
+                                                                        ? <button id={`report-comment-${comment.comment_id}`} data-user={comment.user_id} onClick={reportCommentModalOpen} className="flex gap-1 items-center text-sm text-l-2 dark:text-white hover:text-h-1 hover:dark:text-f-8">
+                                                                            {comment.reports.toString()}
+                                                                            <i className="text-xs fa-regular fa-bell"></i>
+                                                                            신고
                                                                         </button>
-                                                                    </div>
-                                                                    : <></>
-                                                            : <></>
+                                                                        : <div className="text-sm text-l-5 dark:text-d-c">댓글이 신고되었습니다.</div>
+                                                                    : comment.user_id === user.id && !comment.is_deleted_with_reply && !comment.is_deleted_by_reports
+                                                                        ? <div id={`comment-btn-wrap-${comment.comment_id}`} className="flex gap-2 items-center text-sm">
+                                                                            <input onChange={editComment} type="checkbox" id={`comment-edit-${comment.comment_id}`} className="hidden"/>
+                                                                            <label htmlFor={`comment-edit-${comment.comment_id}`} className="flex gap-1 items-center cursor-pointer text-l-2 hover:text-h-1 tlg:hover:text-l-2 dark:text-white hover:dark:text-f-8 tlg:hover:dark:text-white">
+                                                                                <i className="text-[0.5rem] fa-solid fa-pen"></i>
+                                                                                수정
+                                                                            </label>
+                                                                            <div className="w-px h-3 bg-l-2 dark:bg-white"></div>
+                                                                            <button id={`delete-comment-${comment.comment_id}`} data-comment={comment.comment_id} data-bundle={comment.bundle_id} onClick={deleteCommentModalOpen} className="flex gap-1 items-center text-l-2 hover:text-h-1 tlg:hover:text-l-2 dark:text-white hover:dark:text-f-8 tlg:hover:dark:text-white">
+                                                                                <i className="text-[0.625rem] fa-regular fa-trash-can"></i>
+                                                                                삭제
+                                                                            </button>
+                                                                        </div>
+                                                                        : <></>
+                                                                : <></>
                                                         }
                                                     </div>
                                                 </div>

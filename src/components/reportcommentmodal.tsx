@@ -51,6 +51,7 @@ export default function ReportCommentModal({
         setReportEtc(false);
         setReportText('');
         setReportWarning(false);
+        setIsLoading(false);
 
         // 모달창 닫기
         close();
@@ -131,8 +132,7 @@ export default function ReportCommentModal({
             await axios.post('/api/post/comments', {
                 action: 'report-comment',
                 font_id: font_id,
-                user_email: user.email,
-                user_auth: user.provider,
+                user_id: user.id,
                 comment_id: comment_id,
                 comment_user_no: comment_user_no,
                 report_nickname: reportNickname,

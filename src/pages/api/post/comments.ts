@@ -345,8 +345,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             try {
                 const {
                     font_id,
-                    user_email,
-                    user_auth,
+                    user_id,
                     comment_id,
                     comment_user_no,
                     report_nickname,
@@ -356,34 +355,34 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     report_text,
                 } = req.body;
 
+                const reportObj = {};
+                report_politics && Object.assign({ report_politics: { increment: 1 } }, reportObj);
+                report_swearing && Object.assign({ report_swearing: { increment: 1 } }, reportObj);
+                report_etc && Object.assign({ report_etc: { increment: 1 } }, reportObj);
+
                 // 리포트 생성
                 await prisma.fontsUser.update({
                     where: { user_no: Number(comment_user_no) },
                     data: {
-                        nickname_reported: report_nickname ? { increment: 1 } : {}, // 부적절한 닉네임인 경우 1 추가
+                        nickname_reported: { increment: report_nickname ? 1 : 0 }, // 부적절한 닉네임인 경우 1 추가
                         reports: { // 리포트 생성
-                            create: [{
-                                report_font_code: Number(font_id),
-                                report_user_email: user_email,
-                                report_user_auth: user_auth,
+                            create: {
                                 comment_id: Number(comment_id),
+                                report_font_code: Number(font_id),
+                                reported_user_id: Number(user_id),
                                 report_nickname: report_nickname,
                                 report_politics: report_politics,
                                 report_swearing: report_swearing,
                                 report_etc: report_etc,
                                 report_text: report_text
-                            }]
+                            }
                         },
-                        // comments: {
-                        //     update: {  
-                        //         where: { comment_id: Number(comment_id) },
-                        //         data: {
-                        //             reported_politics: report_politics ? { increment: 1 } : {},
-                        //             reported_swearing: report_swearing ? { increment: 1 } : {},
-                        //             reported_etc: report_nickname || report_etc ? { increment: 1 } : {},
-                        //         }
-                        //     }
-                        // }
+                        comments: {
+                            update: {  
+                                where: { comment_id: Number(comment_id) },
+                                data: reportObj
+                            }
+                        }
                     },
                     include: {
                         comments: true,

@@ -15,6 +15,7 @@ model fonts {
   lang            String
   date            String
   view            Int            @default(0)
+  like            Int            @default(0)
   font_family     String
   font_type       String
   font_weight     String
@@ -119,8 +120,7 @@ model fontsUserReport {
   report_id         Int          @id @default(autoincrement())
   report_font_code  Int          @default(0)
   report_user_id    Int
-  report_user_email String       @default("")
-  report_user_auth  String       @default("")
+  reported_user_id  Int          @default(0)
   comment_id        Int
   report_nickname   Boolean      @default(false)
   report_politics   Boolean      @default(false)
