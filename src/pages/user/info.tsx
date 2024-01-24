@@ -69,8 +69,7 @@ const Info = ({params}: any) => {
         
         await axios.post("/api/user/updateuserinfo", {
             action: "update-privacy",
-            id: user.user_id,
-            auth: user.auth,
+            user_no: user.user_no,
             img: e.target.checked ? user.public_img : user.profile_img,
             privacy: e.target.checked,
         })
@@ -89,9 +88,8 @@ const Info = ({params}: any) => {
             // 이름 변경하기 API 호출
             await axios.post('/api/user/updateuserinfo', {
                 action: "change-name",
-                id: user.user_id,
+                user_no: user.user_no,
                 name: nameVal,
-                auth: user.auth,
             })
             .then(() => {
                 setUserName(nameVal);
@@ -165,8 +163,7 @@ const Info = ({params}: any) => {
         // 프로필 이미지 제거 후 state에 저장된 프로필 이미지 변경
         await axios.post('/api/user/updateuserinfo', {
             action: 'delete-profile-img',
-            id: user.user_id,
-            auth: user.auth,
+            user_no: user.user_no
         })
         .then(res => {
             setProfileImg(res.data.img);
@@ -239,9 +236,7 @@ const Info = ({params}: any) => {
             .then(async () => {
                 await axios.post("/api/user/updateuserinfo", {
                     action: "upload-img-on-prisma",
-                    id: user.user_id,
-                    no: user.user_no,
-                    auth: user.auth,
+                    user_no: user.user_no,
                     img_type: fileType,
                 })
                 .then((res) => {

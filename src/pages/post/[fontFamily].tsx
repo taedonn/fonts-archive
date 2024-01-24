@@ -371,12 +371,12 @@ function DetailPage({params}: any) {
                         <div className="mb-2 flex gap-4 items-center">
                             <div style={{fontFamily:'"'+font.font_family+'"'}} className="text-4xl tlg:text-3xl text-l-2 dark:text-white font-medium">{font.name}</div>
                             <div className='group relative'>
-                                <input onClick={handleLikeClick} onChange={handleLikeChange} type="checkbox" id={font.code.toString()} className='peer hidden' defaultChecked={like === null ? false : true}/>
+                                <input onClick={handleLikeClick} onChange={handleLikeChange} type="checkbox" id={font.code.toString()} className='peer hidden' defaultChecked={likedInput}/>
                                 <label htmlFor={font.code.toString()} onMouseDown={e => onMouseDown(e, 0.85, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className='group block cursor-pointer'>
                                     <i className="block peer-checked:group-[]:hidden text-xl text-l-2 dark:text-white bi bi-heart"></i>
                                     <i className="hidden peer-checked:group-[]:block text-xl text-h-r bi bi-heart-fill"></i>
                                 </label>
-                                <div className={`${hoverDisplay === true ? 'group-hover:block' : 'group-hover:hidden'} tlg:group-hover:hidden tooltip w-max absolute left-1/2 -top-10 px-3 py-2 text-sm font-medium leading-none origin-bottom rounded-lg hidden group-hover:animate-zoom-in-fontbox after:bg-h-r bg-h-r text-white`}>{liked === true ? "좋아요 해제" : "좋아요"}</div>
+                                <div className={`${hoverDisplay === true ? 'group-hover:block' : 'group-hover:hidden'} tlg:group-hover:hidden tooltip w-max absolute left-1/2 -top-10 px-3 py-2 text-sm font-medium leading-none origin-bottom rounded-lg hidden group-hover:animate-zoom-in-fontbox after:bg-h-r bg-h-r text-white`}>{likedInput ? "좋아요 해제" : "좋아요"}</div>
                             </div>
                         </div>
                         <div className="mb-4 flex gap-4 tlg:gap-3 justify-start items-center">
@@ -1060,7 +1060,6 @@ export async function getServerSideProps(ctx: any) {
                         randomNum: randomNum,
                         font: JSON.parse(JSON.stringify(font)), // typescript에서 createdAt은 JSON.parse를 통해 serialized object로 변환 후 params로 보낼 수 있다.
                         user: session === null ? null : session.user,
-                        // like: like,
                     }
                 }
             }

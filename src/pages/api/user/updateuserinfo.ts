@@ -60,27 +60,24 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     } else if (req.method === "POST") {
         if (req.body.action === "update-privacy") {
             try {
-                const { id, auth, img, privacy } = req.body;
+                const { user_no, img, privacy } = req.body;
 
-                await prisma.fontsUser.updateMany({
-                    where: {
-                        user_id: id,
-                        auth: auth,
-                    },
-                    data: { protected: privacy }
-                });
-
-                // 댓글 유저 정보 업데이트
-                await prisma.fontsComment.updateMany({
-                    where: {
-                        user_email: id,
-                        user_auth: auth,
-                    },
+                await prisma.fontsUser.update({
+                    where: { user_no: user_no },
                     data: {
-                        user_privacy: privacy,
-                        user_image: img,
-                    }
-                })
+                        protected: privacy,
+                        comments: {
+                            updateMany: {
+                                where: { user_id: user_no },
+                                data: {
+                                    user_privacy: privacy,
+                                    user_image: img,
+                                }
+                            }
+                        }
+                    },
+                    include: { comments: true },
+                });
 
                 return res.status(200).json({
                     msg: "사생활 보호 업데이트 성공",
@@ -117,22 +114,20 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             }
         } else if (req.body.action === "change-name") {
             try {
-                const { id, name, auth } = req.body;
+                const { user_no, name } = req.body;
 
-                await prisma.fontsUser.updateMany({
-                    where: {
-                        user_id: id,
-                        auth: auth,
+                await prisma.fontsUser.update({
+                    where: { user_no: user_no },
+                    data: {
+                        user_name: name,
+                        comments: {
+                            updateMany: {
+                                where: { user_id: user_no },
+                                data: { user_name: name }
+                            }
+                        }
                     },
-                    data: { user_name: name }
-                });
-
-                await prisma.fontsComment.updateMany({
-                    where: {
-                        user_email: id,
-                        user_auth: auth,
-                    },
-                    data: { user_name: name }
+                    include: { comments: true },
                 });
 
                 return res.status(200).json({
@@ -146,24 +141,21 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             }
         } else if (req.body.action === "delete-profile-img") {
             try {
-                const { id, auth } = req.body;
+                const { user_no } = req.body;
                 const randomProfileImg = "/fonts-archive-base-profile-img-" + (Math.floor(Math.random() * 6) + 1) + ".svg";
 
-                // 프로필 이미지 삭제 후 기본 프로필 이미지로 변경
-                await prisma.fontsUser.updateMany({
-                    where: {
-                        user_id: id,
-                        auth: auth,
+                await prisma.fontsUser.update({
+                    where: { user_no: user_no },
+                    data: {
+                        profile_img: randomProfileImg,
+                        comments: {
+                            updateMany: {
+                                where: { user_id: user_no },
+                                data: { user_image: randomProfileImg }
+                            }
+                        }
                     },
-                    data: { profile_img: randomProfileImg }
-                });
-
-                await prisma.fontsComment.updateMany({
-                    where: {
-                        user_email: id,
-                        user_auth: auth,
-                    },
-                    data: { user_image: randomProfileImg }
+                    include: { comments: true },
                 });
 
                 return res.status(200).json({
@@ -201,24 +193,21 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         } else if (req.body.action === "upload-img-on-prisma") {
             try {
                 // prisma 업로드를 위한 변수
-                const { id, no, auth, img_type } = req.body;
-                const url = `https://fonts-archive.s3.ap-northeast-2.amazonaws.com/fonts-archive-user-${no}-profile-img.${img_type}`;
+                const { user_no, img_type } = req.body;
+                const url = `https://fonts-archive.s3.ap-northeast-2.amazonaws.com/fonts-archive-user-${user_no}-profile-img.${img_type}`;
                 
-                // prisma 업로드
-                await prisma.fontsUser.updateMany({
-                    where: {
-                        user_id: id,
-                        auth: auth,
+                await prisma.fontsUser.update({
+                    where: { user_no: user_no },
+                    data: {
+                        profile_img: url,
+                        comments: {
+                            updateMany: {
+                                where: { user_id: user_no },
+                                data: { user_image: url }
+                            }
+                        }
                     },
-                    data: { profile_img: url }
-                });
-
-                await prisma.fontsComment.updateMany({
-                    where: {
-                        user_email: id,
-                        user_auth: auth,
-                    },
-                    data: { user_image: url }
+                    include: { comments: true },
                 });
 
                 return res.status(200).json({
@@ -233,7 +222,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             }
         } else if (req.body.action === "delete-user") {
             try {
-                const { file_name, user_no } = req.body;
+                const { user_no, file_name } = req.body;
 
                 // s3 이미지 삭제
                 const deleteParams = {
@@ -255,16 +244,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     },
                 }
                 await s3.send(new DeleteObjectsCommand(deleteParams));
-
-                // 좋아요한 폰트 삭제
-                await prisma.fontsLiked.deleteMany({
-                    where: { user_id: Number(user_no) }
-                });
-
-                // 댓글 신고 삭제
-                await prisma.fontsUserReport.deleteMany({
-                    where: { report_user_id: Number(user_no) }
-                });
 
                 // 댓글 조회
                 const comments = await prisma.fontsComment.findMany({
@@ -289,7 +268,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
                 // 유저 정보 삭제
                 await prisma.fontsUser.delete({
-                    where: { user_no: Number(user_no) }
+                    where: { user_no: Number(user_no) },
+                    include: {
+                        liked_fonts: true,
+                        reports: true,
+                    }
                 });
 
                 return res.status(200).json({

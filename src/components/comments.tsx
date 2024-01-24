@@ -13,7 +13,7 @@ import DeleteCommentModal from "@/components/deletecommentmodal";
 import ReportCommentModal from "@/components/reportcommentmodal";
 
 // common
-import { timeFormat, getIntFromString, onMouseDown, onMouseOut, onMouseUp } from "@/libs/common";
+import { timeFormat, getIntFromString, onMouseDown, onMouseOut, onMouseUp, hideUserName } from "@/libs/common";
 
 declare global {
     interface Window {
@@ -130,9 +130,7 @@ export default function Comments (
     }
 
     /** 댓글 삭제 모달창 닫기 */
-    const deleteCommentModalClose = () => {
-        setDeleteModalDisplay(false);
-    }
+    const deleteCommentModalClose = () => { setDeleteModalDisplay(false); }
 
     /** 댓글 수정하기 버튼 클릭(보임/숨김) */
     const editComment = (e: React.ChangeEvent<HTMLInputElement>) => { commentEditShow(e); }
@@ -333,9 +331,7 @@ export default function Comments (
     }
 
     /** 댓글 신고 모달창 닫기 */
-    const reportCommentModalClose = () => {
-        setReportModalDisplay(false);
-    }
+    const reportCommentModalClose = () => { setReportModalDisplay(false); }
 
     // 공유 버튼 클릭
     const handleShareExpand = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -425,14 +421,6 @@ export default function Comments (
     const shareTwitter = () => {
         const text = font.name + " · 폰트 아카이브";
         window.open(`https://twitter.com/intent/tweet?text=${text}&url=${decodeURI(urlEncoded)}`, "x", "menubar=no,toolbar=no,resizable=yes,scrollbars=yes,width=520,height=700");
-    }
-
-    /** 배열 숨김 처리 */
-    const hideUserName = (name: string) => {
-        let arr = name.slice(1, name.length);
-        let newName = name.slice(0, 1);
-        for (let i = 0; i < arr.length; i++) newName += "*";
-        return newName;
     }
 
     return (
@@ -580,7 +568,7 @@ export default function Comments (
                                             </div>
                                             <div className="w-full">
                                                 <div className="flex gap-3 tlg:gap-1 tlg:flex-col items-center tlg:items-start">
-                                                    <div className="font-medium">{comment.user_auth !== "credentials" && comment.user_privacy ? hideUserName(comment.user_name) : comment.user_name}</div>
+                                                    <div className="font-medium">{comment.user_auth !== "credentials" && comment.user_privacy ? hideUserName(comment.user_name, 1) : comment.user_name}</div>
                                                     <div className="flex gap-3 items-center">
                                                         <div className="text-sm text-l-5 dark:text-d-c">{timeFormat(comment.created_at)}</div>
                                                         {
