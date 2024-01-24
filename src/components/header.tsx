@@ -163,7 +163,7 @@ export default function Header (
                     </div>
                     <div className='relative flex justify-start shrink-0 items-center'>
                         <div className="hidden tlg:block w-4 h-full absolute -left-4 top-0 bg-gradient-to-l from-white dark:from-d-2"></div>
-                        <button onClick={handleFontSearch} onMouseDown={e => onMouseDown(e, 0.95, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className={`${page === "index" ? "hidden" : "flex"} w-56 tlg:w-8 h-8 pl-10 tlg:p-0 mr-3 tlg:mr-2 relative text-sm flex-start justify-start items-center rounded-lg text-h-1 dark:text-white hover:text-white hover:dark:text-f-8 tlg:hover:text-h-1 tlg:hover:dark:text-white bg-h-e dark:bg-d-4 hover:bg-h-1 tlg:hover:bg-h-e tlg:hover:dark:bg-d-4`}>
+                        <button onClick={handleFontSearch} onMouseDown={e => onMouseDown(e, 0.95, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className={`${page === "index" ? "hidden" : "flex"} w-56 tlg:w-8 h-8 pl-10 tlg:p-0 mr-3 tlg:mr-1.5 relative text-sm flex-start justify-start items-center rounded-lg text-h-1 dark:text-white hover:text-white hover:dark:text-f-8 tlg:hover:text-h-1 tlg:hover:dark:text-white bg-h-e dark:bg-d-4 hover:bg-h-1 tlg:hover:bg-h-e tlg:hover:dark:bg-d-4`}>
                             <span className="tlg:hidden">폰트 검색하기...</span>
                             <i className="text-xs absolute left-4 tlg:left-1/2 top-1/2 tlg:-translate-x-1/2 -translate-y-1/2 fa-solid fa-magnifying-glass"></i>
                             <div className="tlg:hidden w-max h-full absolute right-4 flex flex-row justify-center items-center">
@@ -180,8 +180,14 @@ export default function Header (
                                 }
                             </div>
                         </button>
-                        <div className="relative mr-3 tlg:mr-2">
-                            <label htmlFor="color-theme" onMouseDown={e => onMouseDown(e, 0.85, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-10 h-10 text-2xl flex justify-center items-center rounded-full cursor-pointer text-h-1 dark:text-f-8 hover:bg-h-e hover:dark:bg-d-3 tlg:hover:bg-transparent tlg:hover:dark:bg-transparent">
+                        <div className="relative mr-1 tlg:mr-0">
+                            <label htmlFor="alert" onMouseDown={e => onMouseDown(e, 0.85, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-10 h-10 pt-px text-xl flex justify-center items-center rounded-full cursor-pointer text-h-1 dark:text-f-8 hover:bg-h-e hover:dark:bg-d-3 tlg:hover:bg-transparent tlg:hover:dark:bg-transparent">
+                                <input id="alert" type="checkbox" className="hidden peer"/>
+                                <i className='bi bi-pin-angle'></i>
+                            </label>
+                        </div>
+                        <div className="relative mr-3 tlg:mr-1.5">
+                            <label htmlFor="color-theme" onMouseDown={e => onMouseDown(e, 0.85, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-10 h-10 pb-px text-2xl flex justify-center items-center rounded-full cursor-pointer text-h-1 dark:text-f-8 hover:bg-h-e hover:dark:bg-d-3 tlg:hover:bg-transparent tlg:hover:dark:bg-transparent">
                                 <input onChange={handleColorThemeChange} defaultChecked={thisTheme === 'dark' ? true : false} type="checkbox" id="color-theme" className="hidden peer"/>
                                 <i className='block peer-checked:hidden bi bi-cloud-sun'></i>
                                 <i className='hidden peer-checked:block bi bi-cloud-moon'></i>
