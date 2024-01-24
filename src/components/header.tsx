@@ -49,12 +49,15 @@ export default function Header (
         
     // states
     const [, setCookie] = useCookies<string>([]);
+    const [alert, setAlert] = useState([]);
     const [thisTheme, setTheme] = useState(theme);
     const [searchDisplay, setSearchDisplay] = useState("hide");
 
     // refs
     const refAccountLabel = useRef<HTMLLabelElement>(null);
     const refAccountDiv = useRef<HTMLDivElement>(null);
+    const refAlertLabel = useRef<HTMLLabelElement>(null);
+    const refAlertDiv = useRef<HTMLDivElement>(null);
 
     /** 컬러 테마 변경 */
     const handleColorThemeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -97,10 +100,57 @@ export default function Header (
         }
     }
 
+    /** 알림 불러오기 */
+    useEffect(() => {
+        async function fetchAlerts() {
+            if (user) {
+                const params = {
+                    action: "fetch-alerts",
+                    user_no: user.id,
+                }
+        
+                await fetch("/api/user/alerts?" + new URLSearchParams(params), {
+                    method: "GET",
+                    headers: { "Content-Type": "application/json" },
+                })
+                .then(res => {
+                    const data = res.json();
+                    console.log(data);
+                })
+                .catch(err => console.log(err));
+            }
+        }
+        window.addEventListener("load", fetchAlerts);
+        return () => window.removeEventListener("load", fetchAlerts);
+    }, [user]);
+
+    /** 알림 영역 외 클릭 */
+    useEffect(() => {
+        function handleAlertOutside(e: Event) {
+            const alert = document.getElementById("alert") as HTMLInputElement;
+            if (refAlertDiv?.current && !refAlertDiv.current.contains(e.target as Node) && refAlertLabel.current && !refAlertLabel.current.contains(e.target as Node)) {
+                alert.checked = false;
+            }
+        }
+        document.addEventListener("mouseup", handleAlertOutside);
+        return () => document.removeEventListener("mouseup", handleAlertOutside);
+    },[refAlertDiv, refAlertLabel]);
+
+    /** 알림창 팝업 */
+    const handleAlert = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const alertPopup = document.getElementById("alert-popup") as HTMLDivElement;
+        if (e.target.checked) {
+            alertPopup.classList.add("animate-fade-in");
+            setTimeout(function() { alertPopup.classList.remove('animate-fade-in'); },600);
+        }
+    }
+
     /** lodash/throttle을 이용해 스크롤 제어 */
     const handleScroll = () => {
         const inputAccount = document.getElementById("account") as HTMLInputElement;
+        const inputAlert = document.getElementById("alert") as HTMLInputElement;
         inputAccount.checked = false;
+        inputAlert.checked = false;
     }
     const throttledScroll = throttle(handleScroll,500);
     useEffect(() => {
@@ -181,10 +231,13 @@ export default function Header (
                             </div>
                         </button>
                         <div className="relative mr-1 tlg:mr-0">
-                            <label htmlFor="alert" onMouseDown={e => onMouseDown(e, 0.85, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-10 h-10 pt-px text-xl flex justify-center items-center rounded-full cursor-pointer text-h-1 dark:text-f-8 hover:bg-h-e hover:dark:bg-d-3 tlg:hover:bg-transparent tlg:hover:dark:bg-transparent">
-                                <input id="alert" type="checkbox" className="hidden peer"/>
+                            <input onChange={handleAlert} id="alert" type="checkbox" className="hidden peer"/>
+                            <label ref={refAlertLabel} htmlFor="alert" onMouseDown={e => onMouseDown(e, 0.85, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-10 h-10 pt-px text-[1.375rem] flex justify-center items-center rounded-full cursor-pointer text-h-1 dark:text-f-8 hover:bg-h-e hover:dark:bg-d-3 peer-checked:bg-h-e peer-checked:dark:bg-d-3 tlg:hover:bg-transparent tlg:hover:dark:bg-transparent">
                                 <i className='bi bi-pin-angle'></i>
                             </label>
+                            <div ref={refAlertDiv} id="alert-popup" className="hidden peer-checked:block w-48 min-h-20 absolute left-1/2 top-12 -translate-x-1/2 px-4 py-3 rounded-lg drop-shadow-default dark:drop-shadow-dark cursor-default bg-white dark:bg-d-3">
+                                
+                            </div>
                         </div>
                         <div className="relative mr-3 tlg:mr-1.5">
                             <label htmlFor="color-theme" onMouseDown={e => onMouseDown(e, 0.85, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-10 h-10 pb-px text-2xl flex justify-center items-center rounded-full cursor-pointer text-h-1 dark:text-f-8 hover:bg-h-e hover:dark:bg-d-3 tlg:hover:bg-transparent tlg:hover:dark:bg-transparent">
@@ -204,7 +257,7 @@ export default function Header (
                                     </div>
                                 }
                             </label>
-                            <div ref={refAccountDiv} id="account-select" className="hidden peer-checked:block w-[136px] absolute right-0 top-10 px-4 py-3 rounded-lg drop-shadow-default dark:drop-shadow-dark cursor-default bg-l-e dark:bg-d-3">
+                            <div ref={refAccountDiv} id="account-select" className="hidden peer-checked:block w-32 absolute right-0 top-10 px-4 py-3 rounded-lg drop-shadow-default dark:drop-shadow-dark cursor-default bg-l-e dark:bg-d-3">
                                 <Link href="https://github.com/fonts-archive" target="_blank" rel="noopener noreferrer" className="flex justify-start items-center text-sm text-l-2 dark:text-white hover:text-l-5 hover:dark:text-d-c tlg:hover:text-l-2 tlg:hover:dark:text-white selection:bg-transparent">
                                     <i className="fa-brands fa-github"></i>
                                     <span className="ml-1.5">깃허브</span>

@@ -67,9 +67,6 @@ const CommentList = ({params}: any) => {
     /** 댓글 삭제 모달창 닫기 */
     const deleteCommentModalClose = () => { setDeleteModalDisplay(false); }
 
-    /** 댓글 삭제 시 댓글 업데이트 */
-    const updateComments = () => { router.reload(); }
-
     return (
         <>
             {/* Head 부분*/}
