@@ -1,6 +1,7 @@
 // next
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 // next-auth
 import { signOut } from "next-auth/react";
@@ -11,13 +12,17 @@ import { useEffect, useRef, useState } from "react";
 // libraries
 import { useCookies } from "react-cookie";
 import { throttle } from "lodash";
+import axios from "axios";
 
 // components
 import FontSearch from "@/components/fontsearch";
 import Button from "@/components/button";
 
 // common
-import { onMouseDown, onMouseUp, onMouseOut } from "@/libs/common";
+import { onMouseDown, onMouseUp, onMouseOut, hideUserName } from "@/libs/common";
+
+// global
+import { alerts } from "@/libs/global";
 
 // 빈 함수
 const emptyFn = (e: string) => { return; }
@@ -46,10 +51,12 @@ export default function Header (
         handleSearch=defaultHeader.handleSearch,
         handleThemeChange=defaultHeader.handleThemeChange,
     }: Header) {
+    // router
+    const router = useRouter();
         
     // states
     const [, setCookie] = useCookies<string>([]);
-    const [alert, setAlert] = useState([]);
+    const [alerts, setAlerts] = useState([]);
     const [thisTheme, setTheme] = useState(theme);
     const [searchDisplay, setSearchDisplay] = useState("hide");
 
@@ -104,25 +111,28 @@ export default function Header (
     useEffect(() => {
         async function fetchAlerts() {
             if (user) {
-                const params = {
-                    action: "fetch-alerts",
-                    user_no: user.id,
-                }
-        
-                await fetch("/api/user/alerts?" + new URLSearchParams(params), {
-                    method: "GET",
-                    headers: { "Content-Type": "application/json" },
+                await axios.get("/api/user/alerts", {
+                    params: {
+                        action: "fetch-alerts",
+                        admin: user.id === 1 ? true : false,
+                        user_email: user.email,
+                        user_auth: user.auth,
+                    }
                 })
                 .then(res => {
-                    const data = res.json();
-                    console.log(data);
+                    console.log(res.data.alerts);
+                    setAlerts(res.data.alerts);
                 })
                 .catch(err => console.log(err));
             }
         }
+        router.events.on("routeChangeComplete", fetchAlerts);
         window.addEventListener("load", fetchAlerts);
-        return () => window.removeEventListener("load", fetchAlerts);
-    }, [user]);
+        return () => {
+            router.events.off("routeChangeComplete", fetchAlerts);
+            window.removeEventListener("load", fetchAlerts);
+        }
+    }, [user, router.events]);
 
     /** 알림 영역 외 클릭 */
     useEffect(() => {
@@ -140,8 +150,8 @@ export default function Header (
     const handleAlert = (e: React.ChangeEvent<HTMLInputElement>) => {
         const alertPopup = document.getElementById("alert-popup") as HTMLDivElement;
         if (e.target.checked) {
-            alertPopup.classList.add("animate-fade-in");
-            setTimeout(function() { alertPopup.classList.remove('animate-fade-in'); },600);
+            alertPopup.classList.add("animate-fade-in-account");
+            setTimeout(function() { alertPopup.classList.remove('animate-fade-in-account'); },600);
         }
     }
 
@@ -235,8 +245,23 @@ export default function Header (
                             <label ref={refAlertLabel} htmlFor="alert" onMouseDown={e => onMouseDown(e, 0.85, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-10 h-10 pt-px text-[1.375rem] flex justify-center items-center rounded-full cursor-pointer text-h-1 dark:text-f-8 hover:bg-h-e hover:dark:bg-d-3 peer-checked:bg-h-e peer-checked:dark:bg-d-3 tlg:hover:bg-transparent tlg:hover:dark:bg-transparent">
                                 <i className='bi bi-pin-angle'></i>
                             </label>
-                            <div ref={refAlertDiv} id="alert-popup" className="hidden peer-checked:block w-48 min-h-20 absolute left-1/2 top-12 -translate-x-1/2 px-4 py-3 rounded-lg drop-shadow-default dark:drop-shadow-dark cursor-default bg-white dark:bg-d-3">
-                                
+                            <div ref={refAlertDiv} id="alert-popup" className="hidden peer-checked:block w-80 min-h-20 absolute -right-[5.5rem] tlg:-right-[4.75rem] top-12 py-6 rounded-lg drop-shadow-default dark:drop-shadow-dark cursor-default bg-white dark:bg-d-3">
+                                {
+                                    alerts && alerts.map((alert: alerts) => {
+                                        return (
+                                            <div key={alert.alert_id} className="w-full px-6 border-l-b">
+                                                <div className="flex gap-3 items-center text-sm text-l-2 dark:text-white">
+                                                    <div className="relative w-8 h-8 rounded-full shrink-0">
+                                                        <Image src={alert.sender_img} alt="알림 이미지" fill sizes="100%" referrerPolicy="no-referrer" className="object-cover rounded-full"/>
+                                                    </div>
+                                                    <Link href={alert.alert_link} className="hover:underline tlg:hover:no-underline">
+                                                        <span className="font-bold">{hideUserName(alert.sender_name, 1)}</span>님이 <span className="font-bold">[{alert.alert_page}]</span>에 답글을 남겼습니다.
+                                                    </Link>
+                                                </div>
+                                            </div>
+                                        )
+                                    })
+                                }
                             </div>
                         </div>
                         <div className="relative mr-3 tlg:mr-1.5">

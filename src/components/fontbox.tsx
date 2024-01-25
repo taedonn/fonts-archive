@@ -99,7 +99,6 @@ export default function FontBox ({
     useEffect(() => {
         remove();
         refetch();
-        // window.scrollTo(0, 0);
     }, [license, lang, type, sort, searchword, filter, remove, refetch]);
 
     /** 로그인 중이 아닐 때 좋아요 클릭 방지 */
