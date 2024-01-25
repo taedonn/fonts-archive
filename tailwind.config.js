@@ -57,7 +57,8 @@ module.exports = {
                 "fade-in-from-top": "fade-in-from-top 0.2s 1 both",
                 "fade-in-account": "fade-in-fontbox 0.2s 1 both",
                 "fade-in-time-out": "fade-in-time-out 1s 1 both",
-                "skeleton-anim": "skeleton-anim 2s infinite"
+                "skeleton-anim": "skeleton-anim 2s infinite",
+                "pulse": "pulse 3s linear infinite",
             },
             backgroundImage: {
                 "gradient": "linear-gradient(90deg, #F9FAFD, #D4E1FD, #F9FAFD)",
@@ -96,6 +97,12 @@ module.exports = {
                     "0%": { backgroundPosition: "200% center" },
                     "100%": { backgroundPosition: "0% center" }
                 },
+                "pulse": {
+                    "0%": { boxShadow: "0 0 0 0 rgba(240, 58, 57, 0.7),  0 0 0 0 rgba(240, 58, 57, 0.7)" },
+                    "40%": { boxShadow: "0 0 0 0.1875rem rgba(240, 58, 57, 0.0),  0 0 0 0 rgba(240, 58, 57, 0.7)" },
+                    "80%": { boxShadow: "box-shadow: 0 0 0 0.1875rem rgba(240, 58, 57, 0.0),  0 0 0 0.1125rem rgba(240, 58, 57, 0)" },
+                    "100%": { boxShadow: "box-shadow: 0 0 0 0 rgba(240, 58, 57, 0.0),  0 0 0 0.1125rem rgba(240, 58, 57, 0)" },
+                }
             },
             dropShadow: {
                 "default": "1px 2px 4px #97989C",

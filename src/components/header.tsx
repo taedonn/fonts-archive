@@ -57,6 +57,7 @@ export default function Header (
     // states
     const [, setCookie] = useCookies<string>([]);
     const [alerts, setAlerts] = useState([]);
+    const [alertsDisplay, setAlertsDisplay] = useState<boolean>(false);
     const [thisTheme, setTheme] = useState(theme);
     const [searchDisplay, setSearchDisplay] = useState("hide");
 
@@ -119,16 +120,14 @@ export default function Header (
                         user_auth: user.auth,
                     }
                 })
-                .then(res => setAlerts(res.data.alerts))
+                .then(res => {
+                    console.log(res.data.msg);
+                    setAlerts(res.data.alerts);
+                })
                 .catch(err => console.log(err));
             }
         }
-        router.events.on("routeChangeComplete", fetchAlerts);
-        window.addEventListener("load", fetchAlerts);
-        return () => {
-            router.events.off("routeChangeComplete", fetchAlerts);
-            window.removeEventListener("load", fetchAlerts);
-        }
+        fetchAlerts();
     }, [user, router.events]);
 
     /** 알림 영역 외 클릭 */
@@ -136,6 +135,7 @@ export default function Header (
         function handleAlertOutside(e: Event) {
             const alert = document.getElementById("alert") as HTMLInputElement;
             if (refAlertDiv?.current && !refAlertDiv.current.contains(e.target as Node) && refAlertLabel.current && !refAlertLabel.current.contains(e.target as Node)) {
+                setAlertsDisplay(false);
                 alert.checked = false;
             }
         }
@@ -144,20 +144,12 @@ export default function Header (
     },[refAlertDiv, refAlertLabel]);
 
     /** 알림창 팝업 */
-    const handleAlert = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const alertPopup = document.getElementById("alert-popup") as HTMLDivElement;
-        if (e.target.checked) {
-            alertPopup.classList.add("animate-fade-in-account");
-            setTimeout(function() { alertPopup.classList.remove('animate-fade-in-account'); },600);
-        }
-    }
+    const handleAlert = (e: React.ChangeEvent<HTMLInputElement>) => { setAlertsDisplay(e.target.checked); }
 
     /** lodash/throttle을 이용해 스크롤 제어 */
     const handleScroll = () => {
         const inputAccount = document.getElementById("account") as HTMLInputElement;
-        const inputAlert = document.getElementById("alert") as HTMLInputElement;
         inputAccount.checked = false;
-        inputAlert.checked = false;
     }
     const throttledScroll = throttle(handleScroll,500);
     useEffect(() => {
@@ -239,38 +231,49 @@ export default function Header (
                         </button>
                         <div className="relative mr-1 tlg:mr-0">
                             <input onChange={handleAlert} id="alert" type="checkbox" className="hidden peer"/>
-                            <label ref={refAlertLabel} htmlFor="alert" onMouseDown={e => onMouseDown(e, 0.85, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-10 h-10 pt-px text-[1.375rem] flex justify-center items-center rounded-full cursor-pointer text-h-1 dark:text-f-8 hover:bg-h-e hover:dark:bg-d-3 peer-checked:bg-h-e peer-checked:dark:bg-d-3 tlg:hover:bg-transparent tlg:hover:dark:bg-transparent">
+                            <label ref={refAlertLabel} htmlFor="alert" onMouseDown={e => onMouseDown(e, 0.85, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-10 h-10 pt-px text-[1.375rem] relative flex justify-center items-center rounded-full cursor-pointer text-h-1 dark:text-f-8 hover:bg-h-e hover:dark:bg-d-3 peer-checked:bg-h-e peer-checked:dark:bg-d-3 tlg:hover:bg-transparent tlg:hover:dark:bg-transparent">
                                 <i className='bi bi-pin-angle'></i>
-                            </label>
-                            <div ref={refAlertDiv} id="alert-popup" className="hidden peer-checked:block w-80 min-h-20 absolute -right-[5.5rem] tlg:-right-[4.75rem] top-12 py-3 rounded-lg drop-shadow-default dark:drop-shadow-dark cursor-default bg-white dark:bg-d-3">
-                                <div className="mt-1 mb-3 px-4 w-full flex justify-between text-xs">
-                                    <h2 className="text-base font-medium text-l-2 dark:text-white">알림</h2>
-                                    <button className="hover:underline tlg:hover:no-underline text-h-1 dark:text-f-8">모두 읽음 표시</button>
-                                </div>
                                 {
-                                    alerts && alerts.map((alert: alerts) => {
-                                        return (
-                                            <div key={alert.alert_id} className={`${alert.alert_read ? "" : "bg-h-e dark:bg-d-4"} w-full p-4 flex gap-3 border-b border-l-e dark:border-d-4 text-sm`}>
-                                                <div className="relative w-8 h-8 rounded-full shrink-0">
-                                                    <Image src={alert.sender_img} alt="알림 이미지" fill sizes="100%" referrerPolicy="no-referrer" className="object-cover rounded-full"/>
-                                                </div>
-                                                <div className="flex flex-col gap-1.5 text-l-2 dark:text-white">
-                                                    <Link href={alert.alert_link} className="flex flex-col gap-1.5 hover:underline tlg:hover:no-underline">
-                                                        <div>
-                                                            <span className="font-bold">{hideUserName(alert.sender_name, 1)}</span>님이 <span className="font-bold">[{alert.alert_page}]</span>에 답글을 남겼습니다.
-                                                        </div>
-                                                        <div className="ellipsed-text">{alert.sender_content}</div>
-                                                    </Link>
-                                                    <div className="text-xs flex gap-2">
-                                                        <div className="text-l-9">{timeDiff(alert.created_at.toString())}</div>
-                                                        <button className={`${alert.alert_read ? "" : "text-h-1 dark:text-f-8 hover:underline tlg:hover:no-underline"}`}>읽음으로 표시</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        )
-                                    })
+                                    alerts && alerts.some((alert: alerts) => alert.alert_read === false)
+                                        && <div className="w-1.5 h-1.5 absolute left-1 top-2 rounded-full bg-h-r animate-pulse"></div>
                                 }
-                            </div>
+                            </label>
+                            {
+                                alertsDisplay
+                                && <div ref={refAlertDiv} id="alert-popup" className="animate-fade-in-account w-80 min-h-20 absolute -right-[5.5rem] tlg:-right-[4.75rem] top-12 py-3 pb-12 rounded-lg drop-shadow-default dark:drop-shadow-dark cursor-default bg-white dark:bg-d-3">
+                                    <div className="mt-1 mb-3 px-4 w-full flex justify-between text-xs">
+                                        <h2 className="text-base font-medium text-l-2 dark:text-white">알림</h2>
+                                        <button className={`${alerts.every((alert: alerts) => alert.alert_read === true) ? "text-l-9" : "text-h-1 dark:text-f-8"} hover:underline tlg:hover:no-underline`}>모두 읽음 표시</button>
+                                    </div>
+                                    <div className="w-full max-h-80 overflow-y-auto custom-sm-scrollbar border-y border-l-d dark:border-d-4">
+                                        {
+                                            alerts && alerts.length > 0
+                                            ? alerts.map((alert: alerts) => {
+                                                return (
+                                                    <div key={alert.alert_id} className={`${alert.alert_read ? "" : "bg-h-e dark:bg-f-8/10"} w-full p-4 flex gap-3 border-b last:border-transparent border-l-d dark:border-d-4 text-sm`}>
+                                                        <div className="relative w-8 h-8 rounded-full shrink-0">
+                                                            <Image src={alert.sender_img} alt="알림 이미지" fill sizes="100%" referrerPolicy="no-referrer" className="object-cover rounded-full"/>
+                                                        </div>
+                                                        <div className="flex flex-col gap-1.5 text-l-2 dark:text-white">
+                                                            <Link href={alert.alert_link} className="flex flex-col gap-1.5 hover:underline tlg:hover:no-underline">
+                                                                <div>
+                                                                    <span className="font-bold">{hideUserName(alert.sender_name, 1)}</span>님이 <span className="font-bold">[{alert.alert_page}]</span>에 답글을 남겼습니다.
+                                                                </div>
+                                                                <div className="ellipsed-text">{alert.sender_content}</div>
+                                                            </Link>
+                                                            <div className="text-xs flex gap-2">
+                                                                <div className="text-l-9">{timeDiff(alert.created_at.toString())}</div>
+                                                                <button className={`${alert.alert_read ? "" : "text-h-1 dark:text-f-8 hover:underline tlg:hover:no-underline"}`}>읽음으로 표시</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                )
+                                            })
+                                            : <div className="w-full h-32 flex justify-center items-center text-sm text-l-9">{user ? "알림이 없습니다." : "로그인 시 알림을 받을 수 있습니다."}</div>
+                                        }
+                                    </div>
+                                </div>
+                            }
                         </div>
                         <div className="relative mr-3 tlg:mr-1.5">
                             <label htmlFor="color-theme" onMouseDown={e => onMouseDown(e, 0.85, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-10 h-10 pb-px text-2xl flex justify-center items-center rounded-full cursor-pointer text-h-1 dark:text-f-8 hover:bg-h-e hover:dark:bg-d-3 tlg:hover:bg-transparent tlg:hover:dark:bg-transparent">
