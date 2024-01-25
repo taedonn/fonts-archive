@@ -263,7 +263,7 @@ export default function Header (
                                                             </Link>
                                                             <div className="text-xs flex gap-2">
                                                                 <div className="text-l-9">{timeDiff(alert.created_at.toString())}</div>
-                                                                <button className={`${alert.alert_read ? "" : "text-h-1 dark:text-f-8 hover:underline tlg:hover:no-underline"}`}>읽음으로 표시</button>
+                                                                <button className={`${alert.alert_read ? "" : "text-h-1 dark:text-f-8"} hover:underline tlg:hover:no-underline`}>읽음으로 표시</button>
                                                             </div>
                                                         </div>
                                                     </div>

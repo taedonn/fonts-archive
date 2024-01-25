@@ -100,8 +100,8 @@ module.exports = {
                 "pulse": {
                     "0%": { boxShadow: "0 0 0 0 rgba(240, 58, 57, 0.7),  0 0 0 0 rgba(240, 58, 57, 0.7)" },
                     "40%": { boxShadow: "0 0 0 0.1875rem rgba(240, 58, 57, 0.0),  0 0 0 0 rgba(240, 58, 57, 0.7)" },
-                    "80%": { boxShadow: "box-shadow: 0 0 0 0.1875rem rgba(240, 58, 57, 0.0),  0 0 0 0.1125rem rgba(240, 58, 57, 0)" },
-                    "100%": { boxShadow: "box-shadow: 0 0 0 0 rgba(240, 58, 57, 0.0),  0 0 0 0.1125rem rgba(240, 58, 57, 0)" },
+                    "80%": { boxShadow: "0 0 0 0.1875rem rgba(240, 58, 57, 0.0),  0 0 0 0.1125rem rgba(240, 58, 57, 0)" },
+                    "100%": { boxShadow: "0 0 0 0 rgba(240, 58, 57, 0.0),  0 0 0 0.1125rem rgba(240, 58, 57, 0)" },
                 }
             },
             dropShadow: {
