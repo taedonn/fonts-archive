@@ -19,7 +19,7 @@ import FontSearch from "@/components/fontsearch";
 import Button from "@/components/button";
 
 // common
-import { onMouseDown, onMouseUp, onMouseOut, hideUserName } from "@/libs/common";
+import { onMouseDown, onMouseUp, onMouseOut, hideUserName, timeDiff } from "@/libs/common";
 
 // global
 import { alerts } from "@/libs/global";
@@ -119,10 +119,7 @@ export default function Header (
                         user_auth: user.auth,
                     }
                 })
-                .then(res => {
-                    console.log(res.data.alerts);
-                    setAlerts(res.data.alerts);
-                })
+                .then(res => setAlerts(res.data.alerts))
                 .catch(err => console.log(err));
             }
         }
@@ -245,18 +242,29 @@ export default function Header (
                             <label ref={refAlertLabel} htmlFor="alert" onMouseDown={e => onMouseDown(e, 0.85, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-10 h-10 pt-px text-[1.375rem] flex justify-center items-center rounded-full cursor-pointer text-h-1 dark:text-f-8 hover:bg-h-e hover:dark:bg-d-3 peer-checked:bg-h-e peer-checked:dark:bg-d-3 tlg:hover:bg-transparent tlg:hover:dark:bg-transparent">
                                 <i className='bi bi-pin-angle'></i>
                             </label>
-                            <div ref={refAlertDiv} id="alert-popup" className="hidden peer-checked:block w-80 min-h-20 absolute -right-[5.5rem] tlg:-right-[4.75rem] top-12 py-6 rounded-lg drop-shadow-default dark:drop-shadow-dark cursor-default bg-white dark:bg-d-3">
+                            <div ref={refAlertDiv} id="alert-popup" className="hidden peer-checked:block w-80 min-h-20 absolute -right-[5.5rem] tlg:-right-[4.75rem] top-12 py-3 rounded-lg drop-shadow-default dark:drop-shadow-dark cursor-default bg-white dark:bg-d-3">
+                                <div className="mt-1 mb-3 px-4 w-full flex justify-between text-xs">
+                                    <h2 className="text-base font-medium text-l-2 dark:text-white">알림</h2>
+                                    <button className="hover:underline tlg:hover:no-underline text-h-1 dark:text-f-8">모두 읽음 표시</button>
+                                </div>
                                 {
                                     alerts && alerts.map((alert: alerts) => {
                                         return (
-                                            <div key={alert.alert_id} className="w-full px-6 border-l-b">
-                                                <div className="flex gap-3 items-center text-sm text-l-2 dark:text-white">
-                                                    <div className="relative w-8 h-8 rounded-full shrink-0">
-                                                        <Image src={alert.sender_img} alt="알림 이미지" fill sizes="100%" referrerPolicy="no-referrer" className="object-cover rounded-full"/>
-                                                    </div>
-                                                    <Link href={alert.alert_link} className="hover:underline tlg:hover:no-underline">
-                                                        <span className="font-bold">{hideUserName(alert.sender_name, 1)}</span>님이 <span className="font-bold">[{alert.alert_page}]</span>에 답글을 남겼습니다.
+                                            <div key={alert.alert_id} className={`${alert.alert_read ? "" : "bg-h-e dark:bg-d-4"} w-full p-4 flex gap-3 border-b border-l-e dark:border-d-4 text-sm`}>
+                                                <div className="relative w-8 h-8 rounded-full shrink-0">
+                                                    <Image src={alert.sender_img} alt="알림 이미지" fill sizes="100%" referrerPolicy="no-referrer" className="object-cover rounded-full"/>
+                                                </div>
+                                                <div className="flex flex-col gap-1.5 text-l-2 dark:text-white">
+                                                    <Link href={alert.alert_link} className="flex flex-col gap-1.5 hover:underline tlg:hover:no-underline">
+                                                        <div>
+                                                            <span className="font-bold">{hideUserName(alert.sender_name, 1)}</span>님이 <span className="font-bold">[{alert.alert_page}]</span>에 답글을 남겼습니다.
+                                                        </div>
+                                                        <div className="ellipsed-text">{alert.sender_content}</div>
                                                     </Link>
+                                                    <div className="text-xs flex gap-2">
+                                                        <div className="text-l-9">{timeDiff(alert.created_at.toString())}</div>
+                                                        <button className={`${alert.alert_read ? "" : "text-h-1 dark:text-f-8 hover:underline tlg:hover:no-underline"}`}>읽음으로 표시</button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         )

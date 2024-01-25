@@ -1,3 +1,5 @@
+import { DateTime } from "next-auth/providers/kakao";
+
 /** UTC에서 날짜만 반환 */
 export function dateFormat(date: string) {
     const splitDate = date.split('-');
@@ -46,4 +48,16 @@ export function hideUserName(name: string, lettersToShow: number) {
     let newName = name.slice(0, lettersToShow);
     for (let i = 0; i < arr.length; i++) newName += "*";
     return newName;
+}
+
+/** 시간 차이 */
+export function timeDiff(time: string) {
+    const currentTime = new Date();
+    const createdTime = new Date(time);
+    
+    const diffTime = currentTime.getTime() - createdTime.getTime();
+    const diffDay = diffTime / (24 * 60 * 60 * 1000);
+    const diffHour = diffTime / (60 * 60 * 1000);
+
+    return diffDay < 1 ? Math.floor(diffHour) + "시간 전" : Math.floor(diffTime) + "일 전";
 }
