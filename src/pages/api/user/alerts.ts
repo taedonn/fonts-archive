@@ -33,5 +33,30 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 })
             }
         }
+    } else if (req.method === "POST") {
+        if (req.body.action === "read-all-alerts") {
+            try {
+                const { recipent_email, recipent_auth } = req.body;
+
+                const alerts = await prisma.fontsAlert.updateMany({
+                    where: {
+                        recipent_email: recipent_email,
+                        recipent_auth: recipent_auth,
+                        alert_read: false,
+                    },
+                    data: { alert_read: true }
+                });
+
+                return res.status(200).json({
+                    msg: "모두 읽음 표시 성공",
+                    alerts: alerts,
+                });
+            } catch (err) {
+                return res.status(500).json({
+                    msg: "모두 읽음 표시 실패",
+                    err: err,
+                });
+            }
+        }
     }
 }

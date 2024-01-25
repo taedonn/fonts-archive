@@ -146,6 +146,24 @@ export default function Header (
     /** 알림창 팝업 */
     const handleAlert = (e: React.ChangeEvent<HTMLInputElement>) => { setAlertsDisplay(e.target.checked); }
 
+    /** "모두 읽음 표시" 버튼 클릭 */
+    const handleReadAllAlerts = async () => {
+        const allAlerts = alerts;
+        console.log(allAlerts);
+
+        await axios.post("/api/user/alerts", {
+            action: "read-all-alerts",
+            recipent_email: user.email,
+            recipent_auth: user.provider,
+        })
+        .then(res => {
+            console.log(res.data.msg);
+            allAlerts.map((alert: alerts) => { alert.alert_read = true });
+            setAlerts(allAlerts);
+        })
+        .catch(err => console.log(err));
+    }
+
     /** lodash/throttle을 이용해 스크롤 제어 */
     const handleScroll = () => {
         const inputAccount = document.getElementById("account") as HTMLInputElement;
@@ -243,7 +261,7 @@ export default function Header (
                                 && <div ref={refAlertDiv} id="alert-popup" className="animate-fade-in-account w-80 min-h-20 absolute -right-[5.5rem] tlg:-right-[4.75rem] top-12 py-3 pb-12 rounded-lg drop-shadow-default dark:drop-shadow-dark cursor-default bg-white dark:bg-d-3">
                                     <div className="mt-1 mb-3 px-4 w-full flex justify-between text-xs">
                                         <h2 className="text-base font-medium text-l-2 dark:text-white">알림</h2>
-                                        <button className={`${alerts.every((alert: alerts) => alert.alert_read === true) ? "text-l-9" : "text-h-1 dark:text-f-8"} hover:underline tlg:hover:no-underline`}>모두 읽음 표시</button>
+                                        { user && <button onClick={handleReadAllAlerts} className={`${alerts.every((alert: alerts) => alert.alert_read === true) ? "text-l-9" : "text-h-1 dark:text-f-8"} hover:underline tlg:hover:no-underline`}>모두 읽음 표시</button> }
                                     </div>
                                     <div className="w-full max-h-80 overflow-y-auto custom-sm-scrollbar border-y border-l-d dark:border-d-4">
                                         {
