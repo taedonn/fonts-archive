@@ -139,8 +139,8 @@ export default function Header (
                 alert.checked = false;
             }
         }
-        document.addEventListener("mouseup", handleAlertOutside);
-        return () => document.removeEventListener("mouseup", handleAlertOutside);
+        document.addEventListener("mouseup", handleAlertOutside)
+        return () => document.removeEventListener("mouseup", handleAlertOutside)
     },[refAlertDiv, refAlertLabel]);
 
     /** 알림창 팝업 */
