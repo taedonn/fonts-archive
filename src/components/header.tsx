@@ -134,7 +134,6 @@ export default function Header (
         {
             getNextPageParam: (lastPage) => lastPage.nextId ?? false,
             enabled: !!user, // user가 undefined면 쿼리 실행 안함
-            refetchOnMount: false, // 마운트 시 stale 상태가 아니면 refetch 할지 안할지 정하는 옵션. default: always
             refetchOnWindowFocus: false, // 탭 이동, 창 이동 시 stale 상태가 아니면 refetch 할지 안할지 정하는 옵션. default: always
             staleTime: 60 * 1000, // stale(fresh) 상태일 때는 refetch 안함. 얼마동안 stale 상태로 보낼 지 정하는 옵션. default: 0
         }
@@ -277,7 +276,7 @@ export default function Header (
                             {
                                 alertsDisplay
                                 && <div ref={refAlertDiv} id="alert-popup" className="animate-fade-in-account w-80 min-h-20 absolute -right-[5.5rem] tlg:-right-[4.75rem] top-12 py-3 pb-12 rounded-lg drop-shadow-default dark:drop-shadow-dark cursor-default bg-white dark:bg-d-3">
-                                    <div className="mt-1 mb-3 px-4 w-full flex justify-between text-xs">
+                                    <div className="mb-3 px-4 w-full flex justify-between text-xs">
                                         <h2 className="text-base font-medium text-l-2 dark:text-white">알림</h2>
                                         { user && <button onClick={handleReadAllAlerts} className="text-h-1 dark:text-f-8 hover:underline tlg:hover:no-underline">모두 읽음 표시</button> }
                                     </div>
@@ -295,7 +294,7 @@ export default function Header (
                                                                         </div>
                                                                         <div className="flex flex-col gap-1.5 text-l-2 dark:text-white">
                                                                             <div>
-                                                                                <span className="font-bold">{hideUserName(alert.sender_name, 1)}</span>님이 <span className="font-bold">[{alert.alert_page}]</span>에 답글을 남겼습니다.
+                                                                                <span className="font-bold">{hideUserName(alert.sender_name, 1)}</span>님이 <span className="font-bold">[{alert.alert_page}]</span>에 {alert.alert_type === "comment" ? "댓글" : "답글"}을 남겼습니다.
                                                                             </div>
                                                                             <Link href={alert.alert_link} className="flex flex-col hover:underline tlg:hover:no-underline">
                                                                                 <div className="ellipsed-text">{alert.sender_content}</div>
@@ -313,6 +312,9 @@ export default function Header (
                                                 })
                                             }
                                         </div>
+
+                                        {/* 알람이 없을 때 */}
+                                        { data && data.pages[0].alerts.length === 0 && <div className="w-full h-32 flex justify-center items-center text-sm text-l-9">{user ? "알림이 없습니다." : "로그인 시 알림을 받을 수 있습니다."}</div> }
                                         
                                         {/* 로그인 시 알림을 받을 수 있습니다. */}
                                         { !user && <div className="w-full h-32 flex justify-center items-center text-sm text-l-9">{user ? "알림이 없습니다." : "로그인 시 알림을 받을 수 있습니다."}</div> }

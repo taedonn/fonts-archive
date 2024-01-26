@@ -19,6 +19,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     user_privacy,
                     comment,
                 } = req.body;
+                
+                // 관리자 계정
+                const admin_email = "taedonn@taedonn.com";
+                const admin_auth = "credentials";
     
                 // 이전 댓글 가져오기
                 const allComments = await prisma.fontsComment.findMany({
@@ -46,8 +50,22 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                             depth: 0,
                             bundle_id: allComments[allComments.length-1].bundle_id + 1,
                             bundle_order: 0,
-                            is_deleted: false
-                        }
+                            is_deleted: false,
+                            alerts: {
+                                create: [{
+                                    alert_type: "comment",
+                                    alert_page: font_name,
+                                    alert_link: `/post/${font_family.replaceAll(" ", "+")}#comment-section`,
+                                    sender_name: user_name,
+                                    sender_img: user_image,
+                                    sender_content: comment,
+                                    recipent_email: admin_email,
+                                    recipent_auth: admin_auth,
+                                    user_no: user_id,
+                                }]
+                            }
+                        },
+                        include: { alerts: true }
                     })
                     // 댓글이 없는 경우
                     : await prisma.fontsComment.create({
@@ -65,8 +83,22 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                             depth: 0,
                             bundle_id: 0,
                             bundle_order: 0,
-                            is_deleted: false
-                        }
+                            is_deleted: false,
+                            alerts: {
+                                create: [{
+                                    alert_type: "comment",
+                                    alert_page: font_name,
+                                    alert_link: `/post/${font_family.replaceAll(" ", "+")}#comment-section`,
+                                    sender_name: user_name,
+                                    sender_img: user_image,
+                                    sender_content: comment,
+                                    recipent_email: admin_email,
+                                    recipent_auth: admin_auth,
+                                    user_no: user_id,
+                                }]
+                            }
+                        },
+                        include: { alerts: true }
                     });
     
                 // 댓글 가져오기

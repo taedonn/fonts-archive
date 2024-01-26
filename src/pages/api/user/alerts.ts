@@ -6,7 +6,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         if (req.query.action === "fetch-alerts") {
             try {
                 const { id, admin, user_email, user_auth } = req.query;
-                const limit = 2;
+                const limit = 10;
 
                 // refetching 시 새로 추가될 데이터에서 기준이 될 마지막 폰트
                 const cursor = id ?? "";
