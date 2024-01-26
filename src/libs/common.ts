@@ -59,5 +59,5 @@ export function timeDiff(time: string) {
     const diffDay = diffTime / (24 * 60 * 60 * 1000);
     const diffHour = diffTime / (60 * 60 * 1000);
 
-    return diffDay < 1 ? Math.floor(diffHour) + "시간 전" : Math.floor(diffTime) + "일 전";
+    return diffDay < 1 ? Math.floor(diffHour) + "시간 전" : Math.floor(diffDay) + "일 전";
 }

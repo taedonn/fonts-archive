@@ -73,22 +73,29 @@ export default function FontBox ({
         refetch,
         fetchNextPage,
         hasNextPage
-    } = useInfiniteQuery(['fonts', {keepPreviousData: true}], async ({ pageParam = '' }) => {
-        await new Promise((res) => setTimeout(res, 100));
-        const res = await axios.get('/api/fontlist', {params: {
-            user_id: user ? user.id : null,
-            id: pageParam,
-            license: license,
-            lang: lang,
-            type: type,
-            sort: sort,
-            searchword: searchword,
-            filter: filter
-        }});
-        return res.data;
-    },{
-        getNextPageParam: (lastPage) => lastPage.nextId ?? false,
-    });
+    } = useInfiniteQuery(
+        ['fonts', {keepPreviousData: true}],
+        async ({ pageParam = '' }) => {
+            await new Promise((res) => setTimeout(res, 100));
+            const res = await axios.get('/api/fontlist', {params: {
+                user_id: user ? user.id : null,
+                id: pageParam,
+                license: license,
+                lang: lang,
+                type: type,
+                sort: sort,
+                searchword: searchword,
+                filter: filter
+            }});
+            return res.data;
+        },
+        {
+            getNextPageParam: (lastPage) => lastPage.nextId ?? false,
+            refetchOnMount: false,
+            refetchOnWindowFocus: false,
+            staleTime: 60 * 1000,
+        }
+    );
 
     // react-intersection-observer 사용해 ref를 지정한 요소가 viewport에 있을 때 fetchNextPage 함수 실행
     useEffect(() => {

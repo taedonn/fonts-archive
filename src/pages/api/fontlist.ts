@@ -24,8 +24,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         else if (license === "web") { licenseFilter.push({ license_web: "Y" }); }
         else if (license === "video") { licenseFilter.push({ license_video: "Y" }); }
         else if (license === "package") { licenseFilter.push({ license_package: "Y" }); }
-        else if (license === "embed") { licenseFilter.push({ license_package: "Y" }); }
-        else if (license === "bici") { licenseFilter.push({ license_package: "Y" }); }
+        else if (license === "embed") { licenseFilter.push({ license_embed: "Y" }); }
+        else if (license === "bici") { licenseFilter.push({ license_bici: "Y" }); }
         else if (license === "ofl") { licenseFilter.push({ license_ofl: "Y" }); }
 
         const fonts = await prisma.fonts.findMany({
@@ -52,6 +52,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             },
         });
 
-        return res.json({ fonts, nextId: fonts.length === limit ? fonts[limit - 1].code : undefined, sort: sort });
+        return res.json({
+            fonts,
+            nextId: fonts.length === limit ? fonts[limit - 1].code : undefined,
+            sort: sort
+        });
     }
 }

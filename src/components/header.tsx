@@ -7,12 +7,13 @@ import { useRouter } from "next/router";
 import { signOut } from "next-auth/react";
 
 // react
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 // libraries
 import { useCookies } from "react-cookie";
 import { throttle } from "lodash";
 import axios from "axios";
+import { useInfiniteQuery } from "react-query";
 
 // components
 import FontSearch from "@/components/fontsearch";
@@ -56,7 +57,6 @@ export default function Header (
         
     // states
     const [, setCookie] = useCookies<string>([]);
-    const [alerts, setAlerts] = useState([]);
     const [alertsDisplay, setAlertsDisplay] = useState<boolean>(false);
     const [thisTheme, setTheme] = useState(theme);
     const [searchDisplay, setSearchDisplay] = useState("hide");
@@ -108,27 +108,40 @@ export default function Header (
         }
     }
 
-    /** 알림 불러오기 */
-    useEffect(() => {
-        async function fetchAlerts() {
-            if (user) {
-                await axios.get("/api/user/alerts", {
-                    params: {
-                        action: "fetch-alerts",
-                        admin: user.id === 1 ? true : false,
-                        user_email: user.email,
-                        user_auth: user.auth,
-                    }
-                })
-                .then(res => {
-                    console.log(res.data.msg);
-                    setAlerts(res.data.alerts);
-                })
-                .catch(err => console.log(err));
-            }
+    /** useInfiniteQuery로 알럿 불러오기 */
+    const {
+        isLoading,
+        data,
+        hasNextPage,
+        fetchNextPage,
+        refetch,
+    } = useInfiniteQuery(
+        ["alerts", { keepPreviousData: true }],
+        async ({ pageParam = "" }) => {
+            await new Promise((res) => setTimeout(res, 100));
+            const res = await axios.get("/api/user/alerts", {
+                params: {
+                    user_id: user ? user.id : null,
+                    id: pageParam,
+                    action: "fetch-alerts",
+                    admin: user.id === 1 ? true : false,
+                    user_email: user.email,
+                    user_auth: user.auth,
+                }
+            });
+            return res.data;
+        },
+        {
+            getNextPageParam: (lastPage) => lastPage.nextId ?? false,
+            enabled: !!user, // user가 undefined면 쿼리 실행 안함
+            refetchOnMount: false, // 마운트 시 stale 상태가 아니면 refetch 할지 안할지 정하는 옵션. default: always
+            refetchOnWindowFocus: false, // 탭 이동, 창 이동 시 stale 상태가 아니면 refetch 할지 안할지 정하는 옵션. default: always
+            staleTime: 60 * 1000, // stale(fresh) 상태일 때는 refetch 안함. 얼마동안 stale 상태로 보낼 지 정하는 옵션. default: 0
         }
-        fetchAlerts();
-    }, [user, router.events]);
+    );
+
+    /** "알림 더 보기" 버튼 클릭 */
+    const fetchNextAlerts = () => { if (hasNextPage) fetchNextPage(); }
 
     /** 알림 영역 외 클릭 */
     useEffect(() => {
@@ -148,20 +161,25 @@ export default function Header (
 
     /** "모두 읽음 표시" 버튼 클릭 */
     const handleReadAllAlerts = async () => {
-        const allAlerts = alerts;
-        console.log(allAlerts);
-
         await axios.post("/api/user/alerts", {
             action: "read-all-alerts",
             recipent_email: user.email,
             recipent_auth: user.provider,
         })
-        .then(res => {
-            console.log(res.data.msg);
-            allAlerts.map((alert: alerts) => { alert.alert_read = true });
-            setAlerts(allAlerts);
-        })
+        .then(() => refetch())
         .catch(err => console.log(err));
+    }
+
+    /** "읽음으로 표시" 버튼 클릭 */
+    const handleReadAlerts = async (alertId: number, alertRead: boolean) => {
+        if (!alertRead) {
+            await axios.post("/api/user/alerts", {
+                action: "read-alerts",
+                alert_id: alertId,
+            })
+            .then(() => refetch())
+            .catch(err => console.log(err));
+        }
     }
 
     /** lodash/throttle을 이용해 스크롤 제어 */
@@ -252,7 +270,7 @@ export default function Header (
                             <label ref={refAlertLabel} htmlFor="alert" onMouseDown={e => onMouseDown(e, 0.85, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-10 h-10 pt-px text-[1.375rem] relative flex justify-center items-center rounded-full cursor-pointer text-h-1 dark:text-f-8 hover:bg-h-e hover:dark:bg-d-3 peer-checked:bg-h-e peer-checked:dark:bg-d-3 tlg:hover:bg-transparent tlg:hover:dark:bg-transparent">
                                 <i className='bi bi-pin-angle'></i>
                                 {
-                                    alerts && alerts.some((alert: alerts) => alert.alert_read === false)
+                                    data && data.pages[0].alerts.some((alert: alerts) => alert.alert_read === false)
                                         && <div className="w-1.5 h-1.5 absolute left-1 top-2 rounded-full bg-h-r animate-pulse"></div>
                                 }
                             </label>
@@ -261,33 +279,51 @@ export default function Header (
                                 && <div ref={refAlertDiv} id="alert-popup" className="animate-fade-in-account w-80 min-h-20 absolute -right-[5.5rem] tlg:-right-[4.75rem] top-12 py-3 pb-12 rounded-lg drop-shadow-default dark:drop-shadow-dark cursor-default bg-white dark:bg-d-3">
                                     <div className="mt-1 mb-3 px-4 w-full flex justify-between text-xs">
                                         <h2 className="text-base font-medium text-l-2 dark:text-white">알림</h2>
-                                        { user && <button onClick={handleReadAllAlerts} className={`${alerts.every((alert: alerts) => alert.alert_read === true) ? "text-l-9" : "text-h-1 dark:text-f-8"} hover:underline tlg:hover:no-underline`}>모두 읽음 표시</button> }
+                                        { user && <button onClick={handleReadAllAlerts} className="text-h-1 dark:text-f-8 hover:underline tlg:hover:no-underline">모두 읽음 표시</button> }
                                     </div>
                                     <div className="w-full max-h-80 overflow-y-auto custom-sm-scrollbar border-y border-l-d dark:border-d-4">
+                                        <div className="w-full text-sm">
+                                            {
+                                                data && data.pages.map((page) => {
+                                                    return (
+                                                        <React.Fragment key={page.nextId ?? "lastPage"}>
+                                                            {
+                                                                page.alerts.map((alert: alerts) => (
+                                                                    <div key={alert.alert_id} className={`${alert.alert_read ? "" : "bg-h-e dark:bg-f-8/10"} w-full p-4 flex gap-3 border-b last:border-transparent border-l-d dark:border-d-4`}>
+                                                                        <div className="relative w-8 h-8 rounded-full shrink-0">
+                                                                            <Image src={alert.sender_img} alt="알림 이미지" fill sizes="100%" referrerPolicy="no-referrer" className="object-cover rounded-full"/>
+                                                                        </div>
+                                                                        <div className="flex flex-col gap-1.5 text-l-2 dark:text-white">
+                                                                            <div>
+                                                                                <span className="font-bold">{hideUserName(alert.sender_name, 1)}</span>님이 <span className="font-bold">[{alert.alert_page}]</span>에 답글을 남겼습니다.
+                                                                            </div>
+                                                                            <Link href={alert.alert_link} className="flex flex-col hover:underline tlg:hover:no-underline">
+                                                                                <div className="ellipsed-text">{alert.sender_content}</div>
+                                                                            </Link>
+                                                                            <div className="text-xs flex gap-2">
+                                                                                <div className="text-l-9">{timeDiff(alert.created_at.toString())}</div>
+                                                                                <button onClick={() => handleReadAlerts(alert.alert_id, alert.alert_read)} className={`${alert.alert_read ? "text-l-9 cursor-default" : "text-h-1 dark:text-f-8 hover:underline tlg:hover:no-underline"}`}>{alert.alert_read ? "읽음" : "읽음으로 표시"}</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                ))
+                                                            }
+                                                        </React.Fragment>
+                                                    )
+                                                })
+                                            }
+                                        </div>
+                                        
+                                        {/* 로그인 시 알림을 받을 수 있습니다. */}
+                                        { !user && <div className="w-full h-32 flex justify-center items-center text-sm text-l-9">{user ? "알림이 없습니다." : "로그인 시 알림을 받을 수 있습니다."}</div> }
+
+                                        {/* 알림 더 보기 */}
                                         {
-                                            alerts && alerts.length > 0
-                                            ? alerts.map((alert: alerts) => {
-                                                return (
-                                                    <div key={alert.alert_id} className={`${alert.alert_read ? "" : "bg-h-e dark:bg-f-8/10"} w-full p-4 flex gap-3 border-b last:border-transparent border-l-d dark:border-d-4 text-sm`}>
-                                                        <div className="relative w-8 h-8 rounded-full shrink-0">
-                                                            <Image src={alert.sender_img} alt="알림 이미지" fill sizes="100%" referrerPolicy="no-referrer" className="object-cover rounded-full"/>
-                                                        </div>
-                                                        <div className="flex flex-col gap-1.5 text-l-2 dark:text-white">
-                                                            <Link href={alert.alert_link} className="flex flex-col gap-1.5 hover:underline tlg:hover:no-underline">
-                                                                <div>
-                                                                    <span className="font-bold">{hideUserName(alert.sender_name, 1)}</span>님이 <span className="font-bold">[{alert.alert_page}]</span>에 답글을 남겼습니다.
-                                                                </div>
-                                                                <div className="ellipsed-text">{alert.sender_content}</div>
-                                                            </Link>
-                                                            <div className="text-xs flex gap-2">
-                                                                <div className="text-l-9">{timeDiff(alert.created_at.toString())}</div>
-                                                                <button className={`${alert.alert_read ? "" : "text-h-1 dark:text-f-8"} hover:underline tlg:hover:no-underline`}>읽음으로 표시</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                )
-                                            })
-                                            : <div className="w-full h-32 flex justify-center items-center text-sm text-l-9">{user ? "알림이 없습니다." : "로그인 시 알림을 받을 수 있습니다."}</div>
+                                            hasNextPage
+                                            && <div className="mt-5 mb-5 w-full flex gap-1.5 justify-center items-center text-sm text-h-1 dark:text-f-8">
+                                                <button onClick={fetchNextAlerts} className={`${isLoading && "hover:no-underline cursor-default"} hover:underline tlg:hover:no-underline mt-0.5`}>알림 더 보기</button>
+                                                { isLoading && <span className="loader w-3 h-3 border-2 border-l-b dark:border-d-6 border-b-h-1 dark:border-b-f-8"></span> }
+                                            </div>
                                         }
                                     </div>
                                 </div>
