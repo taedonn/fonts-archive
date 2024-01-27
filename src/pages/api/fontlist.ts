@@ -6,6 +6,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         // 최대 폰트 로딩 개수
         const limit = 20;
 
+        // 쿼리
+        const { user_id, license, searchword, filter } = req.query;
+
         // 정렬 조건에 맞게 Sorting
         const lang: string | object = req.query.lang === 'kr' ? 'KR' : (req.query.lang === 'en' ? 'EN' : {});
         const type: string | object = req.query.type === 'sans-serif' ? 'Sans Serif' : (req.query.type === 'serif' ? 'Serif' : (req.query.type === 'hand-writing' ? 'Hand Writing' : (req.query.type === 'display' ? 'Display' : (req.query.type === 'pixel' ? 'Pixel' : {}))));
@@ -15,33 +18,29 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const cursor = req.query.id ?? '';
         const cursorObj: any = cursor === '' ? undefined : { code: parseInt(cursor as string, 10) };
 
-        // 검색 조건에 맞는 폰트 필터링
-        const searchword: object[] = req.query.searchword === '' ? [{ name: { not: '' } }] : [{ name: { contains: req.query.searchword } },{ source: { contains: req.query.searchword } },{ font_family: { contains: req.query.searchword } }];
-
-        // 좋아요 표시한 폰트 필터링
-        let objArr: any = [];
-        const filter: null | string = req.query.filter === '' ? null : req.query.filter as string;
-        const filteredArr = filter === null ? null : filter.split(','); // [A,B,C]
-        filteredArr === null ? null : filteredArr.forEach((arr: string) => objArr.push({ code: Number(arr) }));
-
         // 라이센스 필터링
-        const license = req.query.license as string;
         const licenseFilter = [];
         if (license === "print") { licenseFilter.push({ license_print: "Y" }); }
         else if (license === "web") { licenseFilter.push({ license_web: "Y" }); }
         else if (license === "video") { licenseFilter.push({ license_video: "Y" }); }
         else if (license === "package") { licenseFilter.push({ license_package: "Y" }); }
-        else if (license === "embed") { licenseFilter.push({ license_package: "Y" }); }
-        else if (license === "bici") { licenseFilter.push({ license_package: "Y" }); }
+        else if (license === "embed") { licenseFilter.push({ license_embed: "Y" }); }
+        else if (license === "bici") { licenseFilter.push({ license_bici: "Y" }); }
         else if (license === "ofl") { licenseFilter.push({ license_ofl: "Y" }); }
 
         const fonts = await prisma.fonts.findMany({
             where: {
-                OR: req.query.searchword !== '' ? searchword : req.query.filter !== '' ? objArr : [{ name: { not: '' } }],
                 AND: licenseFilter,
                 lang: lang,
                 font_type: type,
                 show_type: true,
+                name: { contains: searchword as string },
+                liked_user: user_id && filter === "liked"
+                    ? { some: { user_id: Number(user_id) } }
+                    : {}
+            },
+            include: {
+                liked_user: true,
             },
             orderBy: sort, // 정렬순
             take: limit, // 가져오는 데이터 수
@@ -53,6 +52,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             },
         });
 
-        return res.json({ fonts, nextId: fonts.length === limit ? fonts[limit - 1].code : undefined, sort: sort });
+        return res.json({
+            fonts,
+            nextId: fonts.length === limit ? fonts[limit - 1].code : undefined,
+            sort: sort
+        });
     }
 }

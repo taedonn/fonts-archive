@@ -12,7 +12,8 @@ export async function FetchComments(code: number) {
             { bundle_id: 'desc' },
             { bundle_order: 'asc' },
             { comment_id: 'desc' }
-        ]
+        ],
+        include: { reports: true }
     });
 
     return comments;

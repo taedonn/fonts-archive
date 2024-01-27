@@ -25,11 +25,17 @@ interface FontBox {
     type: string,
     sort: string,
     user: any,
-    like: any,
     filter: string,
     searchword: string,
     text: string,
     num: number,
+}
+
+interface LikedUser {
+    font_id: number,
+    user_auth: string,
+    user_email: string,
+    user_id: string,
 }
 
 export default function FontBox ({
@@ -39,7 +45,6 @@ export default function FontBox ({
     type,
     sort,
     user,
-    like,
     filter,
     searchword,
     text,
@@ -60,11 +65,6 @@ export default function FontBox ({
     // react-intersection-observer 훅
     const { ref, inView } = useInView();
 
-    // 좋아요한 폰트가 있으면 array => string으로 변환 후 api에 전달
-    let likedArr: string[] = [];
-    like === null ? null : like.forEach((obj: any) => likedArr.push(obj.font_id));
-    let liked = likedArr.join();
-
     // useInfiniteQuery 사용해 다음에 불러올 데이터 업데이트
     const {
         isLoading,
@@ -73,13 +73,29 @@ export default function FontBox ({
         refetch,
         fetchNextPage,
         hasNextPage
-    } = useInfiniteQuery(['fonts', {keepPreviousData: true}], async ({ pageParam = '' }) => {
-        await new Promise((res) => setTimeout(res, 100));
-        const res = await axios.get('/api/fontlist', {params: { id: pageParam, license: license, lang: lang, type: type, sort: sort, searchword: searchword, filter: filter === 'liked' ? liked : '' }});
-        return res.data;
-    },{
-        getNextPageParam: (lastPage) => lastPage.nextId ?? false,
-    });
+    } = useInfiniteQuery(
+        ['fonts', {keepPreviousData: true}],
+        async ({ pageParam = '' }) => {
+            await new Promise((res) => setTimeout(res, 100));
+            const res = await axios.get('/api/fontlist', {params: {
+                user_id: user ? user.id : null,
+                id: pageParam,
+                license: license,
+                lang: lang,
+                type: type,
+                sort: sort,
+                searchword: searchword,
+                filter: filter
+            }});
+            return res.data;
+        },
+        {
+            getNextPageParam: (lastPage) => lastPage.nextId ?? false,
+            refetchOnMount: false,
+            refetchOnWindowFocus: false,
+            staleTime: 60 * 1000,
+        }
+    );
 
     // react-intersection-observer 사용해 ref를 지정한 요소가 viewport에 있을 때 fetchNextPage 함수 실행
     useEffect(() => {
@@ -90,7 +106,6 @@ export default function FontBox ({
     useEffect(() => {
         remove();
         refetch();
-        // window.scrollTo(0, 0);
     }, [license, lang, type, sort, searchword, filter, remove, refetch]);
 
     /** 로그인 중이 아닐 때 좋아요 클릭 방지 */
@@ -116,7 +131,7 @@ export default function FontBox ({
             })
             .then(res => {
                 let hoverEl = e.target.nextSibling?.nextSibling as HTMLDivElement;
-                if (res.data.like === true) { hoverEl.innerText='좋아요 해제'; }
+                if (res.data.like) { hoverEl.innerText='좋아요 해제'; }
                 else { hoverEl.innerText='좋아요'; }
 
                 // 좋아요 버튼 눌렀을 때 호버창 다시 띄우기
@@ -127,8 +142,9 @@ export default function FontBox ({
     }
 
     /** 렌더링 시 좋아요 되어있는 폰트들은 체크된 상태로 변경 */
-    const handleDefaultLike = (fontCode: number) => {
-        return like === null ? false : like.some((font: any) => font.font_id === fontCode);
+    const handleDefaultLike = (fontId: number, liked_user: any) => {
+        const liked = liked_user.find((obj: LikedUser) => obj.font_id === fontId);
+        return liked ? true : false
     }
 
     /** 알럿창 닫기 */
@@ -172,7 +188,7 @@ export default function FontBox ({
     return (
         <>
             <div className={`${expand ? "w-[calc(100%-320px)] tlg:w-full" : "w-full"} pt-12 px-8 tlg:px-4 duration-200`}>
-                <div className="w-full mt-8 tlg:mt-4 mb-32 relative flex flex-col">
+                <div className="w-full mt-8 mb-32 relative flex flex-col">
                     <div className='w-full flex'>
                         <KakaoAdFitTopBanner marginBottom={1}/>
                     </div>
@@ -208,6 +224,7 @@ export default function FontBox ({
                                         font_family: string
                                         font_type: string
                                         cdn_url: string
+                                        liked_user: LikedUser
                                     }) => (
                                         <div aria-label="font-link" key={font.code} className="w-full group/wrap relative py-8 tlg:py-6 hover:rounded-lg tlg:hover:rounded-none border-t first:border-t-0 last:border-b border-l-b dark:border-d-4 tlg:hover:border-l-b tlg:hover:dark:border-d-4 [&+div]:hover:border-transparent tlg:[&+div]:hover:border-l-b tlg:[&+div]:hover:dark:border-d-4 hover:border-transparent hover:bg-l-e hover:dark:bg-d-4 tlg:hover:bg-transparent tlg:hover:dark:bg-transparent text-l-2 dark:text-white animate-fade-in-fontbox cursor-pointer">
                                             <Link href={`/post/${font.font_family.replaceAll(" ", "+")}`} className='w-full h-full absolute z-10 left-0 top-0'></Link>
@@ -217,12 +234,12 @@ export default function FontBox ({
                                                 <div className='w-px h-4 mx-3 tlg:hidden bg-l-b dark:bg-d-9'></div>
                                                 <div className="text-l-5 dark:text-d-9">by {font.source}</div>
                                                 <div className='group absolute z-20 -right-4 tlg:right-8 top-1/2 tlg:top-12 translate-x-full -translate-y-1/2'>
-                                                    <input onClick={handleLikeClick} onChange={handleLikeChange} type="checkbox" id={font.code.toString()} className='peer hidden' defaultChecked={handleDefaultLike(font.code)}/>
+                                                    <input onClick={handleLikeClick} onChange={handleLikeChange} type="checkbox" id={font.code.toString()} className='peer hidden' defaultChecked={handleDefaultLike(font.code, font.liked_user)}/>
                                                     <label htmlFor={font.code.toString()} onMouseDown={e => onMouseDown(e, 0.8, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className='block group cursor-pointer'>
                                                         <i className="block peer-checked:group-[]:hidden text-xl tlg:text-lg bi bi-heart"></i>
                                                         <i className="hidden peer-checked:group-[]:block text-xl tlg:text-lg text-h-r bi bi-heart-fill"></i>
                                                     </label>
-                                                    <div className={`${hoverDisplay === true ? 'group-hover:block' : 'group-hover:hidden'} tlg:group-hover:hidden tooltip w-max absolute left-1/2 -top-10 px-3 py-2 text-sm font-medium leading-none origin-bottom rounded-lg hidden group-hover:animate-zoom-in-fontbox after:bg-h-r bg-h-r text-white`}>{like === null || like.some((likedFont: any) => likedFont.font_id === font.code) === false ? '좋아요' : '좋아요 해제'}</div>
+                                                    <div className={`${hoverDisplay === true ? 'group-hover:block' : 'group-hover:hidden'} tlg:group-hover:hidden tooltip w-max absolute left-1/2 -top-10 px-3 py-2 text-sm font-medium leading-none origin-bottom rounded-lg hidden group-hover:animate-zoom-in-fontbox after:bg-h-r bg-h-r text-white`}>{handleDefaultLike(font.code, font.liked_user) === false ? '좋아요' : '좋아요 해제'}</div>
                                                 </div>
                                             </div>
                                             <div className="w-full relative overflow-hidden">
@@ -247,7 +264,7 @@ export default function FontBox ({
                     {/* 폰트가 없을 때 */}
                     {
                         data && data.pages[0].fonts.length === 0
-                            && <div className='w-full py-14 absolute top-0 left-0 flex flex-col justify-center items-center rounded-lg text-h-1 dark:text-white bg-h-e dark:bg-d-3'>
+                            && <div className='w-full py-14 flex flex-col justify-center items-center rounded-lg text-h-1 dark:text-white bg-h-e dark:bg-d-3'>
                                 <i className="text-[100px] leading-none bi bi-emoji-tear"></i>
                                 <div className='text-xl mt-6 text-center font-bold'>찾으시는 폰트가 없습니다.</div>
                             </div>

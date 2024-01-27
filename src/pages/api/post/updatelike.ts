@@ -7,23 +7,23 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
         if (req.body.action === "increase") {
             try {
-                // 좋아요한 폰트에 추가
-                await prisma.fontsLiked.create({
+                await prisma.fonts.update({
+                    where: { code: Number(code) },
                     data: {
-                        font_id: Number(code),
-                        user_id: Number(id),
-                        user_email: email,
-                        user_auth: provider,
-                    }
+                        like: { increment: 1 },
+                        liked_user: {
+                            create: [{
+                                user_id: Number(id),
+                                user_email: email,
+                                user_auth: provider,
+                            }]
+                        }
+                    },
+                    include: { liked_user: true }
                 });
     
                 const like = await prisma.fontsLiked.findMany({
                     where: { font_id: Number(code) }
-                });
-    
-                await prisma.fonts.update({
-                    where: { code: Number(code) },
-                    data: { like: like.length }
                 });
 
                 return res.status(200).json({
@@ -40,23 +40,19 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             }
         } else if (req.body.action === "decrease") {
             try {
-                // 좋아요한 폰트에서 제거
-                await prisma.fontsLiked.deleteMany({
-                    where: {
-                        font_id: Number(code),
-                        user_id: Number(id),
-                        user_email: email,
-                        user_auth: provider,
-                    }
+                await prisma.fonts.update({
+                    where: { code: Number(code) },
+                    data: {
+                        like: { decrement: 1 },
+                        liked_user: {
+                            deleteMany: [{ user_id: id }]
+                        }
+                    },
+                    include: { liked_user: true }
                 });
     
                 const like = await prisma.fontsLiked.findMany({
                     where: { font_id: Number(code) }
-                });
-    
-                await prisma.fonts.update({
-                    where: { code: Number(code) },
-                    data: { like: like.length }
                 });
 
                 return res.status(200).json({

@@ -112,8 +112,8 @@ export default function DeleteUserModal(
         else {
             await axios.post('/api/user/updateuserinfo', {
                 action: 'delete-user',
-                file_name: `fonts-archive-user-${user.user_no}-profile-img.`,
                 user_no: user.user_no,
+                file_name: `fonts-archive-user-${user.user_no}-profile-img.`,
             })
             .then(() => signOut({callbackUrl: "/"}))
             .catch(err => {

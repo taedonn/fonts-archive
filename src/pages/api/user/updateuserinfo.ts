@@ -58,7 +58,47 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             }
         }
     } else if (req.method === "POST") {
-        if (req.body.action === "change-pw") {
+        if (req.body.action === "update-privacy") {
+            try {
+                const { user_no, img, privacy } = req.body;
+
+                await prisma.fontsUser.update({
+                    where: { user_no: user_no },
+                    data: {
+                        protected: privacy,
+                        comments: {
+                            updateMany: {
+                                where: { user_id: user_no },
+                                data: {
+                                    user_privacy: privacy,
+                                    user_image: img,
+                                }
+                            }
+                        },
+                        alerts: {
+                            updateMany: {
+                                where: { user_no: user_no },
+                                data: { sender_img: img }
+                            }
+                        }
+                    },
+                    include: {
+                        comments: true,
+                        alerts: true,
+                    },
+                });
+
+                return res.status(200).json({
+                    msg: "사생활 보호 업데이트 성공",
+                    isUpdated: true,
+                });
+            } catch (err) {
+                return res.status(500).json({
+                    msg: "사생활 보호 업데이트 실패",
+                    err: err,
+                });
+            }
+        } else if (req.body.action === "change-pw") {
             try {
                 const { id, pw, auth } = req.body;
                 const salt = bcrypt.genSaltSync(5);
@@ -83,22 +123,29 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             }
         } else if (req.body.action === "change-name") {
             try {
-                const { id, name, auth } = req.body;
+                const { user_no, name } = req.body;
 
-                await prisma.fontsUser.updateMany({
-                    where: {
-                        user_id: id,
-                        auth: auth,
+                await prisma.fontsUser.update({
+                    where: { user_no: user_no },
+                    data: {
+                        user_name: name,
+                        comments: {
+                            updateMany: {
+                                where: { user_id: user_no },
+                                data: { user_name: name }
+                            }
+                        },
+                        alerts: {
+                            updateMany: {
+                                where: { user_no: user_no },
+                                data: { sender_name: name }
+                            }
+                        }
                     },
-                    data: { user_name: name }
-                });
-
-                await prisma.fontsComment.updateMany({
-                    where: {
-                        user_email: id,
-                        user_auth: auth,
+                    include: {
+                        comments: true,
+                        alerts: true,
                     },
-                    data: { user_name: name }
                 });
 
                 return res.status(200).json({
@@ -112,24 +159,30 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             }
         } else if (req.body.action === "delete-profile-img") {
             try {
-                const { id, auth } = req.body;
+                const { user_no } = req.body;
                 const randomProfileImg = "/fonts-archive-base-profile-img-" + (Math.floor(Math.random() * 6) + 1) + ".svg";
 
-                // 프로필 이미지 삭제 후 기본 프로필 이미지로 변경
-                await prisma.fontsUser.updateMany({
-                    where: {
-                        user_id: id,
-                        auth: auth,
+                await prisma.fontsUser.update({
+                    where: { user_no: user_no },
+                    data: {
+                        profile_img: randomProfileImg,
+                        comments: {
+                            updateMany: {
+                                where: { user_id: user_no },
+                                data: { user_image: randomProfileImg }
+                            }
+                        },
+                        alerts: {
+                            updateMany: {
+                                where: { user_no: user_no },
+                                data: { sender_img: randomProfileImg }
+                            }
+                        }
                     },
-                    data: { profile_img: randomProfileImg }
-                });
-
-                await prisma.fontsComment.updateMany({
-                    where: {
-                        user_email: id,
-                        user_auth: auth,
+                    include: {
+                        comments: true,
+                        alerts: true,
                     },
-                    data: { user_image: randomProfileImg }
                 });
 
                 return res.status(200).json({
@@ -167,24 +220,30 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         } else if (req.body.action === "upload-img-on-prisma") {
             try {
                 // prisma 업로드를 위한 변수
-                const { id, no, auth, img_type } = req.body;
-                const url = `https://fonts-archive.s3.ap-northeast-2.amazonaws.com/fonts-archive-user-${no}-profile-img.${img_type}`;
+                const { user_no, img_type } = req.body;
+                const url = `https://fonts-archive.s3.ap-northeast-2.amazonaws.com/fonts-archive-user-${user_no}-profile-img.${img_type}`;
                 
-                // prisma 업로드
-                await prisma.fontsUser.updateMany({
-                    where: {
-                        user_id: id,
-                        auth: auth,
+                await prisma.fontsUser.update({
+                    where: { user_no: user_no },
+                    data: {
+                        profile_img: url,
+                        comments: {
+                            updateMany: {
+                                where: { user_id: user_no },
+                                data: { user_image: url },
+                            }
+                        },
+                        alerts: {
+                            updateMany: {
+                                where: { user_no: user_no },
+                                data: { sender_img: url }
+                            }
+                        }
                     },
-                    data: { profile_img: url }
-                });
-
-                await prisma.fontsComment.updateMany({
-                    where: {
-                        user_email: id,
-                        user_auth: auth,
+                    include: {
+                        comments: true,
+                        alerts: true,
                     },
-                    data: { user_image: url }
                 });
 
                 return res.status(200).json({
@@ -199,7 +258,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             }
         } else if (req.body.action === "delete-user") {
             try {
-                const { file_name, user_no } = req.body;
+                const { user_no, file_name } = req.body;
 
                 // s3 이미지 삭제
                 const deleteParams = {
@@ -222,16 +281,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 }
                 await s3.send(new DeleteObjectsCommand(deleteParams));
 
-                // 좋아요한 폰트 삭제
-                await prisma.fontsLiked.deleteMany({
-                    where: { user_id: Number(user_no) }
-                });
-
-                // 댓글 신고 삭제
-                await prisma.fontsUserReport.deleteMany({
-                    where: { report_user_id: Number(user_no) }
-                });
-
                 // 댓글 조회
                 const comments = await prisma.fontsComment.findMany({
                     where: { user_id: Number(user_no) }
@@ -251,6 +300,21 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 // 댓글, 답글, 다른 유저의 답글까지 모두 삭제
                 comments && comments.length > 0 && await prisma.fontsComment.deleteMany({
                     where: { OR: commentsArr }
+                });
+
+                // 좋아요, 신고, 알람 삭제
+                await prisma.fontsUser.update({
+                    where: { user_no: Number(user_no) },
+                    data: {
+                        liked_fonts: { deleteMany: {} },
+                        reports: { deleteMany: {} },
+                        alerts: { deleteMany: {} }
+                    },
+                    include: {
+                        liked_fonts: true,
+                        reports: true,
+                        alerts: true,
+                    }
                 });
 
                 // 유저 정보 삭제

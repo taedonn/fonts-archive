@@ -39,8 +39,9 @@ export type users = {
     auth: string
     user_email_token: string
     user_email_confirm: boolean
-    refresh_token: string
     profile_img: string
+    public_img: string
+    protected: boolean
     nickname_reported: number
     created_at:string
     updated_at:string
@@ -61,6 +62,8 @@ export type comments = {
     user_name: string
     user_email: string
     user_auth: string
+    user_image: string
+    user_privacy: boolean
     comment: string
     depth: number
     bundle_id: number
@@ -81,8 +84,7 @@ export type reports = {
     report_id: number
     report_font_code: number
     report_user_id: number
-    report_user_email: string
-    report_user_auth: string
+    reported_user_id: number
     comment_id: number
     report_nickname: boolean
     report_politics: boolean
@@ -99,24 +101,7 @@ export type issues = {
     issue_email: string
     issue_content: string
     issue_reply: string
-    issue_img_length: number
-    issue_img_1: string
-    issue_img_2: string
-    issue_img_3: string
-    issue_img_4: string
-    issue_img_5: string
-    issue_closed: boolean
-    issue_closed_type: string
-    issue_closed_at:string
-    issue_created_at:string
-}
-
-export type bugs = {
-    issue_id: number
-    issue_title: string
-    issue_email: string
-    issue_content: string
-    issue_reply: string
+    issue_type: string
     issue_img_length: number
     issue_img_1: string
     issue_img_2: string
@@ -137,4 +122,20 @@ export type notices = {
     notice_show_type: boolean
     notice_created_at: string
     notice_updated_at: string
+}
+
+export type alerts = {
+    alert_id: number
+    alert_type: string
+    alert_read: boolean
+    alert_page: string
+    alert_link: string
+    sender_name: string
+    sender_img: string
+    sender_content: string
+    recipent_email: string
+    recipent_auth: string
+    created_at: string
+    comment_id: number
+    user_no: number
 }

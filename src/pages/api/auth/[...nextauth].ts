@@ -54,7 +54,9 @@ export const authOptions: NextAuthOptions = {
                 if (account.provider === "credentials") {
                     Object.assign(token, {
                         sub: user.id,
-                        provider: account.provider
+                        provider: account.provider,
+                        protected: user.protected,
+                        public_img: user.public_img,
                     });
                 } else {
                     const OAuthUser = await GetOAuthUserInfo(user, account);
@@ -63,6 +65,8 @@ export const authOptions: NextAuthOptions = {
                             name: user.name === undefined ? OAuthUser.user_name : user.name,
                             sub: OAuthUser.user_no,
                             provider: account.provider,
+                            protected: OAuthUser.protected,
+                            public_img: OAuthUser.public_img,
                         });
                     }
                 }
@@ -75,6 +79,8 @@ export const authOptions: NextAuthOptions = {
                     name: token.name,
                     id: token.sub,
                     provider: token.provider,
+                    protected: token.protected,
+                    public_img: token.public_img,
                 });
             }
             return session;

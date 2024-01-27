@@ -16,7 +16,8 @@ interface ReportCommentModal {
     font_id: number,
     user: any,
     comment_id: number,
-    update_reports: any,
+    comment_user_no: number,
+    update: any,
 }
 
 export default function ReportCommentModal({
@@ -25,7 +26,8 @@ export default function ReportCommentModal({
     font_id,
     user,
     comment_id,
-    update_reports
+    comment_user_no,
+    update,
 }: ReportCommentModal) {
     // states
     const [reportNickname, setReportNickname] = useState<boolean>(false);
@@ -49,6 +51,7 @@ export default function ReportCommentModal({
         setReportEtc(false);
         setReportText('');
         setReportWarning(false);
+        setIsLoading(false);
 
         // 모달창 닫기
         close();
@@ -130,9 +133,8 @@ export default function ReportCommentModal({
                 action: 'report-comment',
                 font_id: font_id,
                 user_id: user.id,
-                user_email: user.email,
-                user_auth: user.provider,
                 comment_id: comment_id,
+                comment_user_no: comment_user_no,
                 report_nickname: reportNickname,
                 report_politics: reportPolitics,
                 report_swearing: reportSwearing,
@@ -141,7 +143,7 @@ export default function ReportCommentModal({
             })
             .then(async (res) => {
                 console.log(res.data.msg);
-                update_reports(res.data.reports);
+                update(res.data.comments);
 
                 // 로딩 바 정지
                 setIsLoading(false);

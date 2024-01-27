@@ -3,7 +3,7 @@ import prisma from '@/libs/prisma';
 
 const limit = 10;
 
-// SSR 공지 목록 페이지 수
+// 페이지 수
 export async function FetchNoticesLength() {
     const notices = await prisma.fontsNotice.findMany({
         select: { notice_id: true },
@@ -13,7 +13,7 @@ export async function FetchNoticesLength() {
     return count;
 }
 
-// SSR 첫 공지 목록 불러오기
+// 목록
 export async function FetchNotices(lastId: number | undefined) {
     const list = await prisma.fontsNotice.findMany({
         orderBy: [{notice_id: 'desc'}], // 정렬순

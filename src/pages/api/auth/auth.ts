@@ -32,6 +32,8 @@ export async function GetUser(credentials: any) {
             user_email_confirm: true,
             auth: true,
             profile_img: true,
+            public_img: true,
+            protected: true,
         },
         where: {
             user_id: credentials.email,
@@ -48,7 +50,9 @@ export async function GetUser(credentials: any) {
             id: user.user_no,
             email: user.user_id,
             name: user.user_name,
-            image: user.profile_img
+            image: user.profile_img,
+            public_img: user.public_img,
+            protected: user.protected,
         });
         return sessionUser;
     }
@@ -80,7 +84,8 @@ export async function GetOAuthUser(user: any, account: any) {
                 user_email_token: "",
                 user_email_confirm: true,
                 auth: account.provider,
-                profile_img: user.image === undefined ? "/fonts-archive-base-profile-img-" + (Math.floor(Math.random() * 6) + 1) + ".svg" : user.image
+                profile_img: user.image === undefined ? "/fonts-archive-base-profile-img-" + (Math.floor(Math.random() * 6) + 1) + ".svg" : user.image,
+                public_img: "/fonts-archive-base-profile-img-" + (Math.floor(Math.random() * 6) + 1) + ".svg"
             }
         });
         return true;
@@ -103,6 +108,8 @@ export async function GetOAuthUserInfo(user: any, account: any) {
             user_id: true,
             user_name: true,
             auth: true,
+            protected: true,
+            public_img: true,
         },
         where: {
             user_id: user.email,

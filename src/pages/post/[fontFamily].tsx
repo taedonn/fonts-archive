@@ -11,7 +11,6 @@ import React, { useEffect, useState, useRef } from "react";
 
 // api
 import { FetchFontDetail } from "../api/post/fetchfontdetail";
-import { FetchUserLikeOnDetail } from "../api/user/fetchuserlike";
 
 // libraries
 import axios from "axios";
@@ -34,22 +33,25 @@ import KakaoAdFitBottomBanner from "@/components/kakaoAdFitBottomBanner";
 // common
 import { onMouseDown, onMouseUp, onMouseOut } from "@/libs/common";
 
+// global
+import { likes, comments } from "@/libs/global";
+
 function DetailPage({params}: any) {
-    const { theme, userAgent, randomNum, user, like } = params;
+    const { theme, userAgent, randomNum, user } = params;
     const font = params.font[0];
+    const fontLiked = font.liked_user.find((obj: likes) => obj.user_email === user.email);
+    const fontComments = font.comments.filter((obj: comments) => obj.is_deleted === false);
 
     // 디바이스 체크
     const isMac: boolean = userAgent.includes("Mac OS") ? true : false;
     const isMobile = /iPhone|iPad|iPod|Android/i.test(userAgent);
 
     // states
-    const [comments, setComments] = useState(null);
-    const [reports, setReports] = useState(null);
     const [alertDisplay, setAlertDisplay] = useState<boolean>(false);
     const [hoverDisplay, setHoverDisplay] = useState<boolean>(true);
-    const [liked, setLiked] = useState<boolean>(like === null ? false : true);
-    const [likedInput, setLikedInput] = useState<boolean>(like === null ? false : true);
-    const [likedNum, setLikedNum] = useState<number>(font.like);
+    const [liked, setLiked] = useState<boolean>(fontLiked ? true : false);
+    const [likedInput, setLikedInput] = useState<boolean>(fontLiked ? true : false);
+    const [likedNum, setLikedNum] = useState<number>(font.liked_user.length);
     const [webFont, setWebFont] = useState("CSS");
     const [text, setText] = useState("");
     const [fontSize, setFontSize] = useState<number>(28);
@@ -78,37 +80,6 @@ function DetailPage({params}: any) {
             viewUpdate();
         }
     }, [font]);
-
-    // 댓글 가져오기
-    useEffect(() => {
-        const fetchComments = async () => {
-            await axios.get("/api/post/fetchcomments", {
-                params: {
-                    action: "fetch-comments",
-                    code: font.code,
-                }
-            })
-            .then(res => setComments(res.data.comments))
-            .catch(err => console.log(err));
-        }
-        fetchComments();
-
-        const fetchReports = async () => {
-            if (user !== null) {
-                await axios.get('/api/post/fetchreports', {
-                    params: {
-                        action: "fetch-reports",
-                        code: font.code,
-                        email: user.email,
-                        provider: user.provider,
-                    }
-                })
-                .then(res => setReports(res.data.reports))
-                .catch(err => console.log(err));
-            }
-        }
-        fetchReports();
-    }, [font.code, user]);
 
     /** 로그인 중이 아닐 때 좋아요 클릭 방지 */
     const handleLikeClick = (e: React.MouseEvent<HTMLInputElement>) => {
@@ -400,12 +371,12 @@ function DetailPage({params}: any) {
                         <div className="mb-2 flex gap-4 items-center">
                             <div style={{fontFamily:'"'+font.font_family+'"'}} className="text-4xl tlg:text-3xl text-l-2 dark:text-white font-medium">{font.name}</div>
                             <div className='group relative'>
-                                <input onClick={handleLikeClick} onChange={handleLikeChange} type="checkbox" id={font.code.toString()} className='peer hidden' defaultChecked={like === null ? false : true}/>
+                                <input onClick={handleLikeClick} onChange={handleLikeChange} type="checkbox" id={font.code.toString()} className='peer hidden' defaultChecked={likedInput}/>
                                 <label htmlFor={font.code.toString()} onMouseDown={e => onMouseDown(e, 0.85, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className='group block cursor-pointer'>
                                     <i className="block peer-checked:group-[]:hidden text-xl text-l-2 dark:text-white bi bi-heart"></i>
                                     <i className="hidden peer-checked:group-[]:block text-xl text-h-r bi bi-heart-fill"></i>
                                 </label>
-                                <div className={`${hoverDisplay === true ? 'group-hover:block' : 'group-hover:hidden'} tlg:group-hover:hidden tooltip w-max absolute left-1/2 -top-10 px-3 py-2 text-sm font-medium leading-none origin-bottom rounded-lg hidden group-hover:animate-zoom-in-fontbox after:bg-h-r bg-h-r text-white`}>{liked === true ? "좋아요 해제" : "좋아요"}</div>
+                                <div className={`${hoverDisplay === true ? 'group-hover:block' : 'group-hover:hidden'} tlg:group-hover:hidden tooltip w-max absolute left-1/2 -top-10 px-3 py-2 text-sm font-medium leading-none origin-bottom rounded-lg hidden group-hover:animate-zoom-in-fontbox after:bg-h-r bg-h-r text-white`}>{likedInput ? "좋아요 해제" : "좋아요"}</div>
                             </div>
                         </div>
                         <div className="mb-4 flex gap-4 tlg:gap-3 justify-start items-center">
@@ -1006,8 +977,7 @@ function DetailPage({params}: any) {
                         <Comments
                             font={font}
                             user={user}
-                            report={reports}
-                            comment={comments}
+                            comment={fontComments}
                             likedInput={likedInput}
                             likedNum={likedNum}
                         />
@@ -1074,11 +1044,6 @@ export async function getServerSideProps(ctx: any) {
         // 유저 정보 불러오기
         const session = await getServerSession(ctx.req, ctx.res, authOptions);
 
-        // 유저 정보가 있으면, 좋아요한 폰트 체크
-        const like = session === null
-            ? null
-            : await FetchUserLikeOnDetail(session.user, font[0].code);
-
         if (font.length === 0) {
             return {
                 redirect: {
@@ -1095,7 +1060,6 @@ export async function getServerSideProps(ctx: any) {
                         randomNum: randomNum,
                         font: JSON.parse(JSON.stringify(font)), // typescript에서 createdAt은 JSON.parse를 통해 serialized object로 변환 후 params로 보낼 수 있다.
                         user: session === null ? null : session.user,
-                        like: like,
                     }
                 }
             }

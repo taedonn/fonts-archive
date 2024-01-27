@@ -73,7 +73,7 @@ export default function App({Component, pageProps: { session, ...pageProps }}: A
                     />
                     <AnimatePresence
                         mode="wait" // 새 페이지 로딩 전 페이지 아웃 애니메이션 끝까지 실행
-                        // ㄴinitial={false} // false 시 첫 페이지 로딩 애니메이션 안함
+                        // initial={false} // false 시 첫 페이지 로딩 애니메이션 안함
                         onExitComplete={() => window.scrollTo(0, 0)} // 페이지 아웃 애니메이션 끝나면 스크롤 이동
                     >
                         <Component {...pageProps}/>

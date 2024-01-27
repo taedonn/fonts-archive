@@ -4,7 +4,6 @@ import { useRef, useState, useEffect } from "react";
 // next
 import Script from "next/script";
 import Image from "next/image";
-import { useRouter } from "next/router";
 
 // libraries
 import axios from "axios";
@@ -14,7 +13,10 @@ import DeleteCommentModal from "@/components/deletecommentmodal";
 import ReportCommentModal from "@/components/reportcommentmodal";
 
 // common
-import { timeFormat, getIntFromString, onMouseDown, onMouseOut, onMouseUp } from "@/libs/common";
+import { timeFormat, getIntFromString, onMouseDown, onMouseOut, onMouseUp, hideUserName } from "@/libs/common";
+
+// global
+import { reports, comments } from "@/libs/global";
 
 declare global {
     interface Window {
@@ -26,7 +28,6 @@ export default function Comments (
     {
         font,
         user,
-        report,
         comment,
         likedInput,
         likedNum
@@ -34,7 +35,6 @@ export default function Comments (
     {
         font: any,
         user: any,
-        report: any,
         comment: any,
         likedInput: boolean,
         likedNum: number
@@ -47,8 +47,8 @@ export default function Comments (
     const [deleteModalDisplay, setDeleteModalDisplay] = useState<boolean>(false);
     const [reportModalDisplay, setReportModalDisplay] = useState<boolean>(false);
     const [commentId, setCommentId] = useState<number>(0);
+    const [commentUserId, setCommentUserId] = useState<number>(0);
     const [bundleId, setBundleId] = useState<number>(0);
-    const [reports, setReports] = useState(report);
     const [shareExpand, setShareExpand] = useState<boolean>(false);
 
     // refs
@@ -56,14 +56,6 @@ export default function Comments (
     const commentBtnRef = useRef<HTMLButtonElement>(null);
     const shareExpandBtn = useRef<HTMLLabelElement>(null);
     const shareExpandContent = useRef<HTMLDivElement>(null);
-
-    // router
-    const router = useRouter();
-
-    useEffect(() => {
-        setComments(comment);
-        setReports(report);
-    }, [comment, report]);
 
     /** MUI TextArea 줄바꿈 시 높이 변경 */
     const handleHeightChange = (e: any) => {
@@ -117,7 +109,8 @@ export default function Comments (
                 user_name: user.name,
                 user_email: user.email,
                 user_auth: user.provider,
-                user_image: user.image,
+                user_image: user.protected && user.provider !== "credentials" ? user.public_img : user.image,
+                user_privacy: user.protected,
                 comment: commentRef.current.value,
             })
             .then(async (res) => {
@@ -139,18 +132,7 @@ export default function Comments (
     }
 
     /** 댓글 삭제 모달창 닫기 */
-    const deleteCommentModalClose = () => {
-        setDeleteModalDisplay(false);
-    }
-
-    /** 댓글 삭제 시 댓글 업데이트 */
-    const updateComments = () => {
-        router.push(`/post/${font.font_family.replaceAll(" ", "+")}#comment-section`);
-        router.reload();
-    }
-
-    /** 신고 업데이트 */
-    const updateReports = (reports: any) => { setReports(reports); }
+    const deleteCommentModalClose = () => { setDeleteModalDisplay(false); }
 
     /** 댓글 수정하기 버튼 클릭(보임/숨김) */
     const editComment = (e: React.ChangeEvent<HTMLInputElement>) => { commentEditShow(e); }
@@ -304,6 +286,9 @@ export default function Comments (
         if(e.target.classList.contains('edit-btn-enabled')) {
             // 아이디 추출
             const id = getIntFromString(e.target.id);
+            const recipentEmail = e.currentTarget.dataset.email;
+            const recipentAuth = e.currentTarget.dataset.auth;
+            const commentId = Number(e.currentTarget.dataset.comment);
             const bundle = Number(e.currentTarget.dataset.bundle);
             const textarea = document.getElementById('comment-reply-textarea-' + id) as HTMLTextAreaElement;
             const input = document.getElementById('comment-reply-' + id) as HTMLInputElement;
@@ -317,8 +302,11 @@ export default function Comments (
                 user_name: user.name,
                 user_email: user.email,
                 user_auth: user.provider,
-                user_image: user.image,
-                comment_id: id,
+                user_image: user.protected && user.provider !== "credentials" ? user.public_img : user.image,
+                user_privacy: user.protected,
+                recipent_email: recipentEmail,
+                recipent_auth: recipentAuth,
+                comment_id: commentId,
                 comment: textarea.value,
                 bundle_id: bundle,
             })
@@ -344,12 +332,19 @@ export default function Comments (
     const reportCommentModalOpen = (e: React.MouseEvent<HTMLButtonElement>) => {
         setReportModalDisplay(true);
         setCommentId(getIntFromString(e.currentTarget.id));
+        setCommentUserId(Number(e.currentTarget.dataset.user));
+    }
+    
+    const compareIdsFromReports = (reports: reports[]) => {
+        const isReported = reports.length === 0 ? false : reports.some((report: reports) => report.reported_user_id === Number(user.id));
+        return isReported;
     }
 
+    /** 댓글 업데이트 */
+    const updateComments = (comments: comments) => { setComments(comments); }
+
     /** 댓글 신고 모달창 닫기 */
-    const reportCommentModalClose = () => {
-        setReportModalDisplay(false);
-    }
+    const reportCommentModalClose = () => { setReportModalDisplay(false); }
 
     // 공유 버튼 클릭
     const handleShareExpand = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -441,14 +436,6 @@ export default function Comments (
         window.open(`https://twitter.com/intent/tweet?text=${text}&url=${decodeURI(urlEncoded)}`, "x", "menubar=no,toolbar=no,resizable=yes,scrollbars=yes,width=520,height=700");
     }
 
-    /** 배열 숨김 처리 */
-    const hideUserName = (name: string) => {
-        let arr = name.slice(1, name.length);
-        let newName = name.slice(0, 1);
-        for (let i = 0; i < arr.length; i++) newName += "*";
-        return newName;
-    }
-
     return (
         <>
 
@@ -464,7 +451,6 @@ export default function Comments (
                 font_id={font.code}
                 comment_id={commentId}
                 bundle_id={bundleId}
-                update={updateComments}
             />
 
             {/* 댓글 신고 모달 */}
@@ -474,7 +460,8 @@ export default function Comments (
                 font_id={font.code}
                 user={user}
                 comment_id={commentId}
-                update_reports={updateReports}
+                comment_user_no={commentUserId}
+                update={updateComments}
             />
 
             <div className='w-max mb-3 flex gap-2'>
@@ -558,7 +545,7 @@ export default function Comments (
                         </div>
                         : <div className="w-full flex gap-4">
                             <div className="w-10 tlg:w-8 h-10 tlg:h-8 shrink-0 relative rounded-full overflow-hidden">
-                                <Image src={user.image} alt="유저 프로필 사진" fill sizes="100%" referrerPolicy="no-referrer" className="object-cover"/>
+                                <Image src={user.protected && user.provider !== "credentials" ? user.public_img : user.image} alt="유저 프로필 사진" fill sizes="100%" referrerPolicy="no-referrer" className="object-cover"/>
                             </div>
                             <div className="w-full flex flex-col mt-1.5 tlg:mt-0.5">
                                 <div className={`relative w-full flex items-center pb-1 border-b hover:border-l-9 hover:dark:border-d-9 tlg:hover:border-l-9 tlg:hover:dark:border-d-9 ${commentFocus ? 'border-l-9 dark:border-d-9 tlg:hover:border-l-9 tlg:hover:dark:border-d-9' : 'border-l-b dark:border-d-6'}`}>
@@ -567,7 +554,7 @@ export default function Comments (
                                 {
                                     commentFocus
                                     && <div className="flex gap-2 w-full text-sm text-l-2 dark:text-white mt-3">
-                                        <button ref={commentBtnRef} onMouseDown={newComment} className={`${commentBtn ? 'comment-enabled text-white dark:text-d-2 bg-h-1 hover:bg-h-0 tlg:hover:bg-h-1 dark:bg-f-8 hover:dark:bg-f-9 tlg:hover:dark:bg-f-8 cursor-pointer' : 'comment-disabled text-l-9 dark:text-d-9 bg-l-e dark:bg-d-4 cursor-default'} w-14 tlg:w-12 h-8 tlg:h-7 rounded-lg`}>댓글</button>
+                                        <button ref={commentBtnRef} onMouseDown={newComment} className={`${commentBtn ? 'comment-enabled text-white dark:text-d-2 bg-h-1 hover:bg-h-0 tlg:hover:bg-h-1 dark:bg-f-8 hover:dark:bg-f-9 tlg:hover:dark:bg-f-8 cursor-pointer' : 'comment-disabled text-l-9 dark:text-d-9 bg-l-e dark:bg-d-4 cursor-default'} w-14 h-8 rounded-lg`}>댓글</button>
                                         <button onMouseDown={commentCancelBtnOnMouseDown} className="w-14 h-8 rounded-lg hover:bg-l-e hover:dark:bg-d-4 tlg:hover:bg-transparent tlg:hover:dark:bg-transparent">취소</button>
                                     </div>
                                 }
@@ -584,7 +571,7 @@ export default function Comments (
                         {
                             comments.map((comment: any) => {
                                 return (
-                                    <div key={comment.comment_id} className='w-full text-l-2 dark:text-white animate-fade-in-fontbox'>
+                                    <div key={comment.comment_id} id={`c${comment.comment_id}`} className='w-full text-l-2 dark:text-white animate-fade-in-fontbox'>
                                         <div className='flex items-start gap-4 tlg:gap-3 mt-5 tlg:mt-4'>
                                             {
                                                 comment.depth === 1
@@ -595,33 +582,34 @@ export default function Comments (
                                             </div>
                                             <div className="w-full">
                                                 <div className="flex gap-3 tlg:gap-1 tlg:flex-col items-center tlg:items-start">
-                                                    <div className="font-medium">{comment.user_auth === "credentials" ? comment.user_name : hideUserName(comment.user_name)}</div>
+                                                    <div className="font-medium">{comment.user_auth !== "credentials" && comment.user_privacy ? hideUserName(comment.user_name, 1) : comment.user_name}</div>
                                                     <div className="flex gap-3 items-center">
                                                         <div className="text-sm text-l-5 dark:text-d-c">{timeFormat(comment.created_at)}</div>
                                                         {
                                                             user
-                                                            ? comment.user_id !== user.id && !comment.is_deleted_with_reply
-                                                                ? reports === null || !reports.some((report: any) => report.comment_id === comment.comment_id)
-                                                                    ? <button id={`report-comment-${comment.comment_id}`} data-bundle={comment.bundle_id} onClick={reportCommentModalOpen} className="flex gap-1 items-center text-sm text-l-2 dark:text-white hover:text-h-1 hover:dark:text-f-8">
-                                                                        <i className="text-xs fa-regular fa-bell"></i>
-                                                                        신고
-                                                                    </button>
-                                                                    : <div className="text-sm text-l-5 dark:text-d-c">댓글이 신고되었습니다.</div>
-                                                                : comment.user_id === user.id && !comment.is_deleted_with_reply
-                                                                    ? <div id={`comment-btn-wrap-${comment.comment_id}`} className="flex gap-2 items-center text-sm">
-                                                                        <input onChange={editComment} type="checkbox" id={`comment-edit-${comment.comment_id}`} className="hidden"/>
-                                                                        <label htmlFor={`comment-edit-${comment.comment_id}`} className="flex gap-1 items-center cursor-pointer text-l-2 hover:text-h-1 tlg:hover:text-l-2 dark:text-white hover:dark:text-f-8 tlg:hover:dark:text-white">
-                                                                            <i className="text-[0.5rem] fa-solid fa-pen"></i>
-                                                                            수정
-                                                                        </label>
-                                                                        <div className="w-px h-3 bg-l-2 dark:bg-white"></div>
-                                                                        <button id={`delete-comment-${comment.comment_id}`} data-comment={comment.comment_id} data-bundle={comment.bundle_id} onClick={deleteCommentModalOpen} className="flex gap-1 items-center text-l-2 hover:text-h-1 tlg:hover:text-l-2 dark:text-white hover:dark:text-f-8 tlg:hover:dark:text-white">
-                                                                            <i className="text-[0.625rem] fa-regular fa-trash-can"></i>
-                                                                            삭제
+                                                                ? comment.user_id !== user.id && !comment.is_deleted_with_reply && !comment.is_deleted_by_reports
+                                                                    ? !compareIdsFromReports(comment.reports)
+                                                                        ? <button id={`report-comment-${comment.comment_id}`} data-user={comment.user_id} onClick={reportCommentModalOpen} className="flex gap-1 items-center text-sm text-l-2 dark:text-white hover:text-h-1 hover:dark:text-f-8">
+                                                                            {comment.reports.toString()}
+                                                                            <i className="text-xs fa-regular fa-bell"></i>
+                                                                            신고
                                                                         </button>
-                                                                    </div>
-                                                                    : <></>
-                                                            : <></>
+                                                                        : <div className="text-sm text-l-5 dark:text-d-c">댓글이 신고되었습니다.</div>
+                                                                    : comment.user_id === user.id && !comment.is_deleted_with_reply && !comment.is_deleted_by_reports
+                                                                        ? <div id={`comment-btn-wrap-${comment.comment_id}`} className="flex gap-2 items-center text-sm">
+                                                                            <input onChange={editComment} type="checkbox" id={`comment-edit-${comment.comment_id}`} className="hidden"/>
+                                                                            <label htmlFor={`comment-edit-${comment.comment_id}`} className="flex gap-1 items-center cursor-pointer text-l-2 hover:text-h-1 tlg:hover:text-l-2 dark:text-white hover:dark:text-f-8 tlg:hover:dark:text-white">
+                                                                                <i className="text-[0.5rem] fa-solid fa-pen"></i>
+                                                                                수정
+                                                                            </label>
+                                                                            <div className="w-px h-3 bg-l-2 dark:bg-white"></div>
+                                                                            <button id={`delete-comment-${comment.comment_id}`} data-comment={comment.comment_id} data-bundle={comment.bundle_id} onClick={deleteCommentModalOpen} className="flex gap-1 items-center text-l-2 hover:text-h-1 tlg:hover:text-l-2 dark:text-white hover:dark:text-f-8 tlg:hover:dark:text-white">
+                                                                                <i className="text-[0.625rem] fa-regular fa-trash-can"></i>
+                                                                                삭제
+                                                                            </button>
+                                                                        </div>
+                                                                        : <></>
+                                                                : <></>
                                                         }
                                                     </div>
                                                 </div>
@@ -652,14 +640,14 @@ export default function Comments (
                                                     ? <div id={`comment-reply-content-${comment.comment_id}`} className="hidden mt-5">
                                                         <div className="w-full flex gap-4">
                                                             <div className="w-10 tlg:w-8 h-10 tlg:h-8 shrink-0 relative rounded-full overflow-hidden">
-                                                                <Image src={user.image} alt="유저 프로필 사진" fill sizes="100%" referrerPolicy="no-referrer" className="object-cover"/>
+                                                                <Image src={user.protected && user.provider !== "credentials" ? user.public_img : user.image} alt="유저 프로필 사진" fill sizes="100%" referrerPolicy="no-referrer" className="object-cover"/>
                                                             </div>
                                                             <div className="w-full">
                                                                 <div className="relative w-full flex items-center pb-1 border-b border-l-9 dark:border-d-9">
                                                                     <textarea onInput={handleHeightChange} onChange={commentReplyOnChange} onFocus={commentReplyOnChange} id={`comment-reply-textarea-${comment.comment_id}`} placeholder="답글 달기..." className="w-full h-[1.375rem] resize-none text-sm mt-1.5 text-l-2 dark:text-white placeholder-l-5 dark:placeholder-d-c bg-transparent"/>
                                                                 </div>
                                                                 <div className="flex gap-2 text-sm mt-3">
-                                                                    <button onClick={replyCommentAPIInit} id={`comment-reply-btn-${comment.comment_id}`} onMouseDown={e => onMouseDown(e, 0.9, e.currentTarget.classList.contains("edit-btn-enabled") ? true : false)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="edit-btn-disabled w-14 h-8 rounded-lg bg-l-e dark:bg-d-4 text-l-9 dark:text-d-9 cursor-default">답글</button>
+                                                                    <button onClick={replyCommentAPIInit} id={`comment-reply-btn-${comment.comment_id}`} data-comment={comment.comment_id} data-bundle={comment.bundle_id} data-email={comment.user_email} data-auth={comment.user_auth} onMouseDown={e => onMouseDown(e, 0.9, e.currentTarget.classList.contains("edit-btn-enabled") ? true : false)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="edit-btn-disabled w-14 h-8 rounded-lg bg-l-e dark:bg-d-4 text-l-9 dark:text-d-9 cursor-default">답글</button>
                                                                     <button onClick={commentReplyCancelBtnOnClick} id={`comment-reply-cancel-${comment.comment_id}`} onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-14 h-8 rounded-lg text-l-2 dark:text-white hover:bg-l-e hover:dark:bg-d-4 tlg:hover:bg-transparent tlg:hover:dark:bg-transparent">취소</button>
                                                                 </div>
                                                             </div>
