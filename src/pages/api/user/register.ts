@@ -100,7 +100,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                                         안녕하세요 <span style="font-weight: bold; color: #000;">${name}</span>님, <br/>
                                         아래 버튼을 클릭해서 회원가입을 완료해 주세요.
                                     </p>
-                                    <a style="width: 280px; display: block; padding: 16px 20px; box-sizing: border-box; margin: 0 auto; margin-top: 20px; box-sizing: border-box; background-color: #1B73E7; font-size: 14px; font-weight: bold; text-align: center; color: #FFF; text-decoration: none; border-radius: 6px;" href="https://fonts.taedonn.com/confirm?token=${email_token}">
+                                    <a style="width: 280px; max-width: 100%; display: block; padding: 16px 20px; box-sizing: border-box; margin: 0 auto; margin-top: 20px; box-sizing: border-box; background-color: #1B73E7; font-size: 14px; font-weight: bold; text-align: center; color: #FFF; text-decoration: none; border-radius: 6px;" href="https://fonts.taedonn.com/confirm?token=${email_token}">
                                         회원가입 완료하기
                                     </a>
                                     <div style="width: 100%; height: 1px; background-color: #D2D4DC; margin-top: 48px;"></div>

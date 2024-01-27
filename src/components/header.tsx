@@ -124,7 +124,7 @@ export default function Header (
                     user_id: user ? user.id : null,
                     id: pageParam,
                     action: "fetch-alerts",
-                    admin: user.id === 1 ? true : false,
+                    admin: user.id === 1 ? "true" : "false",
                     user_email: user.email,
                     user_auth: user.auth,
                 }

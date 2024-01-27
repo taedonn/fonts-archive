@@ -74,7 +74,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                                     안녕하세요 <span style="font-weight: bold; color: #000;">${user.user_name}</span>님, <br/>
                                     아래 임시 비밀번호를 통해 로그인 하실 수 있습니다.
                                 </p>
-                                <div style="width: 320px; padding: 16px 20px; box-sizing: border-box; margin: 0 auto; margin-top: 20px; box-sizing: border-box; background-color: #E9F0FE; font-size: 14px; text-decoration: none; border-radius: 6px;">
+                                <div style="width: 320px; max-width: 100%; padding: 16px 20px; box-sizing: border-box; margin: 0 auto; margin-top: 20px; box-sizing: border-box; background-color: #E9F0FE; font-size: 14px; text-decoration: none; border-radius: 6px;">
                                     ${randomPw}
                                 </div>
                                 <div style="width: 100%; height: 1px; background-color: #D2D4DC; margin-top: 48px;"></div>

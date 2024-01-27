@@ -12,7 +12,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 const cursor = id ?? "";
                 const cursorObj: any = cursor === "" ? undefined : { alert_id: parseInt(cursor as string, 10) };
 
-                const alerts = admin
+                const alerts = admin === "true"
                 ? await prisma.fontsAlert.findMany({ // 관리자일 때
                     orderBy: [{ alert_id: "desc" }],
                     take: limit,
