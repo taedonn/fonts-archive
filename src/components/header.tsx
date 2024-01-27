@@ -135,7 +135,7 @@ export default function Header (
             getNextPageParam: (lastPage) => lastPage.nextId ?? false,
             enabled: !!user, // user가 undefined면 쿼리 실행 안함
             refetchOnWindowFocus: false, // 탭 이동, 창 이동 시 stale 상태가 아니면 refetch 할지 안할지 정하는 옵션. default: always
-            staleTime: 60 * 1000, // stale(fresh) 상태일 때는 refetch 안함. 얼마동안 stale 상태로 보낼 지 정하는 옵션. default: 0
+            staleTime: 15 * 1000, // stale(fresh) 상태일 때는 refetch 안함. 얼마동안 stale 상태로 보낼 지 정하는 옵션. default: 0
         }
     );
 
