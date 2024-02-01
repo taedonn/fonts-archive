@@ -33,13 +33,33 @@ export function onMouseDown(e: React.MouseEvent, scale: number, enabled: boolean
 }
 export function onMouseUp(e: React.MouseEvent) {
     const target = e.currentTarget as HTMLElement;
-    if (target) target.style.transform = "scale(1)";
-    if (target) target.style.transition = "0s";
+    if (target) {
+        target.style.transform = "scale(1)";
+        target.style.transition = "0s";
+    }
 }
 export function onMouseOut(e: React.MouseEvent) {
     const target = e.currentTarget as HTMLElement;
-    if (target) target.style.transform = "scale(1)";
-    if (target) target.style.transition = "0s";
+    if (target) {
+        target.style.transform = "scale(1)";
+        target.style.transition = "0s";
+    }
+}
+
+/** 마우스 클릭 시 스타일 변경 - 사이드 메뉴 */
+export function onSideMenuMouseDown(e: React.MouseEvent) {
+    const target = e.currentTarget as HTMLElement;
+    if (target) {
+        target.classList.remove("border-transparent", "lg:hover:bg-l-e", "lg:hover:dark:bg-d-4");
+        target.classList.add("border-h-1", "dark:border-f-8");
+    }
+}
+export function onSideMenuMouseUp(e: React.MouseEvent) {
+    const target = e.currentTarget as HTMLElement;
+    if (target) {
+        target.classList.remove("border-h-1", "dark:border-f-8");
+        target.classList.add("border-transparent", "lg:hover:bg-l-e", "lg:hover:dark:bg-d-4");
+    }
 }
 
 /** 배열 숨김 처리 */

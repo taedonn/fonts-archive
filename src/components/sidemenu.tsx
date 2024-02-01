@@ -1,6 +1,9 @@
+// next
+import Link from "next/link";
+
 // components
 import SelectBox from "@/components/selectbox";
-import { onMouseDown, onMouseUp, onMouseOut } from "@/libs/common";
+import { onMouseDown, onMouseUp, onMouseOut, onSideMenuMouseDown, onSideMenuMouseUp } from "@/libs/common";
 
 interface Sidemenu {
     expand: boolean,
@@ -76,9 +79,9 @@ export default function Sidemenu ({
                     <div className="w-full h-4 absolute left-0 -bottom-4 bg-gradient-to-b from-white dark:from-d-2"></div>
                 </div>
             </div>
-            <div className={`${expand ? "left-0" : "-left-80"} w-80 h-full fixed z-10 top-0 duration-200`}>
-                <div className="w-full h-full pt-32 p-8 custom-sm-scrollbar relative overflow-y-auto bg-h-f dark:bg-d-3">
-                    <div className="absolute right-8 top-[76px] flex items-center">
+            <div className={`${expand ? "left-0" : "-left-80"} w-80 h-full fixed z-10 top-0 flex items-end duration-200`}>
+                <div className="w-full h-[calc(100%-4rem)] pt-16 p-8 custom-sm-scrollbar relative overflow-y-auto bg-h-f dark:bg-d-3">
+                    <div className="absolute right-8 top-3 flex items-center">
                         <button onClick={handleResetFilter} className={`${
                                 license === "all" && lang === "all" && type === "all" && sort === "date" && text === "" && searchword === ""
                                 ? "text-l-b dark:text-d-6 hover:bg-transparent cursor-default"
@@ -174,6 +177,39 @@ export default function Sidemenu ({
                         ]}
                         optionChange={handleSortOptionChange}
                     />
+                    <h2 className="font-bold mt-8 mb-4 text-l-2 dark:text-white">약관</h2>
+                    <div className="w-full">
+                        <Link
+                            href="/terms"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="w-full h-16 px-4 flex justify-between items-center rounded-lg cursor-pointer border-2 border-transparent text-l-2 dark:text-white lg:hover:bg-l-e lg:hover:dark:bg-d-4"
+                            onMouseDown={onSideMenuMouseDown}
+                            onMouseUp={onSideMenuMouseUp}
+                            onMouseOut={onSideMenuMouseUp}
+                        >
+                            <div className="flex items-center gap-3 font-medium">
+                                <i className="text-lg bi bi-wrench-adjustable"></i>
+                                서비스 이용약관
+                            </div>
+                            <i className="fa-solid fa-angle-right"></i>
+                        </Link>
+                        <Link
+                            href="/privacy"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="w-full h-16 px-4 flex justify-between items-center rounded-lg cursor-pointer border-2 border-transparent text-l-2 dark:text-white lg:hover:bg-l-e lg:hover:dark:bg-d-4"
+                            onMouseDown={onSideMenuMouseDown}
+                            onMouseUp={onSideMenuMouseUp}
+                            onMouseOut={onSideMenuMouseUp}
+                        >
+                            <div className="flex items-center gap-3 font-medium">
+                                <i className="text-lg bi bi-file-earmark-lock"></i>
+                                개인정보 처리방침
+                            </div>
+                            <i className="fa-solid fa-angle-right"></i>
+                        </Link>
+                    </div>
                 </div>
             </div>
         </div>
