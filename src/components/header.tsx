@@ -233,20 +233,20 @@ export default function Header (
                                 <img src="/logo.svg" alt="로고" referrerPolicy="no-referrer" className="h-full"/>
                             </div>
                             <div className="font-bold tlg:hidden">폰트 아카이브</div>
-                            <div className="hidden tlg:block w-4 h-full absolute -right-4 top-0 bg-gradient-to-r from-white from-50% dark:from-d-2"></div>
+                            <div className="hidden tlg:block w-4 h-12 absolute z-10 -right-4 top-1/2 -translate-y-1/2 bg-gradient-to-r from-white from-50% dark:from-d-2"></div>
                         </Link>
                         <div className="w-full overflow-x-auto no-scrollbar">
                             <div className="w-max mx-6 tlg:mx-4">
                                 <div className="w-max flex gap-2 tlg:gap-0 items-center">
-                                    <Link href="/" onClick={reset} onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className={`${page === "index" ? "text-h-1 dark:text-f-8 tlg:hover:text-h-1 tlg:hover:dark:text-f-8 bg-h-e dark:bg-d-3" : ""} px-3 py-1.5 rounded-lg tlg:text-sm font-medium hover:text-h-1 hover:dark:text-f-8 tlg:hover:text-l-2 tlg:hover:dark:text-white`}>모든 폰트</Link>
-                                    <Link href="/issue" onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className={`${page === "issue" ? "text-h-1 dark:text-f-8 tlg:hover:text-h-1 tlg:hover:dark:text-f-8 bg-h-e dark:bg-d-3" : ""} px-3 py-1.5 rounded-lg tlg:text-sm font-medium hover:text-h-1 hover:dark:text-f-8 tlg:hover:text-l-2 tlg:hover:dark:text-white`}>문의하기</Link>
-                                    <Link href="/notices" onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className={`${page === "notices" ? "text-h-1 dark:text-f-8 tlg:hover:text-h-1 tlg:hover:dark:text-f-8 bg-h-e dark:bg-d-3" : ""} px-3 py-1.5 rounded-lg tlg:text-sm font-medium hover:text-h-1 hover:dark:text-f-8 tlg:hover:text-l-2 tlg:hover:dark:text-white`}>공지사항</Link>
+                                    <Link href="/" onClick={reset} onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className={`${page === "index" ? "text-h-1 dark:text-f-8 lg:hover:text-h-1 lg:hover:dark:text-f-8 bg-h-e dark:bg-d-3" : ""} px-3 py-1.5 rounded-lg tlg:text-sm font-medium lg:hover:text-h-1 lg:hover:dark:text-f-8`}>모든 폰트</Link>
+                                    <Link href="/issue" onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className={`${page === "issue" ? "text-h-1 dark:text-f-8 lg:hover:text-h-1 lg:hover:dark:text-f-8 bg-h-e dark:bg-d-3" : ""} px-3 py-1.5 rounded-lg tlg:text-sm font-medium lg:hover:text-h-1 lg:hover:dark:text-f-8`}>문의하기</Link>
+                                    <Link href="/notices" onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className={`${page === "notices" ? "text-h-1 dark:text-f-8 lg:hover:text-h-1 lg:hover:dark:text-f-8 bg-h-e dark:bg-d-3" : ""} px-3 py-1.5 rounded-lg tlg:text-sm font-medium lg:hover:text-h-1 lg:hover:dark:text-f-8`}>공지사항</Link>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div className='relative flex justify-start shrink-0 items-center'>
-                        <div className="hidden tlg:block w-4 h-full absolute -left-4 top-0 bg-gradient-to-l from-white dark:from-d-2"></div>
+                        <div className="hidden tlg:block w-4 h-12 absolute z-10 -left-4 top-1/2 -translate-y-1/2 bg-gradient-to-l from-white dark:from-d-2"></div>
                         <button onClick={handleFontSearch} onMouseDown={e => onMouseDown(e, 0.95, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className={`${page === "index" ? "hidden" : "flex"} w-56 tlg:w-8 h-8 pl-10 tlg:p-0 mr-3 tlg:mr-1.5 relative text-sm flex-start justify-start items-center rounded-lg text-h-1 dark:text-white hover:text-white hover:dark:text-f-8 tlg:hover:text-h-1 tlg:hover:dark:text-white bg-h-e dark:bg-d-4 hover:bg-h-1 tlg:hover:bg-h-e tlg:hover:dark:bg-d-4`}>
                             <span className="tlg:hidden">폰트 검색하기...</span>
                             <i className="text-xs absolute left-4 tlg:left-1/2 top-1/2 tlg:-translate-x-1/2 -translate-y-1/2 fa-solid fa-magnifying-glass"></i>
