@@ -143,8 +143,11 @@ export default function FontBox ({
 
     /** 렌더링 시 좋아요 되어있는 폰트들은 체크된 상태로 변경 */
     const handleDefaultLike = (fontId: number, liked_user: any) => {
-        const liked = liked_user.find((obj: LikedUser) => obj.font_id === fontId);
-        return liked ? true : false
+        if (!user) return false;
+        else {
+            const liked = liked_user.some((obj: LikedUser) => obj.user_id === user.id && obj.font_id === fontId);
+            return liked ? true : false
+        }
     }
 
     /** 알럿창 닫기 */
@@ -226,10 +229,10 @@ export default function FontBox ({
                                         cdn_url: string
                                         liked_user: LikedUser
                                     }) => (
-                                        <div aria-label="font-link" key={font.code} className="w-full group/wrap relative py-8 tlg:py-6 hover:rounded-lg tlg:hover:rounded-none border-t first:border-t-0 last:border-b border-l-b dark:border-d-4 tlg:hover:border-l-b tlg:hover:dark:border-d-4 [&+div]:hover:border-transparent tlg:[&+div]:hover:border-l-b tlg:[&+div]:hover:dark:border-d-4 hover:border-transparent hover:bg-l-e hover:dark:bg-d-4 tlg:hover:bg-transparent tlg:hover:dark:bg-transparent text-l-2 dark:text-white animate-fade-in-fontbox cursor-pointer">
+                                        <div aria-label="font-link" key={font.code} className="w-full group/wrap relative pt-8 tlg:pt-6 pb-2 hover:rounded-lg tlg:hover:rounded-none border-t first:border-t-0 last:border-b border-l-b dark:border-d-4 tlg:hover:border-l-b tlg:hover:dark:border-d-4 [&+div]:hover:border-transparent tlg:[&+div]:hover:border-l-b tlg:[&+div]:hover:dark:border-d-4 hover:border-transparent hover:bg-l-e hover:dark:bg-d-4 tlg:hover:bg-transparent tlg:hover:dark:bg-transparent text-l-2 dark:text-white animate-fade-in-fontbox cursor-pointer">
                                             <Link href={`/post/${font.font_family.replaceAll(" ", "+")}`} className='w-full h-full absolute z-10 left-0 top-0'></Link>
                                             <link href={font.cdn_url} rel="stylesheet" type="text/css" itemProp="url"></link>
-                                            <div className='w-max pl-8 tlg:pl-4 mb-6 tlg:mb-4 relative tlg:static flex tlg:flex-col items-center tlg:items-start'>
+                                            <div className='w-max pl-8 tlg:pl-4 relative tlg:static flex tlg:flex-col items-center tlg:items-start'>
                                                 <div className="text-xl tlg:text-lg tlg:mb-2">{font.name}</div>
                                                 <div className='w-px h-4 mx-3 tlg:hidden bg-l-b dark:bg-d-9'></div>
                                                 <div className="text-l-5 dark:text-d-9">by {font.source}</div>
@@ -242,11 +245,11 @@ export default function FontBox ({
                                                     <div className={`${hoverDisplay === true ? 'group-hover:block' : 'group-hover:hidden'} tlg:group-hover:hidden tooltip w-max absolute left-1/2 -top-10 px-3 py-2 text-sm font-medium leading-none origin-bottom rounded-lg hidden group-hover:animate-zoom-in-fontbox after:bg-h-r bg-h-r text-white`}>{handleDefaultLike(font.code, font.liked_user) === false ? '좋아요' : '좋아요 해제'}</div>
                                                 </div>
                                             </div>
-                                            <div className="w-full relative overflow-hidden">
+                                            <div className="w-full relative py-6 tlg:py-4 overflow-hidden">
                                                 <div style={{fontFamily:"'"+font.font_family+"'"}} className="w-full pl-8 tlg:pl-4 text-4xl tlg:text-3xl text-normal">
                                                     <p className={`${font.code + '-text'} whitespace-nowrap text-l-b dark:text-white`}><DummyText lang={font.lang} text={text} num={num}/></p>
                                                 </div>
-                                                <div className='w-40 h-full absolute right-0 top-0 bg-gradient-to-l from-white dark:from-d-2 from-25% group-hover/wrap:from-l-e group-hover/wrap:dark:from-d-4 tlg:group-hover/wrap:from-white tlg:group-hover/wrap:dark:from-d-2'></div>
+                                                <div className='w-40 h-14 absolute right-0 top-1/2 -translate-y-1/2 bg-gradient-to-l from-white dark:from-d-2 from-25% group-hover/wrap:from-l-e group-hover/wrap:dark:from-d-4 tlg:group-hover/wrap:from-white tlg:group-hover/wrap:dark:from-d-2'></div>
                                             </div>
                                         </div>
                                     ))}
