@@ -39,7 +39,7 @@ import { likes, comments } from "@/libs/global";
 function DetailPage({params}: any) {
     const { theme, userAgent, randomNum, user } = params;
     const font = params.font[0];
-    const fontLiked = font.liked_user.find((obj: likes) => obj.user_email === user.email);
+    const fontLiked = user ? font.liked_user.some((obj: likes) => obj.user_id === user.id) : false;
     const fontComments = font.comments.filter((obj: comments) => obj.is_deleted === false);
 
     // 디바이스 체크
@@ -49,7 +49,6 @@ function DetailPage({params}: any) {
     // states
     const [alertDisplay, setAlertDisplay] = useState<boolean>(false);
     const [hoverDisplay, setHoverDisplay] = useState<boolean>(true);
-    const [liked, setLiked] = useState<boolean>(fontLiked ? true : false);
     const [likedInput, setLikedInput] = useState<boolean>(fontLiked ? true : false);
     const [likedNum, setLikedNum] = useState<number>(font.liked_user.length);
     const [webFont, setWebFont] = useState("CSS");
@@ -110,10 +109,6 @@ function DetailPage({params}: any) {
                 provider: user.provider,
             })
             .then(res => {
-                // 좋아요 여부 확인 후 문장 변경
-                if (res.data.msg === 'liked') { setLiked(true); }
-                else { setLiked(false); }
-
                 // 좋아요 시 좋아요 수 변경
                 setLikedNum(res.data.num);
 
@@ -634,13 +629,13 @@ function DetailPage({params}: any) {
                                     </div>
                                 </div>
                             </div>
-                            <div style={{backgroundColor: bgColor.hex}} className="w-full p-6 flex flex-col gap-8 border-t border-l-b dark:border-d-6 rounded-b-lg relative overflow-hidden">
+                            <div style={{backgroundColor: bgColor.hex}} className="w-full p-6 flex flex-col gap-6 border-t border-l-b dark:border-d-6 rounded-b-lg relative overflow-hidden">
                                 {
                                     font.font_weight[0] === "Y"
                                     && <div>
-                                        <div style={{color: textColor.hex}} className="mb-2">Thin 100</div>
-                                        <div className="w-full relative">
-                                            <div style={{height: convertedFontSize, backgroundImage: `linear-gradient(to left, ${bgColor.hex} 25%, #FFFFFF00)`}} className='w-44 absolute -right-6 top-1/2 -translate-y-1/2'></div>
+                                        <div style={{color: textColor.hex}}>Thin 100</div>
+                                        <div className="w-full relative py-2">
+                                            <div style={{backgroundImage: `linear-gradient(to left, ${bgColor.hex} 25%, #FFFFFF00)`}} className='w-44 h-full absolute -right-6 top-1/2 -translate-y-1/2'></div>
                                             <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"100", color: textColor.hex}} className="w-full"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
                                         </div>
                                     </div>
@@ -648,9 +643,9 @@ function DetailPage({params}: any) {
                                 {
                                     font.font_weight[1] === "Y"
                                     && <div>
-                                        <div style={{color: textColor.hex}} className="mb-2">ExtraLight 200</div>
-                                        <div className="w-full relative">
-                                            <div style={{height: convertedFontSize, backgroundImage: `linear-gradient(to left, ${bgColor.hex} 25%, #FFFFFF00)`}} className='w-44 absolute -right-6 top-1/2 -translate-y-1/2'></div>
+                                        <div style={{color: textColor.hex}}>ExtraLight 200</div>
+                                        <div className="w-full relative py-2">
+                                            <div style={{backgroundImage: `linear-gradient(to left, ${bgColor.hex} 25%, #FFFFFF00)`}} className='w-44 h-full absolute -right-6 top-1/2 -translate-y-1/2'></div>
                                             <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"200", color: textColor.hex}} className="w-full"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
                                         </div>
                                     </div>
@@ -658,9 +653,9 @@ function DetailPage({params}: any) {
                                 {
                                     font.font_weight[2] === "Y"
                                     && <div>
-                                        <div style={{color: textColor.hex}} className="mb-2">Light 300</div>
-                                        <div className="w-full relative">
-                                            <div style={{height: convertedFontSize, backgroundImage: `linear-gradient(to left, ${bgColor.hex} 25%, #FFFFFF00)`}} className='w-44 absolute -right-6 top-1/2 -translate-y-1/2'></div>
+                                        <div style={{color: textColor.hex}}>Light 300</div>
+                                        <div className="w-full relative py-2">
+                                            <div style={{backgroundImage: `linear-gradient(to left, ${bgColor.hex} 25%, #FFFFFF00)`}} className='w-44 h-full absolute -right-6 top-1/2 -translate-y-1/2'></div>
                                             <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"300", color: textColor.hex}} className="w-full"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
                                         </div>
                                     </div>
@@ -668,9 +663,9 @@ function DetailPage({params}: any) {
                                 {
                                     font.font_weight[3] === "Y"
                                     && <div>
-                                        <div style={{color: textColor.hex}} className="mb-2">Regular 400</div>
-                                        <div className="w-full relative">
-                                            <div style={{height: convertedFontSize, backgroundImage: `linear-gradient(to left, ${bgColor.hex} 25%, #FFFFFF00)`}} className='w-44 absolute -right-6 top-1/2 -translate-y-1/2'></div>
+                                        <div style={{color: textColor.hex}}>Regular 400</div>
+                                        <div className="w-full relative py-2">
+                                            <div style={{backgroundImage: `linear-gradient(to left, ${bgColor.hex} 25%, #FFFFFF00)`}} className='w-44 h-full absolute -right-6 top-1/2 -translate-y-1/2'></div>
                                             <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"400", color: textColor.hex}} className="w-full"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
                                         </div>
                                     </div>
@@ -678,9 +673,9 @@ function DetailPage({params}: any) {
                                 {
                                     font.font_weight[4] === "Y"
                                     && <div>
-                                        <div style={{color: textColor.hex}} className="mb-2">Medium 500</div>
-                                        <div className="w-full relative">
-                                            <div style={{height: convertedFontSize, backgroundImage: `linear-gradient(to left, ${bgColor.hex} 25%, #FFFFFF00)`}} className='w-44 absolute -right-6 top-1/2 -translate-y-1/2'></div>
+                                        <div style={{color: textColor.hex}}>Medium 500</div>
+                                        <div className="w-full relative py-2">
+                                            <div style={{backgroundImage: `linear-gradient(to left, ${bgColor.hex} 25%, #FFFFFF00)`}} className='w-44 h-full absolute -right-6 top-1/2 -translate-y-1/2'></div>
                                             <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"500", color: textColor.hex}} className="w-full"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
                                         </div>
                                     </div>
@@ -688,9 +683,9 @@ function DetailPage({params}: any) {
                                 {
                                     font.font_weight[5] === "Y"
                                     && <div>
-                                        <div style={{color: textColor.hex}} className="mb-2">SemiBold 600</div>
-                                        <div className="w-full relative">
-                                            <div style={{height: convertedFontSize, backgroundImage: `linear-gradient(to left, ${bgColor.hex} 25%, #FFFFFF00)`}} className='w-44 absolute -right-6 top-1/2 -translate-y-1/2'></div>
+                                        <div style={{color: textColor.hex}}>SemiBold 600</div>
+                                        <div className="w-full relative py-2">
+                                            <div style={{backgroundImage: `linear-gradient(to left, ${bgColor.hex} 25%, #FFFFFF00)`}} className='w-44 h-full absolute -right-6 top-1/2 -translate-y-1/2'></div>
                                             <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"600", color: textColor.hex}} className="w-full"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
                                         </div>
                                     </div>
@@ -698,9 +693,9 @@ function DetailPage({params}: any) {
                                 {
                                     font.font_weight[6] === "Y"
                                     && <div>
-                                        <div style={{color: textColor.hex}} className="mb-2">Bold 700</div>
-                                        <div className="w-full relative">
-                                            <div style={{height: convertedFontSize, backgroundImage: `linear-gradient(to left, ${bgColor.hex} 25%, #FFFFFF00)`}} className='w-44 absolute -right-6 top-1/2 -translate-y-1/2'></div>
+                                        <div style={{color: textColor.hex}}>Bold 700</div>
+                                        <div className="w-full relative py-2">
+                                            <div style={{backgroundImage: `linear-gradient(to left, ${bgColor.hex} 25%, #FFFFFF00)`}} className='w-44 h-full absolute -right-6 top-1/2 -translate-y-1/2'></div>
                                             <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"700", color: textColor.hex}} className="w-full"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
                                         </div>
                                     </div>
@@ -708,9 +703,9 @@ function DetailPage({params}: any) {
                                 {
                                     font.font_weight[7] === "Y"
                                     && <div>
-                                        <div style={{color: textColor.hex}} className="mb-2">Heavy 800</div>
-                                        <div className="w-full relative">
-                                            <div style={{height: convertedFontSize, backgroundImage: `linear-gradient(to left, ${bgColor.hex} 25%, #FFFFFF00)`}} className='w-44 absolute -right-6 top-1/2 -translate-y-1/2'></div>
+                                        <div style={{color: textColor.hex}}>Heavy 800</div>
+                                        <div className="w-full relative py-2">
+                                            <div style={{backgroundImage: `linear-gradient(to left, ${bgColor.hex} 25%, #FFFFFF00)`}} className='w-44 h-full absolute -right-6 top-1/2 -translate-y-1/2'></div>
                                             <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"800", color: textColor.hex}} className="w-full"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
                                         </div>
                                     </div>
@@ -718,9 +713,9 @@ function DetailPage({params}: any) {
                                 {
                                     font.font_weight[8] === "Y"
                                     && <div>
-                                        <div style={{color: textColor.hex}} className="mb-2">Black 900</div>
-                                        <div className="w-full relative">
-                                            <div style={{height: convertedFontSize, backgroundImage: `linear-gradient(to left, ${bgColor.hex} 25%, #FFFFFF00)`}} className='w-44 absolute -right-6 top-1/2 -translate-y-1/2'></div>
+                                        <div style={{color: textColor.hex}}>Black 900</div>
+                                        <div className="w-full relative py-2">
+                                            <div style={{backgroundImage: `linear-gradient(to left, ${bgColor.hex} 25%, #FFFFFF00)`}} className='w-44 h-full absolute -right-6 top-1/2 -translate-y-1/2'></div>
                                             <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"900", color: textColor.hex}} className="w-full"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
                                         </div>
                                     </div>
