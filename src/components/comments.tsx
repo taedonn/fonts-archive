@@ -563,7 +563,7 @@ export default function Comments (
                     } 
                 </div>
             </div>
-            <div className="w-full min-h-[7.5rem] mb-[11.25rem] pl-10 tlg:pl-0">
+            <div className="w-full min-h-[7.5rem] mb-[11.25rem] px-10 tlg:px-0">
                 {
                     comments === null || comments.length === 0
                     ? <div className="w-full text-center text-l-2 dark:text-white">아직 댓글이 없습니다.</div>
