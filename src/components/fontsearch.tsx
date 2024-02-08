@@ -164,7 +164,7 @@ export default function FontSearch(
             {
                 display === "show"
                 ? <div className="w-full h-full fixed left-0 top-0 z-40 pt-24 tlg:pt-16 tlg:px-4 flex flex-col justify-start items-center backdrop-blur">
-                    <div ref={refSearchOutside} className="w-[45rem] tlg:w-full relative rounded-lg animate-zoom-in drop-shadow-default dark:drop-shadow-dark bg-l-e dark:bg-d-3">
+                    <div ref={refSearchOutside} className="w-[45rem] tlg:w-full relative rounded-lg animate-zoom-in drop-shadow-default dark:drop-shadow-dark bg-white dark:bg-d-3">
                         <div className="w-full flex flex-col">
                             <div className="w-full h-14 tlg:h-12 px-14 relative flex justify-center items-center border-b border-l-d dark:border-d-3 text-l-2 dark:text-white">
                                 <i className="tlg:text-sm absolute left-5 tlg:left-4 top-1/2 -translate-y-1/2 fa-solid fa-magnifying-glass"></i>

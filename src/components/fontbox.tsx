@@ -171,17 +171,17 @@ export default function FontBox ({
         if (data) {
             for (let i = 0; i < data.pages[data.pages.length-1].fonts.length; i++) {
                 let font = new FontFaceObserver(data.pages[data.pages.length-1].fonts[i].font_family)
-                font.load(null, 5000).then(function() { // 폰트 로딩 시 텍스트 투명도 제거 (timeout 5초)
+                font.load(null, 5000).then(function() { // 폰트 로딩 시 텍스트 컬러 변경 (timeout 5초)
                     let thisFont = document.getElementsByClassName(data.pages[data.pages.length-1].fonts[i].code + '-text');
                     if (thisFont.length !== 0) {
-                        thisFont[0].classList.add('text-l-2');
-                        thisFont[0].classList.remove('text-l-b');   
+                        thisFont[0].classList.add('text-l-2', 'dark:text-white');
+                        thisFont[0].classList.remove('text-l-b', 'dark:text-d-6');   
                     }
-                }, function() { // 폰트 로딩 실패 시에도 투명도 제거
+                }, function() { // 폰트 로딩 실패 시에도 텍스트 컬러 변경
                     let thisFont = document.getElementsByClassName(data.pages[data.pages.length-1].fonts[i].code + '-text');
                     if (thisFont.length !== 0) {
-                        thisFont[0].classList.add('text-l-2');
-                        thisFont[0].classList.remove('text-l-b');   
+                        thisFont[0].classList.add('text-l-2', 'dark:text-white');
+                        thisFont[0].classList.remove('text-l-b', 'dark:text-d-6');   
                     }
                 });
             }
@@ -247,7 +247,7 @@ export default function FontBox ({
                                             </div>
                                             <div className="w-full relative py-6 tlg:py-4 overflow-hidden">
                                                 <div style={{fontFamily:"'"+font.font_family+"'"}} className="w-full pl-8 tlg:pl-4 text-4xl tlg:text-3xl text-normal">
-                                                    <p className={`${font.code + '-text'} whitespace-nowrap text-l-b dark:text-white`}><DummyText lang={font.lang} text={text} num={num}/></p>
+                                                    <p className={`${font.code + '-text'} whitespace-nowrap text-l-b dark:text-d-6`}><DummyText lang={font.lang} text={text} num={num}/></p>
                                                 </div>
                                                 <div className='w-40 h-14 absolute right-0 top-1/2 -translate-y-1/2 bg-gradient-to-l from-white dark:from-d-2 from-25% group-hover/wrap:from-l-e group-hover/wrap:dark:from-d-4 tlg:group-hover/wrap:from-white tlg:group-hover/wrap:dark:from-d-2'></div>
                                             </div>

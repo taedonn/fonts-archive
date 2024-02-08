@@ -31,10 +31,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const fonts = await prisma.fonts.findMany({
             where: {
                 AND: licenseFilter,
+                OR: [
+                    { name: { contains: searchword as string } },
+                    { source: { contains: searchword as string } },
+                    { font_family: { contains: searchword as string } },
+                ],
                 lang: lang,
                 font_type: type,
                 show_type: true,
-                name: { contains: searchword as string },
                 liked_user: user_id && filter === "liked"
                     ? { some: { user_id: Number(user_id) } }
                     : {}
