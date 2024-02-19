@@ -109,7 +109,7 @@ const Notices = ({params}: any) => {
                 exitY={-50}
                 transitionType="spring"
             >
-                <div className='w-full px-4 flex flex-col justify-center items-center my-24 tlg:my-16'>
+                <div className='w-full px-4 flex flex-col justify-center items-center my-16 lg:my-24 mt-8 lg:mt-16'>
                     <div className='notices w-[45rem] tmd:w-full flex flex-col justify-center items-start'>
                         <div className='flex items-center mb-4'>
                             <h2 className='text-2xl text-h-2 dark:text-white font-bold'>공지사항</h2>

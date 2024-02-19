@@ -294,13 +294,13 @@ const Info = ({params}: any) => {
                 transitionType="spring"
             >
                 <form onSubmit={e => e.preventDefault()} className='w-full flex flex-col justify-center items-center'>
-                    <div className='w-[22.5rem] flex flex-col justify-center items-start my-24 tlg:my-16'>
-                        <h2 className='text-2xl tlg:text-xl mb-4 font-bold text-l-2 dark:text-white'>프로필 정보</h2>
+                    <div className='w-[22.5rem] flex flex-col justify-center items-start my-16 lg:my-24 mt-8 lg:mt-16'>
+                        <h2 className='text-2xl mb-4 font-bold text-l-2 dark:text-white'>프로필 정보</h2>
                         <div className='w-full flex items-end gap-3 mb-2.5'>
                             {
                                 user.auth === "credentials"
-                                    ? <div className='text-sm tlg:text-xs text-l-5 dark:text-d-c'>{timeFormat(user.updated_at)}에 마지막으로 수정됨</div>
-                                    : <div className='text-sm tlg:text-xs text-l-5 dark:text-d-c'>{timeFormat(user.created_at)}에 생성됨</div>
+                                    ? <div className='text-sm text-l-5 dark:text-d-c'>{timeFormat(user.updated_at)}에 마지막으로 수정됨</div>
+                                    : <div className='text-sm text-l-5 dark:text-d-c'>{timeFormat(user.created_at)}에 생성됨</div>
                             }
                         </div>
                         {

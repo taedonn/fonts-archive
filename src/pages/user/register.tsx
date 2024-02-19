@@ -240,8 +240,8 @@ const Register = ({params}: any) => {
                 transitionType="spring"
             >
                 <div className='w-full flex flex-col justify-center items-center'>
-                    <div className='w-[22.5rem] flex flex-col justify-center items-start my-24 tlg:my-16'>
-                        <h2 className='text-2xl tlg:text-xl text-l-2 dark:text-white font-bold mb-4'>회원가입</h2>
+                    <div className='w-[22.5rem] flex flex-col justify-center items-start my-16 lg:my-24 mt-8 lg:mt-16'>
+                        <h2 className='text-2xl text-l-2 dark:text-white font-bold mb-4'>회원가입</h2>
                         <form onSubmit={e => e.preventDefault()} id='register-form' className='w-full p-5 rounded-lg text-l-2 dark:text-white bg-l-e dark:bg-d-3 drop-shadow-default dark:drop-shadow-dark'>
                             <TextInput
                                 onchange={handleNameChange}

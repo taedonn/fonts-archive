@@ -103,8 +103,8 @@ const CommentList = ({params}: any) => {
                 transitionType="spring"
             >
                 <form onSubmit={e => e.preventDefault()} className='w-full px-4 flex flex-col justify-center items-center'>
-                    <div className='w-[45rem] tmd:w-full flex flex-col justify-center items-start my-24 tlg:my-16'>
-                        <h2 className='text-2xl tlg:text-xl text-l-2 dark:text-white font-bold mb-4'>댓글 목록</h2>
+                    <div className='w-[45rem] tmd:w-full flex flex-col justify-center items-start my-16 lg:my-24 mt-8 lg:mt-16'>
+                        <h2 className='text-2xl text-l-2 dark:text-white font-bold mb-4'>댓글 목록</h2>
                         <div className='flex items-center mb-10'>
                             <SearchInput id="search" placeholder="폰트/댓글" value={search}/>
                             <button onClick={handleSearchClick} className="hidden">검색</button>

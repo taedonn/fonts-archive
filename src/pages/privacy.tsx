@@ -32,7 +32,7 @@ const Privacy = ({params}: any) => {
 
             {/* 메인 */}
             <div className='w-full px-4 flex flex-col justify-center items-center'>
-                <div className='w-[45rem] tmd:w-full flex flex-col justify-center items-start mt-16 mb-32 tmd:mt-12 tmd:mb-24'>
+                <div className='w-[45rem] tmd:w-full flex flex-col justify-center items-start mt-8 lg:mt-16 mb-24 lg:mb-32'>
                     <h2 className='text-3xl tmd:text-2xl text-h-2 dark:text-white font-bold'>개인정보처리방침</h2>
                     <div className='w-full h-px bg-l-b dark:bg-d-6 my-6 tmd:my-4'></div>
 <pre className='font-sans whitespace-pre-wrap text-sm text-l-5 dark:text-d-c leading-loose'>{

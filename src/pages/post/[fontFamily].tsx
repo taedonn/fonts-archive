@@ -360,7 +360,7 @@ function DetailPage({params}: any) {
                 exitX={isMobile ? 0 : -100}
                 transitionType="spring"
             >
-                <div className="w-full mt-12 px-8 tlg:px-4">
+                <div className="w-full mt-8 lg:mt-12 px-8 tlg:px-4">
                     <link href={font.cdn_url} rel="stylesheet" type="text/css" itemProp="url"></link>
                     <div className="w-full flex flex-col justify-start items-start">
                         <div className="mb-2 flex gap-4 items-center">
@@ -948,14 +948,14 @@ function DetailPage({params}: any) {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="w-full p-6 pb-0 rounded-lg bg-l-e dark:bg-d-4">
+                                <div className="w-full p-6 pb-4 rounded-lg bg-l-e dark:bg-d-4">
                                     <h2 className="flex justify-start items-center font-medium text-l-2 dark:text-white">
                                         라이센스 본문
                                     </h2>
-                                    <div className="w-full relative">
-                                        <div className="w-[calc(100%-0.25rem)] h-8 absolute left-0 top-0 bg-gradient-to-b from-50% from-l-e dark:from-d-4"></div>
-                                        <div className="w-[calc(100%-0.25rem)] h-16 absolute left-0 bottom-0 bg-gradient-to-t from-50% from-l-e dark:from-d-4"></div>
-                                        <div className="custom-sm-scrollbar w-full h-[43rem] pt-8 pb-16 overflow-hidden overflow-y-auto">
+                                    <div className="w-full mt-4 relative">
+                                        <div className="w-[calc(100%-0.25rem)] h-2 absolute left-0 top-0 bg-gradient-to-b from-50% from-l-e dark:from-d-4"></div>
+                                        <div className="w-[calc(100%-0.25rem)] h-2 absolute left-0 bottom-0 bg-gradient-to-t from-50% from-l-e dark:from-d-4"></div>
+                                        <div className="custom-sm-scrollbar w-full h-[40rem] my-2 overflow-hidden overflow-y-auto">
                                             <pre id="license" className="w-full font-sans leading-loose whitespace-pre-wrap text-l-2 dark:text-white"></pre>
                                         </div>
                                     </div>
