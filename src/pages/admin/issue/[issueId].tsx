@@ -228,10 +228,10 @@ const IssuePage = ({params}: any) => {
                 transitionType="spring"
             >
                 <div className='w-full px-4 flex flex-col justify-center items-center'>
-                    <div className='relative max-w-[45rem] w-full flex flex-col justify-center items-start py-24 tlg:py-16'>
-                        <Link href="/admin/issue/list" className="absolute left-0 top-3 block border-b border-transparent text-sm text-l-5 dark:text-d-c hover:text-l-2 hover:dark:text-white tlg:hover:text-l-5 tlg:hover:dark:text-d-c hover:border-b-l-2 hover:dark:border-b-white tlg:hover:border-b-transparent tlg:hover:dark:border-b-transparent"><div className="inline-block mr-1">&#60;</div> 목록으로 돌아가기</Link>
-                        <h2 className='text-2xl tlg:text-xl text-l-2 dark:text-white font-bold mb-4'>문의 사항</h2>
-                        <div className='mb-2.5 text-sm tlg:text-xs text-l-5 dark:text-d-c'>{timeFormat(issue.issue_created_at) === timeFormat(issue.issue_closed_at) ? timeFormat(issue.issue_created_at) + "에 생성됨" : timeFormat(issue.issue_closed_at) + "에 수정됨"}</div>
+                    <div className='relative max-w-[45rem] w-full flex flex-col justify-center items-start my-16 lg:my-24 mt-8 lg:mt-16'>
+                        <Link href="/admin/issue/list" className="absolute left-0 -top-10 hidden lg:block border-b border-transparent text-sm text-l-5 dark:text-d-c hover:text-l-2 hover:dark:text-white tlg:hover:text-l-5 tlg:hover:dark:text-d-c hover:border-b-l-2 hover:dark:border-b-white tlg:hover:border-b-transparent tlg:hover:dark:border-b-transparent"><div className="inline-block mr-1">&#60;</div> 목록으로 돌아가기</Link>
+                        <h2 className='text-2xl text-l-2 dark:text-white font-bold mb-4'>문의 사항</h2>
+                        <div className='mb-2.5 text-sm text-l-5 dark:text-d-c'>{timeFormat(issue.issue_created_at) === timeFormat(issue.issue_closed_at) ? timeFormat(issue.issue_created_at) + "에 생성됨" : timeFormat(issue.issue_closed_at) + "에 수정됨"}</div>
                         {
                             replySuccess === "success"
                             ? <div className='w-full h-10 px-2.5 mb-3 flex justify-between items-center rounded-lg border-2 border-h-1 dark:border-f-8 text-xs text-l-2 dark:text-white bg-h-1/20 dark:bg-f-8/20'>
