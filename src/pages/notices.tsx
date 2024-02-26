@@ -9,9 +9,6 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from './api/auth/[...nextauth]';
 import { FetchAllNotices } from './api/notices';
 
-// libraries
-import axios from 'axios';
-
 // components
 import Motion from '@/components/motion';
 import Header from "@/components/header";
@@ -64,20 +61,29 @@ const Notices = ({params}: any) => {
     /** 엔터키 입력 */
     const handleKeyUp = async (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === "Enter") {
-            await axios.get("/api/notices", {
-                params: {
-                    action: "search",
-                    text: e.currentTarget.value,
+            const url = "/api/notices?";
+            const options = {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json"
                 }
-            })
-            .then(res => {
-                setAll(res.data.notices);
-                setServices(res.data.notices.filter((notice: notices) => notice.notice_type === "service"));
-                setFonts(res.data.notices.filter((notice: notices) => notice.notice_type === "font"));
+            }
+            const params = {
+                action: "search",
+                text: e.currentTarget.value,
+            }
+            const query = new URLSearchParams(params).toString();
 
-                if (type === "all") { setNoticesList(res.data.notices); }
-                else if (type === "service") { setNoticesList(res.data.notices.filter((notice: notices) => notice.notice_type === "service")); }
-                else { setNoticesList(res.data.notices.filter((notice: notices) => notice.notice_type === "font")); }
+            await fetch(url + query, options)
+            .then(res => res.json())
+            .then(data => {
+                setAll(data.notices);
+                setServices(data.notices.filter((notice: notices) => notice.notice_type === "service"));
+                setFonts(data.notices.filter((notice: notices) => notice.notice_type === "font"));
+
+                if (type === "all") { setNoticesList(data.notices); }
+                else if (type === "service") { setNoticesList(data.notices.filter((notice: notices) => notice.notice_type === "service")); }
+                else { setNoticesList(data.notices.filter((notice: notices) => notice.notice_type === "font")); }
             })
             .catch(err => console.log(err));
         }
