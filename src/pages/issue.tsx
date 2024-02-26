@@ -1,5 +1,5 @@
 // react
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 // next
 import Image from "next/image";
@@ -73,14 +73,21 @@ const IssueFont = ({params}: any) => {
             setIsLoading(true);
 
             // ID 가져오기
-            await axios.get('/api/issue', {
-                params: {
-                    action: "get-issue-id"
-                }
-            })
-            .then(async (res) => {
+            const getIssueIdUrl = "/api/issue?";
+            const getIssueIdOptions = {
+                method: "GET",
+                headers: { "Content-Type": "application/json" }
+            }
+            const getIssueIdParams = {
+                action: "get-issue-id"
+            }
+            const getIssueIdQuery = new URLSearchParams(getIssueIdParams).toString();
+
+            await fetch(getIssueIdUrl + getIssueIdQuery, getIssueIdOptions)
+            .then(res => res.json())
+            .then(async (data) => {
                 // 변수
-                let issueId = res.data.issue.issue_id + 1;
+                let issueId = data.issue.issue_id + 1;
 
                 if (imgs.length !== 0) {
                     let allPromise = [];
@@ -160,20 +167,27 @@ const IssueFont = ({params}: any) => {
                     });
                 } else {
                     // 이미지 없으면 바로 Prisma에 저장
-                    await axios.post("/api/issue", {
-                        action: "upload-issue",
-                        title: title.value,
-                        email: email.value,
-                        content: content.value,
-                        type: option,
-                        img_length: imgs.length,
-                        img_1: "null",
-                        img_2: "null",
-                        img_3: "null",
-                        img_4: "null",
-                        img_5: "null",
-                        issue_closed_type: "Open"
-                    })
+                    const uploadIssueUrl = "/api/issue";
+                    const uploadIssueOptions = {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            action: "upload-issue",
+                            title: title.value,
+                            email: email.value,
+                            content: content.value,
+                            type: option,
+                            img_length: imgs.length,
+                            img_1: "null",
+                            img_2: "null",
+                            img_3: "null",
+                            img_4: "null",
+                            img_5: "null",
+                            issue_closed_type: "Open"
+                        })
+                    }
+
+                    await fetch(uploadIssueUrl, uploadIssueOptions)
                     .then(() => {
                         // 폼 초기화
                         uploadOnSuccess();

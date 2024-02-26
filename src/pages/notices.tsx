@@ -64,9 +64,7 @@ const Notices = ({params}: any) => {
             const url = "/api/notices?";
             const options = {
                 method: "GET",
-                headers: {
-                    "Content-Type": "application/json"
-                }
+                headers: { "Content-Type": "application/json" }
             }
             const params = {
                 action: "search",
