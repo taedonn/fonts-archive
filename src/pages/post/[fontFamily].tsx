@@ -13,7 +13,6 @@ import React, { useEffect, useState, useRef } from "react";
 import { FetchFontDetail } from "../api/post/fetchfontdetail";
 
 // libraries
-import axios from "axios";
 import { throttle } from "lodash";
 import {  Slider } from "@mui/material";
 import { ColorPicker, useColor } from "react-color-palette";
@@ -101,16 +100,24 @@ function DetailPage({params}: any) {
             // 댓글창 위 좋아요 버튼의 아이디 규칙에 맞게 변경
             const thisId = e.target.id.includes('like-bottom-') ? e.target.id.replace('like-bottom-','') : e.target.id;
 
-            await axios.post('/api/post/updatelike', {
-                action: e.target.checked ? "increase" : "decrease",
-                code: thisId,
-                id: user.id,
-                email: user.email,
-                provider: user.provider,
-            })
-            .then(res => {
+            const url = "/api/post/updatelike";
+            const options = {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    action: e.target.checked ? "increase" : "decrease",
+                    code: thisId,
+                    id: user.id,
+                    email: user.email,
+                    provider: user.provider,
+                })
+            }
+
+            await fetch(url, options)
+            .then(res => res.json())
+            .then(data => {
                 // 좋아요 시 좋아요 수 변경
-                setLikedNum(res.data.num);
+                setLikedNum(data.num);
 
                 // 좋아요 버튼 눌렀을 때 호버창 다시 띄우기
                 setHoverDisplay(true);

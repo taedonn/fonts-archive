@@ -7,9 +7,6 @@ import Link from "next/link";
 // api
 import { FetchUserInfoFromToken } from "./api/auth/auth";
 
-// libraries
-import axios from "axios";
-
 // common
 import { dateFormat, onMouseDown, onMouseUp, onMouseOut } from "@/libs/common";
 
@@ -23,11 +20,19 @@ const Confirm = ({params}: any) => {
 
         /** 이메일 확인 DB에 저장 후 쿠키 저장 */
         async function updateEmailConfirmation() {
-            await axios.post("/api/user/updateemailconfirm", {
-                email_token: user.user_email_token,
-                user_id: user.user_id,
-            })
-            .then(res => console.log(res))
+            const url = "/api/user/updateemailconfirm";
+            const options = {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    email_token: user.user_email_token,
+                    user_id: user.user_id,
+                })
+            }
+
+            await fetch(url, options)
+            .then(res => res.json())
+            .then(data => console.log(data))
             .catch(err => console.log(err));
         }
         updateEmailConfirmation();

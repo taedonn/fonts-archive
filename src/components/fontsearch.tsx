@@ -7,9 +7,6 @@ import { debounce } from "lodash";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-// libraries
-import axios from "axios";
-
 // common
 import { onMouseDown, onMouseUp, onMouseOut } from "@/libs/common";
 
@@ -110,7 +107,32 @@ export default function FontSearch(
     },[closeBtn, refSearchOutside]);
 
     // useQuery를 이용한 데이터 파싱
-    const {isLoading, isRefetching, isSuccess, data, remove, refetch} = useQuery(['font-search'], async () => await axios.get("/api/fontsearch", {params: {keyword: keyword, action: "user"}}).then((res) => { return res.data }));
+    const {
+        isLoading,
+        isRefetching,
+        isSuccess,
+        data,
+        remove,
+        refetch
+    } = useQuery(
+        ['font-search'],
+        async () => {
+            const url = "/api/fontsearch?";
+            const options = {
+                method: "GET",
+                headers: { "Content-Type": "application/json" }
+            }
+            const params = {
+                keyword: keyword,
+                action: "user"
+            }
+            const query = new URLSearchParams(params).toString();
+
+            const res = await fetch(url + query, options);
+            const data = res.json();
+            return data;
+        }
+    );
     
     // display가 show 상태가 아닐 시 useQuery 실행 중지
     useEffect(() => { if (display !== "show") { remove(); } }, [display, remove])

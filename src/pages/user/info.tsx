@@ -11,7 +11,6 @@ import { FetchUserInfo } from '../api/auth/auth';
 import React, { useState, useEffect, useRef, ChangeEvent } from 'react';
 
 // libraries
-import axios from 'axios';
 import imageCompression from 'browser-image-compression';
 import { Switch } from '@mui/material';
 
@@ -66,13 +65,20 @@ const Info = ({params}: any) => {
         setIsProtected(e.target.checked);
         setIsProtectionLoading(true);
         setInitialProtectionDisplay(true);
-        
-        await axios.post("/api/user/updateuserinfo", {
-            action: "update-privacy",
-            user_no: user.user_no,
-            img: e.target.checked ? user.public_img : user.profile_img,
-            privacy: e.target.checked,
-        })
+
+        const url = "/api/user/updateuserinfo";
+        const options = {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                action: "update-privacy",
+                user_no: user.user_no,
+                img: e.target.checked ? user.public_img : user.profile_img,
+                privacy: e.target.checked,
+            })
+        }
+
+        await fetch(url, options)
         .then(() => setIsProtectionLoading(false))
         .catch(err => console.log(err));
     }
@@ -86,11 +92,18 @@ const Info = ({params}: any) => {
         else if (nameVal === userName) { setNameChk("exists"); }
         else {
             // 이름 변경하기 API 호출
-            await axios.post('/api/user/updateuserinfo', {
-                action: "change-name",
-                user_no: user.user_no,
-                name: nameVal,
-            })
+            const url = "/api/user/updateuserinfo";
+            const options = {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    action: "change-name",
+                    user_no: user.user_no,
+                    name: nameVal,
+                })
+            }
+
+            await fetch(url, options)
             .then(() => {
                 setUserName(nameVal);
                 setAlert('name');
@@ -161,12 +174,20 @@ const Info = ({params}: any) => {
         setIsImgLoading(true);
 
         // 프로필 이미지 제거 후 state에 저장된 프로필 이미지 변경
-        await axios.post('/api/user/updateuserinfo', {
-            action: 'delete-profile-img',
-            user_no: user.user_no
-        })
-        .then(res => {
-            setProfileImg(res.data.img);
+        const url = "/api/user/updateuserinfo";
+        const options = {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                action: 'delete-profile-img',
+                user_no: user.user_no
+            })
+        }
+
+        await fetch(url, options)
+        .then(res => res.json())
+        .then(data => {
+            setProfileImg(data.img);
 
             setIsImgLoading(false);
             setisImgError(false);
@@ -224,24 +245,46 @@ const Info = ({params}: any) => {
     }
 
     // 프로필 사진 변경 함수
-    const fnChangeImg = async function(file: File, fileType: string) {        
-        await axios.post("/api/user/updateuserinfo", {
-            action: 'change-img',
-            file_name: `fonts-archive-user-${user.user_no}-profile-img.` + fileType,
-            file_type: file.type,
-        })
-        .then(async (res) => {
+    const fnChangeImg = async function(file: File, fileType: string) {   
+        const changeImgUrl = "/api/user/updateuserinfo";
+        const changeImgOptions = {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                action: 'change-img',
+                file_name: `fonts-archive-user-${user.user_no}-profile-img.` + fileType,
+                file_type: file.type,
+            })
+        }
+
+        await fetch(changeImgUrl, changeImgOptions)
+        .then(res => res.json())
+        .then(async (data) => {
             // s3 업로드
-            await axios.put(res.data.url, file, { headers: { 'Content-Type': file.type }})
+            const s3PutOptions = {
+                method: "PUT",
+                headers: { "Content-Type": file.type },
+                body: file
+            }
+            
+            await fetch(data.url, s3PutOptions)
             .then(async () => {
-                await axios.post("/api/user/updateuserinfo", {
-                    action: "upload-img-on-prisma",
-                    user_no: user.user_no,
-                    img_type: fileType,
-                })
-                .then((res) => {
+                const prismaPostUrl = "/api/user/updateuserinfo";
+                const prismaPostOptions = {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        action: "upload-img-on-prisma",
+                        user_no: user.user_no,
+                        img_type: fileType,
+                    })
+                }
+
+                await fetch(prismaPostUrl, prismaPostOptions)
+                .then(res => res.json())
+                .then(data => {
                     // 프로필 이미지 변경
-                    setProfileImg(res.data.url);
+                    setProfileImg(data.url);
                     setIsImgLoading(false);
                     setisImgError(false);
                 })

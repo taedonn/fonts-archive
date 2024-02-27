@@ -14,7 +14,6 @@ import { FetchIssue } from "@/pages/api/admin/issue";
 
 // libraries
 import { NextSeo } from "next-seo";
-import axios from "axios";
 import { Switch } from "@mui/material";
 
 // components
@@ -153,13 +152,21 @@ const IssuePage = ({params}: any) => {
             setIsLoading(true);
 
             // 답변 완료 비활성화 시 DB에만 저장
-            await axios.post("/api/admin/issue", {
-                action: "issue_saved",
-                issue_id: issue.issue_id,
-                issue_reply: txt.value,
-            })
-            .then(res => {
-                console.log(res.data.msg);
+            const url = "/api/admin/issue";
+            const options = {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    action: "issue_saved",
+                    issue_id: issue.issue_id,
+                    issue_reply: txt.value,
+                })
+            }
+
+            await fetch(url, options)
+            .then(res => res.json())
+            .then(data => {
+                console.log(data.msg);
                 setIsLoading(false);
                 setReplySuccess("success");
                 window.scrollTo({top: 0});
@@ -173,18 +180,26 @@ const IssuePage = ({params}: any) => {
             setIsLoading(true);
 
             // 답변 완료하고 메일 보내기
-            await axios.post("/api/admin/issue", {
-                action: "issue_id",
-                email: issue.issue_email,
-                content: issue.issue_content,
-                reply: txt.value,
-                issue_id: issue.issue_id,
-                issue_reply: txt.value,
-                issue_closed: issueClosed,
-                issue_closed_type: "Closed",
-            })
-            .then(res => {
-                console.log(res.data.msg);
+            const url = "/api/admin/issue";
+            const options = {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    action: "issue_id",
+                    email: issue.issue_email,
+                    content: issue.issue_content,
+                    reply: txt.value,
+                    issue_id: issue.issue_id,
+                    issue_reply: txt.value,
+                    issue_closed: issueClosed,
+                    issue_closed_type: "Closed",
+                })
+            }
+
+            await fetch(url, options)
+            .then(res => res.json())
+            .then(data => {
+                console.log(data.msg);
                 setIsLoading(false);
                 setReplySuccess("success");
                 window.scrollTo({top: 0});

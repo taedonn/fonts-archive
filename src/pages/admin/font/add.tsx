@@ -1,5 +1,5 @@
 // react
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 // next
 import { NextSeo } from "next-seo";
@@ -7,9 +7,6 @@ import { NextSeo } from "next-seo";
 // next-auth
 import { getServerSession } from "next-auth";
 import { authOptions } from '@/pages/api/auth/[...nextauth]';
-
-// libraries
-import axios from "axios";
 
 // components
 import Motion from "@/components/motion";
@@ -129,27 +126,35 @@ const Add = ({params}: any) => {
         } else {
             setAddBtnLoading(true);
 
-            await axios.post("/api/admin/font", {
-                action: "add",
-                name: fontName.value,
-                lang: fontLang.value,
-                date: fontDate.value,
-                font_family: fontFamily.value,
-                font_type: fontType.value,
-                font_weight: fontWeight.value,
-                source: fontSource.value,
-                source_link: fontSourceLink.value,
-                download_link: fontDownloadLink.value,
-                cdn_css: fontCdnCss.value,
-                cdn_link: fontCdnLink.value,
-                cdn_import: fontCdnImport.value,
-                cdn_font_face: fontCdnFontFace.value,
-                cdn_url: fontCdnUrl.value,
-                license: fontLicense.value,
-                license_text: fontLicenseText.value,
-            })
-            .then(res => {
-                console.log(res.data.msg);
+            const url = "/api/admin/font";
+            const options = {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    action: "add",
+                    name: fontName.value,
+                    lang: fontLang.value,
+                    date: fontDate.value,
+                    font_family: fontFamily.value,
+                    font_type: fontType.value,
+                    font_weight: fontWeight.value,
+                    source: fontSource.value,
+                    source_link: fontSourceLink.value,
+                    download_link: fontDownloadLink.value,
+                    cdn_css: fontCdnCss.value,
+                    cdn_link: fontCdnLink.value,
+                    cdn_import: fontCdnImport.value,
+                    cdn_font_face: fontCdnFontFace.value,
+                    cdn_url: fontCdnUrl.value,
+                    license: fontLicense.value,
+                    license_text: fontLicenseText.value,
+                })
+            }
+
+            await fetch(url, options)
+            .then(res => res.json())
+            .then(data => {
+                console.log(data.msg);
                 setAddBtnLoading(false);
                 setAddBtnSuccess("success");
                 window.scrollTo({top: 0});

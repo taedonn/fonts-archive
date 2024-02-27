@@ -10,19 +10,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
         // 삭제된 댓글 중 7일이 지난 댓글 ID 가져오기
         let arr = [];
+        let date = new Date();
         for (let i = 0; i < deletedComments.length; i++) {
             let deletedDate = new Date(deletedComments[i].deleted_at);
-            let nowDate = new Date();
+            deletedDate.setDate(deletedDate.getDate() + 7);
 
-            if (deletedDate.getDate() + 7 < nowDate.getDate()) {
+            if (deletedDate < date) {
                 arr.push({ comment_id: deletedComments[i].comment_id });
             }
         }
-
-        // 삭제할 댓글이 한개 이상일 때 댓글 삭제
-        arr.length > 0 && await prisma.fontsComment.deleteMany({
-            where: { OR: arr }
-        });
 
         // 삭제할 댓글이 한개 이상일 때 댓글 신고 삭제
         arr.length > 0 && await prisma.fontsUserReport.deleteMany({
@@ -32,6 +28,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         // 삭제할 댓글이 한개 이상일 때 댓글 알림 삭제
         arr.length > 0 && await prisma.fontsAlert.deleteMany({
             where: { OR: arr }
+        });
+
+        // 삭제할 댓글이 한개 이상일 때 댓글 삭제
+        arr.length > 0 && await prisma.fontsComment.deleteMany({
+            where: { OR: arr },
         });
 
         return res.status(200).json({

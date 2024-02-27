@@ -6,13 +6,12 @@ import { getServerSession } from "next-auth";
 import { authOptions } from '@/pages/api/auth/[...nextauth]';
 
 // react
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 // api
 import { FetchNotice } from "@/pages/api/admin/notices";
 
 // libraries
-import axios from "axios";
 import { Switch } from "@mui/material";
 import { NextSeo } from "next-seo";
 
@@ -67,18 +66,26 @@ const NoticePage = ({params}: any) => {
         } else {
             setIsLoading(true);
 
-            // 답변 완료하고 DB에 저장하기
-            await axios.post("/api/admin/notices", {
-                action: "edit",
-                id: notice.notice_id,
-                show_type: noticeShow,
-                created_date: new Date(createdDate.value),
-                updated_date: new Date(updatedDate.value),
-                title: title.value,
-                content: content.value,
-            })
-            .then(res => {
-                console.log(res.data.msg);
+            // 공지 수정하고 DB에 저장하기
+            const url = "/api/admin/notices";
+            const options = {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    action: "edit",
+                    id: notice.notice_id,
+                    show_type: noticeShow,
+                    created_date: new Date(createdDate.value),
+                    updated_date: new Date(updatedDate.value),
+                    title: title.value,
+                    content: content.value,
+                })
+            }
+            
+            await fetch(url, options)
+            .then(res => res.json())
+            .then(data => {
+                console.log(data.msg);
                 setIsEdited("success");
                 window.scrollTo({top: 0});
             })

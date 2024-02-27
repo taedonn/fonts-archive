@@ -1,9 +1,6 @@
 // react
 import React, { useState, useEffect, useRef } from "react";
 
-// libraries
-import axios from "axios";
-
 // components
 import Button from "@/components/button";
 
@@ -128,22 +125,30 @@ export default function ReportCommentModal({
             // 로딩 바 실행
             setIsLoading(true);
 
-            // 신고 axios 실행
-            await axios.post('/api/post/comments', {
-                action: 'report-comment',
-                font_id: font_id,
-                user_id: user.id,
-                comment_id: comment_id,
-                comment_user_no: comment_user_no,
-                report_nickname: reportNickname,
-                report_politics: reportPolitics,
-                report_swearing: reportSwearing,
-                report_etc: reportEtc,
-                report_text: reportText
-            })
-            .then(async (res) => {
-                console.log(res.data.msg);
-                update(res.data.comments);
+            // 신고 API 실행
+            const url = "/api/post/comments";
+            const options = {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    action: 'report-comment',
+                    font_id: font_id,
+                    user_id: user.id,
+                    comment_id: comment_id,
+                    comment_user_no: comment_user_no,
+                    report_nickname: reportNickname,
+                    report_politics: reportPolitics,
+                    report_swearing: reportSwearing,
+                    report_etc: reportEtc,
+                    report_text: reportText
+                })
+            }
+
+            await fetch(url, options)
+            .then(res => res.json())
+            .then(data => {
+                console.log(data.msg);
+                update(data.comments);
 
                 // 로딩 바 정지
                 setIsLoading(false);

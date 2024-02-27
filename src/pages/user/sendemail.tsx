@@ -7,9 +7,6 @@ import React from 'react';
 // api
 import { FetchUserInfoFromToken } from '../api/auth/auth';
 
-// libraries
-import axios from 'axios';
-
 // components
 import Header from "@/components/header";
 import Footer from '@/components/footer';
@@ -23,12 +20,19 @@ const SendEmail = ({params}: any) => {
 
     // 이메일 다시 보내기
     const resendEmail = async () => {
-        await axios.post('/api/user/register', {
-            action: "send-email",
-            id: user.user_id,
-            name: user.user_name,
-            email_token: user.user_email_token,
-        })
+        const url = "/api/user/register";
+        const options = {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                action: "send-email",
+                id: user.user_id,
+                name: user.user_name,
+                email_token: user.user_email_token,
+            })
+        }
+
+        await fetch(url, options)
         .then(() => location.reload())
         .catch(err => console.log(err));
     }

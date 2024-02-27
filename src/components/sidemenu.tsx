@@ -99,7 +99,7 @@ export default function Sidemenu ({
                             onChange={handleExpand}
                             checked={expand}
                         />
-                        <label htmlFor="expand" onMouseDown={e => onMouseDown(e, 0.8, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-10 h-10 translate-x-2 relative flex justify-center tlg:justify-end items-center text-3xl rounded-full cursor-pointer text-l-2 dark:text-white hover:bg-h-e hover:dark:bg-d-4 tlg:hover:bg-transparent tlg:hover:dark:bg-transparent">
+                        <label htmlFor="expand" onMouseDown={e => onMouseDown(e, 0.8, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-10 h-10 relative flex justify-center tlg:justify-end items-center text-3xl rounded-full cursor-pointer text-l-2 dark:text-white hover:bg-h-e hover:dark:bg-d-4 tlg:hover:bg-transparent tlg:hover:dark:bg-transparent">
                             <i className="bi bi-x"></i>
                         </label>
                     </div>
