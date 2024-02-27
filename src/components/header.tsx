@@ -12,7 +12,6 @@ import React, { useEffect, useRef, useState } from "react";
 // libraries
 import { useCookies } from "react-cookie";
 import { throttle } from "lodash";
-import axios from "axios";
 import { useInfiniteQuery } from "react-query";
 
 // components
@@ -119,17 +118,24 @@ export default function Header (
         ["alerts", { keepPreviousData: true }],
         async ({ pageParam = "" }) => {
             await new Promise((res) => setTimeout(res, 100));
-            const res = await axios.get("/api/user/alerts", {
-                params: {
-                    user_id: user ? user.id : null,
-                    id: pageParam,
-                    action: "fetch-alerts",
-                    admin: user.id === 1 ? "true" : "false",
-                    user_email: user.email,
-                    user_auth: user.auth,
-                }
-            });
-            return res.data;
+            const url = "/api/user/alerts?";
+            const options = {
+                method: "GET",
+                headers: { "Content-Type": "application/json" }
+            }
+            const params = {
+                user_id: user ? user.id : null,
+                id: pageParam,
+                action: "fetch-alerts",
+                admin: user.id === 1 ? "true" : "false",
+                user_email: user.email,
+                user_auth: user.auth,
+            }
+            const query = new URLSearchParams(params).toString();
+
+            const res = await fetch(url + query, options)
+            const data = res.json();
+            return data;
         },
         {
             getNextPageParam: (lastPage) => lastPage.nextId ?? false,
@@ -160,11 +166,18 @@ export default function Header (
 
     /** "모두 읽음 표시" 버튼 클릭 */
     const handleReadAllAlerts = async () => {
-        await axios.post("/api/user/alerts", {
-            action: "read-all-alerts",
-            recipent_email: user.email,
-            recipent_auth: user.provider,
-        })
+        const url = "/api/user/alerts";
+        const options = {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                action: "read-all-alerts",
+                recipent_email: user.email,
+                recipent_auth: user.provider,
+            })
+        }
+
+        await fetch(url, options)
         .then(() => refetch())
         .catch(err => console.log(err));
     }
@@ -172,10 +185,17 @@ export default function Header (
     /** "읽음으로 표시" 버튼 클릭 */
     const handleReadAlerts = async (alertId: number, alertRead: boolean) => {
         if (!alertRead) {
-            await axios.post("/api/user/alerts", {
-                action: "read-alerts",
-                alert_id: alertId,
-            })
+            const url = "/api/user/alerts";
+            const options = {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    action: "read-alerts",
+                    alert_id: alertId,
+                })
+            }
+
+            await fetch(url, options)
             .then(() => refetch())
             .catch(err => console.log(err));
         }

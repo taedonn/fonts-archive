@@ -7,7 +7,6 @@ import { useInView } from 'react-intersection-observer';
 import Link from 'next/link';
 
 // libraries
-import axios from 'axios';
 import { throttle } from 'lodash';
 
 // components
@@ -77,7 +76,12 @@ export default function FontBox ({
         ['fonts', {keepPreviousData: true}],
         async ({ pageParam = '' }) => {
             await new Promise((res) => setTimeout(res, 100));
-            const res = await axios.get('/api/fontlist', {params: {
+            const url = "/api/fontlist?";
+            const options = {
+                method: "GET",
+                headers: { "Content-Type": "application/json" }
+            }
+            const params = {
                 user_id: user ? user.id : null,
                 id: pageParam,
                 license: license,
@@ -86,8 +90,12 @@ export default function FontBox ({
                 sort: sort,
                 searchword: searchword,
                 filter: filter
-            }});
-            return res.data;
+            }
+            const query = new URLSearchParams(params).toString();
+
+            const res = await fetch(url + query, options);
+            const data = res.json();
+            return data;
         },
         {
             getNextPageParam: (lastPage) => lastPage.nextId ?? false,
@@ -122,16 +130,24 @@ export default function FontBox ({
             // 좋아요 버튼 눌렀을 때 호버창 지우기
             setHoverDisplay(false);
 
-            await axios.post('/api/post/updatelike', {
-                action: e.target.checked ? "increase" : "decrease",
-                code: e.target.id,
-                id: user.id,
-                email: user.email,
-                provider: user.provider,
-            })
-            .then(res => {
+            const url = "/api/post/updatelike?";
+            const options = {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    action: e.target.checked ? "increase" : "decrease",
+                    code: e.target.id,
+                    id: user.id,
+                    email: user.email,
+                    provider: user.provider,
+                })
+            }
+
+            await fetch(url, options)
+            .then(res => res.json())
+            .then(data => {
                 let hoverEl = e.target.nextSibling?.nextSibling as HTMLDivElement;
-                if (res.data.like) { hoverEl.innerText='좋아요 해제'; }
+                if (data.like) { hoverEl.innerText='좋아요 해제'; }
                 else { hoverEl.innerText='좋아요'; }
 
                 // 좋아요 버튼 눌렀을 때 호버창 다시 띄우기

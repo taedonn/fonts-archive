@@ -5,9 +5,6 @@ import { useRef, useState, useEffect } from "react";
 import Script from "next/script";
 import Image from "next/image";
 
-// libraries
-import axios from "axios";
-
 // components
 import DeleteCommentModal from "@/components/deletecommentmodal";
 import ReportCommentModal from "@/components/reportcommentmodal";
@@ -100,22 +97,30 @@ export default function Comments (
     /** 새 댓글 쓰기 */
     const newComment = async (e: React.MouseEvent<HTMLButtonElement>) => {
         if (commentRef.current && e.currentTarget.classList.contains('comment-enabled')) {
-            await axios.post('/api/post/comments', {
-                action: 'new-comment',
-                font_id: font.code,
-                font_name: font.name,
-                font_family: font.font_family,
-                user_id: user.id,
-                user_name: user.name,
-                user_email: user.email,
-                user_auth: user.provider,
-                user_image: user.protected && user.provider !== "credentials" ? user.public_img : user.image,
-                user_privacy: user.protected,
-                comment: commentRef.current.value,
-            })
-            .then(async (res) => {
-                console.log(res.data.msg);
-                setComments(res.data.comments);
+            const url = "/api/post/comments";
+            const options = {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    action: 'new-comment',
+                    font_id: font.code,
+                    font_name: font.name,
+                    font_family: font.font_family,
+                    user_id: user.id,
+                    user_name: user.name,
+                    user_email: user.email,
+                    user_auth: user.provider,
+                    user_image: user.protected && user.provider !== "credentials" ? user.public_img : user.image,
+                    user_privacy: user.protected,
+                    comment: commentRef.current.value,
+                })
+            }
+            
+            await fetch(url, options)
+            .then(res => res.json())
+            .then(async (data) => {
+                console.log(data.msg);
+                setComments(data.comments);
             })
             .catch(err => console.log(err));
 
@@ -204,16 +209,24 @@ export default function Comments (
             const textarea = document.getElementById('comment-edit-textarea-' + id) as HTMLTextAreaElement;
             const input = document.getElementById('comment-edit-' + id) as HTMLInputElement;
 
-            await axios.post('/api/post/comments', {
-                action: 'edit-comment',
-                font_id: font.code,
-                comment_id: id,
-                comment: textarea.value
-            })
-            .then(async (res) => {
+            const url = "/api/post/comments";
+            const options = {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    action: 'edit-comment',
+                    font_id: font.code,
+                    comment_id: id,
+                    comment: textarea.value
+                })
+            }
+
+            await fetch(url, options)
+            .then(res => res.json())
+            .then(async (data) => {
                 // 업데이트된 댓글 가져오기
-                console.log(res.data.msg);
-                setComments(res.data.comments);
+                console.log(data.msg);
+                setComments(data.comments);
 
                 // 댓글 수정 보임/숨김
                 commentEditShow(e);
@@ -281,7 +294,7 @@ export default function Comments (
         commentReplyShow(e);
     }
 
-    /** 댓글 수정 API 실행 */
+    /** 답글 수정 API 실행 */
     const replyCommentAPIInit = async (e: any) => {
         if(e.target.classList.contains('edit-btn-enabled')) {
             // 아이디 추출
@@ -293,27 +306,35 @@ export default function Comments (
             const textarea = document.getElementById('comment-reply-textarea-' + id) as HTMLTextAreaElement;
             const input = document.getElementById('comment-reply-' + id) as HTMLInputElement;
 
-            await axios.post('/api/post/comments', {
-                action: 'reply-comment',
-                font_id: font.code,
-                font_name: font.name,
-                font_family: font.font_family,
-                user_id: user.id,
-                user_name: user.name,
-                user_email: user.email,
-                user_auth: user.provider,
-                user_image: user.protected && user.provider !== "credentials" ? user.public_img : user.image,
-                user_privacy: user.protected,
-                recipent_email: recipentEmail,
-                recipent_auth: recipentAuth,
-                comment_id: commentId,
-                comment: textarea.value,
-                bundle_id: bundle,
-            })
-            .then(async (res) => {
+            const url = "/api/post/comments";
+            const options = {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    action: 'reply-comment',
+                    font_id: font.code,
+                    font_name: font.name,
+                    font_family: font.font_family,
+                    user_id: user.id,
+                    user_name: user.name,
+                    user_email: user.email,
+                    user_auth: user.provider,
+                    user_image: user.protected && user.provider !== "credentials" ? user.public_img : user.image,
+                    user_privacy: user.protected,
+                    recipent_email: recipentEmail,
+                    recipent_auth: recipentAuth,
+                    comment_id: commentId,
+                    comment: textarea.value,
+                    bundle_id: bundle,
+                })
+            }
+
+            await fetch(url, options)
+            .then(res => res.json())
+            .then(async (data) => {
                 // 업데이트된 댓글 가져오기
-                console.log(res.data.msg);
-                setComments(res.data.comments);
+                console.log(data.msg);
+                setComments(data.comments);
 
                 // 댓글 수정 보임/숨김
                 commentReplyShow(e);

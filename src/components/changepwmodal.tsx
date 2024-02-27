@@ -1,9 +1,6 @@
 // react
 import React, { useEffect, useRef, useState } from "react";
 
-// libraries
-import axios from "axios";
-
 // components
 import TextInput from "@/components/textinput";
 import Button from "@/components/button";
@@ -116,26 +113,39 @@ export default function ChangePwModal(
         else if (newPwConfirmVal === "") setNewPwConfirmVal("empty");
         else if (newPwConfirmVal !== newPwVal) setNewPwConfirmChk("invalid");
         else {
-            await axios.get('/api/user/updateuserinfo', {
-                params: {
-                    action: "compare-pw",
-                    id: id,
-                    pw: currentPwVal,
-                    auth: auth,
-                }
-            })
-            .then(async (res) => {
-                if (res.data.compare) {
-                    await axios.post('/api/user/updateuserinfo', {
-                        action: "change-pw",
-                        id: id,
-                        pw: newPwVal,
-                        auth: auth,
-                    })
+            const comparePwUrl = "/api/user/updateuserinfo?";
+            const comparePwOptions = {
+                method: "GET",
+                headers: { "Content-Type": "application/json" }
+            }
+            const comparePwParams = {
+                action: "compare-pw",
+                id: id,
+                pw: currentPwVal,
+                auth: auth,
+            }
+            const comparePwQuery = new URLSearchParams(comparePwParams).toString();
+
+            await fetch(comparePwUrl + comparePwQuery, comparePwOptions)
+            .then(res => res.json())
+            .then(async (data) => {
+                if (data.compare) {
+                    const changePwUrl = "/api/user/updateuserinfo";
+                    const changePwOptions = {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            action: "change-pw",
+                            id: id,
+                            pw: newPwVal,
+                            auth: auth,
+                        })
+                    }
+
+                    await fetch(changePwUrl, changePwOptions)
                     .then(() => {
                         success();
                         close();
-                        setIsLoading(false);
                         setCurrentPwVal('');
                         setCurrentPwChk('');
                         setNewPwVal('');
@@ -146,10 +156,11 @@ export default function ChangePwModal(
                     .catch(err => console.log(err));
                 } else {
                     setCurrentPwChk("invalid");
-                    setIsLoading(false);
                 }
-            });
+            })
+            .catch(err => console.log(err));
         }
+        setIsLoading(false);
     }
 
     return (

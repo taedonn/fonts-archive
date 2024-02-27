@@ -15,7 +15,6 @@ import { authOptions } from '@/pages/api/auth/[...nextauth]';
 import { FetchFont } from "@/pages/api/admin/font";
 
 // libraries
-import axios from "axios";
 import { NextSeo } from "next-seo";
 
 // components
@@ -89,11 +88,20 @@ const Edit = ({params}: any) => {
         isSuccess, 
         refetch
     } = useQuery(['font-search'], async () => {
-        await axios.get("/api/fontsearch", { params: {
+        const url = "/api/fontsearch?";
+        const options = {
+            method: "GET",
+            headers: { "Content-Type": "application/json" }
+        }
+        const params = {
             keyword: keyword,
             action: "admin"
-        }})
-        .then((res) => { setData(res.data); })
+        }
+        const query = new URLSearchParams(params).toString();
+
+        await fetch(url + query, options)
+        .then(res => res.json())
+        .then(data => setData(data))
         .catch(err => console.log(err));
     });
 
@@ -125,6 +133,9 @@ const Edit = ({params}: any) => {
             setFocus(false);
         }
     }
+
+    // 데이터 변경될 때마다 숨김/보임 업데이트
+    useEffect(() => { setShowType(defaultFont !== null ? defaultFont.show_type : false); }, [defaultFont]);
 
     /** 예시 복사하기 버튼 클릭 이벤트 */
     const copyOnClick = (e: React.MouseEvent) => {
@@ -214,29 +225,37 @@ const Edit = ({params}: any) => {
         } else {
             setEditBtnLoading(true);
 
-            await axios.post("/api/admin/font", {
-                action: "edit",
-                id: fontCode.value,
-                name: fontName.value,
-                lang: fontLang.value,
-                date: fontDate.value,
-                font_family: fontFamily.value,
-                font_type: fontType.value,
-                font_weight: fontWeight.value,
-                source: fontSource.value,
-                source_link: fontSourceLink.value,
-                download_link: fontDownloadLink.value,
-                cdn_css: fontCdnCss.value,
-                cdn_link: fontCdnLink.value,
-                cdn_import: fontCdnImport.value,
-                cdn_font_face: fontCdnFontFace.value,
-                cdn_url: fontCdnUrl.value,
-                license: fontLicense.value,
-                license_text: fontLicenseText.value,
-                show_type: showType
-            })
-            .then(res => {
-                console.log(res.data.msg);
+            const url = "/api/admin/font";
+            const options = {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    action: "edit",
+                    id: fontCode.value,
+                    name: fontName.value,
+                    lang: fontLang.value,
+                    date: fontDate.value,
+                    font_family: fontFamily.value,
+                    font_type: fontType.value,
+                    font_weight: fontWeight.value,
+                    source: fontSource.value,
+                    source_link: fontSourceLink.value,
+                    download_link: fontDownloadLink.value,
+                    cdn_css: fontCdnCss.value,
+                    cdn_link: fontCdnLink.value,
+                    cdn_import: fontCdnImport.value,
+                    cdn_font_face: fontCdnFontFace.value,
+                    cdn_url: fontCdnUrl.value,
+                    license: fontLicense.value,
+                    license_text: fontLicenseText.value,
+                    show_type: showType
+                })
+            }
+
+            await fetch(url, options)
+            .then(res => res.json())
+            .then(data => {
+                console.log(data.msg);
                 setEditBtnLoading(false);
                 setEditBtnSuccess("success");
                 window.scrollTo({top: 0});
@@ -634,7 +653,7 @@ const Edit = ({params}: any) => {
                                 />
                                 <TextArea 
                                     onchange={handleFontLicenseTextChange}
-                                    state={fontCdnFontFaceAlert}
+                                    state={fontLicenseTextAlert}
                                     stateMsg={[
                                         { state: "", msg: "" },
                                         { state: "empty", msg: "폰트 라이센스 본문을 올바르게 입력해 주세요." }

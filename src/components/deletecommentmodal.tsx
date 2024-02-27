@@ -4,9 +4,6 @@ import { useRouter } from "next/router";
 // react
 import React, { useEffect, useRef } from "react";
 
-// libraries
-import axios from "axios";
-
 // components
 import Button from "@/components/button";
 
@@ -73,27 +70,43 @@ export default function DeleteCommentModal({
     /** 댓글 삭제 */
     const deleteComment = async () => {
         if (admin) {
-            await axios.post('/api/post/comments', {
-                action: 'delete-comment-by-admin',
-                font_id: font_id,
-                comment_id: comment_id,
-                bundle_id: bundle_id,
-            })
-            .then(async (res) => {
+            const adminUrl = "/api/post/comments";
+            const adminOptions = {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    action: 'delete-comment-by-admin',
+                    font_id: font_id,
+                    comment_id: comment_id,
+                    bundle_id: bundle_id,
+                })
+            }
+
+            await fetch(adminUrl, adminOptions)
+            .then(res => res.json())
+            .then(async (data) => {
                 router.reload();
-                console.log(res.data.msg);
+                console.log(data.msg);
             })
             .catch(err => console.log(err));
         } else {
-            await axios.post('/api/post/comments', {
-                action: 'delete-comment',
-                font_id: font_id,
-                comment_id: comment_id,
-                bundle_id: bundle_id,
-            })
-            .then(async (res) => {
+            const url = "/api/post/comments";
+            const options = {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    action: 'delete-comment',
+                    font_id: font_id,
+                    comment_id: comment_id,
+                    bundle_id: bundle_id,
+                })
+            }
+
+            await fetch(url, options)
+            .then(res => res.json())
+            .then(async (data) => {
                 router.reload();
-                console.log(res.data.msg);
+                console.log(data.msg);
             })
             .catch(err => console.log(err));
         }

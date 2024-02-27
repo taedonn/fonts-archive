@@ -4,9 +4,6 @@ import React, { useEffect, useRef, useState } from "react";
 // next-auth
 import { signOut } from "next-auth/react";
 
-// libraries
-import axios from "axios";
-
 // components
 import TextInput from "@/components/textinput";
 import Button from "@/components/button";
@@ -110,11 +107,18 @@ export default function DeleteUserModal(
             setIsLoading(false);
         }
         else {
-            await axios.post('/api/user/updateuserinfo', {
-                action: 'delete-user',
-                user_no: user.user_no,
-                file_name: `fonts-archive-user-${user.user_no}-profile-img.`,
-            })
+            const url = "/api/user/updateuserinfo";
+            const options = {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    action: 'delete-user',
+                    user_no: user.user_no,
+                    file_name: `fonts-archive-user-${user.user_no}-profile-img.`,
+                })
+            }
+
+            await fetch(url, options)
             .then(() => signOut({callbackUrl: "/"}))
             .catch(err => {
                 console.log(err);

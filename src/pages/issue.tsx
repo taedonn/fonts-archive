@@ -10,7 +10,6 @@ import { authOptions } from "./api/auth/[...nextauth]";
 
 // libraries
 import { NextSeo } from "next-seo";
-import axios, { AxiosProgressEvent } from "axios";
 import imageCompression from 'browser-image-compression';
 
 // components
@@ -90,7 +89,7 @@ const IssueFont = ({params}: any) => {
                 let issueId = data.issue.issue_id + 1;
 
                 if (imgs.length !== 0) {
-                    let allPromise = [];
+                    let promises = [];
                     let percentage = 0;
                     let totalSize = 0;
                     for (let i = 0; i < imgs.length; i++) {
@@ -98,37 +97,48 @@ const IssueFont = ({params}: any) => {
                     }
                     
                     // 이미지 여러개 업로드
+                    let uploadImgUrl, uploadImgOptions, promise, putImgOptions, uploaded;
                     for (let i = 0; i < imgs.length; i++) {
-                        let promise = await axios.post('/api/issue', 
-                            {
+                        uploadImgUrl = "/api/issue";
+                        uploadImgOptions = {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({
                                 action: 'upload-img',
                                 file_name: `issue-${issueId}-${i+1}.` + imgs[i].file.name.split('.').pop(),
                                 file_type: imgs[i].file.type
-                            }, {
-                                onUploadProgress: (progressEvent: AxiosProgressEvent) => {
-                                    if (progressEvent && progressEvent.total) {
-                                        percentage = percentage + Number(Math.round(imgs[i].file.size) / totalSize * 90);
-                                        setProgress(percentage);
-                                    }
-                                },
-                                headers: {
-                                    "Context-Type": "multiplart/form-data"
-                                }
+                            })
+                        }
+
+                        promise = await fetch(uploadImgUrl, uploadImgOptions)
+                        .then(res => res.json())
+                        .then(async (data) => {
+                            putImgOptions = {
+                                method: "PUT",
+                                headers: { 'Content-Type': imgs[i].file.type },
+                                body: imgs[i].file,
                             }
-                        )
-                        .then(async (res) => {
-                            // AWS에 이미지 업로드
-                            await axios.put(res.data.url, imgs[i].file, { headers: { 'Content-Type': imgs[i].file.type }})
+                            uploaded = await fetch(data.url, putImgOptions);
+                            if (uploaded.status === 200) console.log("File uploaded to AWS S3 successfully");
+                            else console.log("Failed to upload files to AWS S3");
                         })
-                        allPromise.push(promise);
+                        .then(() => {
+                            percentage = percentage + Number(Math.round(imgs[i].file.size) / totalSize * 90);
+                            setProgress(percentage);
+                        })
+                        .catch(err => console.log(err));
+
+                        promises.push(promise);
                     }
 
-                    // 모든 이미지가 업로드되면 Prisma에 저장
-                    await axios.all(allPromise)
+                    await Promise.all(promises)
                     .then(async () => {
                         // Prisma에 저장
-                        await axios.post("/api/issue", 
-                            {
+                        let uploadIssueUrl = "/api/issue";
+                        let uploadIssueOptions = {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({
                                 action: "upload-issue",
                                 title: title.value,
                                 email: email.value,
@@ -141,16 +151,11 @@ const IssueFont = ({params}: any) => {
                                 img_4: imgs[3] !== undefined ? `https://fonts-archive-issue.s3.ap-northeast-2.amazonaws.com/issue-${issueId}-4.` + imgs[3].file.name.split('.').pop() : "null",
                                 img_5: imgs[4] !== undefined ? `https://fonts-archive-issue.s3.ap-northeast-2.amazonaws.com/issue-${issueId}-5.` + imgs[4].file.name.split('.').pop() : "null",
                                 issue_closed_type: "Open",
-                            },
-                            {
-                                onUploadProgress: () => {
-                                    setProgress(100);
-                                },
-                                headers: {
-                                    "Context-Type": "multipart/form-data"
-                                }
-                            }
-                        )
+                            })
+                        }
+
+                        await fetch(uploadIssueUrl, uploadIssueOptions)
+                        .then(() => setProgress(100))
                         .then(() => {
                             // 폼 초기화
                             uploadOnSuccess();
@@ -163,7 +168,7 @@ const IssueFont = ({params}: any) => {
                     })
                     .catch(() => {
                         uploadOnFail();
-                        console.log(`AWS에 이미지 업로드 실패`);
+                        console.log("AWS에 이미지 업로드 실패");
                     });
                 } else {
                     // 이미지 없으면 바로 Prisma에 저장
@@ -525,7 +530,7 @@ const IssueFont = ({params}: any) => {
                                                 imgs.map((img: any, index: number) => {
                                                     return (
                                                         <div className="w-max relative" key={img.index}>
-                                                            <div className="w-24 h-28">
+                                                            <div className="w-24 h-28 relative">
                                                                 <Image src={img.src} alt='Preview image' fill sizes="100%" priority referrerPolicy="no-referrer" className="object-cover rounded-lg"/>
                                                             </div>
                                                             <button onClick={() => deleteImg(img.index, index)} className="w-5 h-5 rounded-full absolute right-1.5 top-1.5 flex justify-center items-center bg-h-1 dark:bg-f-8 hover:bg-h-0 hover:dark:bg-f-9 tlg:hover:bg-h-1 tlg:hover:dark:bg-f-8">

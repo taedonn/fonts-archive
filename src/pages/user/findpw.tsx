@@ -9,9 +9,6 @@ import { authOptions } from '../api/auth/[...nextauth]';
 // react
 import React, { useState, useEffect } from 'react';
 
-// libraries
-import axios from 'axios';
-
 // components
 import Motion from '@/components/motion';
 import Header from "@/components/header";
@@ -57,14 +54,21 @@ const FindPw = ({params}: any) => {
         } else if (idVal === '') {
             setIdChk('empty');
         } else {
-            await axios
-            .post('/api/user/findpw', {
-                id: idVal,
-                name: nameVal,
-            })
-            .then(res => {
-                if (res.data.valid === 'wrong-name') { setNameChk('wrong-name'); }
-                else if (res.data.valid === 'wrong-id') { setIdChk('wrong-id'); }
+            const url = "/api/user/findpw";
+            const options = {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    id: idVal,
+                    name: nameVal,
+                })
+            }
+
+            await fetch(url, options)
+            .then(res => res.json())
+            .then(data => {
+                if (data.valid === 'wrong-name') { setNameChk('wrong-name'); }
+                else if (data.valid === 'wrong-id') { setIdChk('wrong-id'); }
                 else { setAlertDisplay(true); }
             })
             .catch(err => console.log(err));

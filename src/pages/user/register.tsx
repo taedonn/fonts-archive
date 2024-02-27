@@ -10,9 +10,6 @@ import { authOptions } from '../api/auth/[...nextauth]';
 // react
 import React, { useEffect, useState } from 'react';
 
-// libraries
-import axios from 'axios';
-
 // components
 import Motion from '@/components/motion';
 import Header from "@/components/header";
@@ -69,23 +66,37 @@ const Register = ({params}: any) => {
             // 약관 동의 체크
             if (handleTermsAndPrivacyChk()) {
                 // 약관 동의 시 Form 서밋
-                await axios.post('/api/user/register', {
-                    action: "register",
-                    id: idVal,
-                    pw: pwVal,
-                    name: nameVal,
-                })
-                .then(async (res) => {
-                    // 이메일 보내기
-                    await axios.post('/api/user/register', {
-                        action: "send-email",
-                        id: res.data.id,
-                        name: res.data.name,
-                        email_token: res.data.email_token,
+                const regUrl = "/api/user/register";
+                const regOptions = {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        action: "register",
+                        id: idVal,
+                        pw: pwVal,
+                        name: nameVal,
                     })
-                    .then(res => {
+                }
+                await fetch(regUrl, regOptions)
+                .then(res => res.json())
+                .then(async (data) => {
+                    // 이메일 보내기
+                    const sendEmailUrl = "/api/user/register";
+                    const sendEmailOptions = {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            action: "send-email",
+                            id: data.id,
+                            name: data.name,
+                            email_token: data.email_token,
+                        })
+                    }
+                    await fetch(sendEmailUrl, sendEmailOptions)
+                    .then(res => res.json())
+                    .then(data => {
                         // 이메일 토큰을 가져와 회원가입 완료 페이지로 이동
-                        router.push('/user/sendemail?token=' + res.data.email_token);
+                        router.push('/user/sendemail?token=' + data.email_token);
                     })
                     .catch(err => {
                         console.log(err);
@@ -126,18 +137,25 @@ const Register = ({params}: any) => {
         let isIdExists = false;
 
         // 이메일 중복 체크 api 호출
-        await axios.get('/api/user/register', {
-            params: {
-                action: "check-id",
-                id: idVal
-            }
-        })
-        .then(res => {
+        const url = "/api/user/register?";
+        const options = {
+            method: "GET",
+            headers: { "Content-Type": "application/json" }
+        }
+        const params = {
+            action: "check-id",
+            id: idVal
+        }
+        const query = new URLSearchParams(params).toString();
+        
+        await fetch(url + query, options)
+        .then(res => res.json())
+        .then(data => {
             // 이름 유효성 검사
             if (nameVal=== '') { setNameChk('empty'); }
 
             // 이메일 유효성 검사
-            isIdExists = res.data.check;
+            isIdExists = data.check;
             if (idVal === '') { setIdChk('empty'); }
             else if (!emailPattern.test(idVal)) { setIdChk('wrong-pattern'); }
             else if (isIdExists) { setIdChk('is-used'); }

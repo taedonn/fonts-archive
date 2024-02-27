@@ -28,7 +28,7 @@
 - nextjs v14.1.0
 - typescript v5.3.3
 - tailwindcss v3.4.1
-- prisma/client v5.8.1
+- prisma/client v5.10.2
 - aws-sdk v3.496.0
 - react-query v3.39.3
 - next-auth v4.24.5

@@ -14,7 +14,6 @@ import { FetchUser } from "@/pages/api/admin/user";
 
 // libraries
 import { NextSeo } from "next-seo";
-import axios from "axios";
 import { Switch } from "@mui/material";
 
 // components
@@ -122,18 +121,26 @@ const UserDetailPage = ({params}: any) => {
             setIsLoading(true);
 
             // 유저 정보 저장 API 호출
-            await axios.post("/api/admin/user", {
-                action: 'save-user-info',
-                user_no: userNo.value,
-                profile_img: profileImg,
-                user_name: userName.value,
-                nickname_reported: userNameReported.value,
-                user_pw: userPw.value,
-                user_email_confirm: emailConfirmed,
-                user_email_token: userEmailToken.value,
-            })
-            .then(res => {
-                console.log(res.data.msg);
+            const url = "/api/admin/user";
+            const options = {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    action: 'save-user-info',
+                    user_no: userNo.value,
+                    profile_img: profileImg,
+                    user_name: userName.value,
+                    nickname_reported: userNameReported.value,
+                    user_pw: userPw.value,
+                    user_email_confirm: emailConfirmed,
+                    user_email_token: userEmailToken.value,
+                })
+            }
+
+            await fetch(url, options)
+            .then(res => res.json())
+            .then(data => {
+                console.log(data.msg);
 
                 // 알럿 표시
                 setIsSuccess("success");

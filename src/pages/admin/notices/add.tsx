@@ -1,5 +1,5 @@
 // react
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 // next
 import { NextSeo } from "next-seo";
@@ -7,9 +7,6 @@ import { NextSeo } from "next-seo";
 // next-auth
 import { getServerSession } from "next-auth";
 import { authOptions } from '@/pages/api/auth/[...nextauth]';
-
-// libraries
-import axios from "axios";
 
 // components
 import Motion from "@/components/motion";
@@ -53,14 +50,22 @@ const NoticesAdd = ({params}: any) => {
         } else {
             setIsLoading(true);
 
-            await axios.post("/api/admin/notices", {
-                action: "add",
-                notice_type: option,
-                notice_title: title.value,
-                notice_content: content.value,
-            })
-            .then(res => {
-                console.log(res.data.msg);
+            const url = "/api/admin/notices";
+            const options = {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    action: "add",
+                    notice_type: option,
+                    notice_title: title.value,
+                    notice_content: content.value,
+                })
+            }
+
+            await fetch(url, options)
+            .then(res => res.json())
+            .then(data => {
+                console.log(data.msg);
                 uploadOnSuccess();
             })
             .catch(err => {
