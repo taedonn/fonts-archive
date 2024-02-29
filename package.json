@@ -1,6 +1,6 @@
 {
     "name": "fonts-archive",
-    "version": "3.0.7",
+    "version": "3.0.8",
     "private": true,
     "homepage": "https://fonts.taedonn.com",
     "postinstall": "prisma generate --no-engine",
@@ -49,6 +49,6 @@
         "typescript": "^5.3.3"
     },
     "devDependencies": {
-        "prisma": "^5.8.1"
+        "prisma": "^5.10.2"
     }
 }
