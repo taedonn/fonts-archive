@@ -1,2 +1,0 @@
--- AlterTable
-ALTER TABLE `fontsUser` ADD COLUMN `auth` VARCHAR(191) NOT NULL DEFAULT '';
