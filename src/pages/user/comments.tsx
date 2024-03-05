@@ -22,6 +22,8 @@ import Header from "@/components/header";
 import Footer from '@/components/footer';
 import SearchInput from '@/components/searchinput';
 import DeleteCommentModal from '@/components/deletecommentmodal';
+import KakaoAdFitTopBanner from '@/components/kakaoAdFitTopBanner';
+import KakaoAdFitBottomBanner from '@/components/kakaoAdFitBottomBanner';
 
 // common
 import { timeFormat, onMouseDown, onMouseUp, onMouseOut } from '@/libs/common';
@@ -106,11 +108,14 @@ const Comments = ({params}: any) => {
                 transitionType="spring"
             >
                 <form onSubmit={e => e.preventDefault()} className='w-full px-4 flex flex-col justify-center items-center'>
-                    <div className='w-[45rem] tmd:w-full flex flex-col justify-center items-start my-16 lg:my-24 mt-8 lg:mt-16'>
+                    <div className='w-[45.5rem] tmd:w-full flex flex-col justify-center items-start my-16 lg:my-24 mt-8 lg:mt-16'>
                         <h2 className='text-2xl text-l-2 dark:text-white font-bold mb-4'>내 댓글 목록</h2>
                         <div className='flex items-center mb-10'>
                             <SearchInput id="search" placeholder="폰트/댓글" value={search}/>
                             <button onClick={handleSearchClick} className="hidden">검색</button>
+                        </div>
+                        <div className='w-full flex'>
+                            <KakaoAdFitTopBanner marginBottom={1}/>
                         </div>
                         <div className='flex items-center gap-1.5 mb-4'>
                             <button onClick={handleFilterChange} value="date" onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className={`${filter === "date" ? "bg-h-1 dark:bg-f-8 text-white dark:text-d-2" : "text-l-5 dark:text-d-c hover:text-h-1 hover:dark:text-f-8"} w-20 h-9 flex justify-center items-center rounded-lg`}>최신순</button>
@@ -149,6 +154,9 @@ const Comments = ({params}: any) => {
                         </div>
                         <div className='w-full flex justify-center mt-3'>
                             <Pagination count={count} page={Number(page)} onChange={handlePageChange} shape='rounded'/>
+                        </div>
+                        <div className='w-full flex'>
+                            <KakaoAdFitBottomBanner marginTop={2}/>
                         </div>
                     </div>
                 </form>

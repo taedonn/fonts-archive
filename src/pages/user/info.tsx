@@ -21,6 +21,8 @@ import Footer from '@/components/footer';
 import ChangePwModal from '@/components/changepwmodal';
 import DeleteUserModal from '@/components/deleteusermodal';
 import Button from '@/components/button';
+import KakaoAdFitLeftBanner from '@/components/kakaoAdFitLeftBanner';
+import KakaoAdFitRightBanner from '@/components/kakaoAdFitRightBanner';
 
 // common
 import { timeFormat } from '@/libs/common';
@@ -337,6 +339,12 @@ const Info = ({params}: any) => {
                 transitionType="spring"
             >
                 <form onSubmit={e => e.preventDefault()} className='w-full flex flex-col justify-center items-center'>
+                    <div className='flex fixed left-0 top-36'>
+                        <KakaoAdFitLeftBanner marginLeft={2}/>
+                    </div>
+                    <div className='flex fixed right-0 top-36'>
+                        <KakaoAdFitRightBanner marginRight={2}/>
+                    </div>
                     <div className='w-[22.5rem] flex flex-col justify-center items-start my-16 lg:my-24 mt-8 lg:mt-16'>
                         <h2 className='text-2xl mb-4 font-bold text-l-2 dark:text-white'>프로필 정보</h2>
                         <div className='w-full flex items-end gap-3 mb-2.5'>
