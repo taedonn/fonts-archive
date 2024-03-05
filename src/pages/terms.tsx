@@ -8,6 +8,7 @@ import { authOptions } from './api/auth/[...nextauth]';
 // components
 import Header from "@/components/header";
 import Footer from '@/components/footer';
+import KakaoAdFitTopBanner from '@/components/kakaoAdFitTopBanner';
 
 const Terms = ({params}: any) => {
     const { theme, userAgent, user } = params;
@@ -32,9 +33,12 @@ const Terms = ({params}: any) => {
 
             {/* 메인 */}
             <div className='w-full px-4 flex flex-col justify-center items-center'>
-                <div className='w-[45rem] tmd:w-full flex flex-col justify-center items-start mt-8 lg:mt-16 mb-24 lg:mb-32'>
+                <div className='w-[45.5rem] tmd:w-full flex flex-col justify-center items-start mt-8 lg:mt-16 mb-24 lg:mb-32'>
                     <h2 className='text-3xl tmd:text-2xl text-h-2 dark:text-white font-bold'>서비스 이용약관</h2>
-                    <div className='w-full h-px bg-l-b dark:bg-d-6 my-6 tmd:my-4'></div>
+                    <div className='w-full h-px bg-l-b dark:bg-d-6 mt-6 tmd:mt-4 mb-4'></div>
+                    <div className='w-full flex'>
+                        <KakaoAdFitTopBanner marginBottom={1}/>
+                    </div>
 <pre className='font-sans whitespace-pre-wrap text-sm text-l-5 dark:text-d-c leading-loose'>{
 `제1조(목적) 이 약관은 "태돈" 회사(전자상거래 사업자)가 운영하는 "폰트 아카이브" 사이버 몰(이하 “폰트 아카이브”가라 한다)에서 제공하는 인터넷 관련 서비스(이하 “서비스”라 한다)를 이용함에 있어 사이버 몰과 이용자의 권리․의무 및 책임사항을 규정함을 목적으로 합니다.
 

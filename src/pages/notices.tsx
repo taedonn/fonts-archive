@@ -14,6 +14,8 @@ import Motion from '@/components/motion';
 import Header from "@/components/header";
 import Footer from '@/components/footer';
 import SearchInput from '@/components/searchinput';
+import KakaoAdFitTopBanner from '@/components/kakaoAdFitTopBanner';
+import KakaoAdFitBottomBanner from '@/components/kakaoAdFitBottomBanner';
 
 // common
 import { dateFormat, onMouseDown, onMouseUp, onMouseOut } from '@/libs/common';
@@ -108,19 +110,19 @@ const Notices = ({params}: any) => {
                 initialOpacity={0}
                 animateOpacity={1}
                 exitOpacity={0}
-                initialY={-50}
-                animateY={0}
-                exitY={-50}
                 transitionType="spring"
             >
                 <div className='w-full px-4 flex flex-col justify-center items-center my-16 lg:my-24 mt-8 lg:mt-16'>
-                    <div className='notices w-[45rem] tmd:w-full flex flex-col justify-center items-start'>
+                    <div className='notices w-[45.5rem] tmd:w-full flex flex-col justify-center items-start'>
                         <div className='flex items-center mb-4'>
                             <h2 className='text-2xl text-h-2 dark:text-white font-bold'>공지사항</h2>
                             <h3 className='ml-4 text-l-5 dark:text-d-c'>폰트 업데이트 & 소식</h3>
                         </div>
                         <div className='relative mb-10 text-l-2 dark:text-white'>
                             <SearchInput onkeyup={handleKeyUp} id="search" placeholder="검색어 입력"/>
+                        </div>
+                        <div className='w-full flex'>
+                            <KakaoAdFitTopBanner marginBottom={1}/>
                         </div>
                         <div className='flex items-center gap-1.5 mb-4'>
                             <div>
@@ -158,6 +160,9 @@ const Notices = ({params}: any) => {
                             })
                             : <div className='w-full h-20 flex justify-center items-center text-sm text-center border-t border-l-b dark:border-d-6 text-l-2 dark:text-white'>공지사항을 찾을 수 없습니다.</div>
                         }
+                        <div className='w-full flex'>
+                            <KakaoAdFitBottomBanner marginTop={1}/>
+                        </div>
                     </div>
                 </div>
             </Motion>

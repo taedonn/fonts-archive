@@ -131,9 +131,6 @@ const Index = ({params}: any) => {
                 initialOpacity={0}
                 animateOpacity={1}
                 exitOpacity={0}
-                initialX={isMobile ? 0 : -320}
-                animateX={0}
-                exitX={isMobile ? 0 : -320}
                 transitionType="spring"
             >
                 <div className="w-full flex">

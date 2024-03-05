@@ -67,9 +67,6 @@ const NoticeList = ({params}: any) => {
                 initialOpacity={0}
                 animateOpacity={1}
                 exitOpacity={0}
-                initialY={-50}
-                animateY={0}
-                exitY={-50}
                 transitionType="spring"
             >
                 <form onSubmit={e => e.preventDefault()} className='w-full px-4 flex flex-col justify-center items-center'>

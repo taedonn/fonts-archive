@@ -15,6 +15,8 @@ import Header from "@/components/header";
 import Footer from '@/components/footer';
 import Button from '@/components/button';
 import TextInput from '@/components/textinput';
+import KakaoAdFitLeftBanner from '@/components/kakaoAdFitLeftBanner';
+import KakaoAdFitRightBanner from '@/components/kakaoAdFitRightBanner';
 
 const FindPw = ({params}: any) => {
     const { theme, userAgent } = params;
@@ -116,12 +118,15 @@ const FindPw = ({params}: any) => {
                 initialOpacity={0}
                 animateOpacity={1}
                 exitOpacity={0}
-                initialY={-50}
-                animateY={0}
-                exitY={-50}
                 transitionType="spring"
             >
                 <div className='w-full flex flex-col justify-center items-center'>
+                    <div className='flex fixed left-0 top-36'>
+                        <KakaoAdFitLeftBanner marginLeft={2}/>
+                    </div>
+                    <div className='flex fixed right-0 top-36'>
+                        <KakaoAdFitRightBanner marginRight={2}/>
+                    </div>
                     <div className='w-[22.5rem] flex flex-col justify-center items-start my-16 lg:my-24 mt-8 lg:mt-16'>
                         <h2 className='text-2xl text-l-2 dark:text-white font-bold mb-4'>비밀번호 찾기</h2>
                         {

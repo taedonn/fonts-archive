@@ -20,6 +20,8 @@ import Button from "@/components/button";
 import TextInput from "@/components/textinput";
 import TextArea from "@/components/textarea";
 import SelectBox from "@/components/selectbox";
+import KakaoAdFitTopBanner from '@/components/kakaoAdFitTopBanner';
+import KakaoAdFitBottomBanner from '@/components/kakaoAdFitBottomBanner';
 
 const IssueFont = ({params}: any) => {
     const { theme, userAgent, user } = params;
@@ -419,17 +421,17 @@ const IssueFont = ({params}: any) => {
                 initialOpacity={0}
                 animateOpacity={1}
                 exitOpacity={0}
-                initialY={-50}
-                animateY={0}
-                exitY={-50}
                 transitionType="spring"
             >
                 <div className='w-full px-4 flex flex-col justify-center items-center'>
-                    <div className='max-w-[45rem] w-full flex flex-col justify-center items-start my-16 lg:my-24 mt-8 lg:mt-16'>
+                    <div className='max-w-[45.5rem] w-full flex flex-col justify-center items-start my-16 lg:my-24 mt-8 lg:mt-16'>
                         <h2 className='text-2xl mb-4 font-bold text-l-2 dark:text-white'>문의하기</h2>
                         <h3 className='tlg:text-sm text-l-5 dark:text-d-c mb-3'>
                             제보 사항(버그, 새 폰트)이나 문의 사항 있으시면 연락 부탁드립니다.
                         </h3>
+                        <div className='w-full flex'>
+                            <KakaoAdFitTopBanner marginBottom={1}/>
+                        </div>
                         <div id="is-issued" className="w-full">
                             {
                                 isIssued === "success"
@@ -574,6 +576,9 @@ const IssueFont = ({params}: any) => {
                                     }
                                 </button>
                             </Button>
+                        </div>
+                        <div className='w-full flex'>
+                            <KakaoAdFitBottomBanner marginTop={1}/>
                         </div>
                     </div>
                 </div>
