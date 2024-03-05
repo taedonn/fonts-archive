@@ -43,7 +43,6 @@ function DetailPage({params}: any) {
 
     // 디바이스 체크
     const isMac: boolean = userAgent.includes("Mac OS") ? true : false;
-    const isMobile = /iPhone|iPad|iPod|Android/i.test(userAgent);
 
     // states
     const [alertDisplay, setAlertDisplay] = useState<boolean>(false);
@@ -362,9 +361,6 @@ function DetailPage({params}: any) {
                 initialOpacity={0}
                 animateOpacity={1}
                 exitOpacity={0}
-                initialX={isMobile ? 0 : -100}
-                animateX={0}
-                exitX={isMobile ? 0 : -100}
                 transitionType="spring"
             >
                 <div className="w-full mt-8 lg:mt-12 px-8 tlg:px-4">

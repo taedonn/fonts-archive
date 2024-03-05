@@ -123,9 +123,6 @@ const NoticePage = ({params}: any) => {
                 initialOpacity={0}
                 animateOpacity={1}
                 exitOpacity={0}
-                initialY={-50}
-                animateY={0}
-                exitY={-50}
                 transitionType="spring"
             >
                 <div className='w-full px-4 flex flex-col justify-center items-center'>
