@@ -36,7 +36,7 @@ const Terms = ({params}: any) => {
             <div className='w-full px-4 flex flex-col justify-center items-center'>
                 <div className='w-[45.5rem] tmd:w-full flex flex-col justify-center items-start mt-8 lg:mt-16 mb-24 lg:mb-32'>
                     <div className='w-full flex'>
-                        <KakaoAdFitTopBanner marginBottom={1}/>
+                        <KakaoAdFitTopBanner/>
                     </div>
                     <div className='w-full flex mt-8 text-sm'>
                         <Link href='/terms' className='w-full lg:w-44 h-12 flex justify-center items-center border-y border-r border-h-1 dark:border-f-8 bg-h-1 dark:bg-f-8 text-white dark:text-f-1 lg:hover:font-medium lg:hover:underline'>서비스 이용약관</Link>
