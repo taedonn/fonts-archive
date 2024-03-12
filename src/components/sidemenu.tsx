@@ -181,7 +181,6 @@ export default function Sidemenu ({
                     <div className="w-full">
                         <Link
                             href="/terms"
-                            target="_blank"
                             rel="noopener noreferrer"
                             className="w-full h-16 px-4 flex justify-between items-center rounded-lg cursor-pointer border-2 border-transparent text-l-2 dark:text-white lg:hover:bg-l-e lg:hover:dark:bg-d-4"
                             onMouseDown={onSideMenuMouseDown}
@@ -196,7 +195,6 @@ export default function Sidemenu ({
                         </Link>
                         <Link
                             href="/privacy"
-                            target="_blank"
                             rel="noopener noreferrer"
                             className="w-full h-16 px-4 flex justify-between items-center rounded-lg cursor-pointer border-2 border-transparent text-l-2 dark:text-white lg:hover:bg-l-e lg:hover:dark:bg-d-4"
                             onMouseDown={onSideMenuMouseDown}
