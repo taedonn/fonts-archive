@@ -20,8 +20,8 @@ export default function Footer () {
                         </div>
                     </div>
                     <div className="text-sm flex gap-4 ml-9 tlg:hidden text-h-1 dark:text-f-8">
-                        <Link href="/terms" target="_blank" rel="noopener noreferrer" className="hover:underline tlg:hover:no-underline">서비스 이용약관</Link>
-                        <Link href="/privacy" target="_blank" rel="noopener noreferrer" className="hover:underline tlg:hover:no-underline">개인정보 처리방침</Link>
+                        <Link href="/terms" rel="noopener noreferrer" className="hover:underline tlg:hover:no-underline">서비스 이용약관</Link>
+                        <Link href="/privacy" rel="noopener noreferrer" className="hover:underline tlg:hover:no-underline">개인정보 처리방침</Link>
                         <Link href="https://github.com/fonts-archive" target="_blank" rel="noopener noreferrer" className="hover:underline tlg:hover:no-underline">깃허브 프로젝트</Link>
                     </div>
                 </div>
