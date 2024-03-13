@@ -293,11 +293,11 @@ function DetailPage({params}: any) {
         <>
             {/* Head 부분*/}
             <NextSeo 
-                title={font.name + " · 폰트 아카이브"}
-                description={"상업용 무료 한글 폰트 저장소 | " + font.license}
+                title={font.name + " · 폰트 아카이브 · 상업용 무료 한글 폰트 저장소"}
+                description={`폰트 아카이브 · 상업용 무료 한글 폰트 저장소 | 폰트 이름: ${font.name}, 폰트 언어: ${font.lang === "KR" ? "한글" : "영어"}, 폰트 생성 날짜: ${font.date}, 조회수: ${font.view}, 좋아요수: ${font.like}, 폰트체: ${font.font_family}, 폰트 형태: ${font.font_type}, 폰트 출처: ${font.source}, 라이센스 본문: ${font.license}`}
                 openGraph={{
-                    title: font.name + " · 폰트 아카이브",
-                    description: "상업용 무료 한글 폰트 저장소 | " + font.license,
+                    title: font.name + " · 폰트 아카이브 · 상업용 무료 한글 폰트 저장소",
+                    description: `폰트 아카이브 · 상업용 무료 한글 폰트 저장소 | 폰트 이름: ${font.name}, 폰트 언어: ${font.lang === "KR" ? "한글" : "영어"}, 폰트 생성 날짜: ${font.date}, 조회수: ${font.view}, 좋아요수: ${font.like}, 폰트체: ${font.font_family}, 폰트 형태: ${font.font_type}, 폰트 출처: ${font.source}, 라이센스 본문: ${font.license}`,
                     url: `https://fonts.taedonn.com/post/${font.font_family.replaceAll(" ", "+")}`,
                     images: [{
                         url: `https://${process.env.MY_AWS_S3_META_IMAGE_BUCKET}.s3.ap-northeast-2.amazonaws.com/${font.font_family.replaceAll(" ", "")}.png`,
@@ -309,12 +309,13 @@ function DetailPage({params}: any) {
                     article: {
                         publishedTime: font.created_at,
                         modifiedTime: font.updated_at,
-                        authors: ["태돈"],
+                        authors: ["태돈(taedonn)"],
                         tags: [
                             font.name,
                             font.font_family,
                             font.font_type,
                             font.source,
+                            "폰트 아카이브",
                             "폰트",
                             "한글 폰트",
                             "웹 폰트",
