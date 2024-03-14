@@ -106,16 +106,16 @@ const UserDetailPage = ({params}: any) => {
         // 빈 값 유효성 체크
         if (userName.value === "") {
             setUserNameAlert("empty");
-            window.scrollTo({top: userName.offsetTop});
+            window.scrollTo({ top: userName.offsetTop, behavior: "smooth" });
         } else if (userNameReported.value === "") {
             setUserNameReportAlert("empty");
-            window.scrollTo({top: userNameReported.offsetTop});
+            window.scrollTo({ top: userNameReported.offsetTop, behavior: "smooth" });
         } else if (userPw.value === "") {
             setUserPwAlert("empty");
-            window.scrollTo({top: userPw.offsetTop});
+            window.scrollTo({ top: userPw.offsetTop, behavior: "smooth" });
         } else if (userEmailToken.value === "") {
             setUserEmailTokenAlert(true);
-            window.scrollTo({top: userEmailToken.offsetTop});
+            window.scrollTo({ top: userEmailToken.offsetTop, behavior: "smooth" });
         } else {
             // 로딩 스피너 실행
             setIsLoading(true);
@@ -144,7 +144,7 @@ const UserDetailPage = ({params}: any) => {
 
                 // 알럿 표시
                 setIsSuccess("success");
-                window.scrollTo({top: 0});
+                window.scrollTo({ top: 0, behavior: "smooth" });
 
                 // 로딩 스피너 정지
                 setIsLoading(false);
@@ -154,7 +154,7 @@ const UserDetailPage = ({params}: any) => {
 
                 // 알럿 표시
                 setIsSuccess("fail");
-                window.scrollTo({top: 0});
+                window.scrollTo({ top: 0, behavior: "smooth" });
 
                 // 로딩 스피너 정지
                 setIsLoading(false);

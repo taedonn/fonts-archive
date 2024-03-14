@@ -176,52 +176,52 @@ const Edit = ({params}: any) => {
         // 빈 값 체크
         if (fontName.value === "") {
             setFontNameAlert("empty");
-            window.scrollTo({top: fontName.offsetTop});
+            window.scrollTo({ top: fontName.offsetTop, behavior: "smooth" });
         } else if (fontLang.value === "") {
             setFontLangAlert("empty");
-            window.scrollTo({top: fontLang.offsetTop});
+            window.scrollTo({ top: fontLang.offsetTop, behavior: "smooth" });
         } else if (fontDate.value === "") {
             setFontDateAlert("empty");
-            window.scrollTo({top: fontDate.offsetTop});
+            window.scrollTo({ top: fontDate.offsetTop, behavior: "smooth" });
         } else if (fontFamily.value === "") {
             setFontFamilyAlert("empty");
-            window.scrollTo({top: fontFamily.offsetTop});
+            window.scrollTo({ top: fontFamily.offsetTop, behavior: "smooth" });
         } else if (fontType.value === "") {
             setFontTypeAlert("empty");
-            window.scrollTo({top: fontType.offsetTop});
+            window.scrollTo({ top: fontType.offsetTop, behavior: "smooth" });
         } else if (fontWeight.value === "") {
             setFontWeightAlert("empty");
-            window.scrollTo({top: fontWeight.offsetTop});
+            window.scrollTo({ top: fontWeight.offsetTop, behavior: "smooth" });
         } else if (fontSource.value === "") {
             setFontSourceAlert("empty");
-            window.scrollTo({top: fontSource.offsetTop});
+            window.scrollTo({ top: fontSource.offsetTop, behavior: "smooth" });
         } else if (fontSourceLink.value === "") {
             setFontSourceLinkAlert("empty");
-            window.scrollTo({top: fontSourceLink.offsetTop});
+            window.scrollTo({ top: fontSourceLink.offsetTop, behavior: "smooth" });
         } else if (fontDownloadLink.value === "") {
             setFontDownloadLinkAlert("empty");
-            window.scrollTo({top: fontDownloadLink.offsetTop});
+            window.scrollTo({ top: fontDownloadLink.offsetTop, behavior: "smooth" });
         } else if (fontCdnCss.value === "") {
             setFontCdnCssAlert("empty");
-            window.scrollTo({top: fontCdnCss.offsetTop});
+            window.scrollTo({ top: fontCdnCss.offsetTop, behavior: "smooth" });
         } else if (fontCdnLink.value === "") {
             setFontCdnLinkAlert("empty");
-            window.scrollTo({top: fontCdnLink.offsetTop});
+            window.scrollTo({ top: fontCdnLink.offsetTop, behavior: "smooth" });
         } else if (fontCdnImport.value === "") {
             setFontCdnImportAlert("empty");
-            window.scrollTo({top: fontCdnImport.offsetTop});
+            window.scrollTo({ top: fontCdnImport.offsetTop, behavior: "smooth" });
         } else if (fontCdnFontFace.value === "") {
             setFontCdnFontFaceAlert("empty");
-            window.scrollTo({top: fontCdnFontFace.offsetTop});
+            window.scrollTo({ top: fontCdnFontFace.offsetTop, behavior: "smooth" });
         } else if (fontCdnUrl.value === "") {
             setFontCdnUrlAlert("empty");
-            window.scrollTo({top: fontCdnUrl.offsetTop});
+            window.scrollTo({ top: fontCdnUrl.offsetTop, behavior: "smooth" });
         } else if (fontLicense.value === "") {
             setFontLicenseAlert("empty");
-            window.scrollTo({top: fontLicense.offsetTop});
+            window.scrollTo({ top: fontLicense.offsetTop, behavior: "smooth" });
         } else if (fontLicenseText.value === "") {
             setFontLicenseTextAlert("empty");
-            window.scrollTo({top: fontLicenseText.offsetTop});
+            window.scrollTo({ top: fontLicenseText.offsetTop, behavior: "smooth" });
         } else {
             setEditBtnLoading(true);
 
@@ -258,13 +258,13 @@ const Edit = ({params}: any) => {
                 console.log(data.msg);
                 setEditBtnLoading(false);
                 setEditBtnSuccess("success");
-                window.scrollTo({top: 0});
+                window.scrollTo({ top: 0, behavior: "smooth" });
             })
             .catch(err => {
                 console.log(err);
                 setEditBtnLoading(false);
                 setEditBtnSuccess("fail");
-                window.scrollTo({top: 0});
+                window.scrollTo({ top: 0, behavior: "smooth" });
             });
         }
     }

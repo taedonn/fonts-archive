@@ -60,16 +60,16 @@ const IssueFont = ({params}: any) => {
 
         if (title.value === "") {
             setTitleAlert("empty");
-            window.scrollTo({top: title.offsetTop});
+            window.scrollTo({ top: title.offsetTop, behavior: "smooth" });
         } else if (email.value === "") {
             setEmailAlert("empty");
-            window.scrollTo({top: email.offsetTop});
+            window.scrollTo({ top: email.offsetTop, behavior: "smooth" });
         } else if (email.value !== "" && !emailPattern.test(email.value)) {
             setEmailAlert("invalid");
-            window.scrollTo({top: email.offsetTop});
+            window.scrollTo({ top: email.offsetTop, behavior: "smooth" });
         } else if (content.value === "") {
             setContentAlert("empty");
-            window.scrollTo({top: content.offsetTop});
+            window.scrollTo({ top: content.offsetTop, behavior: "smooth" });
         } else {
             setIsLoading(true);
 
@@ -219,7 +219,7 @@ const IssueFont = ({params}: any) => {
     const uploadOnFail = () => {
         // 초기화
         setIsIssued("fail");
-        window.scrollTo({top: 0});
+        window.scrollTo({ top: 0, behavior: "smooth" });
         setProgress(0);
     }
 
@@ -229,7 +229,7 @@ const IssueFont = ({params}: any) => {
         setIsIssued("success");
         resetForm();
         setProgress(0);
-        window.scrollTo({top: 0});
+        window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
     /** 업로드 성공 시 폼 초기화 */

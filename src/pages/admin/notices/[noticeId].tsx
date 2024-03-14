@@ -87,12 +87,12 @@ const NoticePage = ({params}: any) => {
             .then(data => {
                 console.log(data.msg);
                 setIsEdited("success");
-                window.scrollTo({top: 0});
+                window.scrollTo({ top: 0, behavior: "smooth" });
             })
             .catch(err => {
                 console.log(err);
                 setIsEdited("fail");
-                window.scrollTo({top: 0});
+                window.scrollTo({ top: 0, behavior: "smooth" });
             });
         }
         setIsLoading(false);
