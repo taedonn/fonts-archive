@@ -14,7 +14,7 @@ import { FetchFontDetail } from "../api/post/fetchfontdetail";
 
 // libraries
 import { throttle } from "lodash";
-import {  Slider } from "@mui/material";
+import { Slider } from "@mui/material";
 import { ColorPicker, useColor } from "react-color-palette";
 import "react-color-palette/css";
 

@@ -43,10 +43,10 @@ const NoticesAdd = ({params}: any) => {
 
         if (title.value === "") {
             setTitleAlert("empty");
-            window.scrollTo({top: title.offsetTop});
+            window.scrollTo({ top: title.offsetTop, behavior: "smooth" });
         } else if (content.value === "") {
             setContentAlert("empty");
-            window.scrollTo({top: content.offsetTop});
+            window.scrollTo({ top: content.offsetTop, behavior: "smooth" });
         } else {
             setIsLoading(true);
 
@@ -80,7 +80,7 @@ const NoticesAdd = ({params}: any) => {
     const uploadOnFail = () => {
         // 초기화
         setIsAlerted("fail");
-        window.scrollTo({top: 0});
+        window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
     /** 업로드 성공 시 */
@@ -88,7 +88,7 @@ const NoticesAdd = ({params}: any) => {
         // 초기화
         resetForm();
         setIsAlerted("success");
-        window.scrollTo({top: 0});
+        window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
     /** 업로드 성공 시 폼 초기화 */

@@ -169,12 +169,12 @@ const IssuePage = ({params}: any) => {
                 console.log(data.msg);
                 setIsLoading(false);
                 setReplySuccess("success");
-                window.scrollTo({top: 0});
+                window.scrollTo({ top: 0, behavior: "smooth" });
             })
             .catch(err => {
                 console.log(err);
                 setReplySuccess("fail");
-                window.scrollTo({top: 0});
+                window.scrollTo({ top: 0, behavior: "smooth" });
             });
         } else {
             setIsLoading(true);
@@ -202,7 +202,7 @@ const IssuePage = ({params}: any) => {
                 console.log(data.msg);
                 setIsLoading(false);
                 setReplySuccess("success");
-                window.scrollTo({top: 0});
+                window.scrollTo({ top: 0, behavior: "smooth" });
             })
             .catch(err => {
                 console.log(err);
