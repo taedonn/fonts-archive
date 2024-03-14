@@ -25,14 +25,14 @@
 
 ## 사용 스택
 
-- nextjs v14.1.0
-- typescript v5.3.3
+- nextjs v14.1.3
+- typescript v5.4.2
 - tailwindcss v3.4.1
-- prisma/client v5.10.2
-- aws-sdk v3.496.0
+- prisma/client v5.11.0
+- aws-sdk v3.533.0
 - react-query v3.39.3
-- next-auth v4.24.5
-- framer-motion v10.18.0
+- next-auth v4.24.7
+- framer-motion v11.0.12
 
 &nbsp;
 
