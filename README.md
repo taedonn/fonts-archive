@@ -27,7 +27,7 @@
 
 Serverless architecture를 구현하기 위해 Next.js와 Vercel을 선택했습니다.
 
-![Serverless framework](https://fonts-archive.s3.ap-northeast-2.amazonaws.com/readme-serverless-framework.svg)
+![Serverless framework](https://fonts-archive.s3.ap-northeast-2.amazonaws.com/readme-serverless-architecture.svg)
 
 &nbsp;
 
