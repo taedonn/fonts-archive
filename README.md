@@ -19,20 +19,53 @@
 
 ## 바로가기
 
-[웹사이트](https://fonts.taedonn.com) · [깃허브 프로젝트](https://github.com/fonts-archive)
+[웹사이트](https://fonts.taedonn.com) · [깃허브 프로젝트](https://github.com/fonts-archive) · [이메일 양식](https://github.com/taedonn/fonts-archive-email-template)
+
+&nbsp;
+
+## Serverless architecture 구성도
+
+Serverless architecture를 구현하기 위해 Next.js와 Vercel을 선택했습니다.
+
+![Serverless framework](https://fonts-archive.s3.ap-northeast-2.amazonaws.com/readme-serverless-framework.svg)
 
 &nbsp;
 
 ## 사용 스택
 
-- nextjs v14.1.3
-- typescript v5.4.2
-- tailwindcss v3.4.1
-- prisma/client v5.11.0
-- aws-sdk v3.533.0
-- react-query v3.39.3
-- next-auth v4.24.7
-- framer-motion v11.0.12
+- nextjs
+  - Serverless framework
+  - v14.1.3
+- Prisma
+  - Node.js and TypeScript ORM
+  - v5.11.0
+- MySQL
+  - RDBMS
+  - v8.0.35
+- Vercel
+  - Cloud platform
+- AWS S3
+  - Cloud storage
+- AWS RDS
+  - Cloud relational database
+
+&nbsp;
+
+## 개발 프로세스
+
+개발 프로세스는 애자일(Agile) 방식으로 진행했습니다.
+
+애자일 방식의 이점
+
+- 사용자들의 요구를 신속하게 반영
+- 빠르게 결함 식별 및 수정 가능
+- 개발 과정이 빠르고 유연
+
+&nbsp;
+
+## CDN 서버
+
+CDN 서버는 GitHub, NPM과 연동해서 사용할 수 있는 jsDelivr 서버를 사용했습니다.
 
 &nbsp;
 
