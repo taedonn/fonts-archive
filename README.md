@@ -51,9 +51,9 @@ Serverless architecture를 구현하기 위해 Next.js와 Vercel을 선택했습
 
 &nbsp;
 
-## CDN 서버
+## 웹 폰트
 
-CDN 서버는 GitHub, NPM과 연동해서 사용할 수 있는 jsDelivr 서버를 사용했습니다.
+웹 폰트를 제작하기 위해 GitHub, NPM과 연동해서 사용할 수 있는 jsDelivr를 사용했습니다.
 
 ![CDN Server](https://fonts-archive.s3.ap-northeast-2.amazonaws.com/readme-cdn-server.svg)
 
