@@ -23,14 +23,6 @@
 
 &nbsp;
 
-## Serverless architecture 구성도
-
-Serverless architecture를 구현하기 위해 Next.js와 Vercel을 선택했습니다.
-
-![Serverless framework](https://fonts-archive.s3.ap-northeast-2.amazonaws.com/readme-serverless-architecture.svg)
-
-&nbsp;
-
 ## 사용 스택
 
 - nextjs
@@ -51,6 +43,14 @@ Serverless architecture를 구현하기 위해 Next.js와 Vercel을 선택했습
 
 &nbsp;
 
+## Serverless architecture 구성도
+
+Serverless architecture를 구현하기 위해 Next.js와 Vercel을 선택했습니다.
+
+![Serverless framework](https://fonts-archive.s3.ap-northeast-2.amazonaws.com/readme-serverless-architecture.svg)
+
+&nbsp;
+
 ## 개발 프로세스
 
 개발 프로세스는 애자일(Agile) 방식으로 진행했습니다.
@@ -66,6 +66,8 @@ Serverless architecture를 구현하기 위해 Next.js와 Vercel을 선택했습
 ## CDN 서버
 
 CDN 서버는 GitHub, NPM과 연동해서 사용할 수 있는 jsDelivr 서버를 사용했습니다.
+
+![CDN Server](https://fonts-archive.s3.ap-northeast-2.amazonaws.com/readme-cdn-server.svg)
 
 &nbsp;
 
