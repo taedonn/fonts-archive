@@ -410,7 +410,7 @@ function DetailPage({params}: any) {
                             </Button>
                         </div>
                         {
-                            font.license_ofl === "Y"
+                            font.license_ofl !== "N"
                                 && <div className="w-40">
                                     <Button color="gray">
                                         <Link aria-label="github-source-link" href={font.github_link} className="w-full h-full flex gap-2.5 justify-center items-center">
@@ -422,7 +422,7 @@ function DetailPage({params}: any) {
                         }
                     </div>
                     {
-                        font.license_embed !== "Y" || font.license_ofl !== "Y"
+                        font.license_embed === "N" || font.license_ofl === "N"
                         ? <></>
                         : <div className="flex flex-col justify-start items-start mb-20 tlg:mb-16">
                             <h2 className="text-2xl tlg:text-xl text-d-2 dark:text-white font-medium mb-4 tlg:mb-3">웹 폰트</h2>
@@ -859,13 +859,7 @@ function DetailPage({params}: any) {
                                                     {
                                                         font.license_embed === "Y"
                                                         ? <i className="text-sm fa-regular fa-circle"></i>
-                                                        : ( font.license_embed === "H"
-                                                            ? <i className="text-lg text-h-r fa-solid fa-not-equal"></i>
-                                                            : ( font.license_embed === "N"
-                                                                ? <i className="text-lg text-h-r fa-solid fa-xmark"></i>
-                                                                : <></>
-                                                            )
-                                                        )
+                                                        : <i className="text-lg text-h-r fa-solid fa-xmark"></i>
                                                     }
                                                 </div>
                                             </div>
@@ -904,14 +898,18 @@ function DetailPage({params}: any) {
                                                     {
                                                         font.license_ofl === "Y"
                                                         ? <span className="ellipsed-text">폰트 파일의 수정, 편집 및 재배포 가능. 폰트 파일의 유료 판매는 금지</span>
-                                                        : <span className="ellipsed-text text-h-r line-through">폰트 파일의 수정, 편집 재배포 및 유료 판매 금지</span>
+                                                        : font.license_ofl === "H"
+                                                            ? <span className="ellipsed-text">폰트 파일의 수정, 편집 및 유료 판매 금지</span>
+                                                            : <span className="ellipsed-text text-h-r line-through">폰트 파일의 수정, 편집 재배포 및 유료 판매 금지</span>
                                                     }
                                                 </div>
                                                 <div className="w-28 shrink-0 flex justify-center">
                                                     {
                                                         font.license_ofl === "Y"
                                                         ? <i className="text-sm fa-regular fa-circle"></i>
-                                                        : <i className="text-lg text-h-r fa-solid fa-xmark"></i>
+                                                        : font.license_ofl === "H"
+                                                            ? <i className="text-lg text-h-r fa-solid fa-not-equal"></i>
+                                                            : <i className="text-lg text-h-r fa-solid fa-xmark"></i>
                                                     }
                                                 </div>
                                             </div>
