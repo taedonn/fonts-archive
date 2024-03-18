@@ -17,7 +17,7 @@ import Sidemenu from "@/components/sidemenu";
 import FontBox from "@/components/fontbox";
 
 const Index = ({params}: any) => {
-    const { license, lang, type, sort, theme, source, filter, userAgent, user } = params;
+    const { license, lang, type, sort, theme, search, filter, userAgent, user } = params;
 
     // 디바이스 체크
     const isMac: boolean = userAgent.includes("Mac OS") ? true : false;
@@ -30,8 +30,9 @@ const Index = ({params}: any) => {
     const [thisType, setType] = useState<string>(type);
     const [thisSort, setSort] = useState<string>(sort);
     const [text, setText] = useState<string>("");
-    const [searchword, setSearchword] = useState<string>(source);
+    const [searchword, setSearchword] = useState<string>(search);
     const [expand, setExpand] = useState<boolean>(isMobile ? false : true);
+    console.log(search);
 
     /** 옵션 - "허용 범위" 클릭 */
     const handleLicenseOptionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -141,7 +142,7 @@ const Index = ({params}: any) => {
                         license={thisLicense}
                         type={thisType}
                         sort={thisSort}
-                        source={source}
+                        source={search}
                         text={text}
                         searchword={searchword}
                         handleTextChange={handleTextChange}
@@ -179,7 +180,7 @@ export async function getServerSideProps(ctx: any) {
         const { license, lang, type, sort, theme } = ctx.req.cookies;
 
         // 파라미터 가져오기
-        const { source, filter } = ctx.query;
+        const { search, filter } = ctx.query;
 
         // 디바이스 체크
         const userAgent = ctx.req ? ctx.req.headers['user-agent'] : navigator.userAgent;
@@ -195,7 +196,7 @@ export async function getServerSideProps(ctx: any) {
                     type: type ? type : 'all',
                     sort: sort ? sort : 'date',
                     theme: theme ? theme : 'light',
-                    source: source ? source : '',
+                    search: search ? search : '',
                     filter: filter ? filter : '',
                     userAgent: userAgent,
                     user: session === null ? null : session.user,
