@@ -1,6 +1,7 @@
 // next
 import Link from "next/link";
 
+// components
 import Tooltip from "@/components/tooltip";
 
 export default function Footer () {

@@ -206,8 +206,8 @@ export default function FontBox ({
 
     return (
         <>
-            <div className={`${expand ? "w-full lg:w-[calc(100%-320px)]" : "w-full"} pt-12 px-4 lg:px-8 duration-200 text-l-2 dark:text-white`}>
-                <div className="w-full mt-4 lg:mt-8 mb-32 relative flex flex-col">
+            <div className={`${expand ? "w-full lg:w-[calc(100%-320px)]" : "w-full"} pt-12 px-4 lg:px-8 duration-200`}>
+                <div className="w-full mt-8 mb-32 relative flex flex-col text-l-2 dark:text-white">
                     <div className='w-full flex'>
                         <KakaoAdFitTopBanner marginBottom={1}/>
                     </div>

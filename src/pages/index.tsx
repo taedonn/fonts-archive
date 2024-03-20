@@ -1,5 +1,8 @@
 // react
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
+// next
+import Link from "next/link";
 
 // next-auth
 import { getServerSession } from "next-auth";
@@ -15,6 +18,10 @@ import Header from "@/components/header";
 import Tooltip from "@/components/tooltip";
 import Sidemenu from "@/components/sidemenu";
 import FontBox from "@/components/fontbox";
+import SelectBox from "@/components/selectbox";
+
+// common
+import { onSideMenuMouseDown, onSideMenuMouseUp } from "@/libs/common";
 
 const Index = ({params}: any) => {
     const { license, lang, type, sort, theme, search, filter, userAgent, user } = params;
@@ -32,7 +39,7 @@ const Index = ({params}: any) => {
     const [text, setText] = useState<string>("");
     const [searchword, setSearchword] = useState<string>(search);
     const [expand, setExpand] = useState<boolean>(isMobile ? false : true);
-    console.log(search);
+    const [enableReset, setEnableReset] = useState<boolean>(thisLicense === "all" && thisLang === "all" && thisType === "all" && thisSort === "date" && text === "" && searchword === "" ? false : true);
 
     /** 옵션 - "허용 범위" 클릭 */
     const handleLicenseOptionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -82,8 +89,8 @@ const Index = ({params}: any) => {
         }
     }
 
-    // 텍스트 입력칸
-    const handleTextChange = (e: React.ChangeEvent<HTMLInputElement>) => { setText(e.target.value); }
+    /** 텍스트 입력칸 */
+    const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => { setText(e.target.value); }
 
     /** 폰트 검색 기능 */
     const debouncedSearch = debounce((e) => {
@@ -92,8 +99,8 @@ const Index = ({params}: any) => {
     }, 500);
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => { debouncedSearch(e); }
 
-    // 필터 초기화하기
-    const resetFilter = () => {
+    /** 필터 초기화하기 */
+    const handleReset = () => {
         // 쿠키 유효 기간 삭제
         const expires = new Date();
         expires.setMonth(expires.getMonth() - 1);
@@ -111,7 +118,22 @@ const Index = ({params}: any) => {
         setCookie('lang', "all", {path:'/', expires: expires, secure: true, sameSite: 'strict'});
         setCookie('type', "all", {path:'/', expires: expires, secure: true, sameSite: 'strict'});
         setCookie('sort', "date", {path:'/', expires: expires, secure: true, sameSite: 'strict'});
+
+        // 문구 리셋
+        const textP = document.getElementById("text-p") as HTMLTextAreaElement;
+        const textS = document.getElementById("text-s") as HTMLInputElement;
+        textP.value = "";
+        textS.value = "";
     }
+
+    /** 사이드 메뉴 필터 초기화 활성화/비활성화 */
+    useEffect(() => {
+        if (thisLicense !== "all" || thisLang !== "all" || thisType !== "all" || thisSort !== "date" || text !== "" || searchword !== "") {
+            setEnableReset(true);
+        } else {
+            setEnableReset(false);
+        }
+    }, [thisLicense, thisLang, thisType, thisSort, text, searchword, enableReset]);
 
     /** 사이드 메뉴 펼치기/접기 */
     const handleExpand = (e: React.ChangeEvent<HTMLInputElement>) => { setExpand(e.target.checked); }
@@ -138,21 +160,115 @@ const Index = ({params}: any) => {
                     <Sidemenu
                         expand={expand}
                         handleExpand={handleExpand}
-                        lang={thisLang}
-                        license={thisLicense}
-                        type={thisType}
-                        sort={thisSort}
-                        source={search}
-                        text={text}
-                        searchword={searchword}
-                        handleTextChange={handleTextChange}
-                        handleLangOptionChange={handleLangOptionChange}
-                        handleLicenseOptionChange={handleLicenseOptionChange}
-                        handleTypeOptionChange={handleTypeOptionChange}
-                        handleSortOptionChange={handleSortOptionChange}
-                        handleSearch={handleSearch}
-                        resetFilter={resetFilter}
-                    />
+                        enableReset={enableReset}
+                        handleReset={handleReset}
+                    >
+                        <h2 className="font-bold mb-4 text-l-2 dark:text-white">폰트 미리보기</h2>
+                        <textarea
+                            id="text-p"
+                            className="custom-sm-scrollbar resize-none w-full h-48 px-3.5 py-3 text-sm rounded-lg border-2 border-transparent focus:border-h-1 focus:dark:border-f-8 dark:text-white bg-h-e dark:bg-d-4 placeholder-l-5 dark:placeholder-d-c"
+                            placeholder="원하는 문구를 적어보세요."
+                            onChange={handleTextChange}
+                        ></textarea>
+                        <div className="w-full h-px my-4 mb-8 bg-l-b dark:bg-d-6"></div>
+                        <h2 className="font-bold mb-4 text-l-2 dark:text-white">필터</h2>
+                        <input
+                            id="text-s"
+                            onChange={handleSearch}
+                            type="text"
+                            placeholder="폰트, 회사명을 검색해 보세요."
+                            defaultValue={search}
+                            className="w-full px-3.5 py-3 mb-2 text-sm rounded-lg border-2 border-transparent text-l-2 dark:text-white focus:border-h-1 focus:dark:border-f-8 bg-h-e dark:bg-d-4 placeholder-l-5 dark:placeholder-d-c"
+                        />
+                        <SelectBox
+                            title="언어 선택"
+                            icon="bi-globe2"
+                            value="lang"
+                            select={thisLang}
+                            options={[
+                                { value: "all", name: "전체" },
+                                { value: "kr", name: "한국어" },
+                                { value: "en", name: "영어" },
+                            ]}
+                            optionChange={handleLangOptionChange}
+                        />
+                        <SelectBox
+                            title="허용 범위"
+                            icon="bi-shield-shaded"
+                            value="license"
+                            select={thisLicense}
+                            options={[
+                                { value: "all", name: "전체" },
+                                { value: "print", name: "인쇄물" },
+                                { value: "web", name: "웹 서비스" },
+                                { value: "video", name: "영상물" },
+                                { value: "package", name: "포장지" },
+                                { value: "embed", name: "임베딩" },
+                                { value: "bici", name: "BI/CI" },
+                                { value: "ofl", name: "OFL" },
+                            ]}
+                            optionChange={handleLicenseOptionChange}
+                        />
+                        <SelectBox
+                            title="폰트 타입"
+                            icon="bi-type"
+                            value="type"
+                            select={thisType}
+                            options={[
+                                { value: "all", name: "전체" },
+                                { value: "sans-serif", name: "고딕" },
+                                { value: "serif", name: "명조" },
+                                { value: "hand-writing", name: "손글씨" },
+                                { value: "display", name: "장식체" },
+                                { value: "pixel", name: "픽셀체" },
+                            ]}
+                            optionChange={handleTypeOptionChange}
+                        />
+                        <SelectBox
+                            title="정렬 기준"
+                            icon="bi-sort-down"
+                            value="sort"
+                            select={thisSort}
+                            options={[
+                                { value: "date", name: "최신순" },
+                                { value: "view", name: "조회순" },
+                                { value: "like", name: "인기순" },
+                                { value: "name", name: "이름순" },
+                            ]}
+                            optionChange={handleSortOptionChange}
+                        />
+                        <h2 className="font-bold mt-8 mb-4 text-l-2 dark:text-white">약관</h2>
+                        <div className="w-full">
+                            <Link
+                                href="/terms"
+                                rel="noopener noreferrer"
+                                className="w-full h-16 px-4 flex justify-between items-center rounded-lg cursor-pointer border-2 border-transparent text-l-2 dark:text-white lg:hover:bg-l-e lg:hover:dark:bg-d-4"
+                                onMouseDown={onSideMenuMouseDown}
+                                onMouseUp={onSideMenuMouseUp}
+                                onMouseOut={onSideMenuMouseUp}
+                            >
+                                <div className="flex items-center gap-3 font-medium">
+                                    <i className="text-lg bi bi-wrench-adjustable"></i>
+                                    서비스 이용약관
+                                </div>
+                                <i className="fa-solid fa-angle-right"></i>
+                            </Link>
+                            <Link
+                                href="/privacy"
+                                rel="noopener noreferrer"
+                                className="w-full h-16 px-4 flex justify-between items-center rounded-lg cursor-pointer border-2 border-transparent text-l-2 dark:text-white lg:hover:bg-l-e lg:hover:dark:bg-d-4"
+                                onMouseDown={onSideMenuMouseDown}
+                                onMouseUp={onSideMenuMouseUp}
+                                onMouseOut={onSideMenuMouseUp}
+                            >
+                                <div className="flex items-center gap-3 font-medium">
+                                    <i className="text-lg bi bi-file-earmark-lock"></i>
+                                    개인정보 처리방침
+                                </div>
+                                <i className="fa-solid fa-angle-right"></i>
+                            </Link>
+                        </div>
+                    </Sidemenu>
                     <FontBox 
                         expand={expand}
                         license={thisLicense}

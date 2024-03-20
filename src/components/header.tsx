@@ -237,7 +237,7 @@ export default function Header (
         <>
             <header className="w-full h-16 text-l-2 dark:text-white">
                 {/* 메인 페이지가 아닐 때 헤더 아래 그라데이션 */}
-                { page !== "index" && <div className="w-full h-4 fixed z-20 left-0 top-16 bg-gradient-to-b from-white dark:from-d-2"></div> }
+                { page !== "index" && page !== "post" && <div className="w-full h-4 fixed z-20 left-0 top-16 bg-gradient-to-b from-white dark:from-d-2"></div> }
                 
                 <div className='w-full h-16 px-4 lg:px-8 fixed right-0 top-0 z-20 flex justify-between items-center bg-white dark:bg-d-2'>
                     <div className="w-full flex items-center overflow-hidden">

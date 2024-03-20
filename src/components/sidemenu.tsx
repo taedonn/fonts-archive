@@ -1,60 +1,25 @@
-// next
-import Link from "next/link";
-
 // components
-import SelectBox from "@/components/selectbox";
-import { onMouseDown, onMouseUp, onMouseOut, onSideMenuMouseDown, onSideMenuMouseUp } from "@/libs/common";
+import { onMouseDown, onMouseUp, onMouseOut } from "@/libs/common";
 
 interface Sidemenu {
+    children: React.ReactNode,
     expand: boolean,
     handleExpand: any,
-    lang: string,
-    license: string,
-    type: string,
-    sort: string,
-    source: string,
-    text: string,
-    searchword: string,
-    handleTextChange: any,
-    handleLangOptionChange: any,
-    handleLicenseOptionChange: any,
-    handleTypeOptionChange: any,
-    handleSortOptionChange: any,
-    handleSearch: any,
-    resetFilter: any,
+    enableReset: boolean,
+    handleReset: any,
 }
 
 export default function Sidemenu ({
+    children,
     expand,
     handleExpand,
-    lang,
-    license,
-    type,
-    sort,
-    source,
-    text,
-    searchword,
-    handleTextChange,
-    handleLangOptionChange,
-    handleLicenseOptionChange,
-    handleTypeOptionChange,
-    handleSortOptionChange,
-    handleSearch,
-    resetFilter,
+    enableReset,
+    handleReset,
 }: Sidemenu) {
-    /** 필터 초기화하기 */
-    const handleResetFilter = () => {
-        const textP = document.getElementById("text-p") as HTMLTextAreaElement;
-        const textS = document.getElementById("text-s") as HTMLInputElement;
-        textP.value = "";
-        textS.value = "";
-        resetFilter();
-    }
-
     return (
         <div className={`${expand ? "w-80" : "w-0"} tlg:w-0 shrink-0 duration-200`}>
-            <div className={`${expand ? "w-[calc(100%-320px)]" : "w-full"} tlg:w-full pl-8 tlg:pl-4 h-16 fixed z-10 top-16 right-0 duration-200`}>
-                <div className="w-full h-full flex items-center bg-white dark:bg-d-2">
+            <div className={`${expand ? "w-[calc(100%-320px)]" : "w-full"} tlg:w-full h-16 fixed z-10 top-16 right-0 duration-200`}>
+                <div className="w-full h-full pl-8 tlg:pl-4 flex items-center bg-white dark:bg-d-2">
                     <input
                         type="checkbox"
                         id="expand-filter"
@@ -66,12 +31,12 @@ export default function Sidemenu ({
                         <i className="mr-1.5 bi bi-sliders2"></i>
                         필터
                     </label>
-                    <button onClick={handleResetFilter} className={`${
-                        license === "all" && lang === "all" && type === "all" && sort === "date" && text === "" && searchword === ""
+                    <button onClick={handleReset} className={`${
+                        !enableReset
                             ? "text-l-b dark:text-d-6 hover:bg-transparent cursor-default"
                             : "text-h-1 dark:text-f-8 hover:bg-h-e hover:dark:bg-d-3 tlg:hover:bg-transparent tlg:hover:dark:bg-transparent"
                         } ml-1.5 px-3 py-2 rounded-lg text-sm`}
-                        onMouseDown={e => onMouseDown(e, 0.9, license === "all" && lang === "all" && type === "all" && sort === "date" && text === "" && searchword === "" ? false : true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut}
+                        onMouseDown={e => onMouseDown(e, 0.9, enableReset)} onMouseUp={onMouseUp} onMouseOut={onMouseOut}
                     >
                         <i className="mr-2 fa-solid fa-rotate-right"></i>
                         필터 초기화
@@ -82,12 +47,12 @@ export default function Sidemenu ({
             <div className={`${expand ? "left-0" : "-left-80"} w-80 h-full fixed z-10 top-0 flex items-end duration-200`}>
                 <div className="w-full h-[calc(100%-4rem)] pt-16 p-8 custom-sm-scrollbar relative overflow-y-auto bg-h-f dark:bg-d-3">
                     <div className="absolute right-8 top-3 flex items-center">
-                        <button onClick={handleResetFilter} className={`${
-                                license === "all" && lang === "all" && type === "all" && sort === "date" && text === "" && searchword === ""
+                        <button onClick={handleReset} className={`${
+                            !enableReset
                                 ? "text-l-b dark:text-d-6 hover:bg-transparent cursor-default"
                                 : "text-h-1 dark:text-f-8 hover:bg-h-e hover:dark:bg-d-4 tlg:hover:bg-transparent tlg:hover:dark:bg-transparent"
                             } mr-1 mt-0.5 px-3 py-2 rounded-lg text-sm`}
-                            onMouseDown={e => onMouseDown(e, 0.9, license === "all" && lang === "all" && type === "all" && sort === "date" && text === "" && searchword === "" ? false : true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut}
+                            onMouseDown={e => onMouseDown(e, 0.9, enableReset)} onMouseUp={onMouseUp} onMouseOut={onMouseOut}
                         >
                             <i className="mr-2 fa-solid fa-rotate-right"></i>
                             필터 초기화
@@ -103,111 +68,7 @@ export default function Sidemenu ({
                             <i className="bi bi-x"></i>
                         </label>
                     </div>
-                    <h2 className="font-bold mb-4 text-l-2 dark:text-white">폰트 미리보기</h2>
-                    <textarea
-                        id="text-p"
-                        className="custom-sm-scrollbar resize-none w-full h-48 px-3.5 py-3 text-sm rounded-lg border-2 border-transparent focus:border-h-1 focus:dark:border-f-8 dark:text-white bg-h-e dark:bg-d-4 placeholder-l-5 dark:placeholder-d-c"
-                        placeholder="원하는 문구를 적어보세요."
-                        onChange={handleTextChange}
-                    ></textarea>
-                    <div className="w-full h-px my-4 mb-8 bg-l-b dark:bg-d-6"></div>
-                    <h2 className="font-bold mb-4 text-l-2 dark:text-white">필터</h2>
-                    <input
-                        id="text-s"
-                        onChange={handleSearch}
-                        type="text"
-                        placeholder="폰트, 회사명을 검색해 보세요."
-                        defaultValue={source}
-                        className="w-full px-3.5 py-3 mb-2 text-sm rounded-lg border-2 border-transparent text-l-2 dark:text-white focus:border-h-1 focus:dark:border-f-8 bg-h-e dark:bg-d-4 placeholder-l-5 dark:placeholder-d-c"
-                    />
-                    <SelectBox
-                        title="언어 선택"
-                        icon="bi-globe2"
-                        value="lang"
-                        select={lang}
-                        options={[
-                            { value: "all", name: "전체" },
-                            { value: "kr", name: "한국어" },
-                            { value: "en", name: "영어" },
-                        ]}
-                        optionChange={handleLangOptionChange}
-                    />
-                    <SelectBox
-                        title="허용 범위"
-                        icon="bi-shield-shaded"
-                        value="license"
-                        select={license}
-                        options={[
-                            { value: "all", name: "전체" },
-                            { value: "print", name: "인쇄물" },
-                            { value: "web", name: "웹 서비스" },
-                            { value: "video", name: "영상물" },
-                            { value: "package", name: "포장지" },
-                            { value: "embed", name: "임베딩" },
-                            { value: "bici", name: "BI/CI" },
-                            { value: "ofl", name: "OFL" },
-                        ]}
-                        optionChange={handleLicenseOptionChange}
-                    />
-                    <SelectBox
-                        title="폰트 타입"
-                        icon="bi-type"
-                        value="type"
-                        select={type}
-                        options={[
-                            { value: "all", name: "전체" },
-                            { value: "sans-serif", name: "고딕" },
-                            { value: "serif", name: "명조" },
-                            { value: "hand-writing", name: "손글씨" },
-                            { value: "display", name: "장식체" },
-                            { value: "pixel", name: "픽셀체" },
-                        ]}
-                        optionChange={handleTypeOptionChange}
-                    />
-                    <SelectBox
-                        title="정렬 기준"
-                        icon="bi-sort-down"
-                        value="sort"
-                        select={sort}
-                        options={[
-                            { value: "date", name: "최신순" },
-                            { value: "view", name: "조회순" },
-                            { value: "like", name: "인기순" },
-                            { value: "name", name: "이름순" },
-                        ]}
-                        optionChange={handleSortOptionChange}
-                    />
-                    <h2 className="font-bold mt-8 mb-4 text-l-2 dark:text-white">약관</h2>
-                    <div className="w-full">
-                        <Link
-                            href="/terms"
-                            rel="noopener noreferrer"
-                            className="w-full h-16 px-4 flex justify-between items-center rounded-lg cursor-pointer border-2 border-transparent text-l-2 dark:text-white lg:hover:bg-l-e lg:hover:dark:bg-d-4"
-                            onMouseDown={onSideMenuMouseDown}
-                            onMouseUp={onSideMenuMouseUp}
-                            onMouseOut={onSideMenuMouseUp}
-                        >
-                            <div className="flex items-center gap-3 font-medium">
-                                <i className="text-lg bi bi-wrench-adjustable"></i>
-                                서비스 이용약관
-                            </div>
-                            <i className="fa-solid fa-angle-right"></i>
-                        </Link>
-                        <Link
-                            href="/privacy"
-                            rel="noopener noreferrer"
-                            className="w-full h-16 px-4 flex justify-between items-center rounded-lg cursor-pointer border-2 border-transparent text-l-2 dark:text-white lg:hover:bg-l-e lg:hover:dark:bg-d-4"
-                            onMouseDown={onSideMenuMouseDown}
-                            onMouseUp={onSideMenuMouseUp}
-                            onMouseOut={onSideMenuMouseUp}
-                        >
-                            <div className="flex items-center gap-3 font-medium">
-                                <i className="text-lg bi bi-file-earmark-lock"></i>
-                                개인정보 처리방침
-                            </div>
-                            <i className="fa-solid fa-angle-right"></i>
-                        </Link>
-                    </div>
+                    {children}
                 </div>
             </div>
         </div>
