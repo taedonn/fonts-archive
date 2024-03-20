@@ -12,6 +12,7 @@ const defaultTextArea = {
     label: "",
     isLabeled: true,
     marginTop: 0,
+    color: ""
 }
 
 interface StateMsg {
@@ -32,6 +33,7 @@ interface TextArea {
     label?: string,
     isLabeled?: boolean,
     marginTop?: number,
+    color?: string
 }
 
 export default function TextArea ({
@@ -47,6 +49,7 @@ export default function TextArea ({
     label=defaultTextArea.label,
     isLabeled=defaultTextArea.isLabeled,
     marginTop=defaultTextArea.marginTop,
+    color=defaultTextArea.color
 }: TextArea) {
     const returnMsg = (states: Array<StateMsg>) => {
         const obj = states.find((obj: StateMsg) => obj.state === state);
@@ -79,7 +82,7 @@ export default function TextArea ({
                 autoComplete={autocomplete}
                 placeholder={placeholder}
                 style={{marginTop: isLabeled ? "0.5rem" : marginTop + "rem"}}
-                className={`custom-sm-scrollbar h-52 resize-none ${thisState === "" ? 'border-l-d dark:border-d-4 focus:border-h-1 focus:dark:border-f-8' : 'border-h-r focus:border-h-r'} ${isLabeled ? "mt-2" : ""} w-full text-sm px-3.5 py-3 rounded-lg border-2 placeholder-l-5 dark:placeholder-d-c bg-l-d dark:bg-d-4`}
+                className={`custom-sm-scrollbar h-52 resize-none ${thisState === "" ? 'focus:border-h-1 focus:dark:border-f-8' : 'border-h-r focus:border-h-r'} ${isLabeled ? "mt-2" : ""} ${color === "" ? "border-l-d dark:border-d-4 bg-l-d dark:bg-d-4" : "border-l-f dark:border-d-3 bg-l-f dark:bg-d-3"} w-full text-sm px-3.5 py-3 rounded-lg border-2 placeholder-l-5 dark:placeholder-d-c`}
             />
             {
                 thisState !== ""

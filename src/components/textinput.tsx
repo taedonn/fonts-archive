@@ -13,6 +13,7 @@ const defaultTextInput = {
     label: "",
     isLabeled: true,
     marginTop: 0,
+    color: ""
 }
 
 interface StateMsg {
@@ -34,6 +35,7 @@ interface TextInput {
     label?: string,
     isLabeled?: boolean,
     marginTop?: number,
+    color?: string
 }
 
 export default function TextInput ({
@@ -50,6 +52,7 @@ export default function TextInput ({
     label=defaultTextInput.label,
     isLabeled=defaultTextInput.isLabeled,
     marginTop=defaultTextInput.marginTop,
+    color=defaultTextInput.color
 }: TextInput) {
     const returnMsg = (states: Array<StateMsg>) => {
         const obj = states.find((obj: StateMsg) => obj.state === state);
@@ -83,7 +86,7 @@ export default function TextInput ({
                 autoComplete={autocomplete}
                 placeholder={placeholder}
                 style={{marginTop: isLabeled ? "0.5rem" : marginTop + "rem"}}
-                className={`${thisState === '' ? 'border-l-d dark:border-d-4 focus:border-h-1 focus:dark:border-f-8' : 'border-h-r focus:border-h-r'} ${isLabeled ? "mt-2" : ""} w-full text-sm px-3.5 py-3 rounded-lg border-2 placeholder-l-5 dark:placeholder-d-c bg-l-d dark:bg-d-4`}
+                className={`${thisState === '' ? 'focus:border-h-1 focus:dark:border-f-8' : 'border-h-r focus:border-h-r'} ${isLabeled ? "mt-2" : ""} ${color === "" ? "border-l-d dark:border-d-4 bg-l-d dark:bg-d-4" : "border-l-f dark:border-d-3 bg-l-f dark:bg-d-3"} w-full text-sm px-3.5 py-3 rounded-lg border-2 placeholder-l-5 dark:placeholder-d-c`}
             />
             {
                 thisState !== ""

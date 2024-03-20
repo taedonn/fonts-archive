@@ -127,24 +127,24 @@ const FindPw = ({params}: any) => {
                     <div className='flex fixed right-0 top-36'>
                         <KakaoAdFitRightBanner marginRight={2}/>
                     </div>
-                    <div className='w-[22.5rem] flex flex-col justify-center items-start my-16 lg:my-24 mt-8 lg:mt-16'>
-                        <h2 className='text-2xl text-l-2 dark:text-white font-bold mb-4'>비밀번호 찾기</h2>
+                    <div className='w-[22.5rem] flex flex-col justify-center my-16 lg:my-24 mt-8 lg:mt-16 text-l-2 dark:text-white'>
+                        <h2 className='text-2xl font-bold mb-6'>비밀번호 찾기</h2>
                         {
                             alertDisplay === true
                             ? <>
-                                <div className='w-full h-10 px-2.5 mb-3 flex justify-between items-center rounded-lg border-2 border-h-1 dark:border-f-8 text-xs text-l-2 dark:text-white bg-h-1/20 dark:bg-f-8/20'>
-                                    <div className='flex justify-start items-center'>
+                                <div className='w-full h-10 px-2.5 mb-3 flex justify-between items-center rounded-lg border-2 border-h-1 dark:border-f-8 text-xs bg-h-1/20 dark:bg-f-8/20'>
+                                    <div className='flex items-center'>
                                         <i className="text-sm text-h-1 dark:text-f-8 fa-regular fa-bell"></i>
-                                        <div className='ml-2'>이메일로 임시 비밀번호가 발급되었습니다. <Link href="/user/login" className='ml-2 text-h-1 dark:text-f-8 hover:underline'>로그인 하기</Link></div>
+                                        <div className='ml-2'>이메일로 임시 비밀번호가 발급되었습니다. <Link href="/user/login" className='ml-2 text-h-1 dark:text-f-8 lg:hover:underline'>로그인 하기</Link></div>
                                     </div>
                                     <div onClick={handleAlertClose} className='flex justify-center items-center cursor-pointer'>
-                                        <i className="text-sm text-l-2 dark:text-white fa-solid fa-xmark"></i>
+                                        <i className="text-sm fa-solid fa-xmark"></i>
                                     </div>
                                 </div>
                             </>
                             : <></>
                         }
-                        <form onSubmit={e => e.preventDefault()} className='w-full p-5 rounded-lg text-l-2 dark:text-white bg-l-e dark:bg-d-3 drop-shadow-default dark:drop-shadow-dark'>
+                        <form onSubmit={e => e.preventDefault()} className='w-full p-5 rounded-lg bg-l-e dark:bg-d-3 drop-shadow-default dark:drop-shadow-dark'>
                             <TextInput
                                 onchange={handleNameChange}
                                 state={nameChk}
@@ -182,10 +182,10 @@ const FindPw = ({params}: any) => {
                                 </button>
                             </Button>
                         </form>
-                        <div className='w-full flex justify-center items-center text-sm mt-4 text-l-5 dark:text-d-c'>
-                            <Link href="/terms" target="_blank" rel="noopener noreferrer" className='hover:underline'>서비스 이용약관</Link>
+                        <div className='w-full flex justify-center items-center text-sm mt-6 text-l-5 dark:text-d-c'>
+                            <Link href="/terms" target="_blank" rel="noopener noreferrer" className='lg:hover:underline'>서비스 이용약관</Link>
                             <div className='mx-1'>·</div>
-                            <Link href="/privacy" target="_blank" rel="noopener noreferrer" className='hover:underline'>개인정보처리방침</Link>
+                            <Link href="/privacy" target="_blank" rel="noopener noreferrer" className='lg:hover:underline'>개인정보처리방침</Link>
                         </div>
                     </div>
                 </div>

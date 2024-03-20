@@ -43,6 +43,7 @@ function DetailPage({params}: any) {
 
     // 디바이스 체크
     const isMac: boolean = userAgent.includes("Mac OS") ? true : false;
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(userAgent);
 
     // states
     const [alertDisplay, setAlertDisplay] = useState<boolean>(false);
@@ -59,7 +60,7 @@ function DetailPage({params}: any) {
     const [letterSpacingUnit, setLetterSpacingUnit] = useState<string>("em");
     const [textColor, setTextColor] = useColor(theme === "dark" ? "#FFFFFF" : "#202124");
     const [displayTextColorPicker, setDisplayTextColorPicker] = useState<boolean>(false);
-    const [bgColor, setBgColor] = useColor(theme === "dark" ? "#3C4043" : "#E9EAEE");
+    const [bgColor, setBgColor] = useColor(theme === "dark" ? "#323639" : "#F2F1F6");
     const [displaybgColorPicker, setDisplaybgColorPicker] = useState<boolean>(false);
 
     // refs
@@ -271,21 +272,21 @@ function DetailPage({params}: any) {
         const html = document.getElementsByTagName("html")[0];
         if (html.classList.contains("dark")) {
             setTextColor({hex: "#FFFFFF", rgb: {r: 233, g: 234, b: 238, a: 1}, hsv: {h: 228, s: 2.1, v: 93.3, a: 1}});
-            setBgColor({hex: "#3C4043", rgb: {r: 23, g: 24, b: 27, a: 1}, hsv: {h: 225, s: 14.8, v: 10.6, a: 1}});
+            setBgColor({hex: "#323639", rgb: {r: 23, g: 24, b: 27, a: 1}, hsv: {h: 225, s: 14.8, v: 10.6, a: 1}});
         }
         else {
             setTextColor({hex: "#202124", rgb: {r: 233, g: 234, b: 238, a: 1}, hsv: {h: 228, s: 2.1, v: 93.3, a: 1}});
-            setBgColor({hex: "#E9EAEE", rgb: {r: 53, g: 54, b: 58, a: 1}, hsv: {h: 228, s: 8.6, v: 22.7, a: 1}});
+            setBgColor({hex: "#F2F1F6", rgb: {r: 53, g: 54, b: 58, a: 1}, hsv: {h: 228, s: 8.6, v: 22.7, a: 1}});
         }
     }
 
     const resetColor = (theme: string) => {
         if (theme === "dark") {
             setTextColor({hex: "#FFFFFF", rgb: {r: 233, g: 234, b: 238, a: 1}, hsv: {h: 228, s: 2.1, v: 93.3, a: 1}});
-            setBgColor({hex: "#3C4043", rgb: {r: 23, g: 24, b: 27, a: 1}, hsv: {h: 225, s: 14.8, v: 10.6, a: 1}});
+            setBgColor({hex: "#323639", rgb: {r: 23, g: 24, b: 27, a: 1}, hsv: {h: 225, s: 14.8, v: 10.6, a: 1}});
         } else {
             setTextColor({hex: "#202124", rgb: {r: 233, g: 234, b: 238, a: 1}, hsv: {h: 228, s: 2.1, v: 93.3, a: 1}});
-            setBgColor({hex: "#E9EAEE", rgb: {r: 53, g: 54, b: 58, a: 1}, hsv: {h: 228, s: 8.6, v: 22.7, a: 1}});
+            setBgColor({hex: "#F2F1F6", rgb: {r: 53, g: 54, b: 58, a: 1}, hsv: {h: 228, s: 8.6, v: 22.7, a: 1}});
         }
     }
 
@@ -364,31 +365,33 @@ function DetailPage({params}: any) {
                 exitOpacity={0}
                 transitionType="spring"
             >
-                <div className="w-full mt-8 lg:mt-12 px-8 tlg:px-4">
+                <div className="w-full mt-8 lg:mt-12 px-4 lg:px-8 text-l-2 dark:text-white">
                     <link href={font.cdn_url} rel="stylesheet" type="text/css" itemProp="url"></link>
-                    <div className="w-full flex flex-col justify-start items-start">
-                        <div className="mb-2 flex gap-4 items-center">
-                            <div style={{fontFamily:'"'+font.font_family+'"'}} className="text-4xl tlg:text-3xl text-l-2 dark:text-white font-medium">{font.name}</div>
+                    <div className="w-full flex flex-col">
+                        <div className="mb-4 flex gap-4 items-center">
+                            <div style={{fontFamily:'"'+font.font_family+'"'}} className="text-3xl lg:text-4xl font-medium">{font.name}</div>
                             <div className='group relative'>
                                 <input onClick={handleLikeClick} onChange={handleLikeChange} type="checkbox" id={font.code.toString()} className='peer hidden' defaultChecked={likedInput}/>
                                 <label htmlFor={font.code.toString()} onMouseDown={e => onMouseDown(e, 0.85, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className='group block cursor-pointer'>
-                                    <i className="block peer-checked:group-[]:hidden text-xl text-l-2 dark:text-white bi bi-heart"></i>
+                                    <i className="block peer-checked:group-[]:hidden text-xl bi bi-heart"></i>
                                     <i className="hidden peer-checked:group-[]:block text-xl text-h-r bi bi-heart-fill"></i>
                                 </label>
-                                <div className={`${hoverDisplay === true ? 'group-hover:block' : 'group-hover:hidden'} tlg:group-hover:hidden tooltip w-max absolute left-1/2 -top-10 px-3 py-2 text-sm font-medium leading-none origin-bottom rounded-lg hidden group-hover:animate-zoom-in-fontbox after:bg-h-r bg-h-r text-white`}>{likedInput ? "좋아요 해제" : "좋아요"}</div>
+                                <div className={`${hoverDisplay === true ? 'lg:group-hover:block' : 'lg:group-hover:hidden'} group-hover:hidden tooltip w-max absolute left-1/2 -top-10 px-3 py-2 text-sm font-medium leading-none origin-bottom rounded-lg hidden group-hover:animate-zoom-in-fontbox after:bg-h-r bg-h-r text-white`}>{likedInput ? "좋아요 해제" : "좋아요"}</div>
                             </div>
                         </div>
-                        <div className="mb-4 flex gap-4 tlg:gap-3 justify-start items-center">
-                            <div style={{fontFamily:'"'+font.font_family+'"'}} className="flex gap-2 tlg:text-sm text-l-2 dark:text-white">
-                                <span className={`${font.lang === 'KR' ? '' : 'font-sans'}`}>제작</span>
+                        <div className="mb-4 flex flex-col lg:flex-row gap-2 lg:gap-4 lg:items-center">
+                            <div className="flex gap-2 tlg:text-sm">
+                                <span>제작</span>
                                 <Link href={{pathname: "/", query: {search: font.source}}} className="relative group border-b border-h-1 dark:border-f-8 text-h-1 dark:text-f-8">
                                     {font.source}
                                     <div className="tooltip w-max absolute z-10 left-1/2 -top-10 text-sm font-medium leading-none px-3 py-2 origin-bottom rounded-lg hidden group-hover:block tlg:group-hover:hidden group-hover:animate-zoom-in-fontbox bg-h-1 dark:bg-f-8 after:bg-h-1 after:dark:bg-f-8 text-white dark:text-d-2">제작사의 다른 폰트 보기</div>
                                 </Link>
                             </div>
-                            <div className={`${font.lang === 'KR' ? '' : 'font-sans'} tlg:text-sm text-l-2 dark:text-white`}>형태<span className="text-l-5 dark:text-d-c ml-1.5">{font.font_type === "Sans Serif" ? "고딕" : (font.font_type === "Serif" ? "명조" : (font.font_type === "Hand Writing" ? "손글씨" : (font.font_type === "Display" ? "장식체" : "픽셀체")))}</span></div>
-                            <div className={`${font.lang === 'KR' ? '' : 'font-sans'} tlg:text-sm text-l-2 dark:text-white`}>조회수<span className="text-l-5 dark:text-d-c ml-1.5">{formatNumber(font.view)}</span></div>
-                            <div className={`${font.lang === 'KR' ? '' : 'font-sans'} tlg:text-sm text-l-2 dark:text-white`}>좋아요 수<span className="text-l-5 dark:text-d-c ml-1.5">{formatNumber(likedNum)}</span></div>
+                            <div className="flex gap-3 lg:gap-4">
+                                <div className={`${font.lang === 'KR' ? '' : 'font-sans'} tlg:text-sm`}>형태<span className="text-l-5 dark:text-d-c ml-2">{font.font_type === "Sans Serif" ? "고딕" : (font.font_type === "Serif" ? "명조" : (font.font_type === "Hand Writing" ? "손글씨" : (font.font_type === "Display" ? "장식체" : "픽셀체")))}</span></div>
+                                <div className={`${font.lang === 'KR' ? '' : 'font-sans'} tlg:text-sm`}>조회수<span className="text-l-5 dark:text-d-c ml-2">{formatNumber(font.view)}</span></div>
+                                <div className={`${font.lang === 'KR' ? '' : 'font-sans'} tlg:text-sm`}>좋아요 수<span className="text-l-5 dark:text-d-c ml-2">{formatNumber(likedNum)}</span></div>
+                            </div>
                         </div>
 
                         {/* 카카오 애드핏 상단 띠배너 */}
@@ -400,7 +403,7 @@ function DetailPage({params}: any) {
 
                         <div className="w-full h-px mb-4 bg-l-b dark:bg-d-6"></div>
                     </div>
-                    <div className="flex gap-2 justify-start items-center mb-20 tlg:mb-16">
+                    <div className="flex gap-2 justify-start items-center mb-16 lg:mb-20">
                         <div className="w-40">
                             <Button>
                                 <Link aria-label="source-link" href={font.source_link} target="_blank" rel="noopener noreferrer" className="w-full h-full flex gap-2.5 justify-center items-center">
@@ -412,7 +415,7 @@ function DetailPage({params}: any) {
                         {
                             font.license_ofl !== "N"
                                 && <div className="w-40">
-                                    <Button color="gray">
+                                    <Button color="light">
                                         <Link aria-label="github-source-link" href={font.github_link} className="w-full h-full flex gap-2.5 justify-center items-center">
                                             <i className="bi bi-download"></i>
                                             파일 다운로드
@@ -424,25 +427,25 @@ function DetailPage({params}: any) {
                     {
                         font.license_embed === "N" || font.license_ofl === "N"
                         ? <></>
-                        : <div className="flex flex-col justify-start items-start mb-20 tlg:mb-16">
-                            <h2 className="text-2xl tlg:text-xl text-d-2 dark:text-white font-medium mb-4 tlg:mb-3">웹 폰트</h2>
-                            <div className="w-full mb-3 gap-3 flex tlg:flex-wrap justify-start items-center tlg:text-sm">
+                        : <div className="flex flex-col mb-16 lg:mb-20">
+                            <h2 className="text-2xl font-medium mb-6">웹 폰트</h2>
+                            <div className="w-full mb-4 gap-2 flex flex-wrap items-center text-sm">
                                 <input onChange={handleWebFont} type="radio" id="cdn_css" name="cdn" value="CSS" className="peer/css hidden" defaultChecked/>
-                                <label htmlFor="cdn_css" onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-28 tlg:w-[calc(50%-0.375rem)] h-11 rounded-lg flex justify-center items-center cursor-pointer peer-checked/css:bg-h-1 peer-checked/css:dark:bg-f-8 peer-checked/css:text-white peer-checked/css:dark:text-d-2 tlg:bg-l-e tlg:dark:bg-d-4 text-l-2 dark:text-white hover:text-h-1 hover:dark:text-f-8 tlg:hover:text-l-2 tlg:hover:dark:text-white">CSS</label>
+                                <label htmlFor="cdn_css" onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-[6.5rem] h-9 rounded-full flex justify-center items-center cursor-pointer peer-checked/css:bg-h-1 peer-checked/css:dark:bg-f-8 peer-checked/css:text-white peer-checked/css:dark:text-d-2 bg-l-f lg:hover:bg-l-e dark:bg-d-3 lg:dark:hover:bg-d-4">CSS</label>
                                 <input onChange={handleWebFont} type="radio" id="cdn_link" name="cdn" value="link" className="peer/link hidden"/>
-                                <label htmlFor="cdn_link" onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-28 tlg:w-[calc(50%-0.375rem)] h-11 rounded-lg flex justify-center items-center cursor-pointer peer-checked/link:bg-h-1 peer-checked/link:dark:bg-f-8 peer-checked/link:text-white peer-checked/link:dark:text-d-2 tlg:bg-l-e tlg:dark:bg-d-4 text-l-2 dark:text-white hover:text-h-1 hover:dark:text-f-8 tlg:hover:text-l-2 tlg:hover:dark:text-white">&#60;link/&#62;</label>
+                                <label htmlFor="cdn_link" onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-[6.5rem] h-9 rounded-full flex justify-center items-center cursor-pointer peer-checked/link:bg-h-1 peer-checked/link:dark:bg-f-8 peer-checked/link:text-white peer-checked/link:dark:text-d-2 bg-l-f lg:hover:bg-l-e dark:bg-d-3 lg:dark:hover:bg-d-4">&#60;link/&#62;</label>
                                 <input onChange={handleWebFont} type="radio" id="cdn_import" name="cdn" value="import" className="peer/import hidden"/>
-                                <label htmlFor="cdn_import" onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-28 tlg:w-[calc(50%-0.375rem)] h-11 rounded-lg flex justify-center items-center cursor-pointer peer-checked/import:bg-h-1 peer-checked/import:dark:bg-f-8 peer-checked/import:text-white peer-checked/import:dark:text-d-2 tlg:bg-l-e tlg:dark:bg-d-4 text-l-2 dark:text-white hover:text-h-1 hover:dark:text-f-8 tlg:hover:text-l-2 tlg:hover:dark:text-white">@import</label>
+                                <label htmlFor="cdn_import" onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-[6.5rem] h-9 rounded-full flex justify-center items-center cursor-pointer peer-checked/import:bg-h-1 peer-checked/import:dark:bg-f-8 peer-checked/import:text-white peer-checked/import:dark:text-d-2 bg-l-f lg:hover:bg-l-e dark:bg-d-3 lg:dark:hover:bg-d-4">@import</label>
                                 <input onChange={handleWebFont} type="radio" id="cdn_font_face" name="cdn" value="font-face" className="peer/font-face hidden"/>
-                                <label htmlFor="cdn_font_face" onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-28 tlg:w-[calc(50%-0.375rem)] h-11 rounded-lg flex justify-center items-center cursor-pointer peer-checked/font-face:bg-h-1 peer-checked/font-face:dark:bg-f-8 peer-checked/font-face:text-white peer-checked/font-face:dark:text-d-2 tlg:bg-l-e tlg:dark:bg-d-4 text-l-2 dark:text-white hover:text-h-1 hover:dark:text-f-8 tlg:hover:text-l-2 tlg:hover:dark:text-white">@font-face</label>
+                                <label htmlFor="cdn_font_face" onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-[6.5rem] h-9 rounded-full flex justify-center items-center cursor-pointer peer-checked/font-face:bg-h-1 peer-checked/font-face:dark:bg-f-8 peer-checked/font-face:text-white peer-checked/font-face:dark:text-d-2 bg-l-f lg:hover:bg-l-e dark:bg-d-3 lg:dark:hover:bg-d-4">@font-face</label>
                             </div>
-                            <div className="w-[58.25rem] tlg:w-full tlg:text-sm rounded-lg bg-l-e dark:bg-d-4 text-l-2 dark:text-white">
+                            <div className="w-full max-w-[58rem] text-sm rounded-lg bg-l-f dark:bg-d-3">
                                 {
                                     webFont === "CSS"
-                                    ? <div className="w-full relative pl-6 pr-16 tlg:pr-[3.75rem] overflow-hidden">
-                                        <div className="cdn-pre no-scrollbar w-full h-16 flex justify-start items-center overflow-x-auto"><pre className="font-sans">{font.cdn_css}</pre></div>
-                                        <div className="w-8 h-8 tlg:w-7 tlg:h-7 absolute z-10 right-4 top-1/2 -translate-y-1/2 rounded-md cursor-pointer">
-                                            <div onClick={copyOnClick} className="copy_btn w-full h-full flex justify-center items-center rounded-md hover:bg-h-1/20 tlg:hover:bg-transparent hover:dark:bg-f-8/20 tlg:hover:dark-bg-transparent text-h-1 dark:text-f-8">
+                                    ? <div className="w-full relative pl-6 pr-[3.75rem] lg:pr-16 overflow-hidden">
+                                        <div className="cdn-pre no-scrollbar w-full h-16 flex items-center overflow-x-auto"><pre className="font-sans">{font.cdn_css}</pre></div>
+                                        <div className="w-7 h-7 lg:w-8 lg:h-8 absolute z-10 right-4 top-1/2 -translate-y-1/2 rounded-md cursor-pointer">
+                                            <div onClick={copyOnClick} className="copy_btn w-full h-full flex justify-center items-center rounded-md lg:hover:bg-h-1/20 lg:hover:dark:bg-f-8/20 text-h-1 dark:text-f-8">
                                                 <i className="text-base bi bi-clipboard"></i>
                                             </div>
                                             <div className="copy_chk_btn w-full h-full hidden justify-center items-center rounded-md bg-h-1/20 dark:bg-f-8/20 text-h-1 dark:text-f-8">
@@ -451,37 +454,37 @@ function DetailPage({params}: any) {
                                         </div>
                                     </div>
                                     : ( webFont === "link"
-                                        ? <div className="w-full relative pl-6 pr-16 tlg:pr-[3.75rem] overflow-hidden">
-                                            <div className="cdn-pre no-scrollbar w-full h-16 flex justify-start items-center overflow-x-auto"><pre className="font-sans">{font.cdn_link}</pre></div>
-                                            <div className="w-8 h-8 tlg:w-7 tlg:h-7 absolute z-10 right-4 top-1/2 -translate-y-1/2 rounded-md cursor-pointer">
-                                                <div onClick={copyOnClick} className="copy_btn w-full h-full flex justify-center items-center rounded-md hover:bg-h-1/20 tlg:hover:bg-transparent hover:dark:bg-f-8/20 tlg:hover:dark-bg-transparent text-h-1 dark:text-f-8">
-                                                    <i className="text-base :text-sm bi bi-clipboard"></i>
+                                        ? <div className="w-full relative pl-6 pr-[3.75rem] lg:pr-16 overflow-hidden">
+                                            <div className="cdn-pre no-scrollbar w-full h-16 flex items-center overflow-x-auto"><pre className="font-sans">{font.cdn_link}</pre></div>
+                                            <div className="w-7 h-7 lg:w-8 lg:h-8 absolute z-10 right-4 top-1/2 -translate-y-1/2 rounded-md cursor-pointer">
+                                                <div onClick={copyOnClick} className="copy_btn w-full h-full flex justify-center items-center rounded-md lg:hover:bg-h-1/20 lg:hover:dark:bg-f-8/20 text-h-1 dark:text-f-8">
+                                                    <i className="text-base bi bi-clipboard"></i>
                                                 </div>
                                                 <div className="copy_chk_btn w-full h-full hidden justify-center items-center rounded-md bg-h-1/20 dark:bg-f-8/20 text-h-1 dark:text-f-8">
-                                                    <i className="text-base :text-sm bi bi-check-lg"></i>
+                                                    <i className="text-base bi bi-check-lg"></i>
                                                 </div>
                                             </div>
                                         </div>
                                         : ( webFont === "import"
-                                            ? <div className="w-full relative pl-6 pr-16 tlg:pr-[3.75rem] overflow-hidden">
-                                                <div className="cdn-pre no-scrollbar w-full h-16 flex justify-start items-center overflow-x-auto"><pre className="font-sans">{font.cdn_import}</pre></div>
-                                                <div className="w-8 h-8 tlg:w-7 tlg:h-7 absolute z-10 right-4 top-1/2 -translate-y-1/2 rounded-md cursor-pointer">
-                                                    <div onClick={copyOnClick} className="copy_btn w-full h-full flex justify-center items-center rounded-md hover:bg-h-1/20 tlg:hover:bg-transparent hover:dark:bg-f-8/20 tlg:hover:dark-bg-transparent text-h-1 dark:text-f-8">
-                                                        <i className="text-base :text-sm bi bi-clipboard"></i>
+                                            ? <div className="w-full relative pl-6 pr-[3.75rem] lg:pr-16 overflow-hidden">
+                                                <div className="cdn-pre no-scrollbar w-full h-16 flex items-center overflow-x-auto"><pre className="font-sans">{font.cdn_import}</pre></div>
+                                                <div className="w-7 h-7 lg:w-8 lg:h-8 absolute z-10 right-4 top-1/2 -translate-y-1/2 rounded-md cursor-pointer">
+                                                    <div onClick={copyOnClick} className="copy_btn w-full h-full flex justify-center items-center rounded-md lg:hover:bg-h-1/20 lg:hover:dark:bg-f-8/20 text-h-1 dark:text-f-8">
+                                                        <i className="text-base bi bi-clipboard"></i>
                                                     </div>
                                                     <div className="copy_chk_btn w-full h-full hidden justify-center items-center rounded-md bg-h-1/20 dark:bg-f-8/20 text-h-1 dark:text-f-8">
-                                                        <i className="text-base :text-sm bi bi-check-lg"></i>
+                                                        <i className="text-base bi bi-check-lg"></i>
                                                     </div>
                                                 </div>
                                             </div>
-                                            : <div className="w-full relative pl-6 pr-16 tlg:pr-[3.75rem] overflow-hidden">
-                                                <div className="cdn-pre no-scrollbar w-full h-[auto] py-5 flex justify-start items-center overflow-auto whitespace-nowrap"><pre id="cdn-font-face" style={{tabSize: 8}} className="font-sans">{font.cdn_font_face}</pre></div>
-                                                <div className="w-8 h-8 tlg:w-7 tlg:h-7 absolute z-10 right-4 top-8 -translate-y-1/2 cursor-pointer">
-                                                    <div onClick={copyOnClick} className="copy_btn w-full h-full flex justify-center items-center rounded-md hover:bg-h-1/20 tlg:hover:bg-transparent hover:dark:bg-f-8/20 tlg:hover:dark-bg-transparent text-h-1 dark:text-f-8">
-                                                        <i className="text-base :text-sm bi bi-clipboard"></i>
+                                            : <div className="w-full relative pl-6 pr-[3.75rem] lg:pr-16 overflow-hidden">
+                                                <div className="cdn-pre no-scrollbar w-full h-auto py-[1.375rem] flex items-center overflow-auto whitespace-nowrap"><pre id="cdn-font-face" style={{tabSize: 8}} className="font-sans">{font.cdn_font_face}</pre></div>
+                                                <div className="w-7 h-7 lg:w-8 lg:h-8 absolute z-10 right-4 top-8 -translate-y-1/2 cursor-pointer">
+                                                    <div onClick={copyOnClick} className="copy_btn w-full h-full flex justify-center items-center rounded-md lg:hover:bg-h-1/20 lg:hover:dark:bg-f-8/20 text-h-1 dark:text-f-8">
+                                                        <i className="text-base bi bi-clipboard"></i>
                                                     </div>
                                                     <div className="copy_chk_btn w-full h-full hidden justify-center items-center rounded-md bg-h-1/20 dark:bg-f-8/20 text-h-1 dark:text-f-8">
-                                                        <i className="text-base :text-sm bi bi-check-lg"></i>
+                                                        <i className="text-base bi bi-check-lg"></i>
                                                     </div>
                                                 </div>
                                             </div>
@@ -491,14 +494,14 @@ function DetailPage({params}: any) {
                             </div>
                         </div>
                     }
-                    <div className="max-w-full w-max tlg:w-full flex flex-col justify-start items-start mb-20 tmd:mb-16">
-                        <h2 className="text-2xl tlg:text-xl text-l-2 dark:text-white font-medium mb-4 tlg:mb-3">폰트 미리보기</h2>
+                    <div className="max-w-full w-full lg:w-max flex flex-col mb-16 lg:mb-20">
+                        <h2 className="text-2xl font-medium mb-6">폰트 미리보기</h2>
                         <div className="w-full px-4 py-2 mb-4 border-b border-l-b dark:border-d-6">
-                            <textarea onChange={handleFontWeightChange} onInput={handleHeightChange} placeholder="원하는 문구를 적어보세요." className="w-full h-[1.5rem] resize-none text-l-2 dark:text-white placeholder-l-5 dark:placeholder-d-c leading-tight bg-transparent"/>
+                            <textarea onChange={handleFontWeightChange} onInput={handleHeightChange} placeholder="원하는 문구를 적어보세요." className="w-full h-[1.5rem] resize-none placeholder-l-5 dark:placeholder-d-c bg-transparent"/>
                         </div>
-                        <div className="max-w-full tlg:w-full rounded-lg pt-6 bg-l-e dark:bg-d-4">
-                            <div className="w-full px-6 flex flex-wrap justify-start items-center gap-20 tlg:gap-6 mb-8">
-                                <div className="w-60 tlg:w-full flex flex-col justify-center items-start">
+                        <div className="max-w-full tlg:w-full rounded-lg pt-6 bg-l-f dark:bg-d-3">
+                            <div className="w-full px-6 flex flex-wrap items-center gap-6 lg:gap-20 mb-8">
+                                <div className="w-full lg:w-60 flex flex-col justify-center">
                                     <div className="w-full flex items-center mb-1">
                                         <SelectBox
                                             height={3.5}
@@ -513,8 +516,8 @@ function DetailPage({params}: any) {
                                             optionChange={handleFontUnit}
                                         />
                                     </div>
-                                    <div className="w-full relative flex gap-2 items-center">
-                                        <div className="text-center text-sm text-l-2 dark:text-white">{fontUnit === "px" ? 12 : 9}{fontUnit}</div>
+                                    <div className="w-full flex gap-2 items-center">
+                                        <div className="text-center text-sm">{fontUnit === "px" ? 12 : 9}{fontUnit}</div>
                                         <Slider
                                             className="font-size-slider"
                                             aria-label="font-size-slider"
@@ -526,10 +529,10 @@ function DetailPage({params}: any) {
                                             min={fontUnit === "px" ? 12 : 9}
                                             max={fontUnit === "px" ? 64 : 48}
                                         />
-                                        <div className="text-center text-sm text-l-2 dark:text-white">{fontUnit === "px" ? 64 : 48}{fontUnit}</div>
+                                        <div className="text-center text-sm">{fontUnit === "px" ? 64 : 48}{fontUnit}</div>
                                     </div>
                                 </div>
-                                <div className="w-60 tlg:w-full flex flex-col justify-center items-start">
+                                <div className="w-full lg:w-60 flex flex-col justify-center">
                                     <div className="w-full flex items-center mb-1">
                                         <SelectBox
                                             height={3.5}
@@ -545,8 +548,8 @@ function DetailPage({params}: any) {
                                             optionChange={handleLineHeightUnit}
                                         />
                                     </div>
-                                    <div className="w-full relative flex gap-2 items-center">
-                                        <div className="text-center text-sm text-l-2 dark:text-white">{lineHeightUnit === "em" ? 1 : lineHeightUnit === "px" ? 12 : 50}{lineHeightUnit}</div>
+                                    <div className="w-full flex gap-2 items-center">
+                                        <div className="text-center text-sm">{lineHeightUnit === "em" ? 1 : lineHeightUnit === "px" ? 12 : 50}{lineHeightUnit}</div>
                                         <Slider
                                             className="font-size-slider"
                                             aria-label="font-size-slider"
@@ -559,10 +562,10 @@ function DetailPage({params}: any) {
                                             min={lineHeightUnit === "em" ? 1 : lineHeightUnit === "px" ? 12 : 50}
                                             max={lineHeightUnit === "em" ? 3 : lineHeightUnit === "px" ? 64 : 200}
                                         />
-                                        <div className="text-center text-sm text-l-2 dark:text-white">{lineHeightUnit === "em" ? 3 : lineHeightUnit === "px" ? 64 : 200}{lineHeightUnit}</div>
+                                        <div className="text-center text-sm">{lineHeightUnit === "em" ? 3 : lineHeightUnit === "px" ? 64 : 200}{lineHeightUnit}</div>
                                     </div>
                                 </div>
-                                <div className="w-60 tlg:w-full flex flex-col justify-center items-start">
+                                <div className="w-full lg:w-60 flex flex-col justify-center">
                                     <div className="w-full flex items-center mb-1">
                                         <SelectBox
                                             height={3.5}
@@ -577,8 +580,8 @@ function DetailPage({params}: any) {
                                             optionChange={handleLetterSpacingUnit}
                                         />
                                     </div>
-                                    <div className="w-full relative flex gap-2 items-center">
-                                        <div className="text-center text-sm text-l-2 dark:text-white">{letterSpacingUnit === "em" ? -1 :  -10}{letterSpacingUnit}</div>
+                                    <div className="w-full flex gap-2 items-center">
+                                        <div className="text-center text-sm">{letterSpacingUnit === "em" ? -1 :  -10}{letterSpacingUnit}</div>
                                         <Slider
                                             className="font-size-slider"
                                             aria-label="font-size-slider"
@@ -591,19 +594,19 @@ function DetailPage({params}: any) {
                                             min={letterSpacingUnit === "em" ? -1 : -10}
                                             max={letterSpacingUnit === "em" ? 1 : 10}
                                         />
-                                        <div className="text-center text-sm text-l-2 dark:text-white">{letterSpacingUnit === "em" ? 1 : 10}{letterSpacingUnit}</div>
+                                        <div className="text-center text-sm">{letterSpacingUnit === "em" ? 1 : 10}{letterSpacingUnit}</div>
                                     </div>
                                 </div>
                             </div>
                             <div className="w-full p-6 pt-0">
-                                <div className="w-full relative">
+                                <div className="w-full">
                                     <div className="color-picker flex gap-2">
                                         <div className="relative z-10">
                                             <input onChange={handleTextColorPickerDisplay} id="text-color-picker" type="checkbox" className="peer hidden"/>
-                                            <label htmlFor="text-color-picker" ref={textColorPickerBtn} onMouseDown={e => onMouseDown(e, 0.85, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-8 h-8 rounded-lg relative group flex flex-col justify-center items-center cursor-pointer bg-h-1 hover:bg-h-0 tlg:hover:bg-h-1 peer-checked:bg-h-0 dark:bg-f-8 hover:dark:bg-f-9 tlg:hover:dark:bg-f-8 peer-checked:dark:bg-f-9">
-                                                <i className="text-sm text-white dark:text-d-2 fa-solid fa-a"></i>
+                                            <label htmlFor="text-color-picker" ref={textColorPickerBtn} onMouseDown={e => onMouseDown(e, 0.85, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-8 h-8 rounded-lg relative group flex flex-col justify-center items-center cursor-pointer bg-h-1 lg:hover:bg-h-0 peer-checked:bg-h-0 dark:bg-f-8 lg:hover:dark:bg-f-9 peer-checked:dark:bg-f-9 text-white dark:text-d-2">
+                                                <i className="text-sm fa-solid fa-a"></i>
                                                 <div style={{background: textColor.hex}} className="w-4 h-0.5 mb-0.5"></div>
-                                                <div className="tooltip after:bg-h-0 after:dark:bg-f-9 w-max absolute left-1/2 -top-11 text-sm font-medium leading-none px-3 py-2 origin-bottom rounded-lg hidden group-hover:block peer-checked:group-[]:hidden tlg:group-hover:hidden group-hover:animate-zoom-in-fontbox bg-h-0 dark:bg-f-9 text-white dark:text-d-2 selection:bg-transparent">폰트색 변경</div>
+                                                <div className="tooltip after:bg-h-0 after:dark:bg-f-9 w-max absolute left-1/2 -top-11 text-sm font-medium leading-none px-3 py-2 origin-bottom rounded-lg hidden group-hover:block peer-checked:group-[]:hidden tlg:group-hover:hidden group-hover:animate-zoom-in-fontbox bg-h-0 dark:bg-f-9 selection:bg-transparent">폰트색 변경</div>
                                             </label>
                                             <div ref={textColorPicker} className="drop-shadow-dark absolute left-0 -top-2 -translate-y-full">
                                                 {
@@ -614,10 +617,10 @@ function DetailPage({params}: any) {
                                         </div>
                                         <div className="relative">
                                             <input onChange={handlebgColorPickerDisplay} id="bg-color-picker" type="checkbox" className="peer hidden"/>
-                                            <label htmlFor="bg-color-picker" ref={bgColorPickerBtn} onMouseDown={e => onMouseDown(e, 0.85, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-8 h-8 rounded-lg relative group flex flex-col justify-center items-center cursor-pointer bg-h-1 hover:bg-h-0 tlg:hover:bg-h-1 peer-checked:bg-h-0 dark:bg-f-8 hover:dark:bg-f-9 tlg:hover:dark:bg-f-8 peer-checked:dark:bg-f-9">
-                                                <i className="text-sm text-white dark:text-d-2 fa-solid fa-fill-drip"></i>
+                                            <label htmlFor="bg-color-picker" ref={bgColorPickerBtn} onMouseDown={e => onMouseDown(e, 0.85, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-8 h-8 rounded-lg relative group flex flex-col justify-center items-center cursor-pointer bg-h-1 lg:hover:bg-h-0 peer-checked:bg-h-0 dark:bg-f-8 lg:hover:dark:bg-f-9 peer-checked:dark:bg-f-9 text-white dark:text-d-2">
+                                                <i className="text-sm fa-solid fa-fill-drip"></i>
                                                 <div style={{background: bgColor.hex}} className="w-4 h-0.5 mb-0.5"></div>
-                                                <div className="tooltip after:bg-h-0 after:dark:bg-f-9 w-max absolute left-1/2 -top-11 text-sm font-medium leading-none px-3 py-2 origin-bottom rounded-lg hidden group-hover:block peer-checked:group-[]:hidden tlg:group-hover:hidden group-hover:animate-zoom-in-fontbox bg-h-0 dark:bg-f-9 text-white dark:text-d-2 selection:bg-transparent">배경색 변경</div>
+                                                <div className="tooltip after:bg-h-0 after:dark:bg-f-9 w-max absolute left-1/2 -top-11 text-sm font-medium leading-none px-3 py-2 origin-bottom rounded-lg hidden group-hover:block peer-checked:group-[]:hidden tlg:group-hover:hidden group-hover:animate-zoom-in-fontbox bg-h-0 dark:bg-f-9 selection:bg-transparent">배경색 변경</div>
                                             </label>
                                             <div ref={bgColorPicker} className="drop-shadow-dark absolute left-0 -top-2 -translate-y-full">
                                                 {
@@ -626,14 +629,14 @@ function DetailPage({params}: any) {
                                                 }
                                             </div>
                                         </div>
-                                        <button onClick={resetColorPicker} onMouseDown={e => onMouseDown(e, 0.85, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-8 h-8 rounded-lg relative group flex flex-col justify-center items-center bg-h-1 hover:bg-h-0 tlg:hover:bg-h-1 dark:bg-f-8 hover:dark:bg-f-9 tlg:hover:dark:bg-f-8 text-white dark:text-d-2">
+                                        <button onClick={resetColorPicker} onMouseDown={e => onMouseDown(e, 0.85, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-8 h-8 rounded-lg relative group flex flex-col justify-center items-center bg-h-1 lg:hover:bg-h-0 dark:bg-f-8 lg:hover:dark:bg-f-9 text-white dark:text-d-2">
                                             <i className="text-sm group-hover:rotate-45 tlg:group-hover:rotate-0 duration-100 fa-solid fa-rotate"></i>
                                             <div className="tooltip w-max absolute left-1/2 -top-11 text-sm font-medium leading-none px-3 py-2 origin-bottom rounded-lg hidden group-hover:block tlg:group-hover:hidden group-hover:animate-zoom-in-fontbox after:bg-h-0 after:dark:bg-f-9 bg-h-0 dark:bg-f-9 selection:bg-transparent">컬러 리셋하기</div>
                                         </button>
                                     </div>
                                 </div>
                             </div>
-                            <div style={{backgroundColor: bgColor.hex}} className="w-full p-6 flex flex-col gap-6 border-t border-l-b dark:border-d-6 rounded-b-lg relative overflow-hidden">
+                            <div style={{backgroundColor: bgColor.hex}} className="w-full p-6 flex flex-col gap-6 border-t border-l-b dark:border-d-6 rounded-b-lg overflow-hidden">
                                 {
                                     font.font_weight[0] === "Y"
                                     && <div>
@@ -728,20 +731,20 @@ function DetailPage({params}: any) {
                         </div>
                     </div>
                     <div>
-                        <h2 className="text-2xl tlg:text-xl text-l-2 dark:text-white font-medium mb-4 tlg:mb-3">라이센스 사용 범위</h2>
-                        <div className="mb-20 tlg:mb-16">
-                            <div className="w-full flex tlg:flex-col gap-4 justify-between items-stretch tlg:items-start">
-                                <div className="tlg:w-full shrink-0 rounded-lg bg-l-e dark:bg-d-4">
-                                    <div className="w-[41.875rem] tlg:w-full p-6 tlg:p-0 tlg:py-6 flex flex-col gap-4 text-sm">
-                                        <div className="w-full flex items-center text-base font-medium text-l-2 dark:text-white">
+                        <h2 className="text-2xl font-medium mb-6">라이센스 사용 범위</h2>
+                        <div className="mb-16 lg:mb-20">
+                            <div className="w-full flex flex-col gap-4 items-start lg:items-stretch">
+                                <div className="w-full max-w-[58rem] rounded-lg bg-l-f dark:bg-d-3">
+                                    <div className="w-full p-6 tlg:px-0 pb-3 flex flex-col gap-4 text-sm">
+                                        <div className="w-full flex items-center font-medium">
                                             <div className="w-28 shrink-0 text-center">카테고리</div>
                                             <div className="w-full">사용 범위</div>
                                             <div className="w-28 shrink-0 text-center">허용 여부</div>
                                         </div>
-                                        <div className="w-full text-l-2 dark:text-white">
-                                            <div className="w-full h-[4.5rem] flex items-center border-b border-l-b dark:border-d-6">
+                                        <div className="w-full">
+                                            <div className="w-full h-[4.5rem] flex items-center border-b border-l-d dark:border-d-6">
                                                 <div className="w-28 shrink-0 flex flex-col justify-center items-center">
-                                                    <i className="text-lg mb-0.5 fa-solid fa-print"></i>
+                                                    <i className="text-lg mb-1 fa-solid fa-print"></i>
                                                     <div>인쇄물</div>
                                                 </div>
                                                 <div className="w-full">
@@ -765,9 +768,9 @@ function DetailPage({params}: any) {
                                                     }
                                                 </div>
                                             </div>
-                                            <div className="w-full h-[4.5rem] flex items-center border-b border-l-b dark:border-d-6">
+                                            <div className="w-full h-[4.5rem] flex items-center border-b border-l-d dark:border-d-6">
                                                 <div className="w-28 shrink-0 flex flex-col justify-center items-center">
-                                                    <i className="text-lg fa-solid fa-laptop"></i>
+                                                    <i className="text-lg mb-1 fa-solid fa-laptop"></i>
                                                     <div>웹 서비스</div>
                                                 </div>
                                                 <div className="w-full">
@@ -791,9 +794,9 @@ function DetailPage({params}: any) {
                                                     }
                                                 </div>
                                             </div>
-                                            <div className="w-full h-[4.5rem] flex items-center border-b border-l-b dark:border-d-6">
+                                            <div className="w-full h-[4.5rem] flex items-center border-b border-l-d dark:border-d-6">
                                                 <div className="w-28 shrink-0 flex flex-col justify-center items-center">
-                                                    <i className="text-lg fa-solid fa-film"></i>
+                                                    <i className="text-lg mb-1 fa-solid fa-film"></i>
                                                     <div>영상물</div>
                                                 </div>
                                                 <div className="w-full">
@@ -817,9 +820,9 @@ function DetailPage({params}: any) {
                                                     }
                                                 </div>
                                             </div>
-                                            <div className="w-full h-[4.5rem] flex items-center border-b border-l-b dark:border-d-6">
+                                            <div className="w-full h-[4.5rem] flex items-center border-b border-l-d dark:border-d-6">
                                                 <div className="w-28 shrink-0 flex flex-col justify-center items-center">
-                                                    <i className="text-lg fa-solid fa-cube"></i>
+                                                    <i className="text-lg mb-1 fa-solid fa-cube"></i>
                                                     <div>포장지</div>
                                                 </div>
                                                 <div className="w-full">
@@ -843,9 +846,9 @@ function DetailPage({params}: any) {
                                                     }
                                                 </div>
                                             </div>
-                                            <div className="w-full h-[4.5rem] flex items-center border-b border-l-b dark:border-d-6">
+                                            <div className="w-full h-[4.5rem] flex items-center border-b border-l-d dark:border-d-6">
                                                 <div className="w-28 shrink-0 flex flex-col justify-center items-center">
-                                                    <i className="text-lg mb-0.5 fa-solid fa-code"></i>
+                                                    <i className="text-lg mb-1 fa-solid fa-code"></i>
                                                     <div>임베딩</div>
                                                 </div>
                                                 <div className="w-full">
@@ -863,9 +866,9 @@ function DetailPage({params}: any) {
                                                     }
                                                 </div>
                                             </div>
-                                            <div className="w-full h-[4.5rem] flex items-center border-b border-l-b dark:border-d-6">
+                                            <div className="w-full h-[4.5rem] flex items-center border-b border-l-d dark:border-d-6">
                                                 <div className="w-28 shrink-0 flex flex-col justify-center items-center">
-                                                    <i className="text-lg fa-regular fa-building"></i>
+                                                    <i className="text-lg mb-1 fa-regular fa-building"></i>
                                                     <div>BI/CI</div>
                                                 </div>
                                                 <div className="w-full">
@@ -889,9 +892,9 @@ function DetailPage({params}: any) {
                                                     }
                                                 </div>
                                             </div>
-                                            <div className="w-full h-[4.5rem] flex items-center border-b border-l-b dark:border-d-6">
+                                            <div className="w-full h-[4.5rem] flex items-center border-b border-l-d dark:border-d-6">
                                                 <div className="w-28 shrink-0 flex flex-col justify-center items-center">
-                                                    <i className="text-lg fa-solid fa-lock-open"></i>
+                                                    <i className="text-lg mb-1 fa-solid fa-lock-open"></i>
                                                     <div>OFL</div>
                                                 </div>
                                                 <div className="w-full">
@@ -913,9 +916,9 @@ function DetailPage({params}: any) {
                                                     }
                                                 </div>
                                             </div>
-                                            <div className="w-full h-[4.5rem] flex items-center border-b border-l-b dark:border-d-6">
+                                            <div className="w-full h-[4.5rem] flex items-center border-b border-l-d dark:border-d-6">
                                                 <div className="w-28 shrink-0 flex flex-col justify-center items-center">
-                                                    <i className="text-lg fa-solid fa-user-check"></i>
+                                                    <i className="text-lg mb-1 fa-solid fa-user-check"></i>
                                                     <div>용도</div>
                                                 </div>
                                                 <div className="w-full">
@@ -935,7 +938,7 @@ function DetailPage({params}: any) {
                                             </div>
                                             <div className="w-full h-[4.5rem] flex items-center">
                                                 <div className="w-28 shrink-0 flex flex-col justify-center items-center">
-                                                    <i className="text-lg fa-solid fa-share-nodes"></i>
+                                                    <i className="text-lg mb-1 fa-solid fa-share-nodes"></i>
                                                     <div>출처</div>
                                                 </div>
                                                 <div className="w-full">출처 표시</div>
@@ -950,15 +953,19 @@ function DetailPage({params}: any) {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="w-full p-6 pb-4 rounded-lg bg-l-e dark:bg-d-4">
-                                    <h2 className="flex justify-start items-center font-medium text-l-2 dark:text-white">
-                                        라이센스 본문
-                                    </h2>
-                                    <div className="w-full mt-4 relative">
-                                        <div className="w-[calc(100%-0.25rem)] h-2 absolute left-0 top-0 bg-gradient-to-b from-50% from-l-e dark:from-d-4"></div>
-                                        <div className="w-[calc(100%-0.25rem)] h-2 absolute left-0 bottom-0 bg-gradient-to-t from-50% from-l-e dark:from-d-4"></div>
-                                        <div className="custom-sm-scrollbar w-full h-[40rem] my-2 overflow-hidden overflow-y-auto">
-                                            <pre id="license" className="w-full font-sans leading-loose whitespace-pre-wrap text-l-2 dark:text-white"></pre>
+                                <div className="w-full max-w-[58rem] rounded-lg overflow-hidden bg-l-f dark:bg-d-3">
+                                    <input id="license-text" type="checkbox" className="peer hidden" defaultChecked={isMobile ? false : true}/>
+                                    <label htmlFor="license-text" className="group w-full text-lg p-8 flex justify-between items-center font-medium rounded-lg cursor-pointer lg:hover:bg-l-e lg:dark:hover:bg-d-4">
+                                        <div className="flex gap-2 selection:bg-transparent">
+                                            라이센스 본문
+                                            <span className="block peer-checked:group-[]:hidden text-h-1 dark:text-f-8">[펼치기]</span>
+                                            <span className="hidden peer-checked:group-[]:block text-h-1 dark:text-f-8">[접기]</span>
+                                        </div>
+                                        <i className="peer-checked:group-[]:rotate-180 fa-solid fa-angle-down duration-200"></i>
+                                    </label>
+                                    <div className="h-0 peer-checked:h-fit w-full overflow-hidden">
+                                        <div className="w-full p-8 pt-4">
+                                            <pre id="license" className="w-full text-sm font-sans leading-loose whitespace-pre-wrap"></pre>
                                         </div>
                                     </div>
                                 </div>
@@ -966,7 +973,7 @@ function DetailPage({params}: any) {
                             
                             {/* 카카오 애드핏 하단 띠배너 */}
                             <div>
-                                <KakaoAdFitBottomBanner marginTop={1}/>
+                                <KakaoAdFitBottomBanner marginTop={2}/>
                             </div>
                         </div>
 

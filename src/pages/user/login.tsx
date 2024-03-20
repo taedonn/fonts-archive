@@ -136,12 +136,12 @@ const Login = ({params}: any) => {
                     <div className='flex fixed right-0 top-36'>
                         <KakaoAdFitRightBanner marginRight={2}/>
                     </div>
-                    <div className='w-[22.5rem] flex flex-col justify-center items-start my-16 lg:my-24 mt-8 lg:mt-16'>
-                        <h2 className='text-2xl text-l-2 dark:text-white font-bold mb-4'>로그인</h2>
+                    <div className='w-[22.5rem] flex flex-col justify-center my-16 lg:my-24 mt-8 lg:mt-16 text-l-2 dark:text-white'>
+                        <h2 className='text-2xl font-bold mb-6'>로그인</h2>
                         {
                             alertDisplay &&
-                                <div className='w-full h-10 px-2.5 mb-3 flex justify-between items-center rounded-lg border-2 border-h-r text-xs text-l-2 dark:text-white bg-h-r/20'>
-                                    <div className='flex justify-start items-center'>
+                                <div className='w-full h-10 px-2.5 mb-3 flex justify-between items-center rounded-lg border-2 border-h-r text-xs bg-h-r/20'>
+                                    <div className='flex items-center'>
                                         <i className="text-sm text-h-r fa-regular fa-bell"></i>
                                         <div className='ml-2'>로그인에 실패했습니다.</div>
                                     </div>
@@ -150,7 +150,7 @@ const Login = ({params}: any) => {
                                     </div>
                                 </div>
                         }
-                        <form onSubmit={e => e.preventDefault()} className='w-full p-5 mb-4 rounded-lg text-l-2 dark:text-white bg-l-e dark:bg-d-3 drop-shadow-default dark:drop-shadow-dark'>
+                        <form onSubmit={e => e.preventDefault()} className='w-full p-5 mb-4 rounded-lg bg-l-e dark:bg-d-3 drop-shadow-default dark:drop-shadow-dark'>
                             <TextInput
                                 onchange={handleIdChange}
                                 state={idChk}
@@ -165,7 +165,7 @@ const Login = ({params}: any) => {
                             />
                             <label htmlFor='pw' className='w-full font-medium flex justify-between items-center ml-px mt-8'>
                                 <span>비밀번호</span>
-                                <Link href="/user/findpw" className='text-sm font-normal text-h-1 dark:text-f-8 hover:underline tlg:hover:no-underline'>비밀번호를 잊으셨나요?</Link>
+                                <Link href="/user/findpw" className='text-sm font-normal text-h-1 dark:text-f-8 lg:hover:underline'>비밀번호를 잊으셨나요?</Link>
                             </label>
                             <TextInput
                                 onchange={handlePwChange}
@@ -211,12 +211,12 @@ const Login = ({params}: any) => {
                         </div>
                         <div className='w-full h-14 rounded-lg flex justify-center items-center border border-l-b dark:border-d-6'>
                             <span className='text-l-5 dark:text-d-c mr-3'>처음 방문하셨나요?</span>
-                            <Link href="/user/register" className='text-h-1 dark:text-f-8 hover:underline tlg:hover:no-underline'>회원가입하기</Link>
+                            <Link href="/user/register" className='text-h-1 dark:text-f-8 lg:hover:underline'>회원가입하기</Link>
                         </div>
                         <div className='w-full flex justify-center items-center text-sm mt-4 text-l-5 dark:text-d-c'>
-                            <Link href="/terms" target="_blank" rel="noopener noreferrer" className='hover:underline tlg:hover:no-underline'>서비스 이용약관</Link>
+                            <Link href="/terms" target="_blank" rel="noopener noreferrer" className='lg:hover:underline'>서비스 이용약관</Link>
                             <div className='mx-1'>·</div>
-                            <Link href="/privacy" target="_blank" rel="noopener noreferrer" className='hover:underline tlg:hover:no-underline'>개인정보처리방침</Link>
+                            <Link href="/privacy" target="_blank" rel="noopener noreferrer" className='lg:hover:underline'>개인정보처리방침</Link>
                         </div>
                     </div>
                 </div>

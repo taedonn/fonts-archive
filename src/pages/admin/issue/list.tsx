@@ -70,11 +70,11 @@ const IssueList = ({params}: any) => {
                 exitOpacity={0}
                 transitionType="spring"
             >
-                <form onSubmit={e => e.preventDefault()} className='w-full px-4 flex flex-col justify-center items-center'>
-                    <div className='w-[45rem] tmd:w-full flex flex-col justify-center items-start my-16 lg:my-24 mt-8 lg:mt-16'>
-                        <h2 className='text-2xl text-l-2 dark:text-white font-bold mb-4'>문의 목록</h2>
+                <form onSubmit={e => e.preventDefault()} className='w-full px-4 flex flex-col justify-center items-center text-l-2 dark:text-white'>
+                    <div className='w-[45rem] tmd:w-full flex flex-col justify-center my-16 lg:my-24 mt-8 lg:mt-16'>
+                        <h2 className='text-2xl font-bold mb-6'>문의 목록</h2>
                         <div className='flex items-center mb-10'>
-                            <SearchInput id="search" placeholder="제목/내용" value={search}/>
+                            <SearchInput id="search" placeholder="제목/내용" value={search} color="light"/>
                             <button onClick={handleSearchClick} className="hidden">검색</button>
                         </div>
                         <div className='flex items-center gap-1.5 mb-4'>
@@ -84,7 +84,7 @@ const IssueList = ({params}: any) => {
                             <button onClick={handleFilterChange} value="etc" onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className={`${filter === "etc" ? "bg-h-1 dark:bg-f-8 text-white dark:text-d-2" : "text-l-5 dark:text-d-c hover:text-h-1 hover:dark:text-f-8"} w-20 h-9 flex justify-center items-center rounded-lg`}>기타</button>
                         </div>
                         <div className='w-full'>
-                            <div className='w-full text-sm text-l-2 dark:text-white'>
+                            <div className='w-full text-sm'>
                                 <div className='flex flex-col gap-3'>
                                     {
                                         list && list.length > 0
@@ -92,9 +92,9 @@ const IssueList = ({params}: any) => {
                                             {
                                                 list.map((issue: any) => {
                                                     return (
-                                                        <div key={issue.issue_id} className='px-6 py-4 relative rounded-lg bg-l-e dark:bg-d-4'>
-                                                            <div className="flex tlg:flex-col items-center tlg:items-start gap-2 mb-2">
-                                                                <Link href={`/admin/issue/${issue.issue_id}`} className="block text-h-1 dark:text-f-8 hover:underline tlg:hover:no-underline">{issue.issue_title}</Link>
+                                                        <div key={issue.issue_id} className='px-6 py-4 relative rounded-lg bg-l-f dark:bg-d-3'>
+                                                            <div className="flex tlg:flex-col lg:items-center gap-2 mb-2">
+                                                                <Link href={`/admin/issue/${issue.issue_id}`} className="block text-h-1 dark:text-f-8 lg:hover:underline">{issue.issue_title}</Link>
                                                                 <div className="flex gap-2 items-center">
                                                                     <div className='text-xs text-l-5 dark:text-d-c'>{dateFormat(issue.issue_created_at)}</div>
                                                                     <div className={`text-xs ${issue.issue_closed ? "text-h-1 dark:text-f-8" : "text-l-5 dark:text-d-c"}`}>{issue.issue_closed ? "답변 완료" : "답변 중"}</div>

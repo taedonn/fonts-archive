@@ -34,6 +34,7 @@ module.exports = {
                     "b": "#BDC1C6",
                     "d": "#D2D4DC",
                     "e": "#E9EAEE",
+                    "f": "#F2F1F6"
                 },
                 f: {
                     "1": "#17181B",
@@ -42,8 +43,8 @@ module.exports = {
                 },
                 d: {
                     "2": "#202124",
-                    "3": "#2D2E31",
-                    "4": "#3C4043",
+                    "3": "#323639",
+                    "4": "#404240",
                     "6": "#646568",
                     "9": "#97989C",
                     "c": "#CDCED2",
@@ -62,7 +63,7 @@ module.exports = {
             },
             backgroundImage: {
                 "gradient": "linear-gradient(90deg, #F9FAFD, #D4E1FD, #F9FAFD)",
-                "gradient-dark": "linear-gradient(90deg, #2D2E31, #3C4043, #2D2E31)"
+                "gradient-dark": "linear-gradient(90deg, #323639, #646568, #323639)"
             },
             backgroundSize: {
                 "gradient-size": "200% 100%"

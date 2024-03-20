@@ -27,7 +27,6 @@ class MyDocument extends Document {
         return (
             <Html lang="ko">
                 <Head>
-                    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fonts-archive/SpoqaHanSansNeo/SpoqaHanSansNeo.css" type="text/css"/>
                     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" type="text/css"/>
                     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" type="text/css"/>
                     <meta name="naver-site-verification" content="024c9dabcc1f9744c1804786ed5ed6b481391f3a" />

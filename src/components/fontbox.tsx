@@ -206,7 +206,7 @@ export default function FontBox ({
 
     return (
         <>
-            <div className={`${expand ? "w-[calc(100%-320px)] tlg:w-full" : "w-full"} pt-12 px-8 tlg:px-4 duration-200`}>
+            <div className={`${expand ? "w-full lg:w-[calc(100%-320px)]" : "w-full"} pt-12 px-4 lg:px-8 duration-200 text-l-2 dark:text-white`}>
                 <div className="w-full mt-4 lg:mt-8 mb-32 relative flex flex-col">
                     <div className='w-full flex'>
                         <KakaoAdFitTopBanner marginBottom={1}/>
@@ -215,12 +215,12 @@ export default function FontBox ({
                     {/* 로그인 중이 아닐 때 좋아요 alert창 팝업 */}
                     {
                         alertDisplay
-                        && <div className='fixed z-20 top-6 right-8 tlg:right-4 w-max h-16 px-4 flex justify-between items-center rounded-lg text-sm text-l-2 dark:text-white bg-l-e dark:bg-d-4'>
-                            <div className='flex flex-row justify-start items-center'>
+                        && <div className='fixed z-20 top-6 right-4 lg:right-8 w-max h-16 px-4 flex justify-between items-center rounded-lg text-sm bg-l-f dark:bg-d-3'>
+                            <div className='flex items-center'>
                                 <i className="text-lg text-h-1 dark:text-f-8 bi bi-stars"></i>
                                 <div className='ml-3'>
                                     좋아요 기능은 로그인 시 이용 가능합니다. <br/>
-                                    <Link href="/user/login" className='text-h-1 dark:text-f-8 hover:underline'>로그인 하러 가기</Link>
+                                    <Link href="/user/login" className='text-h-1 dark:text-f-8 lg:hover:underline'>로그인 하러 가기</Link>
                                 </div>
                             </div>
                             <div onClick={handleAlertClose} onMouseDown={e => onMouseDown(e, 0.85, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className='flex justify-center items-center ml-3 cursor-pointer'>
@@ -245,27 +245,26 @@ export default function FontBox ({
                                         cdn_url: string
                                         liked_user: LikedUser
                                     }) => (
-                                        <div aria-label="font-link" key={font.code} className="w-full group/wrap relative pt-8 tlg:pt-6 pb-2 hover:rounded-lg tlg:hover:rounded-none border-t first:border-t-0 last:border-b border-l-b dark:border-d-4 tlg:hover:border-l-b tlg:hover:dark:border-d-4 [&+div]:hover:border-transparent tlg:[&+div]:hover:border-l-b tlg:[&+div]:hover:dark:border-d-4 hover:border-transparent hover:bg-l-e hover:dark:bg-d-4 tlg:hover:bg-transparent tlg:hover:dark:bg-transparent text-l-2 dark:text-white animate-fade-in-fontbox cursor-pointer">
+                                        <div aria-label="font-link" key={font.code} className="w-full group/wrap relative pt-6 lg:pt-8 pb-2 lg:hover:rounded-lg border-t first:border-t-0 last:border-b border-l-b dark:border-d-6 lg:[&+div]:hover:border-transparent lg:hover:border-transparent lg:hover:bg-l-e lg:hover:dark:bg-d-4 animate-fade-in-fontbox cursor-pointer">
                                             <Link href={`/post/${font.font_family.replaceAll(" ", "+")}`} className='w-full h-full absolute z-10 left-0 top-0'></Link>
                                             <link href={font.cdn_url} rel="stylesheet" type="text/css" itemProp="url"></link>
-                                            <div className='w-max pl-8 tlg:pl-4 relative tlg:static flex tlg:flex-col items-center tlg:items-start'>
-                                                <div className="text-xl tlg:text-lg tlg:mb-2">{font.name}</div>
-                                                <div className='w-px h-4 mx-3 tlg:hidden bg-l-b dark:bg-d-9'></div>
-                                                <div className="text-l-5 dark:text-d-9">by {font.source}</div>
-                                                <div className='group absolute z-20 -right-4 tlg:right-8 top-1/2 tlg:top-12 translate-x-full -translate-y-1/2'>
+                                            <div className='w-max pl-4 lg:pl-8 lg:relative flex tlg:flex-col lg:items-center'>
+                                                <div className="text-lg lg:text-xl tlg:mb-2">{font.name}</div>
+                                                <div className="lg:ml-3">by<span className="ml-2">{font.source}</span></div>
+                                                <div className='group absolute z-20 -right-8 lg:-right-4 top-12 lg:top-1/2 translate-x-full -translate-y-1/2'>
                                                     <input onClick={handleLikeClick} onChange={handleLikeChange} type="checkbox" id={font.code.toString()} className='peer hidden' defaultChecked={handleDefaultLike(font.code, font.liked_user)}/>
                                                     <label htmlFor={font.code.toString()} onMouseDown={e => onMouseDown(e, 0.8, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className='block group cursor-pointer'>
-                                                        <i className="block peer-checked:group-[]:hidden text-xl tlg:text-lg bi bi-heart"></i>
-                                                        <i className="hidden peer-checked:group-[]:block text-xl tlg:text-lg text-h-r bi bi-heart-fill"></i>
+                                                        <i className="block peer-checked:group-[]:hidden text-lg lg:text-xl bi bi-heart"></i>
+                                                        <i className="hidden peer-checked:group-[]:block text-lg lg:text-xl text-h-r bi bi-heart-fill"></i>
                                                     </label>
-                                                    <div className={`${hoverDisplay === true ? 'group-hover:block' : 'group-hover:hidden'} tlg:group-hover:hidden tooltip w-max absolute left-1/2 -top-10 px-3 py-2 text-sm font-medium leading-none origin-bottom rounded-lg hidden group-hover:animate-zoom-in-fontbox after:bg-h-r bg-h-r text-white`}>{handleDefaultLike(font.code, font.liked_user) === false ? '좋아요' : '좋아요 해제'}</div>
+                                                    <div className={`${hoverDisplay === true ? 'lg:group-hover:block' : 'lg:group-hover:hidden'} hidden tooltip w-max absolute left-1/2 -top-10 px-3 py-2 text-sm font-medium leading-none origin-bottom rounded-lg group-hover:animate-zoom-in-fontbox after:bg-h-r bg-h-r text-white`}>{handleDefaultLike(font.code, font.liked_user) === false ? '좋아요' : '좋아요 해제'}</div>
                                                 </div>
                                             </div>
-                                            <div className="w-full relative py-6 tlg:py-4 overflow-hidden">
-                                                <div style={{fontFamily:"'"+font.font_family+"'"}} className="w-full pl-8 tlg:pl-4 text-4xl tlg:text-3xl text-normal">
+                                            <div className="w-full relative py-4 lg:py-6 overflow-hidden">
+                                                <div style={{fontFamily:"'"+font.font_family+"'"}} className="w-full pl-4 lg:pl-8 text-3xl lg:text-4xl text-normal">
                                                     <p className={`${font.code + '-text'} whitespace-nowrap text-l-b dark:text-d-6`}><DummyText lang={font.lang} text={text} num={num}/></p>
                                                 </div>
-                                                <div className='w-40 h-14 absolute right-0 top-1/2 -translate-y-1/2 bg-gradient-to-l from-white dark:from-d-2 from-25% group-hover/wrap:from-l-e group-hover/wrap:dark:from-d-4 tlg:group-hover/wrap:from-white tlg:group-hover/wrap:dark:from-d-2'></div>
+                                                <div className='w-40 h-14 absolute right-0 top-1/2 -translate-y-1/2 bg-gradient-to-l from-white dark:from-d-2 from-25% lg:group-hover/wrap:from-l-e lg:group-hover/wrap:dark:from-d-4'></div>
                                             </div>
                                         </div>
                                     ))}

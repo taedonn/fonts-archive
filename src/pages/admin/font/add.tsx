@@ -211,13 +211,13 @@ const Add = ({params}: any) => {
                 exitOpacity={0}
                 transitionType="spring"
             >
-                <div className='w-full px-4 flex flex-col justify-center items-center'>
-                    <div className='max-w-[45rem] w-full flex flex-col justify-center items-start my-16 lg:my-24 mt-8 lg:mt-16'>
-                        <h2 className='text-2xl text-l-2 dark:text-white font-bold mb-4'>폰트 추가</h2>
+                <div className='w-full px-4 flex flex-col justify-center items-center text-l-2 dark:text-white'>
+                    <div className='max-w-[45rem] w-full flex flex-col justify-center my-16 lg:my-24 mt-8 lg:mt-16'>
+                        <h2 className='text-2xl font-bold mb-6'>폰트 추가</h2>
                         <div id="add-btn-success" className="w-full">
                             {
                                 addBtnSuccess === "success"
-                                ? <div className='w-full h-10 px-2.5 mb-3 flex justify-between items-center rounded-lg border-2 border-h-1 dark:border-f-8 text-xs text-l-2 dark:text-white bg-h-1/20 dark:bg-f-8/20'>
+                                ? <div className='w-full h-10 px-2.5 mb-3 flex justify-between items-center rounded-lg border-2 border-h-1 dark:border-f-8 text-xs bg-h-1/20 dark:bg-f-8/20'>
                                     <div className='flex items-center'>
                                         <i className="text-sm text-h-1 dark:text-f-8 fa-regular fa-bell"></i>
                                         <div className='ml-2'>폰트가 추가되었습니다.</div>
@@ -227,7 +227,7 @@ const Add = ({params}: any) => {
                                     </div>
                                 </div>
                                 : addBtnSuccess === "fail"
-                                    ? <div className='w-full h-10 px-2.5 mb-3 flex justify-between items-center rounded-lg border-2 border-h-r text-xs text-l-2 dark:text-white bg-h-r/20'>
+                                    ? <div className='w-full h-10 px-2.5 mb-3 flex justify-between items-center rounded-lg border-2 border-h-r text-xs bg-h-r/20'>
                                         <div className='flex items-center'>
                                             <i className="text-sm text-h-r fa-regular fa-bell"></i>
                                             <div className='ml-2'>폰트를 추가하는데 실패했습니다.</div>
@@ -238,7 +238,7 @@ const Add = ({params}: any) => {
                                     </div> : <></>
                             }
                         </div>
-                        <div className='w-full p-5 rounded-lg text-l-2 dark:text-white bg-l-e dark:bg-d-3 drop-shadow-default dark:drop-shadow-dark'>
+                        <div className='w-full p-5 rounded-lg bg-l-e dark:bg-d-3 drop-shadow-default dark:drop-shadow-dark'>
                             <div className="flex flex-col">
                                 <TextInput
                                     onchange={handleFontNameChange}
@@ -354,7 +354,7 @@ const Add = ({params}: any) => {
                                 <label htmlFor="font-download-link" className="mt-8 flex items-center">
                                     <div className="mr-2 font-medium">다운로드 링크</div>
                                     <button id="font-download-link-copy" onClick={copyOnClick} value="https://github.com/fonts-archive/NanumSquare/archive/refs/heads/main.zip" className="flex items-center text-sm text-h-1 dark:text-f-8">
-                                        <span className="hover:underline tlg:hover:no-underline">예시 복사하기</span>
+                                        <span className="lg:hover:underline">예시 복사하기</span>
                                         <i className="copy_btn hidden ml-1 fa-solid fa-check"></i>
                                     </button>
                                 </label>
@@ -374,7 +374,7 @@ const Add = ({params}: any) => {
                                 <label htmlFor="font-cdn-css" className="mt-8 flex items-center">
                                     <div className="mr-2 font-medium">CSS 설정하기</div>
                                     <button id="font-cdn-css-copy" onClick={copyOnClick} value="font-family: 'Nanum Square';" className="flex items-center text-sm text-h-1 dark:text-f-8">
-                                        <span className="hover:underline tlg:hover:no-underline">예시 복사하기</span>
+                                        <span className="lg:hover:underline">예시 복사하기</span>
                                         <i className="copy_btn hidden ml-1 fa-solid fa-check"></i>
                                     </button>
                                 </label>
@@ -394,7 +394,7 @@ const Add = ({params}: any) => {
                                 <label htmlFor="font-cdn-link" className="mt-8 flex items-center">
                                     <div className="mr-2 font-medium">Link 방식</div>
                                     <button id="font-cdn-link-copy" onClick={copyOnClick} value='<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fonts-archive/NanumSquare/NanumSquare.css" type="text/css"/>' className="flex items-center text-sm text-h-1 dark:text-f-8">
-                                        <span className="hover:underline tlg:hover:no-underline">예시 복사하기</span>
+                                        <span className="lg:hover:underline">예시 복사하기</span>
                                         <i className="copy_btn hidden ml-1 fa-solid fa-check"></i>
                                     </button>
                                 </label>
@@ -414,7 +414,7 @@ const Add = ({params}: any) => {
                                 <label htmlFor="font-cdn-import" className="mt-8 flex items-center">
                                     <div className="mr-2 font-medium">Import 방식</div>
                                     <button id="font-cdn-import-copy" onClick={copyOnClick} value="@import url('https://cdn.jsdelivr.net/gh/fonts-archive/NanumSquare/NanumSquare.css');" className="flex items-center text-sm text-h-1 dark:text-f-8">
-                                        <span className="hover:underline tlg:hover:no-underline">예시 복사하기</span>
+                                        <span className="lg:hover:underline">예시 복사하기</span>
                                         <i className="copy_btn hidden ml-1 fa-solid fa-check"></i>
                                     </button>
                                 </label>
@@ -448,7 +448,7 @@ const Add = ({params}: any) => {
             url('https://cdn.jsdelivr.net/gh/fonts-archive/NanumSquare/NanumSquare.ttf') format('truetype');
 }`} 
                                         className="flex items-center text-sm text-h-1 dark:text-f-8">
-                                        <span className="hover:underline tlg:hover:no-underline">예시 복사하기</span>
+                                        <span className="lg:hover:underline">예시 복사하기</span>
                                         <i className="copy_btn hidden ml-1 fa-solid fa-check"></i>
                                     </button>
                                 </label>
@@ -479,7 +479,7 @@ const Add = ({params}: any) => {
                                 <label htmlFor="font-cdn-url" className="mt-8 flex items-center">
                                     <div className="mr-2 font-medium">CDN 주소</div>
                                     <button id="font-cdn-url-copy" onClick={copyOnClick} value="https://cdn.jsdelivr.net/gh/fonts-archive/NanumSquare/NanumSquare.css" className="flex items-center text-sm text-h-1 dark:text-f-8">
-                                        <span className="hover:underline tlg:hover:no-underline">예시 복사하기</span>
+                                        <span className="lg:hover:underline">예시 복사하기</span>
                                         <i className="copy_btn hidden ml-1 fa-solid fa-check"></i>
                                     </button>
                                 </label>

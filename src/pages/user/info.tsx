@@ -335,7 +335,7 @@ const Info = ({params}: any) => {
                 exitOpacity={0}
                 transitionType="spring"
             >
-                <form onSubmit={e => e.preventDefault()} className='w-full flex flex-col justify-center items-center'>
+                <form onSubmit={e => e.preventDefault()} className='w-full flex flex-col justify-center items-center text-l-2 dark:text-white'>
                     <div className='flex fixed left-0 top-36'>
                         <KakaoAdFitLeftBanner marginLeft={2}/>
                     </div>
@@ -343,8 +343,8 @@ const Info = ({params}: any) => {
                         <KakaoAdFitRightBanner marginRight={2}/>
                     </div>
                     <div className='w-[22.5rem] flex flex-col justify-center items-start my-16 lg:my-24 mt-8 lg:mt-16'>
-                        <h2 className='text-2xl mb-4 font-bold text-l-2 dark:text-white'>프로필 정보</h2>
-                        <div className='w-full flex items-end gap-3 mb-2.5'>
+                        <h2 className='text-2xl font-bold mb-6'>프로필 정보</h2>
+                        <div className='w-full flex items-end gap-3 mb-3'>
                             {
                                 user.auth === "credentials"
                                     ? <div className='text-sm text-l-5 dark:text-d-c'>{timeFormat(user.updated_at)}에 마지막으로 수정됨</div>
@@ -354,34 +354,34 @@ const Info = ({params}: any) => {
                         {
                             alertDisplay
                             ? alert === 'name'
-                                ? <div className='w-full h-10 px-2.5 mb-3 flex justify-between items-center rounded-lg border-2 border-h-1 dark:border-f-8 text-xs text-l-2 dark:text-white bg-h-1/20 dark:bg-f-8/20'>
-                                    <div className='flex justify-start items-center'>
+                                ? <div className='w-full h-10 px-2.5 mb-3 flex justify-between items-center rounded-lg border-2 border-h-1 dark:border-f-8 text-xs bg-h-1/20 dark:bg-f-8/20'>
+                                    <div className='flex items-center'>
                                         <i className='text-sm text-h-1 dark:text-f-8 fa-regular fa-bell'></i>
                                         <div className='ml-2'>이름이 변경되었습니다.</div>
                                     </div>
                                     <div onClick={handleAlertClose} className='flex justify-center items-center cursor-pointer'>
-                                        <i className="text-sm text-l-2 dark:text-white fa-solid fa-xmark"></i>
+                                        <i className="text-sm fa-solid fa-xmark"></i>
                                     </div>
                                 </div>
                                 : alert === 'pw'
                                     ? <>
-                                        <div className='w-full h-10 px-2.5 mb-3 flex justify-between items-center rounded-lg border-2 border-h-1 dark:border-f-8 text-xs text-l-2 dark:text-white bg-h-1/20 dark:bg-f-8/20'>
-                                            <div className='flex justify-start items-center'>
+                                        <div className='w-full h-10 px-2.5 mb-3 flex justify-between items-center rounded-lg border-2 border-h-1 dark:border-f-8 text-xs bg-h-1/20 dark:bg-f-8/20'>
+                                            <div className='flex items-center'>
                                                 <i className='text-sm text-h-1 dark:text-f-8 fa-regular fa-bell'></i>
                                                 <div className='ml-2'>비밀번호가 변경되었습니다.</div>
                                             </div>
                                             <div onClick={handleAlertClose} className='flex justify-center items-center cursor-pointer'>
-                                                <i className="text-sm text-l-2 dark:text-white fa-solid fa-xmark"></i>
+                                                <i className="text-sm fa-solid fa-xmark"></i>
                                             </div>
                                         </div>
                                     </> : <></>
                             : <></>
                         }
-                        <div className='w-full p-5 rounded-lg text-l-2 dark:text-white bg-l-e dark:bg-d-3 drop-shadow-default dark:drop-shadow-dark'>
+                        <div className='w-full p-5 rounded-lg bg-l-e dark:bg-d-3 drop-shadow-default dark:drop-shadow-dark'>
                             {
                                 user.auth !== "credentials"
-                                    && <div className='text-sm tlg:text-xs h-10 tlg:h-8 px-3 mb-4 flex items-center rounded-lg border-2 text-l-2 dark:text-white border-h-1 dark:border-f-8 bg-h-1/20 dark:bg-f-8/20'>
-                                        <div className='mr-0.5 font-bold text-l-2 dark:text-white'>[{user.auth === "google" ? "Google" : user.auth === "kakao" ? "카카오" : user.auth === "github" ? "GitHub" : user.auth === "naver" ? "네이버" : ""}]</div>에서 연동 중
+                                    && <div className='text-xs lg:text-sm h-8 lg:h-10 px-3 mb-4 flex items-center rounded-lg border-2 border-h-1 dark:border-f-8 bg-h-1/20 dark:bg-f-8/20'>
+                                        <div className='mr-0.5 font-bold'>[{user.auth === "google" ? "Google" : user.auth === "kakao" ? "카카오" : user.auth === "github" ? "GitHub" : user.auth === "naver" ? "네이버" : ""}]</div>에서 연동 중
                                     </div>
                             }
                             <div className='flex items-center'>
@@ -405,23 +405,23 @@ const Info = ({params}: any) => {
                                             && <div ref={refImgPopup} className='w-max hidden peer-checked:block absolute left-[1.875rem] -bottom-2.5 -translate-x-1/2 translate-y-full rounded-lg after:content-[""] after:w-2 after:h-2 after:absolute after:left-1/4 after:-top-1 after:-translate-x-1/2 after:rotate-45 drop-shadow-default dark:drop-shadow-dark bg-l-d dark:bg-d-4 dark:text-white after:bg-l-d after:dark:bg-d-4'>
                                                 <div className='flex'>
                                                     <input onChange={changeImg} className='hidden' type='file' accept='image/*' id='profile-img-upload'/>
-                                                    <label className='w-full relative z-10 text-xs leading-none rounded-t-lg pl-3 pr-3.5 pt-2.5 pb-2 hover:bg-h-1 hover:dark:bg-f-8 hover:text-white hover:dark:text-d-2 cursor-pointer' htmlFor='profile-img-upload'>사진 변경</label>
+                                                    <label className='w-full relative z-10 text-xs leading-none rounded-t-lg pl-3 pr-3.5 pt-2.5 pb-2 hover:bg-h-1 hover:dark:bg-f-8 lg:hover:text-white hover:dark:text-d-2 cursor-pointer' htmlFor='profile-img-upload'>사진 변경</label>
                                                 </div>
-                                                <button onClick={deleteImg} className='w-full text-xs leading-none rounded-b-lg pl-3 pr-3.5 pt-2 pb-2.5 hover:bg-h-1 hover:dark:bg-f-8 hover:text-white hover:dark:text-d-2 cursor-pointer'>사진 제거</button>
+                                                <button onClick={deleteImg} className='w-full text-xs leading-none rounded-b-lg pl-3 pr-3.5 pt-2 pb-2.5 hover:bg-h-1 hover:dark:bg-f-8 lg:hover:text-white hover:dark:text-d-2 cursor-pointer'>사진 제거</button>
                                             </div>
                                     }
                                 </div>
                                 <div className='ml-4'>
-                                    <h2 className='mr-px text-l-2 dark:text-white font-bold'>프로필 이미지</h2>
+                                    <h2 className='mr-px font-bold'>프로필 이미지</h2>
                                     <div className='mt-1.5 text-xs font-normal leading-none break-keep text-l-5 dark:text-d-c'>
                                         {
                                             user.auth === "credentials"
                                                 ? <>
-                                                    <h3 className='flex items-start mb-0.5 leading-normal'><div className='w-0.5 h-0.5 mr-1 mt-2 rounded-full bg-l-5 dark:bg-d-c'></div>500px보다 큰 이미지는 축소되어 업로드됩니다.</h3>
-                                                    <h3 className='flex items-start leading-normal'><div className='w-0.5 h-0.5 mr-1 mt-2 shrink-0 rounded-full bg-l-5 dark:bg-d-c'></div>업로드된 이미지는 다음 로그인부터 적용됩니다.</h3>
+                                                    <h3 className='flex mb-0.5 leading-normal'><div className='w-0.5 h-0.5 mr-1 mt-2 rounded-full bg-l-5 dark:bg-d-c'></div>500px보다 큰 이미지는 축소되어 업로드됩니다.</h3>
+                                                    <h3 className='flex leading-normal'><div className='w-0.5 h-0.5 mr-1 mt-2 shrink-0 rounded-full bg-l-5 dark:bg-d-c'></div>업로드된 이미지는 다음 로그인부터 적용됩니다.</h3>
                                                 </> : <>
-                                                    <h3 className='flex items-start leading-normal'><div className='w-0.5 h-0.5 mr-1 mt-2 shrink-0 rounded-full bg-l-5 dark:bg-d-c'></div>SNS 계정의 프로필 이미지가 표시됩니다.</h3>
-                                                    <h3 className='flex items-start leading-normal'><div className='w-0.5 h-0.5 mr-1 mt-2 shrink-0 rounded-full bg-l-5 dark:bg-d-c'></div>사생활 보호 중일 시, 랜덤 이미지가 표시됩니다.</h3>
+                                                    <h3 className='flex leading-normal'><div className='w-0.5 h-0.5 mr-1 mt-2 shrink-0 rounded-full bg-l-5 dark:bg-d-c'></div>SNS 계정의 프로필 이미지가 표시됩니다.</h3>
+                                                    <h3 className='flex leading-normal'><div className='w-0.5 h-0.5 mr-1 mt-2 shrink-0 rounded-full bg-l-5 dark:bg-d-c'></div>사생활 보호 중일 시, 랜덤 이미지가 표시됩니다.</h3>
                                                 </>
                                         }
                                     </div>

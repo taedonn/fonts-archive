@@ -112,17 +112,17 @@ const Notices = ({params}: any) => {
                 exitOpacity={0}
                 transitionType="spring"
             >
-                <div className='w-full px-4 flex flex-col justify-center items-center my-16 lg:my-24 mt-8 lg:mt-16'>
-                    <div className='notices w-[45.5rem] tmd:w-full flex flex-col justify-center items-start'>
-                        <div className='flex items-center mb-4'>
+                <div className='w-full px-4 flex flex-col justify-center items-center my-16 lg:my-24 mt-8 lg:mt-16 text-l-2 dark:text-white'>
+                    <div className='notices w-full md:w-[45.5rem] flex flex-col justify-center'>
+                        <div className='flex items-center mb-6'>
                             <h2 className='text-2xl text-h-2 dark:text-white font-bold'>공지사항</h2>
-                            <h3 className='ml-4 text-l-5 dark:text-d-c'>폰트 업데이트 & 소식</h3>
+                            <h3 className='ml-4'>폰트 업데이트 & 소식</h3>
                         </div>
-                        <div className='relative mb-10 text-l-2 dark:text-white'>
-                            <SearchInput onkeyup={handleKeyUp} id="search" placeholder="검색어 입력"/>
+                        <div className='relative mb-10'>
+                            <SearchInput onkeyup={handleKeyUp} id="search" placeholder="검색어 입력" color="light"/>
                         </div>
                         <div className='w-full flex'>
-                            <KakaoAdFitTopBanner marginBottom={1}/>
+                            <KakaoAdFitTopBanner marginBottom={1.25}/>
                         </div>
                         <div className='flex items-center gap-1.5 mb-4'>
                             <div>
@@ -143,10 +143,10 @@ const Notices = ({params}: any) => {
                             ?  noticesList.map((notice: notices) => {
                                 return <div key={notice.notice_id.toString()} className='notice group w-full flex flex-col gap-3'>
                                     <input type='checkbox' id={`notice-${notice.notice_id}`} className='hidden peer/expand'/>
-                                    <label htmlFor={`notice-${notice.notice_id}`} className='group/label rounded-lg cursor-pointer border-2 border-transparent text-l-2 dark:text-white bg-l-e dark:bg-d-4 hover:border-h-1 hover:dark:border-f-8 tlg:hover:border-transparent tlg:hover:dark:border-transparent peer-checked/expand:border-h-1 peer-checked/expand:dark:border-f-8 peer-checked/expand:bg-transparent'>
+                                    <label htmlFor={`notice-${notice.notice_id}`} className='group/label rounded-lg cursor-pointer border-2 border-transparent bg-l-f dark:bg-d-3 lg:hover:border-h-1 lg:hover:dark:border-f-8 peer-checked/expand:border-h-1 peer-checked/expand:dark:border-f-8 peer-checked/expand:bg-transparent'>
                                         <div className='w-full h-14 text-sm flex justify-between items-center'>
                                             <div className='flex items-center'>
-                                                <div className='w-[6.25rem] tlg:w-20 shrink-0 flex justify-center items-center'><div className='px-1 border-b-2 border-h-1 dark:border-f-8 selection:bg-transparent'>{notice.notice_type === "service" ? "서비스" : "폰트"}</div></div>
+                                                <div className='lg:w-20 w-[6.25rem] shrink-0 flex justify-center items-center'><div className='px-1 border-b-2 border-h-1 dark:border-f-8 selection:bg-transparent'>{notice.notice_type === "service" ? "서비스" : "폰트"}</div></div>
                                                 <div className='w-full ml-3 selection:bg-transparent'><div className='ellipsed-text'>{notice.notice_title}</div></div>
                                             </div>
                                             <div className='flex items-center mr-5 text-l-5 dark:text-d-c'>
@@ -155,10 +155,10 @@ const Notices = ({params}: any) => {
                                             </div>
                                         </div>
                                     </label>
-                                    <pre className='font-sans w-full h-0 whitespace-pre-wrap peer-checked/expand:h-[auto] px-8 peer-checked/expand:py-6 peer-checked/expand:mb-3 text-sm leading-6 duration-100 flex items-center rounded-lg overflow-hidden bg-l-e dark:bg-d-4 text-l-2 dark:text-white'>{notice.notice_content}</pre>
+                                    <pre className='font-sans w-full h-0 whitespace-pre-wrap peer-checked/expand:h-[auto] px-8 peer-checked/expand:py-6 peer-checked/expand:mb-3 text-sm leading-6 duration-100 flex items-center rounded-lg overflow-hidden bg-l-f dark:bg-d-3'>{notice.notice_content}</pre>
                                 </div>
                             })
-                            : <div className='w-full h-20 flex justify-center items-center text-sm text-center border-t border-l-b dark:border-d-6 text-l-2 dark:text-white'>공지사항을 찾을 수 없습니다.</div>
+                            : <div className='w-full h-20 flex justify-center items-center text-sm text-center border-t border-l-b dark:border-d-6'>공지사항을 찾을 수 없습니다.</div>
                         }
                         <div className='w-full flex'>
                             <KakaoAdFitBottomBanner marginTop={1}/>

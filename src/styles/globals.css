@@ -11,6 +11,43 @@ button { border: none; outline: none; background-color: transparent; line-height
 body { background-color: #FFF; }
 html.dark body { background-color: #202124; }
 
+/* 폰트 */
+@font-face {
+    font-family: 'Spoqa Han Sans Neo';
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+    src: url('/fonts/SpoqaHanSansNeo-Thin.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Spoqa Han Sans Neo';
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+    src: url('/fonts/SpoqaHanSansNeo-Light.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Spoqa Han Sans Neo';
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+    src: url('/fonts/SpoqaHanSansNeo-Regular.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Spoqa Han Sans Neo';
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+    src: url('/fonts/SpoqaHanSansNeo-Medium.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Spoqa Han Sans Neo';
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+    src: url('/fonts/SpoqaHanSansNeo-Bold.woff2') format('woff2');
+}
+
 /* 셀렉트박스 */
 select {
     appearance: none;
@@ -120,11 +157,11 @@ html.dark #__next .Mui-checked + .MuiSwitch-track { background-color: #8AB4F880;
 /* Material UI - Pagination */
 #__next .MuiPagination-ul button { color: #5F6368; transition: 0s; }
 html.dark #__next .MuiPagination-ul button { color: #CDCED2; }
-html.dark #__next .MuiPagination-ul button:hover { background-color: #2D2E31; }
-#__next .MuiPagination-ul .Mui-selected { color: #202124; background-color: #E9EAEE; }
-#__next .MuiPagination-ul .Mui-selected:hover { background-color: #D2D4DC; }
-html.dark #__next .MuiPagination-ul .Mui-selected { color: #FFFFFF; background-color: #3C4043; }
-html.dark #__next .MuiPagination-ul .Mui-selected:hover { background-color: #646568; }
+html.dark #__next .MuiPagination-ul button:hover { background-color: #323639; }
+#__next .MuiPagination-ul .Mui-selected { color: #202124; background-color: #F2F1F6; }
+#__next .MuiPagination-ul .Mui-selected:hover { background-color: #E9EAEE; }
+html.dark #__next .MuiPagination-ul .Mui-selected { color: #FFFFFF; background-color: #323639; }
+html.dark #__next .MuiPagination-ul .Mui-selected:hover { background-color: #404240; }
 #__next .MuiPaginationItem-root { color: #202124; }
 html.dark #__next .MuiPaginationItem-root { color: #FFFFFF; }
 
@@ -327,16 +364,16 @@ html.dark .animated-mail .letter .letter-stamp {
     #active .when-active-1 { background-color: #FFFFFF; }
     #active .when-active-2 { color: #1B73E7; }
     #active .when-active-3 { color: #FFFFFF; }
-    #active .when-active-4 { color: #D2D4DC; }
-    #active .when-active-5 { color: #D2D4DC; }
+    #active .when-active-4 { color: #E9EAEE; }
+    #active .when-active-5 { color: #E9EAEE; }
     #active .when-active-6 { color: #FFFFFF; }
     html.dark #active { background-color: #8AB4F8; }
     html.dark #active .when-active-1 { background-color: #202124; }
     html.dark #active .when-active-2 { color: #8AB4F8; }
     html.dark #active .when-active-3 { color: #202124; }
-    html.dark #active .when-active-4 { color: #3C4043; }
-    html.dark #active .when-active-5 { color: #3C4043; }
-    html.dark #active .wㄴhen-active-6 { color: #202124; }
+    html.dark #active .when-active-4 { color: #323639; }
+    html.dark #active .when-active-5 { color: #323639; }
+    html.dark #active .when-active-6 { color: #202124; }
 }
 
 /* 툴팁 호버 이벤트 */
