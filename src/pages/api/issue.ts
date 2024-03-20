@@ -84,7 +84,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 });
 
                 // transporter에 정의된 계정 정보를 사용해 이메일 전송
-                transporter === await transporter.sendMail({
+                const sendToUser = {
                     from: '"폰트 아카이브" <taedonn@taedonn.com>',
                     to: email,
                     subject: '[폰트 아카이브] 문의해주셔서 감사합니다.',
@@ -118,10 +118,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                             </div>
                         </div>
                     `
-                });
+                }
 
-                // 관리자 메일로 보내기
-                transporter === await transporter.sendMail({
+                const sendToAdmin = {
                     from: '"폰트 아카이브" <taedonn@taedonn.com>',
                     to: "taedonn@taedonn.com",
                     subject: '[폰트 아카이브] 고객 문의 내용',
@@ -178,7 +177,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                             </div>
                         </div>
                     `
-                });
+                }
+
+                // 관리자 메일로 보내기
+                await transporter.sendMail(sendToUser);
+                await transporter.sendMail(sendToAdmin);
 
                 return res.status(200).json({
                     msg: "이메일 발송 및 DB 저장 성공"

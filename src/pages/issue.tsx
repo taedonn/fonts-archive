@@ -423,10 +423,10 @@ const IssueFont = ({params}: any) => {
                 exitOpacity={0}
                 transitionType="spring"
             >
-                <div className='w-full px-4 flex flex-col justify-center items-center'>
-                    <div className='max-w-[45.5rem] w-full flex flex-col justify-center items-start my-16 lg:my-24 mt-8 lg:mt-16'>
-                        <h2 className='text-2xl mb-4 font-bold text-l-2 dark:text-white'>문의하기</h2>
-                        <h3 className='tlg:text-sm text-l-5 dark:text-d-c mb-3'>
+                <div className='w-full px-4 flex flex-col justify-center items-center text-l-2 dark:text-white'>
+                    <div className='max-w-[45.5rem] w-full flex flex-col justify-center my-16 lg:my-24 mt-8 lg:mt-16'>
+                        <h2 className='text-2xl mb-6 font-bold'>문의하기</h2>
+                        <h3 className='tlg:text-sm mb-3'>
                             제보 사항(버그, 새 폰트)이나 문의 사항 있으시면 연락 부탁드립니다.
                         </h3>
                         <div className='w-full flex'>
@@ -436,31 +436,31 @@ const IssueFont = ({params}: any) => {
                             {
                                 isIssued === "success"
                                 ? <>
-                                    <div className='w-full h-10 px-2.5 mb-3 flex justify-between items-center rounded-lg border-2 border-h-1 dark:border-f-8 text-xs text-l-2 dark:text-white bg-h-1/20 dark:bg-f-8/20'>
-                                        <div className='flex justify-start items-center'>
+                                    <div className='w-full h-10 px-2.5 mb-3 flex justify-between items-center rounded-lg border-2 border-h-1 dark:border-f-8 text-xs bg-h-1/20 dark:bg-f-8/20'>
+                                        <div className='flex items-center'>
                                             <i className="text-sm text-h-1 dark:text-f-8 fa-regular fa-bell"></i>
                                             <div className='ml-2'>문의해주셔서 감사합니다. 빠른 시일내에 답변 드리겠습니다.</div>
                                         </div>
                                         <div onClick={handleIssueClose} className='flex justify-center items-center cursor-pointer'>
-                                            <i className="text-sm text-l-2 dark:text-white fa-solid fa-xmark"></i>
+                                            <i className="text-sm fa-solid fa-xmark"></i>
                                         </div>
                                     </div>
                                 </>
                                 : isIssued === "fail"
                                     ? <>
-                                        <div className='w-full h-10 px-2.5 mb-3 flex justify-between items-center rounded-lg border-2 border-h-r text-xs text-l-2 dark:text-white bg-h-r/20'>
-                                            <div className='flex flex-row justify-start items-center'>
+                                        <div className='w-full h-10 px-2.5 mb-3 flex justify-between items-center rounded-lg border-2 border-h-r text-xs bg-h-r/20'>
+                                            <div className='flex items-center'>
                                                 <i className="text-sm text-h-r fa-regular fa-bell"></i>
                                                 <div className='ml-2'>문의를 전송하는데 실패했습니다. 잠시 후 다시 시도해 주세요.</div>
                                             </div>
                                             <div onClick={handleIssueClose} className='flex justify-center items-center cursor-pointer'>
-                                                <i className="text-sm text-l-2 dark:text-white fa-solid fa-xmark"></i>
+                                                <i className="text-sm fa-solid fa-xmark"></i>
                                             </div>
                                         </div>
                                     </> : <></>
                             }
                         </div>
-                        <div className='w-full p-5 rounded-lg text-l-2 dark:text-white bg-l-e dark:bg-d-3 drop-shadow-default dark:drop-shadow-dark'>
+                        <div className='w-full p-5 rounded-lg bg-l-e dark:bg-d-3 drop-shadow-default dark:drop-shadow-dark'>
                             <div className="flex flex-col">
                                 <SelectBox
                                     title="문의 유형"
@@ -578,7 +578,7 @@ const IssueFont = ({params}: any) => {
                             </Button>
                         </div>
                         <div className='w-full flex'>
-                            <KakaoAdFitBottomBanner marginTop={1}/>
+                            <KakaoAdFitBottomBanner marginTop={1.5}/>
                         </div>
                     </div>
                 </div>

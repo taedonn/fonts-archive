@@ -125,14 +125,14 @@ const NoticePage = ({params}: any) => {
                 exitOpacity={0}
                 transitionType="spring"
             >
-                <div className='w-full px-4 flex flex-col justify-center items-center'>
-                    <div className='relative max-w-[45rem] w-full flex flex-col justify-center items-start my-16 lg:my-24 mt-8 lg:mt-16'>
-                        <Link href="/admin/notices/list" className="absolute left-0 -top-10 hidden lg:block border-b border-transparent text-sm text-l-5 dark:text-d-c hover:text-l-2 hover:dark:text-white tlg:hover:text-l-5 tlg:hover:dark:text-d-c hover:border-b-l-2 hover:dark:border-b-white tlg:hover:border-b-transparent tlg:hover:dark:border-b-transparent"><div className="inline-block mr-1">&#60;</div> 목록으로 돌아가기</Link>
-                        <h2 className='text-2xl text-l-2 dark:text-white font-bold mb-4'>공지 수정</h2>
+                <div className='w-full px-4 flex flex-col justify-center items-center text-l-2 dark:text-white'>
+                    <div className='relative max-w-[45rem] w-full flex flex-col justify-center my-16 lg:my-24 mt-8 lg:mt-16'>
+                        <Link href="/admin/notices/list" className="absolute left-0 -top-10 hidden lg:block border-b border-transparent text-sm text-l-5 dark:text-d-c lg:hover:text-l-2 lg:hover:dark:text-white lg:hover:border-b-l-2 lg:hover:dark:border-b-white"><div className="inline-block mr-1">&#60;</div> 목록으로 돌아가기</Link>
+                        <h2 className='text-2xl font-bold mb-6'>공지 수정</h2>
                         <div id="reply-success" className="w-full">
                             {
                                 isEdited === "success"
-                                ? <div className='w-full h-10 px-2.5 mb-3 flex justify-between items-center rounded-lg border-2 border-h-1 dark:border-f-8 text-xs text-l-2 dark:text-white bg-h-1/20 dark:bg-f-8/20'>
+                                ? <div className='w-full h-10 px-2.5 mb-3 flex justify-between items-center rounded-lg border-2 border-h-1 dark:border-f-8 text-xs bg-h-1/20 dark:bg-f-8/20'>
                                     <div className='flex items-center'>
                                         <i className="text-sm text-h-1 dark:text-f-8 fa-regular fa-bell"></i>
                                         <div className='ml-2'>공지 수정이 완료되었습니다.</div>
@@ -142,7 +142,7 @@ const NoticePage = ({params}: any) => {
                                     </div>
                                 </div>
                                 : isEdited === "fail"
-                                    ? <div className='w-full h-10 px-2.5 mb-3 flex justify-between items-center rounded-lg border-2 border-h-r text-xs text-l-2 dark:text-white bg-h-r/20'>
+                                    ? <div className='w-full h-10 px-2.5 mb-3 flex justify-between items-center rounded-lg border-2 border-h-r text-xs bg-h-r/20'>
                                         <div className='flex items-center'>
                                             <i className="text-sm text-h-r fa-regular fa-bell"></i>
                                             <div className='ml-2'>공지 수정에 실패했습니다.</div>
@@ -153,7 +153,7 @@ const NoticePage = ({params}: any) => {
                                     </div> : <></>
                             }
                         </div>
-                        <div className='w-full p-5 rounded-lg text-l-2 dark:text-white bg-l-e dark:bg-d-3 drop-shadow-default dark:drop-shadow-dark'>
+                        <div className='w-full p-5 rounded-lg bg-l-e dark:bg-d-3 drop-shadow-default dark:drop-shadow-dark'>
                             <div className="font-medium">숨김 여부</div>
                             <div className="w-max h-12 rounded-lg mt-2 px-3.5 flex items-center text-sm bg-l-d dark:bg-d-4">
                                 <div className="mr-1.5">숨김</div>

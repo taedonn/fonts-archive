@@ -126,14 +126,14 @@ export default function DeleteCommentModal({
         <>
             {
                 display
-                && <div className="w-full h-full fixed left-0 top-0 z-40 pt-24 tlg:pt-16 tlg:px-4 flex flex-col justify-start items-center backdrop-blur">
-                    <div ref={thisModal} className="w-96 txs:w-full p-6 relative rounded-lg animate-zoom-in drop-shadow-default dark:drop-shadow-dark bg-l-e dark:bg-d-3">
+                && <div className="w-full h-full fixed left-0 top-0 z-40 pt-16 lg:pt-24 tlg:px-4 flex flex-col items-center backdrop-blur text-l-2 dark:text-white">
+                    <div ref={thisModal} className="w-full sm:w-96 p-6 relative rounded-lg animate-zoom-in drop-shadow-default dark:drop-shadow-dark bg-l-e dark:bg-d-3">
                         <div className="w-full flex flex-col">
-                            <div className="font-medium text-l-2 dark:text-white">댓글 삭제</div>
+                            <div className="font-medium">댓글 삭제</div>
                             <button onClick={close} onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-8 h-8 absolute right-3 top-3 rounded-full text-l-2 dark:text-white hover:bg-l-d hover:dark:bg-d-6 tlg:hover:bg-transparent tlg:hover:dark:bg-transparent">
                                 <i className="fa-solid fa-xmark"></i>
                             </button>
-                            <div className="w-full mt-5 px-5 py-4 rounded-lg text-l-2 dark:text-white bg-l-d dark:bg-d-4">
+                            <div className="w-full mt-5 px-5 py-4 rounded-lg bg-l-d dark:bg-d-4">
                                 <h2 className="font-medium mb-2">댓글을 삭제하시겠습니까?</h2>
                                 <div className='w-full text-sm flex gap-1.5 items-center text-l-5 dark:text-d-c'>
                                     <div className="w-1 h-1 rounded-full bg-l-5 dark:bg-d-c"></div>

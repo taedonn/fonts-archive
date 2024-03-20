@@ -185,28 +185,28 @@ export default function FontSearch(
         <>
             {
                 display === "show"
-                ? <div className="w-full h-full fixed left-0 top-0 z-40 pt-24 tlg:pt-16 tlg:px-4 flex flex-col justify-start items-center backdrop-blur">
-                    <div ref={refSearchOutside} className="w-[45rem] tlg:w-full relative rounded-lg animate-zoom-in drop-shadow-default dark:drop-shadow-dark bg-white dark:bg-d-3">
+                ? <div className="w-full h-full fixed left-0 top-0 z-40 pt-16 lg:pt-24 tlg:px-4 flex flex-col items-center backdrop-blur text-l-2 dark:text-white">
+                    <div ref={refSearchOutside} className="w-full lg:w-[45rem] relative rounded-lg animate-zoom-in drop-shadow-default dark:drop-shadow-dark bg-white dark:bg-d-2">
                         <div className="w-full flex flex-col">
-                            <div className="w-full h-14 tlg:h-12 px-14 relative flex justify-center items-center border-b border-l-d dark:border-d-3 text-l-2 dark:text-white">
-                                <i className="tlg:text-sm absolute left-5 tlg:left-4 top-1/2 -translate-y-1/2 fa-solid fa-magnifying-glass"></i>
+                            <div className="w-full h-14 tlg:h-12 px-14 relative flex justify-center items-center border-b border-l-b dark:border-d-6">
+                                <i className="tlg:text-sm absolute left-5 top-1/2 -translate-y-1/2 fa-solid fa-magnifying-glass"></i>
                                 <input onChange={handleSearch} type="text" placeholder="폰트 검색하기..." autoFocus className="w-full h-full tlg:text-sm leading-none placeholder-l-5 dark:placeholder-d-c bg-transparent"/>
-                                <button onClick={handleCloseBtn} className="w-8 h-8 absolute right-3 top-1/2 -translate-y-1/2 rounded-full text-l-2 dark:text-white hover:bg-l-d hover:dark:bg-d-4 tlg:hover:bg-transparent tlg:hover:dark:bg-transparent">
+                                <button onClick={handleCloseBtn} className="w-8 h-8 absolute right-3 top-1/2 -translate-y-1/2 rounded-full lg:hover:bg-l-e lg:hover:dark:bg-d-3">
                                     <i className="fa-solid fa-xmark"></i>
                                 </button>
                                 <div className="w-[calc(100%-0.25rem)] h-6 absolute z-10 left-0 -bottom-px translate-y-full bg-gradient-to-b from-white dark:from-d-2"></div>
                             </div>
-                            <div ref={parentRef} className="custom-sm-scrollbar w-full min-h-[9.375rem] tlg:min-h-[7.5rem] max-h-[31.25rem] relative overflow-auto bg-white dark:bg-d-2">
+                            <div ref={parentRef} className="custom-sm-scrollbar w-full min-h-[7.5rem] lg:min-h-[9.375rem] max-h-[31.25rem] relative overflow-auto">
 
                                 {/* 로딩 바 */}
-                                {isLoading && <div className="w-full h-full absolute left-0 top-0 flex justify-center items-center"><span className="loader w-9 h-9 border-2 border-h-e dark:border-d-6 border-b-h-1 dark:border-b-f-8"></span></div>}
-                                {isRefetching && <div className="w-full h-full absolute left-0 top-0 flex justify-center items-center"><span className="loader w-9 h-9 border-2 border-h-e dark:border-d-6 border-b-h-1 dark:border-b-f-8"></span></div>}
+                                {isLoading && <div className="w-full h-full absolute left-0 top-0 flex justify-center items-center"><span className="loader w-9 h-9 border-2 border-h-e dark:border-d-9 border-b-h-1 dark:border-b-f-8"></span></div>}
+                                {isRefetching && <div className="w-full h-full absolute left-0 top-0 flex justify-center items-center"><span className="loader w-9 h-9 border-2 border-h-e dark:border-d-9 border-b-h-1 dark:border-b-f-8"></span></div>}
 
                                 {/* 검색 결과 */}
                                 {isSuccess && !isLoading && !isRefetching
                                     ? ( data.fonts.length !== 0
                                         ? <div className="w-full p-6">
-                                            <div className="text-lg text-l-2 dark:text-white mb-4 font-bold">검색 결과</div>
+                                            <div className="text-lg mb-4 font-bold">검색 결과</div>
                                             {data && data.fonts.map((font: {
                                                 code: number,
                                                 name: string,
@@ -214,14 +214,14 @@ export default function FontSearch(
                                                 font_family: string,
                                             }, idx: number) => {
                                                 return (
-                                                    <Link aria-label="search-result-link" onMouseOver={() => handleLinkMouseOver(idx)} id={activeEl === idx ? "active" : ""} ref={activeEl === idx ? activeRef : null} href={`/post/${font.font_family.replaceAll(" ", "+")}`} key={font.code} onMouseDown={e => onMouseDown(e, 0.95, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="px-4 mt-2.5 first:mt-0 w-full h-16 tmd:h-12 gap-3 relative flex items-center rounded-lg bg-l-e dark:bg-d-3 cursor-pointer">
-                                                        <div className="when-active-1 w-6 h-6 rounded-md flex justify-center items-center bg-l-d dark:bg-d-6">
-                                                            <i className="when-active-2 text-sm text-l-2 dark:text-white fa-solid fa-hashtag"></i>
+                                                    <Link aria-label="search-result-link" onMouseOver={() => handleLinkMouseOver(idx)} id={activeEl === idx ? "active" : ""} ref={activeEl === idx ? activeRef : null} href={`/post/${font.font_family.replaceAll(" ", "+")}`} key={font.code} onMouseDown={e => onMouseDown(e, 0.95, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="px-4 mt-2.5 first:mt-0 w-full h-12 lg:h-16 gap-3 relative flex items-center rounded-lg bg-l-f dark:bg-d-3 cursor-pointer">
+                                                        <div className="when-active-1 w-6 h-6 rounded-md flex justify-center items-center bg-l-e dark:bg-d-4">
+                                                            <i className="when-active-2 text-sm fa-solid fa-hashtag"></i>
                                                         </div>
-                                                        <div className="when-active-3 text-l-2 dark:text-white font-medium">{font.name}</div>
+                                                        <div className="when-active-3 font-medium">{font.name}</div>
                                                         <div className="when-active-4 text-sm text-l-5 dark:text-d-c font-normal tlg:hidden">{font.font_family}</div>
                                                         <div className="when-active-5 text-sm text-l-5 dark:text-d-c font-normal tlg:hidden">{font.source}</div>
-                                                        <i className="when-active-6 text-sm absolute right-4 text-l-2 dark:text-white fa-solid fa-angle-right"></i>
+                                                        <i className="when-active-6 text-sm absolute right-4 fa-solid fa-angle-right"></i>
                                                     </Link>
                                                 )
                                             })}
@@ -233,7 +233,7 @@ export default function FontSearch(
                                     ) : <></>
                                 }
                             </div>
-                            <div className="w-full h-14 tlg:h-12 text-sm tlg:text-xs relative flex justify-end items-center px-6 border-t text-l-5 dark:text-d-9 border-l-d dark:border-d-3">
+                            <div className="w-full h-12 lg:h-14 text-xs relative flex justify-end items-center px-6 border-t text-l-9 dark:text-d-9 border-l-b dark:border-d-6">
                                 © 2023 - {new Date().getFullYear()}. 태돈, all rights reserved.
                                 <div className="w-[calc(100%-0.25rem)] h-6 absolute z-10 left-0 -top-px -translate-y-full bg-gradient-to-t from-white dark:from-d-2"></div>
                             </div>

@@ -239,34 +239,34 @@ const IssuePage = ({params}: any) => {
                 exitOpacity={0}
                 transitionType="spring"
             >
-                <div className='w-full px-4 flex flex-col justify-center items-center'>
-                    <div className='relative max-w-[45rem] w-full flex flex-col justify-center items-start my-16 lg:my-24 mt-8 lg:mt-16'>
-                        <Link href="/admin/issue/list" className="absolute left-0 -top-10 hidden lg:block border-b border-transparent text-sm text-l-5 dark:text-d-c hover:text-l-2 hover:dark:text-white tlg:hover:text-l-5 tlg:hover:dark:text-d-c hover:border-b-l-2 hover:dark:border-b-white tlg:hover:border-b-transparent tlg:hover:dark:border-b-transparent"><div className="inline-block mr-1">&#60;</div> 목록으로 돌아가기</Link>
-                        <h2 className='text-2xl text-l-2 dark:text-white font-bold mb-4'>문의 사항</h2>
+                <div className='w-full px-4 flex flex-col justify-center items-center text-l-2 dark:text-white'>
+                    <div className='relative max-w-[45rem] w-full flex flex-col justify-center my-16 lg:my-24 mt-8 lg:mt-16'>
+                        <Link href="/admin/issue/list" className="absolute left-0 -top-10 hidden lg:block border-b border-transparent text-sm text-l-5 dark:text-d-c lg:hover:text-l-2 lg:hover:dark:text-white lg:hover:border-b-l-2 lg:hover:dark:border-b-white"><div className="inline-block mr-1">&#60;</div> 목록으로 돌아가기</Link>
+                        <h2 className='text-2xl font-bold mb-6'>문의 사항</h2>
                         <div className='mb-2.5 text-sm text-l-5 dark:text-d-c'>{timeFormat(issue.issue_created_at) === timeFormat(issue.issue_closed_at) ? timeFormat(issue.issue_created_at) + "에 생성됨" : timeFormat(issue.issue_closed_at) + "에 수정됨"}</div>
                         {
                             replySuccess === "success"
-                            ? <div className='w-full h-10 px-2.5 mb-3 flex justify-between items-center rounded-lg border-2 border-h-1 dark:border-f-8 text-xs text-l-2 dark:text-white bg-h-1/20 dark:bg-f-8/20'>
-                                <div className='flex justify-start items-center'>
+                            ? <div className='w-full h-10 px-2.5 mb-3 flex justify-between items-center rounded-lg border-2 border-h-1 dark:border-f-8 text-xs bg-h-1/20 dark:bg-f-8/20'>
+                                <div className='flex items-center'>
                                     <i className='text-sm text-h-1 dark:text-f-8 fa-regular fa-bell'></i>
                                     <div className='ml-2'>답변이 완료되었습니다.</div>
                                 </div>
                                 <div onClick={handleOnReplyClose} className='flex justify-center items-center cursor-pointer'>
-                                    <i className="text-sm text-l-2 dark:text-white fa-solid fa-xmark"></i>
+                                    <i className="text-sm fa-solid fa-xmark"></i>
                                 </div>
                             </div>
                             : replySuccess === "fail"
-                                ? <div className='w-full h-10 px-2.5 mb-3 flex justify-between items-center rounded-lg border-2 border-h-r text-xs text-l-2 dark:text-white bg-h-r/20'>
-                                    <div className='flex justify-start items-center'>
+                                ? <div className='w-full h-10 px-2.5 mb-3 flex justify-between items-center rounded-lg border-2 border-h-r text-xs bg-h-r/20'>
+                                    <div className='flex items-center'>
                                         <i className='text-sm text-h-r fa-regular fa-bell'></i>
                                         <div className='ml-2'>답변 전송에 실패했습니다.</div>
                                     </div>
                                     <div onClick={handleOnReplyClose} className='flex justify-center items-center cursor-pointer'>
-                                        <i className="text-sm text-l-2 dark:text-white fa-solid fa-xmark"></i>
+                                        <i className="text-sm fa-solid fa-xmark"></i>
                                     </div>
                                 </div> : <></>
                         }
-                        <div className='w-full p-5 rounded-lg text-l-2 dark:text-white bg-l-e dark:bg-d-3 drop-shadow-default dark:drop-shadow-dark'>
+                        <div className='w-full p-5 rounded-lg bg-l-e dark:bg-d-3 drop-shadow-default dark:drop-shadow-dark'>
                             <TextInput
                                 value={
                                     issue.issue_type === "font"
@@ -315,7 +315,7 @@ const IssuePage = ({params}: any) => {
                                         {issue.issue_img_4 !== "null" && <div onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-24 h-28 relative"><Image src={issue.issue_img_4} alt="첨부한 이미지 4" fill sizes="100%" priority referrerPolicy="no-referrer" onClick={handleOnImgFocus} id="img_4" className="rounded-lg border-2 border-l-b dark:border-d-6 object-cover cursor-pointer"/></div>}
                                         {issue.issue_img_5 !== "null" && <div onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-24 h-28 relative"><Image src={issue.issue_img_5} alt="첨부한 이미지 5" fill sizes="100%" priority referrerPolicy="no-referrer" onClick={handleOnImgFocus} id="img_5" className="rounded-lg border-2 border-l-b dark:border-d-6 object-cover cursor-pointer"/></div>}
                                     </div> 
-                                    : <div className="w-full h-24 flex justify-center items-center text-sm text-center text-l-2 dark:text-white">첨부한 이미지가 없습니다.</div>
+                                    : <div className="w-full h-24 flex justify-center items-center text-sm text-center">첨부한 이미지가 없습니다.</div>
                                 }
                             </div>
                             <div className="w-full h-px my-6 bg-l-b dark:bg-d-6"></div>
@@ -362,16 +362,16 @@ const IssuePage = ({params}: any) => {
                 isFocused &&
                 <div className="fixed z-40 left-0 top-0 backdrop-blur bg-blur-theme w-full h-full flex justify-center items-center">
                     <div ref={imgRef} className="relative flex items-center">
-                        <button onClick={handleOffImgFocus} onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-10 tlg:w-8 h-10 tlg:h-8 rounded-full hover:bg-l-d tlg:hover:bg-transparent hover:dark:bg-d-4 tlg:hover:dark:bg-transparent absolute right-[5.75rem] tlg:right-16 tsm:right-10 -top-12 tlg:-top-10 flex justify-center items-center">
-                            <i className="text-2xl text-l-2 dark:text-white fa-solid fa-xmark"></i>
+                        <button onClick={handleOffImgFocus} onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-8 h-8 lg:w-10 lg:h-10 rounded-full lg:hover:bg-l-d lg:hover:dark:bg-d-4 absolute right-[5.75rem] tlg:right-16 tsm:right-10 -top-12 tlg:-top-10 flex justify-center items-center">
+                            <i className="text-2xl fa-solid fa-xmark"></i>
                         </button>
-                        <button onClick={handleImgPrev} onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-10 tlg:w-8 h-10 tlg:h-8 rounded-full hover:bg-l-d tlg:hover:bg-transparent hover:dark:bg-d-4 tlg:hover:dark:bg-transparent mr-[3.75rem] tlg:mr-10 tsm:mr-4 flex justify-center items-center">
-                            <i className="text-2xl -translate-x-px text-l-2 dark:text-white fa-solid fa-angle-left"></i>
+                        <button onClick={handleImgPrev} onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-8 h-8 lg:w-10 lg:h-10 rounded-full lg:hover:bg-l-d lg:hover:dark:bg-d-4 mr-[3.75rem] tlg:mr-10 tsm:mr-4 flex justify-center items-center">
+                            <i className="text-2xl -translate-x-px fa-solid fa-angle-left"></i>
                         </button>
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img src={focusedImg} alt="이미지 미리보기" className="w-[37.5rem] tlg:w-[26.25rem] tsm:w-[18.75rem] rounded-lg animate-zoom-in"/>
-                        <button onClick={handleImgNext} onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-10 tlg:w-8 h-10 tlg:h-8 rounded-full hover:bg-l-d tlg:hover:bg-transparent hover:dark:bg-d-4 tlg:hover:dark:bg-transparent ml-[3.75rem] tlg:ml-10 tsm:ml-4 flex justify-center items-center">
-                            <i className="text-2xl translate-x-px text-l-2 dark:text-white fa-solid fa-angle-right"></i>
+                        <button onClick={handleImgNext} onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-8 h-8 lg:w-10 lg:h-10 rounded-full lg:hover:bg-l-d lg:hover:dark:bg-d-4 ml-[3.75rem] tlg:ml-10 tsm:ml-4 flex justify-center items-center">
+                            <i className="text-2xl translate-x-px fa-solid fa-angle-right"></i>
                         </button>
                     </div>
                 </div>

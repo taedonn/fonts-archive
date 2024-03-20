@@ -256,16 +256,16 @@ const Register = ({params}: any) => {
                 exitOpacity={0}
                 transitionType="spring"
             >
-                <div className='w-full flex flex-col justify-center items-center'>
+                <div className='w-full flex flex-col justify-center items-center text-l-2 dark:text-white'>
                     <div className='flex fixed left-0 top-36'>
                         <KakaoAdFitLeftBanner marginLeft={2}/>
                     </div>
                     <div className='flex fixed right-0 top-36'>
                         <KakaoAdFitRightBanner marginRight={2}/>
                     </div>
-                    <div className='w-[22.5rem] flex flex-col justify-center items-start my-16 lg:my-24 mt-8 lg:mt-16'>
-                        <h2 className='text-2xl text-l-2 dark:text-white font-bold mb-4'>회원가입</h2>
-                        <form onSubmit={e => e.preventDefault()} id='register-form' className='w-full p-5 rounded-lg text-l-2 dark:text-white bg-l-e dark:bg-d-3 drop-shadow-default dark:drop-shadow-dark'>
+                    <div className='w-[22.5rem] flex flex-col justify-centert my-16 lg:my-24 mt-8 lg:mt-16'>
+                        <h2 className='text-2xl font-bold mb-6'>회원가입</h2>
+                        <form onSubmit={e => e.preventDefault()} id='register-form' className='w-full p-5 rounded-lg bg-l-e dark:bg-d-3 drop-shadow-default dark:drop-shadow-dark'>
                             <TextInput
                                 onchange={handleNameChange}
                                 state={nameChk}
@@ -326,8 +326,8 @@ const Register = ({params}: any) => {
                             <div className='w-full h-px my-6 bg-l-b dark:bg-d-6'></div>
                             {
                                 alertDisplay === true
-                                    && <div className='w-full h-10 px-2.5 mb-3 flex justify-between items-center rounded-lg border-2 border-h-r text-xs text-l-2 dark:text-white bg-h-r/20'>
-                                        <div className='flex justify-start items-center'>
+                                    && <div className='w-full h-10 px-2.5 mb-3 flex justify-between items-center rounded-lg border-2 border-h-r text-xs bg-h-r/20'>
+                                        <div className='flex items-center'>
                                             <i className="text-sm text-h-r fa-regular fa-bell"></i>
                                             <div className='ml-2'>약관에 동의해 주세요.</div>
                                         </div>
@@ -336,28 +336,28 @@ const Register = ({params}: any) => {
                                         </div>
                                     </div>
                             }
-                            <div className='w-full flex flex-col justify-start items-start'>
+                            <div className='w-full flex flex-col'>
                                 <div className='w-full flex justify-between items-center'>
-                                    <div className='flex justify-start items-center'>
+                                    <div className='flex items-center'>
                                         <input onChange={handleTermsChange} type='checkbox' id='terms-check' className='peer hidden'/>
                                         <label htmlFor='terms-check' className='group w-5 h-5 text-lg flex justify-center items-center cursor-pointer'>
                                             <i className="block peer-checked:group-[]:hidden text-h-1 dark:text-f-8 fa-regular fa-square-check"></i>
                                             <i className="hidden peer-checked:group-[]:block text-h-1 dark:text-f-8 fa-solid fa-square-check"></i>
                                         </label>
-                                        <p className='text-sm text-l-2 dark:text-white ml-1.5'>서비스 이용약관 (필수)</p>
+                                        <p className='text-sm ml-1.5'>서비스 이용약관 (필수)</p>
                                     </div>
-                                    <Link href="/terms" target='_blank' rel="noopener noreferrer" className='text-xs text-l-6 dark:text-d-c flex justify-center items-center hover:underline tlg:hover:no-underline'>전문보기</Link>
+                                    <Link href="/terms" target='_blank' rel="noopener noreferrer" className='text-xs text-l-6 dark:text-d-c flex justify-center items-center lg:hover:underline'>전문보기</Link>
                                 </div>
                                 <div className='w-full flex justify-between items-center mt-2'>
-                                    <div className='flex justify-start items-center'>
+                                    <div className='flex items-center'>
                                         <input onChange={handlePrivacyChange} type='checkbox' id='privacy-check' className='peer hidden'/>
                                         <label htmlFor='privacy-check' className='group w-5 h-5 text-lg flex justify-center items-center cursor-pointer'>
                                             <i className="block peer-checked:group-[]:hidden text-h-1 dark:text-f-8 fa-regular fa-square-check"></i>
                                             <i className="hidden peer-checked:group-[]:block text-h-1 dark:text-f-8 fa-solid fa-square-check"></i>
                                         </label>
-                                        <p className='text-sm text-l-2 dark:text-white ml-1.5'>개인정보 처리방침 (필수)</p>
+                                        <p className='text-sm ml-1.5'>개인정보 처리방침 (필수)</p>
                                     </div>
-                                    <Link href="/privacy" target='_blank' rel="noopener noreferrer" className='text-xs text-l-6 dark:text-d-c flex justify-center items-center hover:underline tlg:hover:no-underline'>전문보기</Link>
+                                    <Link href="/privacy" target='_blank' rel="noopener noreferrer" className='text-xs text-l-6 dark:text-d-c flex justify-center items-center lg:hover:underline'>전문보기</Link>
                                 </div>
                             </div>
                             

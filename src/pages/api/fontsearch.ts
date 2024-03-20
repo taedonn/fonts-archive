@@ -53,6 +53,29 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 },
             });
             return res.json({ fonts, id: fonts.length });
+        } else if (req.query.action === "post") {
+            const fonts = await prisma.fonts.findMany({
+                select: {
+                    name: true,
+                    font_family: true
+                },
+                where: {
+                    source: req.query.source + "",
+                    NOT: [{ name: req.query.name + "" }]
+                }
+            });
+
+            try {
+                return res.json({
+                    msg: "폰트 불러오기 성공",
+                    fonts: fonts
+                });
+            } catch (err) {
+                return res.json({
+                    msg: "폰트 불러오기 실패",
+                    err: err
+                });
+            }
         }
     }
 }

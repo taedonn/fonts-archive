@@ -99,11 +99,11 @@ const CommentList = ({params}: any) => {
                 exitOpacity={0}
                 transitionType="spring"
             >
-                <form onSubmit={e => e.preventDefault()} className='w-full px-4 flex flex-col justify-center items-center'>
+                <form onSubmit={e => e.preventDefault()} className='w-full px-4 flex flex-col justify-center items-center text-l-2 dark:text-white'>
                     <div className='w-[45rem] tmd:w-full flex flex-col justify-center items-start my-16 lg:my-24 mt-8 lg:mt-16'>
-                        <h2 className='text-2xl text-l-2 dark:text-white font-bold mb-4'>댓글 목록</h2>
+                        <h2 className='text-2xl font-bold mb-6'>댓글 목록</h2>
                         <div className='flex items-center mb-10'>
-                            <SearchInput id="search" placeholder="폰트/댓글" value={search}/>
+                            <SearchInput id="search" placeholder="폰트/댓글" value={search} color="light"/>
                             <button onClick={handleSearchClick} className="hidden">검색</button>
                         </div>
                         <div className='flex items-center gap-1.5 mb-4'>
@@ -111,7 +111,7 @@ const CommentList = ({params}: any) => {
                             <button onClick={handleFilterChange} value="name" onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className={`${filter === "name" ? "bg-h-1 dark:bg-f-8 text-white dark:text-d-2" : "text-l-5 dark:text-d-c hover:text-h-1 hover:dark:text-f-8"} w-20 h-9 flex justify-center items-center rounded-lg`}>이름순</button>
                         </div>
                         <div className='w-full'>
-                            <div className='w-full text-sm text-l-2 dark:text-white'>
+                            <div className='w-full text-sm'>
                                 <div className='flex flex-col gap-3'>
                                     {
                                         comments && comments.length > 0
@@ -119,20 +119,20 @@ const CommentList = ({params}: any) => {
                                             {
                                                 comments.map((comment: any) => {
                                                     return (
-                                                        <div key={comment.comment_id} className='px-6 py-4 relative rounded-lg bg-l-e dark:bg-d-4'>
-                                                            <div className="flex tlg:flex-col items-center tlg:items-start gap-2 mb-2">
+                                                        <div key={comment.comment_id} className='px-6 py-4 relative rounded-lg bg-l-f dark:bg-d-3'>
+                                                            <div className="flex tlg:flex-col lg:items-center gap-2 mb-2">
                                                                 <div className='flex gap-1'>
-                                                                    <Link href={`/post/${comment.font_family.replaceAll(" ", "+")}`} className="block text-h-1 dark:text-f-8 hover:underline tlg:hover:no-underline">{comment.font_name}</Link>
-                                                                    <Link href={`/admin/user/list?search=${comment.user_name}`} className="block text-h-1 dark:text-f-8 hover:underline tlg:hover:no-underline">[{comment.user_name}]</Link>
+                                                                    <Link href={`/post/${comment.font_family.replaceAll(" ", "+")}`} className="block text-h-1 dark:text-f-8 lg:hover:underline">{comment.font_name}</Link>
+                                                                    <Link href={`/admin/user/list?search=${comment.user_name}`} className="block text-h-1 dark:text-f-8 lg:hover:underline">[{comment.user_name}]</Link>
                                                                 </div>
                                                                 <div className="flex gap-2 items-center">
                                                                     <div className='text-xs text-l-5 dark:text-d-c'>{timeFormat(comment.created_at)}</div>
                                                                     <div className='text-xs text-l-5 dark:text-d-c'>신고수: {comment.reported_politics + comment.reported_swearing + comment.reported_etc}</div>
                                                                 </div>
                                                             </div>
-                                                            <div className="pr-10"><Link href={`/post/${comment.font_family.replaceAll(" ", "+")}#c${comment.comment_id}`} className='ellipsed-text w-full hover:underline tlg:hover:no-underline'>{comment.comment}</Link></div>
-                                                            <button onClick={deleteCommentModalOpen} data-font={comment.font_id} data-comment={comment.comment_id} data-bundle={comment.bundle_id} className='group absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full flex justify-center items-center hover:bg-l-d hover:dark:bg-d-6 tlg:hover:bg-transparent tlg:hover:dark:bg-transparent'>
-                                                                <i className="text-base text-l-2 dark:text-white fa-regular fa-trash-can"></i>
+                                                            <div className="pr-10"><Link href={`/post/${comment.font_family.replaceAll(" ", "+")}#c${comment.comment_id}`} className='ellipsed-text w-full lg:hover:underline'>{comment.comment}</Link></div>
+                                                            <button onClick={deleteCommentModalOpen} data-font={comment.font_id} data-comment={comment.comment_id} data-bundle={comment.bundle_id} className='group absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full flex justify-center items-center lg:hover:bg-l-e lg:hover:dark:bg-d-4'>
+                                                                <i className="text-base fa-regular fa-trash-can"></i>
                                                             </button>
                                                         </div>
                                                     )
@@ -144,7 +144,7 @@ const CommentList = ({params}: any) => {
                                 </div>
                             </div>
                         </div>
-                        <div className='w-full flex justify-center mt-3'>
+                        <div className='w-full flex justify-center mt-6'>
                             <Pagination count={count} page={Number(page)} onChange={handlePageChange} shape='rounded'/>
                         </div>
                     </div>

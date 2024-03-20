@@ -485,11 +485,11 @@ export default function Comments (
                 update={updateComments}
             />
 
-            <div className='w-max mb-3 flex gap-2'>
+            <div className='w-max mb-3 flex gap-2 text-l-2 dark:text-white'>
                 <label htmlFor={font.code.toString()} onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className='cursor-pointer'>
                     {
                         !likedInput
-                        ? <div className="w-14 h-8 flex justify-center items-center rounded-lg text-l-2 dark:text-white bg-l-e hover:bg-l-d tlg:hover:bg-l-e dark:bg-d-4 hover:dark:bg-d-6 tlg:dark:hover:bg-d-4">
+                        ? <div className="w-14 h-8 flex justify-center items-center rounded-lg bg-l-f lg:hover:bg-l-e dark:bg-d-3 lg:hover:dark:bg-d-4">
                             <i className="text-sm bi bi-heart"></i>
                             <div className="ml-1.5 text-[0.813rem] selection:bg-transparent">{likedNum}</div>
                         </div>
@@ -501,16 +501,16 @@ export default function Comments (
                 </label>
                 <div className="relative">
                     <input onChange={handleShareExpand} type="checkbox" id="share-expand" className="peer hidden"/>
-                    <label ref={shareExpandBtn} htmlFor="share-expand" onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-max h-8 px-3 text-[0.813rem] flex justify-center items-center cursor-pointer rounded-lg selection:bg-transparent text-l-2 dark:text-white bg-l-e hover:bg-l-d tlg:hover:bg-l-e peer-checked:bg-l-d dark:bg-d-4 hover:dark:bg-d-6 tlg:hover:dark:bg-d-4 peer-checked:dark:bg-d-6">
+                    <label ref={shareExpandBtn} htmlFor="share-expand" onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-max h-8 px-3 text-[0.813rem] flex justify-center items-center cursor-pointer rounded-lg selection:bg-transparent bg-l-f lg:hover:bg-l-e peer-checked:bg-l-e dark:bg-d-3 lg:hover:dark:bg-d-4 peer-checked:dark:bg-d-4">
                         <i className="text-sm mr-2 fa-solid fa-share-nodes"></i>
                         공유
                     </label>
                     {
                         shareExpand &&
-                        <div ref={shareExpandContent} className="p-4 rounded-lg absolute left-0 -top-2 -translate-y-full bg-l-e dark:bg-d-3">
+                        <div ref={shareExpandContent} className="p-4 rounded-lg absolute left-0 -top-2 -translate-y-full bg-l-f dark:bg-d-3">
                             <div className="w-full mb-4 relative rounded-lg flex items-center overflow-hidden">
-                                <input type="text" id="url" defaultValue={`https://fonts.taedonn.com/post/${font.font_family.replaceAll(" ", "+")}`} className="w-full h-12 px-3 pr-10 py-2 rounded-r-lg text-sm text-l-2 dark:text-white placeholder-l-5 dark:placeholder-d-c bg-l-d dark:bg-d-4"/>
-                                <label onClick={copyUrl} htmlFor="url" className="w-8 h-8 absolute z-10 right-1 flex justify-center items-center cursor-pointer text-l-2 dark:text-white hover:text-h-1 hover:dark:text-f-8 tlg:hover:text-l-2 tlg:hover:dark:text-white">
+                                <input type="text" id="url" defaultValue={`https://fonts.taedonn.com/post/${font.font_family.replaceAll(" ", "+")}`} className="w-full h-12 px-3 pr-10 py-2 rounded-r-lg text-sm placeholder-l-5 dark:placeholder-d-c bg-l-e dark:bg-d-4"/>
+                                <label onClick={copyUrl} htmlFor="url" className="w-8 h-8 absolute z-10 right-1 flex justify-center items-center cursor-pointer lg:hover:text-h-1 lg:hover:dark:text-f-8">
                                     <i className="url_copy_btn text-sm bi bi-clipboard"></i>
                                     <i className="url_copy_chk_btn text-sm hidden text-h-1 dark:text-f-8 bi bi-check-lg"></i>
                                 </label>
@@ -522,7 +522,7 @@ export default function Comments (
                                             <Image src="/logo-kakaotalk.svg" alt="카카오톡 로고" fill sizes="100%" referrerPolicy="no-referrer"/>
                                         </div>
                                     </div>
-                                    <div className="w-12 mt-2.5 text-center group-hover:text-l-2 group-hover:dark:text-white tlg:text-l-2 tlg:dark:text-white">카카오톡</div>
+                                    <div className="w-12 mt-2.5 text-center lg:group-hover:text-l-2 lg:group-hover:dark:text-white">카카오톡</div>
                                 </button>
                                 <button onClick={shareLine} onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="group flex flex-col justify-center items-center">
                                     <div className="w-8 h-8 rounded-full flex justify-center items-center bg-theme-naver drop-shadow-default dark:drop-shadow-dark">
@@ -530,13 +530,13 @@ export default function Comments (
                                             <Image src="/logo-line.svg" alt="라인 로고" fill sizes="100%" referrerPolicy="no-referrer"/>
                                         </div>
                                     </div>
-                                    <div className="w-12 mt-2.5 text-center group-hover:text-l-2 group-hover:dark:text-white tlg:text-l-2 tlg:dark:text-white">라인</div>
+                                    <div className="w-12 mt-2.5 text-center lg:group-hover:text-l-2 lg:group-hover:dark:text-white">라인</div>
                                 </button>
                                 <button onClick={shareFacebook} onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="group flex flex-col justify-center items-center">
                                     <div className="w-8 h-8 relative rounded-full flex justify-center items-center drop-shadow-default dark:drop-shadow-dark">
                                         <Image src="/logo-facebook.png" alt="페이스북 로고" fill sizes="100%" referrerPolicy="no-referrer"/>
                                     </div>
-                                    <div className="w-12 mt-2.5 text-center group-hover:text-l-2 group-hover:dark:text-white tlg:text-l-2 tlg:dark:text-white">페이스북</div>
+                                    <div className="w-12 mt-2.5 text-center lg:group-hover:text-l-2 lg:group-hover:dark:text-white">페이스북</div>
                                 </button>
                                 <button onClick={shareTwitter} onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="group flex flex-col justify-center items-center">
                                     <div className="w-8 h-8 rounded-full flex justify-center items-center bg-black drop-shadow-default dark:drop-shadow-dark">
@@ -544,7 +544,7 @@ export default function Comments (
                                             <Image src="/logo-x.svg" alt="엑스(트위터) 로고" fill sizes="100%" referrerPolicy="no-referrer"/>
                                         </div>
                                     </div>
-                                    <div className="w-12 mt-2.5 text-center group-hover:text-l-2 group-hover:dark:text-white tlg:text-l-2 tlg:dark:text-white">엑스</div>
+                                    <div className="w-12 mt-2.5 text-center lg:group-hover:text-l-2 lg:group-hover:dark:text-white">엑스</div>
                                 </button>
                             </div>
                         </div>
@@ -552,31 +552,31 @@ export default function Comments (
                 </div>
             </div>
             <div className="w-full h-px bg-l-b dark:bg-d-6 mb-5"></div>
-            <h2 className="text-l-2 dark:text-white font-medium mb-4">댓글 {comments === null ? 0 : comments.length}개</h2>
-            <div className="w-full mb-10 tlg:mb-8">
+            <h2 className="font-medium mb-4">댓글 {comments === null ? 0 : comments.length}개</h2>
+            <div className="w-full mb-8 lg:mb-10">
                 <div className="w-full flex">
                     {
                         user === null
                         ? <div className="w-full flex items-center gap-4 text-l-5 dark:text-d-c">
-                            <i className="text-4xl tlg:text-3xl bi bi-person-circle"></i>
+                            <i className="lg:text-3xl text-4xl bi bi-person-circle"></i>
                             <div className="w-full">
-                                <div className="text-sm">로그인 후 댓글 이용 가능합니다.</div>
-                                <div className="w-full h-px mt-1 bg-l-b dark:bg-d-6"></div>
+                                <div>로그인 후 댓글 이용 가능합니다.</div>
+                                <div className="w-full h-px mt-2 bg-l-b dark:bg-d-6"></div>
                             </div>
                         </div>
                         : <div className="w-full flex gap-4">
-                            <div className="w-10 tlg:w-8 h-10 tlg:h-8 shrink-0 relative rounded-full overflow-hidden">
+                            <div className="w-8 h-8 lg:w-10 lg:h-10 shrink-0 relative rounded-full overflow-hidden">
                                 <Image src={user.protected && user.provider !== "credentials" ? user.public_img : user.image} alt="유저 프로필 사진" fill sizes="100%" referrerPolicy="no-referrer" className="object-cover"/>
                             </div>
-                            <div className="w-full flex flex-col mt-1.5 tlg:mt-0.5">
-                                <div className={`relative w-full flex items-center pb-1 border-b hover:border-l-9 hover:dark:border-d-9 tlg:hover:border-l-9 tlg:hover:dark:border-d-9 ${commentFocus ? 'border-l-9 dark:border-d-9 tlg:hover:border-l-9 tlg:hover:dark:border-d-9' : 'border-l-b dark:border-d-6'}`}>
-                                    <textarea ref={commentRef} onChange={commentOnChange} onInput={handleHeightChange} onFocus={commentOnFocus} onBlur={commentOnBlur} placeholder="댓글 달기..." className="w-full h-[1.375rem] resize-none text-sm text-l-2 dark:text-white placeholder-l-5 dark:placeholder-d-c bg-transparent"/>
+                            <div className="w-full flex flex-col mt-0.5 lg:mt-1.5">
+                                <div className={`relative w-full flex items-center pb-2 border-b lg:hover:border-l-9 hover:dark:border-d-9 ${commentFocus ? 'border-l-9 dark:border-d-9' : 'border-l-b dark:border-d-6'}`}>
+                                    <textarea ref={commentRef} onChange={commentOnChange} onInput={handleHeightChange} onFocus={commentOnFocus} onBlur={commentOnBlur} placeholder="댓글 달기..." className="w-full h-[1.375rem] resize-none text-sm placeholder-l-5 dark:placeholder-d-c bg-transparent"/>
                                 </div>
                                 {
                                     commentFocus
-                                    && <div className="flex gap-2 w-full text-sm text-l-2 dark:text-white mt-3">
-                                        <button ref={commentBtnRef} onMouseDown={newComment} className={`${commentBtn ? 'comment-enabled text-white dark:text-d-2 bg-h-1 hover:bg-h-0 tlg:hover:bg-h-1 dark:bg-f-8 hover:dark:bg-f-9 tlg:hover:dark:bg-f-8 cursor-pointer' : 'comment-disabled text-l-9 dark:text-d-9 bg-l-e dark:bg-d-4 cursor-default'} w-14 h-8 rounded-lg`}>댓글</button>
-                                        <button onMouseDown={commentCancelBtnOnMouseDown} className="w-14 h-8 rounded-lg hover:bg-l-e hover:dark:bg-d-4 tlg:hover:bg-transparent tlg:hover:dark:bg-transparent">취소</button>
+                                    && <div className="flex gap-2 w-full mt-3 text-sm">
+                                        <button ref={commentBtnRef} onMouseDown={newComment} className={`${commentBtn ? 'comment-enabled text-white dark:text-f-1 bg-h-1 lg:hover:bg-h-0 dark:bg-f-8 lg:hover:dark:bg-f-9 cursor-pointer' : 'comment-disabled text-l-9 dark:text-d-9 bg-l-f dark:bg-d-3 cursor-default'} w-14 h-8 rounded-lg`}>댓글</button>
+                                        <button onMouseDown={commentCancelBtnOnMouseDown} className="w-14 h-8 rounded-lg lg:hover:bg-l-f lg:hover:dark:bg-d-3">취소</button>
                                     </div>
                                 }
                             </div>
@@ -584,25 +584,25 @@ export default function Comments (
                     } 
                 </div>
             </div>
-            <div className="w-full min-h-[7.5rem] mb-[11.25rem] px-10 tlg:px-0">
+            <div className="w-full min-h-[7.5rem] mb-[11.25rem] lg:px-10">
                 {
                     comments === null || comments.length === 0
-                    ? <div className="w-full text-center text-l-2 dark:text-white">아직 댓글이 없습니다.</div>
+                    ? <div className="w-full text-center">아직 댓글이 없습니다.</div>
                     : <>
                         {
                             comments.map((comment: any) => {
                                 return (
-                                    <div key={comment.comment_id} id={`c${comment.comment_id}`} className='w-full text-l-2 dark:text-white animate-fade-in-fontbox'>
-                                        <div className='flex items-start gap-4 tlg:gap-3 mt-5 tlg:mt-4'>
+                                    <div key={comment.comment_id} id={`c${comment.comment_id}`} className='w-full animate-fade-in-fontbox'>
+                                        <div className='flex items-start gap-4 mt-4'>
                                             {
                                                 comment.depth === 1
-                                                && <i className="text-l-2 dark:text-white rotate-180 mt-2.5 mx-3.5 fa-solid fa-reply"></i>
+                                                && <i className="rotate-180 mt-2.5 mx-3.5 fa-solid fa-reply"></i>
                                             }
-                                            <div className="w-10 tlg:w-8 h-10 tlg:h-8 shrink-0 relative rounded-full overflow-hidden">
+                                            <div className="w-8 h-8 lg:w-10 lg:h-10 shrink-0 relative rounded-full overflow-hidden">
                                                 <Image src={comment.user_image} alt="유저 프로필 사진" fill sizes="100%" referrerPolicy="no-referrer" className="object-cover"/>
                                             </div>
                                             <div className="w-full">
-                                                <div className="flex gap-3 tlg:gap-1 tlg:flex-col items-center tlg:items-start">
+                                                <div className="flex gap-1 lg:gap-3 tlg:flex-col lg:items-center">
                                                     <div className="font-medium">{comment.user_auth !== "credentials" && comment.user_privacy ? hideUserName(comment.user_name, 1) : comment.user_name}</div>
                                                     <div className="flex gap-3 items-center">
                                                         <div className="text-sm text-l-5 dark:text-d-c">{timeFormat(comment.created_at)}</div>
@@ -610,7 +610,7 @@ export default function Comments (
                                                             user
                                                                 ? comment.user_id !== user.id && !comment.is_deleted_with_reply && !comment.is_deleted_by_reports
                                                                     ? !compareIdsFromReports(comment.reports)
-                                                                        ? <button id={`report-comment-${comment.comment_id}`} data-user={comment.user_id} onClick={reportCommentModalOpen} className="flex gap-1 items-center text-sm text-l-2 dark:text-white hover:text-h-1 hover:dark:text-f-8">
+                                                                        ? <button id={`report-comment-${comment.comment_id}`} data-user={comment.user_id} onClick={reportCommentModalOpen} className="flex gap-1 items-center text-sm lg:hover:text-h-1 lg:hover:dark:text-f-8">
                                                                             {comment.reports.toString()}
                                                                             <i className="text-xs fa-regular fa-bell"></i>
                                                                             신고
@@ -619,12 +619,12 @@ export default function Comments (
                                                                     : comment.user_id === user.id && !comment.is_deleted_with_reply && !comment.is_deleted_by_reports
                                                                         ? <div id={`comment-btn-wrap-${comment.comment_id}`} className="flex gap-2 items-center text-sm">
                                                                             <input onChange={editComment} type="checkbox" id={`comment-edit-${comment.comment_id}`} className="hidden"/>
-                                                                            <label htmlFor={`comment-edit-${comment.comment_id}`} className="flex gap-1 items-center cursor-pointer text-l-2 hover:text-h-1 tlg:hover:text-l-2 dark:text-white hover:dark:text-f-8 tlg:hover:dark:text-white">
+                                                                            <label htmlFor={`comment-edit-${comment.comment_id}`} className="flex gap-1 items-center cursor-pointer lg:hover:text-h-1 lg:hover:dark:text-f-8">
                                                                                 <i className="text-[0.5rem] fa-solid fa-pen"></i>
                                                                                 수정
                                                                             </label>
                                                                             <div className="w-px h-3 bg-l-2 dark:bg-white"></div>
-                                                                            <button id={`delete-comment-${comment.comment_id}`} data-comment={comment.comment_id} data-bundle={comment.bundle_id} onClick={deleteCommentModalOpen} className="flex gap-1 items-center text-l-2 hover:text-h-1 tlg:hover:text-l-2 dark:text-white hover:dark:text-f-8 tlg:hover:dark:text-white">
+                                                                            <button id={`delete-comment-${comment.comment_id}`} data-comment={comment.comment_id} data-bundle={comment.bundle_id} onClick={deleteCommentModalOpen} className="flex gap-1 items-center lg:hover:text-h-1 lg:hover:dark:text-f-8">
                                                                                 <i className="text-[0.625rem] fa-regular fa-trash-can"></i>
                                                                                 삭제
                                                                             </button>
@@ -640,19 +640,19 @@ export default function Comments (
                                                         ? <div className="text-l-5 dark:text-d-c">[삭제된 댓글입니다]</div>
                                                             : comment.is_deleted_by_reports
                                                                 ? <div className="text-l-5 dark:text-d-c">[신고로 삭제된 댓글입니다]</div>
-                                                                : <pre className="whitespace-pre-wrap font-sans text-l-2 dark:text-white">{comment.comment}</pre>
+                                                                : <pre className="whitespace-pre-wrap font-sans">{comment.comment}</pre>
                                                     }
                                                     <input onChange={commentReplyShow} id={`comment-reply-${comment.comment_id}`} type="checkbox" className="hidden peer"/>
-                                                    <label htmlFor={`comment-reply-${comment.comment_id}`} className={`${user ? 'block' : 'hidden'} peer-checked:hidden text-sm mt-3 text-h-1 dark:text-f-8 hover:underline tlg:underline cursor-pointer`}>답글</label>
+                                                    <label htmlFor={`comment-reply-${comment.comment_id}`} className={`${user ? 'block' : 'hidden'} peer-checked:hidden text-sm mt-3 text-h-1 dark:text-f-8 lg:hover:underline cursor-pointer`}>답글</label>
                                                 </div>
                                                 {/* 댓글 수정 */}
                                                 <div id={`comment-editor-${comment.comment_id}`} className="hidden mt-3">
-                                                    <div className="w-full items-center px-4 pt-3 pb-1.5 rounded-lg bg-l-e dark:bg-d-4">
-                                                        <textarea id={`comment-edit-textarea-${comment.comment_id}`} onChange={commentEditOnChange} onInput={handleHeightChange} onFocus={commentEditOnFocus} placeholder="댓글 수정하기..." defaultValue={comment.comment} className="w-full h-5 resize-none text-sm text-l-2 dark:text-white placeholder-l-5 dark:placeholder-d-c bg-transparent"/>
+                                                    <div className="w-full items-center px-4 pt-3 pb-1.5 rounded-lg bg-l-f dark:bg-d-3">
+                                                        <textarea id={`comment-edit-textarea-${comment.comment_id}`} onChange={commentEditOnChange} onInput={handleHeightChange} onFocus={commentEditOnFocus} placeholder="댓글 수정하기..." defaultValue={comment.comment} className="w-full h-5 resize-none text-sm placeholder-l-5 dark:placeholder-d-c bg-transparent"/>
                                                     </div>
                                                     <div className="flex gap-2 text-sm mt-3">
                                                         <button onClick={editCommentAPIInit} id={`comment-edit-btn-${comment.comment_id}`} onMouseDown={e => onMouseDown(e, 0.9, e.currentTarget.classList.contains("edit-btn-enabled") ? true : false)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-14 h-8 rounded-lg">수정</button>
-                                                        <button onClick={commentEditCancelBtnOnClick} id={`comment-edit-cancel-${comment.comment_id}`} onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-14 h-8 rounded-lg text-l-2 dark:text-white hover:bg-l-e hover:dark:bg-d-4 tlg:hover:bg-transparent tlg:hover:dark:bg-transparent">취소</button>
+                                                        <button onClick={commentEditCancelBtnOnClick} id={`comment-edit-cancel-${comment.comment_id}`} onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-14 h-8 rounded-lg lg:hover:bg-l-f lg:hover:dark:bg-d-3">취소</button>
                                                     </div>
                                                 </div>
                                                 {/* 답글 */}
@@ -660,16 +660,16 @@ export default function Comments (
                                                     user
                                                     ? <div id={`comment-reply-content-${comment.comment_id}`} className="hidden mt-5">
                                                         <div className="w-full flex gap-4">
-                                                            <div className="w-10 tlg:w-8 h-10 tlg:h-8 shrink-0 relative rounded-full overflow-hidden">
+                                                            <div className="w-8 h-8 lg:w-10 lg:h-10 shrink-0 relative rounded-full overflow-hidden">
                                                                 <Image src={user.protected && user.provider !== "credentials" ? user.public_img : user.image} alt="유저 프로필 사진" fill sizes="100%" referrerPolicy="no-referrer" className="object-cover"/>
                                                             </div>
                                                             <div className="w-full">
-                                                                <div className="relative w-full flex items-center pb-1 border-b border-l-9 dark:border-d-9">
-                                                                    <textarea onInput={handleHeightChange} onChange={commentReplyOnChange} onFocus={commentReplyOnChange} id={`comment-reply-textarea-${comment.comment_id}`} placeholder="답글 달기..." className="w-full h-[1.375rem] resize-none text-sm mt-1.5 text-l-2 dark:text-white placeholder-l-5 dark:placeholder-d-c bg-transparent"/>
+                                                                <div className="relative w-full flex items-center pb-2 border-b border-l-b dark:border-d-6">
+                                                                    <textarea onInput={handleHeightChange} onChange={commentReplyOnChange} onFocus={commentReplyOnChange} id={`comment-reply-textarea-${comment.comment_id}`} placeholder="답글 달기..." className="w-full h-[1.375rem] resize-none text-sm mt-1.5 placeholder-l-5 dark:placeholder-d-c bg-transparent"/>
                                                                 </div>
                                                                 <div className="flex gap-2 text-sm mt-3">
-                                                                    <button onClick={replyCommentAPIInit} id={`comment-reply-btn-${comment.comment_id}`} data-comment={comment.comment_id} data-bundle={comment.bundle_id} data-email={comment.user_email} data-auth={comment.user_auth} onMouseDown={e => onMouseDown(e, 0.9, e.currentTarget.classList.contains("edit-btn-enabled") ? true : false)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="edit-btn-disabled w-14 h-8 rounded-lg bg-l-e dark:bg-d-4 text-l-9 dark:text-d-9 cursor-default">답글</button>
-                                                                    <button onClick={commentReplyCancelBtnOnClick} id={`comment-reply-cancel-${comment.comment_id}`} onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-14 h-8 rounded-lg text-l-2 dark:text-white hover:bg-l-e hover:dark:bg-d-4 tlg:hover:bg-transparent tlg:hover:dark:bg-transparent">취소</button>
+                                                                    <button onClick={replyCommentAPIInit} id={`comment-reply-btn-${comment.comment_id}`} data-comment={comment.comment_id} data-bundle={comment.bundle_id} data-email={comment.user_email} data-auth={comment.user_auth} onMouseDown={e => onMouseDown(e, 0.9, e.currentTarget.classList.contains("edit-btn-enabled") ? true : false)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="edit-btn-disabled w-14 h-8 rounded-lg bg-l-f dark:bg-d-3 text-l-9 dark:text-d-9 cursor-default">답글</button>
+                                                                    <button onClick={commentReplyCancelBtnOnClick} id={`comment-reply-cancel-${comment.comment_id}`} onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-14 h-8 rounded-lg lg:hover:bg-l-f lg:hover:dark:bg-d-3">취소</button>
                                                                 </div>
                                                             </div>
                                                         </div>

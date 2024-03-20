@@ -11,6 +11,43 @@ button { border: none; outline: none; background-color: transparent; line-height
 body { background-color: #FFF; }
 html.dark body { background-color: #202124; }
 
+/* 폰트 */
+@font-face {
+    font-family: 'Spoqa Han Sans Neo';
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+    src: url('/fonts/SpoqaHanSansNeo-Thin.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Spoqa Han Sans Neo';
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+    src: url('/fonts/SpoqaHanSansNeo-Light.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Spoqa Han Sans Neo';
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+    src: url('/fonts/SpoqaHanSansNeo-Regular.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Spoqa Han Sans Neo';
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+    src: url('/fonts/SpoqaHanSansNeo-Medium.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Spoqa Han Sans Neo';
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+    src: url('/fonts/SpoqaHanSansNeo-Bold.woff2') format('woff2');
+}
+
 /* 셀렉트박스 */
 select {
     appearance: none;
@@ -21,7 +58,7 @@ select {
 }
 option {
     color: #E9EAEE;
-    background-color: #35363A;
+    background-color: #3C4043;
 }
 html.dark option {
     color: #E9EAEE;
@@ -120,28 +157,34 @@ html.dark #__next .Mui-checked + .MuiSwitch-track { background-color: #8AB4F880;
 /* Material UI - Pagination */
 #__next .MuiPagination-ul button { color: #5F6368; transition: 0s; }
 html.dark #__next .MuiPagination-ul button { color: #CDCED2; }
-html.dark #__next .MuiPagination-ul button:hover { background-color: #2D2E31; }
-#__next .MuiPagination-ul .Mui-selected { color: #202124; background-color: #E9EAEE; }
-#__next .MuiPagination-ul .Mui-selected:hover { background-color: #D2D4DC; }
-html.dark #__next .MuiPagination-ul .Mui-selected { color: #FFFFFF; background-color: #3C4043; }
-html.dark #__next .MuiPagination-ul .Mui-selected:hover { background-color: #646568; }
+html.dark #__next .MuiPagination-ul button:hover { background-color: #2E3134; }
+#__next .MuiPagination-ul .Mui-selected { color: #202124; background-color: #F2F1F6; }
+#__next .MuiPagination-ul .Mui-selected:hover { background-color: #E9EAEE; }
+html.dark #__next .MuiPagination-ul .Mui-selected { color: #FFFFFF; background-color: #2E3134; }
+html.dark #__next .MuiPagination-ul .Mui-selected:hover { background-color: #3C4043; }
 #__next .MuiPaginationItem-root { color: #202124; }
 html.dark #__next .MuiPaginationItem-root { color: #FFFFFF; }
 
 /* Color picker */
+.color-picker .rcp {
+    background-color: transparent;
+}
 .color-picker .rcp-root {
-    width: 320px;
-    overflow: hidden;
+    width: 100%;
 }
 .color-picker .rcp-body {
-    padding: 16px 20px;
-    gap: 16px;
-    background-color: #35363A;
+    gap: 12px;
+    padding: 12px;
+    padding-bottom: 8px;
+    border-radius: 0 0 12px 12px;
+    background-color: #E9EAEE;
+    overflow: hidden;
+}
+html.dark .rcp-body {
+    background-color: #3C4043;
 }
 .color-picker .rcp-fields {
-    display: flex;
     flex-direction: row;
-    align-items: center;
     gap: 8px;
 }
 .color-picker .rcp-fields .rcp-fields-floor {
@@ -149,22 +192,19 @@ html.dark #__next .MuiPaginationItem-root { color: #FFFFFF; }
     display: flex;
 }
 .color-picker .rcp-fields .rcp-fields-floor label {
-    font-size: 14px;
+    font-size: 12px;
     margin-top: 4px;
-    color: #B1B2B6;
+    color: #97989C;
 }
 .color-picker .rcp-body .rcp-field-input {
-    border: 1px solid;
-    border-color: #646568;
+    font-size: 12px;
+    border: none;
+    background-color: #D2D4DCCC;
+    color: #5F6368;
 }
-#text-color-picker + label .same-sourc,
-#bg-color-picker + label .same-source { top: -42px; }
-#text-color-picker:checked + label .same-source,
-#bg-color-picker:checked + label .same-source { display: none; }
-
-@media screen and (max-width: 1024px) {
-    .color-picker .rcp-root { width: 240px; }
-    .color-picker .rcp-fields .rcp-fields-floor label { font-size: 12px; }
+html.dark .color-picker .rcp-body .rcp-field-input {
+    background-color: #646568CC;
+    color: #CDCED2;
 }
 
 /* Mail animation */
@@ -207,7 +247,7 @@ html.dark .animated-mail .body {
     animation: topFold 0.4s 0.4s both;
 }
 html.dark .animated-mail .top-fold {
-    border-color: #6682ca transparent transparent transparent;
+    border-color: #6682CA transparent transparent transparent;
 }
 .animated-mail .back-fold {
     position: absolute;
@@ -218,7 +258,7 @@ html.dark .animated-mail .top-fold {
     z-index: 0;
 }
 html.dark .animated-mail .back-fold {
-    background: #6682ca;
+    background: #6682CA;
 }
 .animated-mail .left-fold {
     position: absolute;
@@ -250,7 +290,7 @@ html.dark .animated-mail .left-fold {
     background: repeating-linear-gradient(-45deg, #1B73E7, #1B73E7 8px, transparent 8px, transparent 18px);
 }
 html.dark .animated-mail .letter .letter-border {
-    background: repeating-linear-gradient(-45deg, #6682ca, #6682ca 8px, transparent 8px, transparent 18px);
+    background: repeating-linear-gradient(-45deg, #6682CA, #6682ca 8px, transparent 8px, transparent 18px);
 }
 .animated-mail .letter .letter-title {
     margin-top: 10px;
@@ -282,7 +322,7 @@ html.dark .animated-mail .letter .letter-context {
     opacity: 0.3;
 }
 html.dark .animated-mail .letter .letter-stamp {
-    background: #6682ca;
+    background: #6682CA;
 }
 .letter-image:hover .animated-mail .letter {
     height: 180px;
@@ -327,16 +367,16 @@ html.dark .animated-mail .letter .letter-stamp {
     #active .when-active-1 { background-color: #FFFFFF; }
     #active .when-active-2 { color: #1B73E7; }
     #active .when-active-3 { color: #FFFFFF; }
-    #active .when-active-4 { color: #D2D4DC; }
-    #active .when-active-5 { color: #D2D4DC; }
+    #active .when-active-4 { color: #E9EAEE; }
+    #active .when-active-5 { color: #E9EAEE; }
     #active .when-active-6 { color: #FFFFFF; }
     html.dark #active { background-color: #8AB4F8; }
     html.dark #active .when-active-1 { background-color: #202124; }
     html.dark #active .when-active-2 { color: #8AB4F8; }
     html.dark #active .when-active-3 { color: #202124; }
-    html.dark #active .when-active-4 { color: #3C4043; }
-    html.dark #active .when-active-5 { color: #3C4043; }
-    html.dark #active .wㄴhen-active-6 { color: #202124; }
+    html.dark #active .when-active-4 { color: #2E3134; }
+    html.dark #active .when-active-5 { color: #2E3134; }
+    html.dark #active .when-active-6 { color: #202124; }
 }
 
 /* 툴팁 호버 이벤트 */
