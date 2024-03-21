@@ -336,10 +336,10 @@ const Info = ({params}: any) => {
                 transitionType="spring"
             >
                 <form onSubmit={e => e.preventDefault()} className='w-full flex flex-col justify-center items-center text-l-2 dark:text-white'>
-                    <div className='flex fixed left-0 top-36'>
+                    <div className='flex fixed left-0 top-40'>
                         <KakaoAdFitLeftBanner marginLeft={2}/>
                     </div>
-                    <div className='flex fixed right-0 top-36'>
+                    <div className='flex fixed right-0 top-40'>
                         <KakaoAdFitRightBanner marginRight={2}/>
                     </div>
                     <div className='w-[22.5rem] flex flex-col justify-center items-start my-16 lg:my-24 mt-8 lg:mt-16'>
