@@ -251,7 +251,7 @@ export default function FontBox ({
                                             <div className='w-max pl-4 lg:pl-8 lg:relative flex tlg:flex-col lg:items-center'>
                                                 <div className="text-lg lg:text-xl tlg:mb-2">{font.name}</div>
                                                 <div className="lg:ml-3">by<span className="ml-2">{font.source}</span></div>
-                                                <div className='group absolute z-20 -right-8 lg:-right-4 top-12 lg:top-1/2 translate-x-full -translate-y-1/2'>
+                                                <div className='group absolute z-20 right-8 lg:-right-4 top-12 lg:top-1/2 translate-x-full -translate-y-1/2'>
                                                     <input onClick={handleLikeClick} onChange={handleLikeChange} type="checkbox" id={font.code.toString()} className='peer hidden' defaultChecked={handleDefaultLike(font.code, font.liked_user)}/>
                                                     <label htmlFor={font.code.toString()} onMouseDown={e => onMouseDown(e, 0.8, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className='block group cursor-pointer'>
                                                         <i className="block peer-checked:group-[]:hidden text-lg lg:text-xl bi bi-heart"></i>

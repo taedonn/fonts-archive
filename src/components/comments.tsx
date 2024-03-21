@@ -558,10 +558,10 @@ export default function Comments (
                     {
                         user === null
                         ? <div className="w-full flex items-center gap-4 text-l-5 dark:text-d-c">
-                            <i className="lg:text-3xl text-4xl bi bi-person-circle"></i>
-                            <div className="w-full">
+                            <i className="text-3xl lg:text-4xl bi bi-person-circle"></i>
+                            <div className="w-full text-sm">
                                 <div>로그인 후 댓글 이용 가능합니다.</div>
-                                <div className="w-full h-px mt-2 bg-l-b dark:bg-d-6"></div>
+                                <div className="w-full h-px mt-1.5 bg-l-b dark:bg-d-6"></div>
                             </div>
                         </div>
                         : <div className="w-full flex gap-4">
@@ -569,7 +569,7 @@ export default function Comments (
                                 <Image src={user.protected && user.provider !== "credentials" ? user.public_img : user.image} alt="유저 프로필 사진" fill sizes="100%" referrerPolicy="no-referrer" className="object-cover"/>
                             </div>
                             <div className="w-full flex flex-col mt-0.5 lg:mt-1.5">
-                                <div className={`relative w-full flex items-center pb-2 border-b lg:hover:border-l-9 hover:dark:border-d-9 ${commentFocus ? 'border-l-9 dark:border-d-9' : 'border-l-b dark:border-d-6'}`}>
+                                <div className={`relative w-full flex items-center pb-1.5 border-b lg:hover:border-l-9 hover:dark:border-d-9 ${commentFocus ? 'border-l-9 dark:border-d-9' : 'border-l-b dark:border-d-6'}`}>
                                     <textarea ref={commentRef} onChange={commentOnChange} onInput={handleHeightChange} onFocus={commentOnFocus} onBlur={commentOnBlur} placeholder="댓글 달기..." className="w-full h-[1.375rem] resize-none text-sm placeholder-l-5 dark:placeholder-d-c bg-transparent"/>
                                 </div>
                                 {
@@ -584,10 +584,10 @@ export default function Comments (
                     } 
                 </div>
             </div>
-            <div className="w-full min-h-[7.5rem] mb-[11.25rem] lg:px-10">
+            <div className="w-full min-h-[7.5rem] mb-36 lg:mb-40 lg:pl-10">
                 {
                     comments === null || comments.length === 0
-                    ? <div className="w-full text-center">아직 댓글이 없습니다.</div>
+                    ? <div className="w-full mt-4 text-center text-sm text-l-5 dark:text-d-c">아직 댓글이 없습니다.</div>
                     : <>
                         {
                             comments.map((comment: any) => {
@@ -664,7 +664,7 @@ export default function Comments (
                                                                 <Image src={user.protected && user.provider !== "credentials" ? user.public_img : user.image} alt="유저 프로필 사진" fill sizes="100%" referrerPolicy="no-referrer" className="object-cover"/>
                                                             </div>
                                                             <div className="w-full">
-                                                                <div className="relative w-full flex items-center pb-2 border-b border-l-b dark:border-d-6">
+                                                                <div className="relative w-full flex items-center pb-1.5 border-b border-l-b dark:border-d-6">
                                                                     <textarea onInput={handleHeightChange} onChange={commentReplyOnChange} onFocus={commentReplyOnChange} id={`comment-reply-textarea-${comment.comment_id}`} placeholder="답글 달기..." className="w-full h-[1.375rem] resize-none text-sm mt-1.5 placeholder-l-5 dark:placeholder-d-c bg-transparent"/>
                                                                 </div>
                                                                 <div className="flex gap-2 text-sm mt-3">

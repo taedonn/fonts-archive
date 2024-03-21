@@ -620,10 +620,10 @@ function DetailPage({params}: any) {
                                     <input onChange={handleWebFont} type="radio" id="cdn_font_face" name="cdn" value="font-face" className="peer/font-face hidden"/>
                                     <label htmlFor="cdn_font_face" onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-[6.5rem] h-9 rounded-full flex justify-center items-center cursor-pointer peer-checked/font-face:bg-h-1 peer-checked/font-face:dark:bg-f-8 peer-checked/font-face:text-white peer-checked/font-face:dark:text-d-2 bg-l-f lg:hover:bg-l-e dark:bg-d-3 lg:dark:hover:bg-d-4">@font-face</label>
                                 </div>
-                                <div className="w-full text-sm rounded-lg bg-l-f dark:bg-d-3">
+                                <div className="w-full tlg:text-sm rounded-lg bg-l-f dark:bg-d-3">
                                     {
                                         webFont === "CSS"
-                                        ? <div className="w-full relative pl-8 pr-[3.75rem] lg:pr-16 overflow-hidden">
+                                        ? <div className="w-full relative pl-6 lg:pl-8 pr-[3.75rem] lg:pr-16 overflow-hidden">
                                             <div className="cdn-pre no-scrollbar w-full h-16 flex items-center overflow-x-auto"><pre className="font-sans">{font.cdn_css}</pre></div>
                                             <div className="w-7 h-7 lg:w-8 lg:h-8 absolute z-10 right-4 top-1/2 -translate-y-1/2 rounded-md cursor-pointer">
                                                 <div onClick={copyOnClick} className="copy_btn w-full h-full flex justify-center items-center rounded-md lg:hover:bg-h-1/20 lg:hover:dark:bg-f-8/20 text-h-1 dark:text-f-8">
@@ -635,7 +635,7 @@ function DetailPage({params}: any) {
                                             </div>
                                         </div>
                                         : ( webFont === "link"
-                                            ? <div className="w-full relative pl-8 pr-[3.75rem] lg:pr-16 overflow-hidden">
+                                            ? <div className="w-full relative pl-6 lg:pl-8pr-[3.75rem] lg:pr-16 overflow-hidden">
                                                 <div className="cdn-pre no-scrollbar w-full h-16 flex items-center overflow-x-auto"><pre className="font-sans">{font.cdn_link}</pre></div>
                                                 <div className="w-7 h-7 lg:w-8 lg:h-8 absolute z-10 right-4 top-1/2 -translate-y-1/2 rounded-md cursor-pointer">
                                                     <div onClick={copyOnClick} className="copy_btn w-full h-full flex justify-center items-center rounded-md lg:hover:bg-h-1/20 lg:hover:dark:bg-f-8/20 text-h-1 dark:text-f-8">
@@ -647,7 +647,7 @@ function DetailPage({params}: any) {
                                                 </div>
                                             </div>
                                             : ( webFont === "import"
-                                                ? <div className="w-full relative pl-8 pr-[3.75rem] lg:pr-16 overflow-hidden">
+                                                ? <div className="w-full relative pl-6 lg:pl-8 pr-[3.75rem] lg:pr-16 overflow-hidden">
                                                     <div className="cdn-pre no-scrollbar w-full h-16 flex items-center overflow-x-auto"><pre className="font-sans">{font.cdn_import}</pre></div>
                                                     <div className="w-7 h-7 lg:w-8 lg:h-8 absolute z-10 right-4 top-1/2 -translate-y-1/2 rounded-md cursor-pointer">
                                                         <div onClick={copyOnClick} className="copy_btn w-full h-full flex justify-center items-center rounded-md lg:hover:bg-h-1/20 lg:hover:dark:bg-f-8/20 text-h-1 dark:text-f-8">
@@ -658,7 +658,7 @@ function DetailPage({params}: any) {
                                                         </div>
                                                     </div>
                                                 </div>
-                                                : <div className="w-full relative pl-8 pr-[3.75rem] lg:pr-16 overflow-hidden">
+                                                : <div className="w-full relative pl-6 lg:pl-8 pr-[3.75rem] lg:pr-16 overflow-hidden">
                                                     <div className="cdn-pre no-scrollbar w-full h-auto py-[1.375rem] flex items-center overflow-auto whitespace-nowrap"><pre id="cdn-font-face" style={{tabSize: 8}} className="font-sans">{font.cdn_font_face}</pre></div>
                                                     <div className="w-7 h-7 lg:w-8 lg:h-8 absolute z-10 right-4 top-8 -translate-y-1/2 cursor-pointer">
                                                         <div onClick={copyOnClick} className="copy_btn w-full h-full flex justify-center items-center rounded-md lg:hover:bg-h-1/20 lg:hover:dark:bg-f-8/20 text-h-1 dark:text-f-8">
@@ -681,7 +681,7 @@ function DetailPage({params}: any) {
                                 <textarea ref={textareaRef} onChange={handleFontChange} value={text} placeholder="원하는 문구를 적어보세요." className="w-full h-[1.5rem] resize-none placeholder-l-5 dark:placeholder-d-c bg-transparent"/>
                             </div>
                             <div style={{backgroundColor: bgColor.hex}} className="w-full rounded-lg overflow-hidden">
-                                <div className="w-full p-8 flex flex-col gap-6">
+                                <div className="w-full p-6 lg:p-8 flex flex-col gap-6">
                                     {
                                         font.font_weight[0] === "Y"
                                         && <div>
