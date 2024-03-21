@@ -509,7 +509,7 @@ export default function Comments (
                         shareExpand &&
                         <div ref={shareExpandContent} className="p-4 rounded-lg absolute left-0 -top-2 -translate-y-full bg-l-f dark:bg-d-3">
                             <div className="w-full mb-4 relative rounded-lg flex items-center overflow-hidden">
-                                <input type="text" id="url" defaultValue={`https://fonts.taedonn.com/post/${font.font_family.replaceAll(" ", "+")}`} className="w-full h-12 px-3 pr-10 py-2 rounded-r-lg text-sm placeholder-l-5 dark:placeholder-d-c bg-l-e dark:bg-d-4"/>
+                                <input type="text" id="url" defaultValue={`https://fonts.taedonn.com/post/${font.font_family.replaceAll(" ", "+")}`} className="w-full h-12 px-3 pr-10 py-2 rounded-r-lg text-sm placeholder-l-5 dark:placeholder-d-c bg-l-d/60 dark:bg-d-6/60"/>
                                 <label onClick={copyUrl} htmlFor="url" className="w-8 h-8 absolute z-10 right-1 flex justify-center items-center cursor-pointer lg:hover:text-h-1 lg:hover:dark:text-f-8">
                                     <i className="url_copy_btn text-sm bi bi-clipboard"></i>
                                     <i className="url_copy_chk_btn text-sm hidden text-h-1 dark:text-f-8 bi bi-check-lg"></i>
@@ -558,7 +558,7 @@ export default function Comments (
                     {
                         user === null
                         ? <div className="w-full flex items-center gap-4 text-l-5 dark:text-d-c">
-                            <i className="text-3xl lg:text-4xl bi bi-person-circle"></i>
+                            <i className="text-3xl lg:text-4xl text-l-2 dark:text-white bi bi-person-circle"></i>
                             <div className="w-full text-sm">
                                 <div>로그인 후 댓글 이용 가능합니다.</div>
                                 <div className="w-full h-px mt-1.5 bg-l-b dark:bg-d-6"></div>

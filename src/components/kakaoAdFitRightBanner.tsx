@@ -45,7 +45,7 @@ function KakaoAdFitRightBanner({
         adRef.current = true;
     }, [marginLeft, marginRight]);
 
-    return <aside style={{marginLeft: marginLeft + "rem", marginRight: marginRight + "rem"}} className="aside__kakaoAdFit_right relative"></aside>
+    return <aside style={{marginLeft: marginLeft + "rem", marginRight: marginRight + "rem"}} className="aside__kakaoAdFit_right relative flex"></aside>
 }
 
 export default React.memo(KakaoAdFitRightBanner);

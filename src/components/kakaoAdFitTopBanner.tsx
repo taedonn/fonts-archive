@@ -49,7 +49,7 @@ function KakaoAdFitTopBanner({
         adRef.current = true;
     }, [marginTop, marginBottom]);
 
-    return <aside style={{marginTop: marginTop + "rem", marginBottom: marginBottom + "rem"}} className="aside__kakaoAdFit_top relative"></aside>
+    return <aside style={{marginTop: marginTop + "rem", marginBottom: marginBottom + "rem"}} className="aside__kakaoAdFit_top relative flex"></aside>
 }
 
 export default React.memo(KakaoAdFitTopBanner);

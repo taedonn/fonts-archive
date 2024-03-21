@@ -271,6 +271,12 @@ function DetailPage({params}: any) {
         setLineHeightUnit("em");
         setLetterSpacingUnit("em");
 
+        // 펼치기 접기
+        const rcpText = document.getElementById("rcp-text") as HTMLInputElement;
+        const rcpBg = document.getElementById("rcp-bg") as HTMLInputElement;
+        rcpText.checked = false;
+        rcpBg.checked = false;
+
         // 컬러 리셋
         const html = document.getElementsByTagName("html")[0];
         if (html.classList.contains("dark")) {
@@ -501,8 +507,8 @@ function DetailPage({params}: any) {
                                 </div>
                             </div>
                             <div className="w-full mt-5">
-                                <input id="rcp-bg" type="checkbox" className="peer hidden"/>
-                                <label htmlFor="rcp-bg" className="group w-full h-14 px-4 flex justify-between items-center rounded-lg cursor-pointer border-2 border-transparent lg:hover:border-l-e lg:hover:dark:border-d-4 lg:peer-checked:hover:bg-transparent lg:peer-checked:dark:hover:bg-transparent peer-checked:border-h-1 peer-checked:dark:border-f-8 lg:hover:bg-l-e lg:hover:dark:bg-d-4">
+                                <input id="rcp-text" type="checkbox" className="peer hidden"/>
+                                <label htmlFor="rcp-text" className="group w-full h-14 px-4 flex justify-between items-center rounded-lg cursor-pointer border-2 border-transparent lg:hover:border-l-e lg:hover:dark:border-d-4 lg:peer-checked:hover:bg-transparent lg:peer-checked:dark:hover:bg-transparent peer-checked:border-h-1 peer-checked:dark:border-f-8 lg:hover:bg-l-e lg:hover:dark:bg-d-4">
                                     <div className="font-medium selection:bg-transparent">폰트색 
                                         <span className="inline peer-checked:group-[]:hidden ml-1 font-medium text-h-1 dark:text-f-8">[펼치기]</span>
                                         <span className="hidden peer-checked:group-[]:inline ml-1 font-medium text-h-1 dark:text-f-8">[접기]</span>
@@ -514,8 +520,8 @@ function DetailPage({params}: any) {
                                 </div>
                             </div>
                             <div className="w-full mt-3">
-                                <input id="rcp-text" type="checkbox" className="peer hidden"/>
-                                <label htmlFor="rcp-text" className="group w-full h-14 px-4 flex justify-between items-center rounded-lg cursor-pointer border-2 border-transparent lg:hover:border-l-e lg:hover:dark:border-d-4 lg:peer-checked:hover:bg-transparent lg:peer-checked:dark:hover:bg-transparent peer-checked:border-h-1 peer-checked:dark:border-f-8 lg:hover:bg-l-e lg:hover:dark:bg-d-4">
+                                <input id="rcp-bg" type="checkbox" className="peer hidden"/>
+                                <label htmlFor="rcp-bg" className="group w-full h-14 px-4 flex justify-between items-center rounded-lg cursor-pointer border-2 border-transparent lg:hover:border-l-e lg:hover:dark:border-d-4 lg:peer-checked:hover:bg-transparent lg:peer-checked:dark:hover:bg-transparent peer-checked:border-h-1 peer-checked:dark:border-f-8 lg:hover:bg-l-e lg:hover:dark:bg-d-4">
                                     <div className="font-medium selection:bg-transparent">배경색 
                                         <span className="inline peer-checked:group-[]:hidden ml-1 font-medium text-h-1 dark:text-f-8">[펼치기]</span>
                                         <span className="hidden peer-checked:group-[]:inline ml-1 font-medium text-h-1 dark:text-f-8">[접기]</span>
@@ -536,7 +542,7 @@ function DetailPage({params}: any) {
                                                 sourceFonts.map((font: SourceFont) => {
                                                     return <Link key={font.name} href={`/post/${font.font_family.replaceAll(" ", "+")}`} className="group w-full relative px-4 py-3 border-l-[2px] border-l-b dark:border-d-6 lg:hover:border-h-1 lg:hover:dark:border-f-8 lg:hover:text-h-1 lg:hover:dark:text-f-8 lg:hover:bg-l-e lg:hover:dark:bg-d-4">
                                                         {font.name}
-                                                        <i className="hidden group-hover:inline absolute right-4 top-1/2 -translate-y-1/2 fa-solid fa-angle-right"></i>
+                                                        <i className="hidden lg:group-hover:inline absolute right-4 top-1/2 -translate-y-1/2 fa-solid fa-angle-right"></i>
                                                     </Link>
                                                 })
                                             }
@@ -635,7 +641,7 @@ function DetailPage({params}: any) {
                                             </div>
                                         </div>
                                         : ( webFont === "link"
-                                            ? <div className="w-full relative pl-6 lg:pl-8pr-[3.75rem] lg:pr-16 overflow-hidden">
+                                            ? <div className="w-full relative pl-6 lg:pl-8 pr-[3.75rem] lg:pr-16 overflow-hidden">
                                                 <div className="cdn-pre no-scrollbar w-full h-16 flex items-center overflow-x-auto"><pre className="font-sans">{font.cdn_link}</pre></div>
                                                 <div className="w-7 h-7 lg:w-8 lg:h-8 absolute z-10 right-4 top-1/2 -translate-y-1/2 rounded-md cursor-pointer">
                                                     <div onClick={copyOnClick} className="copy_btn w-full h-full flex justify-center items-center rounded-md lg:hover:bg-h-1/20 lg:hover:dark:bg-f-8/20 text-h-1 dark:text-f-8">
@@ -687,7 +693,7 @@ function DetailPage({params}: any) {
                                         && <div>
                                             <div style={{color: textColor.hex}}>Thin 100</div>
                                             <div className="w-full relative py-2">
-                                                <div style={{backgroundImage: `linear-gradient(to left, ${bgColor.hex} 25%, #FFFFFF00)`}} className='w-44 h-full absolute -right-8 top-1/2 -translate-y-1/2'></div>
+                                                <div style={{backgroundImage: `linear-gradient(to left, ${bgColor.hex} 25%, #FFFFFF00)`}} className='w-44 h-full absolute -right-6 lg:-right-8 top-1/2 -translate-y-1/2'></div>
                                                 <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"100", color: textColor.hex}} className="w-full"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
                                             </div>
                                         </div>
@@ -697,7 +703,7 @@ function DetailPage({params}: any) {
                                         && <div>
                                             <div style={{color: textColor.hex}}>ExtraLight 200</div>
                                             <div className="w-full relative py-2">
-                                                <div style={{backgroundImage: `linear-gradient(to left, ${bgColor.hex} 25%, #FFFFFF00)`}} className='w-44 h-full absolute -right-8 top-1/2 -translate-y-1/2'></div>
+                                                <div style={{backgroundImage: `linear-gradient(to left, ${bgColor.hex} 25%, #FFFFFF00)`}} className='w-44 h-full absolute -right-6 lg:-right-8 top-1/2 -translate-y-1/2'></div>
                                                 <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"200", color: textColor.hex}} className="w-full"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
                                             </div>
                                         </div>
@@ -707,7 +713,7 @@ function DetailPage({params}: any) {
                                         && <div>
                                             <div style={{color: textColor.hex}}>Light 300</div>
                                             <div className="w-full relative py-2">
-                                                <div style={{backgroundImage: `linear-gradient(to left, ${bgColor.hex} 25%, #FFFFFF00)`}} className='w-44 h-full absolute -right-8 top-1/2 -translate-y-1/2'></div>
+                                                <div style={{backgroundImage: `linear-gradient(to left, ${bgColor.hex} 25%, #FFFFFF00)`}} className='w-44 h-full absolute -right-6 lg:-right-8 top-1/2 -translate-y-1/2'></div>
                                                 <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"300", color: textColor.hex}} className="w-full"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
                                             </div>
                                         </div>
@@ -717,7 +723,7 @@ function DetailPage({params}: any) {
                                         && <div>
                                             <div style={{color: textColor.hex}}>Regular 400</div>
                                             <div className="w-full relative py-2">
-                                                <div style={{backgroundImage: `linear-gradient(to left, ${bgColor.hex} 25%, #FFFFFF00)`}} className='w-44 h-full absolute -right-8 top-1/2 -translate-y-1/2'></div>
+                                                <div style={{backgroundImage: `linear-gradient(to left, ${bgColor.hex} 25%, #FFFFFF00)`}} className='w-44 h-full absolute -right-6 lg:-right-8 top-1/2 -translate-y-1/2'></div>
                                                 <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"400", color: textColor.hex}} className="w-full"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
                                             </div>
                                         </div>
@@ -727,7 +733,7 @@ function DetailPage({params}: any) {
                                         && <div>
                                             <div style={{color: textColor.hex}}>Medium 500</div>
                                             <div className="w-full relative py-2">
-                                                <div style={{backgroundImage: `linear-gradient(to left, ${bgColor.hex} 25%, #FFFFFF00)`}} className='w-44 h-full absolute -right-8 top-1/2 -translate-y-1/2'></div>
+                                                <div style={{backgroundImage: `linear-gradient(to left, ${bgColor.hex} 25%, #FFFFFF00)`}} className='w-44 h-full absolute -right-6 lg:-right-8 top-1/2 -translate-y-1/2'></div>
                                                 <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"500", color: textColor.hex}} className="w-full"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
                                             </div>
                                         </div>
@@ -737,7 +743,7 @@ function DetailPage({params}: any) {
                                         && <div>
                                             <div style={{color: textColor.hex}}>SemiBold 600</div>
                                             <div className="w-full relative py-2">
-                                                <div style={{backgroundImage: `linear-gradient(to left, ${bgColor.hex} 25%, #FFFFFF00)`}} className='w-44 h-full absolute -right-8 top-1/2 -translate-y-1/2'></div>
+                                                <div style={{backgroundImage: `linear-gradient(to left, ${bgColor.hex} 25%, #FFFFFF00)`}} className='w-44 h-full absolute -right-6 lg:-right-8 top-1/2 -translate-y-1/2'></div>
                                                 <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"600", color: textColor.hex}} className="w-full"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
                                             </div>
                                         </div>
@@ -747,7 +753,7 @@ function DetailPage({params}: any) {
                                         && <div>
                                             <div style={{color: textColor.hex}}>Bold 700</div>
                                             <div className="w-full relative py-2">
-                                                <div style={{backgroundImage: `linear-gradient(to left, ${bgColor.hex} 25%, #FFFFFF00)`}} className='w-44 h-full absolute -right-8 top-1/2 -translate-y-1/2'></div>
+                                                <div style={{backgroundImage: `linear-gradient(to left, ${bgColor.hex} 25%, #FFFFFF00)`}} className='w-44 h-full absolute -right-6 lg:-right-8 top-1/2 -translate-y-1/2'></div>
                                                 <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"700", color: textColor.hex}} className="w-full"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
                                             </div>
                                         </div>
@@ -757,7 +763,7 @@ function DetailPage({params}: any) {
                                         && <div>
                                             <div style={{color: textColor.hex}}>Heavy 800</div>
                                             <div className="w-full relative py-2">
-                                                <div style={{backgroundImage: `linear-gradient(to left, ${bgColor.hex} 25%, #FFFFFF00)`}} className='w-44 h-full absolute -right-8 top-1/2 -translate-y-1/2'></div>
+                                                <div style={{backgroundImage: `linear-gradient(to left, ${bgColor.hex} 25%, #FFFFFF00)`}} className='w-44 h-full absolute -right-6 lg:-right-8 top-1/2 -translate-y-1/2'></div>
                                                 <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"800", color: textColor.hex}} className="w-full"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
                                             </div>
                                         </div>
@@ -767,7 +773,7 @@ function DetailPage({params}: any) {
                                         && <div>
                                             <div style={{color: textColor.hex}}>Black 900</div>
                                             <div className="w-full relative py-2">
-                                                <div style={{backgroundImage: `linear-gradient(to left, ${bgColor.hex} 25%, #FFFFFF00)`}} className='w-44 h-full absolute -right-8 top-1/2 -translate-y-1/2'></div>
+                                                <div style={{backgroundImage: `linear-gradient(to left, ${bgColor.hex} 25%, #FFFFFF00)`}} className='w-44 h-full absolute -right-6 lg:-right-8 top-1/2 -translate-y-1/2'></div>
                                                 <pre style={{fontFamily:'"'+font.font_family+'"', fontSize: convertedFontSize, lineHeight: lineHeight + lineHeightUnit, letterSpacing: letterSpacing + letterSpacingUnit, fontWeight:"900", color: textColor.hex}} className="w-full"><DummyText lang={font.lang} text={text} num={randomNum}/></pre>
                                             </div>
                                         </div>
@@ -1018,7 +1024,7 @@ function DetailPage({params}: any) {
                                 
                                 {/* 카카오 애드핏 하단 띠배너 */}
                                 <div>
-                                    <KakaoAdFitBottomBanner marginTop={2}/>
+                                    <KakaoAdFitBottomBanner marginTop={1}/>
                                 </div>
                             </div>
 
