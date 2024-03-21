@@ -1023,7 +1023,7 @@ function DetailPage({params}: any) {
                                 </div>
                                 
                                 {/* 카카오 애드핏 하단 띠배너 */}
-                                <div>
+                                <div className="w-max">
                                     <KakaoAdFitBottomBanner marginTop={1}/>
                                 </div>
                             </div>
