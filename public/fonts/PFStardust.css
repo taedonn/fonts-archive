@@ -1,0 +1,7 @@
+@font-face {
+    font-family: 'PF Stardust';
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+    src: url('/fonts/PFStardust.woff2') format('woff2');
+}

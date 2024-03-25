@@ -1,0 +1,7 @@
+@font-face {
+    font-family: 'Korail Condensed';
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+    src: url('/fonts/KorailCondensed.woff2') format('woff2');
+}
