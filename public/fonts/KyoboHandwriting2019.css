@@ -1,0 +1,7 @@
+@font-face {
+    font-family: 'KyoboHandwriting2019';
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+    src: url('/fonts/KyoboHandwriting2019.woff2') format('woff2');
+}
