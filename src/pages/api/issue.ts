@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import prisma from '@/libs/prisma';
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
-const nodemailer = require('nodemailer');
+import { SMTPClient } from "emailjs";
 
 // API
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -72,116 +72,124 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     }
                 });
 
-                // transporter 설정
-                const transporter =  nodemailer.createTransport({
+                const client = new SMTPClient({
+                    user: process.env.EMAIL_ID,
+                    password: process.env.EMAIL_PASSWORD,
                     host: 'smtp.daum.net',
-                    post: 465,
-                    secure: true, // 465 포트일 때 true, 아니면 false
-                    auth: {
-                        user: process.env.EMAIL_ID, // 다음 스마트워크 메일 계정
-                        pass: process.env.EMAIL_PASSWORD, // 다음 스마트워크 메일 비밀번호
-                    }
+                    port: 465,
+                    ssl: true,
                 });
 
-                // transporter에 정의된 계정 정보를 사용해 이메일 전송
-                const sendToUser = {
-                    from: '"폰트 아카이브" <taedonn@taedonn.com>',
-                    to: email,
-                    subject: '[폰트 아카이브] 문의해주셔서 감사합니다.',
-                    html: `
-                        <div style="width: 100%; font-size: 16px; font-weight: 400; line-height: 1.25; color: #000; font-family: 'Roboto', 'Noto Sans KR', '맑은고딕', Malgun Gothic, '돋움', Dotum, Helvetica, 'Apple SD Gothic Neo', Sans-serif;">
-                            <div style="width: 100%; max-width: 520px; background-color: #FFF; margin: 0 auto; padding: 80px 28px; box-sizing: border-box;">
-                                <div style="width: 100%; margin: 0 auto;">
-                                    <div style="display: table; height: 24px; margin: 0 auto;">
-                                        <span style="display: table-cell; vertical-align: middle;"><img style="height: 18px; margin-right: 8px;" src="https://fonts-archive.s3.ap-northeast-2.amazonaws.com/logo.png"/></span>
-                                        <span style="display: table-cell; font-size: 16px; font-weight: bold;">폰트 아카이브</div>
+                client.send(
+                    {
+                        from: "폰트 아카이브 <taedonn@taedonn.com>",
+                        to: email,
+                        subject: "[폰트 아카이브] 문의해주셔서 감사합니다",
+                        text: "",
+                        attachment: [
+                            { data: `
+                                <div style="width: 100%; font-size: 16px; font-weight: 400; line-height: 1.25; color: #000; font-family: 'Roboto', 'Noto Sans KR', '맑은고딕', Malgun Gothic, '돋움', Dotum, Helvetica, 'Apple SD Gothic Neo', Sans-serif;">
+                                    <div style="width: 100%; max-width: 520px; background-color: #FFF; margin: 0 auto; padding: 80px 28px; box-sizing: border-box;">
+                                        <div style="width: 100%; margin: 0 auto;">
+                                            <div style="display: table; height: 24px; margin: 0 auto;">
+                                                <span style="display: table-cell; vertical-align: middle;"><img style="height: 18px; margin-right: 8px;" src="https://fonts-archive.s3.ap-northeast-2.amazonaws.com/logo.png"/></span>
+                                                <span style="display: table-cell; font-size: 16px; font-weight: bold;">폰트 아카이브</div>
+                                            </div>
+                                            <h2 style="font-size: 20px; font-weight: 500; margin-top: 32px; text-align: center;">
+                                                문의해 주셔서 <span style="color: #000; font-weight: 700;">감사합니다.</span>
+                                            </h2>
+                                            <p style="text-align: center; margin: 40px 0;">
+                                                <img src="https://fonts-archive.s3.ap-northeast-2.amazonaws.com/3d_love_sign.png" alt="아이콘" style="width: 140px;"/>
+                                            </p>
+                                            <p style="width: 320px; max-width: 100%; font-size: 14px; font-weight: 400; line-height: 2; color: #3A3A3A; word-break: keep-all; margin: 0 auto;">
+                                                폰트 아카이브를 이용해 주셔서 감사합니다! 문의해주신 내용 검토 후 최대한 빠른 시일 내에 답변드리겠습니다. <br/><br/>
+                                                부득이하게 문의해주신 내용을 반영하기 어려울 경우, 관련 내용 첨부해서 답변 드리겠습니다. 감사합니다! <br/><br/>
+                                                - 태돈
+                                            </p>
+                                            <div style="width: 100%; height: 1px; background-color: #D2D4DC; margin: 0 auto; margin-top: 48px;"></div>
+                                            <p style="width: 100%; font-size: 12px; font-weight: 400; line-height: 2.5; margin: 0 auto; margin-top: 28px; color: #5F6368;">
+                                                <a style="color: #067DF7;" target="_blank" href="https://fonts.taedonn.com">홈페이지</a> · 
+                                                <a style="color: #067DF7;" target="_blank" href="https://fonts.taedonn.com/terms">서비스 이용약관</a> · 
+                                                <a style="color: #067DF7;" target="_blank" href="https://fonts.taedonn.com/privacy">개인정보 처리방침</a>
+                                                <br/>© 2023 - ${new Date().getFullYear()} taedonn, all rights reserved.
+                                            </p>
+                                        </div>
                                     </div>
-                                    <h2 style="font-size: 20px; font-weight: 500; margin-top: 32px; text-align: center;">
-                                        문의해 주셔서 <span style="color: #000; font-weight: 700;">감사합니다.</span>
-                                    </h2>
-                                    <p style="text-align: center; margin: 40px 0;">
-                                        <img src="https://fonts-archive.s3.ap-northeast-2.amazonaws.com/3d_love_sign.png" alt="아이콘" style="width: 140px;"/>
-                                    </p>
-                                    <p style="width: 320px; max-width: 100%; font-size: 14px; font-weight: 400; line-height: 2; color: #3A3A3A; word-break: keep-all; margin: 0 auto;">
-                                        폰트 아카이브를 이용해 주셔서 감사합니다! 문의해주신 내용 검토 후 최대한 빠른 시일 내에 답변드리겠습니다. <br/><br/>
-                                        부득이하게 문의해주신 내용을 반영하기 어려울 경우, 관련 내용 첨부해서 답변 드리겠습니다. 감사합니다! <br/><br/>
-                                        - 태돈
-                                    </p>
-                                    <div style="width: 100%; height: 1px; background-color: #D2D4DC; margin: 0 auto; margin-top: 48px;"></div>
-                                    <p style="width: 100%; font-size: 12px; font-weight: 400; line-height: 2.5; margin: 0 auto; margin-top: 28px; color: #5F6368;">
-                                        <a style="color: #067DF7;" target="_blank" href="https://fonts.taedonn.com">홈페이지</a> · 
-                                        <a style="color: #067DF7;" target="_blank" href="https://fonts.taedonn.com/terms">서비스 이용약관</a> · 
-                                        <a style="color: #067DF7;" target="_blank" href="https://fonts.taedonn.com/privacy">개인정보 처리방침</a>
-                                        <br/>© 2023 - ${new Date().getFullYear()} taedonn, all rights reserved.
-                                    </p>
                                 </div>
-                            </div>
-                        </div>
-                    `
-                }
+                            `, alternative: true },
+                        ],
+                    },
+                    (err) => {
+                        if (err) console.log(err);
+                    }
+                );
 
-                const sendToAdmin = {
-                    from: '"폰트 아카이브" <taedonn@taedonn.com>',
-                    to: "taedonn@taedonn.com",
-                    subject: '[폰트 아카이브] 고객 문의 내용',
-                    html: `
-                        <div style="width: 100%; font-size: 16px; font-weight: 400; line-height: 1.25; color: #000; font-family: 'Roboto', 'Noto Sans KR', '맑은고딕', Malgun Gothic, '돋움', Dotum, Helvetica, 'Apple SD Gothic Neo', Sans-serif;">
-                            <div style="width: 100%; max-width: 520px; background-color: #FFF; margin: 0 auto; padding: 80px 28px; box-sizing: border-box;">
-                                <div style="width:100%; max-width:400px; margin:0 auto;">
-                                    <div style="display: table; height: 24px; margin: 0 auto;">
-                                        <span style="display: table-cell; vertical-align: middle;"><img style="height: 18px; margin-right: 8px;" src="https://fonts-archive.s3.ap-northeast-2.amazonaws.com/logo.png"/></span>
-                                        <span style="display: table-cell; font-size: 16px; font-weight: bold;">폰트 아카이브</div>
+                client.send(
+                    {
+                        from: "폰트 아카이브 <taedonn@taedonn.com>",
+                        to: "taedonn@taedonn.com",
+                        subject: "[폰트 아카이브] 고객 문의 내용",
+                        text: "",
+                        attachment: [
+                            { data: `
+                                <div style="width: 100%; font-size: 16px; font-weight: 400; line-height: 1.25; color: #000; font-family: 'Roboto', 'Noto Sans KR', '맑은고딕', Malgun Gothic, '돋움', Dotum, Helvetica, 'Apple SD Gothic Neo', Sans-serif;">
+                                    <div style="width: 100%; max-width: 520px; background-color: #FFF; margin: 0 auto; padding: 80px 28px; box-sizing: border-box;">
+                                        <div style="width:100%; max-width:400px; margin:0 auto;">
+                                            <div style="display: table; height: 24px; margin: 0 auto;">
+                                                <span style="display: table-cell; vertical-align: middle;"><img style="height: 18px; margin-right: 8px;" src="https://fonts-archive.s3.ap-northeast-2.amazonaws.com/logo.png"/></span>
+                                                <span style="display: table-cell; font-size: 16px; font-weight: bold;">폰트 아카이브</div>
+                                            </div>
+                                            <h2 style="font-size: 20px; font-weight: 500; margin-top: 32px; text-align: center;">
+                                                고객 문의 내용
+                                            </h2>
+                                            <p style="text-align: center; margin: 40px 0;">
+                                                <img src="https://fonts-archive.s3.ap-northeast-2.amazonaws.com/3d_gun_sign.png" alt="아이콘" style="width: 140px;"/>
+                                            </p>
+                                            <p style="width: 320px; max-width: 100%; font-size: 14px; font-weight: bold; line-height: 2; margin: 0 auto;">
+                                                제목
+                                            </p>
+                                            <div style="width: 320px; max-width: 100%; padding: 16px 20px; box-sizing: border-box; margin: 0 auto; margin-top: 8px; box-sizing: border-box; font-size: 14px; background-color: #E9F0FE; border-radius: 6px;">
+                                                ${title}
+                                            </div>
+                                            <p style="width: 320px; max-width: 100%; font-size: 14px; font-weight: bold; line-height: 2; margin: 0 auto; margin-top: 40px;">
+                                                이메일
+                                            </p>
+                                            <div style="width: 320px; max-width: 100%; padding: 16px 20px; box-sizing: border-box; margin: 0 auto; margin-top: 8px; box-sizing: border-box; font-size: 14px; background-color: #E9F0FE; border-radius: 6px;">
+                                                ${email}
+                                            </div>
+                                            <p style="width: 320px; max-width: 100%; font-size: 14px; font-weight: bold; line-height: 2; margin: 0 auto; margin-top: 40px;">
+                                                문의 유형
+                                            </p>
+                                            <div style="width: 320px; max-width: 100%; padding: 16px 20px; box-sizing: border-box; margin: 0 auto; margin-top: 8px; box-sizing: border-box; font-size: 14px; background-color: #E9F0FE; border-radius: 6px;">
+                                                ${
+                                                    type === "font"
+                                                        ? "폰트 관련 제보"
+                                                        : type === "bug"
+                                                            ? "버그 관련 제보"
+                                                            : "기타 문의 사항"
+                                                }
+                                            </div>
+                                            <p style="width: 320px; max-width: 100%; font-size: 14px; font-weight: bold; line-height: 2; margin: 0 auto; margin-top: 40px;">
+                                                문의 내용
+                                            </p>
+                                            <pre style="width: 320px; max-width: 100%; min-height: 120px; white-space: pre-wrap; word-break: break-all; padding: 16px 20px; box-sizing: border-box; margin: 0 auto; margin-top: 8px; box-sizing: border-box; font-size: 14px; background-color: #E9F0FE; border-radius: 6px; font-family: 'Roboto', 'Noto Sans KR', '맑은고딕', Malgun Gothic, '돋움', Dotum, Helvetica, 'Apple SD Gothic Neo', Sans-serif;">${content}</pre>
+                                            <div style="width: 100%; height: 1px; background-color: #D2D4DC; margin: 0 auto; margin-top: 48px;"></div>
+                                            <p style="width: 100%; font-size: 12px; font-weight: 400; line-height: 2.5; margin: 0 auto; margin-top: 28px; color: #5F6368;">
+                                                <a style="color: #067DF7;" target="_blank" href="https://fonts.taedonn.com">홈페이지</a> · 
+                                                <a style="color: #067DF7;" target="_blank" href="https://fonts.taedonn.com/terms">서비스 이용약관</a> · 
+                                                <a style="color: #067DF7;" target="_blank" href="https://fonts.taedonn.com/privacy">개인정보 처리방침</a>
+                                                <br/>© 2023 - ${new Date().getFullYear()} taedonn, all rights reserved.
+                                            </p>
+                                        </div>
                                     </div>
-                                    <h2 style="font-size: 20px; font-weight: 500; margin-top: 32px; text-align: center;">
-                                        고객 문의 내용
-                                    </h2>
-                                    <p style="text-align: center; margin: 40px 0;">
-                                        <img src="https://fonts-archive.s3.ap-northeast-2.amazonaws.com/3d_gun_sign.png" alt="아이콘" style="width: 140px;"/>
-                                    </p>
-                                    <p style="width: 320px; max-width: 100%; font-size: 14px; font-weight: bold; line-height: 2; margin: 0 auto;">
-                                        제목
-                                    </p>
-                                    <div style="width: 320px; max-width: 100%; padding: 16px 20px; box-sizing: border-box; margin: 0 auto; margin-top: 8px; box-sizing: border-box; font-size: 14px; background-color: #E9F0FE; border-radius: 6px;">
-                                        ${title}
-                                    </div>
-                                    <p style="width: 320px; max-width: 100%; font-size: 14px; font-weight: bold; line-height: 2; margin: 0 auto; margin-top: 40px;">
-                                        이메일
-                                    </p>
-                                    <div style="width: 320px; max-width: 100%; padding: 16px 20px; box-sizing: border-box; margin: 0 auto; margin-top: 8px; box-sizing: border-box; font-size: 14px; background-color: #E9F0FE; border-radius: 6px;">
-                                        ${email}
-                                    </div>
-                                    <p style="width: 320px; max-width: 100%; font-size: 14px; font-weight: bold; line-height: 2; margin: 0 auto; margin-top: 40px;">
-                                        문의 유형
-                                    </p>
-                                    <div style="width: 320px; max-width: 100%; padding: 16px 20px; box-sizing: border-box; margin: 0 auto; margin-top: 8px; box-sizing: border-box; font-size: 14px; background-color: #E9F0FE; border-radius: 6px;">
-                                        ${
-                                            type === "font"
-                                                ? "폰트 관련 제보"
-                                                : type === "bug"
-                                                    ? "버그 관련 제보"
-                                                    : "기타 문의 사항"
-                                        }
-                                    </div>
-                                    <p style="width: 320px; max-width: 100%; font-size: 14px; font-weight: bold; line-height: 2; margin: 0 auto; margin-top: 40px;">
-                                        문의 내용
-                                    </p>
-                                    <pre style="width: 320px; max-width: 100%; min-height: 120px; white-space: pre-wrap; word-break: break-all; padding: 16px 20px; box-sizing: border-box; margin: 0 auto; margin-top: 8px; box-sizing: border-box; font-size: 14px; background-color: #E9F0FE; border-radius: 6px; font-family: 'Roboto', 'Noto Sans KR', '맑은고딕', Malgun Gothic, '돋움', Dotum, Helvetica, 'Apple SD Gothic Neo', Sans-serif;">${content}</pre>
-                                    <div style="width: 100%; height: 1px; background-color: #D2D4DC; margin: 0 auto; margin-top: 48px;"></div>
-                                    <p style="width: 100%; font-size: 12px; font-weight: 400; line-height: 2.5; margin: 0 auto; margin-top: 28px; color: #5F6368;">
-                                        <a style="color: #067DF7;" target="_blank" href="https://fonts.taedonn.com">홈페이지</a> · 
-                                        <a style="color: #067DF7;" target="_blank" href="https://fonts.taedonn.com/terms">서비스 이용약관</a> · 
-                                        <a style="color: #067DF7;" target="_blank" href="https://fonts.taedonn.com/privacy">개인정보 처리방침</a>
-                                        <br/>© 2023 - ${new Date().getFullYear()} taedonn, all rights reserved.
-                                    </p>
                                 </div>
-                            </div>
-                        </div>
-                    `
-                }
-
-                // 관리자 메일로 보내기
-                await transporter.sendMail(sendToUser);
-                await transporter.sendMail(sendToAdmin);
+                            `, alternative: true },
+                        ],
+                    },
+                    (err) => {
+                        if (err) console.log(err);
+                    }
+                );
 
                 return res.status(200).json({
                     msg: "이메일 발송 및 DB 저장 성공"
