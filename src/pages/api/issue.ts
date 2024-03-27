@@ -80,7 +80,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     ssl: true,
                 });
 
-                client.send(
+                await client.send(
                     {
                         from: "폰트 아카이브 <taedonn@taedonn.com>",
                         to: email,
@@ -124,7 +124,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     }
                 );
 
-                client.send(
+                await client.send(
                     {
                         from: "폰트 아카이브 <taedonn@taedonn.com>",
                         to: "taedonn@taedonn.com",
