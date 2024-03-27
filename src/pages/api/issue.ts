@@ -166,7 +166,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                                         <p style="width: 100%; font-size: 14px; font-weight: bold; line-height: 2; margin: 0 auto; margin-top: 40px;">
                                             문의 내용
                                         </p>
-                                        <pre style="width: 100%; min-height: 120px; white-space: pre-wrap; word-break: break-all; padding: 16px 20px; box-sizing: border-box; margin: 0 auto; margin-top: 8px; box-sizing: border-box; font-size: 14px; background-color: #E9F0FE; border-radius: 6px; font-family: 'Roboto', 'Noto Sans KR', '맑은고딕', Malgun Gothic, '돋움', Dotum, Helvetica, 'Apple SD Gothic Neo', Sans-serif;">${"문의 내용"}</pre>
+                                        <pre style="width: 100%; min-height: 120px; white-space: pre-wrap; word-break: break-all; padding: 16px 20px; box-sizing: border-box; margin: 0 auto; margin-top: 8px; box-sizing: border-box; font-size: 14px; background-color: #E9F0FE; border-radius: 6px; font-family: 'Roboto', 'Noto Sans KR', '맑은고딕', Malgun Gothic, '돋움', Dotum, Helvetica, 'Apple SD Gothic Neo', Sans-serif;">${content}</pre>
                                         <div style="width: 100%; height: 1px; background-color: #D2D4DC; margin: 0 auto; margin-top: 48px;"></div>
                                         <p style="width: 100%; font-size: 12px; font-weight: 400; line-height: 2.5; margin: 0 auto; margin-top: 28px; color: #5F6368;">
                                             <a style="color: #067DF7;" target="_blank" href="https://fonts.taedonn.com">홈페이지</a> · 
