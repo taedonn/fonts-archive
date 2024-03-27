@@ -83,12 +83,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 await client.sendAsync({
                     from: "폰트 아카이브 <taedonn@taedonn.com>",
                     to: email,
-                    subject: "[폰트 아카이브] 문의해주셔서 감사합니다",
+                    subject: "[폰트 아카이브] 문의 접수 완료",
                     text: "",
                     attachment: [
                         { data: `
-                            <div style="width: 100%; font-size: 16px; font-weight: 400; line-height: 1.25; color: #000; font-family: 'Roboto', 'Noto Sans KR', '맑은고딕', Malgun Gothic, '돋움', Dotum, Helvetica, 'Apple SD Gothic Neo', Sans-serif;">
-                                <div style="width: 100%; max-width: 520px; background-color: #FFF; margin: 0 auto; padding: 80px 28px; box-sizing: border-box;">
+                            <div style="width: 100%; background-color: #FFF; font-size: 16px; font-weight: 400; line-height: 1.25; color: #000; font-family: 'Roboto', 'Noto Sans KR', '맑은고딕', Malgun Gothic, '돋움', Dotum, Helvetica, 'Apple SD Gothic Neo', Sans-serif;">
+                                <div style="width: 360px; max-width: 100%; margin: 0 auto; padding: 80px 28px; box-sizing: border-box;">
                                     <div style="width: 100%; margin: 0 auto;">
                                         <div style="display: table; height: 24px; margin: 0 auto;">
                                             <span style="display: table-cell; vertical-align: middle;"><img style="height: 18px; margin-right: 8px;" src="https://fonts-archive.s3.ap-northeast-2.amazonaws.com/logo.png"/></span>
@@ -100,7 +100,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                                         <p style="text-align: center; margin: 40px 0;">
                                             <img src="https://fonts-archive.s3.ap-northeast-2.amazonaws.com/3d_love_sign.png" alt="아이콘" style="width: 140px;"/>
                                         </p>
-                                        <p style="width: 320px; max-width: 100%; font-size: 14px; font-weight: 400; line-height: 2; color: #3A3A3A; word-break: keep-all; margin: 0 auto;">
+                                        <p style="width: 100%; font-size: 14px; font-weight: 400; line-height: 2; color: #3A3A3A; margin: 0 auto;">
                                             폰트 아카이브를 이용해 주셔서 감사합니다! 문의해주신 내용 검토 후 최대한 빠른 시일 내에 답변드리겠습니다. <br/><br/>
                                             부득이하게 문의해주신 내용을 반영하기 어려울 경우, 관련 내용 첨부해서 답변 드리겠습니다. 감사합니다! <br/><br/>
                                             - 태돈
@@ -110,7 +110,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                                             <a style="color: #067DF7;" target="_blank" href="https://fonts.taedonn.com">홈페이지</a> · 
                                             <a style="color: #067DF7;" target="_blank" href="https://fonts.taedonn.com/terms">서비스 이용약관</a> · 
                                             <a style="color: #067DF7;" target="_blank" href="https://fonts.taedonn.com/privacy">개인정보 처리방침</a>
-                                            <br/>© 2023 - ${new Date().getFullYear()} taedonn, all rights reserved.
+                                            <br/>© 2023 - ${new Date().getFullYear()} 태돈, all rights reserved.
                                         </p>
                                     </div>
                                 </div>
@@ -126,9 +126,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                     text: "",
                     attachment: [
                         { data: `
-                            <div style="width: 100%; font-size: 16px; font-weight: 400; line-height: 1.25; color: #000; font-family: 'Roboto', 'Noto Sans KR', '맑은고딕', Malgun Gothic, '돋움', Dotum, Helvetica, 'Apple SD Gothic Neo', Sans-serif;">
-                                <div style="width: 100%; max-width: 520px; background-color: #FFF; margin: 0 auto; padding: 80px 28px; box-sizing: border-box;">
-                                    <div style="width:100%; max-width:400px; margin:0 auto;">
+                            <div style="width: 100%; background-color: #FFF; font-size: 16px; font-weight: 400; line-height: 1.25; color: #000; font-family: 'Roboto', 'Noto Sans KR', '맑은고딕', Malgun Gothic, '돋움', Dotum, Helvetica, 'Apple SD Gothic Neo', Sans-serif;">
+                                <div style="width: 360px; max-width: 100%; margin: 0 auto; padding: 80px 28px; box-sizing: border-box;">
+                                    <div style="width:100%; margin:0 auto;">
                                         <div style="display: table; height: 24px; margin: 0 auto;">
                                             <span style="display: table-cell; vertical-align: middle;"><img style="height: 18px; margin-right: 8px;" src="https://fonts-archive.s3.ap-northeast-2.amazonaws.com/logo.png"/></span>
                                             <span style="display: table-cell; font-size: 16px; font-weight: bold;">폰트 아카이브</div>
@@ -139,22 +139,22 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                                         <p style="text-align: center; margin: 40px 0;">
                                             <img src="https://fonts-archive.s3.ap-northeast-2.amazonaws.com/3d_gun_sign.png" alt="아이콘" style="width: 140px;"/>
                                         </p>
-                                        <p style="width: 320px; max-width: 100%; font-size: 14px; font-weight: bold; line-height: 2; margin: 0 auto;">
+                                        <p style="width: 100%; font-size: 14px; font-weight: bold; line-height: 2; margin: 0 auto;">
                                             제목
                                         </p>
-                                        <div style="width: 320px; max-width: 100%; padding: 16px 20px; box-sizing: border-box; margin: 0 auto; margin-top: 8px; box-sizing: border-box; font-size: 14px; background-color: #E9F0FE; border-radius: 6px;">
+                                        <div style="width: 100%; padding: 16px 20px; box-sizing: border-box; margin: 0 auto; margin-top: 8px; box-sizing: border-box; font-size: 14px; background-color: #E9F0FE; border-radius: 6px;">
                                             ${title}
                                         </div>
-                                        <p style="width: 320px; max-width: 100%; font-size: 14px; font-weight: bold; line-height: 2; margin: 0 auto; margin-top: 40px;">
+                                        <p style="width: 100%; font-size: 14px; font-weight: bold; line-height: 2; margin: 0 auto; margin-top: 40px;">
                                             이메일
                                         </p>
-                                        <div style="width: 320px; max-width: 100%; padding: 16px 20px; box-sizing: border-box; margin: 0 auto; margin-top: 8px; box-sizing: border-box; font-size: 14px; background-color: #E9F0FE; border-radius: 6px;">
+                                        <div style="width: 100%; padding: 16px 20px; box-sizing: border-box; margin: 0 auto; margin-top: 8px; box-sizing: border-box; font-size: 14px; background-color: #E9F0FE; border-radius: 6px;">
                                             ${email}
                                         </div>
-                                        <p style="width: 320px; max-width: 100%; font-size: 14px; font-weight: bold; line-height: 2; margin: 0 auto; margin-top: 40px;">
+                                        <p style="width: 100%; font-size: 14px; font-weight: bold; line-height: 2; margin: 0 auto; margin-top: 40px;">
                                             문의 유형
                                         </p>
-                                        <div style="width: 320px; max-width: 100%; padding: 16px 20px; box-sizing: border-box; margin: 0 auto; margin-top: 8px; box-sizing: border-box; font-size: 14px; background-color: #E9F0FE; border-radius: 6px;">
+                                        <div style="width: 100%; padding: 16px 20px; box-sizing: border-box; margin: 0 auto; margin-top: 8px; box-sizing: border-box; font-size: 14px; background-color: #E9F0FE; border-radius: 6px;">
                                             ${
                                                 type === "font"
                                                     ? "폰트 관련 제보"
@@ -163,16 +163,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                                                         : "기타 문의 사항"
                                             }
                                         </div>
-                                        <p style="width: 320px; max-width: 100%; font-size: 14px; font-weight: bold; line-height: 2; margin: 0 auto; margin-top: 40px;">
+                                        <p style="width: 100%; font-size: 14px; font-weight: bold; line-height: 2; margin: 0 auto; margin-top: 40px;">
                                             문의 내용
                                         </p>
-                                        <pre style="width: 320px; max-width: 100%; min-height: 120px; white-space: pre-wrap; word-break: break-all; padding: 16px 20px; box-sizing: border-box; margin: 0 auto; margin-top: 8px; box-sizing: border-box; font-size: 14px; background-color: #E9F0FE; border-radius: 6px; font-family: 'Roboto', 'Noto Sans KR', '맑은고딕', Malgun Gothic, '돋움', Dotum, Helvetica, 'Apple SD Gothic Neo', Sans-serif;">${content}</pre>
+                                        <pre style="width: 100%; min-height: 120px; white-space: pre-wrap; word-break: break-all; padding: 16px 20px; box-sizing: border-box; margin: 0 auto; margin-top: 8px; box-sizing: border-box; font-size: 14px; background-color: #E9F0FE; border-radius: 6px; font-family: 'Roboto', 'Noto Sans KR', '맑은고딕', Malgun Gothic, '돋움', Dotum, Helvetica, 'Apple SD Gothic Neo', Sans-serif;">${"문의 내용"}</pre>
                                         <div style="width: 100%; height: 1px; background-color: #D2D4DC; margin: 0 auto; margin-top: 48px;"></div>
                                         <p style="width: 100%; font-size: 12px; font-weight: 400; line-height: 2.5; margin: 0 auto; margin-top: 28px; color: #5F6368;">
                                             <a style="color: #067DF7;" target="_blank" href="https://fonts.taedonn.com">홈페이지</a> · 
                                             <a style="color: #067DF7;" target="_blank" href="https://fonts.taedonn.com/terms">서비스 이용약관</a> · 
                                             <a style="color: #067DF7;" target="_blank" href="https://fonts.taedonn.com/privacy">개인정보 처리방침</a>
-                                            <br/>© 2023 - ${new Date().getFullYear()} taedonn, all rights reserved.
+                                            <br/>© 2023 - ${new Date().getFullYear()} 태돈, all rights reserved.
                                         </p>
                                     </div>
                                 </div>

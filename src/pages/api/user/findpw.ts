@@ -53,12 +53,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             user && valid === "success" && await client.sendAsync({
                 from: "폰트 아카이브 <taedonn@taedonn.com>",
                 to: user.user_id,
-                subject: "[폰트 아카이브] 임시 비밀번호가 발급되었습니다",
+                subject: "[폰트 아카이브] 임시 비밀번호 발급",
                 text: "",
                 attachment: [
                     { data: `
-                        <div style="width: 100%; font-size: 16px; font-weight: 400; line-height: 1.25; color: #000; font-family: 'Roboto', 'Noto Sans KR', '맑은고딕', Malgun Gothic, '돋움', Dotum, Helvetica, 'Apple SD Gothic Neo', Sans-serif;">
-                            <div style="width: 100%; max-width: 520px; background-color: #FFF; margin: 0 auto; padding: 80px 28px; box-sizing: border-box;">
+                        <div style="width: 100%; background-color: #FFF; font-size: 16px; font-weight: 400; line-height: 1.25; color: #000; font-family: 'Roboto', 'Noto Sans KR', '맑은고딕', Malgun Gothic, '돋움', Dotum, Helvetica, 'Apple SD Gothic Neo', Sans-serif;">
+                            <div style="width: 360px; max-width: 100%; margin: 0 auto; padding: 80px 28px; box-sizing: border-box;">
                                 <div style="width: 100%; margin: 0 auto;">
                                     <div style="display: table; height: 24px; margin: 0 auto;">
                                         <span style="display: table-cell; vertical-align: middle;"><img style="height: 18px; margin-right: 8px;" src="https://fonts-archive.s3.ap-northeast-2.amazonaws.com/logo.png"/></span>
@@ -74,7 +74,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                                         안녕하세요 <span style="font-weight: bold; color: #000;">${user.user_name}</span>님, <br/>
                                         아래 임시 비밀번호를 통해 로그인 하실 수 있습니다.
                                     </p>
-                                    <div style="width: 320px; max-width: 100%; padding: 16px 20px; box-sizing: border-box; margin: 0 auto; margin-top: 20px; box-sizing: border-box; background-color: #E9F0FE; font-size: 14px; text-decoration: none; border-radius: 6px;">
+                                    <div style="width: 100%; padding: 16px 20px; box-sizing: border-box; margin: 0 auto; margin-top: 20px; box-sizing: border-box; background-color: #E9F0FE; font-size: 14px; text-decoration: none; border-radius: 6px;">
                                         ${randomPw}
                                     </div>
                                     <div style="width: 100%; height: 1px; background-color: #D2D4DC; margin-top: 48px;"></div>
@@ -88,7 +88,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                                         <a style="color: #067DF7;" target="_blank" href="https://fonts.taedonn.com">홈페이지</a> · 
                                         <a style="color: #067DF7;" target="_blank" href="https://fonts.taedonn.com/terms">서비스 이용약관</a> · 
                                         <a style="color: #067DF7;" target="_blank" href="https://fonts.taedonn.com/privacy">개인정보 처리방침</a>
-                                        <br/>© 2023 - ${new Date().getFullYear()} taedonn, all rights reserved.
+                                        <br/>© 2023 - ${new Date().getFullYear()} 태돈, all rights reserved.
                                     </p>
                                 </div>
                             </div>
