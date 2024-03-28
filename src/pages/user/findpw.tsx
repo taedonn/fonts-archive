@@ -30,6 +30,7 @@ const FindPw = ({params}: any) => {
     const [idVal, setIdVal] = useState<string>('');
     const [idChk, setIdChk] = useState<string>('');
     const [alertDisplay, setAlertDisplay] = useState<boolean>(false);
+    const [isValid, setIsValid] = useState<boolean>(false);
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
     // 뒤로가기 시 history가 남아있으면 state 변경
@@ -69,9 +70,14 @@ const FindPw = ({params}: any) => {
             await fetch(url, options)
             .then(res => res.json())
             .then(data => {
-                if (data.valid === 'wrong-name') { setNameChk('wrong-name'); }
-                else if (data.valid === 'wrong-id') { setIdChk('wrong-id'); }
-                else { setAlertDisplay(true); }
+                if (data.valid === 'invalid') {
+                    setIsValid(false);
+                    setAlertDisplay(true);
+                }
+                else {
+                    setIsValid(true);
+                    setAlertDisplay(true);
+                }
             })
             .catch(err => console.log(err));
         }
@@ -83,15 +89,18 @@ const FindPw = ({params}: any) => {
     // 엔터키 입력 시 가입하기 버튼 클릭
     useEffect(() => {
         const keys: any = [];
-        const handleKeydown = (e: KeyboardEvent) => { keys[e.key] = true; if (keys["Enter"]) { handleOnSubmit(); } }
-        const handleKeyup = (e: KeyboardEvent) => {keys[e.key] = false;}
+        const handleKeydown = (e: KeyboardEvent) => {
+            keys[e.key] = true;
+            if (keys["Enter"]) {
+                e.preventDefault();
+                handleOnSubmit();
+            }
+        }
 
         window.addEventListener("keydown", handleKeydown, false);
-        window.addEventListener("keyup", handleKeyup, false);
 
         return () => {
             window.removeEventListener("keydown", handleKeydown);
-            window.removeEventListener("keyup", handleKeyup);
         }
     });
 
@@ -131,8 +140,8 @@ const FindPw = ({params}: any) => {
                         <h2 className='text-2xl font-bold mb-6'>비밀번호 찾기</h2>
                         {
                             alertDisplay === true
-                            ? <>
-                                <div className='w-full h-10 px-2.5 mb-3 flex justify-between items-center rounded-lg border-2 border-h-1 dark:border-f-8 text-xs bg-h-1/20 dark:bg-f-8/20'>
+                            ? isValid
+                                ? <div className='w-full h-10 px-2.5 mb-3 flex justify-between items-center rounded-lg border-2 border-h-1 dark:border-f-8 text-xs bg-h-1/20 dark:bg-f-8/20'>
                                     <div className='flex items-center'>
                                         <i className="text-sm text-h-1 dark:text-f-8 fa-regular fa-bell"></i>
                                         <div className='ml-2'>이메일로 임시 비밀번호가 발급되었습니다. <Link href="/user/login" className='ml-2 text-h-1 dark:text-f-8 lg:hover:underline'>로그인 하기</Link></div>
@@ -141,7 +150,15 @@ const FindPw = ({params}: any) => {
                                         <i className="text-sm fa-solid fa-xmark"></i>
                                     </div>
                                 </div>
-                            </>
+                                : <div className='w-full h-10 px-2.5 mb-3 flex justify-between items-center rounded-lg border-2 border-h-r text-xs bg-h-r/20'>
+                                    <div className='flex items-center'>
+                                        <i className="text-sm text-h-r fa-regular fa-bell"></i>
+                                        <div className='ml-2'>일치하는 유저가 없습니다.</div>
+                                    </div>
+                                    <div onClick={handleAlertClose} className='flex justify-center items-center cursor-pointer'>
+                                        <i className="text-sm fa-solid fa-xmark"></i>
+                                    </div>
+                                </div>
                             : <></>
                         }
                         <form onSubmit={e => e.preventDefault()} className='w-full p-5 rounded-lg bg-l-e dark:bg-d-3 drop-shadow-default dark:drop-shadow-dark'>
@@ -151,7 +168,6 @@ const FindPw = ({params}: any) => {
                                 stateMsg={[
                                     { state: "", msg: "" },
                                     { state: "empty", msg: "이름을 입력해 주세요." },
-                                    { state: "wrong-name", msg: "이름이 아이디와 일치하지 않습니다." },
                                 ]}
                                 id='name'
                                 tabindex={1}
@@ -164,7 +180,6 @@ const FindPw = ({params}: any) => {
                                 stateMsg={[
                                     { state: "", msg: "" },
                                     { state: "empty", msg: "아이디를 입력해 주세요." },
-                                    { state: "wrong-id", msg: "조회된 아이디가 없습니다." },
                                 ]}
                                 id='id'
                                 tabindex={2}
