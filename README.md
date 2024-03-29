@@ -11,9 +11,30 @@
 
 &nbsp;
 
-## 개요
+## 폰트 아카이브의 주요 기능
 
-상업용으로 무료로 사용할 수 있는 폰트를 저장해둔 사이트입니다. 다른 사이트와 다른 점이 있다면 웹 폰트 정리가 잘 되어 있습니다.
+### 웹 폰트 링크 제공
+
+> 웹 폰트에 사용되는 CDN 링크는 Github과 NPM을 통해 제작하고 있으며, `@font-face`, `@import`, `<link/>` 3가지 형식으로 제공되고 있습니다. 하지만 원작자가 재배포를 허락하지 않는 경우, 웹 폰트 링크도 재배포의 한 형태로 판단해 링크를 제공하지 않고 있으니, 이용에 참고 부탁드립니다. 또한 폰트의 라이센스가 변경되거나, 원작자의 요청이 있을 경우 제공은 중지될 수 있습니다.
+
+<table align=center>
+<tr>
+  <td>
+	  <img src="https://fonts-archive.s3.ap-northeast-2.amazonaws.com/readme_webfont_1.png" alt="웹 폰트 제공 가능한 경우"/>
+  </td>
+  <td>
+	  <img src="https://fonts-archive.s3.ap-northeast-2.amazonaws.com/readme_webfont_2.png" alt="웹 폰트 제공 불가능한 경우"/>
+  </td>
+</tr>
+<tr>
+  <td>
+    <p align=center>웹 폰트를 제공하는 경우</p>
+  </td>
+  <td>
+    <p align=center>웹 폰트 제공이 불가능한 경우</p>
+  </td>
+</tr>
+</table>
 
 &nbsp;
 
