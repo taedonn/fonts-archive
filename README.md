@@ -17,17 +17,19 @@
 
 &nbsp;
 
-## 바로가기
+## Serverless architecture 구성도
 
-[웹사이트](https://fonts.taedonn.com) · [깃허브 프로젝트](https://github.com/fonts-archive) · [이메일 양식](https://github.com/taedonn/fonts-archive-email-template)
+> Serverless architecture를 구현하기 위해 Next.js와 Vercel을 선택했습니다.
+
+![Serverless framework](https://fonts-archive.s3.ap-northeast-2.amazonaws.com/readme-serverless-architecture.svg)
 
 &nbsp;
 
-## Serverless architecture 구성도
+## 웹 폰트
 
-Serverless architecture를 구현하기 위해 Next.js와 Vercel을 선택했습니다.
+> 웹 폰트를 제작하기 위해 GitHub, NPM과 연동해서 사용할 수 있는 jsDelivr를 사용했습니다.
 
-![Serverless framework](https://fonts-archive.s3.ap-northeast-2.amazonaws.com/readme-serverless-architecture.svg)
+![CDN Server](https://fonts-archive.s3.ap-northeast-2.amazonaws.com/readme-cdn-server.svg)
 
 &nbsp;
 
@@ -51,23 +53,17 @@ Serverless architecture를 구현하기 위해 Next.js와 Vercel을 선택했습
 
 &nbsp;
 
-## 웹 폰트
+## 바로가기
 
-웹 폰트를 제작하기 위해 GitHub, NPM과 연동해서 사용할 수 있는 jsDelivr를 사용했습니다.
+[홈페이지](https://fonts.taedonn.com)
 
-![CDN Server](https://fonts-archive.s3.ap-northeast-2.amazonaws.com/readme-cdn-server.svg)
+[문의하기](https://fonts.taedonn.com/issue)
 
-&nbsp;
+[공지사항](https://fonts.taedonn.com/notices)
 
-## 개발 프로세스
+[이메일 템플릿](https://github.com/taedonn/fonts-archive-email-template)
 
-개발 프로세스는 애자일(Agile) 방식으로 진행했습니다.
-
-애자일 방식의 이점
-
-- 사용자들의 요구를 신속하게 반영
-- 빠르게 결함 식별 및 수정 가능
-- 개발 과정이 빠르고 유연
+[깃허브 프로젝트](https://github.com/fonts-archive)
 
 &nbsp;
 
