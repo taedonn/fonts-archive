@@ -19,10 +19,10 @@
 <table align=center>
 <tr>
   <td>
-	  <img src="https://fonts-archive.s3.ap-northeast-2.amazonaws.com/readme_webfont_1.png" alt="웹 폰트 제공 가능한 경우"/>
+	  <img src="https://fonts-archive.s3.ap-northeast-2.amazonaws.com/readme_webfont.png" alt="웹 폰트 제공 가능한 경우"/>
   </td>
   <td>
-	  <img src="https://fonts-archive.s3.ap-northeast-2.amazonaws.com/readme_webfont_2.png" alt="웹 폰트 제공 불가능한 경우"/>
+	  <img src="https://fonts-archive.s3.ap-northeast-2.amazonaws.com/readme_webfont_hide.png" alt="웹 폰트 제공 불가능한 경우"/>
   </td>
 </tr>
 <tr>
