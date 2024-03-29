@@ -56,19 +56,23 @@
 
 &nbsp;
 
-## Serverless architecture 구성도
+### 💙 댓글, 좋아요
+
+> 로그인 시 댓글, 좋아요를 통해 마음에 든 폰트를 저장하고 기록할 수 있습니다. 작성한 댓글과 좋아요를 누른 폰트는 별도의 목록을 통해 확인할 수 있습니다.
+
+&nbsp;
+
+### 🖋️ 문구 및 스타일 변경
+
+> 폰트 미리보기에서 문구와 색상 / 크기 / 자간 / 행간 등을 조정해 내가 사용하기에 적합한 폰트인지 미리 확인할 수 있습니다.
+
+&nbsp;
+
+## 서비스 구성도
 
 > Serverless architecture를 구현하기 위해 Next.js와 Vercel을 선택했습니다.
 
 ![Serverless framework](https://fonts-archive.s3.ap-northeast-2.amazonaws.com/readme-serverless-architecture.svg)
-
-&nbsp;
-
-## 웹 폰트
-
-> 웹 폰트를 제작하기 위해 GitHub, NPM과 연동해서 사용할 수 있는 jsDelivr를 사용했습니다.
-
-![CDN Server](https://fonts-archive.s3.ap-northeast-2.amazonaws.com/readme-cdn-server.svg)
 
 &nbsp;
 
@@ -108,6 +112,6 @@
 
 ## 라이센스
 
-This project is licensed under GNU General Public License v3.0.
+GNU v3.0 © 2023-PRESENT 태돈
 
 [라이센스 전문](https://www.gnu.org/licenses/gpl-3.0.html)
