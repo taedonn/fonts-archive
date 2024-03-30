@@ -2,11 +2,11 @@
   <img src="https://fonts-archive.s3.ap-northeast-2.amazonaws.com/logo_squared.png"  alt="로고" align="center" height="120">
   <h1 align="center">폰트 아카이브</h1>
   <p align="center">
-    <img src="https://img.shields.io/badge/node-v18.+-%231B73E7" alt="노드 벳지"/> 
-    <img src="https://img.shields.io/badge/build-nextjs%20v14.+-%231B73E7" alt="빌드 뱃지"/>
-    <img src="https://img.shields.io/github/v/release/taedonn/fonts-archive?color=1B73E7" alt="버전 뱃지"/>
-    <img src="https://img.shields.io/github/release-date/taedonn/fonts-archive?color=1B73E7" alt="버전 배포 날짜"/>
-    <img src="https://img.shields.io/badge/license-GPL%20v3.0-%231B73E7" alt="라이센스 뱃지"/>
+    <img src="https://img.shields.io/badge/node-v18.+-%231B73E7" alt="Node version badge"/> 
+    <img src="https://img.shields.io/badge/build-nextjs%20v14.+-%231B73E7" alt="Build version badge"/>
+    <img src="https://img.shields.io/github/v/release/taedonn/fonts-archive?color=1B73E7" alt="Release badge"/>
+    <img src="https://img.shields.io/github/release-date/taedonn/fonts-archive?color=1B73E7" alt="Release date badge"/>
+    <img src="https://img.shields.io/badge/license-GPL%20v3.0-%231B73E7" alt="License badge"/>
   </p>
 </p>
 
@@ -21,10 +21,10 @@
 <table align=center>
   <tr>
     <td>
-      <img src="https://fonts-archive.s3.ap-northeast-2.amazonaws.com/readme_webfont.png" alt="웹 폰트 제공 가능한 경우"/>
+      <img src="https://fonts-archive.s3.ap-northeast-2.amazonaws.com/readme_webfont.png" alt="Show webfont"/>
     </td>
     <td>
-      <img src="https://fonts-archive.s3.ap-northeast-2.amazonaws.com/readme_webfont_hide.png" alt="웹 폰트 제공 불가능한 경우"/>
+      <img src="https://fonts-archive.s3.ap-northeast-2.amazonaws.com/readme_webfont_hide.png" alt="Hide webfont"/>
     </td>
   </tr>
   <tr>
@@ -40,7 +40,7 @@
 <table align=center>
   <tr>
     <td>
-      <img src="https://fonts-archive.s3.ap-northeast-2.amazonaws.com/readme_webfont_structure.svg" alt="웹 폰트 구성도"/>
+      <img src="https://fonts-archive.s3.ap-northeast-2.amazonaws.com/readme_webfont_structure.svg" alt="Webfont structure"/>
     </td>
   </tr>
   <tr>
@@ -59,10 +59,10 @@
 <table align=center>
   <tr>
     <td>
-      <img src="https://fonts-archive.s3.ap-northeast-2.amazonaws.com/readme_font_search.gif" alt="폰트 검색"/>
+      <img src="https://fonts-archive.s3.ap-northeast-2.amazonaws.com/readme_font_search.gif" alt="Font searching"/>
     </td>
     <td>
-      <img src="https://fonts-archive.s3.ap-northeast-2.amazonaws.com/readme_font_filtering.gif" alt="폰트 필터링"/>
+      <img src="https://fonts-archive.s3.ap-northeast-2.amazonaws.com/readme_font_filtering.gif" alt="Font filtering"/>
     </td>
   </tr>
   <tr>
@@ -84,10 +84,10 @@
 <table align=center>
   <tr>
     <td>
-      <img src="https://fonts-archive.s3.ap-northeast-2.amazonaws.com/readme_change_size.gif" alt="크기 조정"/>
+      <img src="https://fonts-archive.s3.ap-northeast-2.amazonaws.com/readme_change_size.gif" alt="Change size"/>
     </td>
     <td>
-      <img src="https://fonts-archive.s3.ap-northeast-2.amazonaws.com/readme_change_color.gif" alt="색상 변경"/>
+      <img src="https://fonts-archive.s3.ap-northeast-2.amazonaws.com/readme_change_color.gif" alt="Change color"/>
     </td>
   </tr>
   <tr>
@@ -109,10 +109,10 @@
 <table align=center>
   <tr>
     <td>
-      <img src="https://fonts-archive.s3.ap-northeast-2.amazonaws.com/readme_type_comment.gif" alt="댓글"/>
+      <img src="https://fonts-archive.s3.ap-northeast-2.amazonaws.com/readme_type_comment.gif" alt="Comment"/>
     </td>
     <td>
-      <img src="https://fonts-archive.s3.ap-northeast-2.amazonaws.com/readme_type_like.gif" alt="좋아요"/>
+      <img src="https://fonts-archive.s3.ap-northeast-2.amazonaws.com/readme_type_like.gif" alt="Like"/>
     </td>
   </tr>
   <tr>
@@ -127,31 +127,100 @@
 
 &nbsp;
 
-## 서비스 구성도
+## 아키텍쳐
 
-> Serverless architecture를 구현하기 위해 Next.js와 Vercel을 선택했습니다.
+### 🧬 Serverless framework
 
-![Serverless framework](https://fonts-archive.s3.ap-northeast-2.amazonaws.com/readme-serverless-architecture.svg)
+> Next.js와 Next.js에서 기본 제공하는 SSR 기능을 사용해 별도의 서버를 두지 않고 운영하고 있습니다. 따라서 사용하는 인원이 한 동안 없었던 경우 부팅하는데 몇초의 시간이 걸릴 수 있습니다.
+
+### 🛢 Database
+
+> 데이터베이스는 AWS RDS for MySQL을 사용하고 있고, Node.js와 TypeScript 환경에 적합한 Prisma CLI를 사용해 데이터베이스에 접근하고 있습니다.
+
+### 🪣 Storage
+
+> 스토리지는 AWS S3를 사용하고 있고, aws-sdk에서 제공하는 `client-s3`와 `s3-request-presigner`를 사용해 AWS S3의 파일을 관리하고 있습니다.
+
+<table align=center>
+  <tr>
+    <td>
+      <img src="https://fonts-archive.s3.ap-northeast-2.amazonaws.com/readme_serverless_structure.svg" alt="Serverless structure"/>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <p align=center>서비스 구성도</p>
+    </td>
+  </tr>
+</table>
 
 &nbsp;
 
-## 사용 스택
+## 기술 스택
 
-- nextjs
-  - Serverless framework
-  - v14.1.3
-- Prisma
-  - Node.js and TypeScript ORM
-  - v5.11.0
-- MySQL
-  - RDBMS
-  - v8.0.35
-- Vercel
-  - Cloud platform
-- AWS S3
-  - Cloud storage
-- AWS RDS
-  - Cloud relational database
+<table>
+  <thead>
+    <tr>
+      <th>category</th>
+      <th>stacks</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <p align=center>Common</p>
+      </td>
+      <td>
+        <img src="https://img.shields.io/badge/node-3C873A?logo=node.js&logoColor=ffffff" alt="Node badge"/>
+        <img src="https://img.shields.io/badge/npm-CB3837?logo=npm&logoColor=ffffff" alt="NPM badge"/>
+        <img src="https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=000000" alt="JavaScript badge"/>
+        <img src="https://img.shields.io/badge/TypeScript-007ACC?logo=typescript&logoColor=ffffff" alt="TypeScript badge"/>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p align=center>Frontend</p>
+      </td>
+      <td>
+        <img src="https://img.shields.io/badge/Next.js-000000?logo=next.js&logoColor=ffffff" alt="Next.js badge"/>
+        <img src="https://img.shields.io/badge/JSON%20Web%20Tokens-ffffff?logo=jsonwebtokens&logoColor=000000" alt="JSON Web Tokens badge"/>
+        <img src="https://img.shields.io/badge/Tailwind%20CSS-38BDF8?logo=tailwindcss&logoColor=ffffff" alt="Tailwind CSS badge"/>
+        <img src="https://img.shields.io/badge/MUI-007FFF?logo=mui&logoColor=ffffff" alt="MUI badge"/>
+        <img src="https://img.shields.io/badge/Framer-0055FF?logo=framer&logoColor=ffffff" alt="Framer badge"/>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p align=center>Backend</p>
+      </td>
+      <td>
+        <img src="https://img.shields.io/badge/MySQL-4479A1?logo=mysql&logoColor=ffffff" alt="MySQL badge"/>
+        <img src="https://img.shields.io/badge/Amazon%20RDS-527FFF?logo=amazonrds&logoColor=ffffff" alt="Amazon RDS badge"/>
+        <img src="https://img.shields.io/badge/Amazon%20S3-569A31?logo=amazons3&logoColor=ffffff" alt="Amazon S3 badge"/>
+        <img src="https://img.shields.io/badge/Prisma-2D3748?logo=prisma&logoColor=ffffff" alt="Prisma badge"/>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p align=center>Deployment</p>
+      </td>
+      <td>
+        <img src="https://img.shields.io/badge/Vercel-000000?logo=vercel&logoColor=ffffff" alt="Vercel badge"/>
+        <img src="https://img.shields.io/badge/Amazon%20AWS-FF9900?logo=amazonaws&logoColor=ffffff" alt="Amazon AWS badge"/>
+        <img src="https://img.shields.io/badge/Google%20Cloud%20Platform-4285F4?logo=google&logoColor=ffffff" alt="Google Cloud Platform badge"/>  
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p align=center>CI/CD</p>
+      </td>
+      <td>
+        <img src="https://img.shields.io/badge/GitHub%20Actions-2088FF?logo=github-actions&logoColor=ffffff" alt="Github Actions badge"/>
+        <img src="https://img.shields.io/badge/Visual%20Studio%20Code-007ACC?logo=visualstudiocode&logoColor=ffffff" alt="Visual Studio Code badge"/>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 &nbsp;
 
