@@ -59,10 +59,10 @@
 <table align=center>
   <tr>
     <td>
-      <video src="https://fonts-archive.s3.ap-northeast-2.amazonaws.com/readme_font_search.mp4"/>
+      <img src="https://fonts-archive.s3.ap-northeast-2.amazonaws.com/readme_font_search.gif" alt="폰트 검색"/>
     </td>
     <td>
-      <video src="https://fonts-archive.s3.ap-northeast-2.amazonaws.com/readme_font_filtering.mp4"/>
+      <img src="https://fonts-archive.s3.ap-northeast-2.amazonaws.com/readme_font_filtering.gif" alt="폰트 필터링"/>
     </td>
   </tr>
   <tr>
@@ -70,7 +70,7 @@
       <p align=center>폰트 검색</p>
     </td>
     <td>
-      <p align=center>폰트 필터링</p>
+      <p align=center>목록 필터링</p>
     </td>
   </tr>
 </table>
@@ -81,11 +81,49 @@
 
 > 폰트 미리보기에서 문구와 색상 / 크기 / 자간 / 행간 등을 조정해 내가 사용하기에 적합한 폰트인지 미리 확인할 수 있습니다.
 
+<table align=center>
+  <tr>
+    <td>
+      <img src="https://fonts-archive.s3.ap-northeast-2.amazonaws.com/readme_change_size.gif" alt="크기 조정"/>
+    </td>
+    <td>
+      <img src="https://fonts-archive.s3.ap-northeast-2.amazonaws.com/readme_change_color.gif" alt="색상 변경"/>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <p align=center>크기 변경</p>
+    </td>
+    <td>
+      <p align=center>색상 변경</p>
+    </td>
+  </tr>
+</table>
+
 &nbsp;
 
 ### 💙 댓글, 좋아요
 
 > 로그인 시 댓글, 좋아요를 통해 마음에 든 폰트를 저장하고 기록할 수 있습니다. 작성한 댓글과 좋아요는 별도의 목록을 통해 확인할 수 있습니다.
+
+<table align=center>
+  <tr>
+    <td>
+      <img src="https://fonts-archive.s3.ap-northeast-2.amazonaws.com/readme_type_comment.gif" alt="댓글"/>
+    </td>
+    <td>
+      <img src="https://fonts-archive.s3.ap-northeast-2.amazonaws.com/readme_type_like.gif" alt="좋아요"/>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <p align=center>크기 변경</p>
+    </td>
+    <td>
+      <p align=center>색상 변경</p>
+    </td>
+  </tr>
+</table>
 
 &nbsp;
 
