@@ -59,10 +59,10 @@
 <table align=center>
   <tr>
     <td>
-      <video src="https://fonts-archive.s3.ap-northeast-2.amazonaws.com/readme_font_search.mp4" type="video/mp4"/>
+      <video src="https://fonts-archive.s3.ap-northeast-2.amazonaws.com/readme_font_search.mp4"/>
     </td>
     <td>
-      <video src="https://fonts-archive.s3.ap-northeast-2.amazonaws.com/readme_font_filtering.mp4" type="video/mp4"/>
+      <video src="https://fonts-archive.s3.ap-northeast-2.amazonaws.com/readme_font_filtering.mp4"/>
     </td>
   </tr>
   <tr>
