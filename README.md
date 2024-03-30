@@ -2,9 +2,11 @@
   <img src="https://fonts-archive.s3.ap-northeast-2.amazonaws.com/logo_squared.png"  alt="로고" align="center" height="120">
   <h1 align="center">폰트 아카이브</h1>
   <p align="center">
-    <img src="https://img.shields.io/badge/Node-v18.+-%231B73E7" alt="노드 벳지"/> 
-    <img src="https://img.shields.io/badge/Build-nextjs-%231B73E7" alt="빌드 뱃지"/>
-    <img src="https://img.shields.io/badge/License-GPL%20v3.0-%231B73E7" alt="라이센스 뱃지"/>
+    <img src="https://img.shields.io/badge/node-v18.+-%231B73E7" alt="노드 벳지"/> 
+    <img src="https://img.shields.io/badge/build-nextjs%20v14.+-%231B73E7" alt="빌드 뱃지"/>
+    <img src="https://img.shields.io/github/v/release/taedonn/fonts-archive?color=1B73E7" alt="버전 뱃지"/>
+    <img src="https://img.shields.io/github/release-date/taedonn/fonts-archive?color=1B73E7" alt="버전 배포 날짜"/>
+    <img src="https://img.shields.io/badge/license-GPL%20v3.0-%231B73E7" alt="라이센스 뱃지"/>
   </p>
 </p>
 
@@ -14,7 +16,7 @@
 
 ### 🌐 웹 폰트 링크 제공
 
-> 웹 폰트에 사용되는 CDN 링크는 Github과 NPM을 통해 제작하고 있으며, `@font-face`, `@import`, `<link/>` 3가지 형식으로 제공되고 있습니다. 하지만 원작자가 재배포를 허락하지 않는 경우, 웹 폰트 링크도 재배포의 한 형태로 판단해 링크를 제공하지 않고 있으니, 이용에 참고 부탁드립니다. 또한 폰트의 라이센스가 변경되거나, 원작자의 요청이 있을 경우 제공은 중지될 수 있습니다.
+> 웹 폰트에 사용되는 CDN 링크는 Github과 NPM을 통해 제작하고 있으며, `@font-face`, `@import`, `<link/>` 3가지 형식으로 제공하고 있습니다. 하지만 원작자가 재배포를 허락하지 않는 경우 웹 폰트 링크도 재배포의 한 형태로 판단해 링크를 제공하지 않고 있으니, 이용에 참고 부탁드립니다. 또한 폰트의 라이센스가 변경되거나, 원작자의 요청이 있을 경우 제공은 중지될 수 있습니다.
 
 <table align=center>
   <tr>
@@ -54,17 +56,36 @@
 
 > 폰트명/회사명을 입력해 폰트를 검색하거나, 언어 / 폰트 타입 / 라이센스 허용 범위 별로 폰트 목록을 필터링 할 수 있습니다.
 
-&nbsp;
-
-### 💙 댓글, 좋아요
-
-> 로그인 시 댓글, 좋아요를 통해 마음에 든 폰트를 저장하고 기록할 수 있습니다. 작성한 댓글과 좋아요를 누른 폰트는 별도의 목록을 통해 확인할 수 있습니다.
+<table align=center>
+  <tr>
+    <td>
+      <video src="https://fonts-archive.s3.ap-northeast-2.amazonaws.com/readme_font_search.mp4" type="video/mp4"/>
+    </td>
+    <td>
+      <video src="https://fonts-archive.s3.ap-northeast-2.amazonaws.com/readme_font_filtering.mp4" type="video/mp4"/>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <p align=center>폰트 검색</p>
+    </td>
+    <td>
+      <p align=center>폰트 필터링</p>
+    </td>
+  </tr>
+</table>
 
 &nbsp;
 
 ### 🖋️ 문구 및 스타일 변경
 
 > 폰트 미리보기에서 문구와 색상 / 크기 / 자간 / 행간 등을 조정해 내가 사용하기에 적합한 폰트인지 미리 확인할 수 있습니다.
+
+&nbsp;
+
+### 💙 댓글, 좋아요
+
+> 로그인 시 댓글, 좋아요를 통해 마음에 든 폰트를 저장하고 기록할 수 있습니다. 작성한 댓글과 좋아요는 별도의 목록을 통해 확인할 수 있습니다.
 
 &nbsp;
 
@@ -112,6 +133,6 @@
 
 ## 라이센스
 
-GNU v3.0 © 2023-PRESENT 태돈
+GPL v3.0 © 2023-PRESENT 태돈
 
 [라이센스 전문](https://www.gnu.org/licenses/gpl-3.0.html)
