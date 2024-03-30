@@ -183,7 +183,7 @@
       </td>
       <td>
         <img src="https://img.shields.io/badge/Next.js-000000?logo=next.js&logoColor=ffffff" alt="Next.js badge"/>
-        <img src="https://img.shields.io/badge/JSON%20Web%20Tokens-ffffff?logo=jsonwebtokens&logoColor=000000" alt="JSON Web Tokens badge"/>
+        <img src="https://img.shields.io/badge/JSON%20Web%20Tokens-000000?logo=data:image/svg%2bxml;base64,PHN2ZyBoZWlnaHQ9IjI1MDAiIHZpZXdCb3g9Ii40IC4zIDk5LjcgMTAwIiB3aWR0aD0iMjUwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Im01Ny44IDI3LjItLjEtMjYuOWgtMTVsLjEgMjYuOSA3LjUgMTAuM3ptLTE1IDQ2LjF2MjdoMTV2LTI3bC03LjUtMTAuM3oiIGZpbGw9IiNmZmYiLz48cGF0aCBkPSJtNTcuOCA3My4zIDE1LjggMjEuOCAxMi4xLTguOC0xNS44LTIxLjgtMTIuMS0zLjl6bS0xNS00Ni4xLTE1LjktMjEuOC0xMi4xIDguOCAxNS44IDIxLjggMTIuMiAzLjl6IiBmaWxsPSIjMDBmMmU2Ii8+PHBhdGggZD0ibTMwLjYgMzYtMjUuNi04LjMtNC42IDE0LjIgMjUuNiA4LjQgMTIuMS00em0zMS44IDE4LjIgNy41IDEwLjMgMjUuNiA4LjMgNC42LTE0LjItMjUuNi04LjN6IiBmaWxsPSIjMDBiOWYxIi8+PHBhdGggZD0ibTc0LjUgNTAuMyAyNS42LTguNC00LjYtMTQuMi0yNS42IDguMy03LjUgMTAuM3ptLTQ4LjUgMC0yNS42IDguMyA0LjYgMTQuMiAyNS42LTguMyA3LjUtMTAuM3oiIGZpbGw9IiNkNjNhZmYiLz48cGF0aCBkPSJtMzAuNiA2NC41LTE1LjggMjEuOCAxMi4xIDguOCAxNS45LTIxLjh2LTEyLjd6bTM5LjMtMjguNSAxNS44LTIxLjgtMTIuMS04LjgtMTUuOCAyMS44djEyLjd6IiBmaWxsPSIjZmIwMTViIi8+PC9nPjwvc3ZnPg==" alt="JSON Web Tokens badge"/>
         <img src="https://img.shields.io/badge/Tailwind%20CSS-38BDF8?logo=tailwindcss&logoColor=ffffff" alt="Tailwind CSS badge"/>
         <img src="https://img.shields.io/badge/MUI-007FFF?logo=mui&logoColor=ffffff" alt="MUI badge"/>
         <img src="https://img.shields.io/badge/Framer-0055FF?logo=framer&logoColor=ffffff" alt="Framer badge"/>
