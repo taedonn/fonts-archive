@@ -117,10 +117,10 @@
   </tr>
   <tr>
     <td>
-      <p align=center>크기 변경</p>
+      <p align=center>댓글</p>
     </td>
     <td>
-      <p align=center>색상 변경</p>
+      <p align=center>좋아요</p>
     </td>
   </tr>
 </table>
