@@ -3,7 +3,6 @@
   <h1 align="center">폰트 아카이브</h1>
   <p align="center">
     <img src="https://img.shields.io/badge/node-v18.+-%231B73E7" alt="Node version badge"/> 
-    <img src="https://img.shields.io/badge/build-nextjs%20v14.+-%231B73E7" alt="Build version badge"/>
     <img src="https://img.shields.io/github/v/release/taedonn/fonts-archive?color=1B73E7" alt="Release badge"/>
     <img src="https://img.shields.io/github/release-date/taedonn/fonts-archive?color=1B73E7" alt="Release date badge"/>
     <img src="https://img.shields.io/badge/license-GPL%20v3.0-%231B73E7" alt="License badge"/>
