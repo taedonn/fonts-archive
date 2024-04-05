@@ -242,7 +242,7 @@ const UserDetailPage = ({params}: any) => {
                                     </div>
                                     <button onClick={changeProfileImg} onMouseDown={e => onMouseDown(e, 0.95, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="group absolute top-0 -right-1 w-7 h-7 rounded-full bg-h-1 dark:bg-f-8 text-white dark:text-d-2">
                                         <i className="text-sm duration-200 lg:group-hover:rotate-90 fa-solid fa-rotate"></i>
-                                        <div className="tooltip w-max absolute z-10 left-1/2 -top-10 text-sm font-medium leading-none origin-bottom px-3 py-2 rounded-lg hidden lg:group-hover:block lg:group-hover:animate-zoom-in-fontbox bg-h-1 dark:bg-f-8 after:bg-h-1 after:dark:bg-f-8">이미지 랜덤 변경하기</div>
+                                        <div className="w-max absolute z-10 left-1/2 -top-8 px-3 py-1.5 text-[0.813rem] leading-none origin-bottom rounded hidden lg:group-hover:block lg:group-hover:animate-hover-delay bg-l-5 dark:bg-d-4 text-white dark:text-f-8 dark:drop-shadow-dark selection:bg-transparent">이미지 랜덤 변경하기</div>
                                     </button>
                                 </div>
                                 <div className="w-[calc(100%-5rem)]">
@@ -315,7 +315,7 @@ const UserDetailPage = ({params}: any) => {
                             <div className="relative mt-2">
                                 <button onClick={regenerateToken} className="group w-5 h-5 flex justify-center items-center absolute z-10 right-2 top-1/2 -translate-y-1/2 cursor-pointer">
                                     <i className="text-sm text-h-1 dark:text-f-8 duration-200 lg:group-hover:rotate-90 fa-solid fa-rotate"></i>
-                                    <div className="tooltip w-max absolute z-10 left-1/2 -top-10 text-sm font-medium leading-none origin-bottom px-3 py-2 rounded-lg hidden lg:group-hover:block lg:group-hover:animate-zoom-in-fontbox bg-h-1 dark:bg-f-8 after:bg-h-1 after:dark:bg-f-8 text-white dark:text-d-2">토큰 재생성하기</div>
+                                    <div className="w-max absolute z-10 left-1/2 -top-7 px-3 py-1.5 text-[0.813rem] leading-none origin-bottom rounded hidden lg:group-hover:block lg:group-hover:animate-hover-delay bg-l-5 dark:bg-d-4 text-white dark:text-f-8 dark:drop-shadow-dark selection:bg-transparent">토큰 재생성하기</div>
                                 </button>
                                 <input onChange={handleUserEmailTokenChange} id="user-email-token" tabIndex={4} defaultValue={user.user_email_token} type="text" placeholder="이메일 토큰" className={`w-full ${userEmailTokenAlert ? 'border-h-r focus:border-h-r' : 'border-l-d dark:border-d-4 focus:border-h-1 focus:dark:border-f-8' } w-full text-sm px-3.5 py-3 rounded-lg border-2 placeholder-l-5 dark:placeholder-d-c bg-l-d dark:bg-d-4`}/>
                             </div>

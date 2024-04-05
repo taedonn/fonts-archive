@@ -15,7 +15,7 @@ import { debounce } from "lodash";
 // components
 import Motion from "@/components/motion";
 import Header from "@/components/header";
-import Tooltip from "@/components/tooltip";
+import ToTop from "@/components/totop";
 import Sidemenu from "@/components/sidemenu";
 import FontBox from "@/components/fontbox";
 import SelectBox from "@/components/selectbox";
@@ -285,7 +285,7 @@ const Index = ({params}: any) => {
             </Motion>
 
             {/* 툴팁 */}
-            <Tooltip/>
+            <ToTop/>
         </>
     );
 }

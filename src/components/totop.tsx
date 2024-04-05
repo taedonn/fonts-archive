@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 // common
 import { onMouseDown, onMouseUp, onMouseOut } from "@/libs/common";
 
-export default function Tooltip() {
+export default function ToTop() {
     // refs
     const tooltip = useRef<HTMLDivElement>(null);
     const button = useRef<HTMLDivElement>(null);

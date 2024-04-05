@@ -379,19 +379,6 @@ html.dark .animated-mail .letter .letter-stamp {
     html.dark #active .when-active-6 { color: #202124; }
 }
 
-/* 툴팁 호버 이벤트 */
-.tooltip { font-family: "Spoqa Han Sans Neo", sans-serif; }
-.tooltip::after {
-    content: "";
-    position: absolute;
-    z-index: -1;
-    width: 8px;
-    height: 8px;
-    left: 50%;
-    bottom: -4px;
-    transform: translateX(-50%) rotate(45deg);
-}
-
 /* 라이센스 본문 링크 */
 #license a { text-decoration: underline; }
 

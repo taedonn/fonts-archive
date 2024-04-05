@@ -286,12 +286,13 @@ export default function Header (
                         </button>
                         <div className="relative lg:mr-1">
                             <input onChange={handleAlert} id="alert" type="checkbox" className="hidden peer"/>
-                            <label ref={refAlertLabel} htmlFor="alert" onMouseDown={e => onMouseDown(e, 0.85, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-10 h-10 pt-px text-[1.375rem] relative flex justify-center items-center rounded-full cursor-pointer text-h-1 dark:text-f-8 lg:hover:bg-h-e lg:hover:dark:bg-d-3 peer-checked:bg-h-e peer-checked:dark:bg-d-3">
+                            <label ref={refAlertLabel} htmlFor="alert" onMouseDown={e => onMouseDown(e, 0.85, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="group w-10 h-10 pt-px text-[1.375rem] relative flex justify-center items-center rounded-full cursor-pointer text-h-1 dark:text-f-8 lg:hover:bg-h-e lg:hover:dark:bg-d-3 peer-checked:bg-h-e peer-checked:dark:bg-d-3">
                                 <i className='bi bi-pin-angle'></i>
                                 {
                                     data && data.pages[0].alerts.some((alert: alerts) => alert.alert_read === false)
                                         && <div className="w-1.5 h-1.5 absolute left-1 top-2 rounded-full bg-h-r animate-pulse"></div>
                                 }
+                                <div className="peer-checked:group-hover:hidden w-max absolute z-10 left-1/2 top-11 px-3 py-1.5 text-[0.813rem] leading-none origin-top rounded hidden lg:group-hover:block lg:group-hover:animate-hover-delay bg-h-e dark:bg-d-4 text-h-1 dark:text-f-8 dark:drop-shadow-dark selection:bg-transparent">알림</div>
                             </label>
                             {
                                 alertsDisplay
@@ -352,10 +353,11 @@ export default function Header (
                             }
                         </div>
                         <div className="relative mr-1.5 lg:mr-3">
-                            <label htmlFor="color-theme" onMouseDown={e => onMouseDown(e, 0.85, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="w-10 h-10 pb-px text-2xl flex justify-center items-center rounded-full cursor-pointer text-h-1 dark:text-f-8 lg:hover:bg-h-e lg:hover:dark:bg-d-3">
+                            <label htmlFor="color-theme" onMouseDown={e => onMouseDown(e, 0.85, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="group w-10 h-10 pb-px text-2xl flex justify-center items-center rounded-full cursor-pointer text-h-1 dark:text-f-8 lg:hover:bg-h-e lg:hover:dark:bg-d-3">
                                 <input onChange={handleColorThemeChange} defaultChecked={thisTheme === 'dark' ? true : false} type="checkbox" id="color-theme" className="hidden peer"/>
                                 <i className='block peer-checked:hidden bi bi-cloud-sun'></i>
                                 <i className='hidden peer-checked:block bi bi-cloud-moon'></i>
+                                <div className="w-max absolute z-10 left-1/2 top-11 px-3 py-1.5 text-[0.813rem] leading-none origin-top rounded hidden lg:group-hover:block lg:group-hover:animate-hover-delay bg-h-e dark:bg-d-4 text-h-1 dark:text-f-8 dark:drop-shadow-dark selection:bg-transparent">{ thisTheme === "dark" ? "라이트 모드" : "다크 모드" }</div>
                             </label>
                         </div>
                         <div className="relative flex justify-center items-center cursor-pointer">
