@@ -60,6 +60,7 @@ module.exports = {
                 "fade-in-time-out": "fade-in-time-out 1s 1 both",
                 "skeleton-anim": "skeleton-anim 2s infinite",
                 "pulse": "pulse 3s linear infinite",
+                "hover-delay": "zoom-in-fontbox 0.2s 0.4s 1 both "
             },
             backgroundImage: {
                 "gradient": "linear-gradient(90deg, #F9FAFD, #D4E1FD, #F9FAFD)",

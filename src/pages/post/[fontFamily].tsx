@@ -563,7 +563,7 @@ function DetailPage({params}: any) {
                                         <i className="block peer-checked:group-[]:hidden text-xl bi bi-heart"></i>
                                         <i className="hidden peer-checked:group-[]:block text-xl text-h-r bi bi-heart-fill"></i>
                                     </label>
-                                    <div className={`${hoverDisplay === true ? 'lg:group-hover:block' : 'lg:group-hover:hidden'} group-hover:hidden tooltip w-max absolute left-1/2 -top-10 px-3 py-2 text-sm font-medium leading-none origin-bottom rounded-lg hidden group-hover:animate-zoom-in-fontbox after:bg-h-r bg-h-r text-white`}>{likedInput ? "좋아요 해제" : "좋아요"}</div>
+                                    <div className={`${hoverDisplay === true ? 'lg:group-hover:block' : 'lg:group-hover:hidden'} w-max absolute z-10 left-1/2 top-8 px-3 py-1.5 text-[0.813rem] leading-none origin-top rounded hidden lg:group-hover:animate-hover-delay bg-l-5 dark:bg-d-4 text-white dark:text-f-8 dark:drop-shadow-dark selection:bg-transparent`}>{likedInput ? "좋아요 해제" : "좋아요"}</div>
                                 </div>
                             </div>
                             <div className="mb-4 flex flex-col lg:flex-row gap-2 lg:gap-4 lg:items-center">
@@ -571,7 +571,7 @@ function DetailPage({params}: any) {
                                     <span>제작</span>
                                     <Link href={{pathname: "/", query: {search: font.source}}} className="relative group border-b border-h-1 dark:border-f-8 text-h-1 dark:text-f-8">
                                         {font.source}
-                                        <div className="tooltip w-max absolute z-10 left-1/2 -top-10 text-sm font-medium leading-none px-3 py-2 origin-bottom rounded-lg hidden group-hover:block tlg:group-hover:hidden group-hover:animate-zoom-in-fontbox bg-h-1 dark:bg-f-8 after:bg-h-1 after:dark:bg-f-8 text-white dark:text-d-2">제작사의 다른 폰트 보기</div>
+                                        <div className="w-max absolute z-10 left-1/2 top-8 px-3 py-1.5 text-[0.813rem] leading-none origin-top rounded hidden lg:group-hover:block lg:group-hover:animate-hover-delay bg-l-5 dark:bg-d-4 text-white dark:text-f-8 dark:drop-shadow-dark selection:bg-transparent">제작사의 다른 폰트 보기</div>
                                     </Link>
                                 </div>
                                 <div className="flex gap-3 lg:gap-4">
@@ -1004,7 +1004,7 @@ function DetailPage({params}: any) {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="w-full max-w-[58rem] rounded-lg overflow-hidden bg-l-f dark:bg-d-3">
+                                    <div className="w-full max-w-[58rem] flex flex-col rounded-lg overflow-hidden bg-l-f dark:bg-d-3">
                                         <input id="license-text" type="checkbox" className="peer hidden" defaultChecked={isMobile ? false : true}/>
                                         <label htmlFor="license-text" className="group w-full text-base lg:text-lg py-6 lg:py-8 p-8 flex justify-between items-center font-medium rounded-lg cursor-pointer lg:hover:bg-l-e lg:dark:hover:bg-d-4">
                                             <div className="flex gap-2 selection:bg-transparent">

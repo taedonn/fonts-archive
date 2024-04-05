@@ -517,7 +517,7 @@ export default function Comments (
                             </div>
                             <div className="gap-3 flex justify-center items-center text-xs text-l-5 dark:text-d-c">
                                 <button onClick={shareKakao} id="share-kakao" onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="group flex flex-col justify-center items-center">
-                                    <div className="w-8 h-8 rounded-full flex justify-center items-center bg-theme-kakao drop-shadow-default dark:drop-shadow-dark">
+                                    <div className="w-8 h-8 rounded-full flex justify-center items-center bg-theme-kakao">
                                         <div className="w-6 h-6 relative">
                                             <Image src="/logo-kakaotalk.svg" alt="카카오톡 로고" fill sizes="100%" referrerPolicy="no-referrer"/>
                                         </div>
@@ -525,7 +525,7 @@ export default function Comments (
                                     <div className="w-12 mt-2.5 text-center lg:group-hover:text-l-2 lg:group-hover:dark:text-white">카카오톡</div>
                                 </button>
                                 <button onClick={shareLine} onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="group flex flex-col justify-center items-center">
-                                    <div className="w-8 h-8 rounded-full flex justify-center items-center bg-theme-naver drop-shadow-default dark:drop-shadow-dark">
+                                    <div className="w-8 h-8 rounded-full flex justify-center items-center bg-theme-naver">
                                         <div className="w-[1.125rem] h-[1.125rem] relative">
                                             <Image src="/logo-line.svg" alt="라인 로고" fill sizes="100%" referrerPolicy="no-referrer"/>
                                         </div>
@@ -533,13 +533,13 @@ export default function Comments (
                                     <div className="w-12 mt-2.5 text-center lg:group-hover:text-l-2 lg:group-hover:dark:text-white">라인</div>
                                 </button>
                                 <button onClick={shareFacebook} onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="group flex flex-col justify-center items-center">
-                                    <div className="w-8 h-8 relative rounded-full flex justify-center items-center drop-shadow-default dark:drop-shadow-dark">
+                                    <div className="w-8 h-8 relative rounded-full flex justify-center items-center">
                                         <Image src="/logo-facebook.png" alt="페이스북 로고" fill sizes="100%" referrerPolicy="no-referrer"/>
                                     </div>
                                     <div className="w-12 mt-2.5 text-center lg:group-hover:text-l-2 lg:group-hover:dark:text-white">페이스북</div>
                                 </button>
                                 <button onClick={shareTwitter} onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className="group flex flex-col justify-center items-center">
-                                    <div className="w-8 h-8 rounded-full flex justify-center items-center bg-black drop-shadow-default dark:drop-shadow-dark">
+                                    <div className="w-8 h-8 rounded-full flex justify-center items-center bg-black">
                                         <div className="w-4 h-4 relative">
                                             <Image src="/logo-x.svg" alt="엑스(트위터) 로고" fill sizes="100%" referrerPolicy="no-referrer"/>
                                         </div>
