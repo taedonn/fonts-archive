@@ -20,7 +20,7 @@ export default function Footer () {
                             <h3 className="ml-2">© 2023 - {new Date().getFullYear()} <Link href="https://taedonn.com" target="_blank" rel="noopener noreferrer" className="ml-1 lg:hover:underline">태돈</Link></h3>
                         </div>
                     </div>
-                    <div className="text-xs lg:text-sm flex gap-3 lg:gap-4 ml-8 text-h-1 dark:text-f-8">
+                    <div className="text-xs lg:text-sm flex gap-3 lg:gap-4 lg:ml-8 text-h-1 dark:text-f-8">
                         <Link href="/terms" rel="noopener noreferrer" className="lg:hover:underline">서비스 이용약관</Link>
                         <Link href="/privacy" rel="noopener noreferrer" className="lg:hover:underline">개인정보 처리방침</Link>
                         <Link href="https://github.com/fonts-archive" target="_blank" rel="noopener noreferrer" className="lg:hover:underline">깃허브 프로젝트</Link>
