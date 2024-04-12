@@ -258,7 +258,7 @@ const Register = ({params}: any) => {
                 <div className='w-full flex flex-col justify-center items-center text-l-2 dark:text-white'>
                     
                     {/* Google AdSense */}
-                    <div className='hidden lg:flex fixed left-0 top-36'>
+                    <div className='hidden lg:flex fixed left-8 top-36'>
                         <AdSense
                             pc={{
                                 style: 'display: inline-block; width: 160px; height: 600px;',
@@ -275,7 +275,7 @@ const Register = ({params}: any) => {
                     </div>
 
                     {/* Google AdSense */}
-                    <div className='hidden lg:flex fixed right-0 top-36'>
+                    <div className='hidden lg:flex fixed right-8 top-36'>
                         <AdSense
                             pc={{
                                 style: 'display: inline-block; width: 160px; height: 600px;',

@@ -36,6 +36,21 @@ class MyDocument extends Document {
 
                     {/* Google AdSense */}
                     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7819549426971576" crossOrigin="anonymous"></script>
+
+                    {/* Google Analytics */}
+                    <script async src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID}`}/>
+                    <script
+                        dangerouslySetInnerHTML={{
+                            __html: `
+                                window.dataLayer = window.dataLayer || [];
+                                function gtag(){dataLayer.push(arguments);}
+                                gtag('js', new Date());
+                                gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID}', {
+                                    page_path: window.location.pathname,
+                                });
+                            `,
+                        }}
+                    />
                 </Head>
                 <script dangerouslySetInnerHTML={{ __html: themeInitializerScript }}/>
                 <body className="custom-md-scrollbar font-sans absolute w-full min-h-full">

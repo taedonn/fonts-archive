@@ -131,7 +131,7 @@ const Login = ({params}: any) => {
                 <div className='w-full flex flex-col justify-center items-center'>
 
                     {/* Google AdSense */}
-                    <div className='hidden lg:flex fixed left-0 top-40'>
+                    <div className='hidden lg:flex fixed left-8 top-40'>
                         <AdSense
                             pc={{
                                 style: 'display: inline-block; width: 160px; height: 600px;',
@@ -148,7 +148,7 @@ const Login = ({params}: any) => {
                     </div>
 
                     {/* Google AdSense */}
-                    <div className='hidden lg:flex fixed right-0 top-40'>
+                    <div className='hidden lg:flex fixed right-8 top-40'>
                         <AdSense
                             pc={{
                                 style: 'display: inline-block; width: 160px; height: 600px;',

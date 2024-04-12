@@ -131,7 +131,7 @@ const FindPw = ({params}: any) => {
                 <div className='w-full flex flex-col justify-center items-center'>
                     
                     {/* Google AdSense */}
-                    <div className='hidden lg:flex fixed left-0 top-36'>
+                    <div className='hidden lg:flex fixed left-8 top-36'>
                         <AdSense
                             pc={{
                                 style: 'display: inline-block; width: 160px; height: 600px;',
@@ -143,12 +143,11 @@ const FindPw = ({params}: any) => {
                                 client: 'ca-pub-7819549426971576',
                                 slot: '3299140583'
                             }}
-                            marginLeft={2}
                         />
                     </div>
 
                     {/* Google AdSense */}
-                    <div className='hidden lg:flex fixed right-0 top-36'>
+                    <div className='hidden lg:flex fixed right-8 top-36'>
                         <AdSense
                             pc={{
                                 style: 'display: inline-block; width: 160px; height: 600px;',
@@ -160,7 +159,6 @@ const FindPw = ({params}: any) => {
                                 client: 'ca-pub-7819549426971576',
                                 slot: '3299140583'
                             }}
-                            marginRight={2}
                         />
                     </div>
                     <div className='w-[22.5rem] flex flex-col justify-center my-16 lg:my-24 mt-8 lg:mt-16 text-l-2 dark:text-white'>
