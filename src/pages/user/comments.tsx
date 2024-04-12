@@ -22,8 +22,7 @@ import Header from "@/components/header";
 import Footer from '@/components/footer';
 import SearchInput from '@/components/searchinput';
 import DeleteCommentModal from '@/components/deletecommentmodal';
-import KakaoAdFitTopBanner from '@/components/kakaoAdFitTopBanner';
-import KakaoAdFitBottomBanner from '@/components/kakaoAdFitBottomBanner';
+import AdSense from '@/components/adSense';
 
 // common
 import { timeFormat, onMouseDown, onMouseUp, onMouseOut } from '@/libs/common';
@@ -112,7 +111,19 @@ const Comments = ({params}: any) => {
                             <button onClick={handleSearchClick} className="hidden">검색</button>
                         </div>
                         <div className='w-full flex'>
-                            <KakaoAdFitTopBanner marginBottom={1}/>
+                            <AdSense
+                                pc={{
+                                    style: 'display: inline-block; width: 728px; height: 90px;',
+                                    client: 'ca-pub-7819549426971576',
+                                    slot: '3707368535'
+                                }}
+                                mobile={{
+                                    style: 'display: inline-block; width: 300px; height: 100px;',
+                                    client: 'ca-pub-7819549426971576',
+                                    slot: '1032069893'
+                                }}
+                                marginBottom={1}
+                            />
                         </div>
                         <div className='flex items-center gap-1.5 mb-4'>
                             <button onClick={handleFilterChange} value="date" onMouseDown={e => onMouseDown(e, 0.9, true)} onMouseUp={onMouseUp} onMouseOut={onMouseOut} className={`${filter === "date" ? "bg-h-1 dark:bg-f-8 text-white dark:text-d-2" : "text-l-5 dark:text-d-c lg:hover:text-h-1 lg:hover:dark:text-f-8"} w-20 h-9 flex justify-center items-center rounded-lg`}>최신순</button>
@@ -153,7 +164,19 @@ const Comments = ({params}: any) => {
                             <Pagination count={count} page={Number(page)} onChange={handlePageChange} shape='rounded'/>
                         </div>
                         <div className='w-full flex'>
-                            <KakaoAdFitBottomBanner marginTop={2}/>
+                            <AdSense
+                                pc={{
+                                    style: 'display: inline-block; width: 728px; height: 90px;',
+                                    client: 'ca-pub-7819549426971576',
+                                    slot: '3707368535'
+                                }}
+                                mobile={{
+                                    style: 'display: inline-block; width: 300px; height: 100px;',
+                                    client: 'ca-pub-7819549426971576',
+                                    slot: '1032069893'
+                                }}
+                                marginTop={2}
+                            />
                         </div>
                     </div>
                 </form>

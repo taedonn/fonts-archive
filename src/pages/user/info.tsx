@@ -21,8 +21,7 @@ import Footer from '@/components/footer';
 import ChangePwModal from '@/components/changepwmodal';
 import DeleteUserModal from '@/components/deleteusermodal';
 import Button from '@/components/button';
-import KakaoAdFitLeftBanner from '@/components/kakaoAdFitLeftBanner';
-import KakaoAdFitRightBanner from '@/components/kakaoAdFitRightBanner';
+import AdSense from '@/components/adSense';
 
 // common
 import { timeFormat } from '@/libs/common';
@@ -336,11 +335,39 @@ const Info = ({params}: any) => {
                 transitionType="spring"
             >
                 <form onSubmit={e => e.preventDefault()} className='w-full flex flex-col justify-center items-center text-l-2 dark:text-white'>
-                    <div className='flex fixed left-0 top-40'>
-                        <KakaoAdFitLeftBanner marginLeft={2}/>
+                    
+                    {/* Google AdSense */}
+                    <div className='hidden lg:flex fixed left-8 top-40'>
+                        <AdSense
+                            pc={{
+                                style: 'display: inline-block; width: 160px; height: 600px;',
+                                client: 'ca-pub-7819549426971576',
+                                slot: '3299140583'
+                            }}
+                            mobile={{
+                                style: 'display: inline-block; width: 160px; height: 600px;',
+                                client: 'ca-pub-7819549426971576',
+                                slot: '3299140583'
+                            }}
+                            marginLeft={2}
+                        />
                     </div>
-                    <div className='flex fixed right-0 top-40'>
-                        <KakaoAdFitRightBanner marginRight={2}/>
+
+                    {/* Google AdSense */}
+                    <div className='hidden lg:flex fixed right-8 top-40'>
+                        <AdSense
+                            pc={{
+                                style: 'display: inline-block; width: 160px; height: 600px;',
+                                client: 'ca-pub-7819549426971576',
+                                slot: '3299140583'
+                            }}
+                            mobile={{
+                                style: 'display: inline-block; width: 160px; height: 600px;',
+                                client: 'ca-pub-7819549426971576',
+                                slot: '3299140583'
+                            }}
+                            marginRight={2}
+                        />
                     </div>
                     <div className='w-[22.5rem] flex flex-col justify-center items-start my-16 lg:my-24 mt-8 lg:mt-16'>
                         <h2 className='text-2xl font-bold mb-6'>프로필 정보</h2>

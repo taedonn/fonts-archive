@@ -10,7 +10,7 @@ import { authOptions } from './api/auth/[...nextauth]';
 import Header from "@/components/header";
 import Footer from '@/components/footer';
 import Motion from "@/components/motion";
-import KakaoAdFitTopBanner from '@/components/kakaoAdFitTopBanner';
+import AdSense from '@/components/adSense';
 
 const Terms = ({params}: any) => {
     const { theme, userAgent, user } = params;
@@ -42,9 +42,23 @@ const Terms = ({params}: any) => {
             >
                 <div className='w-full px-4 flex flex-col justify-center items-center'>
                     <div className='w-[45.5rem] tmd:w-full flex flex-col justify-center items-start mt-8 lg:mt-16 mb-24 lg:mb-32'>
+                        
+                        {/* Google AdSense */}
                         <div className='w-full flex'>
-                            <KakaoAdFitTopBanner/>
+                            <AdSense
+                                pc={{
+                                    style: 'display: inline-block; width: 728px; height: 90px;',
+                                    client: 'ca-pub-7819549426971576',
+                                    slot: '3707368535'
+                                }}
+                                mobile={{
+                                    style: 'display: inline-block; width: 300px; height: 100px;',
+                                    client: 'ca-pub-7819549426971576',
+                                    slot: '1032069893'
+                                }}
+                            />
                         </div>
+                        
                         <div className='w-full flex mt-4 lg:mt-8 text-sm'>
                             <Link href='/terms' className='w-full lg:w-44 h-12 flex justify-center items-center border-y border-r border-h-1 dark:border-f-8 bg-h-1 dark:bg-f-8 text-white dark:text-f-1 lg:hover:font-medium lg:hover:underline'>서비스 이용약관</Link>
                             <Link href='/privacy' className='w-full lg:w-44 h-12 flex justify-center items-center border border-l-d dark:border-d-6 text-l-5 dark:text-d-c lg:hover:text-l-2 lg:hover:dark:text-white lg:hover:font-medium lg:hover:underline'>개인정보 처리방침</Link>

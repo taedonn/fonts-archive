@@ -20,8 +20,7 @@ import Button from "@/components/button";
 import TextInput from "@/components/textinput";
 import TextArea from "@/components/textarea";
 import SelectBox from "@/components/selectbox";
-import KakaoAdFitTopBanner from '@/components/kakaoAdFitTopBanner';
-import KakaoAdFitBottomBanner from '@/components/kakaoAdFitBottomBanner';
+import AdSense from '@/components/adSense';
 
 const IssueFont = ({params}: any) => {
     const { theme, userAgent, user } = params;
@@ -429,9 +428,24 @@ const IssueFont = ({params}: any) => {
                         <h3 className='tlg:text-sm mb-3'>
                             제보 사항(버그, 새 폰트)이나 문의 사항 있으시면 연락 부탁드립니다.
                         </h3>
+
+                        {/* Google AdSense */}
                         <div className='w-full flex'>
-                            <KakaoAdFitTopBanner marginBottom={1}/>
+                            <AdSense
+                                pc={{
+                                    style: 'display: inline-block; width: 728px; height: 90px;',
+                                    client: 'ca-pub-7819549426971576',
+                                    slot: '3707368535'
+                                }}
+                                mobile={{
+                                    style: 'display: inline-block; width: 300px; height: 100px;',
+                                    client: 'ca-pub-7819549426971576',
+                                    slot: '1032069893'
+                                }}
+                                marginBottom={1}
+                            />
                         </div>
+                        
                         <div id="is-issued" className="w-full">
                             {
                                 isIssued === "success"
@@ -577,9 +591,24 @@ const IssueFont = ({params}: any) => {
                                 </button>
                             </Button>
                         </div>
+
+                        {/* Google AdSense */}
                         <div className='w-full flex'>
-                            <KakaoAdFitBottomBanner marginTop={1.5}/>
+                            <AdSense
+                                pc={{
+                                    style: 'display: inline-block; width: 728px; height: 90px;',
+                                    client: 'ca-pub-7819549426971576',
+                                    slot: '3707368535'
+                                }}
+                                mobile={{
+                                    style: 'display: inline-block; width: 300px; height: 100px;',
+                                    client: 'ca-pub-7819549426971576',
+                                    slot: '1032069893'
+                                }}
+                                marginTop={1.5}
+                            />
                         </div>
+
                     </div>
                 </div>
             </Motion>

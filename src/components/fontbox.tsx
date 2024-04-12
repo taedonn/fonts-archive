@@ -12,7 +12,7 @@ import { throttle } from 'lodash';
 // components
 import DummyText from '@/components/dummytext';
 import SkeletonBox from '@/components/skeletonbox';
-import KakaoAdFitTopBanner from '@/components/kakaoAdFitTopBanner';
+import AdSense from '@/components/adSense';
 
 // common
 import { onMouseDown, onMouseUp, onMouseOut } from '@/libs/common';
@@ -208,8 +208,22 @@ export default function FontBox ({
         <>
             <div className={`${expand ? "w-full lg:w-[calc(100%-320px)]" : "w-full"} pt-12 px-4 lg:px-8 duration-200`}>
                 <div className="w-full mt-8 mb-32 relative flex flex-col text-l-2 dark:text-white">
+                    
+                    {/* Google AdSense */}
                     <div className='w-full flex'>
-                        <KakaoAdFitTopBanner marginBottom={1}/>
+                        <AdSense
+                            pc={{
+                                style: 'display: inline-block; width: 728px; height: 90px;',
+                                client: 'ca-pub-7819549426971576',
+                                slot: '3707368535'
+                            }}
+                            mobile={{
+                                style: 'display: inline-block; width: 300px; height: 100px;',
+                                client: 'ca-pub-7819549426971576',
+                                slot: '1032069893'
+                            }}
+                            marginBottom={1}
+                        />
                     </div>
                     
                     {/* 로그인 중이 아닐 때 좋아요 alert창 팝업 */}
