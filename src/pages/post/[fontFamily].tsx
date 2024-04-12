@@ -27,8 +27,7 @@ import Button from "@/components/button";
 import SelectBox from "@/components/selectbox";
 import DummyText from "@/components/dummytext";
 import Comments from "@/components/comments";
-import KakaoAdFitTopBanner from "@/components/kakaoAdFitTopBanner";
-import KakaoAdFitBottomBanner from "@/components/kakaoAdFitBottomBanner";
+import AdSense from "@/components/adSense";
 
 // common
 import { onMouseDown, onMouseUp, onMouseOut } from "@/libs/common";
@@ -581,9 +580,19 @@ function DetailPage({params}: any) {
                                 </div>
                             </div>
 
-                            {/* 카카오 애드핏 상단 띠배너 */}
+                            {/* Google AdSense */}
                             <div className="w-max">
-                                <KakaoAdFitTopBanner
+                                <AdSense
+                                    pc={{
+                                        style: 'display: inline-block; width: 300px; height: 100px;',
+                                        client: 'ca-pub-7819549426971576',
+                                        slot: '3707368535'
+                                    }}
+                                    mobile={{
+                                        style: 'display: inline-block; width: 728px; height: 90px;',
+                                        client: 'ca-pub-7819549426971576',
+                                        slot: '1032069893'
+                                    }}
                                     marginBottom={1}
                                 />
                             </div>
@@ -1022,9 +1031,21 @@ function DetailPage({params}: any) {
                                     </div>
                                 </div>
                                 
-                                {/* 카카오 애드핏 하단 띠배너 */}
+                                {/* Google AdSense */}
                                 <div className="w-max">
-                                    <KakaoAdFitBottomBanner marginTop={1}/>
+                                    <AdSense
+                                        pc={{
+                                            style: 'display: inline-block; width: 300px; height: 100px;',
+                                            client: 'ca-pub-7819549426971576',
+                                            slot: '3707368535'
+                                        }}
+                                        mobile={{
+                                            style: 'display: inline-block; width: 728px; height: 90px;',
+                                            client: 'ca-pub-7819549426971576',
+                                            slot: '1032069893'
+                                        }}
+                                        marginTop={1}
+                                    />
                                 </div>
                             </div>
 

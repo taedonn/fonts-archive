@@ -15,8 +15,7 @@ import Header from "@/components/header";
 import Footer from '@/components/footer';
 import Button from '@/components/button';
 import TextInput from '@/components/textinput';
-import KakaoAdFitLeftBanner from '@/components/kakaoAdFitLeftBanner';
-import KakaoAdFitRightBanner from '@/components/kakaoAdFitRightBanner';
+import AdSense from '@/components/adSense';
 
 const FindPw = ({params}: any) => {
     const { theme, userAgent } = params;
@@ -131,10 +130,34 @@ const FindPw = ({params}: any) => {
             >
                 <div className='w-full flex flex-col justify-center items-center'>
                     <div className='flex fixed left-0 top-36'>
-                        <KakaoAdFitLeftBanner marginLeft={2}/>
+                        <AdSense
+                            pc={{
+                                style: 'display: inline-block; width: 728px; height: 90px;',
+                                client: 'ca-pub-7819549426971576',
+                                slot: '3299140583'
+                            }}
+                            mobile={{
+                                style: 'display: inline-block; width: 300px; height: 100px;',
+                                client: 'ca-pub-7819549426971576',
+                                slot: '3299140583'
+                            }}
+                            marginLeft={2}
+                        />
                     </div>
                     <div className='flex fixed right-0 top-36'>
-                        <KakaoAdFitRightBanner marginRight={2}/>
+                        <AdSense
+                            pc={{
+                                style: 'display: inline-block; width: 728px; height: 90px;',
+                                client: 'ca-pub-7819549426971576',
+                                slot: '3299140583'
+                            }}
+                            mobile={{
+                                style: 'display: inline-block; width: 300px; height: 100px;',
+                                client: 'ca-pub-7819549426971576',
+                                slot: '3299140583'
+                            }}
+                            marginRight={2}
+                        />
                     </div>
                     <div className='w-[22.5rem] flex flex-col justify-center my-16 lg:my-24 mt-8 lg:mt-16 text-l-2 dark:text-white'>
                         <h2 className='text-2xl font-bold mb-6'>비밀번호 찾기</h2>

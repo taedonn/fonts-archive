@@ -14,8 +14,7 @@ import Motion from '@/components/motion';
 import Header from "@/components/header";
 import Footer from '@/components/footer';
 import SearchInput from '@/components/searchinput';
-import KakaoAdFitTopBanner from '@/components/kakaoAdFitTopBanner';
-import KakaoAdFitBottomBanner from '@/components/kakaoAdFitBottomBanner';
+import AdSense from '@/components/adSense';
 
 // common
 import { dateFormat, onMouseDown, onMouseUp, onMouseOut } from '@/libs/common';
@@ -122,7 +121,19 @@ const Notices = ({params}: any) => {
                             <SearchInput onkeyup={handleKeyUp} id="search" placeholder="검색어 입력" color="light"/>
                         </div>
                         <div className='w-full flex'>
-                            <KakaoAdFitTopBanner marginBottom={1.25}/>
+                            <AdSense
+                                pc={{
+                                    style: 'display: inline-block; width: 728px; height: 90px;',
+                                    client: 'ca-pub-7819549426971576',
+                                    slot: '3707368535'
+                                }}
+                                mobile={{
+                                    style: 'display: inline-block; width: 300px; height: 100px;',
+                                    client: 'ca-pub-7819549426971576',
+                                    slot: '1032069893'
+                                }}
+                                marginBottom={1.25}
+                            />
                         </div>
                         <div className='flex items-center gap-1.5 mb-4'>
                             <div>
@@ -161,7 +172,19 @@ const Notices = ({params}: any) => {
                             : <div className='w-full h-20 flex justify-center items-center text-sm text-center border-t border-l-b dark:border-d-6'>공지사항을 찾을 수 없습니다.</div>
                         }
                         <div className='w-full flex'>
-                            <KakaoAdFitBottomBanner marginTop={1}/>
+                            <AdSense
+                                pc={{
+                                    style: 'display: inline-block; width: 728px; height: 90px;',
+                                    client: 'ca-pub-7819549426971576',
+                                    slot: '3707368535'
+                                }}
+                                mobile={{
+                                    style: 'display: inline-block; width: 300px; height: 100px;',
+                                    client: 'ca-pub-7819549426971576',
+                                    slot: '1032069893'
+                                }}
+                                marginTop={1}
+                            />
                         </div>
                     </div>
                 </div>

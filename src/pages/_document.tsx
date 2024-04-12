@@ -27,9 +27,15 @@ class MyDocument extends Document {
         return (
             <Html lang="ko">
                 <Head>
+                    {/* Icons */}
                     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" type="text/css"/>
                     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" type="text/css"/>
+                    
+                    {/* Naver Site Verification */}
                     <meta name="naver-site-verification" content="024c9dabcc1f9744c1804786ed5ed6b481391f3a" />
+
+                    {/* Google AdSense */}
+                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7819549426971576" crossOrigin="anonymous"></script>
                 </Head>
                 <script dangerouslySetInnerHTML={{ __html: themeInitializerScript }}/>
                 <body className="custom-md-scrollbar font-sans absolute w-full min-h-full">
