@@ -428,6 +428,8 @@ const IssueFont = ({params}: any) => {
                         <h3 className='tlg:text-sm mb-3'>
                             제보 사항(버그, 새 폰트)이나 문의 사항 있으시면 연락 부탁드립니다.
                         </h3>
+
+                        {/* Google AdSense */}
                         <div className='w-full flex'>
                             <AdSense
                                 pc={{
@@ -443,6 +445,7 @@ const IssueFont = ({params}: any) => {
                                 marginBottom={1}
                             />
                         </div>
+                        
                         <div id="is-issued" className="w-full">
                             {
                                 isIssued === "success"
@@ -588,6 +591,8 @@ const IssueFont = ({params}: any) => {
                                 </button>
                             </Button>
                         </div>
+
+                        {/* Google AdSense */}
                         <div className='w-full flex'>
                             <AdSense
                                 pc={{
@@ -603,6 +608,7 @@ const IssueFont = ({params}: any) => {
                                 marginTop={1.5}
                             />
                         </div>
+
                     </div>
                 </div>
             </Motion>

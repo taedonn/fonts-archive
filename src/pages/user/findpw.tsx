@@ -129,30 +129,34 @@ const FindPw = ({params}: any) => {
                 transitionType="spring"
             >
                 <div className='w-full flex flex-col justify-center items-center'>
-                    <div className='flex fixed left-0 top-36'>
+                    
+                    {/* Google AdSense */}
+                    <div className='hidden lg:flex fixed left-0 top-36'>
                         <AdSense
                             pc={{
-                                style: 'display: inline-block; width: 728px; height: 90px;',
+                                style: 'display: inline-block; width: 160px; height: 600px;',
                                 client: 'ca-pub-7819549426971576',
                                 slot: '3299140583'
                             }}
                             mobile={{
-                                style: 'display: inline-block; width: 300px; height: 100px;',
+                                style: 'display: inline-block; width: 160px; height: 600px;',
                                 client: 'ca-pub-7819549426971576',
                                 slot: '3299140583'
                             }}
                             marginLeft={2}
                         />
                     </div>
-                    <div className='flex fixed right-0 top-36'>
+
+                    {/* Google AdSense */}
+                    <div className='hidden lg:flex fixed right-0 top-36'>
                         <AdSense
                             pc={{
-                                style: 'display: inline-block; width: 728px; height: 90px;',
+                                style: 'display: inline-block; width: 160px; height: 600px;',
                                 client: 'ca-pub-7819549426971576',
                                 slot: '3299140583'
                             }}
                             mobile={{
-                                style: 'display: inline-block; width: 300px; height: 100px;',
+                                style: 'display: inline-block; width: 160px; height: 600px;',
                                 client: 'ca-pub-7819549426971576',
                                 slot: '3299140583'
                             }}

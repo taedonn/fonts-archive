@@ -256,36 +256,41 @@ const Register = ({params}: any) => {
                 transitionType="spring"
             >
                 <div className='w-full flex flex-col justify-center items-center text-l-2 dark:text-white'>
-                    <div className='flex fixed left-0 top-36'>
+                    
+                    {/* Google AdSense */}
+                    <div className='hidden lg:flex fixed left-0 top-36'>
                         <AdSense
                             pc={{
-                                style: 'display: inline-block; width: 728px; height: 90px;',
+                                style: 'display: inline-block; width: 160px; height: 600px;',
                                 client: 'ca-pub-7819549426971576',
                                 slot: '3299140583'
                             }}
                             mobile={{
-                                style: 'display: inline-block; width: 300px; height: 100px;',
+                                style: 'display: inline-block; width: 160px; height: 600px;',
                                 client: 'ca-pub-7819549426971576',
                                 slot: '3299140583'
                             }}
                             marginLeft={2}
                         />
                     </div>
-                    <div className='flex fixed right-0 top-36'>
+
+                    {/* Google AdSense */}
+                    <div className='hidden lg:flex fixed right-0 top-36'>
                         <AdSense
                             pc={{
-                                style: 'display: inline-block; width: 728px; height: 90px;',
+                                style: 'display: inline-block; width: 160px; height: 600px;',
                                 client: 'ca-pub-7819549426971576',
                                 slot: '3299140583'
                             }}
                             mobile={{
-                                style: 'display: inline-block; width: 300px; height: 100px;',
+                                style: 'display: inline-block; width: 160px; height: 600px;',
                                 client: 'ca-pub-7819549426971576',
                                 slot: '3299140583'
                             }}
                             marginRight={2}
                         />
                     </div>
+
                     <div className='w-[22.5rem] flex flex-col justify-centert my-16 lg:my-24 mt-8 lg:mt-16'>
                         <h2 className='text-2xl font-bold mb-6'>회원가입</h2>
                         <form onSubmit={e => e.preventDefault()} id='register-form' className='w-full p-5 rounded-lg bg-l-e dark:bg-d-3 drop-shadow-default dark:drop-shadow-dark'>

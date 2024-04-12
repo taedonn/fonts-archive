@@ -584,12 +584,12 @@ function DetailPage({params}: any) {
                             <div className="w-max">
                                 <AdSense
                                     pc={{
-                                        style: 'display: inline-block; width: 300px; height: 100px;',
+                                        style: 'display: inline-block; width: 728px; height: 90px;',
                                         client: 'ca-pub-7819549426971576',
                                         slot: '3707368535'
                                     }}
                                     mobile={{
-                                        style: 'display: inline-block; width: 728px; height: 90px;',
+                                        style: 'display: inline-block; width: 300px; height: 100px;',
                                         client: 'ca-pub-7819549426971576',
                                         slot: '1032069893'
                                     }}
@@ -1035,12 +1035,12 @@ function DetailPage({params}: any) {
                                 <div className="w-max">
                                     <AdSense
                                         pc={{
-                                            style: 'display: inline-block; width: 300px; height: 100px;',
+                                            style: 'display: inline-block; width: 728px; height: 90px;',
                                             client: 'ca-pub-7819549426971576',
                                             slot: '3707368535'
                                         }}
                                         mobile={{
-                                            style: 'display: inline-block; width: 728px; height: 90px;',
+                                            style: 'display: inline-block; width: 300px; height: 100px;',
                                             client: 'ca-pub-7819549426971576',
                                             slot: '1032069893'
                                         }}

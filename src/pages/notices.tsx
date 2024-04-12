@@ -120,6 +120,8 @@ const Notices = ({params}: any) => {
                         <div className='relative mb-10'>
                             <SearchInput onkeyup={handleKeyUp} id="search" placeholder="검색어 입력" color="light"/>
                         </div>
+
+                        {/* Google AdSense */}
                         <div className='w-full flex'>
                             <AdSense
                                 pc={{
@@ -135,6 +137,7 @@ const Notices = ({params}: any) => {
                                 marginBottom={1.25}
                             />
                         </div>
+                        
                         <div className='flex items-center gap-1.5 mb-4'>
                             <div>
                                 <input onChange={handleTypeOnChange} type="radio" id="all" name="type" className="hidden peer" defaultChecked/>
@@ -171,6 +174,8 @@ const Notices = ({params}: any) => {
                             })
                             : <div className='w-full h-20 flex justify-center items-center text-sm text-center border-t border-l-b dark:border-d-6'>공지사항을 찾을 수 없습니다.</div>
                         }
+
+                        {/* Google AdSense */}
                         <div className='w-full flex'>
                             <AdSense
                                 pc={{
@@ -186,6 +191,7 @@ const Notices = ({params}: any) => {
                                 marginTop={1}
                             />
                         </div>
+
                     </div>
                 </div>
             </Motion>
