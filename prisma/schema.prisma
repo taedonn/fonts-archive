@@ -3,9 +3,9 @@ generator client {
 }
 
 datasource db {
-  provider          = "mysql"
-  url               = env("DATABASE_URL")
-  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+  provider          = "postgresql"
+  url               = env("SUPABASE_URL")
+  directUrl         = env("SUPABASE_KEY")
   relationMode      = "prisma"
 }
 
