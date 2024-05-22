@@ -25,7 +25,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 cacheStrategy: {
                     ttl: 30,
                     swr: 60,
-                },
+                }
             });
             return res.json({ fonts, id: fonts.length });
         }
@@ -50,7 +50,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 cacheStrategy: {
                     ttl: 30,
                     swr: 60,
-                },
+                }
             });
             return res.json({ fonts, id: fonts.length });
         } else if (req.query.action === "post") {

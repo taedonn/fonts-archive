@@ -42,7 +42,7 @@ export async function FetchAllNotices() {
         cacheStrategy: {
             ttl: 30,
             swr: 60,
-        },
+        }
     });
 
     return notices;

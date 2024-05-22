@@ -53,7 +53,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             cacheStrategy: { // query caching
                 ttl: 30,
                 swr: 60,
-            },
+            }
         });
 
         return res.json({
