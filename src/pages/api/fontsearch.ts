@@ -21,6 +21,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                         { font_family: { contains: thisKeyword } },
                     ],
                     show_type: true
+                },
+                cacheStrategy: {
+                    ttl: 30,
+                    swr: 60,
                 }
             });
             return res.json({ fonts, id: fonts.length });
@@ -42,6 +46,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                         { source: { contains: thisKeyword } },
                         { font_family: { contains: thisKeyword } },
                     ]
+                },
+                cacheStrategy: {
+                    ttl: 30,
+                    swr: 60,
                 }
             });
             return res.json({ fonts, id: fonts.length });

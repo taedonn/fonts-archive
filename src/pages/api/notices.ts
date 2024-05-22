@@ -38,7 +38,11 @@ export async function FetchNotice(noticeId: number) {
 export async function FetchAllNotices() {
     const notices = await prisma.fontsNotice.findMany({
         where: { notice_show_type: true },
-        orderBy: { notice_id: "desc" }
+        orderBy: { notice_id: "desc" },
+        cacheStrategy: {
+            ttl: 30,
+            swr: 60,
+        }
     });
 
     return notices;
