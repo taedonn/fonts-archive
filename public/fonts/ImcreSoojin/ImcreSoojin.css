@@ -3,5 +3,5 @@
     font-weight: normal;
     font-style: normal;
     font-display: swap;
-    src: url('/fonts/ImcreSoojin.woff2') format('woff2');
+    src: url('./ImcreSoojin.woff2') format('woff2');
 }

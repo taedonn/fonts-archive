@@ -3,12 +3,12 @@
     font-weight: 400;
     font-style: normal;
     font-display: swap;
-    src: url('/fonts/BinggraeSamanco-Regular.woff2') format('woff2');
+    src: url('./BinggraeSamanco-Regular.woff2') format('woff2');
 }
 @font-face {
     font-family: 'Binggrae Samanco';
     font-weight: 700;
     font-style: normal;
     font-display: swap;
-    src: url('/fonts/BinggraeSamanco-Bold.woff2') format('woff2');
+    src: url('./BinggraeSamanco-Bold.woff2') format('woff2');
 }

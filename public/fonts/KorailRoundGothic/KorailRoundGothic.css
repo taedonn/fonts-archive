@@ -3,19 +3,19 @@
     font-weight: 300;
     font-style: normal;
     font-display: swap;
-    src: url('/fonts/KorailRoundGothic-Light.woff2') format('woff2');
+    src: url('./KorailRoundGothic-Light.woff2') format('woff2');
 }
 @font-face {
     font-family: 'Korail Round Gothic';
     font-weight: 500;
     font-style: normal;
     font-display: swap;
-    src: url('/fonts/KorailRoundGothic-Medium.woff2') format('woff2');
+    src: url('./KorailRoundGothic-Medium.woff2') format('woff2');
 }
 @font-face {
     font-family: 'Korail Round Gothic';
     font-weight: 700;
     font-style: normal;
     font-display: swap;
-    src: url('/fonts/KorailRoundGothic-Bold.woff2') format('woff2');
+    src: url('./KorailRoundGothic-Bold.woff2') format('woff2');
 }

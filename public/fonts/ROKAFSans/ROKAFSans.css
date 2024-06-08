@@ -3,12 +3,12 @@
     font-weight: 500;
     font-style: normal;
     font-display: swap;
-    src: url('/fonts/ROKAFSans-Medium.woff2') format('woff2');
+    src: url('./ROKAFSans-Medium.woff2') format('woff2');
 }
 @font-face {
     font-family: 'ROKAF Sans';
     font-weight: 700;
     font-style: normal;
     font-display: swap;
-    src: url('/fonts/ROKAFSans-Bold.woff2') format('woff2');
+    src: url('./ROKAFSans-Bold.woff2') format('woff2');
 }
