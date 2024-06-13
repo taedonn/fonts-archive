@@ -1,0 +1,14 @@
+@font-face {
+    font-family: 'GIMJE';
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+    src: url('./GIMJE-Light.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'GIMJE';
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+    src: url('./GIMJE-Medium.woff2') format('woff2');
+}

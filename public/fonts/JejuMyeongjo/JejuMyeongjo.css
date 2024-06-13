@@ -1,0 +1,7 @@
+@font-face {
+    font-family: 'Jeju Myeongjo';
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+    src: url('./JejuMyeongjo.woff2') format('woff2');
+}

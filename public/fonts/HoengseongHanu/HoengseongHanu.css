@@ -1,0 +1,7 @@
+@font-face {
+    font-family: 'Hoengseong Hanu';
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+    src: url('./HoengseongHanu.woff2') format('woff2');
+}

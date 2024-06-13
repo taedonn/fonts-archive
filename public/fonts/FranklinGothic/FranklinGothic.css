@@ -1,0 +1,14 @@
+@font-face {
+    font-family: 'Franklin Gothic';
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+    src: url('./FranklinGothic.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Franklin Gothic';
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+    src: url('./FranklinGothicItalic.woff2') format('woff2');
+}

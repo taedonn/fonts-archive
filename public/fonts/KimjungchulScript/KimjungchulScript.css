@@ -1,0 +1,21 @@
+@font-face {
+    font-family: 'Kimjungchul Script';
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+    src: url('./KimjungchulScript-Light.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Kimjungchul Script';
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+    src: url('./KimjungchulScript-Regular.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Kimjungchul Script';
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+    src: url('./KimjungchulScript-Bold.woff2') format('woff2');
+}

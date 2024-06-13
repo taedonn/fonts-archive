@@ -1,0 +1,7 @@
+@font-face {
+    font-family: 'Gimpo Title';
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+    src: url('./GimpoTitle.woff2') format('woff2');
+}

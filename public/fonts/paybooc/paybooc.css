@@ -1,0 +1,28 @@
+@font-face {
+    font-family: 'paybooc';
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+    src: url('./paybooc-Light.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'paybooc';
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+    src: url('./paybooc-Medium.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'paybooc';
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+    src: url('./paybooc-Bold.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'paybooc';
+    font-weight: 800;
+    font-style: normal;
+    font-display: swap;
+    src: url('./paybooc-ExtraBold.woff2') format('woff2');
+}

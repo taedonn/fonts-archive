@@ -1,0 +1,7 @@
+@font-face {
+    font-family: 'DOSPilgi';
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+    src: url('./DOSPilgi.woff2') format('woff2');
+}

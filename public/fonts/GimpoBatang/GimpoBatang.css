@@ -1,0 +1,7 @@
+@font-face {
+    font-family: 'Gimpo Batang';
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+    src: url('./GimpoBatang.woff2') format('woff2');
+}

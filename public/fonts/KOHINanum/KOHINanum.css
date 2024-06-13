@@ -1,0 +1,14 @@
+@font-face {
+    font-family: 'KOHI Nanum';
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+    src: url('./KOHINanumLight.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'KOHI Nanum';
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+    src: url('./KOHINanumBold.woff2') format('woff2');
+}

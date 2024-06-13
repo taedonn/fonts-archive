@@ -1,0 +1,7 @@
+@font-face {
+    font-family: 'ChosunSm';
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+    src: url('./ChosunSm.woff2') format('woff2');
+}

@@ -1,0 +1,14 @@
+@font-face {
+    font-family: 'Hakgyoansim Godeunjemok';
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+    src: url('./HakgyoansimGodeunjemok-Medium.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Hakgyoansim Godeunjemok';
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+    src: url('./HakgyoansimGodeunjemok-Bold.woff2') format('woff2');
+}

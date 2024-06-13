@@ -1,0 +1,7 @@
+@font-face {
+    font-family: 'Hangeul Jaemin 3';
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+    src: url('./HangeulJaemin3.woff2') format('woff2');
+}

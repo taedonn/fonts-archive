@@ -1,0 +1,21 @@
+@font-face {
+    font-family: 'Nanum Gothic Eco';
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+    src: url('./NanumGothicEco.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Nanum Gothic Eco';
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+    src: url('./NanumGothicEcoBold.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Nanum Gothic Eco';
+    font-weight: 800;
+    font-style: normal;
+    font-display: swap;
+    src: url('./NanumGothicEcoExtraBold.woff2') format('woff2');
+}

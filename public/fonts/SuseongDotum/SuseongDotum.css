@@ -1,0 +1,7 @@
+@font-face {
+    font-family: 'Suseong Dotum';
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+    src: url('./SuseongDotum.woff2') format('woff2');
+}

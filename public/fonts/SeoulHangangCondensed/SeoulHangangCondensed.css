@@ -1,0 +1,35 @@
+@font-face {
+    font-family: 'Seoul Hangang Condensed';
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+    src: url('./SeoulHangangCondensed-Light.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Seoul Hangang Condensed';
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+    src: url('./SeoulHangangCondensed-Medium.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Seoul Hangang Condensed';
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+    src: url('./SeoulHangangCondensed-Bold.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Seoul Hangang Condensed';
+    font-weight: 800;
+    font-style: normal;
+    font-display: swap;
+    src: url('./SeoulHangangCondensed-ExtraBold.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Seoul Hangang Condensed';
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+    src: url('./SeoulHangangCondensed-Black.woff2') format('woff2');
+}

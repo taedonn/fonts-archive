@@ -1,0 +1,7 @@
+@font-face {
+    font-family: 'Hakgyoansim Tuho';
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+    src: url('./HakgyoansimTuho.woff2') format('woff2');
+}

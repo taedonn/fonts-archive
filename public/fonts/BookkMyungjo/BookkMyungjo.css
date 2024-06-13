@@ -1,0 +1,14 @@
+@font-face {
+    font-family: 'Bookk Myungjo';
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+    src: url('./BookkMyungjo-Light.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Bookk Myungjo';
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+    src: url('./BookkMyungjo-Bold.woff2') format('woff2');
+}

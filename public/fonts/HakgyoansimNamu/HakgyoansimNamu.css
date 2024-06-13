@@ -1,0 +1,14 @@
+@font-face {
+    font-family: 'Hakgyoansim Namu';
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+    src: url('./HakgyoansimNamu-Light.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Hakgyoansim Namu';
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+    src: url('./HakgyoansimNamu-Regular.woff2') format('woff2');
+}

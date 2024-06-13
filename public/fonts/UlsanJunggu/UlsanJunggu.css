@@ -1,0 +1,7 @@
+@font-face {
+    font-family: 'Ulsan Junggu';
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+    src: url('./UlsanJunggu.woff2') format('woff2');
+}

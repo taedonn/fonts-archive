@@ -1,0 +1,7 @@
+@font-face {
+    font-family: 'High Summit';
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+    src: url('./HighSummit.woff2') format('woff2');
+}

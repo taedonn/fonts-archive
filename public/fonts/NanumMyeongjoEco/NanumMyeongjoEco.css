@@ -1,0 +1,21 @@
+@font-face {
+    font-family: 'Nanum Myeongjo Eco';
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+    src: url('./NanumMyeongjoEco.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Nanum Myeongjo Eco';
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+    src: url('./NanumMyeongjoEcoBold.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Nanum Myeongjo Eco';
+    font-weight: 800;
+    font-style: normal;
+    font-display: swap;
+    src: url('./NanumMyeongjoEcoExtraBold.woff2') format('woff2');
+}

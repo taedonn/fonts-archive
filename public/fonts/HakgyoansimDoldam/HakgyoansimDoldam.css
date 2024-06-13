@@ -1,0 +1,21 @@
+@font-face {
+    font-family: 'Hakgyoansim Doldam';
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+    src: url('./HakgyoansimDoldam-Light.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Hakgyoansim Doldam';
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+    src: url('./HakgyoansimDoldam-Medium.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Hakgyoansim Doldam';
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+    src: url('./HakgyoansimDoldam-Bold.woff2') format('woff2');
+}

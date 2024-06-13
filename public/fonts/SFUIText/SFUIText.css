@@ -1,0 +1,87 @@
+/* normal */ 
+@font-face {
+    font-family: 'SF UI Text';
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+    src: url('./SFUIText-Light.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'SF UI Text';
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+    src: url('./SFUIText-Regular.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'SF UI Text';
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+    src: url('./SFUIText-Medium.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'SF UI Text';
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+    src: url('./SFUIText-Semibold.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'SF UI Text';
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+    src: url('./SFUIText-Bold.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'SF UI Text';
+    font-weight: 800;
+    font-style: normal;
+    font-display: swap;
+    src: url('./SFUIText-ExtraBold.woff2') format('woff2');
+}
+
+/* italic */ 
+@font-face {
+    font-family: 'SF UI Text';
+    font-weight: 300;
+    font-style: italic;
+    font-display: swap;
+    src: url('./SFUITextItalic-Light.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'SF UI Text';
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
+    src: url('./SFUITextItalic-Regular.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'SF UI Text';
+    font-weight: 500;
+    font-style: italic;
+    font-display: swap;
+    src: url('./SFUITextItalic-Medium.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'SF UI Text';
+    font-weight: 600;
+    font-style: italic;
+    font-display: swap;
+    src: url('./SFUITextItalic-Semibold.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'SF UI Text';
+    font-weight: 700;
+    font-style: italic;
+    font-display: swap;
+    src: url('./SFUITextItalic-Bold.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'SF UI Text';
+    font-weight: 800;
+    font-style: italic;
+    font-display: swap;
+    src: url('./SFUITextItalic-ExtraBold.woff2') format('woff2');
+}

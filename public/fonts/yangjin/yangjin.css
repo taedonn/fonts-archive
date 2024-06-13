@@ -1,0 +1,7 @@
+@font-face {
+    font-family: 'yangjin';
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+    src: url('./yangjin.woff2') format('woff2');
+}

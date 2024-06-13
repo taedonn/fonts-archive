@@ -1,0 +1,14 @@
+@font-face {
+    font-family: 'Nanum Barunpen';
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+    src: url('./NanumBarunpen.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Nanum Barunpen';
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+    src: url('./NanumBarunpenBold.woff2') format('woff2');
+}

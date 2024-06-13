@@ -1,0 +1,7 @@
+@font-face {
+    font-family: 'Blackbird';
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+    src: url('./Blackbird.woff2') format('woff2');
+}

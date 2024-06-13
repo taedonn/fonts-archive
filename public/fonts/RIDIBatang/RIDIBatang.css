@@ -1,0 +1,7 @@
+@font-face {
+    font-family: 'RIDI Batang';
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+    src: url('./RIDIBatang.woff2') format('woff2');
+}

@@ -1,0 +1,21 @@
+@font-face {
+    font-family: 'Lotte Mart Dream';
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+    src: url('./LotteMartDream-Light.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Lotte Mart Dream';
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+    src: url('./LotteMartDream-Medium.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Lotte Mart Dream';
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+    src: url('./LotteMartDream-Bold.woff2') format('woff2');
+}

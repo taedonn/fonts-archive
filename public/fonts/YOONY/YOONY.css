@@ -1,0 +1,7 @@
+@font-face {
+    font-family: 'YOONY';
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+    src: url('./YOONY.woff2') format('woff2');
+}

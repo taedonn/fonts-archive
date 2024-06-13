@@ -1,0 +1,7 @@
+@font-face {
+    font-family: 'DOSSaemmul';
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+    src: url('./DOSSaemmul.woff2') format('woff2');
+}

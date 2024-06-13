@@ -1,0 +1,7 @@
+@font-face {
+    font-family: 'ChosunGu';
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+    src: url('./ChosunGu.woff2') format('woff2');
+}

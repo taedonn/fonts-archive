@@ -1,0 +1,7 @@
+@font-face {
+    font-family: 'TT Together';
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+    src: url('./TTTogether.woff2') format('woff2');
+}

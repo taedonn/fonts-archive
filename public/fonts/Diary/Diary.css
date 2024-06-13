@@ -1,0 +1,7 @@
+@font-face {
+    font-family: 'Diary';
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+    src: url('./Diary.woff2') format('woff2');
+}

@@ -1,0 +1,21 @@
+@font-face {
+    font-family: 'DNFForgedBlade';
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+    src: url('./DNFForgedBlade-Light.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'DNFForgedBlade';
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+    src: url('./DNFForgedBlade-Medium.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'DNFForgedBlade';
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+    src: url('./DNFForgedBlade-Bold.woff2') format('woff2');
+}

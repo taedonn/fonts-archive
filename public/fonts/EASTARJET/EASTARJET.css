@@ -1,0 +1,21 @@
+@font-face {
+    font-family: 'EASTARJET';
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+    src: url('./EASTARJET-DemiLight.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'EASTARJET';
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+    src: url('./EASTARJET-Medium.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'EASTARJET';
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+    src: url('./EASTARJET-Heavy.woff2') format('woff2');
+}

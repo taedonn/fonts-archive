@@ -1,0 +1,35 @@
+@font-face {
+    font-family: 'Arita Buri';
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+    src: url('./AritaBuri-Thin.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Arita Buri';
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+    src: url('./AritaBuri-Light.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Arita Buri';
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+    src: url('./AritaBuri-Medium.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Arita Buri';
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+    src: url('./AritaBuri-SemiBold.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Arita Buri';
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+    src: url('./AritaBuri-Bold.woff2') format('woff2');
+}

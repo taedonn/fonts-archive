@@ -1,0 +1,35 @@
+@font-face {
+    font-family: 'Arita Dotum';
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+    src: url('./AritaDotum-Thin.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Arita Dotum';
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+    src: url('./AritaDotum-Light.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Arita Dotum';
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+    src: url('./AritaDotum-Medium.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Arita Dotum';
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+    src: url('./AritaDotum-SemiBold.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Arita Dotum';
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+    src: url('./AritaDotum-Bold.woff2') format('woff2');
+}

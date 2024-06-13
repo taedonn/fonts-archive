@@ -1,0 +1,7 @@
+@font-face {
+    font-family: 'Haenam';
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+    src: url('./Haenam.woff2') format('woff2');
+}

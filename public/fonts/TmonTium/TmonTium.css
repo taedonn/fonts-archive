@@ -1,0 +1,7 @@
+@font-face {
+    font-family: 'Tmon Tium';
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+    src: url('./TmonTium.woff2') format('woff2');
+}

@@ -1,0 +1,7 @@
+@font-face {
+    font-family: 'KCC PakKyongni';
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+    src: url('./KCCPakKyongni.woff2') format('woff2');
+}

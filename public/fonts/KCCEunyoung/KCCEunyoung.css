@@ -1,0 +1,7 @@
+@font-face {
+    font-family: 'KCC Eunyoung';
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+    src: url('./KCCEunyoung.woff2') format('woff2');
+}

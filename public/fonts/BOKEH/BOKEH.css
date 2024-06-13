@@ -1,0 +1,7 @@
+@font-face {
+    font-family: 'BOKEH';
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+    src: url('./BOKEH.woff2') format('woff2');
+}

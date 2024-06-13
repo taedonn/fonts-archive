@@ -1,0 +1,28 @@
+@font-face {
+    font-family: 'Nanum Barun Gothic';
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+    src: url('./NanumBarunGothicUltraLight.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Nanum Barun Gothic';
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+    src: url('./NanumBarunGothicLight.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Nanum Barun Gothic';
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+    src: url('./NanumBarunGothic.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Nanum Barun Gothic';
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+    src: url('./NanumBarunGothicBold.woff2') format('woff2');
+}

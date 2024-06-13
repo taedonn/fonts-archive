@@ -1,0 +1,7 @@
+@font-face {
+    font-family: 'Dovemayo Gothic';
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+    src: url('./Dovemayo-Gothic.woff2') format('woff2');
+}
