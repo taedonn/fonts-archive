@@ -1,0 +1,14 @@
+@font-face {
+    font-family: 'Elice Digital Baeum';
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+    src: url('./EliceDigitalBaeum-Regular.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Elice Digital Baeum';
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+    src: url('./EliceDigitalBaeum-Bold.woff2') format('woff2');
+}

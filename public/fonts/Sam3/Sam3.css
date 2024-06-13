@@ -1,0 +1,7 @@
+@font-face {
+    font-family: 'Sam3';
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+    src: url('./Sam3.woff2') format('woff2');
+}

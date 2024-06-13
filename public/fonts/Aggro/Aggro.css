@@ -1,0 +1,21 @@
+@font-face {
+    font-family: 'Aggro';
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+    src: url('./AggroL.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Aggro';
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+    src: url('./AggroM.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Aggro';
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+    src: url('./AggroB.woff2') format('woff2');
+}

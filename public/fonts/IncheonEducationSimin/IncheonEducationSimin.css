@@ -1,0 +1,7 @@
+@font-face {
+    font-family: 'Incheon Education Simin';
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+    src: url('./IncheonEducationSimin.woff2') format('woff2');
+}

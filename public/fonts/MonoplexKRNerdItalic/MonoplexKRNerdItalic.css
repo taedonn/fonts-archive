@@ -1,0 +1,56 @@
+@font-face {
+    font-family: 'Monoplex KR Nerd Italic';
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+    src: url('./MonoplexKRNerdItalic-Thin.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Monoplex KR Nerd Italic';
+    font-weight: 200;
+    font-style: normal;
+    font-display: swap;
+    src: url('./MonoplexKRNerdItalic-ExtraLight.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Monoplex KR Nerd Italic';
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+    src: url('./MonoplexKRNerdItalic-Light.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Monoplex KR Nerd Italic';
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+    src: url('./MonoplexKRNerdItalic-Regular.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Monoplex KR Nerd Italic';
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+    src: url('./MonoplexKRNerdItalic-Medium.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Monoplex KR Nerd Italic';
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+    src: url('./MonoplexKRNerdItalic-SemiBold.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Monoplex KR Nerd Italic';
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+    src: url('./MonoplexKRNerdItalic-Bold.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Monoplex KR Nerd Italic';
+    font-weight: 800;
+    font-style: normal;
+    font-display: swap;
+    src: url('./MonoplexKRNerdItalic-ExtraBold.woff2') format('woff2');
+}

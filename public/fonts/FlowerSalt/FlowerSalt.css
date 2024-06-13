@@ -1,0 +1,7 @@
+@font-face {
+    font-family: 'Flower Salt';
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+    src: url('./FlowerSalt.woff2') format('woff2');
+}

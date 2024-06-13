@@ -1,0 +1,7 @@
+@font-face {
+    font-family: 'Partial Sans KR';
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+    src: url('./PartialSansKR.woff2') format('woff2');
+}

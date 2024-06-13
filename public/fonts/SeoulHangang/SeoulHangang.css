@@ -1,0 +1,28 @@
+@font-face {
+    font-family: 'Seoul Hangang';
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+    src: url('./SeoulHangang-Light.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Seoul Hangang';
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+    src: url('./SeoulHangang-Medium.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Seoul Hangang';
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+    src: url('./SeoulHangang-Bold.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Seoul Hangang';
+    font-weight: 800;
+    font-style: normal;
+    font-display: swap;
+    src: url('./SeoulHangang-ExtraBold.woff2') format('woff2');
+}

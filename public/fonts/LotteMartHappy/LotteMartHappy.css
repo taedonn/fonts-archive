@@ -1,0 +1,21 @@
+@font-face {
+    font-family: 'Lotte Mart Happy';
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+    src: url('./LotteMartHappy-Light.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Lotte Mart Happy';
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+    src: url('./LotteMartHappy-Medium.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Lotte Mart Happy';
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+    src: url('./LotteMartHappy-Bold.woff2') format('woff2');
+}

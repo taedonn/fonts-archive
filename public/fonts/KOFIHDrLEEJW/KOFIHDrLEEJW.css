@@ -1,0 +1,14 @@
+@font-face {
+    font-family: 'KOFIH DrLEEJW';
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+    src: url('./KOFIHDrLEEJW-Light.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'KOFIH DrLEEJW';
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+    src: url('./KOFIHDrLEEJW-Bold.woff2') format('woff2');
+}

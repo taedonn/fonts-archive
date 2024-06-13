@@ -1,0 +1,7 @@
+@font-face {
+    font-family: 'KCC Kimhoon';
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+    src: url('./KCCKimhoon.woff2') format('woff2');
+}

@@ -1,0 +1,21 @@
+@font-face {
+    font-family: 'Hakgyoansim Butpen';
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+    src: url('./HakgyoansimButpen-Light.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Hakgyoansim Butpen';
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+    src: url('./HakgyoansimButpen-Medium.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Hakgyoansim Butpen';
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+    src: url('./HakgyoansimButpen-Bold.woff2') format('woff2');
+}

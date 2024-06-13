@@ -1,0 +1,7 @@
+@font-face {
+    font-family: 'HBIOS-SYS';
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+    src: url('./HBIOS-SYS.woff2') format('woff2');
+}

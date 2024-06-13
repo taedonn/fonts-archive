@@ -1,0 +1,7 @@
+@font-face {
+    font-family: 'ChosunLo';
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+    src: url('./ChosunLo.woff2') format('woff2');
+}

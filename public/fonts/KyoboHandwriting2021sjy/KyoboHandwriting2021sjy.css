@@ -1,0 +1,7 @@
+@font-face {
+    font-family: 'KyoboHandwriting2021sjy';
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+    src: url('./KyoboHandwriting2021sjy.woff2') format('woff2');
+}

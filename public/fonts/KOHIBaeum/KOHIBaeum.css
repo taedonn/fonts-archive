@@ -1,0 +1,7 @@
+@font-face {
+    font-family: 'KOHI Baeum';
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+    src: url('./KOHIBaeum.woff2') format('woff2');
+}

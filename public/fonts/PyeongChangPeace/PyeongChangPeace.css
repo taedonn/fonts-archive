@@ -1,0 +1,14 @@
+@font-face {
+    font-family: 'Pyeong Chang Peace';
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+    src: url('./PyeongChangPeace-Regular.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Pyeong Chang Peace';
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+    src: url('./PyeongChangPeace-Bold.woff2') format('woff2');
+}

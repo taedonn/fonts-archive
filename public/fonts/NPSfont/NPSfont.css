@@ -1,0 +1,21 @@
+@font-face {
+    font-family: 'NPSfont';
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+    src: url('./NPSfont-Regular.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'NPSfont';
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+    src: url('./NPSfont-Bold.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'NPSfont';
+    font-weight: 800;
+    font-style: normal;
+    font-display: swap;
+    src: url('./NPSfont-ExtraBold.woff2') format('woff2');
+}

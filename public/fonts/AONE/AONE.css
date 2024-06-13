@@ -1,0 +1,7 @@
+@font-face {
+    font-family: 'AONE';
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+    src: url('./AONE.woff2') format('woff2');
+}

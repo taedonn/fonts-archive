@@ -1,0 +1,7 @@
+@font-face {
+    font-family: 'Rix Moms Blanket';
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+    src: url('./RixMomsBlanket.woff2') format('woff2');
+}

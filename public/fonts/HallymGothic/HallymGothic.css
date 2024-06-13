@@ -1,0 +1,21 @@
+@font-face {
+    font-family: 'Hallym Gothic';
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+    src: url('./HallymGothic-Regular.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Hallym Gothic';
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+    src: url('./HallymGothic-Medium.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Hallym Gothic';
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+    src: url('./HallymGothic-Bold.woff2') format('woff2');
+}

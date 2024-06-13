@@ -1,0 +1,14 @@
+@font-face {
+    font-family: 'Hakgyoansim Santteutdotum';
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+    src: url('./HakgyoansimSantteutdotum-Light.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Hakgyoansim Santteutdotum';
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+    src: url('./HakgyoansimSantteutdotum-Medium.woff2') format('woff2');
+}

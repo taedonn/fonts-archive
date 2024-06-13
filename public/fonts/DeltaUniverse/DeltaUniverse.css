@@ -1,0 +1,7 @@
+@font-face {
+    font-family: 'Delta Universe';
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+    src: url('./DeltaUniverse.woff2') format('woff2');
+}

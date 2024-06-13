@@ -1,0 +1,7 @@
+@font-face {
+    font-family: 'ChosunKg';
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+    src: url('./ChosunKg.woff2') format('woff2');
+}

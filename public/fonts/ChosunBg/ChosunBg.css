@@ -1,0 +1,7 @@
+@font-face {
+    font-family: 'ChosunBg';
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+    src: url('./ChosunBg.woff2') format('woff2');
+}

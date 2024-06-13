@@ -1,0 +1,63 @@
+@font-face {
+    font-family: 'Apple SD Gothic Neo';
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+    src: url('./AppleSDGothicNeo-Thin.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Apple SD Gothic Neo';
+    font-weight: 200;
+    font-style: normal;
+    font-display: swap;
+    src: url('./AppleSDGothicNeo-ExtraLight.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Apple SD Gothic Neo';
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+    src: url('./AppleSDGothicNeo-Light.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Apple SD Gothic Neo';
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+    src: url('./AppleSDGothicNeo-Regular.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Apple SD Gothic Neo';
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+    src: url('./AppleSDGothicNeo-Medium.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Apple SD Gothic Neo';
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+    src: url('./AppleSDGothicNeo-SemiBold.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Apple SD Gothic Neo';
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+    src: url('./AppleSDGothicNeo-Bold.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Apple SD Gothic Neo';
+    font-weight: 800;
+    font-style: normal;
+    font-display: swap;
+    src: url('./AppleSDGothicNeo-ExtraBold.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Apple SD Gothic Neo';
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+    src: url('./AppleSDGothicNeo-Black.woff2') format('woff2');
+}

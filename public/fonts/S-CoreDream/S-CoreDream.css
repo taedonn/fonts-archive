@@ -1,0 +1,63 @@
+@font-face {
+    font-family: 'S-Core Dream';
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+    src: url('./SCDreamThin.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'S-Core Dream';
+    font-weight: 200;
+    font-style: normal;
+    font-display: swap;
+    src: url('./SCDreamExtraLight.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'S-Core Dream';
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+    src: url('./SCDreamLight.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'S-Core Dream';
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+    src: url('./SCDreamRegular.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'S-Core Dream';
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+    src: url('./SCDreamMedium.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'S-Core Dream';
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+    src: url('./SCDreamBold.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'S-Core Dream';
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+    src: url('./SCDreamExtraBold.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'S-Core Dream';
+    font-weight: 800;
+    font-style: normal;
+    font-display: swap;
+    src: url('./SCDreamHeavy.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'S-Core Dream';
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+    src: url('./SCDreamBlack.woff2') format('woff2');
+}

@@ -1,0 +1,7 @@
+@font-face {
+    font-family: 'Neurimbo Gothic';
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+    src: url('./NeurimboGothic.woff2') format('woff2');
+}

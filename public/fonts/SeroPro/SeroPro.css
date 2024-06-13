@@ -1,0 +1,115 @@
+/* normal */
+@font-face {
+    font-family: 'Sero Pro';
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+    src: url('./SeroPro-Thin.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Sero Pro';
+    font-weight: 200;
+    font-style: normal;
+    font-display: swap;
+    src: url('./SeroPro-ExtraLight.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Sero Pro';
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+    src: url('./SeroPro-Light.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Sero Pro';
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+    src: url('./SeroPro-Regular.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Sero Pro';
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+    src: url('./SeroPro-Medium.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Sero Pro';
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+    src: url('./SeroPro-SemiBold.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Sero Pro';
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+    src: url('./SeroPro-Bold.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Sero Pro';
+    font-weight: 800;
+    font-style: normal;
+    font-display: swap;
+    src: url('./SeroPro-ExtraBold.woff2') format('woff2');
+}
+
+/* italic */
+@font-face {
+    font-family: 'Sero Pro';
+    font-weight: 100;
+    font-style: italic;
+    font-display: swap;
+    src: url('./SeroProItalic-Thin.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Sero Pro';
+    font-weight: 200;
+    font-style: italic;
+    font-display: swap;
+    src: url('./SeroProItalic-ExtraLight.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Sero Pro';
+    font-weight: 300;
+    font-style: italic;
+    font-display: swap;
+    src: url('./SeroProItalic-Light.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Sero Pro';
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
+    src: url('./SeroProItalic-Regular.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Sero Pro';
+    font-weight: 500;
+    font-style: italic;
+    font-display: swap;
+    src: url('./SeroProItalic-Medium.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Sero Pro';
+    font-weight: 600;
+    font-style: italic;
+    font-display: swap;
+    src: url('./SeroProItalic-SemiBold.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Sero Pro';
+    font-weight: 700;
+    font-style: italic;
+    font-display: swap;
+    src: url('./SeroProItalic-Bold.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Sero Pro';
+    font-weight: 800;
+    font-style: italic;
+    font-display: swap;
+    src: url('./SeroProItalic-ExtraBold.woff2') format('woff2');
+}

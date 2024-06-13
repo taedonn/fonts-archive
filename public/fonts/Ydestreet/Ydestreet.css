@@ -1,0 +1,14 @@
+@font-face {
+    font-family: 'Ydestreet';
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+    src: url('./Ydestreet-Light.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Ydestreet';
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+    src: url('./Ydestreet-Bold.woff2') format('woff2');
+}

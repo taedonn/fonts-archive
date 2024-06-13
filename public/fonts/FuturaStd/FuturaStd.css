@@ -1,0 +1,87 @@
+/* normal */
+@font-face {
+    font-family: 'Futura Std';
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+    src: url('./FuturaStd-Light.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Futura Std';
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+    src: url('./FuturaStd-Regular.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Futura Std';
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+    src: url('./FuturaStd-Medium.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Futura Std';
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+    src: url('./FuturaStd-Bold.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Futura Std';
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+    src: url('./FuturaStd-ExtraBold.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Futura Std';
+    font-weight: 800;
+    font-style: normal;
+    font-display: swap;
+    src: url('./FuturaStd-Heavy.woff2') format('woff2');
+}
+
+/* Italic */
+@font-face {
+    font-family: 'Futura Std';
+    font-weight: 300;
+    font-style: italic;
+    font-display: swap;
+    src: url('./FuturaStdItalic-Light.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Futura Std';
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
+    src: url('./FuturaStdItalic-Regular.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Futura Std';
+    font-weight: 500;
+    font-style: italic;
+    font-display: swap;
+    src: url('./FuturaStdItalic-Medium.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Futura Std';
+    font-weight: 600;
+    font-style: italic;
+    font-display: swap;
+    src: url('./FuturaStdItalic-Bold.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Futura Std';
+    font-weight: 700;
+    font-style: italic;
+    font-display: swap;
+    src: url('./FuturaStdItalic-ExtraBold.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Futura Std';
+    font-weight: 800;
+    font-style: italic;
+    font-display: swap;
+    src: url('./FuturaStdItalic-Heavy.woff2') format('woff2');
+}

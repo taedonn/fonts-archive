@@ -1,0 +1,14 @@
+@font-face {
+    font-family: 'Jeonju Craft Mj';
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+    src: url('./JeonjuCraftMj-Light.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Jeonju Craft Mj';
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+    src: url('./JeonjuCraftMj-Bold.woff2') format('woff2');
+}

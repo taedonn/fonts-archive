@@ -1,0 +1,21 @@
+@font-face {
+    font-family: 'KBO Dia Gothic';
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+    src: url('./KBODiaGothic-Light.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'KBO Dia Gothic';
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+    src: url('./KBODiaGothic-Medium.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'KBO Dia Gothic';
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+    src: url('./KBODiaGothic-Bold.woff2') format('woff2');
+}

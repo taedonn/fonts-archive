@@ -1,0 +1,21 @@
+@font-face {
+    font-family: 'Infinity Sans';
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+    src: url('./InfinitySans-Regular.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Infinity Sans';
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+    src: url('./InfinitySans-Bold.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Infinity Sans';
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+    src: url('./InfinitySans-ExtraBold.woff2') format('woff2');
+}

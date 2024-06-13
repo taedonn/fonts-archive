@@ -1,0 +1,7 @@
+@font-face {
+    font-family: 'KCC Chassam';
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+    src: url('./KCCChassam.woff2') format('woff2');
+}

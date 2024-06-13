@@ -1,0 +1,56 @@
+@font-face {
+    font-family: 'Monoplex KR';
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+    src: url('./MonoplexKR-Thin.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Monoplex KR';
+    font-weight: 200;
+    font-style: normal;
+    font-display: swap;
+    src: url('./MonoplexKR-ExtraLight.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Monoplex KR';
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+    src: url('./MonoplexKR-Light.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Monoplex KR';
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+    src: url('./MonoplexKR-Regular.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Monoplex KR';
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+    src: url('./MonoplexKR-Medium.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Monoplex KR';
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+    src: url('./MonoplexKR-SemiBold.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Monoplex KR';
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+    src: url('./MonoplexKR-Bold.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Monoplex KR';
+    font-weight: 800;
+    font-style: normal;
+    font-display: swap;
+    src: url('./MonoplexKR-ExtraBold.woff2') format('woff2');
+}

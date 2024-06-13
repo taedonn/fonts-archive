@@ -1,0 +1,56 @@
+@font-face {
+    font-family: 'Monoplex KR Nerd';
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+    src: url('./MonoplexKRNerd-Thin.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Monoplex KR Nerd';
+    font-weight: 200;
+    font-style: normal;
+    font-display: swap;
+    src: url('./MonoplexKRNerd-ExtraLight.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Monoplex KR Nerd';
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+    src: url('./MonoplexKRNerd-Light.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Monoplex KR Nerd';
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+    src: url('./MonoplexKRNerd-Regular.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Monoplex KR Nerd';
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+    src: url('./MonoplexKRNerd-Medium.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Monoplex KR Nerd';
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+    src: url('./MonoplexKRNerd-SemiBold.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Monoplex KR Nerd';
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+    src: url('./MonoplexKRNerd-Bold.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Monoplex KR Nerd';
+    font-weight: 800;
+    font-style: normal;
+    font-display: swap;
+    src: url('./MonoplexKRNerd-ExtraBold.woff2') format('woff2');
+}

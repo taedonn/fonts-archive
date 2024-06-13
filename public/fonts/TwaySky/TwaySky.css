@@ -1,0 +1,7 @@
+@font-face {
+    font-family: 'Tway Sky';
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+    src: url('./TwaySky.woff2') format('woff2');
+}

@@ -1,0 +1,14 @@
+@font-face {
+    font-family: 'NEXON Football Gothic';
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+    src: url('./NEXONFootballGothic-Light.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'NEXON Football Gothic';
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+    src: url('./NEXONFootballGothic-Bold.woff2') format('woff2');
+}

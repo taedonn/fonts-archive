@@ -1,0 +1,56 @@
+@font-face {
+    font-family: 'Monoplex KR Wide Italic';
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+    src: url('./MonoplexKRWideItalic-Thin.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Monoplex KR Wide Italic';
+    font-weight: 200;
+    font-style: normal;
+    font-display: swap;
+    src: url('./MonoplexKRWideItalic-ExtraLight.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Monoplex KR Wide Italic';
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+    src: url('./MonoplexKRWideItalic-Light.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Monoplex KR Wide Italic';
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+    src: url('./MonoplexKRWideItalic-Regular.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Monoplex KR Wide Italic';
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+    src: url('./MonoplexKRWideItalic-Medium.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Monoplex KR Wide Italic';
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+    src: url('./MonoplexKRWideItalic-SemiBold.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Monoplex KR Wide Italic';
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+    src: url('./MonoplexKRWideItalic-Bold.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Monoplex KR Wide Italic';
+    font-weight: 800;
+    font-style: normal;
+    font-display: swap;
+    src: url('./MonoplexKRWideItalic-ExtraBold.woff2') format('woff2');
+}

@@ -1,0 +1,35 @@
+@font-face {
+    font-family: 'Seoul Namsan Condensed';
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+    src: url('./SeoulNamsanCondensed-Light.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Seoul Namsan Condensed';
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+    src: url('./SeoulNamsanCondensed-Medium.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Seoul Namsan Condensed';
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+    src: url('./SeoulNamsanCondensed-Bold.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Seoul Namsan Condensed';
+    font-weight: 800;
+    font-style: normal;
+    font-display: swap;
+    src: url('./SeoulNamsanCondensed-ExtraBold.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Seoul Namsan Condensed';
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+    src: url('./SeoulNamsanCondensed-Black.woff2') format('woff2');
+}

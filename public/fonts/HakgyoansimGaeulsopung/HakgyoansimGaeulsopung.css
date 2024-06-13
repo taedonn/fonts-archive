@@ -1,0 +1,14 @@
+@font-face {
+    font-family: 'Hakgyoansim Gaeulsopung';
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+    src: url('./HakgyoansimGaeulsopung-Light.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Hakgyoansim Gaeulsopung';
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+    src: url('./HakgyoansimGaeulsopung-Bold.woff2') format('woff2');
+}
