@@ -259,7 +259,7 @@ export default function FontBox ({
                                         cdn_url: string
                                         liked_user: LikedUser
                                     }) => (
-                                        <div aria-label="font-link" key={font.code} className="w-full group/wrap relative pt-6 lg:pt-8 pb-2 lg:hover:rounded-lg border-t first:border-t-0 last:border-b border-l-b dark:border-d-6 lg:[&+div]:hover:border-transparent lg:hover:border-transparent lg:hover:bg-l-e lg:hover:dark:bg-d-4 animate-fade-in-fontbox cursor-pointer">
+                                        <div aria-label="font-link" key={font.code} className="w-full group/wrap relative pt-6 lg:pt-8 pb-2 lg:hover:rounded-lg border-t first:border-t-0 last:border-b border-l-b dark:border-d-6 lg:[&+div]:hover:border-t-transparent lg:hover:border-transparent lg:hover:bg-l-e lg:hover:dark:bg-d-4 animate-fade-in-fontbox cursor-pointer">
                                             <Link href={`/post/${font.font_family.replaceAll(" ", "+")}`} className='w-full h-full absolute z-10 left-0 top-0'></Link>
                                             <link href={font.cdn_url} rel="stylesheet" type="text/css" itemProp="url"></link>
                                             <div className='w-max pl-4 lg:pl-8 lg:relative flex tlg:flex-col lg:items-center'>
