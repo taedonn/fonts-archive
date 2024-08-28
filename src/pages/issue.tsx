@@ -72,143 +72,119 @@ const IssueFont = ({params}: any) => {
         } else {
             setIsLoading(true);
 
-            // ID 가져오기
-            const getIssueIdUrl = "/api/issue?";
-            const getIssueIdOptions = {
-                method: "GET",
-                headers: { "Content-Type": "application/json" }
-            }
-            const getIssueIdParams = {
-                action: "get-issue-id"
-            }
-            const getIssueIdQuery = new URLSearchParams(getIssueIdParams).toString();
+			const date = new Date().getTime();
+			
+			if (imgs.length !== 0) {
+				let promises = [];
+				let percentage = 0;
+				let totalSize = 0;
+				for (let i = 0; i < imgs.length; i++) {
+					totalSize += Number(imgs[i].file.size);
+				}
 
-            await fetch(getIssueIdUrl + getIssueIdQuery, getIssueIdOptions)
-            .then(res => res.json())
-            .then(async (data) => {
-                // 변수
-                let issueId = data.issue.issue_id + 1;
+				// 이미지 여러개 업로드
+				let uploadImgUrl, uploadImgOptions, uploadImgRes, uploadImgData, putImgOptions, putImg;
+				for (let i = 0; i < imgs.length; i++) {
+					uploadImgUrl = "/api/issue";
+					uploadImgOptions = {
+						method: "POST",
+						headers: { "Content-Type": "application/json" },
+						body: JSON.stringify({
+							action: 'upload-img',
+							file_name: `issue-${date}-${i+1}.` + imgs[i].file.name.split('.').pop(),
+							file_type: imgs[i].file.type
+						})
+					}
+					uploadImgRes = await fetch(uploadImgUrl, uploadImgOptions)
+					uploadImgData = await uploadImgRes.json();
 
-                if (imgs.length !== 0) {
-                    let promises = [];
-                    let percentage = 0;
-                    let totalSize = 0;
-                    for (let i = 0; i < imgs.length; i++) {
-                        totalSize += Number(imgs[i].file.size);
-                    }
-                    
-                    // 이미지 여러개 업로드
-                    let uploadImgUrl, uploadImgOptions, promise, putImgOptions, uploaded;
-                    for (let i = 0; i < imgs.length; i++) {
-                        uploadImgUrl = "/api/issue";
-                        uploadImgOptions = {
-                            method: "POST",
-                            headers: { "Content-Type": "application/json" },
-                            body: JSON.stringify({
-                                action: 'upload-img',
-                                file_name: `issue-${issueId}-${i+1}.` + imgs[i].file.name.split('.').pop(),
-                                file_type: imgs[i].file.type
-                            })
-                        }
+					putImgOptions = {
+						method: "PUT",
+						headers: { 'Content-Type': imgs[i].file.type },
+						body: imgs[i].file,
+					}
+					putImg = await fetch(uploadImgData.url, putImgOptions);
+					if (putImg.status === 200) {
+						console.log("File uploaded to AWS S3 successfully");
+						percentage = percentage + Number(Math.round(imgs[i].file.size) / totalSize * 90);
+						setProgress(percentage);
+					}
+					else {
+						console.log("Failed to upload files to AWS S3");
+						return;
+					}
 
-                        promise = await fetch(uploadImgUrl, uploadImgOptions)
-                        .then(res => res.json())
-                        .then(async (data) => {
-                            putImgOptions = {
-                                method: "PUT",
-                                headers: { 'Content-Type': imgs[i].file.type },
-                                body: imgs[i].file,
-                            }
-                            uploaded = await fetch(data.url, putImgOptions);
-                            if (uploaded.status === 200) console.log("File uploaded to AWS S3 successfully");
-                            else console.log("Failed to upload files to AWS S3");
-                        })
-                        .then(() => {
-                            percentage = percentage + Number(Math.round(imgs[i].file.size) / totalSize * 90);
-                            setProgress(percentage);
-                        })
-                        .catch(err => console.log(err));
+					promises.push(putImg);
+				}
 
-                        promises.push(promise);
-                    }
+				try {
+					await Promise.all(promises);
+					
+					// Prisma에 저장
+					let uploadIssueUrl = "/api/issue";
+					let uploadIssueOptions = {
+						method: "POST",
+						headers: { "Content-Type": "application/json" },
+						body: JSON.stringify({
+							action: "upload-issue",
+							title: title.value,
+							email: email.value,
+							content: content.value,
+							type: option,
+							img_length: imgs.length,
+							img_1: imgs[0] !== undefined ? `https://fonts-archive-issue.s3.ap-northeast-2.amazonaws.com/issue-${date}-1.` + imgs[0].file.name.split('.').pop() : "null",
+							img_2: imgs[1] !== undefined ? `https://fonts-archive-issue.s3.ap-northeast-2.amazonaws.com/issue-${date}-2.` + imgs[1].file.name.split('.').pop() : "null",
+							img_3: imgs[2] !== undefined ? `https://fonts-archive-issue.s3.ap-northeast-2.amazonaws.com/issue-${date}-3.` + imgs[2].file.name.split('.').pop() : "null",
+							img_4: imgs[3] !== undefined ? `https://fonts-archive-issue.s3.ap-northeast-2.amazonaws.com/issue-${date}-4.` + imgs[3].file.name.split('.').pop() : "null",
+							img_5: imgs[4] !== undefined ? `https://fonts-archive-issue.s3.ap-northeast-2.amazonaws.com/issue-${date}-5.` + imgs[4].file.name.split('.').pop() : "null",
+							issue_closed_type: "Open",
+						})
+					}
 
-                    await Promise.all(promises)
-                    .then(async () => {
-                        // Prisma에 저장
-                        let uploadIssueUrl = "/api/issue";
-                        let uploadIssueOptions = {
-                            method: "POST",
-                            headers: { "Content-Type": "application/json" },
-                            body: JSON.stringify({
-                                action: "upload-issue",
-                                title: title.value,
-                                email: email.value,
-                                content: content.value,
-                                type: option,
-                                img_length: imgs.length,
-                                img_1: imgs[0] !== undefined ? `https://fonts-archive-issue.s3.ap-northeast-2.amazonaws.com/issue-${issueId}-1.` + imgs[0].file.name.split('.').pop() : "null",
-                                img_2: imgs[1] !== undefined ? `https://fonts-archive-issue.s3.ap-northeast-2.amazonaws.com/issue-${issueId}-2.` + imgs[1].file.name.split('.').pop() : "null",
-                                img_3: imgs[2] !== undefined ? `https://fonts-archive-issue.s3.ap-northeast-2.amazonaws.com/issue-${issueId}-3.` + imgs[2].file.name.split('.').pop() : "null",
-                                img_4: imgs[3] !== undefined ? `https://fonts-archive-issue.s3.ap-northeast-2.amazonaws.com/issue-${issueId}-4.` + imgs[3].file.name.split('.').pop() : "null",
-                                img_5: imgs[4] !== undefined ? `https://fonts-archive-issue.s3.ap-northeast-2.amazonaws.com/issue-${issueId}-5.` + imgs[4].file.name.split('.').pop() : "null",
-                                issue_closed_type: "Open",
-                            })
-                        }
+					try {
+						await fetch(uploadIssueUrl, uploadIssueOptions);
+						setProgress(100);
+						uploadOnSuccess();
+						console.log("이메일 발송 및 DB 저장 성공");
+					} catch (err) {
+						uploadOnFail();
+						console.log("이메일 발송 및 DB 저장 실패");
+					}
+				} catch (err) {
+					uploadOnFail();
+					console.log("AWS 업로드 실패");
+				}
+			} else {
+				// 이미지 없으면 바로 Prisma에 저장
+				const uploadIssueUrl = "/api/issue";
+				const uploadIssueOptions = {
+					method: "POST",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify({
+						action: "upload-issue",
+						title: title.value,
+						email: email.value,
+						content: content.value,
+						type: option,
+						img_length: imgs.length,
+						img_1: "null",
+						img_2: "null",
+						img_3: "null",
+						img_4: "null",
+						img_5: "null",
+						issue_closed_type: "Open"
+					})
+				}
 
-                        await fetch(uploadIssueUrl, uploadIssueOptions)
-                        .then(() => setProgress(100))
-                        .then(() => {
-                            // 폼 초기화
-                            uploadOnSuccess();
-                            console.log("이메일 발송 및 DB 저장 성공");
-                        })
-                        .catch(() => {
-                            uploadOnFail();
-                            console.log("이메일 발송 및 DB 저장 실패");
-                        });
-                    })
-                    .catch(() => {
-                        uploadOnFail();
-                        console.log("AWS에 이미지 업로드 실패");
-                    });
-                } else {
-                    // 이미지 없으면 바로 Prisma에 저장
-                    const uploadIssueUrl = "/api/issue";
-                    const uploadIssueOptions = {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({
-                            action: "upload-issue",
-                            title: title.value,
-                            email: email.value,
-                            content: content.value,
-                            type: option,
-                            img_length: imgs.length,
-                            img_1: "null",
-                            img_2: "null",
-                            img_3: "null",
-                            img_4: "null",
-                            img_5: "null",
-                            issue_closed_type: "Open"
-                        })
-                    }
-
-                    await fetch(uploadIssueUrl, uploadIssueOptions)
-                    .then(() => {
-                        // 폼 초기화
-                        uploadOnSuccess();
-                        console.log("이메일 발송 및 DB 저장 성공");
-                    })
-                    .catch(() => {
-                        uploadOnFail();
-                        console.log("이메일 발송 및 DB 저장 실패");
-                    });
-                }
-            })
-            .catch(() => {
-                uploadOnFail();
-                console.log("폰트 제보 실패");
-            });
+				try {
+					await fetch(uploadIssueUrl, uploadIssueOptions);
+					uploadOnSuccess();
+					console.log("이메일 발송 및 DB 저장 성공");
+				} catch (err) {
+					uploadOnFail();
+					console.log("이메일 발송 및 DB 저장 실패");
+				}
+			}
 
             setIsLoading(false);
         }
