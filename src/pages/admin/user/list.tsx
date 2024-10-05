@@ -158,7 +158,7 @@ const UserList = ({ params }: any) => {
                           <div className="flex tlg:flex-col lg:items-center gap-2 mb-2">
                             <Link
                               href={`/admin/user/${user.user_no}`}
-                              className="block text-h-1 dark:text-f-8 hover:underline tlg:hover:no-underline"
+                              className="block text-h-1 dark:text-f-8 hover:underline"
                             >
                               {user.user_name}
                             </Link>

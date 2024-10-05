@@ -237,7 +237,7 @@ const IssuePage = ({ params }: any) => {
         <div className="relative max-w-[45rem] w-full flex flex-col justify-center my-16 lg:my-24 mt-8 lg:mt-16">
           <Link
             href="/admin/issue/list"
-            className="absolute left-0 -top-10 hidden lg:block border-b border-transparent text-sm text-l-5 dark:text-d-c lg:hover:text-l-2 lg:hover:dark:text-white lg:hover:border-b-l-2 lg:hover:dark:border-b-white"
+            className="absolute left-0 -top-10 hidden lg:block border-b border-transparent text-sm text-l-5 dark:text-d-c hover:text-l-2 hover:dark:text-white hover:border-b-l-2 hover:dark:border-b-white"
           >
             <div className="inline-block mr-1">&#60;</div> 목록으로 돌아가기
           </Link>
@@ -479,7 +479,7 @@ const IssuePage = ({ params }: any) => {
               onMouseDown={(e) => onMouseDown(e, 0.9, true)}
               onMouseUp={onMouseUp}
               onMouseOut={onMouseOut}
-              className="w-8 h-8 lg:w-10 lg:h-10 rounded-full lg:hover:bg-l-d lg:hover:dark:bg-d-4 absolute right-[5.75rem] tlg:right-16 tsm:right-10 -top-12 tlg:-top-10 flex justify-center items-center"
+              className="w-8 h-8 lg:w-10 lg:h-10 rounded-full hover:bg-l-d hover:dark:bg-d-4 absolute right-[5.75rem] tlg:right-16 tsm:right-10 -top-12 tlg:-top-10 flex justify-center items-center"
             >
               <i className="text-2xl fa-solid fa-xmark"></i>
             </button>
@@ -488,7 +488,7 @@ const IssuePage = ({ params }: any) => {
               onMouseDown={(e) => onMouseDown(e, 0.9, true)}
               onMouseUp={onMouseUp}
               onMouseOut={onMouseOut}
-              className="w-8 h-8 lg:w-10 lg:h-10 rounded-full lg:hover:bg-l-d lg:hover:dark:bg-d-4 mr-[3.75rem] tlg:mr-10 tsm:mr-4 flex justify-center items-center"
+              className="w-8 h-8 lg:w-10 lg:h-10 rounded-full hover:bg-l-d hover:dark:bg-d-4 mr-[3.75rem] tlg:mr-10 tsm:mr-4 flex justify-center items-center"
             >
               <i className="text-2xl -translate-x-px fa-solid fa-angle-left"></i>
             </button>
@@ -503,7 +503,7 @@ const IssuePage = ({ params }: any) => {
               onMouseDown={(e) => onMouseDown(e, 0.9, true)}
               onMouseUp={onMouseUp}
               onMouseOut={onMouseOut}
-              className="w-8 h-8 lg:w-10 lg:h-10 rounded-full lg:hover:bg-l-d lg:hover:dark:bg-d-4 ml-[3.75rem] tlg:ml-10 tsm:ml-4 flex justify-center items-center"
+              className="w-8 h-8 lg:w-10 lg:h-10 rounded-full hover:bg-l-d hover:dark:bg-d-4 ml-[3.75rem] tlg:ml-10 tsm:ml-4 flex justify-center items-center"
             >
               <i className="text-2xl translate-x-px fa-solid fa-angle-right"></i>
             </button>

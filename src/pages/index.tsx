@@ -234,7 +234,7 @@ const Index = ({ params }: any) => {
           </h2>
           <textarea
             id="text-p"
-            className="custom-sm-scrollbar resize-none w-full h-48 px-3.5 py-3 text-sm rounded-lg border-2 border-transparent focus:border-h-1 focus:dark:border-f-8 dark:text-white bg-h-e dark:bg-d-4 placeholder-l-5 dark:placeholder-d-c"
+            className="custom-sm-scrollbar resize-none w-full h-48 px-3.5 py-3 rounded-lg border-2 border-transparent focus:border-h-1 focus:dark:border-f-8 dark:text-white bg-h-e dark:bg-d-4 placeholder-l-5 dark:placeholder-d-c"
             placeholder="원하는 문구를 적어보세요."
             onChange={handleTextChange}
           ></textarea>
@@ -246,7 +246,7 @@ const Index = ({ params }: any) => {
             type="text"
             placeholder="폰트, 회사명을 검색해 보세요."
             defaultValue={search}
-            className="w-full px-3.5 py-3 mb-2 text-sm rounded-lg border-2 border-transparent text-l-2 dark:text-white focus:border-h-1 focus:dark:border-f-8 bg-h-e dark:bg-d-4 placeholder-l-5 dark:placeholder-d-c"
+            className="w-full px-3.5 py-3 mb-2 rounded-lg border-2 border-transparent text-l-2 dark:text-white focus:border-h-1 focus:dark:border-f-8 bg-h-e dark:bg-d-4 placeholder-l-5 dark:placeholder-d-c"
           />
           <SelectBox
             title="언어 선택"
@@ -310,7 +310,7 @@ const Index = ({ params }: any) => {
             <Link
               href="/terms"
               rel="noopener noreferrer"
-              className="w-full h-16 px-4 flex justify-between items-center rounded-lg cursor-pointer border-2 border-transparent text-l-2 dark:text-white lg:hover:bg-l-e lg:hover:dark:bg-d-4"
+              className="w-full h-16 px-4 flex justify-between items-center rounded-lg cursor-pointer border-2 border-transparent text-l-2 dark:text-white hover:bg-l-e hover:dark:bg-d-4"
               onMouseDown={onSideMenuMouseDown}
               onMouseUp={onSideMenuMouseUp}
               onMouseOut={onSideMenuMouseUp}
@@ -324,7 +324,7 @@ const Index = ({ params }: any) => {
             <Link
               href="/privacy"
               rel="noopener noreferrer"
-              className="w-full h-16 px-4 flex justify-between items-center rounded-lg cursor-pointer border-2 border-transparent text-l-2 dark:text-white lg:hover:bg-l-e lg:hover:dark:bg-d-4"
+              className="w-full h-16 px-4 flex justify-between items-center rounded-lg cursor-pointer border-2 border-transparent text-l-2 dark:text-white hover:bg-l-e hover:dark:bg-d-4"
               onMouseDown={onSideMenuMouseDown}
               onMouseUp={onSideMenuMouseUp}
               onMouseOut={onSideMenuMouseUp}

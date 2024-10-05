@@ -437,7 +437,7 @@ const Register = ({ params }: any) => {
                   href="/terms"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-xs text-l-6 dark:text-d-c flex justify-center items-center lg:hover:underline"
+                  className="text-xs text-l-6 dark:text-d-c flex justify-center items-center hover:underline"
                 >
                   전문보기
                 </Link>
@@ -463,7 +463,7 @@ const Register = ({ params }: any) => {
                   href="/privacy"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-xs text-l-6 dark:text-d-c flex justify-center items-center lg:hover:underline"
+                  className="text-xs text-l-6 dark:text-d-c flex justify-center items-center hover:underline"
                 >
                   전문보기
                 </Link>

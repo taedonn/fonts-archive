@@ -569,7 +569,7 @@ const IssueFont = ({ params }: any) => {
                 <i className="text-3xl text-l-5 dark:text-d-c bi bi-image"></i>
                 <label
                   htmlFor="file"
-                  className="mt-2 text-sm text-h-1 dark:text-f-8 font-medium hover:underline tlg:hover:no-underline cursor-pointer"
+                  className="mt-2 text-sm text-h-1 dark:text-f-8 font-medium hover:underline cursor-pointer"
                 >
                   파일 첨부
                 </label>
@@ -602,7 +602,7 @@ const IssueFont = ({ params }: any) => {
                           </div>
                           <button
                             onClick={() => deleteImg(img.index, index)}
-                            className="w-5 h-5 rounded-full absolute right-1.5 top-1.5 flex justify-center items-center bg-h-1 dark:bg-f-8 hover:bg-h-0 hover:dark:bg-f-9 tlg:hover:bg-h-1 tlg:hover:dark:bg-f-8"
+                            className="w-5 h-5 rounded-full absolute right-1.5 top-1.5 flex justify-center items-center bg-h-1 dark:bg-f-8 hover:bg-h-0 hover:dark:bg-f-9"
                           >
                             <i className="text-sm text-white dark:text-d-2 fa-solid fa-xmark"></i>
                           </button>

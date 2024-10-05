@@ -315,9 +315,9 @@ export default function Header({
                     onMouseOut={onMouseOut}
                     className={`${
                       page === "index"
-                        ? "text-h-1 dark:text-f-8 lg:hover:text-h-1 lg:hover:dark:text-f-8 bg-h-e dark:bg-d-3"
+                        ? "text-h-1 dark:text-f-8 hover:text-h-1 hover:dark:text-f-8 bg-h-e dark:bg-d-3"
                         : ""
-                    } px-3 py-1.5 rounded-lg tlg:text-sm font-medium lg:hover:text-h-1 lg:hover:dark:text-f-8`}
+                    } px-3 py-1.5 rounded-lg tlg:text-sm font-medium hover:text-h-1 hover:dark:text-f-8`}
                   >
                     모든 폰트
                   </Link>
@@ -328,9 +328,9 @@ export default function Header({
                     onMouseOut={onMouseOut}
                     className={`${
                       page === "issue"
-                        ? "text-h-1 dark:text-f-8 lg:hover:text-h-1 lg:hover:dark:text-f-8 bg-h-e dark:bg-d-3"
+                        ? "text-h-1 dark:text-f-8 hover:text-h-1 hover:dark:text-f-8 bg-h-e dark:bg-d-3"
                         : ""
-                    } px-3 py-1.5 rounded-lg tlg:text-sm font-medium lg:hover:text-h-1 lg:hover:dark:text-f-8`}
+                    } px-3 py-1.5 rounded-lg tlg:text-sm font-medium hover:text-h-1 hover:dark:text-f-8`}
                   >
                     문의하기
                   </Link>
@@ -341,9 +341,9 @@ export default function Header({
                     onMouseOut={onMouseOut}
                     className={`${
                       page === "notices"
-                        ? "text-h-1 dark:text-f-8 lg:hover:text-h-1 lg:hover:dark:text-f-8 bg-h-e dark:bg-d-3"
+                        ? "text-h-1 dark:text-f-8 hover:text-h-1 hover:dark:text-f-8 bg-h-e dark:bg-d-3"
                         : ""
-                    } px-3 py-1.5 rounded-lg tlg:text-sm font-medium lg:hover:text-h-1 lg:hover:dark:text-f-8`}
+                    } px-3 py-1.5 rounded-lg tlg:text-sm font-medium hover:text-h-1 hover:dark:text-f-8`}
                   >
                     공지사항
                   </Link>
@@ -360,7 +360,7 @@ export default function Header({
               onMouseOut={onMouseOut}
               className={`${
                 page === "index" ? "hidden" : "flex"
-              } w-56 tlg:w-8 h-8 lg:pl-10 mr-1.5 lg:mr-3 relative text-sm items-center rounded-lg text-h-1 dark:text-white lg:hover:text-white lg:hover:dark:text-f-8 bg-h-e dark:bg-d-3 lg:hover:bg-h-1 lg:hover:dark:bg-d-4`}
+              } w-56 tlg:w-8 h-8 lg:pl-10 mr-1.5 lg:mr-3 relative text-sm items-center rounded-lg text-h-1 dark:text-white hover:text-white hover:dark:text-f-8 bg-h-e dark:bg-d-3 hover:bg-h-1 hover:dark:bg-d-4`}
             >
               <span className="tlg:hidden">폰트 검색하기...</span>
               <i className="text-xs absolute left-1/2 lg:left-4 top-1/2 tlg:-translate-x-1/2 -translate-y-1/2 fa-solid fa-magnifying-glass"></i>
@@ -390,7 +390,7 @@ export default function Header({
                 onMouseDown={(e) => onMouseDown(e, 0.85, true)}
                 onMouseUp={onMouseUp}
                 onMouseOut={onMouseOut}
-                className="group w-10 h-10 pt-px text-[1.375rem] relative flex justify-center items-center rounded-full cursor-pointer text-h-1 dark:text-f-8 lg:hover:bg-h-e lg:hover:dark:bg-d-3 peer-checked:bg-h-e peer-checked:dark:bg-d-3"
+                className="group w-10 h-10 pt-px text-[1.375rem] relative flex justify-center items-center rounded-full cursor-pointer text-h-1 dark:text-f-8 hover:bg-h-e hover:dark:bg-d-3 peer-checked:bg-h-e peer-checked:dark:bg-d-3"
               >
                 <i className="bi bi-pin-angle"></i>
                 {data &&
@@ -399,7 +399,7 @@ export default function Header({
                   ) && (
                     <div className="w-1.5 h-1.5 absolute left-1 top-2 rounded-full bg-h-r animate-pulse"></div>
                   )}
-                <div className="peer-checked:group-hover:hidden w-max absolute z-10 left-1/2 top-11 px-3 py-1.5 text-[0.813rem] leading-none origin-top rounded hidden lg:group-hover:block lg:group-hover:animate-hover-delay bg-h-e dark:bg-d-4 text-h-1 dark:text-f-8 dark:drop-shadow-dark selection:bg-transparent">
+                <div className="peer-checked:group-hover:hidden w-max absolute z-10 left-1/2 top-11 px-3 py-1.5 text-[0.813rem] leading-none origin-top rounded hidden group-hover:block group-hover:animate-hover-delay bg-h-e dark:bg-d-4 text-h-1 dark:text-f-8 dark:drop-shadow-dark selection:bg-transparent">
                   알림
                 </div>
               </label>
@@ -416,7 +416,7 @@ export default function Header({
                     {user && (
                       <button
                         onClick={handleReadAllAlerts}
-                        className="text-h-1 dark:text-f-8 lg:hover:underline"
+                        className="text-h-1 dark:text-f-8 hover:underline"
                       >
                         모두 읽음 표시
                       </button>
@@ -464,7 +464,7 @@ export default function Header({
                                     </div>
                                     <Link
                                       href={alert.alert_link}
-                                      className="flex flex-col lg:hover:underline"
+                                      className="flex flex-col hover:underline"
                                     >
                                       <div className="ellipsed-text">
                                         {alert.sender_content}
@@ -484,7 +484,7 @@ export default function Header({
                                         className={`${
                                           alert.alert_read
                                             ? "text-l-9 cursor-default"
-                                            : "text-h-1 dark:text-f-8 lg:hover:underline"
+                                            : "text-h-1 dark:text-f-8 hover:underline"
                                         }`}
                                       >
                                         {alert.alert_read
@@ -525,7 +525,7 @@ export default function Header({
                           onClick={fetchNextAlerts}
                           className={`${
                             isLoading && "cursor-default"
-                          } lg:hover:underline mt-0.5`}
+                          } hover:underline mt-0.5`}
                         >
                           알림 더 보기
                         </button>
@@ -544,7 +544,7 @@ export default function Header({
                 onMouseDown={(e) => onMouseDown(e, 0.85, true)}
                 onMouseUp={onMouseUp}
                 onMouseOut={onMouseOut}
-                className="group w-10 h-10 pb-px text-2xl flex justify-center items-center rounded-full cursor-pointer text-h-1 dark:text-f-8 lg:hover:bg-h-e lg:hover:dark:bg-d-3"
+                className="group w-10 h-10 pb-px text-2xl flex justify-center items-center rounded-full cursor-pointer text-h-1 dark:text-f-8 hover:bg-h-e hover:dark:bg-d-3"
               >
                 <input
                   onChange={handleColorThemeChange}
@@ -555,7 +555,7 @@ export default function Header({
                 />
                 <i className="block peer-checked:hidden bi bi-cloud-sun"></i>
                 <i className="hidden peer-checked:block bi bi-cloud-moon"></i>
-                <div className="w-max absolute z-10 left-1/2 top-11 px-3 py-1.5 text-[0.813rem] leading-none origin-top rounded hidden lg:group-hover:block lg:group-hover:animate-hover-delay bg-h-e dark:bg-d-4 text-h-1 dark:text-f-8 dark:drop-shadow-dark selection:bg-transparent">
+                <div className="w-max absolute z-10 left-1/2 top-11 px-3 py-1.5 text-[0.813rem] leading-none origin-top rounded hidden group-hover:block group-hover:animate-hover-delay bg-h-e dark:bg-d-4 text-h-1 dark:text-f-8 dark:drop-shadow-dark selection:bg-transparent">
                   {thisTheme === "dark" ? "라이트 모드" : "다크 모드"}
                 </div>
               </label>
@@ -573,7 +573,7 @@ export default function Header({
                 onMouseDown={(e) => onMouseDown(e, 0.85, true)}
                 onMouseUp={onMouseUp}
                 onMouseOut={onMouseOut}
-                className="w-8 h-8 flex justify-center items-center cursor-pointer text-l-5 dark:text-white lg:hover:text-l-2 lg:hover:dark:text-d-c peer-checked:text-l-2 peer-checked:dark:text-d-c"
+                className="w-8 h-8 flex justify-center items-center cursor-pointer text-l-5 dark:text-white hover:text-l-2 hover:dark:text-d-c peer-checked:text-l-2 peer-checked:dark:text-d-c"
               >
                 {user === null ? (
                   <i className="text-3xl bi bi-person-circle"></i>
@@ -603,21 +603,21 @@ export default function Header({
                   href="https://github.com/fonts-archive"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center text-sm lg:hover:text-l-5 lg:hover:dark:text-d-c selection:bg-transparent"
+                  className="flex items-center text-sm hover:text-l-5 hover:dark:text-d-c selection:bg-transparent"
                 >
                   <i className="fa-brands fa-github"></i>
                   <span className="ml-1.5">깃허브</span>
                 </Link>
                 <Link
                   href="/notices"
-                  className="flex items-center mt-1.5 text-sm lg:hover:text-l-5 lg:hover:dark:text-d-c selection:bg-transparent"
+                  className="flex items-center mt-1.5 text-sm hover:text-l-5 hover:dark:text-d-c selection:bg-transparent"
                 >
                   <i className="fa-solid fa-bell-concierge"></i>
                   <span className="ml-1.5">공지사항</span>
                 </Link>
                 <Link
                   href="/issue"
-                  className="flex items-center mt-1.5 text-sm lg:hover:text-l-5 lg:hover:dark:text-d-c selection:bg-transparent"
+                  className="flex items-center mt-1.5 text-sm hover:text-l-5 hover:dark:text-d-c selection:bg-transparent"
                 >
                   <i className="ml-px mr-px text-xs fa-regular fa-paper-plane"></i>
                   <span className="ml-1.5">문의하기</span>
@@ -641,7 +641,7 @@ export default function Header({
                     </div>
                     <Link
                       href="/user/info"
-                      className="flex items-center mt-1.5 lg:hover:text-l-5 lg:hover:dark:text-d-c"
+                      className="flex items-center mt-1.5 hover:text-l-5 hover:dark:text-d-c"
                     >
                       <i className="text-base mr-1 bi bi-person-fill-gear"></i>
                       프로필 정보
@@ -649,14 +649,14 @@ export default function Header({
                     <Link
                       onClick={reset}
                       href="/?filter=liked"
-                      className="flex items-center mt-0.5 lg:hover:text-l-5 lg:hover:dark:text-d-c"
+                      className="flex items-center mt-0.5 hover:text-l-5 hover:dark:text-d-c"
                     >
                       <i className="ml-px mr-1.5 fa-regular fa-heart"></i>
                       좋아요 목록
                     </Link>
                     <Link
                       href="/user/comments"
-                      className="flex items-center mt-1 lg:hover:text-l-5 lg:hover:dark:text-d-c"
+                      className="flex items-center mt-1 hover:text-l-5 hover:dark:text-d-c"
                     >
                       <i className="ml-px mr-1.5 fa-regular fa-comment"></i>
                       댓글 목록
@@ -670,56 +670,56 @@ export default function Header({
                         </div>
                         <Link
                           href="/admin/font/list"
-                          className="flex items-center mt-1.5 lg:hover:text-l-5 lg:hover:dark:text-d-c"
+                          className="flex items-center mt-1.5 hover:text-l-5 hover:dark:text-d-c"
                         >
                           <i className="ml-px mr-2 fa-solid fa-a"></i>
                           폰트 목록
                         </Link>
                         <Link
                           href="/admin/font/add"
-                          className="flex items-center mt-0.5 lg:hover:text-l-5 lg:hover:dark:text-d-c"
+                          className="flex items-center mt-0.5 hover:text-l-5 hover:dark:text-d-c"
                         >
                           <i className="ml-px mr-2 fa-solid fa-a"></i>
                           폰트 추가
                         </Link>
                         <Link
                           href="/admin/font/edit"
-                          className="flex items-center mt-0.5 lg:hover:text-l-5 lg:hover:dark:text-d-c"
+                          className="flex items-center mt-0.5 hover:text-l-5 hover:dark:text-d-c"
                         >
                           <i className="ml-px mr-2 fa-solid fa-a"></i>
                           폰트 수정
                         </Link>
                         <Link
                           href="/admin/user/list"
-                          className="flex items-center mt-0.5 lg:hover:text-l-5 lg:hover:dark:text-d-c"
+                          className="flex items-center mt-0.5 hover:text-l-5 hover:dark:text-d-c"
                         >
                           <i className="mr-1 text-base bi bi-person-fill-gear"></i>
                           유저 목록
                         </Link>
                         <Link
                           href="/admin/comment/list"
-                          className="flex items-center mt-0.5 lg:hover:text-l-5 lg:hover:dark:text-d-c"
+                          className="flex items-center mt-0.5 hover:text-l-5 hover:dark:text-d-c"
                         >
                           <i className="ml-px mr-1.5 fa-regular fa-comment"></i>
                           댓글 목록
                         </Link>
                         <Link
                           href="/admin/issue/list"
-                          className="flex items-center mt-1 lg:hover:text-l-5 lg:hover:dark:text-d-c"
+                          className="flex items-center mt-1 hover:text-l-5 hover:dark:text-d-c"
                         >
                           <i className="ml-px mr-2 text-xs fa-regular fa-paper-plane"></i>
                           문의 목록
                         </Link>
                         <Link
                           href="/admin/notices/add"
-                          className="flex items-center mt-1 lg:hover:text-l-5 lg:hover:dark:text-d-c"
+                          className="flex items-center mt-1 hover:text-l-5 hover:dark:text-d-c"
                         >
                           <i className="ml-0.5 mr-2 text-xs fa-regular fa-flag"></i>
                           공지 추가
                         </Link>
                         <Link
                           href="/admin/notices/list"
-                          className="flex items-center mt-1 lg:hover:text-l-5 lg:hover:dark:text-d-c"
+                          className="flex items-center mt-1 hover:text-l-5 hover:dark:text-d-c"
                         >
                           <i className="ml-0.5 mr-2 text-xs fa-regular fa-flag"></i>
                           공지 목록

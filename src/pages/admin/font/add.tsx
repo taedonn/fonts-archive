@@ -444,7 +444,7 @@ const Add = ({ params }: any) => {
                   value="https://github.com/fonts-archive/NanumSquare/archive/refs/heads/main.zip"
                   className="flex items-center text-sm text-h-1 dark:text-f-8"
                 >
-                  <span className="lg:hover:underline">예시 복사하기</span>
+                  <span className="hover:underline">예시 복사하기</span>
                   <i className="copy_btn hidden ml-1 fa-solid fa-check"></i>
                 </button>
               </label>
@@ -472,7 +472,7 @@ const Add = ({ params }: any) => {
                   value="font-family: 'Nanum Square';"
                   className="flex items-center text-sm text-h-1 dark:text-f-8"
                 >
-                  <span className="lg:hover:underline">예시 복사하기</span>
+                  <span className="hover:underline">예시 복사하기</span>
                   <i className="copy_btn hidden ml-1 fa-solid fa-check"></i>
                 </button>
               </label>
@@ -500,7 +500,7 @@ const Add = ({ params }: any) => {
                   value='<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fonts-archive/NanumSquare/NanumSquare.css" type="text/css"/>'
                   className="flex items-center text-sm text-h-1 dark:text-f-8"
                 >
-                  <span className="lg:hover:underline">예시 복사하기</span>
+                  <span className="hover:underline">예시 복사하기</span>
                   <i className="copy_btn hidden ml-1 fa-solid fa-check"></i>
                 </button>
               </label>
@@ -531,7 +531,7 @@ const Add = ({ params }: any) => {
                   value="@import url('https://cdn.jsdelivr.net/gh/fonts-archive/NanumSquare/NanumSquare.css');"
                   className="flex items-center text-sm text-h-1 dark:text-f-8"
                 >
-                  <span className="lg:hover:underline">예시 복사하기</span>
+                  <span className="hover:underline">예시 복사하기</span>
                   <i className="copy_btn hidden ml-1 fa-solid fa-check"></i>
                 </button>
               </label>
@@ -571,7 +571,7 @@ const Add = ({ params }: any) => {
 }`}
                   className="flex items-center text-sm text-h-1 dark:text-f-8"
                 >
-                  <span className="lg:hover:underline">예시 복사하기</span>
+                  <span className="hover:underline">예시 복사하기</span>
                   <i className="copy_btn hidden ml-1 fa-solid fa-check"></i>
                 </button>
               </label>
@@ -608,7 +608,7 @@ const Add = ({ params }: any) => {
                   value="https://cdn.jsdelivr.net/gh/fonts-archive/NanumSquare/NanumSquare.css"
                   className="flex items-center text-sm text-h-1 dark:text-f-8"
                 >
-                  <span className="lg:hover:underline">예시 복사하기</span>
+                  <span className="hover:underline">예시 복사하기</span>
                   <i className="copy_btn hidden ml-1 fa-solid fa-check"></i>
                 </button>
               </label>

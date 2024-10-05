@@ -74,6 +74,11 @@ export default function App({
           <NextNProgress
             color={theme === "dark" ? "#8AB4F8" : "#1B73E7"}
             options={{ showSpinner: false }}
+            transformCSS={(css) => {
+              return (
+                <style>{css + `#nprogress .peg { box-shadow: none; }`}</style>
+              );
+            }}
           />
           <AnimatePresence
             mode="wait" // 새 페이지 로딩 전 페이지 아웃 애니메이션 끝까지 실행

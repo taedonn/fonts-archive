@@ -156,7 +156,7 @@ const NoticeList = ({ params }: any) => {
                           <div className="flex tlg:flex-col lg:items-center gap-2 mb-2">
                             <Link
                               href={`/admin/notices/${notice.notice_id}`}
-                              className="block text-h-1 dark:text-f-8 lg:hover:underline"
+                              className="block text-h-1 dark:text-f-8 hover:underline"
                             >
                               {notice.notice_title}
                             </Link>
