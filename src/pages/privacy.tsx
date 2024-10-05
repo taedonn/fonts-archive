@@ -47,13 +47,13 @@ const Privacy = ({ params }: any) => {
           <div className="w-full flex mt-4 lg:mt-8 text-sm">
             <Link
               href="/terms"
-              className="w-full lg:w-44 h-12 flex justify-center items-center border border-l-d dark:border-d-6 text-l-5 dark:text-d-c lg:hover:text-l-2 lg:hover:dark:text-white lg:hover:font-medium lg:hover:underline"
+              className="w-full lg:w-44 h-12 flex justify-center items-center border border-l-d dark:border-d-6 text-l-5 dark:text-d-c hover:text-l-2 hover:dark:text-white hover:font-medium hover:underline"
             >
               서비스 이용약관
             </Link>
             <Link
               href="/privacy"
-              className="w-full lg:w-44 h-12 flex justify-center items-center border-y border-r border-h-1 dark:border-f-8 bg-h-1 dark:bg-f-8 text-white dark:text-f-1 lg:hover:font-medium lg:hover:underline"
+              className="w-full lg:w-44 h-12 flex justify-center items-center border-y border-r border-h-1 dark:border-f-8 bg-h-1 dark:bg-f-8 text-white dark:text-f-1 hover:font-medium hover:underline"
             >
               개인정보 처리방침
             </Link>
@@ -66,31 +66,31 @@ const Privacy = ({ params }: any) => {
             <div className="w-full lg:w-1/3 flex flex-col gap-4">
               <Link
                 href="/privacy#article1"
-                className="lg:hover:text-l-2 lg:hover:dark:text-white lg:hover:underline underline-offset-2"
+                className="hover:text-l-2 hover:dark:text-white hover:underline underline-offset-2"
               >
                 제 1 조 (목적)
               </Link>
               <Link
                 href="/privacy#article2"
-                className="lg:hover:text-l-2 lg:hover:dark:text-white lg:hover:underline underline-offset-2"
+                className="hover:text-l-2 hover:dark:text-white hover:underline underline-offset-2"
               >
                 제 2 조 (처리 및 보유 기간)
               </Link>
               <Link
                 href="/privacy#article3"
-                className="lg:hover:text-l-2 lg:hover:dark:text-white lg:hover:underline underline-offset-2"
+                className="hover:text-l-2 hover:dark:text-white hover:underline underline-offset-2"
               >
                 제 3 조 (처리하는 항목)
               </Link>
               <Link
                 href="/privacy#article4"
-                className="lg:hover:text-l-2 lg:hover:dark:text-white lg:hover:underline underline-offset-2"
+                className="hover:text-l-2 hover:dark:text-white hover:underline underline-offset-2"
               >
                 제 4 조 (제3자 제공)
               </Link>
               <Link
                 href="/privacy#article5"
-                className="lg:hover:text-l-2 lg:hover:dark:text-white lg:hover:underline underline-offset-2"
+                className="hover:text-l-2 hover:dark:text-white hover:underline underline-offset-2"
               >
                 제 5 조 (위탁)
               </Link>
@@ -98,31 +98,31 @@ const Privacy = ({ params }: any) => {
             <div className="w-full lg:w-1/3 flex flex-col gap-4">
               <Link
                 href="/privacy#article6"
-                className="lg:hover:text-l-2 lg:hover:dark:text-white lg:hover:underline underline-offset-2"
+                className="hover:text-l-2 hover:dark:text-white hover:underline underline-offset-2"
               >
                 제 6 조 (파기)
               </Link>
               <Link
                 href="/privacy#article7"
-                className="lg:hover:text-l-2 lg:hover:dark:text-white lg:hover:underline underline-offset-2"
+                className="hover:text-l-2 hover:dark:text-white hover:underline underline-offset-2"
               >
                 제 7 조 (권리·의무)
               </Link>
               <Link
                 href="/privacy#article8"
-                className="lg:hover:text-l-2 lg:hover:dark:text-white lg:hover:underline underline-offset-2"
+                className="hover:text-l-2 hover:dark:text-white hover:underline underline-offset-2"
               >
                 제 8 조 (안전성 확보)
               </Link>
               <Link
                 href="/privacy#article9"
-                className="lg:hover:text-l-2 lg:hover:dark:text-white lg:hover:underline underline-offset-2"
+                className="hover:text-l-2 hover:dark:text-white hover:underline underline-offset-2"
               >
                 제 9 조 (자동 수집 장치)
               </Link>
               <Link
                 href="/privacy#article10"
-                className="lg:hover:text-l-2 lg:hover:dark:text-white lg:hover:underline underline-offset-2"
+                className="hover:text-l-2 hover:dark:text-white hover:underline underline-offset-2"
               >
                 제 10 조 (행태 정보)
               </Link>
@@ -130,31 +130,31 @@ const Privacy = ({ params }: any) => {
             <div className="w-full lg:w-1/3 flex flex-col gap-4">
               <Link
                 href="/privacy#article11"
-                className="lg:hover:text-l-2 lg:hover:dark:text-white lg:hover:underline underline-offset-2"
+                className="hover:text-l-2 hover:dark:text-white hover:underline underline-offset-2"
               >
                 제 11 조 (추가 이용·제공)
               </Link>
               <Link
                 href="/privacy#article12"
-                className="lg:hover:text-l-2 lg:hover:dark:text-white lg:hover:underline underline-offset-2"
+                className="hover:text-l-2 hover:dark:text-white hover:underline underline-offset-2"
               >
                 제 12 조 (가명 정보)
               </Link>
               <Link
                 href="/privacy#article13"
-                className="lg:hover:text-l-2 lg:hover:dark:text-white lg:hover:underline underline-offset-2"
+                className="hover:text-l-2 hover:dark:text-white hover:underline underline-offset-2"
               >
                 제 13 조 (개인 정보 보호책임자)
               </Link>
               <Link
                 href="/privacy#article14"
-                className="lg:hover:text-l-2 lg:hover:dark:text-white lg:hover:underline underline-offset-2"
+                className="hover:text-l-2 hover:dark:text-white hover:underline underline-offset-2"
               >
                 제 14 조 (접수·처리하는 부서)
               </Link>
               <Link
                 href="/privacy#article15"
-                className="lg:hover:text-l-2 lg:hover:dark:text-white lg:hover:underline underline-offset-2"
+                className="hover:text-l-2 hover:dark:text-white hover:underline underline-offset-2"
               >
                 제 15 조 (권익 침해)
               </Link>
@@ -166,7 +166,7 @@ const Privacy = ({ params }: any) => {
             태돈(&#39;
             <Link
               href="/"
-              className="underline underline-offset-2 lg:hover:text-h-1 lg:hover:dark:text-f-8"
+              className="underline underline-offset-2 hover:text-h-1 hover:dark:text-f-8"
             >
               https://fonts.taedonn.com
             </Link>
@@ -406,7 +406,7 @@ const Privacy = ({ params }: any) => {
             <Link
               href="https://www.kopico.go.kr"
               target="_blank"
-              className="underline lg:hover:text-h-1 lg:hover:dark:text-f-8"
+              className="underline hover:text-h-1 hover:dark:text-f-8"
             >
               www.kopico.go.kr
             </Link>
@@ -415,7 +415,7 @@ const Privacy = ({ params }: any) => {
             <Link
               href="https://privacy.kisa.or.kr"
               target="_blank"
-              className="underline lg:hover:text-h-1 lg:hover:dark:text-f-8"
+              className="underline hover:text-h-1 hover:dark:text-f-8"
             >
               privacy.kisa.or.kr
             </Link>
@@ -424,7 +424,7 @@ const Privacy = ({ params }: any) => {
             <Link
               href="https://www.spo.go.kr"
               target="_blank"
-              className="underline lg:hover:text-h-1 lg:hover:dark:text-f-8"
+              className="underline hover:text-h-1 hover:dark:text-f-8"
             >
               www.spo.go.kr
             </Link>
@@ -433,7 +433,7 @@ const Privacy = ({ params }: any) => {
             <Link
               href="https://ecrm.cyber.go.kr"
               target="_blank"
-              className="underline lg:hover:text-h-1 lg:hover:dark:text-f-8"
+              className="underline hover:text-h-1 hover:dark:text-f-8"
             >
               ecrm.cyber.go.kr
             </Link>
@@ -449,7 +449,7 @@ const Privacy = ({ params }: any) => {
             <Link
               href="https://www.simpan.go.kr"
               target="_blank"
-              className="underline lg:hover:text-h-1 lg:hover:dark:text-f-8"
+              className="underline hover:text-h-1 hover:dark:text-f-8"
             >
               www.simpan.go.kr
             </Link>

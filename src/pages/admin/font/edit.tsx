@@ -406,7 +406,7 @@ const Edit = ({ params }: any) => {
                 id="search-font"
                 tabIndex={1}
                 placeholder="폰트명/회사명을 입력해 주세요..."
-                className={`w-full mt-2 px-3.5 py-3 text-sm rounded-lg border-2 placeholder-l-5 dark:placeholder-d-c border-l-d dark:border-d-4 focus:border-h-1 focus:dark:border-f-8 bg-l-d dark:bg-d-4`}
+                className={`w-full mt-2 px-3.5 py-3 rounded-lg border-2 placeholder-l-5 dark:placeholder-d-c border-l-d dark:border-d-4 focus:border-h-1 focus:dark:border-f-8 bg-l-d dark:bg-d-4`}
               />
               <div
                 ref={refSearchResult}
@@ -419,20 +419,20 @@ const Edit = ({ params }: any) => {
                       return (
                         <div
                           key={font.code}
-                          className="group relative w-full h-9 px-3 flex items-center gap-3 bg-transparent lg:hover:bg-h-1 lg:hover:dark:bg-f-8 lg:hover:text-white lg:hover:dark:text-d-2 cursor-pointer"
+                          className="group relative w-full h-9 px-3 flex items-center gap-3 bg-transparent hover:bg-h-1 hover:dark:bg-f-8 hover:text-white hover:dark:text-d-2 cursor-pointer"
                         >
                           <div
                             onClick={() => onFontClick(font.code)}
                             id={font.code}
                             className="w-full h-full absolute z-10 left-0 top-0"
                           ></div>
-                          <div className="text-l-5 dark:text-d-c lg:group-hover:text-white lg:group-hover:dark:text-d-4">
+                          <div className="text-l-5 dark:text-d-c group-hover:text-white group-hover:dark:text-d-4">
                             {font.code}
                           </div>
                           <div className="font-medium shrink-0">
                             {font.name}
                           </div>
-                          <div className="ellipsed-text text-l-5 dark:text-d-c lg:group-hover:text-white lg:group-hover:dark:text-d-4">
+                          <div className="ellipsed-text text-l-5 dark:text-d-c group-hover:text-white group-hover:dark:text-d-4">
                             {font.source}
                           </div>
                         </div>
@@ -635,7 +635,7 @@ const Edit = ({ params }: any) => {
                   value="https://github.com/fonts-archive/NanumSquare/archive/refs/heads/main.zip"
                   className="flex items-center text-sm text-h-1 dark:text-f-8"
                 >
-                  <span className="lg:hover:underline">예시 복사하기</span>
+                  <span className="hover:underline">예시 복사하기</span>
                   <i className="copy_btn hidden ml-1 fa-solid fa-check"></i>
                 </button>
               </label>
@@ -664,7 +664,7 @@ const Edit = ({ params }: any) => {
                   value="font-family: 'Nanum Square';"
                   className="flex items-center text-sm text-h-1 dark:text-f-8"
                 >
-                  <span className="lg:hover:underline">예시 복사하기</span>
+                  <span className="hover:underline">예시 복사하기</span>
                   <i className="copy_btn hidden ml-1 fa-solid fa-check"></i>
                 </button>
               </label>
@@ -693,7 +693,7 @@ const Edit = ({ params }: any) => {
                   value='<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fonts-archive/NanumSquare/NanumSquare.css" type="text/css"/>'
                   className="flex items-center text-sm text-h-1 dark:text-f-8"
                 >
-                  <span className="lg:hover:underline">예시 복사하기</span>
+                  <span className="hover:underline">예시 복사하기</span>
                   <i className="copy_btn hidden ml-1 fa-solid fa-check"></i>
                 </button>
               </label>
@@ -725,7 +725,7 @@ const Edit = ({ params }: any) => {
                   value="@import url('https://cdn.jsdelivr.net/gh/fonts-archive/NanumSquare/NanumSquare.css');"
                   className="flex items-center text-sm text-h-1 dark:text-f-8"
                 >
-                  <span className="lg:hover:underline">예시 복사하기</span>
+                  <span className="hover:underline">예시 복사하기</span>
                   <i className="copy_btn hidden ml-1 fa-solid fa-check"></i>
                 </button>
               </label>
@@ -766,7 +766,7 @@ const Edit = ({ params }: any) => {
 }`}
                   className="flex items-center text-sm text-h-1 dark:text-f-8"
                 >
-                  <span className="lg:hover:underline">예시 복사하기</span>
+                  <span className="hover:underline">예시 복사하기</span>
                   <i className="copy_btn hidden ml-1 fa-solid fa-check"></i>
                 </button>
               </label>
@@ -802,7 +802,7 @@ const Edit = ({ params }: any) => {
                   value="https://cdn.jsdelivr.net/gh/fonts-archive/NanumSquare/NanumSquare.css"
                   className="flex items-center text-sm text-h-1 dark:text-f-8"
                 >
-                  <span className="lg:hover:underline">예시 복사하기</span>
+                  <span className="hover:underline">예시 복사하기</span>
                   <i className="copy_btn hidden ml-1 fa-solid fa-check"></i>
                 </button>
               </label>

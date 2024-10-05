@@ -47,13 +47,13 @@ const Terms = ({ params }: any) => {
           <div className="w-full flex mt-4 lg:mt-8 text-sm">
             <Link
               href="/terms"
-              className="w-full lg:w-44 h-12 flex justify-center items-center border-y border-r border-h-1 dark:border-f-8 bg-h-1 dark:bg-f-8 text-white dark:text-f-1 lg:hover:font-medium lg:hover:underline"
+              className="w-full lg:w-44 h-12 flex justify-center items-center border-y border-r border-h-1 dark:border-f-8 bg-h-1 dark:bg-f-8 text-white dark:text-f-1 hover:font-medium hover:underline"
             >
               서비스 이용약관
             </Link>
             <Link
               href="/privacy"
-              className="w-full lg:w-44 h-12 flex justify-center items-center border border-l-d dark:border-d-6 text-l-5 dark:text-d-c lg:hover:text-l-2 lg:hover:dark:text-white lg:hover:font-medium lg:hover:underline"
+              className="w-full lg:w-44 h-12 flex justify-center items-center border border-l-d dark:border-d-6 text-l-5 dark:text-d-c hover:text-l-2 hover:dark:text-white hover:font-medium hover:underline"
             >
               개인정보 처리방침
             </Link>
@@ -66,31 +66,31 @@ const Terms = ({ params }: any) => {
             <div className="w-full lg:w-1/3 flex flex-col gap-4">
               <Link
                 href="/terms#article1"
-                className="lg:hover:text-l-2 lg:hover:dark:text-white lg:hover:underline underline-offset-2"
+                className="hover:text-l-2 hover:dark:text-white hover:underline underline-offset-2"
               >
                 제 1 조 (목적)
               </Link>
               <Link
                 href="/terms#article2"
-                className="lg:hover:text-l-2 lg:hover:dark:text-white lg:hover:underline underline-offset-2"
+                className="hover:text-l-2 hover:dark:text-white hover:underline underline-offset-2"
               >
                 제 2 조 (정의)
               </Link>
               <Link
                 href="/terms#article3"
-                className="lg:hover:text-l-2 lg:hover:dark:text-white lg:hover:underline underline-offset-2"
+                className="hover:text-l-2 hover:dark:text-white hover:underline underline-offset-2"
               >
                 제 3 조 (약관)
               </Link>
               <Link
                 href="/terms#article4"
-                className="lg:hover:text-l-2 lg:hover:dark:text-white lg:hover:underline underline-offset-2"
+                className="hover:text-l-2 hover:dark:text-white hover:underline underline-offset-2"
               >
                 제 4 조 (서비스의 제공)
               </Link>
               <Link
                 href="/terms#article5"
-                className="lg:hover:text-l-2 lg:hover:dark:text-white lg:hover:underline underline-offset-2"
+                className="hover:text-l-2 hover:dark:text-white hover:underline underline-offset-2"
               >
                 제 5 조 (서비스의 중단)
               </Link>
@@ -98,31 +98,31 @@ const Terms = ({ params }: any) => {
             <div className="w-full lg:w-1/3 flex flex-col gap-4">
               <Link
                 href="/terms#article6"
-                className="lg:hover:text-l-2 lg:hover:dark:text-white lg:hover:underline underline-offset-2"
+                className="hover:text-l-2 hover:dark:text-white hover:underline underline-offset-2"
               >
                 제 6 조 (회원가입)
               </Link>
               <Link
                 href="/terms#article7"
-                className="lg:hover:text-l-2 lg:hover:dark:text-white lg:hover:underline underline-offset-2"
+                className="hover:text-l-2 hover:dark:text-white hover:underline underline-offset-2"
               >
                 제 7 조 (회원 탈퇴)
               </Link>
               <Link
                 href="/terms#article8"
-                className="lg:hover:text-l-2 lg:hover:dark:text-white lg:hover:underline underline-offset-2"
+                className="hover:text-l-2 hover:dark:text-white hover:underline underline-offset-2"
               >
                 제 8 조 (회원에 대한 통지)
               </Link>
               <Link
                 href="/terms#article9"
-                className="lg:hover:text-l-2 lg:hover:dark:text-white lg:hover:underline underline-offset-2"
+                className="hover:text-l-2 hover:dark:text-white hover:underline underline-offset-2"
               >
                 제 9 조 (개인정보보호)
               </Link>
               <Link
                 href="/terms#article10"
-                className="lg:hover:text-l-2 lg:hover:dark:text-white lg:hover:underline underline-offset-2"
+                className="hover:text-l-2 hover:dark:text-white hover:underline underline-offset-2"
               >
                 제 10 조 (의무)
               </Link>
@@ -130,25 +130,25 @@ const Terms = ({ params }: any) => {
             <div className="w-full lg:w-1/3 flex flex-col gap-4">
               <Link
                 href="/terms#article11"
-                className="lg:hover:text-l-2 lg:hover:dark:text-white lg:hover:underline underline-offset-2"
+                className="hover:text-l-2 hover:dark:text-white hover:underline underline-offset-2"
               >
                 제 11 조 (회원의 ID 및 비밀번호)
               </Link>
               <Link
                 href="/terms#article12"
-                className="lg:hover:text-l-2 lg:hover:dark:text-white lg:hover:underline underline-offset-2"
+                className="hover:text-l-2 hover:dark:text-white hover:underline underline-offset-2"
               >
                 제 12 조 (이용자의 의무)
               </Link>
               <Link
                 href="/terms#article13"
-                className="lg:hover:text-l-2 lg:hover:dark:text-white lg:hover:underline underline-offset-2"
+                className="hover:text-l-2 hover:dark:text-white hover:underline underline-offset-2"
               >
                 제 13 조 (저작권의 귀속)
               </Link>
               <Link
                 href="/terms#article14"
-                className="lg:hover:text-l-2 lg:hover:dark:text-white lg:hover:underline underline-offset-2"
+                className="hover:text-l-2 hover:dark:text-white hover:underline underline-offset-2"
               >
                 제 14 조 (분쟁해결)
               </Link>

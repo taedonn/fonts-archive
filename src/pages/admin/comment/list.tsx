@@ -181,13 +181,13 @@ const CommentList = ({ params }: any) => {
                                   " ",
                                   "+"
                                 )}`}
-                                className="block text-h-1 dark:text-f-8 lg:hover:underline"
+                                className="block text-h-1 dark:text-f-8 hover:underline"
                               >
                                 {comment.font_name}
                               </Link>
                               <Link
                                 href={`/admin/user/list?search=${comment.user_name}`}
-                                className="block text-h-1 dark:text-f-8 lg:hover:underline"
+                                className="block text-h-1 dark:text-f-8 hover:underline"
                               >
                                 [{comment.user_name}]
                               </Link>
@@ -210,7 +210,7 @@ const CommentList = ({ params }: any) => {
                                 " ",
                                 "+"
                               )}#c${comment.comment_id}`}
-                              className="ellipsed-text w-full lg:hover:underline"
+                              className="ellipsed-text w-full hover:underline"
                             >
                               {comment.comment}
                             </Link>
@@ -220,7 +220,7 @@ const CommentList = ({ params }: any) => {
                             data-font={comment.font_id}
                             data-comment={comment.comment_id}
                             data-bundle={comment.bundle_id}
-                            className="group absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full flex justify-center items-center lg:hover:bg-l-e lg:hover:dark:bg-d-4"
+                            className="group absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full flex justify-center items-center hover:bg-l-e hover:dark:bg-d-4"
                           >
                             <i className="text-base fa-regular fa-trash-can"></i>
                           </button>

@@ -227,7 +227,7 @@ const UserDetailPage = ({ params }: any) => {
         <div className="relative max-w-[45rem] w-full flex flex-col justify-center my-16 lg:my-24 mt-8 lg:mt-16">
           <Link
             href="/admin/user/list"
-            className="absolute left-0 -top-10 hidden lg:block border-b border-transparent text-sm text-l-5 dark:text-d-c lg:hover:text-l-2 lg:hover:dark:text-white lg:hover:border-b-l-2 lg:hover:dark:border-b-white"
+            className="absolute left-0 -top-10 hidden lg:block border-b border-transparent text-sm text-l-5 dark:text-d-c hover:text-l-2 hover:dark:text-white hover:border-b-l-2 hover:dark:border-b-white"
           >
             <div className="inline-block mr-1">&#60;</div> 유저 관리 페이지로
             돌아가기
@@ -288,8 +288,8 @@ const UserDetailPage = ({ params }: any) => {
                   onMouseOut={onMouseOut}
                   className="group absolute top-0 -right-1 w-7 h-7 rounded-full bg-h-1 dark:bg-f-8 text-white dark:text-d-2"
                 >
-                  <i className="text-sm duration-200 lg:group-hover:rotate-90 fa-solid fa-rotate"></i>
-                  <div className="w-max absolute z-10 left-1/2 -top-8 px-3 py-1.5 text-[0.813rem] leading-none origin-bottom rounded hidden lg:group-hover:block lg:group-hover:animate-hover-delay bg-l-5 dark:bg-d-4 text-white dark:text-f-8 dark:drop-shadow-dark selection:bg-transparent">
+                  <i className="text-sm duration-200 group-hover:rotate-90 fa-solid fa-rotate"></i>
+                  <div className="w-max absolute z-10 left-1/2 -top-8 px-3 py-1.5 text-[0.813rem] leading-none origin-bottom rounded hidden group-hover:block group-hover:animate-hover-delay bg-l-5 dark:bg-d-4 text-white dark:text-f-8 dark:drop-shadow-dark selection:bg-transparent">
                     이미지 랜덤 변경하기
                   </div>
                 </button>
@@ -321,7 +321,7 @@ const UserDetailPage = ({ params }: any) => {
                 onMouseDown={(e) => onMouseDown(e, 0.9, true)}
                 onMouseUp={onMouseUp}
                 onMouseOut={onMouseOut}
-                className="text-sm font-medium rounded-full px-4 py-1.5 ml-3 bg-h-1 dark:bg-f-8 lg:hover:bg-h-0 lg:hover:dark:bg-f-9 text-white dark:text-d-2"
+                className="text-sm font-medium rounded-full px-4 py-1.5 ml-3 bg-h-1 dark:bg-f-8 hover:bg-h-0 hover:dark:bg-f-9 text-white dark:text-d-2"
               >
                 부적절한 닉네임
               </button>
@@ -400,7 +400,7 @@ const UserDetailPage = ({ params }: any) => {
                 value={user.user_email_token}
                 className="inline-flex items-center ml-2 text-sm text-h-1 dark:text-f-8"
               >
-                <span className="lg:hover:underline">복사하기</span>
+                <span className="hover:underline">복사하기</span>
                 <i className="copy_btn hidden ml-1 fa-solid fa-check"></i>
               </button>
             </label>
@@ -409,8 +409,8 @@ const UserDetailPage = ({ params }: any) => {
                 onClick={regenerateToken}
                 className="group w-5 h-5 flex justify-center items-center absolute z-10 right-2 top-1/2 -translate-y-1/2 cursor-pointer"
               >
-                <i className="text-sm text-h-1 dark:text-f-8 duration-200 lg:group-hover:rotate-90 fa-solid fa-rotate"></i>
-                <div className="w-max absolute z-10 left-1/2 -top-7 px-3 py-1.5 text-[0.813rem] leading-none origin-bottom rounded hidden lg:group-hover:block lg:group-hover:animate-hover-delay bg-l-5 dark:bg-d-4 text-white dark:text-f-8 dark:drop-shadow-dark selection:bg-transparent">
+                <i className="text-sm text-h-1 dark:text-f-8 duration-200 group-hover:rotate-90 fa-solid fa-rotate"></i>
+                <div className="w-max absolute z-10 left-1/2 -top-7 px-3 py-1.5 text-[0.813rem] leading-none origin-bottom rounded hidden group-hover:block group-hover:animate-hover-delay bg-l-5 dark:bg-d-4 text-white dark:text-f-8 dark:drop-shadow-dark selection:bg-transparent">
                   토큰 재생성하기
                 </div>
               </button>

@@ -518,7 +518,7 @@ function DetailPage({ params }: any) {
             <h2 className="font-bold mb-4">폰트 미리보기</h2>
             <textarea
               id="text-p"
-              className="custom-sm-scrollbar resize-none w-full h-36 px-3.5 py-3 text-sm rounded-lg border-2 border-transparent focus:border-h-1 focus:dark:border-f-8 dark:text-white bg-h-e dark:bg-d-4 placeholder-l-5 dark:placeholder-d-c"
+              className="custom-sm-scrollbar resize-none w-full h-36 px-3.5 py-3 rounded-lg border-2 border-transparent focus:border-h-1 focus:dark:border-f-8 dark:text-white bg-h-e dark:bg-d-4 placeholder-l-5 dark:placeholder-d-c"
               placeholder="원하는 문구를 적어보세요."
               onChange={handleFontChange}
               value={text}
@@ -669,7 +669,7 @@ function DetailPage({ params }: any) {
               <input id="rcp-text" type="checkbox" className="peer hidden" />
               <label
                 htmlFor="rcp-text"
-                className="group w-full h-14 px-4 flex justify-between items-center rounded-lg cursor-pointer border-2 border-transparent lg:hover:border-l-e lg:hover:dark:border-d-4 lg:peer-checked:hover:bg-transparent lg:peer-checked:dark:hover:bg-transparent peer-checked:border-h-1 peer-checked:dark:border-f-8 lg:hover:bg-l-e lg:hover:dark:bg-d-4"
+                className="group w-full h-14 px-4 flex justify-between items-center rounded-lg cursor-pointer border-2 border-transparent hover:border-l-e hover:dark:border-d-4 peer-checked:hover:bg-transparent peer-checked:dark:hover:bg-transparent peer-checked:border-h-1 peer-checked:dark:border-f-8 hover:bg-l-e hover:dark:bg-d-4"
               >
                 <div className="font-medium selection:bg-transparent">
                   폰트색
@@ -695,7 +695,7 @@ function DetailPage({ params }: any) {
               <input id="rcp-bg" type="checkbox" className="peer hidden" />
               <label
                 htmlFor="rcp-bg"
-                className="group w-full h-14 px-4 flex justify-between items-center rounded-lg cursor-pointer border-2 border-transparent lg:hover:border-l-e lg:hover:dark:border-d-4 lg:peer-checked:hover:bg-transparent lg:peer-checked:dark:hover:bg-transparent peer-checked:border-h-1 peer-checked:dark:border-f-8 lg:hover:bg-l-e lg:hover:dark:bg-d-4"
+                className="group w-full h-14 px-4 flex justify-between items-center rounded-lg cursor-pointer border-2 border-transparent hover:border-l-e hover:dark:border-d-4 peer-checked:hover:bg-transparent peer-checked:dark:hover:bg-transparent peer-checked:border-h-1 peer-checked:dark:border-f-8 hover:bg-l-e hover:dark:bg-d-4"
               >
                 <div className="font-medium selection:bg-transparent">
                   배경색
@@ -727,10 +727,10 @@ function DetailPage({ params }: any) {
                       <Link
                         key={font.name}
                         href={`/post/${font.font_family.replaceAll(" ", "+")}`}
-                        className="group w-full relative px-4 py-3 border-l-[2px] border-l-b dark:border-d-6 lg:hover:border-h-1 lg:hover:dark:border-f-8 lg:hover:text-h-1 lg:hover:dark:text-f-8 lg:hover:bg-l-e lg:hover:dark:bg-d-4"
+                        className="group w-full relative px-4 py-3 border-l-[2px] border-l-b dark:border-d-6 hover:border-h-1 hover:dark:border-f-8 hover:text-h-1 hover:dark:text-f-8 hover:bg-l-e hover:dark:bg-d-4"
                       >
                         {font.name}
-                        <i className="hidden lg:group-hover:inline absolute right-4 top-1/2 -translate-y-1/2 fa-solid fa-angle-right"></i>
+                        <i className="hidden group-hover:inline absolute right-4 top-1/2 -translate-y-1/2 fa-solid fa-angle-right"></i>
                       </Link>
                     );
                   })}
@@ -782,9 +782,9 @@ function DetailPage({ params }: any) {
                 <div
                   className={`${
                     hoverDisplay === true
-                      ? "lg:group-hover:block"
-                      : "lg:group-hover:hidden"
-                  } w-max absolute z-10 left-1/2 top-8 px-3 py-1.5 text-[0.813rem] leading-none origin-top rounded hidden lg:group-hover:animate-hover-delay bg-l-5 dark:bg-d-4 text-white dark:text-f-8 dark:drop-shadow-dark selection:bg-transparent`}
+                      ? "group-hover:block"
+                      : "group-hover:hidden"
+                  } w-max absolute z-10 left-1/2 top-8 px-3 py-1.5 text-[0.813rem] leading-none origin-top rounded hidden group-hover:animate-hover-delay bg-l-5 dark:bg-d-4 text-white dark:text-f-8 dark:drop-shadow-dark selection:bg-transparent`}
                 >
                   {likedInput ? "좋아요 해제" : "좋아요"}
                 </div>
@@ -798,7 +798,7 @@ function DetailPage({ params }: any) {
                   className="relative group border-b border-h-1 dark:border-f-8 text-h-1 dark:text-f-8"
                 >
                   {font.source}
-                  <div className="w-max absolute z-10 left-1/2 top-8 px-3 py-1.5 text-[0.813rem] leading-none origin-top rounded hidden lg:group-hover:block lg:group-hover:animate-hover-delay bg-l-5 dark:bg-d-4 text-white dark:text-f-8 dark:drop-shadow-dark selection:bg-transparent">
+                  <div className="w-max absolute z-10 left-1/2 top-8 px-3 py-1.5 text-[0.813rem] leading-none origin-top rounded hidden group-hover:block group-hover:animate-hover-delay bg-l-5 dark:bg-d-4 text-white dark:text-f-8 dark:drop-shadow-dark selection:bg-transparent">
                     제작사의 다른 폰트 보기
                   </div>
                 </Link>
@@ -913,7 +913,7 @@ function DetailPage({ params }: any) {
                   onMouseDown={(e) => onMouseDown(e, 0.9, true)}
                   onMouseUp={onMouseUp}
                   onMouseOut={onMouseOut}
-                  className="w-[6.5rem] h-9 rounded-full flex justify-center items-center cursor-pointer peer-checked/css:bg-h-1 peer-checked/css:dark:bg-f-8 peer-checked/css:text-white peer-checked/css:dark:text-d-2 bg-l-f lg:hover:bg-l-e dark:bg-d-3 lg:dark:hover:bg-d-4"
+                  className="w-[6.5rem] h-9 rounded-full flex justify-center items-center cursor-pointer peer-checked/css:bg-h-1 peer-checked/css:dark:bg-f-8 peer-checked/css:text-white peer-checked/css:dark:text-d-2 bg-l-f hover:bg-l-e dark:bg-d-3 dark:hover:bg-d-4"
                 >
                   CSS
                 </label>
@@ -930,7 +930,7 @@ function DetailPage({ params }: any) {
                   onMouseDown={(e) => onMouseDown(e, 0.9, true)}
                   onMouseUp={onMouseUp}
                   onMouseOut={onMouseOut}
-                  className="w-[6.5rem] h-9 rounded-full flex justify-center items-center cursor-pointer peer-checked/link:bg-h-1 peer-checked/link:dark:bg-f-8 peer-checked/link:text-white peer-checked/link:dark:text-d-2 bg-l-f lg:hover:bg-l-e dark:bg-d-3 lg:dark:hover:bg-d-4"
+                  className="w-[6.5rem] h-9 rounded-full flex justify-center items-center cursor-pointer peer-checked/link:bg-h-1 peer-checked/link:dark:bg-f-8 peer-checked/link:text-white peer-checked/link:dark:text-d-2 bg-l-f hover:bg-l-e dark:bg-d-3 dark:hover:bg-d-4"
                 >
                   &#60;link/&#62;
                 </label>
@@ -947,7 +947,7 @@ function DetailPage({ params }: any) {
                   onMouseDown={(e) => onMouseDown(e, 0.9, true)}
                   onMouseUp={onMouseUp}
                   onMouseOut={onMouseOut}
-                  className="w-[6.5rem] h-9 rounded-full flex justify-center items-center cursor-pointer peer-checked/import:bg-h-1 peer-checked/import:dark:bg-f-8 peer-checked/import:text-white peer-checked/import:dark:text-d-2 bg-l-f lg:hover:bg-l-e dark:bg-d-3 lg:dark:hover:bg-d-4"
+                  className="w-[6.5rem] h-9 rounded-full flex justify-center items-center cursor-pointer peer-checked/import:bg-h-1 peer-checked/import:dark:bg-f-8 peer-checked/import:text-white peer-checked/import:dark:text-d-2 bg-l-f hover:bg-l-e dark:bg-d-3 dark:hover:bg-d-4"
                 >
                   @import
                 </label>
@@ -964,7 +964,7 @@ function DetailPage({ params }: any) {
                   onMouseDown={(e) => onMouseDown(e, 0.9, true)}
                   onMouseUp={onMouseUp}
                   onMouseOut={onMouseOut}
-                  className="w-[6.5rem] h-9 rounded-full flex justify-center items-center cursor-pointer peer-checked/font-face:bg-h-1 peer-checked/font-face:dark:bg-f-8 peer-checked/font-face:text-white peer-checked/font-face:dark:text-d-2 bg-l-f lg:hover:bg-l-e dark:bg-d-3 lg:dark:hover:bg-d-4"
+                  className="w-[6.5rem] h-9 rounded-full flex justify-center items-center cursor-pointer peer-checked/font-face:bg-h-1 peer-checked/font-face:dark:bg-f-8 peer-checked/font-face:text-white peer-checked/font-face:dark:text-d-2 bg-l-f hover:bg-l-e dark:bg-d-3 dark:hover:bg-d-4"
                 >
                   @font-face
                 </label>
@@ -978,7 +978,7 @@ function DetailPage({ params }: any) {
                     <div className="w-7 h-7 lg:w-8 lg:h-8 absolute z-10 right-4 top-1/2 -translate-y-1/2 rounded-md cursor-pointer">
                       <div
                         onClick={copyOnClick}
-                        className="copy_btn w-full h-full flex justify-center items-center rounded-md lg:hover:bg-h-1/20 lg:hover:dark:bg-f-8/20 text-h-1 dark:text-f-8"
+                        className="copy_btn w-full h-full flex justify-center items-center rounded-md hover:bg-h-1/20 hover:dark:bg-f-8/20 text-h-1 dark:text-f-8"
                       >
                         <i className="text-base bi bi-clipboard"></i>
                       </div>
@@ -995,7 +995,7 @@ function DetailPage({ params }: any) {
                     <div className="w-7 h-7 lg:w-8 lg:h-8 absolute z-10 right-4 top-1/2 -translate-y-1/2 rounded-md cursor-pointer">
                       <div
                         onClick={copyOnClick}
-                        className="copy_btn w-full h-full flex justify-center items-center rounded-md lg:hover:bg-h-1/20 lg:hover:dark:bg-f-8/20 text-h-1 dark:text-f-8"
+                        className="copy_btn w-full h-full flex justify-center items-center rounded-md hover:bg-h-1/20 hover:dark:bg-f-8/20 text-h-1 dark:text-f-8"
                       >
                         <i className="text-base bi bi-clipboard"></i>
                       </div>
@@ -1012,7 +1012,7 @@ function DetailPage({ params }: any) {
                     <div className="w-7 h-7 lg:w-8 lg:h-8 absolute z-10 right-4 top-1/2 -translate-y-1/2 rounded-md cursor-pointer">
                       <div
                         onClick={copyOnClick}
-                        className="copy_btn w-full h-full flex justify-center items-center rounded-md lg:hover:bg-h-1/20 lg:hover:dark:bg-f-8/20 text-h-1 dark:text-f-8"
+                        className="copy_btn w-full h-full flex justify-center items-center rounded-md hover:bg-h-1/20 hover:dark:bg-f-8/20 text-h-1 dark:text-f-8"
                       >
                         <i className="text-base bi bi-clipboard"></i>
                       </div>
@@ -1035,7 +1035,7 @@ function DetailPage({ params }: any) {
                     <div className="w-7 h-7 lg:w-8 lg:h-8 absolute z-10 right-4 top-8 -translate-y-1/2 cursor-pointer">
                       <div
                         onClick={copyOnClick}
-                        className="copy_btn w-full h-full flex justify-center items-center rounded-md lg:hover:bg-h-1/20 lg:hover:dark:bg-f-8/20 text-h-1 dark:text-f-8"
+                        className="copy_btn w-full h-full flex justify-center items-center rounded-md hover:bg-h-1/20 hover:dark:bg-f-8/20 text-h-1 dark:text-f-8"
                       >
                         <i className="text-base bi bi-clipboard"></i>
                       </div>
@@ -1605,7 +1605,7 @@ function DetailPage({ params }: any) {
                   />
                   <label
                     htmlFor="license-text"
-                    className="group w-full text-base lg:text-lg py-6 lg:py-8 p-8 flex justify-between items-center font-medium rounded-lg cursor-pointer lg:hover:bg-l-e lg:dark:hover:bg-d-4"
+                    className="group w-full text-base lg:text-lg py-6 lg:py-8 p-8 flex justify-between items-center font-medium rounded-lg cursor-pointer hover:bg-l-e dark:hover:bg-d-4"
                   >
                     <div className="flex gap-2 selection:bg-transparent">
                       라이센스 본문

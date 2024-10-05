@@ -219,7 +219,7 @@ const Login = ({ params }: any) => {
               <span>비밀번호</span>
               <Link
                 href="/user/findpw"
-                className="text-sm font-normal text-h-1 dark:text-f-8 lg:hover:underline"
+                className="text-sm font-normal text-h-1 dark:text-f-8 hover:underline"
               >
                 비밀번호를 잊으셨나요?
               </Link>
@@ -266,7 +266,7 @@ const Login = ({ params }: any) => {
               >
                 <path d="M16.273 12.845 7.376 0H0v24h7.726V11.156L16.624 24H24V0h-7.727v12.845Z" />
               </svg>
-              <div className="w-max absolute z-10 left-1/2 -top-8 px-3 py-1.5 text-[0.813rem] leading-none origin-bottom rounded hidden lg:group-hover:block lg:group-hover:animate-hover-delay bg-theme-naver text-l-2 dark:drop-shadow-dark selection:bg-transparent">
+              <div className="w-max absolute z-10 left-1/2 -top-8 px-3 py-1.5 text-[0.813rem] leading-none origin-bottom rounded hidden group-hover:block group-hover:animate-hover-delay bg-theme-naver text-l-2 dark:drop-shadow-dark selection:bg-transparent">
                 네이버로 로그인
               </div>
             </div>
@@ -285,7 +285,7 @@ const Login = ({ params }: any) => {
               >
                 <path d="M255.5 48C299.345 48 339.897 56.5332 377.156 73.5996C414.415 90.666 443.871 113.873 465.522 143.22C487.174 172.566 498 204.577 498 239.252C498 273.926 487.174 305.982 465.522 335.42C443.871 364.857 414.46 388.109 377.291 405.175C340.122 422.241 299.525 430.775 255.5 430.775C241.607 430.775 227.262 429.781 212.467 427.795C148.233 472.402 114.042 494.977 109.892 495.518C107.907 496.241 106.012 496.15 104.208 495.248C103.486 494.706 102.945 493.983 102.584 493.08C102.223 492.177 102.043 491.365 102.043 490.642V489.559C103.126 482.515 111.335 453.169 126.672 401.518C91.8486 384.181 64.1974 361.2 43.7185 332.575C23.2395 303.951 13 272.843 13 239.252C13 204.577 23.8259 172.566 45.4777 143.22C67.1295 113.873 96.5849 90.666 133.844 73.5996C171.103 56.5332 211.655 48 255.5 48Z"></path>
               </svg>
-              <div className="w-max absolute z-10 left-1/2 -top-8 px-3 py-1.5 text-[0.813rem] leading-none origin-bottom rounded hidden lg:group-hover:block lg:group-hover:animate-hover-delay bg-theme-kakao text-l-2 dark:drop-shadow-dark selection:bg-transparent">
+              <div className="w-max absolute z-10 left-1/2 -top-8 px-3 py-1.5 text-[0.813rem] leading-none origin-bottom rounded hidden group-hover:block group-hover:animate-hover-delay bg-theme-kakao text-l-2 dark:drop-shadow-dark selection:bg-transparent">
                 카카오로 로그인
               </div>
             </div>
@@ -319,7 +319,7 @@ const Login = ({ params }: any) => {
                 />
                 <path d="M1 1h22v22H1z" fill="none" />
               </svg>
-              <div className="w-max absolute z-10 left-1/2 -top-8 px-3 py-1.5 text-[0.813rem] leading-none origin-bottom rounded hidden lg:group-hover:block lg:group-hover:animate-hover-delay bg-black text-white dark:bg-white dark:text-black dark:drop-shadow-dark selection:bg-transparent">
+              <div className="w-max absolute z-10 left-1/2 -top-8 px-3 py-1.5 text-[0.813rem] leading-none origin-bottom rounded hidden group-hover:block group-hover:animate-hover-delay bg-black text-white dark:bg-white dark:text-black dark:drop-shadow-dark selection:bg-transparent">
                 구글로 로그인
               </div>
             </div>
@@ -337,7 +337,7 @@ const Login = ({ params }: any) => {
               >
                 <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
               </svg>
-              <div className="w-max absolute z-10 left-1/2 -top-8 px-3 py-1.5 text-[0.813rem] leading-none origin-bottom rounded hidden lg:group-hover:block lg:group-hover:animate-hover-delay bg-black text-white dark:bg-white dark:text-black dark:drop-shadow-dark selection:bg-transparent">
+              <div className="w-max absolute z-10 left-1/2 -top-8 px-3 py-1.5 text-[0.813rem] leading-none origin-bottom rounded hidden group-hover:block group-hover:animate-hover-delay bg-black text-white dark:bg-white dark:text-black dark:drop-shadow-dark selection:bg-transparent">
                 깃허브로 로그인
               </div>
             </div>
@@ -348,7 +348,7 @@ const Login = ({ params }: any) => {
             </span>
             <Link
               href="/user/register"
-              className="text-h-1 dark:text-f-8 lg:hover:underline"
+              className="text-h-1 dark:text-f-8 hover:underline"
             >
               회원가입하기
             </Link>
@@ -358,7 +358,7 @@ const Login = ({ params }: any) => {
               href="/terms"
               target="_blank"
               rel="noopener noreferrer"
-              className="lg:hover:underline"
+              className="hover:underline"
             >
               서비스 이용약관
             </Link>
@@ -367,7 +367,7 @@ const Login = ({ params }: any) => {
               href="/privacy"
               target="_blank"
               rel="noopener noreferrer"
-              className="lg:hover:underline"
+              className="hover:underline"
             >
               개인정보처리방침
             </Link>

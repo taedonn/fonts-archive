@@ -168,7 +168,7 @@ const FindPw = ({ params }: any) => {
                     이메일로 임시 비밀번호가 발급되었습니다.{" "}
                     <Link
                       href="/user/login"
-                      className="ml-2 text-h-1 dark:text-f-8 lg:hover:underline"
+                      className="ml-2 text-h-1 dark:text-f-8 hover:underline"
                     >
                       로그인 하기
                     </Link>
@@ -245,7 +245,7 @@ const FindPw = ({ params }: any) => {
               href="/terms"
               target="_blank"
               rel="noopener noreferrer"
-              className="lg:hover:underline"
+              className="hover:underline"
             >
               서비스 이용약관
             </Link>
@@ -254,7 +254,7 @@ const FindPw = ({ params }: any) => {
               href="/privacy"
               target="_blank"
               rel="noopener noreferrer"
-              className="lg:hover:underline"
+              className="hover:underline"
             >
               개인정보처리방침
             </Link>

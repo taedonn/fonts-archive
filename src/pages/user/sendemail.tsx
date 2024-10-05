@@ -49,7 +49,7 @@ const SendEmail = ({ params }: any) => {
             이메일을 확인할 수 없나요?
             <div
               onClick={resendEmail}
-              className="text-h-1 dark:text-f-8 lg:hover:underline ml-2 cursor-pointer"
+              className="text-h-1 dark:text-f-8 hover:underline ml-2 cursor-pointer"
             >
               인증 메일 다시 보내기
             </div>

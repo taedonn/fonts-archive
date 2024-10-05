@@ -131,7 +131,7 @@ const NoticePage = ({ params }: any) => {
         <div className="relative max-w-[45rem] w-full flex flex-col justify-center my-16 lg:my-24 mt-8 lg:mt-16">
           <Link
             href="/admin/notices/list"
-            className="absolute left-0 -top-10 hidden lg:block border-b border-transparent text-sm text-l-5 dark:text-d-c lg:hover:text-l-2 lg:hover:dark:text-white lg:hover:border-b-l-2 lg:hover:dark:border-b-white"
+            className="absolute left-0 -top-10 hidden lg:block border-b border-transparent text-sm text-l-5 dark:text-d-c hover:text-l-2 hover:dark:text-white hover:border-b-l-2 hover:dark:border-b-white"
           >
             <div className="inline-block mr-1">&#60;</div> 목록으로 돌아가기
           </Link>

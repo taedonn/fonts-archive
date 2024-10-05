@@ -224,7 +224,7 @@ const Notices = ({ params }: any) => {
                   />
                   <label
                     htmlFor={`notice-${notice.notice_id}`}
-                    className="group/label rounded-lg cursor-pointer border-2 border-transparent bg-l-f dark:bg-d-3 lg:hover:border-h-1 lg:hover:dark:border-f-8 peer-checked/expand:border-h-1 peer-checked/expand:dark:border-f-8 peer-checked/expand:bg-transparent"
+                    className="group/label rounded-lg cursor-pointer border-2 border-transparent bg-l-f dark:bg-d-3 hover:border-h-1 hover:dark:border-f-8 peer-checked/expand:border-h-1 peer-checked/expand:dark:border-f-8 peer-checked/expand:bg-transparent"
                   >
                     <div className="w-full h-14 text-sm flex justify-between items-center">
                       <div className="flex items-center">

@@ -504,7 +504,7 @@ const Info = ({ params }: any) => {
                         id="profile-img-upload"
                       />
                       <label
-                        className="w-full relative z-10 text-xs leading-none rounded-t-lg pl-3 pr-3.5 pt-2.5 pb-2 hover:bg-h-1 hover:dark:bg-f-8 lg:hover:text-white hover:dark:text-d-2 cursor-pointer"
+                        className="w-full relative z-10 text-xs leading-none rounded-t-lg pl-3 pr-3.5 pt-2.5 pb-2 hover:bg-h-1 hover:dark:bg-f-8 hover:text-white hover:dark:text-d-2 cursor-pointer"
                         htmlFor="profile-img-upload"
                       >
                         사진 변경
@@ -512,7 +512,7 @@ const Info = ({ params }: any) => {
                     </div>
                     <button
                       onClick={deleteImg}
-                      className="w-full text-xs leading-none rounded-b-lg pl-3 pr-3.5 pt-2 pb-2.5 hover:bg-h-1 hover:dark:bg-f-8 lg:hover:text-white hover:dark:text-d-2 cursor-pointer"
+                      className="w-full text-xs leading-none rounded-b-lg pl-3 pr-3.5 pt-2 pb-2.5 hover:bg-h-1 hover:dark:bg-f-8 hover:text-white hover:dark:text-d-2 cursor-pointer"
                     >
                       사진 제거
                     </button>
@@ -617,7 +617,7 @@ const Info = ({ params }: any) => {
                     nameChk === ""
                       ? "border-l-d dark:border-d-4 focus:border-h-1 focus:dark:border-f-8"
                       : "border-h-r focus:border-h-r"
-                  } w-[calc(100%-84px)] text-sm px-3.5 py-3 rounded-lg border-2 placeholder-l-5 dark:placeholder-d-c bg-l-d dark:bg-d-4`}
+                  } w-[calc(100%-84px)] px-3.5 py-3 rounded-lg border-2 placeholder-l-5 dark:placeholder-d-c bg-l-d dark:bg-d-4`}
                 />
                 <div className="w-[4.75rem]">
                   <Button>
@@ -651,7 +651,7 @@ const Info = ({ params }: any) => {
               <></>
             )}
             <div className="block font-medium mt-8 ml-px">아이디</div>
-            <div className="w-full text-sm mt-2 px-3.5 py-3 rounded-lg border-2 border-transparent text-l-2 dark:text-white bg-l-d dark:bg-d-4 cursor-default">
+            <div className="w-full mt-2 px-3.5 py-3 rounded-lg border-2 border-transparent text-l-2 dark:text-white bg-l-d dark:bg-d-4 cursor-default">
               {user.user_id}
             </div>
             {user.auth === "credentials" && (

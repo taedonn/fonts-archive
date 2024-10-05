@@ -164,7 +164,7 @@ const Comments = ({ params }: any) => {
               className={`${
                 filter === "date"
                   ? "bg-h-1 dark:bg-f-8 text-white dark:text-d-2"
-                  : "text-l-5 dark:text-d-c lg:hover:text-h-1 lg:hover:dark:text-f-8"
+                  : "text-l-5 dark:text-d-c hover:text-h-1 hover:dark:text-f-8"
               } w-20 h-9 flex justify-center items-center rounded-lg`}
             >
               최신순
@@ -178,7 +178,7 @@ const Comments = ({ params }: any) => {
               className={`${
                 filter === "name"
                   ? "bg-h-1 dark:bg-f-8 text-white dark:text-d-2"
-                  : "text-l-5 dark:text-d-c lg:hover:text-h-1 lg:hover:dark:text-f-8"
+                  : "text-l-5 dark:text-d-c hover:text-h-1 hover:dark:text-f-8"
               } w-20 h-9 flex justify-center items-center rounded-lg`}
             >
               이름순
@@ -201,7 +201,7 @@ const Comments = ({ params }: any) => {
                                 " ",
                                 "+"
                               )}`}
-                              className="block text-h-1 dark:text-f-8 lg:hover:underline"
+                              className="block text-h-1 dark:text-f-8 hover:underline"
                             >
                               {comment.font_name}
                             </Link>
@@ -223,7 +223,7 @@ const Comments = ({ params }: any) => {
                                 " ",
                                 "+"
                               )}#c${comment.comment_id}`}
-                              className="ellipsed-text w-full lg:hover:underline"
+                              className="ellipsed-text w-full hover:underline"
                             >
                               {comment.comment}
                             </Link>
@@ -233,7 +233,7 @@ const Comments = ({ params }: any) => {
                             data-font={comment.font_id}
                             data-comment={comment.comment_id}
                             data-bundle={comment.bundle_id}
-                            className="group absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full flex justify-center items-center lg:hover:bg-l-e lg:hover:dark:bg-d-4"
+                            className="group absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full flex justify-center items-center hover:bg-l-e hover:dark:bg-d-4"
                           >
                             <i className="text-base fa-regular fa-trash-can"></i>
                           </button>
