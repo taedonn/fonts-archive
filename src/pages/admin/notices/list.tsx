@@ -16,7 +16,6 @@ import { NextSeo } from "next-seo";
 // components
 import Footer from "@/components/footer";
 import Header from "@/components/header";
-import Motion from "@/components/motion";
 import SearchInput from "@/components/searchinput";
 
 // common
@@ -82,125 +81,118 @@ const NoticeList = ({ params }: any) => {
       <Header isMac={isMac} theme={theme} user={user} />
 
       {/* 메인 */}
-      <Motion
-        initialOpacity={0}
-        animateOpacity={1}
-        exitOpacity={0}
-        transitionType="spring"
+      <form
+        onSubmit={(e) => e.preventDefault()}
+        className="w-full px-4 flex flex-col justify-center items-center text-l-2 dark:text-white"
       >
-        <form
-          onSubmit={(e) => e.preventDefault()}
-          className="w-full px-4 flex flex-col justify-center items-center text-l-2 dark:text-white"
-        >
-          <div className="w-[45rem] tmd:w-full flex flex-col justify-center my-16 lg:my-24 mt-8 lg:mt-16">
-            <h2 className="text-2xl font-bold mb-6">공지 목록</h2>
-            <div className="flex items-center mb-10">
-              <SearchInput
-                id="search"
-                placeholder="제목/내용"
-                value={search}
-                color="light"
-              />
-              <button onClick={handleSearchClick} className="hidden">
-                검색
-              </button>
-            </div>
-            <div className="flex items-center gap-1.5 mb-4">
-              <button
-                onClick={handleFilterChange}
-                value="all"
-                onMouseDown={(e) => onMouseDown(e, 0.9, true)}
-                onMouseUp={onMouseUp}
-                onMouseOut={onMouseOut}
-                className={`${
-                  filter === "all"
-                    ? "bg-h-1 dark:bg-f-8 text-white dark:text-d-2"
-                    : "text-l-5 dark:text-d-c hover:text-h-1 hover:dark:text-f-8"
-                } w-20 h-9 flex justify-center items-center rounded-lg`}
-              >
-                전체
-              </button>
-              <button
-                onClick={handleFilterChange}
-                value="font"
-                onMouseDown={(e) => onMouseDown(e, 0.9, true)}
-                onMouseUp={onMouseUp}
-                onMouseOut={onMouseOut}
-                className={`${
-                  filter === "font"
-                    ? "bg-h-1 dark:bg-f-8 text-white dark:text-d-2"
-                    : "text-l-5 dark:text-d-c hover:text-h-1 hover:dark:text-f-8"
-                } w-20 h-9 flex justify-center items-center rounded-lg`}
-              >
-                폰트
-              </button>
-              <button
-                onClick={handleFilterChange}
-                value="service"
-                onMouseDown={(e) => onMouseDown(e, 0.9, true)}
-                onMouseUp={onMouseUp}
-                onMouseOut={onMouseOut}
-                className={`${
-                  filter === "service"
-                    ? "bg-h-1 dark:bg-f-8 text-white dark:text-d-2"
-                    : "text-l-5 dark:text-d-c hover:text-h-1 hover:dark:text-f-8"
-                } w-20 h-9 flex justify-center items-center rounded-lg`}
-              >
-                서비스
-              </button>
-            </div>
-            <div className="w-full">
-              <div className="w-full text-sm">
-                <div className="flex flex-col gap-3">
-                  {list && list.length > 0 ? (
-                    <>
-                      {list.map((notice: any) => {
-                        return (
-                          <div
-                            key={notice.notice_id}
-                            className="px-6 py-4 relative rounded-lg bg-l-f dark:bg-d-3"
-                          >
-                            <div className="flex tlg:flex-col lg:items-center gap-2 mb-2">
-                              <Link
-                                href={`/admin/notices/${notice.notice_id}`}
-                                className="block text-h-1 dark:text-f-8 lg:hover:underline"
-                              >
-                                {notice.notice_title}
-                              </Link>
-                              <div className="flex gap-2 items-center">
-                                <div className="text-xs text-l-5 dark:text-d-c">
-                                  {dateFormat(notice.notice_created_at)}
-                                </div>
-                              </div>
-                            </div>
-                            <div className="w-full">
-                              <div className="ellipsed-text w-full">
-                                {notice.notice_content}
+        <div className="w-[45rem] tmd:w-full flex flex-col justify-center my-16 lg:my-24 mt-8 lg:mt-16">
+          <h2 className="text-2xl font-bold mb-6">공지 목록</h2>
+          <div className="flex items-center mb-10">
+            <SearchInput
+              id="search"
+              placeholder="제목/내용"
+              value={search}
+              color="light"
+            />
+            <button onClick={handleSearchClick} className="hidden">
+              검색
+            </button>
+          </div>
+          <div className="flex items-center gap-1.5 mb-4">
+            <button
+              onClick={handleFilterChange}
+              value="all"
+              onMouseDown={(e) => onMouseDown(e, 0.9, true)}
+              onMouseUp={onMouseUp}
+              onMouseOut={onMouseOut}
+              className={`${
+                filter === "all"
+                  ? "bg-h-1 dark:bg-f-8 text-white dark:text-d-2"
+                  : "text-l-5 dark:text-d-c hover:text-h-1 hover:dark:text-f-8"
+              } w-20 h-9 flex justify-center items-center rounded-lg`}
+            >
+              전체
+            </button>
+            <button
+              onClick={handleFilterChange}
+              value="font"
+              onMouseDown={(e) => onMouseDown(e, 0.9, true)}
+              onMouseUp={onMouseUp}
+              onMouseOut={onMouseOut}
+              className={`${
+                filter === "font"
+                  ? "bg-h-1 dark:bg-f-8 text-white dark:text-d-2"
+                  : "text-l-5 dark:text-d-c hover:text-h-1 hover:dark:text-f-8"
+              } w-20 h-9 flex justify-center items-center rounded-lg`}
+            >
+              폰트
+            </button>
+            <button
+              onClick={handleFilterChange}
+              value="service"
+              onMouseDown={(e) => onMouseDown(e, 0.9, true)}
+              onMouseUp={onMouseUp}
+              onMouseOut={onMouseOut}
+              className={`${
+                filter === "service"
+                  ? "bg-h-1 dark:bg-f-8 text-white dark:text-d-2"
+                  : "text-l-5 dark:text-d-c hover:text-h-1 hover:dark:text-f-8"
+              } w-20 h-9 flex justify-center items-center rounded-lg`}
+            >
+              서비스
+            </button>
+          </div>
+          <div className="w-full">
+            <div className="w-full text-sm">
+              <div className="flex flex-col gap-3">
+                {list && list.length > 0 ? (
+                  <>
+                    {list.map((notice: any) => {
+                      return (
+                        <div
+                          key={notice.notice_id}
+                          className="px-6 py-4 relative rounded-lg bg-l-f dark:bg-d-3"
+                        >
+                          <div className="flex tlg:flex-col lg:items-center gap-2 mb-2">
+                            <Link
+                              href={`/admin/notices/${notice.notice_id}`}
+                              className="block text-h-1 dark:text-f-8 lg:hover:underline"
+                            >
+                              {notice.notice_title}
+                            </Link>
+                            <div className="flex gap-2 items-center">
+                              <div className="text-xs text-l-5 dark:text-d-c">
+                                {dateFormat(notice.notice_created_at)}
                               </div>
                             </div>
                           </div>
-                        );
-                      })}
-                    </>
-                  ) : (
-                    <div className="h-16 text-base flex justify-center items-center text-center">
-                      공지가 없습니다.
-                    </div>
-                  )}
-                </div>
+                          <div className="w-full">
+                            <div className="ellipsed-text w-full">
+                              {notice.notice_content}
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </>
+                ) : (
+                  <div className="h-16 text-base flex justify-center items-center text-center">
+                    공지가 없습니다.
+                  </div>
+                )}
               </div>
             </div>
-            <div className="w-full flex justify-center mt-6">
-              <Pagination
-                count={count}
-                page={Number(page)}
-                onChange={handlePageChange}
-                shape="rounded"
-              />
-            </div>
           </div>
-        </form>
-      </Motion>
+          <div className="w-full flex justify-center mt-6">
+            <Pagination
+              count={count}
+              page={Number(page)}
+              onChange={handlePageChange}
+              shape="rounded"
+            />
+          </div>
+        </div>
+      </form>
 
       {/* 풋터 */}
       <Footer />

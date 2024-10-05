@@ -17,7 +17,6 @@ import AdSense from "@/components/adSense";
 import Button from "@/components/button";
 import Footer from "@/components/footer";
 import Header from "@/components/header";
-import Motion from "@/components/motion";
 import SelectBox from "@/components/selectbox";
 import TextArea from "@/components/textarea";
 import TextInput from "@/components/textinput";
@@ -435,250 +434,242 @@ const IssueFont = ({ params }: any) => {
       ></div>
 
       {/* 메인 */}
-      <Motion
-        initialOpacity={0}
-        animateOpacity={1}
-        exitOpacity={0}
-        transitionType="spring"
-      >
-        <div className="w-full px-4 flex flex-col justify-center items-center text-l-2 dark:text-white">
-          <div className="max-w-[45.5rem] w-full flex flex-col justify-center my-16 lg:my-24 mt-8 lg:mt-16">
-            <h2 className="text-2xl mb-6 font-bold">문의하기</h2>
-            <h3 className="tlg:text-sm mb-3">
-              제보 사항(버그, 새 폰트)이나 문의 사항 있으시면 연락 부탁드립니다.
-            </h3>
+      <div className="w-full px-4 flex flex-col justify-center items-center text-l-2 dark:text-white">
+        <div className="max-w-[45.5rem] w-full flex flex-col justify-center my-16 lg:my-24 mt-8 lg:mt-16">
+          <h2 className="text-2xl mb-6 font-bold">문의하기</h2>
+          <h3 className="tlg:text-sm mb-3">
+            제보 사항(버그, 새 폰트)이나 문의 사항 있으시면 연락 부탁드립니다.
+          </h3>
 
-            {/* Google AdSense */}
-            <div className="w-full flex">
-              <AdSense
-                pc={{
-                  style: "display: inline-block; width: 728px; height: 90px;",
-                  client: "ca-pub-7819549426971576",
-                  slot: "3707368535",
-                }}
-                mobile={{
-                  style: "display: inline-block; width: 300px; height: 100px;",
-                  client: "ca-pub-7819549426971576",
-                  slot: "1032069893",
-                }}
-                marginBottom={1}
-              />
-            </div>
+          {/* Google AdSense */}
+          <div className="w-full flex">
+            <AdSense
+              pc={{
+                style: "display: inline-block; width: 728px; height: 90px;",
+                client: "ca-pub-7819549426971576",
+                slot: "3707368535",
+              }}
+              mobile={{
+                style: "display: inline-block; width: 300px; height: 100px;",
+                client: "ca-pub-7819549426971576",
+                slot: "1032069893",
+              }}
+              marginBottom={1}
+            />
+          </div>
 
-            <div id="is-issued" className="w-full">
-              {isIssued === "success" ? (
-                <>
-                  <div className="w-full h-10 px-2.5 mb-3 flex justify-between items-center rounded-lg border-2 border-h-1 dark:border-f-8 text-xs bg-h-1/20 dark:bg-f-8/20">
-                    <div className="flex items-center">
-                      <i className="text-sm text-h-1 dark:text-f-8 fa-regular fa-bell"></i>
-                      <div className="ml-2">
-                        문의해주셔서 감사합니다. 빠른 시일내에 답변
-                        드리겠습니다.
-                      </div>
-                    </div>
-                    <div
-                      onClick={handleIssueClose}
-                      className="flex justify-center items-center cursor-pointer"
-                    >
-                      <i className="text-sm fa-solid fa-xmark"></i>
+          <div id="is-issued" className="w-full">
+            {isIssued === "success" ? (
+              <>
+                <div className="w-full h-10 px-2.5 mb-3 flex justify-between items-center rounded-lg border-2 border-h-1 dark:border-f-8 text-xs bg-h-1/20 dark:bg-f-8/20">
+                  <div className="flex items-center">
+                    <i className="text-sm text-h-1 dark:text-f-8 fa-regular fa-bell"></i>
+                    <div className="ml-2">
+                      문의해주셔서 감사합니다. 빠른 시일내에 답변 드리겠습니다.
                     </div>
                   </div>
-                </>
-              ) : isIssued === "fail" ? (
-                <>
-                  <div className="w-full h-10 px-2.5 mb-3 flex justify-between items-center rounded-lg border-2 border-h-r text-xs bg-h-r/20">
-                    <div className="flex items-center">
-                      <i className="text-sm text-h-r fa-regular fa-bell"></i>
-                      <div className="ml-2">
-                        문의를 전송하는데 실패했습니다. 잠시 후 다시 시도해
-                        주세요.
-                      </div>
-                    </div>
-                    <div
-                      onClick={handleIssueClose}
-                      className="flex justify-center items-center cursor-pointer"
-                    >
-                      <i className="text-sm fa-solid fa-xmark"></i>
-                    </div>
-                  </div>
-                </>
-              ) : (
-                <></>
-              )}
-            </div>
-            <div className="w-full p-5 rounded-lg bg-l-e dark:bg-d-3 drop-shadow-default dark:drop-shadow-dark">
-              <div className="flex flex-col">
-                <SelectBox
-                  title="문의 유형"
-                  icon="bi-send"
-                  value="issue"
-                  select={option}
-                  options={[
-                    { value: "font", name: "폰트 관련 제보" },
-                    { value: "bug", name: "버그 관련 제보" },
-                    { value: "etc", name: "기타 문의 사항" },
-                  ]}
-                  optionChange={handleOptionChange}
-                />
-                <TextInput
-                  onchange={handleTitleChange}
-                  state={titleAlert}
-                  stateMsg={[
-                    { state: "", msg: "" },
-                    { state: "empty", msg: "제목을 입력해 주세요." },
-                  ]}
-                  id="title"
-                  tabindex={1}
-                  placeholder="제목을 입력해 주세요."
-                  label="제목"
-                  marginTop={2}
-                />
-                <TextInput
-                  onchange={handleEmailChange}
-                  state={emailAlert}
-                  stateMsg={[
-                    { state: "", msg: "" },
-                    { state: "empty", msg: "이메일을 입력해 주세요." },
-                    {
-                      state: "invalid",
-                      msg: "올바른 형식의 이메일이 아닙니다.",
-                    },
-                  ]}
-                  id="email"
-                  tabindex={2}
-                  placeholder="빠른 시일내에 답변 드릴게요."
-                  label="이메일"
-                  marginTop={2}
-                />
-                <TextArea
-                  onchange={handleContentChange}
-                  state={contentAlert}
-                  stateMsg={[
-                    { state: "", msg: "" },
-                    { state: "empty", msg: "내용을 입력해 주세요." },
-                  ]}
-                  id="content"
-                  tabindex={3}
-                  placeholder="내용은 최대한 자세하게 적어주세요."
-                  label="내용"
-                  marginTop={2}
-                />
-                <div
-                  className={`${
-                    isDragging
-                      ? "border-h-1 dark:border-f-8 bg-h-1/20 dark:bg-f-8/20 duration-100"
-                      : "border-l-b dark:border-d-6 bg-transparent dark:bg-transparent duration-0"
-                  } w-full mt-4 p-6 rounded-lg flex flex-col justify-center items-center gap-x-2.5 border`}
-                  onDragEnter={onDragEnter}
-                  onDragLeave={onDragLeave}
-                  onDragOver={onDragOver}
-                  onDrop={onDrop}
-                >
-                  <i className="text-3xl text-l-5 dark:text-d-c bi bi-image"></i>
-                  <label
-                    htmlFor="file"
-                    className="mt-2 text-sm text-h-1 dark:text-f-8 font-medium hover:underline tlg:hover:no-underline cursor-pointer"
+                  <div
+                    onClick={handleIssueClose}
+                    className="flex justify-center items-center cursor-pointer"
                   >
-                    파일 첨부
-                  </label>
-                  <input
-                    onChange={uploadImg}
-                    accept="image/*"
-                    id="file"
-                    type="file"
-                    multiple
-                    className="hidden"
-                  />
-                  <div className="mt-1.5 text-sm text-l-5 dark:text-d-c">
-                    또는 첨부 파일 드래그
+                    <i className="text-sm fa-solid fa-xmark"></i>
                   </div>
-                  {imgs.length > 0 ? (
-                    <div className="w-full mt-5 p-3 border border-l-b dark:border-d-6 rounded-lg flex flex-wrap justify-center gap-2">
-                      {imgs.map((img: any, index: number) => {
-                        return (
-                          <div className="w-max relative" key={img.index}>
-                            <div className="w-24 h-28 relative">
-                              <Image
-                                src={img.src}
-                                alt="Preview image"
-                                fill
-                                sizes="100%"
-                                priority
-                                referrerPolicy="no-referrer"
-                                className="object-cover rounded-lg"
-                              />
-                            </div>
-                            <button
-                              onClick={() => deleteImg(img.index, index)}
-                              className="w-5 h-5 rounded-full absolute right-1.5 top-1.5 flex justify-center items-center bg-h-1 dark:bg-f-8 hover:bg-h-0 hover:dark:bg-f-9 tlg:hover:bg-h-1 tlg:hover:dark:bg-f-8"
-                            >
-                              <i className="text-sm text-white dark:text-d-2 fa-solid fa-xmark"></i>
-                            </button>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  ) : (
-                    <></>
-                  )}
                 </div>
-                {imgAlert ? (
-                  <div className="w-full h-10 px-2.5 mt-3 flex justify-between items-center rounded-lg border-2 border-h-r text-xs text-l-2 dark:text-white bg-h-r/20">
-                    <div className="flex flex-row justify-start items-center">
-                      <i className="text-sm text-h-r fa-regular fa-bell"></i>
-                      <div className="ml-2">
-                        파일은 최대 5개까지만 올릴 수 있습니다.
-                      </div>
+              </>
+            ) : isIssued === "fail" ? (
+              <>
+                <div className="w-full h-10 px-2.5 mb-3 flex justify-between items-center rounded-lg border-2 border-h-r text-xs bg-h-r/20">
+                  <div className="flex items-center">
+                    <i className="text-sm text-h-r fa-regular fa-bell"></i>
+                    <div className="ml-2">
+                      문의를 전송하는데 실패했습니다. 잠시 후 다시 시도해
+                      주세요.
                     </div>
-                    <div
-                      onClick={imgAlertClose}
-                      className="flex justify-center items-center cursor-pointer"
-                    >
-                      <i className="text-sm text-l-2 dark:text-white fa-solid fa-xmark"></i>
-                    </div>
+                  </div>
+                  <div
+                    onClick={handleIssueClose}
+                    className="flex justify-center items-center cursor-pointer"
+                  >
+                    <i className="text-sm fa-solid fa-xmark"></i>
+                  </div>
+                </div>
+              </>
+            ) : (
+              <></>
+            )}
+          </div>
+          <div className="w-full p-5 rounded-lg bg-l-e dark:bg-d-3 drop-shadow-default dark:drop-shadow-dark">
+            <div className="flex flex-col">
+              <SelectBox
+                title="문의 유형"
+                icon="bi-send"
+                value="issue"
+                select={option}
+                options={[
+                  { value: "font", name: "폰트 관련 제보" },
+                  { value: "bug", name: "버그 관련 제보" },
+                  { value: "etc", name: "기타 문의 사항" },
+                ]}
+                optionChange={handleOptionChange}
+              />
+              <TextInput
+                onchange={handleTitleChange}
+                state={titleAlert}
+                stateMsg={[
+                  { state: "", msg: "" },
+                  { state: "empty", msg: "제목을 입력해 주세요." },
+                ]}
+                id="title"
+                tabindex={1}
+                placeholder="제목을 입력해 주세요."
+                label="제목"
+                marginTop={2}
+              />
+              <TextInput
+                onchange={handleEmailChange}
+                state={emailAlert}
+                stateMsg={[
+                  { state: "", msg: "" },
+                  { state: "empty", msg: "이메일을 입력해 주세요." },
+                  {
+                    state: "invalid",
+                    msg: "올바른 형식의 이메일이 아닙니다.",
+                  },
+                ]}
+                id="email"
+                tabindex={2}
+                placeholder="빠른 시일내에 답변 드릴게요."
+                label="이메일"
+                marginTop={2}
+              />
+              <TextArea
+                onchange={handleContentChange}
+                state={contentAlert}
+                stateMsg={[
+                  { state: "", msg: "" },
+                  { state: "empty", msg: "내용을 입력해 주세요." },
+                ]}
+                id="content"
+                tabindex={3}
+                placeholder="내용은 최대한 자세하게 적어주세요."
+                label="내용"
+                marginTop={2}
+              />
+              <div
+                className={`${
+                  isDragging
+                    ? "border-h-1 dark:border-f-8 bg-h-1/20 dark:bg-f-8/20 duration-100"
+                    : "border-l-b dark:border-d-6 bg-transparent dark:bg-transparent duration-0"
+                } w-full mt-4 p-6 rounded-lg flex flex-col justify-center items-center gap-x-2.5 border`}
+                onDragEnter={onDragEnter}
+                onDragLeave={onDragLeave}
+                onDragOver={onDragOver}
+                onDrop={onDrop}
+              >
+                <i className="text-3xl text-l-5 dark:text-d-c bi bi-image"></i>
+                <label
+                  htmlFor="file"
+                  className="mt-2 text-sm text-h-1 dark:text-f-8 font-medium hover:underline tlg:hover:no-underline cursor-pointer"
+                >
+                  파일 첨부
+                </label>
+                <input
+                  onChange={uploadImg}
+                  accept="image/*"
+                  id="file"
+                  type="file"
+                  multiple
+                  className="hidden"
+                />
+                <div className="mt-1.5 text-sm text-l-5 dark:text-d-c">
+                  또는 첨부 파일 드래그
+                </div>
+                {imgs.length > 0 ? (
+                  <div className="w-full mt-5 p-3 border border-l-b dark:border-d-6 rounded-lg flex flex-wrap justify-center gap-2">
+                    {imgs.map((img: any, index: number) => {
+                      return (
+                        <div className="w-max relative" key={img.index}>
+                          <div className="w-24 h-28 relative">
+                            <Image
+                              src={img.src}
+                              alt="Preview image"
+                              fill
+                              sizes="100%"
+                              priority
+                              referrerPolicy="no-referrer"
+                              className="object-cover rounded-lg"
+                            />
+                          </div>
+                          <button
+                            onClick={() => deleteImg(img.index, index)}
+                            className="w-5 h-5 rounded-full absolute right-1.5 top-1.5 flex justify-center items-center bg-h-1 dark:bg-f-8 hover:bg-h-0 hover:dark:bg-f-9 tlg:hover:bg-h-1 tlg:hover:dark:bg-f-8"
+                          >
+                            <i className="text-sm text-white dark:text-d-2 fa-solid fa-xmark"></i>
+                          </button>
+                        </div>
+                      );
+                    })}
                   </div>
                 ) : (
                   <></>
                 )}
-                <div className="w-full flex justify-start items-center mt-3 text-xs text-l-5 dark:text-d-c">
-                  <i className="text-xs mr-2 text-h-1 dark:text-f-8 fa-regular fa-bell"></i>
-                  <div>파일은 최대 다섯개까지만 올릴 수 있습니다.</div>
-                </div>
-                <div className="w-full flex justify-start items-center mt-1 text-xs text-l-5 dark:text-d-c">
-                  <i className="text-xs mr-2 text-h-1 dark:text-f-8 fa-regular fa-bell"></i>
-                  <div>이미지 파일만 첨부 가능합니다.</div>
-                </div>
               </div>
-              <Button marginTop={1.25}>
-                <button onClick={handleSubmit} className="w-full h-full">
-                  {isLoading === true ? (
-                    <span className="loader border-2 border-h-e dark:border-d-6 border-b-h-1 dark:border-b-f-8 w-4 h-4"></span>
-                  ) : (
-                    "제출하기"
-                  )}
-                </button>
-              </Button>
+              {imgAlert ? (
+                <div className="w-full h-10 px-2.5 mt-3 flex justify-between items-center rounded-lg border-2 border-h-r text-xs text-l-2 dark:text-white bg-h-r/20">
+                  <div className="flex flex-row justify-start items-center">
+                    <i className="text-sm text-h-r fa-regular fa-bell"></i>
+                    <div className="ml-2">
+                      파일은 최대 5개까지만 올릴 수 있습니다.
+                    </div>
+                  </div>
+                  <div
+                    onClick={imgAlertClose}
+                    className="flex justify-center items-center cursor-pointer"
+                  >
+                    <i className="text-sm text-l-2 dark:text-white fa-solid fa-xmark"></i>
+                  </div>
+                </div>
+              ) : (
+                <></>
+              )}
+              <div className="w-full flex justify-start items-center mt-3 text-xs text-l-5 dark:text-d-c">
+                <i className="text-xs mr-2 text-h-1 dark:text-f-8 fa-regular fa-bell"></i>
+                <div>파일은 최대 다섯개까지만 올릴 수 있습니다.</div>
+              </div>
+              <div className="w-full flex justify-start items-center mt-1 text-xs text-l-5 dark:text-d-c">
+                <i className="text-xs mr-2 text-h-1 dark:text-f-8 fa-regular fa-bell"></i>
+                <div>이미지 파일만 첨부 가능합니다.</div>
+              </div>
             </div>
+            <Button marginTop={1.25}>
+              <button onClick={handleSubmit} className="w-full h-full">
+                {isLoading === true ? (
+                  <span className="loader border-2 border-h-e dark:border-d-6 border-b-h-1 dark:border-b-f-8 w-4 h-4"></span>
+                ) : (
+                  "제출하기"
+                )}
+              </button>
+            </Button>
+          </div>
 
-            {/* Google AdSense */}
-            <div className="w-full flex">
-              <AdSense
-                pc={{
-                  style: "display: inline-block; width: 728px; height: 90px;",
-                  client: "ca-pub-7819549426971576",
-                  slot: "3707368535",
-                }}
-                mobile={{
-                  style: "display: inline-block; width: 300px; height: 100px;",
-                  client: "ca-pub-7819549426971576",
-                  slot: "1032069893",
-                }}
-                marginTop={1.5}
-              />
-            </div>
+          {/* Google AdSense */}
+          <div className="w-full flex">
+            <AdSense
+              pc={{
+                style: "display: inline-block; width: 728px; height: 90px;",
+                client: "ca-pub-7819549426971576",
+                slot: "3707368535",
+              }}
+              mobile={{
+                style: "display: inline-block; width: 300px; height: 100px;",
+                client: "ca-pub-7819549426971576",
+                slot: "1032069893",
+              }}
+              marginTop={1.5}
+            />
           </div>
         </div>
-      </Motion>
+      </div>
 
       {/* 풋터 */}
       <Footer />

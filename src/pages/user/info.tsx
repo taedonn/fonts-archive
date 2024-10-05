@@ -21,7 +21,6 @@ import ChangePwModal from "@/components/changepwmodal";
 import DeleteUserModal from "@/components/deleteusermodal";
 import Footer from "@/components/footer";
 import Header from "@/components/header";
-import Motion from "@/components/motion";
 
 // common
 import { timeFormat } from "@/libs/common";
@@ -351,68 +350,76 @@ const Info = ({ params }: any) => {
       <Header isMac={isMac} theme={theme} user={params.user} />
 
       {/* 메인 */}
-      <Motion
-        initialOpacity={0}
-        animateOpacity={1}
-        exitOpacity={0}
-        transitionType="spring"
+      <form
+        onSubmit={(e) => e.preventDefault()}
+        className="w-full flex flex-col justify-center items-center text-l-2 dark:text-white"
       >
-        <form
-          onSubmit={(e) => e.preventDefault()}
-          className="w-full flex flex-col justify-center items-center text-l-2 dark:text-white"
-        >
-          {/* Google AdSense */}
-          <div className="hidden lg:flex fixed left-8 top-40">
-            <AdSense
-              pc={{
-                style: "display: inline-block; width: 160px; height: 600px;",
-                client: "ca-pub-7819549426971576",
-                slot: "3299140583",
-              }}
-              mobile={{
-                style: "display: inline-block; width: 160px; height: 600px;",
-                client: "ca-pub-7819549426971576",
-                slot: "3299140583",
-              }}
-              marginLeft={2}
-            />
-          </div>
+        {/* Google AdSense */}
+        <div className="hidden lg:flex fixed left-8 top-40">
+          <AdSense
+            pc={{
+              style: "display: inline-block; width: 160px; height: 600px;",
+              client: "ca-pub-7819549426971576",
+              slot: "3299140583",
+            }}
+            mobile={{
+              style: "display: inline-block; width: 160px; height: 600px;",
+              client: "ca-pub-7819549426971576",
+              slot: "3299140583",
+            }}
+            marginLeft={2}
+          />
+        </div>
 
-          {/* Google AdSense */}
-          <div className="hidden lg:flex fixed right-8 top-40">
-            <AdSense
-              pc={{
-                style: "display: inline-block; width: 160px; height: 600px;",
-                client: "ca-pub-7819549426971576",
-                slot: "3299140583",
-              }}
-              mobile={{
-                style: "display: inline-block; width: 160px; height: 600px;",
-                client: "ca-pub-7819549426971576",
-                slot: "3299140583",
-              }}
-              marginRight={2}
-            />
+        {/* Google AdSense */}
+        <div className="hidden lg:flex fixed right-8 top-40">
+          <AdSense
+            pc={{
+              style: "display: inline-block; width: 160px; height: 600px;",
+              client: "ca-pub-7819549426971576",
+              slot: "3299140583",
+            }}
+            mobile={{
+              style: "display: inline-block; width: 160px; height: 600px;",
+              client: "ca-pub-7819549426971576",
+              slot: "3299140583",
+            }}
+            marginRight={2}
+          />
+        </div>
+        <div className="w-[22.5rem] flex flex-col justify-center items-start my-16 lg:my-24 mt-8 lg:mt-16">
+          <h2 className="text-2xl font-bold mb-6">프로필 정보</h2>
+          <div className="w-full flex items-end gap-3 mb-3">
+            {user.auth === "credentials" ? (
+              <div className="text-sm text-l-5 dark:text-d-c">
+                {timeFormat(user.updated_at)}에 마지막으로 수정됨
+              </div>
+            ) : (
+              <div className="text-sm text-l-5 dark:text-d-c">
+                {timeFormat(user.created_at)}에 생성됨
+              </div>
+            )}
           </div>
-          <div className="w-[22.5rem] flex flex-col justify-center items-start my-16 lg:my-24 mt-8 lg:mt-16">
-            <h2 className="text-2xl font-bold mb-6">프로필 정보</h2>
-            <div className="w-full flex items-end gap-3 mb-3">
-              {user.auth === "credentials" ? (
-                <div className="text-sm text-l-5 dark:text-d-c">
-                  {timeFormat(user.updated_at)}에 마지막으로 수정됨
+          {alertDisplay ? (
+            alert === "name" ? (
+              <div className="w-full h-10 px-2.5 mb-3 flex justify-between items-center rounded-lg border-2 border-h-1 dark:border-f-8 text-xs bg-h-1/20 dark:bg-f-8/20">
+                <div className="flex items-center">
+                  <i className="text-sm text-h-1 dark:text-f-8 fa-regular fa-bell"></i>
+                  <div className="ml-2">이름이 변경되었습니다.</div>
                 </div>
-              ) : (
-                <div className="text-sm text-l-5 dark:text-d-c">
-                  {timeFormat(user.created_at)}에 생성됨
+                <div
+                  onClick={handleAlertClose}
+                  className="flex justify-center items-center cursor-pointer"
+                >
+                  <i className="text-sm fa-solid fa-xmark"></i>
                 </div>
-              )}
-            </div>
-            {alertDisplay ? (
-              alert === "name" ? (
+              </div>
+            ) : alert === "pw" ? (
+              <>
                 <div className="w-full h-10 px-2.5 mb-3 flex justify-between items-center rounded-lg border-2 border-h-1 dark:border-f-8 text-xs bg-h-1/20 dark:bg-f-8/20">
                   <div className="flex items-center">
                     <i className="text-sm text-h-1 dark:text-f-8 fa-regular fa-bell"></i>
-                    <div className="ml-2">이름이 변경되었습니다.</div>
+                    <div className="ml-2">비밀번호가 변경되었습니다.</div>
                   </div>
                   <div
                     onClick={handleAlertClose}
@@ -421,311 +428,294 @@ const Info = ({ params }: any) => {
                     <i className="text-sm fa-solid fa-xmark"></i>
                   </div>
                 </div>
-              ) : alert === "pw" ? (
-                <>
-                  <div className="w-full h-10 px-2.5 mb-3 flex justify-between items-center rounded-lg border-2 border-h-1 dark:border-f-8 text-xs bg-h-1/20 dark:bg-f-8/20">
-                    <div className="flex items-center">
-                      <i className="text-sm text-h-1 dark:text-f-8 fa-regular fa-bell"></i>
-                      <div className="ml-2">비밀번호가 변경되었습니다.</div>
+              </>
+            ) : (
+              <></>
+            )
+          ) : (
+            <></>
+          )}
+          <div className="w-full p-5 rounded-lg bg-l-e dark:bg-d-3 drop-shadow-default dark:drop-shadow-dark">
+            {user.auth !== "credentials" && (
+              <div className="text-xs lg:text-sm h-8 lg:h-10 px-3 mb-4 flex items-center rounded-lg border-2 border-h-1 dark:border-f-8 bg-h-1/20 dark:bg-f-8/20">
+                <div className="mr-0.5 font-bold">
+                  [
+                  {user.auth === "google"
+                    ? "Google"
+                    : user.auth === "kakao"
+                    ? "카카오"
+                    : user.auth === "github"
+                    ? "GitHub"
+                    : user.auth === "naver"
+                    ? "네이버"
+                    : ""}
+                  ]
+                </div>
+                에서 연동 중
+              </div>
+            )}
+            <div className="flex items-center">
+              <div ref={refImg} className="relative">
+                <input
+                  className="peer hidden"
+                  id="profile-img"
+                  type="checkbox"
+                />
+                <label
+                  className="w-14 h-14 block relative cursor-pointer overflow-hidden"
+                  htmlFor="profile-img"
+                >
+                  {!isImgLoading ? (
+                    <Image
+                      src={
+                        user.auth !== "credentials" && isProtected
+                          ? user.public_img
+                          : profileImg
+                      }
+                      alt="Profile image"
+                      fill
+                      sizes="100%"
+                      priority
+                      referrerPolicy="no-referrer"
+                      className="object-cover rounded-full"
+                    />
+                  ) : (
+                    <div className="w-full h-full rounded-full flex items-center bg-l-d dark:bg-d-4">
+                      <div className="img-loader"></div>
                     </div>
-                    <div
-                      onClick={handleAlertClose}
-                      className="flex justify-center items-center cursor-pointer"
+                  )}
+                  {user.auth === "credentials" && (
+                    <div className="w-5 h-[1.125rem] flex justify-center items-center absolute z-10 left-0.5 bottom-0.5 rounded-md bg-h-1 dark:bg-f-8 text-white dark:text-d-2">
+                      <i className="text-[0.625rem] fa-solid fa-pen"></i>
+                    </div>
+                  )}
+                </label>
+                {user.auth === "credentials" && (
+                  <div
+                    ref={refImgPopup}
+                    className='w-max hidden peer-checked:block absolute left-[1.875rem] -bottom-2.5 -translate-x-1/2 translate-y-full rounded-lg after:content-[""] after:w-2 after:h-2 after:absolute after:left-1/4 after:-top-1 after:-translate-x-1/2 after:rotate-45 drop-shadow-default dark:drop-shadow-dark bg-l-d dark:bg-d-4 dark:text-white after:bg-l-d after:dark:bg-d-4'
+                  >
+                    <div className="flex">
+                      <input
+                        onChange={changeImg}
+                        className="hidden"
+                        type="file"
+                        accept="image/*"
+                        id="profile-img-upload"
+                      />
+                      <label
+                        className="w-full relative z-10 text-xs leading-none rounded-t-lg pl-3 pr-3.5 pt-2.5 pb-2 hover:bg-h-1 hover:dark:bg-f-8 lg:hover:text-white hover:dark:text-d-2 cursor-pointer"
+                        htmlFor="profile-img-upload"
+                      >
+                        사진 변경
+                      </label>
+                    </div>
+                    <button
+                      onClick={deleteImg}
+                      className="w-full text-xs leading-none rounded-b-lg pl-3 pr-3.5 pt-2 pb-2.5 hover:bg-h-1 hover:dark:bg-f-8 lg:hover:text-white hover:dark:text-d-2 cursor-pointer"
                     >
-                      <i className="text-sm fa-solid fa-xmark"></i>
+                      사진 제거
+                    </button>
+                  </div>
+                )}
+              </div>
+              <div className="ml-4">
+                <h2 className="mr-px font-bold">프로필 이미지</h2>
+                <div className="mt-1.5 text-xs font-normal leading-none break-keep text-l-5 dark:text-d-c">
+                  {user.auth === "credentials" ? (
+                    <>
+                      <h3 className="flex mb-0.5 leading-normal">
+                        <div className="w-0.5 h-0.5 mr-1 mt-2 rounded-full bg-l-5 dark:bg-d-c"></div>
+                        500px보다 큰 이미지는 축소되어 업로드됩니다.
+                      </h3>
+                      <h3 className="flex leading-normal">
+                        <div className="w-0.5 h-0.5 mr-1 mt-2 shrink-0 rounded-full bg-l-5 dark:bg-d-c"></div>
+                        업로드된 이미지는 다음 로그인부터 적용됩니다.
+                      </h3>
+                    </>
+                  ) : (
+                    <>
+                      <h3 className="flex leading-normal">
+                        <div className="w-0.5 h-0.5 mr-1 mt-2 shrink-0 rounded-full bg-l-5 dark:bg-d-c"></div>
+                        SNS 계정의 프로필 이미지가 표시됩니다.
+                      </h3>
+                      <h3 className="flex leading-normal">
+                        <div className="w-0.5 h-0.5 mr-1 mt-2 shrink-0 rounded-full bg-l-5 dark:bg-d-c"></div>
+                        사생활 보호 중일 시, 랜덤 이미지가 표시됩니다.
+                      </h3>
+                    </>
+                  )}
+                </div>
+              </div>
+            </div>
+            {isImgError && (
+              <span className="block text-xs text-h-r mt-3">
+                이미지 업로드에 실패했습니다. 잠시 후 다시 시도해 주세요.
+              </span>
+            )}
+            {user.auth !== "credentials" && (
+              <>
+                <h2 className="mt-8 font-medium">사생활 보호</h2>
+                <div className="mt-1.5 text-xs text-l-5 dark:text-d-c">
+                  <div className="flex items-start leading-normal">
+                    <div className="w-0.5 h-0.5 mr-1 mt-2 shrink-0 rounded-full bg-l-5 dark:bg-d-c"></div>
+                    프로필 이미지와 이름을 숨깁니다.
+                  </div>
+                  <div className="flex items-start leading-normal">
+                    <div className="w-0.5 h-0.5 mr-1 mt-2 shrink-0 rounded-full bg-l-5 dark:bg-d-c"></div>
+                    변경 시, 다음 로그인부터 적용됩니다.
+                  </div>
+                </div>
+                <div className="mt-2 flex gap-4 items-center">
+                  <div className="w-max h-12 rounded-lg px-6 flex items-center text-sm bg-l-d dark:bg-d-4">
+                    <div className="mr-3">미보호</div>
+                    <Switch
+                      checked={isProtected}
+                      onChange={handlePrivacyChange}
+                      size="small"
+                    />
+                    <div
+                      className={`${
+                        isProtected ? "text-h-1 dark:text-f-8" : ""
+                      } ml-3`}
+                    >
+                      보호중
                     </div>
                   </div>
-                </>
-              ) : (
-                <></>
-              )
+                  {isProtectionLoading ? (
+                    <span className="loader w-4 h-4 border-2 border-l-b dark:border-d-6 border-b-h-1 dark:border-b-f-8"></span>
+                  ) : !isProtectionLoading && initialProtectionDisplay ? (
+                    <div
+                      id="update-privacy"
+                      className="animate-fade-in-time-out text-xs text-h-1 dark:text-f-8"
+                    >
+                      <i className="mr-1.5 fa-solid fa-check"></i>
+                      업데이트 성공
+                    </div>
+                  ) : (
+                    <></>
+                  )}
+                </div>
+              </>
+            )}
+            <div className="w-full h-px bg-l-b dark:bg-d-6 my-6"></div>
+            <label htmlFor="name" className="block font-medium ml-px">
+              이름
+            </label>
+            {user.auth === "credentials" ? (
+              <div className="w-full flex justify-between items-center mt-2">
+                <input
+                  onChange={handleNameChange}
+                  onKeyDown={handleNameEnter}
+                  type="text"
+                  id="name"
+                  tabIndex={1}
+                  autoComplete="on"
+                  defaultValue={user.user_name}
+                  placeholder="홍길동"
+                  className={`${
+                    nameChk === ""
+                      ? "border-l-d dark:border-d-4 focus:border-h-1 focus:dark:border-f-8"
+                      : "border-h-r focus:border-h-r"
+                  } w-[calc(100%-84px)] text-sm px-3.5 py-3 rounded-lg border-2 placeholder-l-5 dark:placeholder-d-c bg-l-d dark:bg-d-4`}
+                />
+                <div className="w-[4.75rem]">
+                  <Button>
+                    <button
+                      onClick={handleNameClick}
+                      className="w-full h-full flex justify-center items-center text-sm"
+                    >
+                      {isLoading === true ? (
+                        <span className="loader border-2 border-h-e dark:border-d-6 border-b-h-1 dark:border-b-f-8 w-4 h-4"></span>
+                      ) : (
+                        "변경하기"
+                      )}
+                    </button>
+                  </Button>
+                </div>
+              </div>
+            ) : (
+              <div className="w-full text-sm mt-2 px-3.5 py-3 rounded-lg border-2 placeholder-l-5 dark:placeholder-d-c border-l-d dark:border-d-4 bg-l-d dark:bg-d-4 cursor-default">
+                {user.user_name}
+              </div>
+            )}
+            {nameChk === "empty" ? (
+              <span className="block text-xs text-h-r mt-2 ml-4">
+                이름을 입력해 주세요.
+              </span>
+            ) : nameChk === "exists" ? (
+              <span className="block text-xs text-h-r mt-2 ml-4">
+                이미 사용중인 이름입니다.
+              </span>
             ) : (
               <></>
             )}
-            <div className="w-full p-5 rounded-lg bg-l-e dark:bg-d-3 drop-shadow-default dark:drop-shadow-dark">
-              {user.auth !== "credentials" && (
-                <div className="text-xs lg:text-sm h-8 lg:h-10 px-3 mb-4 flex items-center rounded-lg border-2 border-h-1 dark:border-f-8 bg-h-1/20 dark:bg-f-8/20">
-                  <div className="mr-0.5 font-bold">
-                    [
-                    {user.auth === "google"
-                      ? "Google"
-                      : user.auth === "kakao"
-                      ? "카카오"
-                      : user.auth === "github"
-                      ? "GitHub"
-                      : user.auth === "naver"
-                      ? "네이버"
-                      : ""}
-                    ]
-                  </div>
-                  에서 연동 중
-                </div>
-              )}
-              <div className="flex items-center">
-                <div ref={refImg} className="relative">
-                  <input
-                    className="peer hidden"
-                    id="profile-img"
-                    type="checkbox"
-                  />
-                  <label
-                    className="w-14 h-14 block relative cursor-pointer overflow-hidden"
-                    htmlFor="profile-img"
-                  >
-                    {!isImgLoading ? (
-                      <Image
-                        src={
-                          user.auth !== "credentials" && isProtected
-                            ? user.public_img
-                            : profileImg
-                        }
-                        alt="Profile image"
-                        fill
-                        sizes="100%"
-                        priority
-                        referrerPolicy="no-referrer"
-                        className="object-cover rounded-full"
-                      />
-                    ) : (
-                      <div className="w-full h-full rounded-full flex items-center bg-l-d dark:bg-d-4">
-                        <div className="img-loader"></div>
-                      </div>
-                    )}
-                    {user.auth === "credentials" && (
-                      <div className="w-5 h-[1.125rem] flex justify-center items-center absolute z-10 left-0.5 bottom-0.5 rounded-md bg-h-1 dark:bg-f-8 text-white dark:text-d-2">
-                        <i className="text-[0.625rem] fa-solid fa-pen"></i>
-                      </div>
-                    )}
-                  </label>
-                  {user.auth === "credentials" && (
-                    <div
-                      ref={refImgPopup}
-                      className='w-max hidden peer-checked:block absolute left-[1.875rem] -bottom-2.5 -translate-x-1/2 translate-y-full rounded-lg after:content-[""] after:w-2 after:h-2 after:absolute after:left-1/4 after:-top-1 after:-translate-x-1/2 after:rotate-45 drop-shadow-default dark:drop-shadow-dark bg-l-d dark:bg-d-4 dark:text-white after:bg-l-d after:dark:bg-d-4'
-                    >
-                      <div className="flex">
-                        <input
-                          onChange={changeImg}
-                          className="hidden"
-                          type="file"
-                          accept="image/*"
-                          id="profile-img-upload"
-                        />
-                        <label
-                          className="w-full relative z-10 text-xs leading-none rounded-t-lg pl-3 pr-3.5 pt-2.5 pb-2 hover:bg-h-1 hover:dark:bg-f-8 lg:hover:text-white hover:dark:text-d-2 cursor-pointer"
-                          htmlFor="profile-img-upload"
-                        >
-                          사진 변경
-                        </label>
-                      </div>
-                      <button
-                        onClick={deleteImg}
-                        className="w-full text-xs leading-none rounded-b-lg pl-3 pr-3.5 pt-2 pb-2.5 hover:bg-h-1 hover:dark:bg-f-8 lg:hover:text-white hover:dark:text-d-2 cursor-pointer"
-                      >
-                        사진 제거
-                      </button>
-                    </div>
-                  )}
-                </div>
-                <div className="ml-4">
-                  <h2 className="mr-px font-bold">프로필 이미지</h2>
-                  <div className="mt-1.5 text-xs font-normal leading-none break-keep text-l-5 dark:text-d-c">
-                    {user.auth === "credentials" ? (
-                      <>
-                        <h3 className="flex mb-0.5 leading-normal">
-                          <div className="w-0.5 h-0.5 mr-1 mt-2 rounded-full bg-l-5 dark:bg-d-c"></div>
-                          500px보다 큰 이미지는 축소되어 업로드됩니다.
-                        </h3>
-                        <h3 className="flex leading-normal">
-                          <div className="w-0.5 h-0.5 mr-1 mt-2 shrink-0 rounded-full bg-l-5 dark:bg-d-c"></div>
-                          업로드된 이미지는 다음 로그인부터 적용됩니다.
-                        </h3>
-                      </>
-                    ) : (
-                      <>
-                        <h3 className="flex leading-normal">
-                          <div className="w-0.5 h-0.5 mr-1 mt-2 shrink-0 rounded-full bg-l-5 dark:bg-d-c"></div>
-                          SNS 계정의 프로필 이미지가 표시됩니다.
-                        </h3>
-                        <h3 className="flex leading-normal">
-                          <div className="w-0.5 h-0.5 mr-1 mt-2 shrink-0 rounded-full bg-l-5 dark:bg-d-c"></div>
-                          사생활 보호 중일 시, 랜덤 이미지가 표시됩니다.
-                        </h3>
-                      </>
-                    )}
+            <div className="block font-medium mt-8 ml-px">아이디</div>
+            <div className="w-full text-sm mt-2 px-3.5 py-3 rounded-lg border-2 border-transparent text-l-2 dark:text-white bg-l-d dark:bg-d-4 cursor-default">
+              {user.user_id}
+            </div>
+            {user.auth === "credentials" && (
+              <>
+                <div className="w-full h-px bg-l-b dark:bg-d-6 my-6"></div>
+                <h2 className="font-medium text-l-2 dark:text-white mb-2">
+                  비밀번호 변경
+                </h2>
+                <div className="w-full flex justify-start items-start mb-1.5 text-xs text-l-5 dark:text-d-c">
+                  <i className="text-xs mr-2 text-h-1 dark:text-f-8 fa-regular fa-bell"></i>
+                  <div>
+                    영문, 숫자, 특수문자 포함 8~20자를 조합해 만들어 주세요.
                   </div>
                 </div>
-              </div>
-              {isImgError && (
-                <span className="block text-xs text-h-r mt-3">
-                  이미지 업로드에 실패했습니다. 잠시 후 다시 시도해 주세요.
-                </span>
-              )}
-              {user.auth !== "credentials" && (
-                <>
-                  <h2 className="mt-8 font-medium">사생활 보호</h2>
-                  <div className="mt-1.5 text-xs text-l-5 dark:text-d-c">
-                    <div className="flex items-start leading-normal">
-                      <div className="w-0.5 h-0.5 mr-1 mt-2 shrink-0 rounded-full bg-l-5 dark:bg-d-c"></div>
-                      프로필 이미지와 이름을 숨깁니다.
-                    </div>
-                    <div className="flex items-start leading-normal">
-                      <div className="w-0.5 h-0.5 mr-1 mt-2 shrink-0 rounded-full bg-l-5 dark:bg-d-c"></div>
-                      변경 시, 다음 로그인부터 적용됩니다.
-                    </div>
-                  </div>
-                  <div className="mt-2 flex gap-4 items-center">
-                    <div className="w-max h-12 rounded-lg px-6 flex items-center text-sm bg-l-d dark:bg-d-4">
-                      <div className="mr-3">미보호</div>
-                      <Switch
-                        checked={isProtected}
-                        onChange={handlePrivacyChange}
-                        size="small"
-                      />
-                      <div
-                        className={`${
-                          isProtected ? "text-h-1 dark:text-f-8" : ""
-                        } ml-3`}
-                      >
-                        보호중
-                      </div>
-                    </div>
-                    {isProtectionLoading ? (
-                      <span className="loader w-4 h-4 border-2 border-l-b dark:border-d-6 border-b-h-1 dark:border-b-f-8"></span>
-                    ) : !isProtectionLoading && initialProtectionDisplay ? (
-                      <div
-                        id="update-privacy"
-                        className="animate-fade-in-time-out text-xs text-h-1 dark:text-f-8"
-                      >
-                        <i className="mr-1.5 fa-solid fa-check"></i>
-                        업데이트 성공
-                      </div>
-                    ) : (
-                      <></>
-                    )}
-                  </div>
-                </>
-              )}
-              <div className="w-full h-px bg-l-b dark:bg-d-6 my-6"></div>
-              <label htmlFor="name" className="block font-medium ml-px">
-                이름
-              </label>
-              {user.auth === "credentials" ? (
+                <div className="w-full flex justify-start items-start mb-3 text-xs text-l-5 dark:text-d-c">
+                  <i className="text-xs mr-2 text-h-1 dark:text-f-8 fa-regular fa-bell"></i>
+                  <div>비밀번호 변경 완료 시, 비밀번호는 즉시 변경됩니다.</div>
+                </div>
                 <div className="w-full flex justify-between items-center mt-2">
                   <input
-                    onChange={handleNameChange}
-                    onKeyDown={handleNameEnter}
-                    type="text"
-                    id="name"
-                    tabIndex={1}
+                    type="password"
+                    id="pw"
+                    tabIndex={2}
                     autoComplete="on"
-                    defaultValue={user.user_name}
-                    placeholder="홍길동"
-                    className={`${
-                      nameChk === ""
-                        ? "border-l-d dark:border-d-4 focus:border-h-1 focus:dark:border-f-8"
-                        : "border-h-r focus:border-h-r"
-                    } w-[calc(100%-84px)] text-sm px-3.5 py-3 rounded-lg border-2 placeholder-l-5 dark:placeholder-d-c bg-l-d dark:bg-d-4`}
+                    defaultValue={user.user_pw}
+                    disabled
+                    className="text-l-2 dark:text-white w-[calc(100%-84px)] text-sm px-3.5 py-3 rounded-lg border-2 border-transparent bg-l-d dark:bg-d-4"
                   />
                   <div className="w-[4.75rem]">
                     <Button>
                       <button
-                        onClick={handleNameClick}
+                        onClick={handleChangePwModalClick}
                         className="w-full h-full flex justify-center items-center text-sm"
                       >
-                        {isLoading === true ? (
-                          <span className="loader border-2 border-h-e dark:border-d-6 border-b-h-1 dark:border-b-f-8 w-4 h-4"></span>
-                        ) : (
-                          "변경하기"
-                        )}
+                        변경하기
                       </button>
                     </Button>
                   </div>
                 </div>
-              ) : (
-                <div className="w-full text-sm mt-2 px-3.5 py-3 rounded-lg border-2 placeholder-l-5 dark:placeholder-d-c border-l-d dark:border-d-4 bg-l-d dark:bg-d-4 cursor-default">
-                  {user.user_name}
-                </div>
-              )}
-              {nameChk === "empty" ? (
-                <span className="block text-xs text-h-r mt-2 ml-4">
-                  이름을 입력해 주세요.
-                </span>
-              ) : nameChk === "exists" ? (
-                <span className="block text-xs text-h-r mt-2 ml-4">
-                  이미 사용중인 이름입니다.
-                </span>
-              ) : (
-                <></>
-              )}
-              <div className="block font-medium mt-8 ml-px">아이디</div>
-              <div className="w-full text-sm mt-2 px-3.5 py-3 rounded-lg border-2 border-transparent text-l-2 dark:text-white bg-l-d dark:bg-d-4 cursor-default">
-                {user.user_id}
-              </div>
-              {user.auth === "credentials" && (
-                <>
-                  <div className="w-full h-px bg-l-b dark:bg-d-6 my-6"></div>
-                  <h2 className="font-medium text-l-2 dark:text-white mb-2">
-                    비밀번호 변경
-                  </h2>
-                  <div className="w-full flex justify-start items-start mb-1.5 text-xs text-l-5 dark:text-d-c">
-                    <i className="text-xs mr-2 text-h-1 dark:text-f-8 fa-regular fa-bell"></i>
-                    <div>
-                      영문, 숫자, 특수문자 포함 8~20자를 조합해 만들어 주세요.
-                    </div>
-                  </div>
-                  <div className="w-full flex justify-start items-start mb-3 text-xs text-l-5 dark:text-d-c">
-                    <i className="text-xs mr-2 text-h-1 dark:text-f-8 fa-regular fa-bell"></i>
-                    <div>
-                      비밀번호 변경 완료 시, 비밀번호는 즉시 변경됩니다.
-                    </div>
-                  </div>
-                  <div className="w-full flex justify-between items-center mt-2">
-                    <input
-                      type="password"
-                      id="pw"
-                      tabIndex={2}
-                      autoComplete="on"
-                      defaultValue={user.user_pw}
-                      disabled
-                      className="text-l-2 dark:text-white w-[calc(100%-84px)] text-sm px-3.5 py-3 rounded-lg border-2 border-transparent bg-l-d dark:bg-d-4"
-                    />
-                    <div className="w-[4.75rem]">
-                      <Button>
-                        <button
-                          onClick={handleChangePwModalClick}
-                          className="w-full h-full flex justify-center items-center text-sm"
-                        >
-                          변경하기
-                        </button>
-                      </Button>
-                    </div>
-                  </div>
-                </>
-              )}
-              <div className="w-full h-px bg-l-b dark:bg-d-6 my-6"></div>
-              <h2 className="font-medium text-l-2 dark:text-white mb-2">
-                회원 탈퇴
-              </h2>
-              <div className="w-full flex justify-start items-start mb-1.5 text-xs text-l-5 dark:text-d-c">
-                <i className="text-xs mr-2 text-h-r fa-regular fa-bell"></i>
-                <div>탈퇴 시 계정의 모든 정보는 삭제됩니다.</div>
-              </div>
-              <div className="w-full flex justify-start items-start mb-3 text-xs text-l-5 dark:text-d-c">
-                <i className="text-xs mr-2 text-h-r fa-regular fa-bell"></i>
-                <div>재가입 시에도 삭제된 정보는 복구되지 않습니다.</div>
-              </div>
-              <Button color="red">
-                <button
-                  onClick={handleDeleteUserModalClick}
-                  className="w-full h-full flex justify-center items-center"
-                >
-                  회원 탈퇴하기
-                </button>
-              </Button>
+              </>
+            )}
+            <div className="w-full h-px bg-l-b dark:bg-d-6 my-6"></div>
+            <h2 className="font-medium text-l-2 dark:text-white mb-2">
+              회원 탈퇴
+            </h2>
+            <div className="w-full flex justify-start items-start mb-1.5 text-xs text-l-5 dark:text-d-c">
+              <i className="text-xs mr-2 text-h-r fa-regular fa-bell"></i>
+              <div>탈퇴 시 계정의 모든 정보는 삭제됩니다.</div>
             </div>
+            <div className="w-full flex justify-start items-start mb-3 text-xs text-l-5 dark:text-d-c">
+              <i className="text-xs mr-2 text-h-r fa-regular fa-bell"></i>
+              <div>재가입 시에도 삭제된 정보는 복구되지 않습니다.</div>
+            </div>
+            <Button color="red">
+              <button
+                onClick={handleDeleteUserModalClick}
+                className="w-full h-full flex justify-center items-center"
+              >
+                회원 탈퇴하기
+              </button>
+            </Button>
           </div>
-        </form>
-      </Motion>
+        </div>
+      </form>
 
       {/* 풋터 */}
       <Footer />

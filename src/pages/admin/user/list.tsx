@@ -16,7 +16,6 @@ import { NextSeo } from "next-seo";
 // components
 import Footer from "@/components/footer";
 import Header from "@/components/header";
-import Motion from "@/components/motion";
 import SearchInput from "@/components/searchinput";
 
 // common
@@ -84,126 +83,119 @@ const UserList = ({ params }: any) => {
       <Header isMac={isMac} theme={theme} user={user} />
 
       {/* 메인 */}
-      <Motion
-        initialOpacity={0}
-        animateOpacity={1}
-        exitOpacity={0}
-        transitionType="spring"
+      <form
+        onSubmit={(e) => e.preventDefault()}
+        className="w-full px-4 flex flex-col justify-center items-center text-l-2 dark:text-white"
       >
-        <form
-          onSubmit={(e) => e.preventDefault()}
-          className="w-full px-4 flex flex-col justify-center items-center text-l-2 dark:text-white"
-        >
-          <div className="w-full md:w-[45rem] flex flex-col justify-center my-16 lg:my-24 mt-8 lg:mt-16">
-            <h2 className="text-2xl font-bold mb-6">유저 목록</h2>
-            <div className="flex items-center mb-10">
-              <SearchInput
-                id="search"
-                placeholder="이름/아이디"
-                value={search}
-                color="light"
-              />
-              <button onClick={handleSearchClick} className="hidden">
-                검색
-              </button>
-            </div>
-            <div className="flex items-center gap-1.5 mb-4">
-              <button
-                onClick={handleFilterChange}
-                value="date"
-                onMouseDown={(e) => onMouseDown(e, 0.9, true)}
-                onMouseUp={onMouseUp}
-                onMouseOut={onMouseOut}
-                className={`${
-                  filter === "date"
-                    ? "bg-h-1 dark:bg-f-8 text-white dark:text-d-2"
-                    : "text-l-5 dark:text-d-c hover:text-h-1 hover:dark:text-f-8"
-                } w-20 h-9 flex justify-center items-center rounded-lg`}
-              >
-                최신순
-              </button>
-              <button
-                onClick={handleFilterChange}
-                value="name"
-                onMouseDown={(e) => onMouseDown(e, 0.9, true)}
-                onMouseUp={onMouseUp}
-                onMouseOut={onMouseOut}
-                className={`${
-                  filter === "name"
-                    ? "bg-h-1 dark:bg-f-8 text-white dark:text-d-2"
-                    : "text-l-5 dark:text-d-c hover:text-h-1 hover:dark:text-f-8"
-                } w-20 h-9 flex justify-center items-center rounded-lg`}
-              >
-                이름순
-              </button>
-              <button
-                onClick={handleFilterChange}
-                value="report"
-                onMouseDown={(e) => onMouseDown(e, 0.9, true)}
-                onMouseUp={onMouseUp}
-                onMouseOut={onMouseOut}
-                className={`${
-                  filter === "report"
-                    ? "bg-h-1 dark:bg-f-8 text-white dark:text-d-2"
-                    : "text-l-5 dark:text-d-c hover:text-h-1 hover:dark:text-f-8"
-                } w-20 h-9 flex justify-center items-center rounded-lg`}
-              >
-                신고순
-              </button>
-            </div>
-            <div className="w-full">
-              <div className="w-full text-sm">
-                <div className="flex flex-col gap-3">
-                  {list && list.length > 0 ? (
-                    <>
-                      {list.map((user: any) => {
-                        return (
-                          <div
-                            key={user.user_no}
-                            className="px-6 py-4 relative rounded-lg bg-l-f dark:bg-d-3"
-                          >
-                            <div className="flex tlg:flex-col lg:items-center gap-2 mb-2">
-                              <Link
-                                href={`/admin/user/${user.user_no}`}
-                                className="block text-h-1 dark:text-f-8 hover:underline tlg:hover:no-underline"
-                              >
-                                {user.user_name}
-                              </Link>
-                              <div className="flex gap-2 items-center">
-                                <div className="text-xs text-l-5 dark:text-d-c">
-                                  {timeFormat(user.created_at)}
-                                </div>
-                                <div className="text-xs text-l-5 dark:text-d-c">
-                                  신고수: {user.nickname_reported}
-                                </div>
+        <div className="w-full md:w-[45rem] flex flex-col justify-center my-16 lg:my-24 mt-8 lg:mt-16">
+          <h2 className="text-2xl font-bold mb-6">유저 목록</h2>
+          <div className="flex items-center mb-10">
+            <SearchInput
+              id="search"
+              placeholder="이름/아이디"
+              value={search}
+              color="light"
+            />
+            <button onClick={handleSearchClick} className="hidden">
+              검색
+            </button>
+          </div>
+          <div className="flex items-center gap-1.5 mb-4">
+            <button
+              onClick={handleFilterChange}
+              value="date"
+              onMouseDown={(e) => onMouseDown(e, 0.9, true)}
+              onMouseUp={onMouseUp}
+              onMouseOut={onMouseOut}
+              className={`${
+                filter === "date"
+                  ? "bg-h-1 dark:bg-f-8 text-white dark:text-d-2"
+                  : "text-l-5 dark:text-d-c hover:text-h-1 hover:dark:text-f-8"
+              } w-20 h-9 flex justify-center items-center rounded-lg`}
+            >
+              최신순
+            </button>
+            <button
+              onClick={handleFilterChange}
+              value="name"
+              onMouseDown={(e) => onMouseDown(e, 0.9, true)}
+              onMouseUp={onMouseUp}
+              onMouseOut={onMouseOut}
+              className={`${
+                filter === "name"
+                  ? "bg-h-1 dark:bg-f-8 text-white dark:text-d-2"
+                  : "text-l-5 dark:text-d-c hover:text-h-1 hover:dark:text-f-8"
+              } w-20 h-9 flex justify-center items-center rounded-lg`}
+            >
+              이름순
+            </button>
+            <button
+              onClick={handleFilterChange}
+              value="report"
+              onMouseDown={(e) => onMouseDown(e, 0.9, true)}
+              onMouseUp={onMouseUp}
+              onMouseOut={onMouseOut}
+              className={`${
+                filter === "report"
+                  ? "bg-h-1 dark:bg-f-8 text-white dark:text-d-2"
+                  : "text-l-5 dark:text-d-c hover:text-h-1 hover:dark:text-f-8"
+              } w-20 h-9 flex justify-center items-center rounded-lg`}
+            >
+              신고순
+            </button>
+          </div>
+          <div className="w-full">
+            <div className="w-full text-sm">
+              <div className="flex flex-col gap-3">
+                {list && list.length > 0 ? (
+                  <>
+                    {list.map((user: any) => {
+                      return (
+                        <div
+                          key={user.user_no}
+                          className="px-6 py-4 relative rounded-lg bg-l-f dark:bg-d-3"
+                        >
+                          <div className="flex tlg:flex-col lg:items-center gap-2 mb-2">
+                            <Link
+                              href={`/admin/user/${user.user_no}`}
+                              className="block text-h-1 dark:text-f-8 hover:underline tlg:hover:no-underline"
+                            >
+                              {user.user_name}
+                            </Link>
+                            <div className="flex gap-2 items-center">
+                              <div className="text-xs text-l-5 dark:text-d-c">
+                                {timeFormat(user.created_at)}
+                              </div>
+                              <div className="text-xs text-l-5 dark:text-d-c">
+                                신고수: {user.nickname_reported}
                               </div>
                             </div>
-                            <div className="w-full overflow-hidden">
-                              {user.user_id}
-                            </div>
                           </div>
-                        );
-                      })}
-                    </>
-                  ) : (
-                    <div className="h-16 text-base flex justify-center items-center text-center">
-                      유저가 없습니다.
-                    </div>
-                  )}
-                </div>
+                          <div className="w-full overflow-hidden">
+                            {user.user_id}
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </>
+                ) : (
+                  <div className="h-16 text-base flex justify-center items-center text-center">
+                    유저가 없습니다.
+                  </div>
+                )}
               </div>
             </div>
-            <div className="w-full flex justify-center mt-6">
-              <Pagination
-                count={count}
-                page={Number(page)}
-                onChange={handlePageChange}
-                shape="rounded"
-              />
-            </div>
           </div>
-        </form>
-      </Motion>
+          <div className="w-full flex justify-center mt-6">
+            <Pagination
+              count={count}
+              page={Number(page)}
+              onChange={handlePageChange}
+              shape="rounded"
+            />
+          </div>
+        </div>
+      </form>
 
       {/* 풋터 */}
       <Footer />

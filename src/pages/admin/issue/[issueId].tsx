@@ -20,7 +20,6 @@ import { NextSeo } from "next-seo";
 import Button from "@/components/button";
 import Footer from "@/components/footer";
 import Header from "@/components/header";
-import Motion from "@/components/motion";
 import TextArea from "@/components/textarea";
 import TextInput from "@/components/textinput";
 
@@ -234,249 +233,242 @@ const IssuePage = ({ params }: any) => {
       <Header isMac={isMac} theme={theme} user={user} />
 
       {/* 메인 */}
-      <Motion
-        initialOpacity={0}
-        animateOpacity={1}
-        exitOpacity={0}
-        transitionType="spring"
-      >
-        <div className="w-full px-4 flex flex-col justify-center items-center text-l-2 dark:text-white">
-          <div className="relative max-w-[45rem] w-full flex flex-col justify-center my-16 lg:my-24 mt-8 lg:mt-16">
-            <Link
-              href="/admin/issue/list"
-              className="absolute left-0 -top-10 hidden lg:block border-b border-transparent text-sm text-l-5 dark:text-d-c lg:hover:text-l-2 lg:hover:dark:text-white lg:hover:border-b-l-2 lg:hover:dark:border-b-white"
-            >
-              <div className="inline-block mr-1">&#60;</div> 목록으로 돌아가기
-            </Link>
-            <h2 className="text-2xl font-bold mb-6">문의 사항</h2>
-            <div className="mb-2.5 text-sm text-l-5 dark:text-d-c">
-              {timeFormat(issue.issue_created_at) ===
-              timeFormat(issue.issue_closed_at)
-                ? timeFormat(issue.issue_created_at) + "에 생성됨"
-                : timeFormat(issue.issue_closed_at) + "에 수정됨"}
+      <div className="w-full px-4 flex flex-col justify-center items-center text-l-2 dark:text-white">
+        <div className="relative max-w-[45rem] w-full flex flex-col justify-center my-16 lg:my-24 mt-8 lg:mt-16">
+          <Link
+            href="/admin/issue/list"
+            className="absolute left-0 -top-10 hidden lg:block border-b border-transparent text-sm text-l-5 dark:text-d-c lg:hover:text-l-2 lg:hover:dark:text-white lg:hover:border-b-l-2 lg:hover:dark:border-b-white"
+          >
+            <div className="inline-block mr-1">&#60;</div> 목록으로 돌아가기
+          </Link>
+          <h2 className="text-2xl font-bold mb-6">문의 사항</h2>
+          <div className="mb-2.5 text-sm text-l-5 dark:text-d-c">
+            {timeFormat(issue.issue_created_at) ===
+            timeFormat(issue.issue_closed_at)
+              ? timeFormat(issue.issue_created_at) + "에 생성됨"
+              : timeFormat(issue.issue_closed_at) + "에 수정됨"}
+          </div>
+          {replySuccess === "success" ? (
+            <div className="w-full h-10 px-2.5 mb-3 flex justify-between items-center rounded-lg border-2 border-h-1 dark:border-f-8 text-xs bg-h-1/20 dark:bg-f-8/20">
+              <div className="flex items-center">
+                <i className="text-sm text-h-1 dark:text-f-8 fa-regular fa-bell"></i>
+                <div className="ml-2">답변이 완료되었습니다.</div>
+              </div>
+              <div
+                onClick={handleOnReplyClose}
+                className="flex justify-center items-center cursor-pointer"
+              >
+                <i className="text-sm fa-solid fa-xmark"></i>
+              </div>
             </div>
-            {replySuccess === "success" ? (
-              <div className="w-full h-10 px-2.5 mb-3 flex justify-between items-center rounded-lg border-2 border-h-1 dark:border-f-8 text-xs bg-h-1/20 dark:bg-f-8/20">
-                <div className="flex items-center">
-                  <i className="text-sm text-h-1 dark:text-f-8 fa-regular fa-bell"></i>
-                  <div className="ml-2">답변이 완료되었습니다.</div>
-                </div>
-                <div
-                  onClick={handleOnReplyClose}
-                  className="flex justify-center items-center cursor-pointer"
-                >
-                  <i className="text-sm fa-solid fa-xmark"></i>
-                </div>
+          ) : replySuccess === "fail" ? (
+            <div className="w-full h-10 px-2.5 mb-3 flex justify-between items-center rounded-lg border-2 border-h-r text-xs bg-h-r/20">
+              <div className="flex items-center">
+                <i className="text-sm text-h-r fa-regular fa-bell"></i>
+                <div className="ml-2">답변 전송에 실패했습니다.</div>
               </div>
-            ) : replySuccess === "fail" ? (
-              <div className="w-full h-10 px-2.5 mb-3 flex justify-between items-center rounded-lg border-2 border-h-r text-xs bg-h-r/20">
-                <div className="flex items-center">
-                  <i className="text-sm text-h-r fa-regular fa-bell"></i>
-                  <div className="ml-2">답변 전송에 실패했습니다.</div>
-                </div>
-                <div
-                  onClick={handleOnReplyClose}
-                  className="flex justify-center items-center cursor-pointer"
-                >
-                  <i className="text-sm fa-solid fa-xmark"></i>
-                </div>
+              <div
+                onClick={handleOnReplyClose}
+                className="flex justify-center items-center cursor-pointer"
+              >
+                <i className="text-sm fa-solid fa-xmark"></i>
               </div>
-            ) : (
-              <></>
-            )}
-            <div className="w-full p-5 rounded-lg bg-l-e dark:bg-d-3 drop-shadow-default dark:drop-shadow-dark">
-              <TextInput
-                value={
-                  issue.issue_type === "font"
-                    ? "폰트 관련 제보"
-                    : issue.issue_type === "bug"
-                    ? "버그 관련 제보"
-                    : "기타 문의 사항"
-                }
-                disabled
-                id="type"
-                tabindex={1}
-                label="유형"
-              />
-              <TextInput
-                value={issue.issue_title}
-                disabled
-                id="title"
-                tabindex={2}
-                label="제목"
-                marginTop={2}
-              />
-              <TextInput
-                value={issue.issue_email}
-                disabled
-                id="email"
-                tabindex={3}
-                label="이메일"
-                marginTop={2}
-              />
-              <TextArea
-                value={issue.issue_content}
-                disabled
-                id="content"
-                tabindex={4}
-                label="내용"
-                marginTop={2}
-              />
-              <div className="mt-8 font-medium">첨부한 이미지</div>
-              <div className="w-full min-h-24 flex items-center px-4 mt-2 rounded-lg bg-l-d dark:bg-d-4">
-                {issue.issue_img_length > 0 ? (
-                  <div className="w-full flex justify-center items-center gap-x-2.5 my-6">
-                    {issue.issue_img_1 !== "null" && (
-                      <div
-                        onMouseDown={(e) => onMouseDown(e, 0.9, true)}
-                        onMouseUp={onMouseUp}
-                        onMouseOut={onMouseOut}
-                        className="w-24 h-28 relative"
-                      >
-                        <Image
-                          src={issue.issue_img_1}
-                          alt="첨부한 이미지 1"
-                          fill
-                          sizes="100%"
-                          priority
-                          referrerPolicy="no-referrer"
-                          onClick={handleOnImgFocus}
-                          id="img_1"
-                          className="rounded-lg border-2 border-l-b dark:border-d-6 object-cover cursor-pointer"
-                        />
-                      </div>
-                    )}
-                    {issue.issue_img_2 !== "null" && (
-                      <div
-                        onMouseDown={(e) => onMouseDown(e, 0.9, true)}
-                        onMouseUp={onMouseUp}
-                        onMouseOut={onMouseOut}
-                        className="w-24 h-28 relative"
-                      >
-                        <Image
-                          src={issue.issue_img_2}
-                          alt="첨부한 이미지 2"
-                          fill
-                          sizes="100%"
-                          priority
-                          referrerPolicy="no-referrer"
-                          onClick={handleOnImgFocus}
-                          id="img_2"
-                          className="rounded-lg border-2 border-l-b dark:border-d-6 object-cover cursor-pointer"
-                        />
-                      </div>
-                    )}
-                    {issue.issue_img_3 !== "null" && (
-                      <div
-                        onMouseDown={(e) => onMouseDown(e, 0.9, true)}
-                        onMouseUp={onMouseUp}
-                        onMouseOut={onMouseOut}
-                        className="w-24 h-28 relative"
-                      >
-                        <Image
-                          src={issue.issue_img_3}
-                          alt="첨부한 이미지 3"
-                          fill
-                          sizes="100%"
-                          priority
-                          referrerPolicy="no-referrer"
-                          onClick={handleOnImgFocus}
-                          id="img_3"
-                          className="rounded-lg border-2 border-l-b dark:border-d-6 object-cover cursor-pointer"
-                        />
-                      </div>
-                    )}
-                    {issue.issue_img_4 !== "null" && (
-                      <div
-                        onMouseDown={(e) => onMouseDown(e, 0.9, true)}
-                        onMouseUp={onMouseUp}
-                        onMouseOut={onMouseOut}
-                        className="w-24 h-28 relative"
-                      >
-                        <Image
-                          src={issue.issue_img_4}
-                          alt="첨부한 이미지 4"
-                          fill
-                          sizes="100%"
-                          priority
-                          referrerPolicy="no-referrer"
-                          onClick={handleOnImgFocus}
-                          id="img_4"
-                          className="rounded-lg border-2 border-l-b dark:border-d-6 object-cover cursor-pointer"
-                        />
-                      </div>
-                    )}
-                    {issue.issue_img_5 !== "null" && (
-                      <div
-                        onMouseDown={(e) => onMouseDown(e, 0.9, true)}
-                        onMouseUp={onMouseUp}
-                        onMouseOut={onMouseOut}
-                        className="w-24 h-28 relative"
-                      >
-                        <Image
-                          src={issue.issue_img_5}
-                          alt="첨부한 이미지 5"
-                          fill
-                          sizes="100%"
-                          priority
-                          referrerPolicy="no-referrer"
-                          onClick={handleOnImgFocus}
-                          id="img_5"
-                          className="rounded-lg border-2 border-l-b dark:border-d-6 object-cover cursor-pointer"
-                        />
-                      </div>
-                    )}
-                  </div>
-                ) : (
-                  <div className="w-full h-24 flex justify-center items-center text-sm text-center">
-                    첨부한 이미지가 없습니다.
-                  </div>
-                )}
-              </div>
-              <div className="w-full h-px my-6 bg-l-b dark:bg-d-6"></div>
-              <div className="font-medium">답변 여부</div>
-              <div className="w-max h-12 rounded-lg mt-2 px-3.5 flex items-center text-sm bg-l-d dark:bg-d-4">
-                <div className="mr-1.5">답변 중</div>
-                <Switch
-                  checked={issueClosed}
-                  onChange={handleToggleChange}
-                  size="small"
-                />
-                <div
-                  className={`${
-                    issueClosed ? "text-h-1 dark:text-f-8" : ""
-                  } ml-1.5`}
-                >
-                  답변 완료
-                </div>
-              </div>
-              <TextArea
-                onchange={handleTextAreaOnChange}
-                state={txtAlert}
-                stateMsg={[
-                  { state: "", msg: "" },
-                  { state: "empty", msg: "답변 내용이 없습니다." },
-                ]}
-                value={issue.issue_reply}
-                id="answer"
-                tabindex={5}
-                placeholder="답변을 입력해 주세요."
-                label="답변"
-                marginTop={2}
-              />
-              <Button marginTop={1}>
-                <button onClick={handleBtnClick} className="w-full h-full">
-                  {isLoading ? (
-                    <span className="loader border-2 border-h-e dark:border-d-6 border-b-h-1 dark:border-b-f-8 w-4 h-4"></span>
-                  ) : (
-                    <>답변하기</>
+            </div>
+          ) : (
+            <></>
+          )}
+          <div className="w-full p-5 rounded-lg bg-l-e dark:bg-d-3 drop-shadow-default dark:drop-shadow-dark">
+            <TextInput
+              value={
+                issue.issue_type === "font"
+                  ? "폰트 관련 제보"
+                  : issue.issue_type === "bug"
+                  ? "버그 관련 제보"
+                  : "기타 문의 사항"
+              }
+              disabled
+              id="type"
+              tabindex={1}
+              label="유형"
+            />
+            <TextInput
+              value={issue.issue_title}
+              disabled
+              id="title"
+              tabindex={2}
+              label="제목"
+              marginTop={2}
+            />
+            <TextInput
+              value={issue.issue_email}
+              disabled
+              id="email"
+              tabindex={3}
+              label="이메일"
+              marginTop={2}
+            />
+            <TextArea
+              value={issue.issue_content}
+              disabled
+              id="content"
+              tabindex={4}
+              label="내용"
+              marginTop={2}
+            />
+            <div className="mt-8 font-medium">첨부한 이미지</div>
+            <div className="w-full min-h-24 flex items-center px-4 mt-2 rounded-lg bg-l-d dark:bg-d-4">
+              {issue.issue_img_length > 0 ? (
+                <div className="w-full flex justify-center items-center gap-x-2.5 my-6">
+                  {issue.issue_img_1 !== "null" && (
+                    <div
+                      onMouseDown={(e) => onMouseDown(e, 0.9, true)}
+                      onMouseUp={onMouseUp}
+                      onMouseOut={onMouseOut}
+                      className="w-24 h-28 relative"
+                    >
+                      <Image
+                        src={issue.issue_img_1}
+                        alt="첨부한 이미지 1"
+                        fill
+                        sizes="100%"
+                        priority
+                        referrerPolicy="no-referrer"
+                        onClick={handleOnImgFocus}
+                        id="img_1"
+                        className="rounded-lg border-2 border-l-b dark:border-d-6 object-cover cursor-pointer"
+                      />
+                    </div>
                   )}
-                </button>
-              </Button>
+                  {issue.issue_img_2 !== "null" && (
+                    <div
+                      onMouseDown={(e) => onMouseDown(e, 0.9, true)}
+                      onMouseUp={onMouseUp}
+                      onMouseOut={onMouseOut}
+                      className="w-24 h-28 relative"
+                    >
+                      <Image
+                        src={issue.issue_img_2}
+                        alt="첨부한 이미지 2"
+                        fill
+                        sizes="100%"
+                        priority
+                        referrerPolicy="no-referrer"
+                        onClick={handleOnImgFocus}
+                        id="img_2"
+                        className="rounded-lg border-2 border-l-b dark:border-d-6 object-cover cursor-pointer"
+                      />
+                    </div>
+                  )}
+                  {issue.issue_img_3 !== "null" && (
+                    <div
+                      onMouseDown={(e) => onMouseDown(e, 0.9, true)}
+                      onMouseUp={onMouseUp}
+                      onMouseOut={onMouseOut}
+                      className="w-24 h-28 relative"
+                    >
+                      <Image
+                        src={issue.issue_img_3}
+                        alt="첨부한 이미지 3"
+                        fill
+                        sizes="100%"
+                        priority
+                        referrerPolicy="no-referrer"
+                        onClick={handleOnImgFocus}
+                        id="img_3"
+                        className="rounded-lg border-2 border-l-b dark:border-d-6 object-cover cursor-pointer"
+                      />
+                    </div>
+                  )}
+                  {issue.issue_img_4 !== "null" && (
+                    <div
+                      onMouseDown={(e) => onMouseDown(e, 0.9, true)}
+                      onMouseUp={onMouseUp}
+                      onMouseOut={onMouseOut}
+                      className="w-24 h-28 relative"
+                    >
+                      <Image
+                        src={issue.issue_img_4}
+                        alt="첨부한 이미지 4"
+                        fill
+                        sizes="100%"
+                        priority
+                        referrerPolicy="no-referrer"
+                        onClick={handleOnImgFocus}
+                        id="img_4"
+                        className="rounded-lg border-2 border-l-b dark:border-d-6 object-cover cursor-pointer"
+                      />
+                    </div>
+                  )}
+                  {issue.issue_img_5 !== "null" && (
+                    <div
+                      onMouseDown={(e) => onMouseDown(e, 0.9, true)}
+                      onMouseUp={onMouseUp}
+                      onMouseOut={onMouseOut}
+                      className="w-24 h-28 relative"
+                    >
+                      <Image
+                        src={issue.issue_img_5}
+                        alt="첨부한 이미지 5"
+                        fill
+                        sizes="100%"
+                        priority
+                        referrerPolicy="no-referrer"
+                        onClick={handleOnImgFocus}
+                        id="img_5"
+                        className="rounded-lg border-2 border-l-b dark:border-d-6 object-cover cursor-pointer"
+                      />
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <div className="w-full h-24 flex justify-center items-center text-sm text-center">
+                  첨부한 이미지가 없습니다.
+                </div>
+              )}
             </div>
+            <div className="w-full h-px my-6 bg-l-b dark:bg-d-6"></div>
+            <div className="font-medium">답변 여부</div>
+            <div className="w-max h-12 rounded-lg mt-2 px-3.5 flex items-center text-sm bg-l-d dark:bg-d-4">
+              <div className="mr-1.5">답변 중</div>
+              <Switch
+                checked={issueClosed}
+                onChange={handleToggleChange}
+                size="small"
+              />
+              <div
+                className={`${
+                  issueClosed ? "text-h-1 dark:text-f-8" : ""
+                } ml-1.5`}
+              >
+                답변 완료
+              </div>
+            </div>
+            <TextArea
+              onchange={handleTextAreaOnChange}
+              state={txtAlert}
+              stateMsg={[
+                { state: "", msg: "" },
+                { state: "empty", msg: "답변 내용이 없습니다." },
+              ]}
+              value={issue.issue_reply}
+              id="answer"
+              tabindex={5}
+              placeholder="답변을 입력해 주세요."
+              label="답변"
+              marginTop={2}
+            />
+            <Button marginTop={1}>
+              <button onClick={handleBtnClick} className="w-full h-full">
+                {isLoading ? (
+                  <span className="loader border-2 border-h-e dark:border-d-6 border-b-h-1 dark:border-b-f-8 w-4 h-4"></span>
+                ) : (
+                  <>답변하기</>
+                )}
+              </button>
+            </Button>
           </div>
         </div>
-      </Motion>
+      </div>
 
       {/* 이미지 확대 */}
       {isFocused && (
