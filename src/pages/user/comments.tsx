@@ -21,7 +21,6 @@ import AdSense from "@/components/adSense";
 import DeleteCommentModal from "@/components/deletecommentmodal";
 import Footer from "@/components/footer";
 import Header from "@/components/header";
-import Motion from "@/components/motion";
 import SearchInput from "@/components/searchinput";
 
 // common
@@ -123,165 +122,158 @@ const Comments = ({ params }: any) => {
       />
 
       {/* 메인 */}
-      <Motion
-        initialOpacity={0}
-        animateOpacity={1}
-        exitOpacity={0}
-        transitionType="spring"
+      <form
+        onSubmit={(e) => e.preventDefault()}
+        className="w-full px-4 flex flex-col justify-center items-center text-l-2 dark:text-white"
       >
-        <form
-          onSubmit={(e) => e.preventDefault()}
-          className="w-full px-4 flex flex-col justify-center items-center text-l-2 dark:text-white"
-        >
-          <div className="w-full md:w-[45.5rem] flex flex-col justify-center my-16 lg:my-24 mt-8 lg:mt-16">
-            <h2 className="text-2xl font-bold mb-6">내 댓글 목록</h2>
-            <div className="flex items-center mb-10">
-              <SearchInput
-                id="search"
-                placeholder="폰트/댓글"
-                value={search}
-                color="light"
-              />
-              <button onClick={handleSearchClick} className="hidden">
-                검색
-              </button>
-            </div>
-            <div className="w-full flex">
-              <AdSense
-                pc={{
-                  style: "display: inline-block; width: 728px; height: 90px;",
-                  client: "ca-pub-7819549426971576",
-                  slot: "3707368535",
-                }}
-                mobile={{
-                  style: "display: inline-block; width: 300px; height: 100px;",
-                  client: "ca-pub-7819549426971576",
-                  slot: "1032069893",
-                }}
-                marginBottom={1}
-              />
-            </div>
-            <div className="flex items-center gap-1.5 mb-4">
-              <button
-                onClick={handleFilterChange}
-                value="date"
-                onMouseDown={(e) => onMouseDown(e, 0.9, true)}
-                onMouseUp={onMouseUp}
-                onMouseOut={onMouseOut}
-                className={`${
-                  filter === "date"
-                    ? "bg-h-1 dark:bg-f-8 text-white dark:text-d-2"
-                    : "text-l-5 dark:text-d-c lg:hover:text-h-1 lg:hover:dark:text-f-8"
-                } w-20 h-9 flex justify-center items-center rounded-lg`}
-              >
-                최신순
-              </button>
-              <button
-                onClick={handleFilterChange}
-                value="name"
-                onMouseDown={(e) => onMouseDown(e, 0.9, true)}
-                onMouseUp={onMouseUp}
-                onMouseOut={onMouseOut}
-                className={`${
-                  filter === "name"
-                    ? "bg-h-1 dark:bg-f-8 text-white dark:text-d-2"
-                    : "text-l-5 dark:text-d-c lg:hover:text-h-1 lg:hover:dark:text-f-8"
-                } w-20 h-9 flex justify-center items-center rounded-lg`}
-              >
-                이름순
-              </button>
-            </div>
-            <div className="w-full">
-              <div className="w-full text-sm">
-                <div className="flex flex-col gap-3">
-                  {comments && comments.length > 0 ? (
-                    <>
-                      {comments.map((comment: any) => {
-                        return (
-                          <div
-                            key={comment.comment_id}
-                            className="px-6 py-4 relative rounded-lg bg-l-f dark:bg-d-3"
-                          >
-                            <div className="flex tlg:flex-col lg:items-center gap-2 mb-2">
-                              <Link
-                                href={`/post/${comment.font_family.replaceAll(
-                                  " ",
-                                  "+"
-                                )}`}
-                                className="block text-h-1 dark:text-f-8 lg:hover:underline"
-                              >
-                                {comment.font_name}
-                              </Link>
-                              <div className="flex gap-2 items-center">
-                                <div className="text-xs text-l-5 dark:text-d-c">
-                                  {timeFormat(comment.created_at)}
-                                </div>
-                                <div className="text-xs text-l-5 dark:text-d-c">
-                                  신고수:{" "}
-                                  {comment.reported_politics +
-                                    comment.reported_swearing +
-                                    comment.reported_etc}
-                                </div>
+        <div className="w-full md:w-[45.5rem] flex flex-col justify-center my-16 lg:my-24 mt-8 lg:mt-16">
+          <h2 className="text-2xl font-bold mb-6">내 댓글 목록</h2>
+          <div className="flex items-center mb-10">
+            <SearchInput
+              id="search"
+              placeholder="폰트/댓글"
+              value={search}
+              color="light"
+            />
+            <button onClick={handleSearchClick} className="hidden">
+              검색
+            </button>
+          </div>
+          <div className="w-full flex">
+            <AdSense
+              pc={{
+                style: "display: inline-block; width: 728px; height: 90px;",
+                client: "ca-pub-7819549426971576",
+                slot: "3707368535",
+              }}
+              mobile={{
+                style: "display: inline-block; width: 300px; height: 100px;",
+                client: "ca-pub-7819549426971576",
+                slot: "1032069893",
+              }}
+              marginBottom={1}
+            />
+          </div>
+          <div className="flex items-center gap-1.5 mb-4">
+            <button
+              onClick={handleFilterChange}
+              value="date"
+              onMouseDown={(e) => onMouseDown(e, 0.9, true)}
+              onMouseUp={onMouseUp}
+              onMouseOut={onMouseOut}
+              className={`${
+                filter === "date"
+                  ? "bg-h-1 dark:bg-f-8 text-white dark:text-d-2"
+                  : "text-l-5 dark:text-d-c lg:hover:text-h-1 lg:hover:dark:text-f-8"
+              } w-20 h-9 flex justify-center items-center rounded-lg`}
+            >
+              최신순
+            </button>
+            <button
+              onClick={handleFilterChange}
+              value="name"
+              onMouseDown={(e) => onMouseDown(e, 0.9, true)}
+              onMouseUp={onMouseUp}
+              onMouseOut={onMouseOut}
+              className={`${
+                filter === "name"
+                  ? "bg-h-1 dark:bg-f-8 text-white dark:text-d-2"
+                  : "text-l-5 dark:text-d-c lg:hover:text-h-1 lg:hover:dark:text-f-8"
+              } w-20 h-9 flex justify-center items-center rounded-lg`}
+            >
+              이름순
+            </button>
+          </div>
+          <div className="w-full">
+            <div className="w-full text-sm">
+              <div className="flex flex-col gap-3">
+                {comments && comments.length > 0 ? (
+                  <>
+                    {comments.map((comment: any) => {
+                      return (
+                        <div
+                          key={comment.comment_id}
+                          className="px-6 py-4 relative rounded-lg bg-l-f dark:bg-d-3"
+                        >
+                          <div className="flex tlg:flex-col lg:items-center gap-2 mb-2">
+                            <Link
+                              href={`/post/${comment.font_family.replaceAll(
+                                " ",
+                                "+"
+                              )}`}
+                              className="block text-h-1 dark:text-f-8 lg:hover:underline"
+                            >
+                              {comment.font_name}
+                            </Link>
+                            <div className="flex gap-2 items-center">
+                              <div className="text-xs text-l-5 dark:text-d-c">
+                                {timeFormat(comment.created_at)}
+                              </div>
+                              <div className="text-xs text-l-5 dark:text-d-c">
+                                신고수:{" "}
+                                {comment.reported_politics +
+                                  comment.reported_swearing +
+                                  comment.reported_etc}
                               </div>
                             </div>
-                            <div className="pr-10">
-                              <Link
-                                href={`/post/${comment.font_family.replaceAll(
-                                  " ",
-                                  "+"
-                                )}#c${comment.comment_id}`}
-                                className="ellipsed-text w-full lg:hover:underline"
-                              >
-                                {comment.comment}
-                              </Link>
-                            </div>
-                            <button
-                              onClick={deleteCommentModalOpen}
-                              data-font={comment.font_id}
-                              data-comment={comment.comment_id}
-                              data-bundle={comment.bundle_id}
-                              className="group absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full flex justify-center items-center lg:hover:bg-l-e lg:hover:dark:bg-d-4"
-                            >
-                              <i className="text-base fa-regular fa-trash-can"></i>
-                            </button>
                           </div>
-                        );
-                      })}
-                    </>
-                  ) : (
-                    <div className="h-16 text-base flex justify-center items-center text-center">
-                      댓글이 없습니다.
-                    </div>
-                  )}
-                </div>
+                          <div className="pr-10">
+                            <Link
+                              href={`/post/${comment.font_family.replaceAll(
+                                " ",
+                                "+"
+                              )}#c${comment.comment_id}`}
+                              className="ellipsed-text w-full lg:hover:underline"
+                            >
+                              {comment.comment}
+                            </Link>
+                          </div>
+                          <button
+                            onClick={deleteCommentModalOpen}
+                            data-font={comment.font_id}
+                            data-comment={comment.comment_id}
+                            data-bundle={comment.bundle_id}
+                            className="group absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full flex justify-center items-center lg:hover:bg-l-e lg:hover:dark:bg-d-4"
+                          >
+                            <i className="text-base fa-regular fa-trash-can"></i>
+                          </button>
+                        </div>
+                      );
+                    })}
+                  </>
+                ) : (
+                  <div className="h-16 text-base flex justify-center items-center text-center">
+                    댓글이 없습니다.
+                  </div>
+                )}
               </div>
             </div>
-            <div className="w-full flex justify-center mt-6">
-              <Pagination
-                count={count}
-                page={Number(page)}
-                onChange={handlePageChange}
-                shape="rounded"
-              />
-            </div>
-            <div className="w-full flex">
-              <AdSense
-                pc={{
-                  style: "display: inline-block; width: 728px; height: 90px;",
-                  client: "ca-pub-7819549426971576",
-                  slot: "3707368535",
-                }}
-                mobile={{
-                  style: "display: inline-block; width: 300px; height: 100px;",
-                  client: "ca-pub-7819549426971576",
-                  slot: "1032069893",
-                }}
-                marginTop={2}
-              />
-            </div>
           </div>
-        </form>
-      </Motion>
+          <div className="w-full flex justify-center mt-6">
+            <Pagination
+              count={count}
+              page={Number(page)}
+              onChange={handlePageChange}
+              shape="rounded"
+            />
+          </div>
+          <div className="w-full flex">
+            <AdSense
+              pc={{
+                style: "display: inline-block; width: 728px; height: 90px;",
+                client: "ca-pub-7819549426971576",
+                slot: "3707368535",
+              }}
+              mobile={{
+                style: "display: inline-block; width: 300px; height: 100px;",
+                client: "ca-pub-7819549426971576",
+                slot: "1032069893",
+              }}
+              marginTop={2}
+            />
+          </div>
+        </div>
+      </form>
 
       {/* 풋터 */}
       <Footer />

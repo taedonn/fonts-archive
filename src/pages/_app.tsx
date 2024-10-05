@@ -71,7 +71,10 @@ export default function App({
           }}
         />
         <main>
-          <NextNProgress color={theme === "dark" ? "#8AB4F8" : "#1B73E7"} />
+          <NextNProgress
+            color={theme === "dark" ? "#8AB4F8" : "#1B73E7"}
+            options={{ showSpinner: false }}
+          />
           <AnimatePresence
             mode="wait" // 새 페이지 로딩 전 페이지 아웃 애니메이션 끝까지 실행
             // initial={false} // false 시 첫 페이지 로딩 애니메이션 안함

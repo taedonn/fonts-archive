@@ -3,387 +3,568 @@
 @tailwind utilities;
 
 /* 리셋 */
-* { margin: 0; padding: 0; box-sizing: border-box; }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 input,
-textarea { outline: none; }
-a { text-decoration: none; outline: none; }
-button { border: none; outline: none; background-color: transparent; line-height: 1; }
-body { background-color: #FFF; }
-html.dark body { background-color: #202124; }
+textarea {
+  outline: none;
+}
+a {
+  text-decoration: none;
+  outline: none;
+}
+button {
+  border: none;
+  outline: none;
+  background-color: transparent;
+  line-height: 1;
+}
+body {
+  background-color: #fff;
+}
+html.dark body {
+  background-color: #202124;
+}
+
+/* 컬러 모드 */
+[data-color-scheme="dark"] {
+  color-scheme: dark;
+}
+[data-color-scheme="light"] {
+  color-scheme: light;
+}
 
 /* 폰트 */
 @font-face {
-    font-family: 'Spoqa Han Sans Neo';
-    font-weight: 100;
-    font-style: normal;
-    font-display: swap;
-    src: url('/fonts/SpoqaHanSansNeo-Thin.woff2') format('woff2');
+  font-family: "Spoqa Han Sans Neo";
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+  src: url("/fonts/SpoqaHanSansNeo-Thin.woff2") format("woff2");
 }
 @font-face {
-    font-family: 'Spoqa Han Sans Neo';
-    font-weight: 300;
-    font-style: normal;
-    font-display: swap;
-    src: url('/fonts/SpoqaHanSansNeo-Light.woff2') format('woff2');
+  font-family: "Spoqa Han Sans Neo";
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+  src: url("/fonts/SpoqaHanSansNeo-Light.woff2") format("woff2");
 }
 @font-face {
-    font-family: 'Spoqa Han Sans Neo';
-    font-weight: 400;
-    font-style: normal;
-    font-display: swap;
-    src: url('/fonts/SpoqaHanSansNeo-Regular.woff2') format('woff2');
+  font-family: "Spoqa Han Sans Neo";
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  src: url("/fonts/SpoqaHanSansNeo-Regular.woff2") format("woff2");
 }
 @font-face {
-    font-family: 'Spoqa Han Sans Neo';
-    font-weight: 500;
-    font-style: normal;
-    font-display: swap;
-    src: url('/fonts/SpoqaHanSansNeo-Medium.woff2') format('woff2');
+  font-family: "Spoqa Han Sans Neo";
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+  src: url("/fonts/SpoqaHanSansNeo-Medium.woff2") format("woff2");
 }
 @font-face {
-    font-family: 'Spoqa Han Sans Neo';
-    font-weight: 700;
-    font-style: normal;
-    font-display: swap;
-    src: url('/fonts/SpoqaHanSansNeo-Bold.woff2') format('woff2');
+  font-family: "Spoqa Han Sans Neo";
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  src: url("/fonts/SpoqaHanSansNeo-Bold.woff2") format("woff2");
 }
 
 /* 셀렉트박스 */
 select {
-    appearance: none;
-    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235F6368' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-    background-repeat: no-repeat;
-    background-position: right 0.75em center;
-    background-size: 1em;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235F6368' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 0.75em center;
+  background-size: 1em;
 }
 option {
-    color: #E9EAEE;
-    background-color: #3C4043;
+  color: #e9eaee;
+  background-color: #3c4043;
 }
 html.dark option {
-    color: #E9EAEE;
-    background-color: #202124;
+  color: #e9eaee;
+  background-color: #202124;
 }
 
 /* 중간 사이즈 스크롤바 */
-.custom-md-scrollbar::-webkit-scrollbar { width: 12px; }
-.custom-md-scrollbar::-webkit-scrollbar-thumb { border-radius: 6px; background-color: #BDC1C6CC; }
-.custom-md-scrollbar::-webkit-scrollbar-thumb:hover { border-radius: 6px; background-color: #BDC1C6; }
-html.dark .custom-md-scrollbar::-webkit-scrollbar-thumb { border-radius: 6px; background-color: #4C4D50; }
-html.dark .custom-md-scrollbar::-webkit-scrollbar-thumb:hover { border-radius: 6px; background-color: #646568; }
+.custom-md-scrollbar::-webkit-scrollbar {
+  width: 12px;
+}
+.custom-md-scrollbar::-webkit-scrollbar-thumb {
+  border-radius: 6px;
+  background-color: #bdc1c6cc;
+}
+.custom-md-scrollbar::-webkit-scrollbar-thumb:hover {
+  border-radius: 6px;
+  background-color: #bdc1c6;
+}
+html.dark .custom-md-scrollbar::-webkit-scrollbar-thumb {
+  border-radius: 6px;
+  background-color: #4c4d50;
+}
+html.dark .custom-md-scrollbar::-webkit-scrollbar-thumb:hover {
+  border-radius: 6px;
+  background-color: #646568;
+}
 
 /* 작은 사이즈 스크롤바 */
-.custom-sm-scrollbar::-webkit-scrollbar { width: 4px; }
-.custom-sm-scrollbar::-webkit-scrollbar-thumb { border-radius: 8px; background-color: #BDC1C6CC; }
-html.dark .custom-sm-scrollbar::-webkit-scrollbar-thumb { background-color: #646568; }
+.custom-sm-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+.custom-sm-scrollbar::-webkit-scrollbar-thumb {
+  border-radius: 8px;
+  background-color: #bdc1c6cc;
+}
+html.dark .custom-sm-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #646568;
+}
 
 /* 스크롤바 없음 */
-.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
 
 /* text ellipse */
 .ellipsed-text {
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 /* Loading spinner */
 .loader {
-    border-radius: 50%;
-    display: inline-block;
-    box-sizing: border-box;
-    animation: rotation 1s linear infinite;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
 }
 @keyframes rotation {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}  
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
 
 /* Loading spinner - image */
 .img-loader {
-    width: 3px;
-    height: 15px;
-    display: inline-block;
-    position: relative;
-    left: 20%;
-    border-radius: 3px;
-    color: #1B73E7;
-    box-sizing: border-box;
-    animation: animImgloader 0.8s linear infinite;
+  width: 3px;
+  height: 15px;
+  display: inline-block;
+  position: relative;
+  left: 20%;
+  border-radius: 3px;
+  color: #1b73e7;
+  box-sizing: border-box;
+  animation: animImgloader 0.8s linear infinite;
 }
 html.dark .img-loader {
-    color: #8AB4F8;
+  color: #8ab4f8;
 }
 @keyframes animImgloader {
-    0% { box-shadow: 8px -4px, 16px 4px, 24px 0px; }
-    25% { box-shadow: 8px 0px, 16px  0px, 24px 4px; }
-    50% { box-shadow: 8px 4px, 16px -4px, 24px 0px; }
-    75% { box-shadow: 8px 0px, 16px 0px, 24px -4px; }
-    100% { box-shadow: 8px -4px, 16px 4px, 24px 0px; }
+  0% {
+    box-shadow: 8px -4px, 16px 4px, 24px 0px;
+  }
+  25% {
+    box-shadow: 8px 0px, 16px 0px, 24px 4px;
+  }
+  50% {
+    box-shadow: 8px 4px, 16px -4px, 24px 0px;
+  }
+  75% {
+    box-shadow: 8px 0px, 16px 0px, 24px -4px;
+  }
+  100% {
+    box-shadow: 8px -4px, 16px 4px, 24px 0px;
+  }
 }
 
 /* Material UI - Slider */
-.font-size-slider.MuiSlider-root { color: #1B73E7; }
-.font-size-slider .MuiSlider-valueLabel {
-    font-family: "Spoqa Han Sans Neo", "Noto Sans KR";
-    font-size: 14px;
-    font-weight: 500;
-    background-color: #1B73E7;
+.font-size-slider.MuiSlider-root {
+  color: #1b73e7;
 }
-.font-size-slider .MuiSlider-valueLabel > span > span { color: #FFFFFF; }
+.font-size-slider .MuiSlider-valueLabel {
+  font-family: "Spoqa Han Sans Neo", "Noto Sans KR";
+  font-size: 14px;
+  font-weight: 500;
+  background-color: #1b73e7;
+}
+.font-size-slider .MuiSlider-valueLabel > span > span {
+  color: #ffffff;
+}
 .font-size-slider .MuiSlider-thumb:hover,
-.font-size-slider .MuiSlider-thumb.Mui-focusVisible { color: #1B73E7; box-shadow: 0 0 0 8px #1B73E74D; }
-.font-size-slider .MuiSlider-thumb:active { color: #1B73E7; box-shadow: 0 0 0 12px #1B73E74D; }
-html.dark .font-size-slider.MuiSlider-root { color: #8AB4F8; }
-html.dark .font-size-slider .MuiSlider-valueLabel { background-color: #8AB4F8; }
-html.dark .font-size-slider .MuiSlider-valueLabel > span > span { color: #202124; }
-html.dark .font-size-slider .MuiSlider-thumb:hover, 
-html.dark .font-size-slider .MuiSlider-thumb.Mui-focusVisible { color: #8AB4F8; box-shadow: 0 0 0 8px #8AB4F84D; }
-html.dark .font-size-slider .MuiSlider-thumb:active { color: #8AB4F8; box-shadow: 0 0 0 12px #8AB4F84D; }
+.font-size-slider .MuiSlider-thumb.Mui-focusVisible {
+  color: #1b73e7;
+  box-shadow: 0 0 0 8px #1b73e74d;
+}
+.font-size-slider .MuiSlider-thumb:active {
+  color: #1b73e7;
+  box-shadow: 0 0 0 12px #1b73e74d;
+}
+html.dark .font-size-slider.MuiSlider-root {
+  color: #8ab4f8;
+}
+html.dark .font-size-slider .MuiSlider-valueLabel {
+  background-color: #8ab4f8;
+}
+html.dark .font-size-slider .MuiSlider-valueLabel > span > span {
+  color: #202124;
+}
+html.dark .font-size-slider .MuiSlider-thumb:hover,
+html.dark .font-size-slider .MuiSlider-thumb.Mui-focusVisible {
+  color: #8ab4f8;
+  box-shadow: 0 0 0 8px #8ab4f84d;
+}
+html.dark .font-size-slider .MuiSlider-thumb:active {
+  color: #8ab4f8;
+  box-shadow: 0 0 0 12px #8ab4f84d;
+}
 
 /* Material UI - Toggle */
-#__next .MuiTouchRipple-root { display: none; }
-#__next .MuiSwitch-thumb { color: #202124; }
-#__next .Mui-checked .MuiSwitch-thumb { color: #1B73E7; }
-#__next .MuiSwitch-track { background-color: #20212480; }
-#__next .Mui-checked + .MuiSwitch-track { background-color: #1B73E780; }
-html.dark #__next .MuiSwitch-thumb { color: #FFFFFF; }
-html.dark #__next .Mui-checked .MuiSwitch-thumb { color: #8AB4F8; }
-html.dark #__next .MuiSwitch-track { background-color: #FFFFFF80; }
-html.dark #__next .Mui-checked + .MuiSwitch-track { background-color: #8AB4F880; }
+#__next .MuiTouchRipple-root {
+  display: none;
+}
+#__next .MuiSwitch-thumb {
+  color: #202124;
+}
+#__next .Mui-checked .MuiSwitch-thumb {
+  color: #1b73e7;
+}
+#__next .MuiSwitch-track {
+  background-color: #20212480;
+}
+#__next .Mui-checked + .MuiSwitch-track {
+  background-color: #1b73e780;
+}
+html.dark #__next .MuiSwitch-thumb {
+  color: #ffffff;
+}
+html.dark #__next .Mui-checked .MuiSwitch-thumb {
+  color: #8ab4f8;
+}
+html.dark #__next .MuiSwitch-track {
+  background-color: #ffffff80;
+}
+html.dark #__next .Mui-checked + .MuiSwitch-track {
+  background-color: #8ab4f880;
+}
 
 /* Material UI - Pagination */
-#__next .MuiPagination-ul button { color: #5F6368; transition: 0s; }
-html.dark #__next .MuiPagination-ul button { color: #CDCED2; }
-html.dark #__next .MuiPagination-ul button:hover { background-color: #2E3134; }
-#__next .MuiPagination-ul .Mui-selected { color: #202124; background-color: #F2F1F6; }
-#__next .MuiPagination-ul .Mui-selected:hover { background-color: #E9EAEE; }
-html.dark #__next .MuiPagination-ul .Mui-selected { color: #FFFFFF; background-color: #2E3134; }
-html.dark #__next .MuiPagination-ul .Mui-selected:hover { background-color: #3C4043; }
-#__next .MuiPaginationItem-root { color: #202124; }
-html.dark #__next .MuiPaginationItem-root { color: #FFFFFF; }
+#__next .MuiPagination-ul button {
+  color: #5f6368;
+  transition: 0s;
+}
+html.dark #__next .MuiPagination-ul button {
+  color: #cdced2;
+}
+html.dark #__next .MuiPagination-ul button:hover {
+  background-color: #2e3134;
+}
+#__next .MuiPagination-ul .Mui-selected {
+  color: #202124;
+  background-color: #f2f1f6;
+}
+#__next .MuiPagination-ul .Mui-selected:hover {
+  background-color: #e9eaee;
+}
+html.dark #__next .MuiPagination-ul .Mui-selected {
+  color: #ffffff;
+  background-color: #2e3134;
+}
+html.dark #__next .MuiPagination-ul .Mui-selected:hover {
+  background-color: #3c4043;
+}
+#__next .MuiPaginationItem-root {
+  color: #202124;
+}
+html.dark #__next .MuiPaginationItem-root {
+  color: #ffffff;
+}
 
 /* Color picker */
 .color-picker .rcp {
-    background-color: transparent;
+  background-color: transparent;
 }
 .color-picker .rcp-root {
-    width: 100%;
+  width: 100%;
 }
 .color-picker .rcp-body {
-    gap: 12px;
-    padding: 12px;
-    padding-bottom: 8px;
-    border-radius: 0 0 12px 12px;
-    background-color: #E9EAEE;
-    overflow: hidden;
+  gap: 12px;
+  padding: 12px;
+  padding-bottom: 8px;
+  border-radius: 0 0 12px 12px;
+  background-color: #e9eaee;
+  overflow: hidden;
 }
 html.dark .rcp-body {
-    background-color: #3C4043;
+  background-color: #3c4043;
 }
 .color-picker .rcp-fields {
-    flex-direction: row;
-    gap: 8px;
+  flex-direction: row;
+  gap: 8px;
 }
 .color-picker .rcp-fields .rcp-fields-floor {
-    width: 50%;
-    display: flex;
+  width: 50%;
+  display: flex;
 }
 .color-picker .rcp-fields .rcp-fields-floor label {
-    font-size: 12px;
-    margin-top: 4px;
-    color: #97989C;
+  font-size: 12px;
+  margin-top: 4px;
+  color: #97989c;
 }
 .color-picker .rcp-body .rcp-field-input {
-    font-size: 12px;
-    border: none;
-    background-color: #D2D4DCCC;
-    color: #5F6368;
+  font-size: 12px;
+  border: none;
+  background-color: #d2d4dccc;
+  color: #5f6368;
 }
 html.dark .color-picker .rcp-body .rcp-field-input {
-    background-color: #646568CC;
-    color: #CDCED2;
+  background-color: #646568cc;
+  color: #cdced2;
 }
 
 /* Mail animation */
 .letter-image {
-    width: 200px;
-    height: 300px;
+  width: 200px;
+  height: 300px;
 }
 .animated-mail {
-    position: absolute;
-    width: 200px;
-    height: 150px;
-    top: 100px;
-    animation: animatedMail 0.4s 0.4s both;
+  position: absolute;
+  width: 200px;
+  height: 150px;
+  top: 100px;
+  animation: animatedMail 0.4s 0.4s both;
 }
 .animated-mail .body {
-    position: absolute;
-    bottom: 0;
-    width: 0;
-    height: 0;
-    border-style: solid;
-    border-width: 0 0 100px 200px;
-    border-color: transparent transparent #1B73E7 transparent;
-    z-index: 2;
+  position: absolute;
+  bottom: 0;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 0 100px 200px;
+  border-color: transparent transparent #1b73e7 transparent;
+  z-index: 2;
 }
 html.dark .animated-mail .body {
-    border-color: transparent transparent #99acdc transparent;
+  border-color: transparent transparent #99acdc transparent;
 }
 .animated-mail .top-fold {
-    position: absolute;
-    top: 51px;
-    width: 0;
-    height: 0;
-    border-style: solid;
-    border-width: 50px 100px 0 100px;
-    -webkit-transform-origin: 50% 0%;
-    -moz-transform-origin: 50% 0%;
-    transform-origin: 50% 0%;
-    border-color: #003F7D transparent transparent transparent;
-    z-index: 2;
-    animation: topFold 0.4s 0.4s both;
+  position: absolute;
+  top: 51px;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 50px 100px 0 100px;
+  -webkit-transform-origin: 50% 0%;
+  -moz-transform-origin: 50% 0%;
+  transform-origin: 50% 0%;
+  border-color: #003f7d transparent transparent transparent;
+  z-index: 2;
+  animation: topFold 0.4s 0.4s both;
 }
 html.dark .animated-mail .top-fold {
-    border-color: #6682CA transparent transparent transparent;
+  border-color: #6682ca transparent transparent transparent;
 }
 .animated-mail .back-fold {
-    position: absolute;
-    bottom: 0;
-    width: 200px;
-    height: 100px;
-    background: #003F7D;
-    z-index: 0;
+  position: absolute;
+  bottom: 0;
+  width: 200px;
+  height: 100px;
+  background: #003f7d;
+  z-index: 0;
 }
 html.dark .animated-mail .back-fold {
-    background: #6682CA;
+  background: #6682ca;
 }
 .animated-mail .left-fold {
-    position: absolute;
-    bottom: 0;
-    width: 0;
-    height: 0;
-    border-style: solid;
-    border-width: 50px 0 50px 100px;
-    border-color: transparent transparent transparent #006AE2;
-    z-index: 2;
+  position: absolute;
+  bottom: 0;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 50px 0 50px 100px;
+  border-color: transparent transparent transparent #006ae2;
+  z-index: 2;
 }
 html.dark .animated-mail .left-fold {
-    border-color: transparent transparent transparent #8097d3;
+  border-color: transparent transparent transparent #8097d3;
 }
 .animated-mail .letter {
-    left: 20px;
-    bottom: 0px;
-    position: absolute;
-    width: 160px;
-    height: 60px;
-    background: white;
-    z-index: 1;
-    overflow: hidden;
-    animation: letter 0.4s 0.6s both;
+  left: 20px;
+  bottom: 0px;
+  position: absolute;
+  width: 160px;
+  height: 60px;
+  background: white;
+  z-index: 1;
+  overflow: hidden;
+  animation: letter 0.4s 0.6s both;
 }
 .animated-mail .letter .letter-border {
-    height: 10px;
-    width: 100%;
-    background: repeating-linear-gradient(-45deg, #1B73E7, #1B73E7 8px, transparent 8px, transparent 18px);
+  height: 10px;
+  width: 100%;
+  background: repeating-linear-gradient(
+    -45deg,
+    #1b73e7,
+    #1b73e7 8px,
+    transparent 8px,
+    transparent 18px
+  );
 }
 html.dark .animated-mail .letter .letter-border {
-    background: repeating-linear-gradient(-45deg, #6682CA, #6682ca 8px, transparent 8px, transparent 18px);
+  background: repeating-linear-gradient(
+    -45deg,
+    #6682ca,
+    #6682ca 8px,
+    transparent 8px,
+    transparent 18px
+  );
 }
 .animated-mail .letter .letter-title {
-    margin-top: 10px;
-    margin-left: 5px;
-    height: 10px;
-    width: 40%;
-    background: #1B73E74D;
+  margin-top: 10px;
+  margin-left: 5px;
+  height: 10px;
+  width: 40%;
+  background: #1b73e74d;
 }
 html.dark .animated-mail .letter .letter-title {
-    background: #6682CA4D;
+  background: #6682ca4d;
 }
 .animated-mail .letter .letter-context {
-    margin-top: 10px;
-    margin-left: 5px;
-    height: 10px;
-    width: 20%;
-    background: #1B73E74D;
+  margin-top: 10px;
+  margin-left: 5px;
+  height: 10px;
+  width: 20%;
+  background: #1b73e74d;
 }
 html.dark .animated-mail .letter .letter-context {
-    background: #6682CA4D;
+  background: #6682ca4d;
 }
 .animated-mail .letter .letter-stamp {
-    margin-top: 30px;
-    margin-left: 120px;
-    border-radius: 100%;
-    height: 30px;
-    width: 30px;
-    background: #1B73E7;
-    opacity: 0.3;
+  margin-top: 30px;
+  margin-left: 120px;
+  border-radius: 100%;
+  height: 30px;
+  width: 30px;
+  background: #1b73e7;
+  opacity: 0.3;
 }
 html.dark .animated-mail .letter .letter-stamp {
-    background: #6682CA;
+  background: #6682ca;
 }
 .letter-image:hover .animated-mail .letter {
-    height: 180px;
+  height: 180px;
 }
 @keyframes animatedMail {
-    0% {
-        transform: translateY(0);
-        -webkit-transform: translateY(0);
-        -moz-transform: translateY(0);
-    }
-    100% {
-        transform: translateY(50px);
-        -webkit-transform: translateY(50px);
-        -moz-transform: translateY(50px);
-    }
+  0% {
+    transform: translateY(0);
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+  }
+  100% {
+    transform: translateY(50px);
+    -webkit-transform: translateY(50px);
+    -moz-transform: translateY(50px);
+  }
 }
 @keyframes topFold {
-    0% {
-        transform: rotateX(0deg);
-        -webkit-transform: rotateX(0deg);
-        -moz-transform: rotateX(0deg);
-        z-index: 2;
-    }
-    50% {
-        z-index: 0;
-    }
-    100% {
-        transform: rotateX(180deg);
-        -webkit-transform: rotateX(180deg);
-        -moz-transform: rotateX(180deg);
-        z-index: 0;
-    }
+  0% {
+    transform: rotateX(0deg);
+    -webkit-transform: rotateX(0deg);
+    -moz-transform: rotateX(0deg);
+    z-index: 2;
+  }
+  50% {
+    z-index: 0;
+  }
+  100% {
+    transform: rotateX(180deg);
+    -webkit-transform: rotateX(180deg);
+    -moz-transform: rotateX(180deg);
+    z-index: 0;
+  }
 }
 @keyframes letter {
-    0% { height: 60px; }
-    100% { height: 180px; }
+  0% {
+    height: 60px;
+  }
+  100% {
+    height: 180px;
+  }
 }
 
 /* 검색 결과 active 상태일 때 스타일 정의 */
 @media (hover: hover) and (pointer: fine) {
-    #active { background-color: #1B73E7; }
-    #active .when-active-1 { background-color: #FFFFFF; }
-    #active .when-active-2 { color: #1B73E7; }
-    #active .when-active-3 { color: #FFFFFF; }
-    #active .when-active-4 { color: #E9EAEE; }
-    #active .when-active-5 { color: #E9EAEE; }
-    #active .when-active-6 { color: #FFFFFF; }
-    html.dark #active { background-color: #8AB4F8; }
-    html.dark #active .when-active-1 { background-color: #202124; }
-    html.dark #active .when-active-2 { color: #8AB4F8; }
-    html.dark #active .when-active-3 { color: #202124; }
-    html.dark #active .when-active-4 { color: #2E3134; }
-    html.dark #active .when-active-5 { color: #2E3134; }
-    html.dark #active .when-active-6 { color: #202124; }
+  #active {
+    background-color: #1b73e7;
+  }
+  #active .when-active-1 {
+    background-color: #ffffff;
+  }
+  #active .when-active-2 {
+    color: #1b73e7;
+  }
+  #active .when-active-3 {
+    color: #ffffff;
+  }
+  #active .when-active-4 {
+    color: #e9eaee;
+  }
+  #active .when-active-5 {
+    color: #e9eaee;
+  }
+  #active .when-active-6 {
+    color: #ffffff;
+  }
+  html.dark #active {
+    background-color: #8ab4f8;
+  }
+  html.dark #active .when-active-1 {
+    background-color: #202124;
+  }
+  html.dark #active .when-active-2 {
+    color: #8ab4f8;
+  }
+  html.dark #active .when-active-3 {
+    color: #202124;
+  }
+  html.dark #active .when-active-4 {
+    color: #2e3134;
+  }
+  html.dark #active .when-active-5 {
+    color: #2e3134;
+  }
+  html.dark #active .when-active-6 {
+    color: #202124;
+  }
 }
 
 /* 라이센스 본문 링크 */
-#license a { text-decoration: underline; }
+#license a {
+  text-decoration: underline;
+}
 
 /* 댓글 활성화 */
-.edit-btn-enabled { background-color: #1B73E7; color: #FFFFFF; cursor: pointer }
-.edit-btn-enabled:hover { background-color: #006AE2; }
-html.dark .edit-btn-enabled { background-color: #8AB4F8; color: #202124; }
-html.dark .edit-btn-enabled:hover { background-color: #9FBCF2; }
+.edit-btn-enabled {
+  background-color: #1b73e7;
+  color: #ffffff;
+  cursor: pointer;
+}
+.edit-btn-enabled:hover {
+  background-color: #006ae2;
+}
+html.dark .edit-btn-enabled {
+  background-color: #8ab4f8;
+  color: #202124;
+}
+html.dark .edit-btn-enabled:hover {
+  background-color: #9fbcf2;
+}
