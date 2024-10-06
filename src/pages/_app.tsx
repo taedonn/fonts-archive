@@ -54,7 +54,7 @@ export default function App({
             type: "website",
             locale: "ko_KR",
             url: "https://fonts.taedonn.com",
-            siteName: "폰트 아카이브 | 상업용 무료 한글 폰트 저장소",
+            siteName: "폰트 아카이브",
             images: [
               {
                 url: "https://fonts-archive.s3.ap-northeast-2.amazonaws.com/meta_image.png",
