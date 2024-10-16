@@ -295,7 +295,7 @@ export default function FontBox({
                         <div
                           aria-label="font-link"
                           key={font.code}
-                          className="w-full group/wrap relative pt-6 lg:pt-8 pb-2 hover:rounded-lg border-t first:border-t-0 last:border-b border-l-b dark:border-d-6 [&+div]:hover:border-t-transparent hover:border-transparent hover:bg-l-e hover:dark:bg-d-4 animate-fade-in-fontbox cursor-pointer"
+                          className="w-full group/wrap relative pt-6 lg:pt-8 pb-2 hover:rounded-lg border-t first:border-t-0 last:border-b border-l-b dark:border-d-6 [&+div]:hover:border-t-transparent hover:border-transparent hover:dark:border-transparent hover:bg-l-e hover:dark:bg-d-4 animate-fade-in-fontbox cursor-pointer"
                         >
                           <Link
                             href={`/post/${font.font_family.replaceAll(
