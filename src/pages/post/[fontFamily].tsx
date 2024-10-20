@@ -727,10 +727,9 @@ function DetailPage({ params }: any) {
                       <Link
                         key={font.name}
                         href={`/post/${font.font_family.replaceAll(" ", "+")}`}
-                        className="group w-full relative px-4 py-3 border-l-[2px] border-l-b dark:border-d-6 hover:border-h-1 hover:dark:border-f-8 hover:text-h-1 hover:dark:text-f-8 hover:bg-l-e hover:dark:bg-d-4"
+                        className="w-full relative px-4 py-3 rounded-xl hover:font-bold hover:text-h-1 hover:dark:text-f-8 hover:bg-l-e hover:dark:bg-d-4"
                       >
                         {font.name}
-                        <i className="hidden group-hover:inline absolute right-4 top-1/2 -translate-y-1/2 fa-solid fa-angle-right"></i>
                       </Link>
                     );
                   })}
